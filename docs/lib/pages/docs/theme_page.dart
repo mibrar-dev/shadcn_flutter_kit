@@ -1045,6 +1045,7 @@ class _ThemePageState extends State<ThemePage> {
     final data = controller.data;
     final isDark = controller.brightness == Brightness.dark;
     final presetTokens = _tokensForPreset(_basePresetId, controller.brightness);
+    final theme = Theme.of(context);
 
     final radiusKey = _radiusOptions.entries
         .firstWhere(
@@ -1074,15 +1075,32 @@ class _ThemePageState extends State<ThemePage> {
       density: data.density,
       presetDensity: presetTokens.density,
     );
+    final panelForeground = isDark
+        ? const Color(0xFFF5F5F5)
+        : theme.colorScheme.foreground;
+    final panelMutedForeground = isDark
+        ? const Color(0xFFB8B8B8)
+        : theme.colorScheme.mutedForeground;
 
-    return Padding(
+    return OutlinedContainer(
+      backgroundColor: isDark
+          ? const Color(0xFF141414)
+          : theme.colorScheme.card,
+      borderColor: theme.colorScheme.border,
+      surfaceOpacity: isDark ? 0.98 : 1,
+      surfaceBlur: isDark ? 10 : 0,
       padding: const EdgeInsetsDensity.all(padLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Theme options').h2(),
+          Text(
+            'Theme options',
+            style: theme.typography.h2.copyWith(
+              color: panelForeground,
+            ),
+          ),
           const SizedBox(height: 14),
-          _panelLabel('Theme mode'),
+          _panelLabel(context, 'Theme mode', panelForeground),
           _stringSelect(
             value: isDark ? 'Dark' : 'Light',
             values: _themeModes.keys.toList(),
@@ -1095,7 +1113,11 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Base preset (surface + tokens)'),
+          _panelLabel(
+            context,
+            'Base preset (surface + tokens)',
+            panelForeground,
+          ),
           _presetSelect(
             value: _basePresetId,
             brightness: controller.brightness,
@@ -1105,7 +1127,11 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Accent preset (primary + charts)'),
+          _panelLabel(
+            context,
+            'Accent preset (primary + charts)',
+            panelForeground,
+          ),
           _presetSelect(
             value: _accentPresetId,
             brightness: controller.brightness,
@@ -1119,9 +1145,12 @@ class _ThemePageState extends State<ThemePage> {
             _basePresetId == _accentPresetId
                 ? 'Using one preset for both base and accent.'
                 : 'Mix & match active: base and accent come from different presets.',
-          ).small().muted(),
+            style: theme.typography.small.copyWith(
+              color: panelMutedForeground,
+            ),
+          ),
           const SizedBox(height: 12),
-          _panelLabel('Radius'),
+          _panelLabel(context, 'Radius', panelForeground),
           _stringSelect(
             value: radiusKey,
             values: _radiusOptions.keys.toList(),
@@ -1135,7 +1164,7 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Density'),
+          _panelLabel(context, 'Density', panelForeground),
           _stringSelect(
             value: densityLabel,
             values: ['Preset', ..._densityOptions.keys],
@@ -1153,7 +1182,7 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Scaling'),
+          _panelLabel(context, 'Scaling', panelForeground),
           _stringSelect(
             value: scalingKey,
             values: _scalingOptions.keys.toList(),
@@ -1167,7 +1196,7 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Surface opacity'),
+          _panelLabel(context, 'Surface opacity', panelForeground),
           _stringSelect(
             value: surfaceOpacityKey,
             values: _surfaceOpacityOptions.keys.toList(),
@@ -1181,7 +1210,7 @@ class _ThemePageState extends State<ThemePage> {
             },
           ),
           const SizedBox(height: 12),
-          _panelLabel('Surface blur'),
+          _panelLabel(context, 'Surface blur', panelForeground),
           _stringSelect(
             value: surfaceBlurKey,
             values: _surfaceBlurOptions.keys.toList(),
@@ -1199,10 +1228,17 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  Widget _panelLabel(String text) {
+  Widget _panelLabel(BuildContext context, String text, Color color) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
-      child: Text(text).small().semiBold(),
+      child: Text(
+        text,
+        style: theme.typography.small.copyWith(
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 

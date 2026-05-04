@@ -909,7 +909,12 @@ class DocsPageState extends State<DocsPage> {
                                   left: 0,
                                 ) *
                                 theme.scaling,
-                            child: widget.sidebar ?? const SizedBox.shrink(),
+                            child: DefaultTextStyle.merge(
+                              style: TextStyle(
+                                color: theme.colorScheme.foreground,
+                              ),
+                              child: widget.sidebar ?? const SizedBox.shrink(),
+                            ),
                           ),
                         ),
                       ),

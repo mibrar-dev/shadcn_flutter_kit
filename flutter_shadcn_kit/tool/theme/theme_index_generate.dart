@@ -157,18 +157,27 @@ List<Map<String, dynamic>> _themeFiles({
     throw StateError('Missing generated theme file: ${presetThemesFile.path}');
   }
 
-  final appThemePresetFile = File('${generatedDir.path}/app_theme_preset.dart');
-  appThemePresetFile.writeAsStringSync(_appThemePresetSource());
+  final presetThemesInstallFile = File(
+    '${generatedDir.path}/preset_themes.install.txt',
+  );
+  presetThemesInstallFile.writeAsStringSync(
+    _normalizeInstalledPresetImports(presetThemesFile.readAsStringSync()),
+  );
+
+  final appThemePresetInstallFile = File(
+    '${generatedDir.path}/app_theme_preset.install.txt',
+  );
+  appThemePresetInstallFile.writeAsStringSync(_appThemePresetSource());
 
   return [
     _themeFileEntry(
       registryDir: registryDir,
-      file: presetThemesFile,
+      file: presetThemesInstallFile,
       target: '{sharedPath}/theme/preset_themes.dart',
     ),
     _themeFileEntry(
       registryDir: registryDir,
-      file: appThemePresetFile,
+      file: appThemePresetInstallFile,
       target: '{sharedPath}/theme/app_theme_preset.dart',
     ),
   ];
@@ -207,6 +216,15 @@ class InstalledThemePreset {
   static RegistryThemePreset current = registryThemePresets.first;
 }
 ''';
+}
+
+String _normalizeInstalledPresetImports(String source) {
+  return source
+      .replaceAll(
+        "import '../../color_scheme.dart';",
+        "import 'color_scheme.dart';",
+      )
+      .replaceAll("import '../../theme.dart';", "import 'theme.dart';");
 }
 
 void _printUsage() {

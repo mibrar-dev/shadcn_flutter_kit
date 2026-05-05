@@ -1,6 +1,6 @@
 # Checkpoint: branch-p1-theme-config-map-rollout
-Last updated: 2026-05-05 03:12
-Status: IN_PROGRESS
+Last updated: 2026-05-05 03:14
+Status: DONE
 
 ## Completed Steps
 - [x] Treat all 68 `*_theme_config.dart` files as the fixed rollout scope for this branch.
@@ -11,7 +11,7 @@ Status: IN_PROGRESS
 - [x] Update changelog/release notes if the generated API surface changes in a consumer-visible way.
 
 ## Current Step
-Run Task 4 review gates, then commit, push, merge to `main`, and start the next branch from updated `main` if the branch is clean.
+SESSION END — Next session should resume from: `branch-p1-generated-root-barrel` after `branch-p1-theme-config-map-rollout` is merged to `main`.
 
 ## Blocked On
 Nothing
@@ -54,3 +54,4 @@ Nothing
 - The first codemod pass is intentionally limited to canonical source files under `flutter_shadcn_kit/lib/registry/components/**`; docs and consumer mirrors will be refreshed by sync later rather than rewritten directly.
 - Confirmed the shared codemod does not undo the button pilot: resolved button theme fields remain canonical, and only the lookup body moved to a typed map.
 - No changelog/release-note update was made because this rollout changes internal theme-config implementation, not consumer-facing API surface, and the repo does not currently contain a changelog file to update.
+- Final local review passed: no `if (T == ...)` chains remain in canonical source, the button pilot seam is preserved, and the docs mirror rebuilt cleanly from canonical outputs.

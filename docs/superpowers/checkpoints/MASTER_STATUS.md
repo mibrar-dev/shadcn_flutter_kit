@@ -1,5 +1,5 @@
 # Master Status
-Last updated: 2026-05-05 02:50
+Last updated: 2026-05-05 03:14
 
 | Branch                                | Status      | Step Progress | Notes |
 |---------------------------------------|-------------|---------------|-------|
@@ -7,7 +7,7 @@ Last updated: 2026-05-05 02:50
 | branch-p0-type-safe-theme-registry    | DONE        | 4/4           | Merged |
 | branch-p0-token-pipeline-pilot        | DONE        | 8/8           | Merged; follow-up required |
 | branch-p0-token-pipeline-pilot-fixup  | DONE        | 5/5           | Merged |
-| branch-p1-theme-config-map-rollout    | IN_PROGRESS | 6/6           | Review + merge pending |
+| branch-p1-theme-config-map-rollout    | DONE        | 6/6           | Merged |
 | branch-p1-generated-root-barrel       | NOT_STARTED | -             |       |
 | branch-p1-component-barrel-cleanup    | NOT_STARTED | -             |       |
 | branch-p2-tier-and-version-governance | NOT_STARTED | -             |       |

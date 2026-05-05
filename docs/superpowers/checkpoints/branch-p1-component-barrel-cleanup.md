@@ -1,6 +1,6 @@
 # Checkpoint: branch-p1-component-barrel-cleanup
-Last updated: 2026-05-05 04:49
-Status: IN_PROGRESS
+Last updated: 2026-05-05 04:54
+Status: DONE
 
 ## Completed Steps
 - [x] Inventory all current `hide` clauses in `flutter_shadcn_kit/lib/flutter_shadcn_kit.dart`.
@@ -11,13 +11,13 @@ Status: IN_PROGRESS
 - [x] Document all consumer-visible renames or export changes in changelog/release notes before merge.
 
 ## Current Step
-Commit, push, merge to `main`, and create the next branch from updated `main`.
+Merged to `main`. No remaining steps.
 
 ## Blocked On
 Nothing
 
 ## Remaining Steps
-- Commit, push, merge to `main`, and create the next branch from updated `main`.
+(none)
 
 ## Verification Results
 - `cd flutter_shadcn_kit && rg -n " hide " lib/flutter_shadcn_kit.dart` → ✅ PASS (`9` root-barrel exports still carry hide clauses at inventory time`)
@@ -70,3 +70,4 @@ Nothing
 - Step 4 removed four stale root-barrel hide cases: `file_picker`, `radio_group`, `flex`, and `refresh_trigger`.
 - Step 5 required no consumer harness code change; verification example still builds as-is.
 - Step 6 is documented in `docs/superpowers/release-notes/branch-p1-component-barrel-cleanup.md`.
+- SESSION END — Next session should resume from: initialize `branch-p2-tier-and-version-governance` from updated `main`.

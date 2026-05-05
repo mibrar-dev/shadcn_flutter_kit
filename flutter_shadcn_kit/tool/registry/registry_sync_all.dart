@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../common/registry_component_metadata.dart';
+import 'registry_barrel.dart';
 
 typedef JsonMap = Map<String, dynamic>;
 
@@ -31,6 +32,11 @@ JsonMap _readJson(File file) {
 void _writeJson(File file, Object data) {
   final encoder = const JsonEncoder.withIndent('  ');
   file.writeAsStringSync('${encoder.convert(data)}\n');
+}
+
+void _writeRootBarrel(Directory root) {
+  final output = File('${root.path}/lib/flutter_shadcn_kit.dart');
+  output.writeAsStringSync(buildRootBarrel(root));
 }
 
 String _join(String a, String b) {
@@ -834,6 +840,7 @@ void main(List<String> args) {
   );
 
   _writeJson(componentsJson, registry);
+  _writeRootBarrel(root);
   final docsSnapshots = <File>{
     File('${root.path}/docs/assets/registry/components.json'),
     File('${root.parent.path}/docs/assets/registry/components.json'),

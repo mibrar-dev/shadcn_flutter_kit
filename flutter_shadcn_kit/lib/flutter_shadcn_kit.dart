@@ -1,3 +1,6 @@
+// GENERATED FILE - DO NOT EDIT.
+// Run: dart run tool/registry/registry_barrel_generate.dart
+
 export 'registry/shared/theme/app_theme.dart';
 export 'registry/shared/theme/app_theme_preset.dart';
 export 'registry/shared/theme/color_scheme.dart';
@@ -6,6 +9,7 @@ export 'registry/shared/theme/generated_colors.dart';
 export 'registry/shared/theme/preset_themes.dart';
 export 'registry/shared/theme/theme.dart';
 export 'registry/shared/theme/typography.dart';
+
 export 'registry/components/control/button/button.dart';
 export 'registry/components/control/clickable/clickable.dart';
 export 'registry/components/control/command/command.dart';
@@ -49,13 +53,14 @@ export 'registry/components/form/control/control.dart';
 export 'registry/components/form/date_picker/date_picker.dart';
 export 'registry/components/form/dropzone/dropzone.dart';
 export 'registry/components/form/file_input/file_input.dart';
-export 'registry/components/form/file_picker/file_picker.dart'
-    hide formatFileSize;
+export 'registry/components/form/file_picker/file_picker.dart' hide formatFileSize;
 export 'registry/components/form/form/form.dart';
 export 'registry/components/form/form_field/form_field.dart';
 export 'registry/components/form/formatted_input/formatted_input.dart';
 export 'registry/components/form/formatter/formatter.dart';
 export 'registry/components/form/history/history.dart';
+export 'registry/components/form/hsl/hsl_color_slider.dart';
+export 'registry/components/form/hsv/hsv_color_slider.dart';
 export 'registry/components/form/input/input.dart';
 export 'registry/components/form/input_otp/input_otp.dart';
 export 'registry/components/form/item_picker/item_picker.dart';
@@ -63,7 +68,9 @@ export 'registry/components/form/multiple_choice/multiple_choice.dart';
 export 'registry/components/form/object_input/object_input.dart';
 export 'registry/components/form/phone_input/phone_input.dart';
 export 'registry/components/form/radio_group/radio_group.dart'
-    hide NextItemIntent, PreviousItemIntent;
+    hide
+        NextItemIntent,
+        PreviousItemIntent;
 export 'registry/components/form/select/select.dart';
 export 'registry/components/form/slider/slider.dart';
 export 'registry/components/form/star_rating/star_rating.dart';
@@ -105,7 +112,14 @@ export 'registry/components/layout/collapsible/collapsible.dart';
 export 'registry/components/layout/fade_scroll/fade_scroll.dart';
 export 'registry/components/layout/filter_bar/filter_bar.dart';
 export 'registry/components/layout/flex/flex.dart'
-    hide ErrorWidgetBuilder, Form, FormField, FormState, RadioGroup, TableCell;
+    hide
+        ErrorWidgetBuilder,
+        Form,
+        FormField,
+        FormState,
+        RadioGroup,
+        TableCell;
+export 'registry/components/layout/group/group_widget.dart';
 export 'registry/components/layout/hidden/hidden.dart';
 export 'registry/components/layout/media_query/media_query.dart';
 export 'registry/components/layout/outlined_container/outlined_container.dart';
@@ -123,7 +137,10 @@ export 'registry/components/layout/scrollable_client/scrollable_client.dart';
 export 'registry/components/layout/sortable/sortable.dart';
 export 'registry/components/layout/stage_container/stage_container.dart';
 export 'registry/components/layout/steps/steps.dart';
-export 'registry/components/layout/table/table.dart' hide Table, TableRow;
+export 'registry/components/layout/table/table.dart'
+    hide
+        Table,
+        TableRow;
 export 'registry/components/layout/timeline/timeline.dart';
 export 'registry/components/layout/window/window.dart';
 export 'registry/components/navigation/breadcrumb/breadcrumb.dart';
@@ -162,13 +179,17 @@ export 'registry/components/overlay/eye_dropper/eye_dropper.dart';
 export 'registry/components/overlay/gooey_toast/gooey_toast.dart';
 export 'registry/components/overlay/hover_card/hover_card.dart';
 export 'registry/components/overlay/menu/menu.dart'
-    hide Menubar, MenubarState, MenubarTheme, MenuPopup, MenuPopupTheme;
+    hide
+        Menubar,
+        MenubarState,
+        MenubarTheme,
+        MenuPopup,
+        MenuPopupTheme;
 export 'registry/components/overlay/menubar/menubar.dart';
 export 'registry/components/overlay/overlay/overlay.dart';
 export 'registry/components/overlay/popover/popover.dart';
 export 'registry/components/overlay/popup/popup.dart';
-export 'registry/components/overlay/refresh_trigger/refresh_trigger.dart'
-    hide FutureVoidCallback;
+export 'registry/components/overlay/refresh_trigger/refresh_trigger.dart' hide FutureVoidCallback;
 export 'registry/components/overlay/swiper/swiper.dart';
 export 'registry/components/overlay/toast/toast.dart';
 export 'registry/components/overlay/tooltip/tooltip.dart';

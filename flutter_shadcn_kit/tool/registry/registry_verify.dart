@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'registry_barrel.dart';
 import '../common/registry_component_metadata.dart';
 
 typedef JsonMap = Map<String, dynamic>;
@@ -95,6 +96,10 @@ bool _mapsEqual(List<Map<String, String>> a, List<Map<String, String>> b) {
   return true;
 }
 
+String _normalizeLineEndings(String value) {
+  return value.replaceAll('\r\n', '\n');
+}
+
 void _printUsage() {
   stdout.writeln('Usage: dart run tool/registry/registry_verify.dart');
   stdout.writeln('');
@@ -106,6 +111,7 @@ void _printUsage() {
   stdout.writeln('  - shared deps / component deps / pubspec deps validity');
   stdout.writeln('  - shared file coverage and duplicates');
   stdout.writeln('  - docs snapshot consistency');
+  stdout.writeln('  - generated root barrel consistency');
   stdout.writeln('');
   stdout.writeln('Options:');
   stdout.writeln('  --ci        Enable CI mode.');
@@ -143,6 +149,7 @@ void _printVerificationReport({
   required Set<String> duplicateSharedFiles,
   required List<String> missingSharedFiles,
   required List<String> docsMismatch,
+  required List<String> rootBarrelMismatch,
   required List<String> nestedMetadataDirs,
 }) {
   final hasFailures =
@@ -160,6 +167,7 @@ void _printVerificationReport({
       duplicateSharedFiles.isNotEmpty ||
       missingSharedFiles.isNotEmpty ||
       docsMismatch.isNotEmpty ||
+      rootBarrelMismatch.isNotEmpty ||
       nestedMetadataDirs.isNotEmpty;
 
   if (ciMode) {
@@ -212,6 +220,9 @@ void _printVerificationReport({
     if (docsMismatch.isNotEmpty) {
       _printCiFailureDetails('Docs snapshot mismatch', docsMismatch);
     }
+    if (rootBarrelMismatch.isNotEmpty) {
+      _printCiFailureDetails('Root barrel mismatch', rootBarrelMismatch);
+    }
     if (nestedMetadataDirs.isNotEmpty) {
       _printCiFailureDetails(
         'Nested component registry dirs',
@@ -238,6 +249,9 @@ void _printVerificationReport({
   stdout.writeln('  Missing shared files: ${missingSharedFiles.length}');
   stdout.writeln(
     '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
+  );
+  stdout.writeln(
+    '  Root barrel mismatch: ${rootBarrelMismatch.isNotEmpty ? 1 : 0}',
   );
   stdout.writeln(
     '  Nested component registry dirs: ${nestedMetadataDirs.length}',
@@ -298,6 +312,9 @@ void _printVerificationReport({
   }
   if (docsMismatch.isNotEmpty) {
     stdout.writeln('Docs snapshot mismatch: ${docsMismatch.first}');
+  }
+  if (rootBarrelMismatch.isNotEmpty) {
+    stdout.writeln('Root barrel mismatch: ${rootBarrelMismatch.first}');
   }
   if (nestedMetadataDirs.isNotEmpty) {
     stdout.writeln(
@@ -368,6 +385,7 @@ void main(List<String> args) {
   final invalidComponentDeps = <String>[];
   final invalidPubspecDeps = <String>[];
   final docsMismatch = <String>[];
+  final rootBarrelMismatch = <String>[];
   final missingSharedFiles = <String>[];
   final nestedMetadataDirs = <String>[];
   final duplicateSharedIds = <String>{};
@@ -449,6 +467,13 @@ void main(List<String> args) {
     if (!_deepEquals(registry, docsRegistry)) {
       docsMismatch.add(docsSnapshot.path);
     }
+  }
+
+  final rootBarrel = File('${root.path}/lib/flutter_shadcn_kit.dart');
+  if (!rootBarrel.existsSync() ||
+      _normalizeLineEndings(rootBarrel.readAsStringSync()) !=
+          _normalizeLineEndings(buildRootBarrel(root))) {
+    rootBarrelMismatch.add(rootBarrel.path);
   }
 
   final sharedIds = <String>{};
@@ -578,6 +603,7 @@ void main(List<String> args) {
     duplicateSharedFiles: duplicateSharedFiles,
     missingSharedFiles: missingSharedFiles,
     docsMismatch: docsMismatch,
+    rootBarrelMismatch: rootBarrelMismatch,
     nestedMetadataDirs: nestedMetadataDirs,
   );
 
@@ -595,6 +621,7 @@ void main(List<String> args) {
       duplicateSharedFiles.isNotEmpty ||
       missingSharedFiles.isNotEmpty ||
       docsMismatch.isNotEmpty ||
+      rootBarrelMismatch.isNotEmpty ||
       nestedMetadataDirs.isNotEmpty) {
     exitCode = 2;
   }

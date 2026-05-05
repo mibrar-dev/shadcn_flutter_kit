@@ -20,6 +20,10 @@ Task 3 establishes the pilot contract that later theme-config rollouts must keep
 - Component styles must resolve through the component config path so token changes alter runtime behavior without per-widget hardcoding.
 - When migrating `resolve<T>()`, preserve the runtime values proven by the button pilot before changing the lookup structure.
 
+Task 4 only changes the `resolve<T>()` lookup structure across existing config files.
+It does not by itself convert every component from `null` theme globals to token-backed resolved values.
+Button remains the reference implementation for the full token-backed pipeline; other components keep their pre-existing runtime values until they receive a dedicated token-wiring migration.
+
 Button pilot reference:
 
 - Tokens: `lib/registry/components/control/button/_impl/themes/config/button_theme_tokens.dart`
@@ -44,6 +48,10 @@ Required verification for generated or mirrored theme changes:
   - Regenerates global component theme config registration.
   - Command: `dart run tool/theme/component_theme_global_configs_generate.dart`
   - Docs: `component_theme_global_configs_generate_readme.md`
+- `theme_config_resolve_map_codemod.dart`
+  - Rewrites canonical `*_theme_config.dart` `resolve<T>()` if-chains into typed map lookups.
+  - Command: `dart run tool/theme/theme_config_resolve_map_codemod.dart`
+  - Scope: canonical source only under `lib/registry/components/**/_impl/themes/config/`
 - `theme_index_generate.dart`
   - Generates `lib/registry/manifests/theme.index.json`.
   - Command: `dart run tool/theme/theme_index_generate.dart`

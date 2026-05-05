@@ -1,6 +1,6 @@
 # Checkpoint: branch-p1-theme-config-map-rollout
 Last updated: 2026-05-05 03:14
-Status: DONE
+Status: IN_PROGRESS
 
 ## Completed Steps
 - [x] Treat all 68 `*_theme_config.dart` files as the fixed rollout scope for this branch.
@@ -11,7 +11,7 @@ Status: DONE
 - [x] Update changelog/release notes if the generated API surface changes in a consumer-visible way.
 
 ## Current Step
-SESSION END — Next session should resume from: `branch-p1-generated-root-barrel` after `branch-p1-theme-config-map-rollout` is merged to `main`.
+Commit the review follow-up docs clarification, then push, merge to `main`, and start the next branch from updated `main`.
 
 ## Blocked On
 Nothing
@@ -40,12 +40,14 @@ Nothing
 - `cd docs && flutter analyze && flutter build web` → ✅ PASS (`No issues found!`; `Built build/web`; same non-blocking Wasm dry-run warnings as before)
 - `graphify update .` → ✅ PASS (`graph.json` and `GRAPH_REPORT.md` updated in graphify-out`)
 - `rg --files -g 'CHANGELOG*' -g '*release*notes*' .` → ✅ PASS (`No changelog or release-notes file present in repo`)
+- `rg -n 'theme_config_resolve_map_codemod|Task 4 only changes the .*lookup structure' flutter_shadcn_kit/tool/theme/README.md` → ✅ PASS (`Theme README now documents the codemod and clarifies that Task 4 preserves pre-existing null-backed runtime behavior outside the button pilot`)
 
 ## Files Modified
 - `docs/superpowers/checkpoints/branch-p1-theme-config-map-rollout.md`
 - `flutter_shadcn_kit/tool/theme/theme_config_resolve_map_codemod.dart`
 - `flutter_shadcn_kit/lib/registry/components/**/_impl/themes/config/*_theme_config.dart`
 - `docs/lib/ui/shadcn/**` (mirror refresh)
+- `flutter_shadcn_kit/tool/theme/README.md`
 
 ## Decisions Made
 - Task 4 restarted from updated `main` only after the Task 3 fix-up branch was committed, pushed, and merged.
@@ -55,3 +57,4 @@ Nothing
 - Confirmed the shared codemod does not undo the button pilot: resolved button theme fields remain canonical, and only the lookup body moved to a typed map.
 - No changelog/release-note update was made because this rollout changes internal theme-config implementation, not consumer-facing API surface, and the repo does not currently contain a changelog file to update.
 - Final local review passed: no `if (T == ...)` chains remain in canonical source, the button pilot seam is preserved, and the docs mirror rebuilt cleanly from canonical outputs.
+- Review follow-up: documented the checked-in codemod and clarified that Task 4 changes lookup structure only, while broader token-wiring completeness remains a separate migration track.

@@ -53,6 +53,7 @@ class ShadcnApp extends StatelessWidget {
     this.menuHandler,
     this.enableThemeAnimation = false,
     this.materialFallback = true,
+    this.preloadComponentThemeGlobals = true,
     this.routeInformationProvider,
     this.routeInformationParser,
     this.routerDelegate,
@@ -90,6 +91,7 @@ class ShadcnApp extends StatelessWidget {
     this.menuHandler,
     this.enableThemeAnimation = false,
     this.materialFallback = true,
+    this.preloadComponentThemeGlobals = true,
   }) : navigatorKey = null,
        home = null,
        routes = const <String, WidgetBuilder>{},
@@ -134,6 +136,7 @@ class ShadcnApp extends StatelessWidget {
   final OverlayHandler? menuHandler;
   final bool enableThemeAnimation;
   final bool materialFallback;
+  final bool preloadComponentThemeGlobals;
 
   final RouteInformationProvider? routeInformationProvider;
   final RouteInformationParser<Object>? routeInformationParser;
@@ -223,7 +226,7 @@ class ShadcnApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!_globalThemesRegistered) {
+    if (preloadComponentThemeGlobals && !_globalThemesRegistered) {
       registerComponentThemeGlobalConfigs();
       _globalThemesRegistered = true;
     }

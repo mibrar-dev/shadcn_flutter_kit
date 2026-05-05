@@ -76,12 +76,42 @@ class _AppSetupPageState extends State<AppSetupPage> {
             text:
                 'Use ShadcnApp if you want a convenience wrapper that applies theme defaults and ShadcnLayer for you.',
           ),
+          const SizedBox(height: 12),
+          const DocsParagraph(
+            text:
+                'ShadcnApp keeps the compatibility bootstrap path by default: it preloads all generated component theme globals once. '
+                'If you want a narrower startup surface, import component_theme_global_configs.dart, call only the registrars for the installed components you use, and set preloadComponentThemeGlobals to false on ShadcnApp.',
+          ),
           const DocsCodeBlock(
             code: '''return ShadcnApp(
   theme: docsTheme.toShadcnTheme(),
   materialTheme: docsTheme.toMaterialTheme(),
   routerConfig: router,
 );''',
+          ),
+          const SizedBox(height: 12),
+          const DocsCodeBlock(
+            code: '''import 'package:flutter/widgets.dart';
+import 'package:your_app/ui/shadcn/components/component_theme_global_configs.dart';
+
+void main() {
+  registerButtonThemeGlobals();
+  registerTextFieldThemeGlobals();
+  registerDialogThemeGlobals();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const ShadcnApp(
+      preloadComponentThemeGlobals: false,
+      home: SizedBox.shrink(),
+    );
+  }
+}''',
           ),
         ],
       ),

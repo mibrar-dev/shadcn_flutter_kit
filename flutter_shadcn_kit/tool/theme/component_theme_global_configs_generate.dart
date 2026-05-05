@@ -4,12 +4,14 @@ class _ConfigFile {
   final String importPath;
   final String alias;
   final String configClass;
+  final String componentId;
   final List<_Registration> regs;
 
   const _ConfigFile({
     required this.importPath,
     required this.alias,
     required this.configClass,
+    required this.componentId,
     required this.regs,
   });
 }
@@ -18,6 +20,44 @@ class _Registration {
   final String resolverField;
 
   const _Registration({required this.resolverField});
+}
+
+String _basename(String path) {
+  final normalized = path.replaceAll('\\', '/');
+  final parts = normalized.split('/');
+  for (var i = parts.length - 1; i >= 0; i--) {
+    final part = parts[i];
+    if (part.isNotEmpty) return part;
+  }
+  return '';
+}
+
+String _snakeToPascal(String value) {
+  return value
+      .split('_')
+      .where((part) => part.isNotEmpty)
+      .map((part) => '${part[0].toUpperCase()}${part.substring(1)}')
+      .join();
+}
+
+String _registrarNameForComponent(String componentId) {
+  return 'register${_snakeToPascal(componentId)}ThemeGlobals';
+}
+
+String _registrarFlagNameForComponent(String componentId) {
+  final lowerCamel = componentId
+      .split('_')
+      .where((part) => part.isNotEmpty)
+      .toList();
+  if (lowerCamel.isEmpty) {
+    return '_themeGlobalsRegistered';
+  }
+  final first = lowerCamel.first;
+  final rest = lowerCamel
+      .skip(1)
+      .map((part) => '${part[0].toUpperCase()}${part.substring(1)}')
+      .join();
+  return '_$first${rest}ThemeGlobalsRegistered';
 }
 
 void main() {
@@ -42,7 +82,7 @@ void main() {
 
   final classRe = RegExp(r'class\s+(\w+ThemeConfig)\s*\{');
   final registrationRe = RegExp(
-    r'static const\s+([A-Za-z0-9_]+)\?\s+([A-Za-z0-9_]+)\s*=\s*null\s*;',
+    r'static\s+(?:const|final)\s+([A-Za-z0-9_<>, ?]+)\s+([A-Za-z0-9_]+)\s*=',
   );
 
   final configs = <_ConfigFile>[];
@@ -56,18 +96,31 @@ void main() {
     final relImportPath = f.path
         .replaceFirst('${componentsDir.path}${Platform.pathSeparator}', '')
         .replaceAll('\\', '/');
+    final componentId = _basename(f.parent.parent.parent.parent.path);
 
     final regs = <_Registration>[];
     for (final m in registrationRe.allMatches(content)) {
+      final typeName = m.group(1)!.trim();
       final resolverField = m.group(2)!;
+      final normalizedType = typeName.replaceAll('?', '').trim();
+      if (resolverField.startsWith('_')) continue;
+      if (normalizedType == 'String') continue;
+      if (normalizedType.startsWith('Map<')) continue;
+      if (normalizedType.endsWith('Defaults')) continue;
+      if (normalizedType.endsWith('Tokens')) continue;
+      if (normalizedType.endsWith('WidgetDefaults')) continue;
+      if (normalizedType.endsWith('WidgetTokens')) continue;
       regs.add(_Registration(resolverField: resolverField));
     }
+
+    if (regs.isEmpty) continue;
 
     configs.add(
       _ConfigFile(
         importPath: relImportPath,
         alias: 'c$i',
         configClass: configClass,
+        componentId: componentId,
         regs: regs,
       ),
     );
@@ -88,18 +141,39 @@ void main() {
   buffer
     ..writeln()
     ..writeln('bool _componentThemeGlobalsRegistered = false;')
-    ..writeln()
-    ..writeln('/// Registers all component token-config globals once.')
-    ..writeln('void registerComponentThemeGlobalConfigs() {')
-    ..writeln('  if (_componentThemeGlobalsRegistered) return;');
+    ..writeln();
 
   for (final c in configs) {
+    final registrarName = _registrarNameForComponent(c.componentId);
+    final registrarFlag = _registrarFlagNameForComponent(c.componentId);
+
+    buffer
+      ..writeln('bool $registrarFlag = false;')
+      ..writeln()
+      ..writeln('/// Registers ${c.componentId} theme globals once.')
+      ..writeln('void $registrarName() {')
+      ..writeln('  if ($registrarFlag) return;');
+
     for (final reg in c.regs) {
       buffer
         ..writeln('  ComponentThemeGlobalRegistry.register(')
         ..writeln('    () => ${c.alias}.${c.configClass}.${reg.resolverField},')
         ..writeln('  );');
     }
+
+    buffer
+      ..writeln('  $registrarFlag = true;')
+      ..writeln('}')
+      ..writeln();
+  }
+
+  buffer
+    ..writeln('/// Registers all component token-config globals once.')
+    ..writeln('void registerComponentThemeGlobalConfigs() {')
+    ..writeln('  if (_componentThemeGlobalsRegistered) return;');
+
+  for (final c in configs) {
+    buffer.writeln('  ${_registrarNameForComponent(c.componentId)}();');
   }
 
   buffer

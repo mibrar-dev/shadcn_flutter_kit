@@ -7,6 +7,11 @@ class ComponentThemeGlobalRegistry {
     _resolvers[T] = resolver;
   }
 
+  /// Returns whether a resolver has been registered for [T].
+  static bool hasResolver<T>() {
+    return _resolvers.containsKey(T);
+  }
+
   /// Looks up global component theme data for [T], if registered.
   static T? maybeOf<T>() {
     final resolver = _resolvers[T];

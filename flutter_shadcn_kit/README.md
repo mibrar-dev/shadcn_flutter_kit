@@ -6,12 +6,42 @@ installs from and the docs that describe each component.
 ## Getting Started
 1. Understand the registry layout:
    `lib/registry` is the source of truth for components and shared helpers.
-2. Generate or update manifests:
+2. Pick a theme-global registration mode for apps that use component theme configs:
+   - Full preload: use `ShadcnApp` with the default `preloadComponentThemeGlobals: true`, which calls `registerComponentThemeGlobalConfigs()` for you.
+   - Selective preload: import `registry/components/component_theme_global_configs.dart`, call only the helpers for the components you use, and set `preloadComponentThemeGlobals: false` on `ShadcnApp`.
+3. Generate or update manifests:
    `dart run tool/registry/registry_sync_all.dart`
-3. Validate outputs:
+4. Validate outputs:
    `dart run tool/registry/registry_verify.dart`
 
 For step-by-step instructions, see `tool/docs/getting-started.md`.
+
+Selective preload example:
+
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:flutter_shadcn_kit/flutter_shadcn_kit.dart';
+import 'package:flutter_shadcn_kit/registry/components/component_theme_global_configs.dart';
+
+void main() {
+  registerButtonThemeGlobals();
+  registerTextFieldThemeGlobals();
+  registerDialogThemeGlobals();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const ShadcnApp(
+      preloadComponentThemeGlobals: false,
+      home: SizedBox.shrink(),
+    );
+  }
+}
+```
 
 ## Registry Structure
 The registry lives in `lib/registry`:

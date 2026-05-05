@@ -1,5 +1,5 @@
 # Master Status
-Last updated: 2026-05-06 00:35
+Last updated: 2026-05-06 00:37
 
 | Branch                                | Status      | Step Progress | Notes |
 |---------------------------------------|-------------|---------------|-------|
@@ -12,4 +12,4 @@ Last updated: 2026-05-06 00:35
 | branch-p1-component-barrel-cleanup    | DONE        | 6/6           | Merged |
 | branch-p2-tier-and-version-governance | DONE        | 6/6           | Merged |
 | branch-p3-explicit-theme-registration | DONE        | 5/5           | Merged |
-| branch-p3-opt-in-font-assets          | IN_PROGRESS | 5/5           | Ready to merge |
+| branch-p3-opt-in-font-assets          | DONE        | 5/5           | Merged |

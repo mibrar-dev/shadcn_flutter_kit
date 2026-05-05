@@ -1,6 +1,6 @@
 # Checkpoint: branch-p3-opt-in-font-assets
-Last updated: 2026-05-06 00:35
-Status: IN_PROGRESS
+Last updated: 2026-05-06 00:37
+Status: DONE
 
 ## Completed Steps
 - [x] Inventory current bundled fonts and icon assets in `flutter_shadcn_kit/pubspec.yaml`.
@@ -10,13 +10,13 @@ Status: IN_PROGRESS
 - [x] Document any installation contract changes for consumers.
 
 ## Current Step
-Commit, push, and merge `branch-p3-opt-in-font-assets` to `main`.
+SESSION END — Next session should resume from: no remaining branch work in this plan.
 
 ## Blocked On
 Nothing
 
 ## Remaining Steps
-- [ ] Commit, push, and merge `branch-p3-opt-in-font-assets` to `main`.
+(none)
 
 ## Verification Results
 - `sed -n '1,260p' flutter_shadcn_kit/pubspec.yaml` → ✅ PASS (`package-level pubspec declares 6 font families and 38 font files under flutter.fonts, plus markdown assets`)
@@ -47,6 +47,8 @@ Nothing
 - `graphify update .` → ✅ PASS (`GRAPH_REPORT.md and graph.json refreshed`)
 - Task 9 spec review subagent → ✅ PASS (`APPROVED`)
 - Task 9 code quality review subagent → ✅ PASS (`APPROVED`)
+- `git push -u origin branch-p3-opt-in-font-assets` → ✅ PASS (`branch published to origin`)
+- `git checkout main && git merge --ff-only branch-p3-opt-in-font-assets && git push origin main` → ✅ PASS (`branch fast-forward merged and main pushed`)
 
 ## Files Modified
 - `docs/superpowers/checkpoints/branch-p3-opt-in-font-assets.md`
@@ -80,3 +82,4 @@ Nothing
 - The consumer contract must register fonts via `flutter.fonts`, not raw `flutter.assets`, because installed code references concrete font families such as `LucideIcons`, `GeistSans`, `GeistMono`, and `NotoSansSymbols2`.
 - The fixture verification test should derive its expected font list from manifest-selected shared assets, but it cannot compare canonical and fixture asset paths literally because the package pubspec keeps Geist assets flat while installed consumers place them under `assets/fonts/geist/`; basename-based remapping is the stable comparison seam.
 - Consumer-facing selective-font guidance belongs in the package README, with the fixture README and a branch release note reinforcing the install-output contract for maintainers.
+- The plan requirement to commit, push, and merge each finished branch before continuing is now satisfied for `branch-p3-opt-in-font-assets`; no remaining implementation branches are left in this plan.

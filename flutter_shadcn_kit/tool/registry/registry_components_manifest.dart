@@ -320,11 +320,56 @@ String _sharedDestination(String source) {
   return '{sharedPath}/$rel';
 }
 
+String? _preferredSharedEntryIdForSource(String source) {
+  switch (source) {
+    case 'registry/shared/fonts/lucide.ttf':
+    case 'registry/shared/icons/lucide_icons.dart':
+    case 'registry/shared/icons/lucide_icons_list.dart':
+      return 'lucide_icons';
+    case 'registry/shared/fonts/radix.otf':
+    case 'registry/shared/icons/radix_icons.dart':
+    case 'registry/shared/icons/radix_icons_list.dart':
+      return 'radix_icons';
+    case 'registry/shared/fonts/bootstrap.otf':
+    case 'registry/shared/icons/bootstrap_icons.dart':
+    case 'registry/shared/icons/bootstrap_icons_list.dart':
+      return 'bootstrap_icons';
+    case 'registry/shared/fonts/NotoSansSymbols2-Regular.ttf':
+      return 'theme';
+  }
+
+  if (source.startsWith('registry/shared/fonts/geist/')) {
+    return 'theme';
+  }
+
+  return null;
+}
+
+String _defaultSharedEntryDescription(String id, String source) {
+  switch (id) {
+    case 'bootstrap_icons':
+      return 'Bootstrap icon font mappings used by icon-based components.';
+    case 'lucide_icons':
+      return 'Lucide icon font mappings used by controls.';
+    case 'radix_icons':
+      return 'Radix icon font mappings used by menus.';
+    case 'theme':
+      return 'Core theme data, color schemes, and typography.';
+  }
+
+  return 'Shared helpers from ${source.replaceFirst('registry/shared/', '')}.';
+}
+
 String _resolveSharedEntryId({
   required String source,
   required Map<String, JsonMap> entries,
   required Map<String, Set<String>> entryFolders,
 }) {
+  final preferred = _preferredSharedEntryIdForSource(source);
+  if (preferred != null) {
+    return preferred;
+  }
+
   const prefix = 'registry/shared/';
   final rel = source.startsWith(prefix)
       ? source.substring(prefix.length)
@@ -387,18 +432,29 @@ List<JsonMap> _updateSharedEntries(
     }
 
     final files = (entry['files'] as List?) ?? <dynamic>[];
-    final normalizedFiles = (updatedEntries[id]!['files'] as List)
-        .cast<Map<String, String>>();
-
     for (final file in files) {
       final source = _extractSource(file);
       if (source == null || !allSourceSet.contains(source)) continue;
       if (fileToEntry.containsKey(source)) continue;
-      normalizedFiles.add({
+
+      final targetId = _preferredSharedEntryIdForSource(source) ?? id;
+      var targetEntry = updatedEntries[targetId];
+      if (targetEntry == null) {
+        targetEntry = <String, dynamic>{
+          'id': targetId,
+          'description': _defaultSharedEntryDescription(targetId, source),
+          'files': <Map<String, String>>[],
+        };
+        updatedEntries[targetId] = targetEntry;
+      }
+      final targetFiles = (targetEntry['files'] as List)
+          .cast<Map<String, String>>();
+
+      targetFiles.add({
         'source': source,
         'destination': _sharedDestination(source),
       });
-      fileToEntry[source] = id;
+      fileToEntry[source] = targetId;
     }
   }
 
@@ -425,8 +481,7 @@ List<JsonMap> _updateSharedEntries(
     if (entry == null) {
       entry = <String, dynamic>{
         'id': id,
-        'description':
-            'Shared helpers from ${source.replaceFirst('registry/shared/', '')}.',
+        'description': _defaultSharedEntryDescription(id, source),
         'files': <Map<String, String>>[],
       };
       updatedEntries[id] = entry;

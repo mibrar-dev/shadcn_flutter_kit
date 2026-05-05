@@ -9,9 +9,14 @@ installs from and the docs that describe each component.
 2. Pick a theme-global registration mode for apps that use component theme configs:
    - Full preload: use `ShadcnApp` with the default `preloadComponentThemeGlobals: true`, which calls `registerComponentThemeGlobalConfigs()` for you.
    - Selective preload: import `registry/components/component_theme_global_configs.dart`, call only the helpers for the components you use, and set `preloadComponentThemeGlobals: false` on `ShadcnApp`.
-3. Generate or update manifests:
+3. Expect selective shared font installation for copy-paste consumers:
+   - Registry installs should add font families through `flutter.fonts`, not raw `flutter.assets`.
+   - Typography fonts ride with the `theme` shared group because shared typography uses `GeistSans`, `GeistMono`, and `NotoSansSymbols2`.
+   - Icon fonts ride with their matching shared groups: `lucide_icons`, `radix_icons`, and `bootstrap_icons`.
+   - A consumer that installs only components using `theme` plus `lucide_icons` should not carry `RadixIcons` or `BootstrapIcons` in its generated `pubspec.yaml`.
+4. Generate or update manifests:
    `dart run tool/registry/registry_sync_all.dart`
-4. Validate outputs:
+5. Validate outputs:
    `dart run tool/registry/registry_verify.dart`
 
 For step-by-step instructions, see `tool/docs/getting-started.md`.
@@ -115,3 +120,4 @@ This will:
 - Do not edit `components.json` by hand. Use the tooling in `tool/`.
 - Keep `meta.json` as the single source of component dependencies and version.
 - Run `dart run tool/registry/registry_sync_all.dart` after large changes.
+- Consumer installs should treat generated `flutter.fonts` entries as part of the contract; if the installed component set changes, re-run the install/sync flow instead of hand-managing font families.

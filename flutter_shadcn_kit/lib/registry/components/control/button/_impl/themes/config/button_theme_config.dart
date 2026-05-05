@@ -23,84 +23,89 @@ import 'button_theme_tokens.dart';
 class ButtonThemeConfig {
   const ButtonThemeConfig._();
 
-  static const PrimaryButtonTheme? primaryButtonTheme = null;
+  static final PrimaryButtonTheme primaryButtonTheme =
+      resolvedPrimaryButtonTheme;
   static const String primaryButtonThemeType = 'PrimaryButtonTheme';
   static const PrimaryButtonThemeDefaults primaryButtonThemeDefaults =
       PrimaryButtonThemeDefaults();
   static const PrimaryButtonThemeTokens primaryButtonThemeTokenConfig =
       primaryButtonThemeTokens;
 
-  static const SecondaryButtonTheme? secondaryButtonTheme = null;
+  static final SecondaryButtonTheme secondaryButtonTheme =
+      resolvedSecondaryButtonTheme;
   static const String secondaryButtonThemeType = 'SecondaryButtonTheme';
   static const SecondaryButtonThemeDefaults secondaryButtonThemeDefaults =
       SecondaryButtonThemeDefaults();
   static const SecondaryButtonThemeTokens secondaryButtonThemeTokenConfig =
       secondaryButtonThemeTokens;
 
-  static const OutlineButtonTheme? outlineButtonTheme = null;
+  static final OutlineButtonTheme outlineButtonTheme =
+      resolvedOutlineButtonTheme;
   static const String outlineButtonThemeType = 'OutlineButtonTheme';
   static const OutlineButtonThemeDefaults outlineButtonThemeDefaults =
       OutlineButtonThemeDefaults();
   static const OutlineButtonThemeTokens outlineButtonThemeTokenConfig =
       outlineButtonThemeTokens;
 
-  static const GhostButtonTheme? ghostButtonTheme = null;
+  static final GhostButtonTheme ghostButtonTheme = resolvedGhostButtonTheme;
   static const String ghostButtonThemeType = 'GhostButtonTheme';
   static const GhostButtonThemeDefaults ghostButtonThemeDefaults =
       GhostButtonThemeDefaults();
   static const GhostButtonThemeTokens ghostButtonThemeTokenConfig =
       ghostButtonThemeTokens;
 
-  static const LinkButtonTheme? linkButtonTheme = null;
+  static final LinkButtonTheme linkButtonTheme = resolvedLinkButtonTheme;
   static const String linkButtonThemeType = 'LinkButtonTheme';
   static const LinkButtonThemeDefaults linkButtonThemeDefaults =
       LinkButtonThemeDefaults();
   static const LinkButtonThemeTokens linkButtonThemeTokenConfig =
       linkButtonThemeTokens;
 
-  static const TextButtonTheme? textButtonTheme = null;
+  static final TextButtonTheme textButtonTheme = resolvedTextButtonTheme;
   static const String textButtonThemeType = 'TextButtonTheme';
   static const TextButtonThemeDefaults textButtonThemeDefaults =
       TextButtonThemeDefaults();
   static const TextButtonThemeTokens textButtonThemeTokenConfig =
       textButtonThemeTokens;
 
-  static const DestructiveButtonTheme? destructiveButtonTheme = null;
+  static final DestructiveButtonTheme destructiveButtonTheme =
+      resolvedDestructiveButtonTheme;
   static const String destructiveButtonThemeType = 'DestructiveButtonTheme';
   static const DestructiveButtonThemeDefaults destructiveButtonThemeDefaults =
       DestructiveButtonThemeDefaults();
   static const DestructiveButtonThemeTokens destructiveButtonThemeTokenConfig =
       destructiveButtonThemeTokens;
 
-  static const FixedButtonTheme? fixedButtonTheme = null;
+  static final FixedButtonTheme fixedButtonTheme = resolvedFixedButtonTheme;
   static const String fixedButtonThemeType = 'FixedButtonTheme';
   static const FixedButtonThemeDefaults fixedButtonThemeDefaults =
       FixedButtonThemeDefaults();
   static const FixedButtonThemeTokens fixedButtonThemeTokenConfig =
       fixedButtonThemeTokens;
 
-  static const MenuButtonTheme? menuButtonTheme = null;
+  static final MenuButtonTheme menuButtonTheme = resolvedMenuButtonTheme;
   static const String menuButtonThemeType = 'MenuButtonTheme';
   static const MenuButtonThemeDefaults menuButtonThemeDefaults =
       MenuButtonThemeDefaults();
   static const MenuButtonThemeTokens menuButtonThemeTokenConfig =
       menuButtonThemeTokens;
 
-  static const MenubarButtonTheme? menubarButtonTheme = null;
+  static final MenubarButtonTheme menubarButtonTheme =
+      resolvedMenubarButtonTheme;
   static const String menubarButtonThemeType = 'MenubarButtonTheme';
   static const MenubarButtonThemeDefaults menubarButtonThemeDefaults =
       MenubarButtonThemeDefaults();
   static const MenubarButtonThemeTokens menubarButtonThemeTokenConfig =
       menubarButtonThemeTokens;
 
-  static const MutedButtonTheme? mutedButtonTheme = null;
+  static final MutedButtonTheme mutedButtonTheme = resolvedMutedButtonTheme;
   static const String mutedButtonThemeType = 'MutedButtonTheme';
   static const MutedButtonThemeDefaults mutedButtonThemeDefaults =
       MutedButtonThemeDefaults();
   static const MutedButtonThemeTokens mutedButtonThemeTokenConfig =
       mutedButtonThemeTokens;
 
-  static const CardButtonTheme? cardButtonTheme = null;
+  static final CardButtonTheme cardButtonTheme = resolvedCardButtonTheme;
   static const String cardButtonThemeType = 'CardButtonTheme';
   static const CardButtonThemeDefaults cardButtonThemeDefaults =
       CardButtonThemeDefaults();

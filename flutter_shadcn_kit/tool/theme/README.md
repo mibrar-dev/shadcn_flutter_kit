@@ -10,6 +10,30 @@ Scripts for theme schema/index/config generation and exports.
   - `dart run tool/registry/registry_sync_all.dart --force`
   - `dart run tool/registry/registry_verify.dart`
 
+## Theme Config Rollout Contract
+
+Task 3 establishes the pilot contract that later theme-config rollouts must keep.
+
+- `*_theme_tokens.dart` is the only independent source of component theme values.
+- `*_theme_defaults.dart` is a derived compatibility layer over tokens, or is removed once surrounding tooling no longer needs it.
+- `*_theme_config.dart` must expose real resolved theme instances or getters. Do not leave theme globals as `null`.
+- Component styles must resolve through the component config path so token changes alter runtime behavior without per-widget hardcoding.
+- When migrating `resolve<T>()`, preserve the runtime values proven by the button pilot before changing the lookup structure.
+
+Button pilot reference:
+
+- Tokens: `lib/registry/components/control/button/_impl/themes/config/button_theme_tokens.dart`
+- Defaults compatibility layer: `lib/registry/components/control/button/_impl/themes/config/button_theme_defaults.dart`
+- Config resolution: `lib/registry/components/control/button/_impl/themes/config/button_theme_config.dart`
+- Runtime consumer: `lib/registry/components/control/button/_impl/styles/component_theme_button_style.dart`
+- Guard test: `test/registry/components/control/button/component_theme_button_style_test.dart`
+
+Required verification for generated or mirrored theme changes:
+
+- `dart run tool/registry/registry_sync_all.dart --force`
+- `cd ../docs && flutter analyze && flutter build web`
+- `cd ../flutter_shadcn_kit && flutter analyze && flutter test`
+
 ## Scripts
 
 - `component_theme_schema_generate.dart`

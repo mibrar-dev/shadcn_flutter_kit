@@ -1,15 +1,16 @@
 # Checkpoint: branch-p0-token-pipeline-pilot-fixup
-Last updated: 2026-05-05 02:48
-Status: IN_PROGRESS
+Last updated: 2026-05-05 02:49
+Status: DONE
 
 ## Completed Steps
 - [x] Confirm the post-merge Task 3 failures locally and isolate the exact docs-mirror and test-validity gaps before changing code.
 - [x] Fix the docs mirror or sync path so the docs app consumes the token-backed button config from the canonical registry source.
 - [x] Replace the invalid button guard test with coverage that proves the intended resolution path and keep the test committed.
 - [x] Re-run package verification, registry/docs sync, docs build, and docs route validation against the fixed mirror.
+- [x] Commit, push, merge to `main`, then restart `branch-p1-theme-config-map-rollout` from the updated `main`.
 
 ## Current Step
-Commit, push, merge to `main`, then restart `branch-p1-theme-config-map-rollout` from the updated `main`.
+SESSION END — Next session should resume from: recreate `branch-p1-theme-config-map-rollout` from updated `main`.
 
 ## Blocked On
 Nothing

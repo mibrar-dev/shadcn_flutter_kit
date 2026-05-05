@@ -404,7 +404,7 @@ extension _FileUploadStateSurfaces on _FileUploadState {
       parts.add('Accepted: $accepted');
     }
     if (info.maxFileSizeBytes != null && info.maxFileSizeBytes! > 0) {
-      parts.add('Max size: ${formatFileSize(info.maxFileSizeBytes!)}');
+      parts.add('Max size: ${_formatFileSize(info.maxFileSizeBytes!)}');
     }
     return parts.isEmpty ? null : parts.join(' • ');
   }

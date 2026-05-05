@@ -16,13 +16,6 @@ const List<String> sharedThemeExports = <String>[
 ];
 
 const Map<String, List<String>> barrelHideOverrides = <String, List<String>>{
-  'registry/components/form/file_picker/file_picker.dart': <String>[
-    'formatFileSize',
-  ],
-  'registry/components/form/radio_group/radio_group.dart': <String>[
-    'NextItemIntent',
-    'PreviousItemIntent',
-  ],
   'registry/components/form/text_field/text_field.dart': <String>[
     'AcceptSuggestionIntent',
     'AutoComplete',
@@ -46,14 +39,6 @@ const Map<String, List<String>> barrelHideOverrides = <String, List<String>>{
     'NavigateSuggestionIntent',
     'PasswordPeekMode',
     'SuggestionBuilder',
-  ],
-  'registry/components/layout/flex/flex.dart': <String>[
-    'ErrorWidgetBuilder',
-    'Form',
-    'FormField',
-    'FormState',
-    'RadioGroup',
-    'TableCell',
   ],
   'registry/components/layout/scrollable/scrollable.dart': <String>[
     'ScrollableBuilder',
@@ -90,9 +75,6 @@ const Map<String, List<String>> barrelHideOverrides = <String, List<String>>{
     'MenubarTheme',
     'MenuPopup',
     'MenuPopupTheme',
-  ],
-  'registry/components/overlay/refresh_trigger/refresh_trigger.dart': <String>[
-    'FutureVoidCallback',
   ],
 };
 

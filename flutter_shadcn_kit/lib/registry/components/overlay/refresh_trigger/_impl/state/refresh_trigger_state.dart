@@ -225,7 +225,7 @@ class RefreshTriggerState extends State<RefreshTrigger>
   /// - [refreshCallback]: Optional callback to use instead of widget's onRefresh
   ///
   /// Returns a Future that completes when refresh finishes.
-  Future<void> refresh([FutureVoidCallback? refreshCallback]) async {
+  Future<void> refresh([Future<void> Function()? refreshCallback]) async {
     _scrolling = false;
 /// Stores `count` state/configuration for this implementation.
     int count = ++_currentFutureCount;
@@ -262,7 +262,7 @@ class RefreshTriggerState extends State<RefreshTrigger>
   }
 
 /// Executes `_refresh` behavior for this component/composite.
-  Future<void> _refresh([FutureVoidCallback? refresh]) {
+  Future<void> _refresh([Future<void> Function()? refresh]) {
     if (_stage != TriggerStage.refreshing) {
 /// Creates a `setState` instance.
       setState(() {

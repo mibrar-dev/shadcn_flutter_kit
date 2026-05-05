@@ -124,7 +124,7 @@ class FileItem extends StatelessWidget {
                           spacing: theme.density.baseGap * scaling,
                           children: [
                             Text(_fileTypeLabel(item.file)),
-                            Text(formatFileSize(item.file.size)),
+                            Text(_formatFileSize(item.file.size)),
                             if (statusLabel != null)
                               Text(
                                 statusLabel,

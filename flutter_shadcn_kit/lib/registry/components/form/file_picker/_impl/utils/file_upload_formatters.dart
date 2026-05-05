@@ -19,7 +19,7 @@ DropzoneState _mapDropzoneState(FileUploadState state) {
 }
 
 /// Formats byte counts into human-readable strings.
-String formatFileSize(int bytes) {
+String _formatFileSize(int bytes) {
   if (bytes <= 0) return '0 B';
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];
   var size = bytes.toDouble();

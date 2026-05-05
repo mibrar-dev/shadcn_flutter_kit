@@ -236,6 +236,7 @@ your next Claude session:
 - Every task below starts from the latest `main`.
 - Do not stack unrelated tasks on top of each other.
 - Merge only after verification passes for that task.
+- After a branch task is complete, it must be committed, pushed, and merged to `main` before any next branch starts.
 - If a task depends on a prior task, rebase or recreate from updated `main` after the dependency merges.
 - Branch prefix: `branch-`.
 - Every task below must be executed with `superpowers:subagent-driven-development` so implementation, verification, and review can run faster through isolated subagents.

@@ -6,8 +6,8 @@ import 'dart:ui';
 
 import 'package:flutter/painting.dart';
 
-import 'color_scheme.dart';
-import 'theme.dart';
+import '../../color_scheme.dart';
+import '../../theme.dart';
 
 class RegistryThemePresetTokens {
   final double radius;

@@ -90,7 +90,8 @@ void _printUsage() {
     'Usage: dart run tool/registry/registry_sync_all.dart [options]',
   );
   stdout.writeln('');
-  stdout.writeln('Syncs registry components.json and docs snapshot,');
+  stdout.writeln('Syncs registry components.json, docs snapshot,');
+  stdout.writeln('docs registry mirror,');
   stdout.writeln('and refreshes component meta.json files.');
   stdout.writeln('');
   stdout.writeln('Options:');
@@ -109,6 +110,43 @@ void _printUsage() {
   stdout.writeln(
     '  --bump-manifest-version, --set-manifest-version, or --force is used.',
   );
+}
+
+bool _syncDocsRegistryMirror(Directory root) {
+  final docsDirs = <Directory>[
+    Directory('${root.parent.path}/docs'),
+    Directory('${root.path}/docs'),
+  ];
+
+  for (final docsDir in docsDirs) {
+    final syncScript = File('${docsDir.path}/scripts/sync_registry.py');
+    if (!syncScript.existsSync()) continue;
+
+    final result = Process.runSync(
+      'python3',
+      const ['scripts/sync_registry.py'],
+      workingDirectory: docsDir.path,
+    );
+    if (result.exitCode != 0) {
+      stderr.writeln('Docs registry mirror sync failed.');
+      if (result.stdout.toString().trim().isNotEmpty) {
+        stderr.writeln(result.stdout);
+      }
+      if (result.stderr.toString().trim().isNotEmpty) {
+        stderr.writeln(result.stderr);
+      }
+      exitCode = result.exitCode;
+      return false;
+    }
+
+    stdout.writeln('Docs registry mirror synced: ${docsDir.path}.');
+    return true;
+  }
+
+  stdout.writeln(
+    'Docs registry mirror sync skipped: docs/scripts/sync_registry.py not found.',
+  );
+  return true;
 }
 
 final _partOfPattern = RegExp(
@@ -803,6 +841,10 @@ void main(List<String> args) {
   for (final docsSnapshot in docsSnapshots) {
     if (!docsSnapshot.existsSync()) continue;
     _writeJson(docsSnapshot, registry);
+  }
+
+  if (!_syncDocsRegistryMirror(root)) {
+    return;
   }
 
   stdout.writeln('Updated components.json.');

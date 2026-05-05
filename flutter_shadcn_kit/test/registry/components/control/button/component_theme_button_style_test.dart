@@ -6,7 +6,7 @@ import 'package:flutter_shadcn_kit/registry/components/control/button/_impl/util
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('menu button style resolves token-backed global padding', (
+  testWidgets('menu button style findGlobal resolves token-backed theme', (
     tester,
   ) async {
     late BuildContext context;
@@ -27,9 +27,15 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    final resolvedPadding = style.padding(context, <WidgetState>{});
+    final resolvedTheme = style.findGlobal();
+    final resolvedPadding = resolvedTheme?.padding?.call(
+      context,
+      <WidgetState>{},
+      fallbackPadding,
+    );
     final expectedPadding = buttonMenuPadding(context, <WidgetState>{});
 
+    expect(resolvedTheme, isNotNull);
     expect(resolvedPadding, expectedPadding);
     expect(resolvedPadding, isNot(fallbackPadding));
   });

@@ -8,7 +8,21 @@ import '../../styles/button_shape.dart';
 import '../../styles/button_size.dart';
 import '../../styles/button_style_class.dart';
 import '../../styles/button_state_property.dart';
+import '../../styles/button_state_property_delegate.dart';
 import '../../utils/button_helpers.dart';
+import '../variants/button_theme_base.dart';
+import '../variants/card_button_theme.dart';
+import '../variants/destructive_button_theme.dart';
+import '../variants/fixed_button_theme.dart';
+import '../variants/ghost_button_theme.dart';
+import '../variants/link_button_theme.dart';
+import '../variants/menu_button_theme.dart';
+import '../variants/menubar_button_theme.dart';
+import '../variants/muted_button_theme.dart';
+import '../variants/outline_button_theme.dart';
+import '../variants/primary_button_theme.dart';
+import '../variants/secondary_button_theme.dart';
+import '../variants/text_button_theme.dart';
 import '../../variants/button_variance.dart';
 
 // ═══════════════════════════════════════════════════════════
@@ -45,6 +59,36 @@ class _ButtonVariantThemeTokens {
   final bool disableTransition;
   final bool ignoreGlobalScaling;
   final bool ignoreGlobalRadius;
+}
+
+typedef _ButtonThemeBuilder<T extends ButtonTheme> =
+    T Function({
+      ButtonStatePropertyDelegate<Decoration>? decoration,
+      ButtonStatePropertyDelegate<MouseCursor>? mouseCursor,
+      ButtonStatePropertyDelegate<EdgeInsetsGeometry>? padding,
+      ButtonStatePropertyDelegate<TextStyle>? textStyle,
+      ButtonStatePropertyDelegate<IconThemeData>? iconTheme,
+      ButtonStatePropertyDelegate<EdgeInsetsGeometry>? margin,
+    });
+
+ButtonStatePropertyDelegate<T> _asThemeDelegate<T>(
+  ButtonStateProperty<T> property,
+) {
+  return (context, states, value) => property(context, states);
+}
+
+T _buildButtonTheme<T extends ButtonTheme>(
+  _ButtonVariantThemeTokens tokens,
+  _ButtonThemeBuilder<T> builder,
+) {
+  return builder(
+    decoration: _asThemeDelegate(tokens.decoration),
+    mouseCursor: _asThemeDelegate(tokens.mouseCursor),
+    padding: _asThemeDelegate(tokens.padding),
+    textStyle: _asThemeDelegate(tokens.textStyle),
+    iconTheme: _asThemeDelegate(tokens.iconTheme),
+    margin: _asThemeDelegate(tokens.margin),
+  );
 }
 
 class PrimaryButtonThemeTokens extends _ButtonVariantThemeTokens {
@@ -255,3 +299,52 @@ const menuButtonThemeTokens = MenuButtonThemeTokens();
 const menubarButtonThemeTokens = MenubarButtonThemeTokens();
 const mutedButtonThemeTokens = MutedButtonThemeTokens();
 const cardButtonThemeTokens = CardButtonThemeTokens();
+
+final PrimaryButtonTheme resolvedPrimaryButtonTheme = _buildButtonTheme(
+  primaryButtonThemeTokens,
+  PrimaryButtonTheme.new,
+);
+final SecondaryButtonTheme resolvedSecondaryButtonTheme = _buildButtonTheme(
+  secondaryButtonThemeTokens,
+  SecondaryButtonTheme.new,
+);
+final OutlineButtonTheme resolvedOutlineButtonTheme = _buildButtonTheme(
+  outlineButtonThemeTokens,
+  OutlineButtonTheme.new,
+);
+final GhostButtonTheme resolvedGhostButtonTheme = _buildButtonTheme(
+  ghostButtonThemeTokens,
+  GhostButtonTheme.new,
+);
+final LinkButtonTheme resolvedLinkButtonTheme = _buildButtonTheme(
+  linkButtonThemeTokens,
+  LinkButtonTheme.new,
+);
+final TextButtonTheme resolvedTextButtonTheme = _buildButtonTheme(
+  textButtonThemeTokens,
+  TextButtonTheme.new,
+);
+final DestructiveButtonTheme resolvedDestructiveButtonTheme = _buildButtonTheme(
+  destructiveButtonThemeTokens,
+  DestructiveButtonTheme.new,
+);
+final FixedButtonTheme resolvedFixedButtonTheme = _buildButtonTheme(
+  fixedButtonThemeTokens,
+  FixedButtonTheme.new,
+);
+final MenuButtonTheme resolvedMenuButtonTheme = _buildButtonTheme(
+  menuButtonThemeTokens,
+  MenuButtonTheme.new,
+);
+final MenubarButtonTheme resolvedMenubarButtonTheme = _buildButtonTheme(
+  menubarButtonThemeTokens,
+  MenubarButtonTheme.new,
+);
+final MutedButtonTheme resolvedMutedButtonTheme = _buildButtonTheme(
+  mutedButtonThemeTokens,
+  MutedButtonTheme.new,
+);
+final CardButtonTheme resolvedCardButtonTheme = _buildButtonTheme(
+  cardButtonThemeTokens,
+  CardButtonTheme.new,
+);

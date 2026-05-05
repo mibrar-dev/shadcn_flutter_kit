@@ -1,6 +1,6 @@
 # Checkpoint: branch-p0-token-pipeline-pilot
-Last updated: 2026-05-05 02:35
-Status: IN_PROGRESS
+Last updated: 2026-05-05 02:38
+Status: DONE
 
 ## Completed Steps
 - [x] Refactor the button theme pipeline so `button_theme_tokens.dart` is the only independent source of theme values.
@@ -15,7 +15,7 @@ Status: IN_PROGRESS
 - [x] Document the button pilot pattern in theme tooling docs so Task 4 has a single rollout contract.
 
 ## Current Step
-Run Task 3 review gates, then commit, push, merge to `main`, and start the next branch from updated `main` if the branch is clean.
+SESSION END — Next session should resume from: `branch-p1-theme-config-map-rollout` after `branch-p0-token-pipeline-pilot` is merged to `main`.
 
 ## Blocked On
 Nothing
@@ -44,6 +44,8 @@ Nothing
 - `cd flutter_shadcn_kit && flutter analyze` → ✅ PASS (`No issues found!`)
 - `docs app pilot validation via Playwright: http://127.0.0.1:7357/#/components/button and http://127.0.0.1:7357/#/components/dropdown-menu` → ✅ PASS (`Both routes rendered cleanly; screenshots captured in button-docs-page.png and dropdown-menu-docs-page.png`)
 - `rg -n "Theme Config Rollout Contract|Button pilot reference|Required verification for generated or mirrored theme changes" flutter_shadcn_kit/tool/theme/README.md` → ✅ PASS (`Rollout contract and button pilot references documented in theme tooling README`)
+- `git diff --check` → ✅ PASS (no whitespace or merge-marker issues)
+- Review gate: local diff review against Task 3 plan + verification evidence → ✅ PASS (`Button token pipeline, regression test, docs validation, and rollout contract all present; no blocking findings surfaced before merge`)
 
 ## Files Modified
 - `flutter_shadcn_kit/lib/registry/components/control/button/_impl/themes/config/button_theme_tokens.dart`
@@ -60,3 +62,4 @@ Nothing
 - Forced the Graphify rebuild through the installed Graphify Python runtime because the CLI wrapper still refuses node-count shrink updates without exposing a working force flag.
 - Re-ran the docs pilot validation on resume because the previous checkpoint had no recorded result for the active step; treated it as incomplete until new evidence was recorded.
 - Chose `flutter_shadcn_kit/tool/theme/README.md` as the rollout-contract home because the contract spans theme generation, token/config invariants, and downstream registry sync rather than a single script.
+- Completed Task 3 with the button pilot only; broader `resolve<T>()` rollout remains intentionally deferred to Task 4.

@@ -3,6 +3,7 @@
   "name": "Icon Extensions",
   "description": "Theme-driven icon size/color helpers and WrappedIcon.",
   "category": "display",
+  "tier": "primitive",
   "tags": [
     "icon",
     "theme"

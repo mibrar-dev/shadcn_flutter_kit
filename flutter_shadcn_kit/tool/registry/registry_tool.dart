@@ -17,6 +17,9 @@ enum _EntryType { component, composite }
 
 typedef _Json = Map<String, dynamic>;
 
+const _defaultRegistryTier = 'component';
+const _defaultRegistryVersion = '1.0.0';
+
 Future<void> main(List<String> args) async {
   if (args.isEmpty) {
     _printUsage();
@@ -183,6 +186,7 @@ Future<void> _initComponent(Directory root) async {
   await componentsJson.writeAsString(
     '${const JsonEncoder.withIndent('  ').convert(json)}\n',
   );
+  _syncDocsOutputs(root, registryDir, json);
 
   final overwriteMain = _promptYesNo(
     'Replace lib/main.dart with a ShadcnApp stub?',
@@ -207,8 +211,31 @@ Future<void> _syncRegistry(Directory root) async {
   await componentsJson.writeAsString(
     '${const JsonEncoder.withIndent('  ').convert(json)}\n',
   );
+  _syncDocsOutputs(root, registryDir, json);
 
   stdout.writeln('Sync complete.');
+}
+
+void _syncDocsOutputs(Directory root, Directory registryDir, _Json json) {
+  final docsAssetSnapshots = <File>{
+    File('${root.path}/docs/assets/registry/components.json'),
+    File('${root.parent.path}/docs/assets/registry/components.json'),
+  };
+  for (final docsSnapshot in docsAssetSnapshots) {
+    if (!docsSnapshot.existsSync()) continue;
+    docsSnapshot.parent.createSync(recursive: true);
+    docsSnapshot.writeAsStringSync(
+      '${const JsonEncoder.withIndent('  ').convert(json)}\n',
+    );
+  }
+
+  final docsRegistryRoot = findSiblingDocsRegistryRoot(root);
+  if (docsRegistryRoot != null) {
+    syncDocsRegistryMetadata(
+      registryDir: registryDir,
+      docsRegistryRoot: docsRegistryRoot,
+    );
+  }
 }
 
 Future<void> _addImplFile(Directory root) async {
@@ -259,19 +286,26 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
   final rootDir = type == _EntryType.component
       ? Directory('${registryDir.path}/components')
       : Directory('${registryDir.path}/composites');
+  if (!rootDir.existsSync()) {
+    return;
+  }
 
   final entries = json['components'] as List<dynamic>;
 
   final existing = <String, _Json>{};
   for (final entry in entries) {
     final map = entry as _Json;
-    existing[map['id'] as String] = map;
+    final id = map['id'];
+    if (id is! String || id.trim().isEmpty) {
+      continue;
+    }
+    existing[id] = map;
   }
 
   final componentDirs = <Directory>[];
   for (final category in rootDir.listSync().whereType<Directory>()) {
     for (final compDir in category.listSync().whereType<Directory>()) {
-      final name = compDir.uri.pathSegments.last.replaceAll('/', '');
+      final name = _basename(compDir.path);
       // Skip taxonomy/hidden folders that can exist at the category root.
       if (name.startsWith('_') || name.startsWith('.')) continue;
       componentDirs.add(compDir);
@@ -282,8 +316,8 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
     _ensureTaxonomy(compDir);
     _normalizeImplFiles(compDir);
 
-    final id = compDir.uri.pathSegments.last.replaceAll('/', '');
-    final category = compDir.parent.uri.pathSegments.last.replaceAll('/', '');
+    final id = _basename(compDir.path);
+    final category = _basename(compDir.parent.path);
     final metadata = ComponentMetadataPaths(entryDir: compDir, id: id);
     final name = _titleCase(id);
     final description = 'TODO: describe $name.';
@@ -322,6 +356,8 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
         existing[id] ??
         {
           'id': id,
+          'tier': _defaultRegistryTier,
+          'version': _defaultRegistryVersion,
           'name': name,
           'description': description,
           'category': category,
@@ -334,6 +370,8 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
           'postInstall': <String>[],
         };
 
+    entry.putIfAbsent('tier', () => _defaultRegistryTier);
+    entry.putIfAbsent('version', () => _defaultRegistryVersion);
     entry['files'] = _buildFileList(registryDir, compDir, type);
     existing[id] = entry;
   }
@@ -342,7 +380,10 @@ void _syncEntries(_Json json, Directory registryDir, _EntryType type) {
   final updated = <_Json>[];
   final seen = <String>{};
   for (final entry in entries) {
-    final id = (entry as _Json)['id'] as String;
+    final id = (entry as _Json)['id'];
+    if (id is! String || id.trim().isEmpty) {
+      continue;
+    }
     if (existing.containsKey(id)) {
       updated.add(existing[id]!);
       seen.add(id);
@@ -473,6 +514,8 @@ void _upsertComponentEntry(
   } else {
     entry = {
       'id': id,
+      'tier': _defaultRegistryTier,
+      'version': _defaultRegistryVersion,
       'name': name,
       'description': description,
       'category': category,
@@ -487,6 +530,8 @@ void _upsertComponentEntry(
     components.add(entry);
   }
 
+  entry.putIfAbsent('tier', () => _defaultRegistryTier);
+  entry.putIfAbsent('version', () => _defaultRegistryVersion);
   entry['name'] = name;
   entry['description'] = description;
   entry['category'] = category;
@@ -594,6 +639,18 @@ String _toPascalCase(String input) {
       .join();
 }
 
+String _basename(String path) {
+  final normalized = path.replaceAll('\\', '/');
+  final parts = normalized.split('/');
+  for (var i = parts.length - 1; i >= 0; i--) {
+    final part = parts[i];
+    if (part.isNotEmpty) {
+      return part;
+    }
+  }
+  return '';
+}
+
 String _titleCase(String input) {
   final parts = _toSnakeCase(input).split('_');
   return parts
@@ -674,6 +731,8 @@ String _metaStub({
 }) {
   final base = <String, dynamic>{
     'id': id,
+    'tier': _defaultRegistryTier,
+    'version': _defaultRegistryVersion,
     'name': name,
     'description': description,
     'category': category,

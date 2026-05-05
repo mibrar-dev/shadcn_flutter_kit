@@ -3,6 +3,7 @@
   "name": "Border Loading",
   "description": "Animated border loader wrapper (sweep/linear/radial gradients + tracer mode + circle/custom shapes).",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "loading",

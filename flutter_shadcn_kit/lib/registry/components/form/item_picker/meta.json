@@ -3,6 +3,7 @@
   "name": "Item Picker",
   "description": "Grid/list picker with selection chips, search, and in-place actions.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "picker",

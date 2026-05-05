@@ -3,6 +3,7 @@
   "name": "Dropzone",
   "description": "Dropzone surface for file uploads.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "dropzone",

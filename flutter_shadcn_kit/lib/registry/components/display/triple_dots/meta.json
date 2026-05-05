@@ -3,6 +3,7 @@
   "name": "More Dots",
   "description": "Configurable row/column of dots for menu or loading indicators.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "icon",
     "indicator"

@@ -3,6 +3,7 @@
   "name": "HSV Color Slider",
   "description": "Gradient slider for HSV color component control (hue, saturation, value, alpha).",
   "category": "form",
+  "tier": "component",
   "tags": [
     "color",
     "slider",

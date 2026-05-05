@@ -3,6 +3,7 @@
   "name": "Circular Progress Indicator",
   "description": "Determinate/indeterminate spinner with theme overrides and optional animation.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "progress",

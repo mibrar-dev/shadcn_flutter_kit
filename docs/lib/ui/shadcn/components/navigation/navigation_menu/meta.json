@@ -3,6 +3,7 @@
   "name": "Navigation Menu",
   "description": "Dropdown-style navigation menu with popovers, groups, and keyboard navigation.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "navigation",
     "menu",

@@ -3,6 +3,7 @@
   "name": "Collapsible",
   "description": "Independent sections that toggle their own visibility",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "forms",
     "layout"

@@ -3,6 +3,7 @@
   "name": "Time Picker",
   "description": "Popover/dialog picker for time and duration values.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "time",

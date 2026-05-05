@@ -3,6 +3,7 @@
   "name": "Switcher",
   "description": "Swipeable viewport that animates between children along an axis.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "navigation",
     "transition",

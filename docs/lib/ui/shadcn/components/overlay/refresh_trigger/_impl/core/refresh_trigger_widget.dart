@@ -29,7 +29,7 @@ class RefreshTrigger extends StatefulWidget {
   ///
   /// Should return a Future that completes when the refresh operation finishes.
   /// While the Future is pending, the refresh indicator shows loading state.
-  final FutureVoidCallback? onRefresh;
+  final Future<void> Function()? onRefresh;
 
   /// The scrollable child widget being refreshed.
   final Widget child;
@@ -66,7 +66,7 @@ class RefreshTrigger extends StatefulWidget {
   ///
   /// Parameters:
   /// - [child] (Widget, required): Scrollable content to wrap with refresh capability
-  /// - [onRefresh] (FutureVoidCallback?, optional): Async callback triggered on refresh
+  /// - [onRefresh] (`Future<void> Function()?`, optional): Async callback triggered on refresh
   /// - [direction] (Axis, default: Axis.vertical): Pull gesture direction
   /// - [reverse] (bool, default: false): Whether to trigger from opposite direction
   /// - [minExtent] (double?, optional): Minimum pull distance to trigger refresh

@@ -3,6 +3,7 @@
   "name": "Group",
   "description": "Absolute-position layout surface with explicit offsets and sizes.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "positioning",

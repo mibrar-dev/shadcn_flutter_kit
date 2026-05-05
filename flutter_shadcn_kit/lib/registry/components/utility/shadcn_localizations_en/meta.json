@@ -3,6 +3,7 @@
   "name": "Shadcn Localizations (EN)",
   "description": "English translation bundle for ShadcnLocalizations.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "localization",
     "i18n",

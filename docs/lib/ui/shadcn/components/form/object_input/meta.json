@@ -3,6 +3,7 @@
   "name": "Object Input",
   "description": "Date, time, and duration inputs powered by formatted editors and pickers.",
   "category": "form",
+  "tier": "pattern",
   "tags": [
     "form",
     "input",

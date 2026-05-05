@@ -3,6 +3,7 @@
   "name": "Select",
   "description": "Dropdown/select control with popup menus, grouped items, and keyboard navigation.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

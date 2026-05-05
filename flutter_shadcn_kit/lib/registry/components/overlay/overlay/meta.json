@@ -3,6 +3,7 @@
   "name": "Overlay",
   "description": "Shared overlay handler/manager utilities and helpers.",
   "category": "overlay",
+  "tier": "primitive",
   "tags": [
     "overlay",
     "layer"

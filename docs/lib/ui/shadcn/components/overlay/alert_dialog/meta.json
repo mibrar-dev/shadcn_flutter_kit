@@ -3,6 +3,7 @@
   "name": "AlertDialog",
   "description": "Modal alert dialog with customizable header, content, and actions.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "dialog",

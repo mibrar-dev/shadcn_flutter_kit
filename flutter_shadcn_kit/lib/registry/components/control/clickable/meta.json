@@ -3,6 +3,7 @@
   "name": "Clickable",
   "description": "State-aware gesture surface with hover, focus, and press handling.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "interaction",
     "primitive",

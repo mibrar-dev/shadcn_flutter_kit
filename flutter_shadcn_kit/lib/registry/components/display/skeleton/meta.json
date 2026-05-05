@@ -3,6 +3,7 @@
   "name": "Skeleton",
   "description": "Skeletonizer helpers with theme-aware config and extensions.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "loading",

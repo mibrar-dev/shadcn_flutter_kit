@@ -3,6 +3,7 @@
   "name": "Card",
   "description": "Card container with optional surface blur variant.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "surface",

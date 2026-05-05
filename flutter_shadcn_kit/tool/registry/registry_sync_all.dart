@@ -8,6 +8,32 @@ typedef JsonMap = Map<String, dynamic>;
 
 typedef JsonList = List<dynamic>;
 
+const _allowedTiers = {'primitive', 'component', 'pattern'};
+final _semVerPattern = RegExp(
+  r'^\d+\.\d+\.\d+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$',
+);
+
+class _RegistryValidationError implements Exception {
+  _RegistryValidationError(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
+class _PendingMetaWrite {
+  _PendingMetaWrite({
+    required this.metadata,
+    required this.originalMeta,
+    required this.updatedMeta,
+  });
+
+  final ComponentMetadataPaths metadata;
+  final JsonMap originalMeta;
+  final JsonMap updatedMeta;
+}
+
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
@@ -128,11 +154,9 @@ bool _syncDocsRegistryMirror(Directory root) {
     final syncScript = File('${docsDir.path}/scripts/sync_registry.py');
     if (!syncScript.existsSync()) continue;
 
-    final result = Process.runSync(
-      'python3',
-      const ['scripts/sync_registry.py'],
-      workingDirectory: docsDir.path,
-    );
+    final result = Process.runSync('python3', const [
+      'scripts/sync_registry.py',
+    ], workingDirectory: docsDir.path);
     if (result.exitCode != 0) {
       stderr.writeln('Docs registry mirror sync failed.');
       if (result.stdout.toString().trim().isNotEmpty) {
@@ -491,9 +515,9 @@ JsonMap _mergeMeta({
   required JsonMap meta,
   required JsonMap? existingEntry,
   required List<String> fileList,
+  required String metadataPath,
 }) {
   final updated = JsonMap.from(meta);
-  const defaultVersion = '1.0.0';
 
   final name =
       meta['name'] as String? ??
@@ -503,6 +527,16 @@ JsonMap _mergeMeta({
       meta['description'] as String? ??
       (existingEntry?['description'] as String?) ??
       '';
+  final tier = _requireTier(
+    id: id,
+    value: meta['tier'],
+    metadataPath: metadataPath,
+  );
+  final version = _requireVersion(
+    id: id,
+    value: meta['version'],
+    metadataPath: metadataPath,
+  );
 
   final tags = meta['tags'] is List
       ? (meta['tags'] as List).whereType<String>().toList()
@@ -571,6 +605,7 @@ JsonMap _mergeMeta({
   updated['name'] = name;
   updated['description'] = description;
   updated['category'] = category;
+  updated['tier'] = tier;
   updated['tags'] = tags;
   updated['dependencies'] = {
     'shared': resolvedShared,
@@ -585,14 +620,7 @@ JsonMap _mergeMeta({
     updated['postInstall'] = postInstall;
   }
   updated['files'] = fileList;
-  if (!updated.containsKey('version')) {
-    final existingVersion = existingEntry?['version'];
-    if (existingVersion is String && existingVersion.isNotEmpty) {
-      updated['version'] = existingVersion;
-    } else {
-      updated['version'] = defaultVersion;
-    }
-  }
+  updated['version'] = version;
 
   return updated;
 }
@@ -603,6 +631,7 @@ JsonMap _buildEntry({
   required String type,
   required JsonMap meta,
   required JsonMap? existingEntry,
+  required String metadataPath,
 }) {
   final id = _basename(entryDir.path);
   final category = _basename(entryDir.parent.path);
@@ -614,10 +643,16 @@ JsonMap _buildEntry({
     meta: meta,
     existingEntry: existingEntry,
     fileList: fileList,
+    metadataPath: metadataPath,
   );
 
   final name = updatedMeta['name'] as String? ?? _titleCase(id);
   final description = updatedMeta['description'] as String? ?? '';
+  final tier = _requireTier(
+    id: id,
+    value: updatedMeta['tier'],
+    metadataPath: metadataPath,
+  );
   final tags = updatedMeta['tags'] is List
       ? (updatedMeta['tags'] as List).whereType<String>().toList()
       : <String>[category, id];
@@ -655,6 +690,7 @@ JsonMap _buildEntry({
   entry['name'] = name;
   entry['description'] = description;
   entry['category'] = category;
+  entry['tier'] = tier;
   entry['tags'] = tags;
   entry['files'] = files;
   entry['shared'] = shared;
@@ -665,14 +701,53 @@ JsonMap _buildEntry({
   };
   entry['assets'] = assets;
   entry['postInstall'] = postInstall;
-  final version = updatedMeta['version'];
-  if (version is String && version.isNotEmpty) {
-    entry['version'] = version;
-  } else if (existingEntry?['version'] is String) {
-    entry['version'] = existingEntry!['version'];
-  }
+  entry['version'] = _requireVersion(
+    id: id,
+    value: updatedMeta['version'],
+    metadataPath: metadataPath,
+  );
 
   return entry;
+}
+
+String _requireTier({
+  required String id,
+  required dynamic value,
+  required String metadataPath,
+}) {
+  if (value is! String || value.trim().isEmpty) {
+    throw _RegistryValidationError(
+      'Component "$id" is missing tier in $metadataPath.',
+    );
+  }
+  final normalized = value.trim();
+  if (_allowedTiers.contains(normalized)) {
+    return normalized;
+  }
+  throw _RegistryValidationError(
+    'Component "$id" has invalid tier "$value" in $metadataPath. '
+    'Expected one of: ${_allowedTiers.join(', ')}.',
+  );
+}
+
+String _requireVersion({
+  required String id,
+  required dynamic value,
+  required String metadataPath,
+}) {
+  if (value is! String || value.trim().isEmpty) {
+    throw _RegistryValidationError(
+      'Component "$id" is missing version in $metadataPath.',
+    );
+  }
+  final normalized = value.trim();
+  if (_semVerPattern.hasMatch(normalized)) {
+    return normalized;
+  }
+  throw _RegistryValidationError(
+    'Component "$id" has invalid version "$value" in $metadataPath. '
+    'Expected SemVer format such as 1.0.0 or 1.2.3-beta.1.',
+  );
 }
 
 void main(List<String> args) {
@@ -750,8 +825,10 @@ void main(List<String> args) {
   }
 
   final updatedEntries = <String, JsonMap>{};
+  final pendingMetaWrites = <_PendingMetaWrite>[];
   final updatedMetaFiles = <String>[];
   final missingMetaFiles = <String>[];
+  final validationErrors = <String>[];
 
   for (final type in ['components', 'composites']) {
     final rootDir = Directory('${registryDir.path}/$type');
@@ -772,40 +849,64 @@ void main(List<String> args) {
             !metadata.legacyMeta.existsSync()) {
           missingMetaFiles.add(metadata.canonicalMeta.path);
         }
-        final updatedEntry = _buildEntry(
-          registryDir: registryDir,
-          entryDir: entryDir,
-          type: type,
-          meta: meta,
-          existingEntry: existingEntries[id],
-        );
-
-        final fileList = listComponentSourceFilesRelative(entryDir);
-        final category = _basename(entryDir.parent.path);
-        final updatedMeta = _mergeMeta(
-          id: id,
-          category: category,
-          meta: meta,
-          existingEntry: existingEntries[id],
-          fileList: fileList,
-        );
-
-        if (!_deepEquals(meta, updatedMeta)) {
-          writeJsonMirrored(
-            canonical: metadata.canonicalMeta,
-            legacy: metadata.legacyMeta,
-            data: updatedMeta,
+        try {
+          final updatedEntry = _buildEntry(
+            registryDir: registryDir,
+            entryDir: entryDir,
+            type: type,
+            meta: meta,
+            existingEntry: existingEntries[id],
+            metadataPath: metadata.canonicalMeta.path,
           );
-          updatedMetaFiles.add(metadata.canonicalMeta.path);
-        } else {
-          mirrorExistingFile(
-            canonical: metadata.canonicalMeta,
-            legacy: metadata.legacyMeta,
+
+          final fileList = listComponentSourceFilesRelative(entryDir);
+          final category = _basename(entryDir.parent.path);
+          final updatedMeta = _mergeMeta(
+            id: id,
+            category: category,
+            meta: meta,
+            existingEntry: existingEntries[id],
+            fileList: fileList,
+            metadataPath: metadata.canonicalMeta.path,
           );
+
+          pendingMetaWrites.add(
+            _PendingMetaWrite(
+              metadata: metadata,
+              originalMeta: meta,
+              updatedMeta: updatedMeta,
+            ),
+          );
+          updatedEntries[id] = updatedEntry;
+        } on _RegistryValidationError catch (error) {
+          validationErrors.add(error.message);
         }
-
-        updatedEntries[id] = updatedEntry;
       }
+    }
+  }
+
+  if (validationErrors.isNotEmpty) {
+    stderr.writeln('Registry validation failed:');
+    for (final error in validationErrors) {
+      stderr.writeln('  - $error');
+    }
+    exitCode = 2;
+    return;
+  }
+
+  for (final pending in pendingMetaWrites) {
+    if (!_deepEquals(pending.originalMeta, pending.updatedMeta)) {
+      writeJsonMirrored(
+        canonical: pending.metadata.canonicalMeta,
+        legacy: pending.metadata.legacyMeta,
+        data: pending.updatedMeta,
+      );
+      updatedMetaFiles.add(pending.metadata.canonicalMeta.path);
+    } else {
+      mirrorExistingFile(
+        canonical: pending.metadata.canonicalMeta,
+        legacy: pending.metadata.legacyMeta,
+      );
     }
   }
 

@@ -3,6 +3,7 @@
   "name": "Number Ticker",
   "description": "Animated number display with formatter or custom builder.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "indicator",

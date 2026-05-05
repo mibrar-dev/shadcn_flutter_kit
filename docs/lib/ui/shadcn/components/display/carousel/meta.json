@@ -3,6 +3,7 @@
   "name": "Carousel",
   "description": "Interactive carousel with sliding/fading transitions and autoplay controls.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "carousel",

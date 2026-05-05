@@ -230,8 +230,8 @@ FileUpload(
   maxFileSizeBytes: 10 * 1024 * 1024,
   showHelpfulInfo: true,
   helpfulInfoPlacement: FileUploadHelpfulInfoPlacement.belowSurface,
-  helpfulInfoBuilder: (context, info) => Text(
-    'Accepts PDF • Up to ${formatFileSize(info.maxFileSizeBytes ?? 0)}',
+  helpfulInfoBuilder: (context, info) => const Text(
+    'Accepts PDF • Up to 10 MB',
   ),
 )
 ```

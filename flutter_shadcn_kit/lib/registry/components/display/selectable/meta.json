@@ -3,6 +3,7 @@
   "name": "Selectable Text",
   "description": "Selectable text with themed cursor and selection behavior.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "text",
     "selection"

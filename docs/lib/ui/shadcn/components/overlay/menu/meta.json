@@ -3,6 +3,7 @@
   "name": "Menu",
   "description": "Menu primitives, items, and popup container.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "menu",
     "overlay",

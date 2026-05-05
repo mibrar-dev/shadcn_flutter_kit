@@ -1849,7 +1849,8 @@
       "postInstall": [
         "Optional: wrap a subtree with Theme(data: ThemeData(...), child: ...) to override defaults."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "clickable",
@@ -1914,7 +1915,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "card",
@@ -1957,18 +1959,7 @@
         },
         {
           "source": "registry/components/layout/card/card.dart",
-          "destination": "{installPath}/components/layout/card/card.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/card/_impl/themes/base/card_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/card/_impl/core/card_widgets.dart"
-            },
-            {
-              "source": "registry/components/layout/card/_impl/core/surface_card.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/card/card.dart"
         }
       ],
       "shared": [
@@ -1987,7 +1978,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "card_image",
@@ -2010,15 +2002,7 @@
         },
         {
           "source": "registry/components/layout/card_image/card_image.dart",
-          "destination": "{installPath}/components/layout/card_image/card_image.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/card_image/_impl/state/_card_image_state.dart"
-            },
-            {
-              "source": "registry/components/layout/card_image/_impl/core/card_image_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/card_image/card_image.dart"
         }
       ],
       "shared": [
@@ -2040,7 +2024,8 @@
       "postInstall": [
         "Wrap with ComponentTheme<CardImageTheme> when you need custom scales or spacing."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "alert",
@@ -2075,12 +2060,7 @@
         },
         {
           "source": "registry/components/layout/alert/alert.dart",
-          "destination": "{installPath}/components/layout/alert/alert.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/alert/_impl/themes/base/alert_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/alert/alert.dart"
         }
       ],
       "shared": [
@@ -2097,7 +2077,8 @@
       "postInstall": [
         "Register ComponentTheme<AlertTheme> when you want custom padding, colors, or borders."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "alpha",
@@ -2124,7 +2105,8 @@
       "postInstall": [
         "Paint the checkerboard inside a CustomPaint when you need transparency cues."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "chat",
@@ -2203,57 +2185,7 @@
         },
         {
           "source": "registry/components/display/chat/chat.dart",
-          "destination": "{installPath}/components/display/chat/chat.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/chat/_impl/core/_chat_tail_behavior.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/_tail_painter.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_bubble.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_bubble_corner.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_bubble_corner_directional.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_bubble_data.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_bubble_type.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_group.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_group_theme.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_tail_theme.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/chat_theme.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/plain_chat_bubble_type.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/render_chat_constrained_box.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/sharp_corner_chat_bubble_type.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/tail_behavior.dart"
-            },
-            {
-              "source": "registry/components/display/chat/_impl/core/tail_chat_bubble_type.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/chat/chat.dart"
         }
       ],
       "shared": [
@@ -2277,7 +2209,8 @@
       "postInstall": [
         "Wrap with ComponentTheme<ChatTheme> to adjust alignment, spacing, and colors."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "async",
@@ -2302,7 +2235,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "autocomplete",
@@ -2353,33 +2287,7 @@
         },
         {
           "source": "registry/components/form/autocomplete/autocomplete.dart",
-          "destination": "{installPath}/components/form/autocomplete/autocomplete.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/autocomplete/_impl/state/_auto_complete_item_state.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/utils/accept_suggestion_intent.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/core/auto_complete.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/utils/auto_complete_intent.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/core/auto_complete_mode.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/utils/navigate_suggestion_intent.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/core/autocomplete_item.dart"
-            },
-            {
-              "source": "registry/components/form/autocomplete/_impl/state/autocomplete_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/autocomplete/autocomplete.dart"
         }
       ],
       "shared": [
@@ -2396,7 +2304,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "collapsible",
@@ -2446,24 +2355,7 @@
         },
         {
           "source": "registry/components/layout/collapsible/collapsible.dart",
-          "destination": "{installPath}/components/layout/collapsible/collapsible.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/collapsible/_impl/core/collapsible_content.dart"
-            },
-            {
-              "source": "registry/components/layout/collapsible/_impl/state/collapsible_state_data.dart"
-            },
-            {
-              "source": "registry/components/layout/collapsible/_impl/themes/base/collapsible_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/collapsible/_impl/core/collapsible_trigger.dart"
-            },
-            {
-              "source": "registry/components/layout/collapsible/_impl/state/collapsible_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/collapsible/collapsible.dart"
         }
       ],
       "shared": [
@@ -2484,7 +2376,8 @@
       "postInstall": [
         "Provide a ComponentTheme<CollapsibleTheme> to customize padding, iconography, and alignment."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "focus_outline",
@@ -2519,12 +2412,7 @@
         },
         {
           "source": "registry/components/utility/focus_outline/focus_outline.dart",
-          "destination": "{installPath}/components/utility/focus_outline/focus_outline.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/focus_outline/_impl/themes/base/focus_outline_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/focus_outline/focus_outline.dart"
         }
       ],
       "shared": [
@@ -2541,7 +2429,8 @@
       "postInstall": [
         "Add ComponentTheme<FocusOutlineTheme> to adjust outline bias, borders, or shape."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "group",
@@ -2568,18 +2457,7 @@
         },
         {
           "source": "registry/components/layout/group/group_widget.dart",
-          "destination": "{installPath}/components/layout/group/group_widget.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/group/_impl/core/group_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/group/_impl/core/render_group.dart"
-            },
-            {
-              "source": "registry/components/layout/group/_impl/core/group_positioned.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/group/group_widget.dart"
         }
       ],
       "shared": [],
@@ -2589,7 +2467,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "hidden",
@@ -2636,18 +2515,7 @@
         },
         {
           "source": "registry/components/layout/hidden/hidden.dart",
-          "destination": "{installPath}/components/layout/hidden/hidden.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/hidden/_impl/core/hidden_layout.dart"
-            },
-            {
-              "source": "registry/components/layout/hidden/_impl/themes/base/hidden_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/hidden/_impl/core/_render_hidden_layout.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/hidden/hidden.dart"
         }
       ],
       "shared": [
@@ -2664,7 +2532,8 @@
       "postInstall": [
         "Register ComponentTheme<HiddenTheme> to override default curves, duration, or size retention."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "accordion",
@@ -2719,27 +2588,7 @@
         },
         {
           "source": "registry/components/layout/accordion/accordion.dart",
-          "destination": "{installPath}/components/layout/accordion/accordion.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/accordion/_impl/core/accordion_item.dart"
-            },
-            {
-              "source": "registry/components/layout/accordion/_impl/themes/base/accordion_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/accordion/_impl/core/accordion_trigger.dart"
-            },
-            {
-              "source": "registry/components/layout/accordion/_impl/state/accordion_state.dart"
-            },
-            {
-              "source": "registry/components/layout/accordion/_impl/state/_accordion_trigger_state.dart"
-            },
-            {
-              "source": "registry/components/layout/accordion/_impl/state/_accordion_item_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/accordion/accordion.dart"
         }
       ],
       "shared": [
@@ -2757,7 +2606,8 @@
       "postInstall": [
         "Use ComponentTheme<AccordionTheme> when you need custom dividers, icons, or animation curves."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "badge",
@@ -2808,24 +2658,7 @@
         },
         {
           "source": "registry/components/display/badge/badge.dart",
-          "destination": "{installPath}/components/display/badge/badge.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/badge/_impl/core/destructive_badge.dart"
-            },
-            {
-              "source": "registry/components/display/badge/_impl/core/outline_badge.dart"
-            },
-            {
-              "source": "registry/components/display/badge/_impl/core/secondary_badge.dart"
-            },
-            {
-              "source": "registry/components/display/badge/_impl/themes/base/badge_theme.dart"
-            },
-            {
-              "source": "registry/components/display/badge/_impl/core/badge_widgets.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/badge/badge.dart"
         }
       ],
       "shared": [
@@ -2839,7 +2672,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "avatar",
@@ -2902,33 +2736,7 @@
         },
         {
           "source": "registry/components/display/avatar/avatar.dart",
-          "destination": "{installPath}/components/display/avatar/avatar.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/avatar/_impl/core/_avatar_state.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/_avatar_widget.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/avatar_group_clipper.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/avatar.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/avatar_badge.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/avatar_group.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/themes/base/avatar_theme.dart"
-            },
-            {
-              "source": "registry/components/display/avatar/_impl/core/avatar_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/avatar/avatar.dart"
         }
       ],
       "shared": [
@@ -2942,7 +2750,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "basic",
@@ -2969,18 +2778,7 @@
         },
         {
           "source": "registry/components/layout/basic/basic.dart",
-          "destination": "{installPath}/components/layout/basic/basic.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/basic/_impl/core/label.dart"
-            },
-            {
-              "source": "registry/components/layout/basic/_impl/core/basic_layout.dart"
-            },
-            {
-              "source": "registry/components/layout/basic/_impl/core/basic_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/basic/basic.dart"
         }
       ],
       "shared": [
@@ -2994,7 +2792,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "chip",
@@ -3033,15 +2832,7 @@
         },
         {
           "source": "registry/components/display/chip/chip.dart",
-          "destination": "{installPath}/components/display/chip/chip.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/chip/_impl/core/chip_button.dart"
-            },
-            {
-              "source": "registry/components/display/chip/_impl/themes/base/chip_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/chip/chip.dart"
         }
       ],
       "shared": [
@@ -3056,7 +2847,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "color",
@@ -3114,42 +2906,7 @@
         },
         {
           "source": "registry/components/utility/color/color.dart",
-          "destination": "{installPath}/components/utility/color/color.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/color/_impl/core/color_derivative.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/color_gradient.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/hsl_color_derivative.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/hsv_color_derivative.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/linear_color_gradient.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/radial_color_gradient.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/core/sweep_color_gradient.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/utils/color_stop.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/utils/directional_gradient_angle.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/utils/gradient_angle.dart"
-            },
-            {
-              "source": "registry/components/utility/color/_impl/utils/gradient_angle_geometry.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/color/color.dart"
         }
       ],
       "shared": [],
@@ -3167,7 +2924,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "history",
@@ -3198,21 +2956,7 @@
         },
         {
           "source": "registry/components/form/history/history.dart",
-          "destination": "{installPath}/components/form/history/history.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/history/_impl/utils/_color_list_notifier.dart"
-            },
-            {
-              "source": "registry/components/form/history/_impl/core/color_history_storage.dart"
-            },
-            {
-              "source": "registry/components/form/history/_impl/core/recent_colors_scope.dart"
-            },
-            {
-              "source": "registry/components/form/history/_impl/state/recent_colors_scope_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/history/history.dart"
         }
       ],
       "shared": [
@@ -3232,7 +2976,8 @@
       "postInstall": [
         "Wrap color pickers with RecentColorsScope to share history."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "color_picker",
@@ -3259,18 +3004,7 @@
         },
         {
           "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider.dart",
-          "destination": "{installPath}/components/form/color_picker/_impl/core/hsl_color_slider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider_type.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/../state/_hsl_color_slider_state.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider_painter.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/color_picker/_impl/core/hsl_color_slider.dart"
         },
         {
           "source": "registry/components/form/color_picker/_impl/core/hsl_color_slider_painter.dart",
@@ -3282,18 +3016,7 @@
         },
         {
           "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider.dart",
-          "destination": "{installPath}/components/form/color_picker/_impl/core/hsv_color_slider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider_painter.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider_type.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/../state/_hsv_color_slider_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/color_picker/_impl/core/hsv_color_slider.dart"
         },
         {
           "source": "registry/components/form/color_picker/_impl/core/hsv_color_slider_painter.dart",
@@ -3345,27 +3068,7 @@
         },
         {
           "source": "registry/components/form/color_picker/color_picker.dart",
-          "destination": "{installPath}/components/form/color_picker/color_picker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/color_picker/_impl/core/color_picker_mode.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/state/_color_picker_state.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/_color_value_input.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/state/_color_value_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/core/color_controls.dart"
-            },
-            {
-              "source": "registry/components/form/color_picker/_impl/themes/base/color_picker_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/color_picker/color_picker.dart"
         }
       ],
       "shared": [
@@ -3393,7 +3096,8 @@
       "postInstall": [
         "Wrap ColorPicker widgets with RecentColorsScope or EyeDropperLayer for full history/sampling."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "color_input",
@@ -3445,21 +3149,7 @@
         },
         {
           "source": "registry/components/form/color_input/color_input.dart",
-          "destination": "{installPath}/components/form/color_input/color_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/color_input/_impl/themes/base/color_input_theme.dart"
-            },
-            {
-              "source": "registry/components/form/color_input/_impl/state/_color_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/color_input/_impl/utils/color_input_controller.dart"
-            },
-            {
-              "source": "registry/components/form/color_input/_impl/core/controlled_color_input.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/color_input/color_input.dart"
         }
       ],
       "shared": [
@@ -3488,7 +3178,8 @@
       "postInstall": [
         "Wrap your tree with RecentColorsScope so ColorInput shares history information with pickers."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "hsl",
@@ -3519,18 +3210,7 @@
         },
         {
           "source": "registry/components/form/hsl/hsl_color_slider.dart",
-          "destination": "{installPath}/components/form/hsl/hsl_color_slider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/hsl/_impl/core/hsl_color_slider_type.dart"
-            },
-            {
-              "source": "registry/components/form/hsl/_impl/state/_hsl_color_slider_state.dart"
-            },
-            {
-              "source": "registry/components/form/hsl/_impl/core/hsl_color_slider_painter.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/hsl/hsl_color_slider.dart"
         }
       ],
       "shared": [
@@ -3544,7 +3224,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "hsv",
@@ -3575,18 +3256,7 @@
         },
         {
           "source": "registry/components/form/hsv/hsv_color_slider.dart",
-          "destination": "{installPath}/components/form/hsv/hsv_color_slider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/hsv/_impl/core/hsv_color_slider_type.dart"
-            },
-            {
-              "source": "registry/components/form/hsv/_impl/state/_hsv_color_slider_state.dart"
-            },
-            {
-              "source": "registry/components/form/hsv/_impl/core/hsv_color_slider_painter.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/hsv/hsv_color_slider.dart"
         }
       ],
       "shared": [
@@ -3600,7 +3270,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "image",
@@ -3624,7 +3295,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "eye_dropper",
@@ -3675,33 +3347,7 @@
         },
         {
           "source": "registry/components/overlay/eye_dropper/eye_dropper.dart",
-          "destination": "{installPath}/components/overlay/eye_dropper/eye_dropper.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_layer.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/utils/_screenshot_result.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/utils/_screenshot_image.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/utils/_eye_dropper_completer.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/state/_eye_dropper_layer_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/utils/_color_preview_painter.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_layer_scope.dart"
-            },
-            {
-              "source": "registry/components/overlay/eye_dropper/_impl/core/eye_dropper_result.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/eye_dropper/eye_dropper.dart"
         }
       ],
       "shared": [
@@ -3719,7 +3365,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "chip_input",
@@ -3775,24 +3422,7 @@
         },
         {
           "source": "registry/components/form/chip_input/chip_input.dart",
-          "destination": "{installPath}/components/form/chip_input/chip_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/chip_input/_impl/themes/base/chip_input_theme.dart"
-            },
-            {
-              "source": "registry/components/form/chip_input/_impl/utils/_chip_provider.dart"
-            },
-            {
-              "source": "registry/components/form/chip_input/_impl/utils/chip_editing_controller.dart"
-            },
-            {
-              "source": "registry/components/form/chip_input/_impl/state/chip_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/chip_input/_impl/utils/chip_submit_intent.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/chip_input/chip_input.dart"
         }
       ],
       "shared": [
@@ -3814,7 +3444,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "select",
@@ -3933,72 +3564,7 @@
         },
         {
           "source": "registry/components/form/select/select.dart",
-          "destination": "{installPath}/components/form/select/select.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/select/_impl/themes/base/select_theme.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/state/_select_popup_state.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/controlled_multi_select.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/controlled_select.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/empty_select_item.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/multi_select.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/multi_select_chip.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/utils/multi_select_controller.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_base.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/utils/select_controller.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_data.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_group.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_item.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/utils/select_item_builder.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_item_button.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/utils/select_item_delegate.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_item_list.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_label.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_popup.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/core/select_popup_handle.dart"
-            },
-            {
-              "source": "registry/components/form/select/_impl/state/select_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/select/select.dart"
         }
       ],
       "shared": [
@@ -4033,7 +3599,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "checkbox",
@@ -4092,27 +3659,7 @@
         },
         {
           "source": "registry/components/form/checkbox/checkbox.dart",
-          "destination": "{installPath}/components/form/checkbox/checkbox.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/checkbox/_impl/themes/base/checkbox_theme.dart"
-            },
-            {
-              "source": "registry/components/form/checkbox/_impl/state/_checkbox_state.dart"
-            },
-            {
-              "source": "registry/components/form/checkbox/_impl/core/animated_check_painter.dart"
-            },
-            {
-              "source": "registry/components/form/checkbox/_impl/utils/checkbox_controller.dart"
-            },
-            {
-              "source": "registry/components/form/checkbox/_impl/state/checkbox_state.dart"
-            },
-            {
-              "source": "registry/components/form/checkbox/_impl/core/controlled_checkbox.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/checkbox/checkbox.dart"
         }
       ],
       "shared": [
@@ -4134,7 +3681,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "divider",
@@ -4185,24 +3733,7 @@
         },
         {
           "source": "registry/components/display/divider/divider.dart",
-          "destination": "{installPath}/components/display/divider/divider.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/divider/_impl/utils/divider_painter.dart"
-            },
-            {
-              "source": "registry/components/display/divider/_impl/utils/vertical_divider_painter.dart"
-            },
-            {
-              "source": "registry/components/display/divider/_impl/core/vertical_divider.dart"
-            },
-            {
-              "source": "registry/components/display/divider/_impl/themes/base/divider_theme.dart"
-            },
-            {
-              "source": "registry/components/display/divider/_impl/utils/divider_painters.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/divider/divider.dart"
         }
       ],
       "shared": [
@@ -4219,7 +3750,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "dot_indicator",
@@ -4270,21 +3802,7 @@
         },
         {
           "source": "registry/components/display/dot_indicator/dot_indicator.dart",
-          "destination": "{installPath}/components/display/dot_indicator/dot_indicator.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/dot_indicator/_impl/core/active_dot_item.dart"
-            },
-            {
-              "source": "registry/components/display/dot_indicator/_impl/core/inactive_dot_item.dart"
-            },
-            {
-              "source": "registry/components/display/dot_indicator/_impl/themes/base/dot_indicator_theme.dart"
-            },
-            {
-              "source": "registry/components/display/dot_indicator/_impl/core/dot_items.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/dot_indicator/dot_indicator.dart"
         }
       ],
       "shared": [
@@ -4299,7 +3817,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "circular_progress_indicator",
@@ -4334,12 +3853,7 @@
         },
         {
           "source": "registry/components/display/circular_progress_indicator/circular_progress_indicator.dart",
-          "destination": "{installPath}/components/display/circular_progress_indicator/circular_progress_indicator.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/circular_progress_indicator/_impl/themes/base/circular_progress_indicator_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/circular_progress_indicator/circular_progress_indicator.dart"
         }
       ],
       "shared": [
@@ -4355,7 +3869,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "linear_progress_indicator",
@@ -4402,18 +3917,7 @@
         },
         {
           "source": "registry/components/display/linear_progress_indicator/linear_progress_indicator.dart",
-          "destination": "{installPath}/components/display/linear_progress_indicator/linear_progress_indicator.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/linear_progress_indicator/_impl/utils/_linear_progress_indicator_painter.dart"
-            },
-            {
-              "source": "registry/components/display/linear_progress_indicator/_impl/utils/linear_progress_indicator_painter.dart"
-            },
-            {
-              "source": "registry/components/display/linear_progress_indicator/_impl/themes/base/linear_progress_indicator_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/linear_progress_indicator/linear_progress_indicator.dart"
         }
       ],
       "shared": [
@@ -4432,7 +3936,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "locale_utils",
@@ -4459,18 +3964,7 @@
         },
         {
           "source": "registry/components/utility/locale_utils/locale_utils.dart",
-          "destination": "{installPath}/components/utility/locale_utils/locale_utils.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/locale_utils/_impl/core/date_part.dart"
-            },
-            {
-              "source": "registry/components/utility/locale_utils/_impl/core/duration_part.dart"
-            },
-            {
-              "source": "registry/components/utility/locale_utils/_impl/core/time_part.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/locale_utils/locale_utils.dart"
         }
       ],
       "shared": [
@@ -4482,7 +3976,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "number_ticker",
@@ -4521,12 +4016,7 @@
         },
         {
           "source": "registry/components/display/number_ticker/number_ticker.dart",
-          "destination": "{installPath}/components/display/number_ticker/number_ticker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/number_ticker/_impl/themes/base/number_ticker_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/number_ticker/number_ticker.dart"
         }
       ],
       "shared": [
@@ -4543,7 +4033,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "spinner",
@@ -4582,12 +4073,7 @@
         },
         {
           "source": "registry/components/display/spinner/spinner.dart",
-          "destination": "{installPath}/components/display/spinner/spinner.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/spinner/_impl/themes/base/spinner_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/spinner/spinner.dart"
         }
       ],
       "shared": [
@@ -4600,7 +4086,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "progress",
@@ -4639,12 +4126,7 @@
         },
         {
           "source": "registry/components/display/progress/progress.dart",
-          "destination": "{installPath}/components/display/progress/progress.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/progress/_impl/themes/base/progress_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/progress/progress.dart"
         }
       ],
       "shared": [
@@ -4657,7 +4139,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "skeleton",
@@ -4692,12 +4175,7 @@
         },
         {
           "source": "registry/components/display/skeleton/skeleton.dart",
-          "destination": "{installPath}/components/display/skeleton/skeleton.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/skeleton/_impl/themes/base/skeleton_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/skeleton/skeleton.dart"
         }
       ],
       "shared": [
@@ -4715,7 +4193,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "command",
@@ -4806,7 +4285,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "control",
@@ -4840,24 +4320,7 @@
         },
         {
           "source": "registry/components/form/control/control.dart",
-          "destination": "{installPath}/components/form/control/control.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/control/_impl/state/_controlled_component_adapter_state.dart"
-            },
-            {
-              "source": "registry/components/form/control/_impl/utils/component_value_controller.dart"
-            },
-            {
-              "source": "registry/components/form/control/_impl/core/controlled_component.dart"
-            },
-            {
-              "source": "registry/components/form/control/_impl/utils/controlled_component_adapter.dart"
-            },
-            {
-              "source": "registry/components/form/control/_impl/core/controlled_component_data.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/control/control.dart"
         }
       ],
       "shared": [],
@@ -4867,7 +4330,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "debug",
@@ -4892,7 +4356,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "breadcrumb",
@@ -4918,18 +4383,7 @@
         },
         {
           "source": "registry/components/navigation/breadcrumb/breadcrumb.dart",
-          "destination": "{installPath}/components/navigation/breadcrumb/breadcrumb.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/breadcrumb/_impl/core/breadcrumb_2.dart"
-            },
-            {
-              "source": "registry/components/navigation/breadcrumb/_impl/core/_slash_separator.dart"
-            },
-            {
-              "source": "registry/components/navigation/breadcrumb/_impl/core/_arrow_separator.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/breadcrumb/breadcrumb.dart"
         }
       ],
       "shared": [
@@ -4944,7 +4398,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "code_snippet",
@@ -4983,15 +4438,7 @@
         },
         {
           "source": "registry/components/display/code_snippet/code_snippet.dart",
-          "destination": "{installPath}/components/display/code_snippet/code_snippet.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/code_snippet/_impl/state/_code_snippet_state.dart"
-            },
-            {
-              "source": "registry/components/display/code_snippet/_impl/themes/base/code_snippet_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/code_snippet/code_snippet.dart"
         }
       ],
       "shared": [
@@ -5007,7 +4454,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "carousel",
@@ -5090,45 +4538,7 @@
         },
         {
           "source": "registry/components/display/carousel/carousel.dart",
-          "destination": "{installPath}/components/display/carousel/carousel.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/carousel/_impl/state/_carousel_state.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/_placed_carousel_item.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_alignment.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_fixed_constraint.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_fractional_constraint.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_transition.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/fading_carousel_transition.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/sliding_carousel_transition.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/state/carousel_controller.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_dot_indicator.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/core/carousel_layout.dart"
-            },
-            {
-              "source": "registry/components/display/carousel/_impl/themes/base/carousel_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/carousel/carousel.dart"
         }
       ],
       "shared": [
@@ -5145,7 +4555,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "calendar",
@@ -5265,72 +4676,7 @@
         },
         {
           "source": "registry/components/display/calendar/calendar.dart",
-          "destination": "{installPath}/components/display/calendar/calendar.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/calendar/_impl/core/_calendar_state.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/_date_picker_dialog_state.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_grid_item.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/year_calendar.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/themes/variants/calendar_selection_mode.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/themes/variants/calendar_view_type.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/themes/variants/date_state.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/calendar_value_lookup.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/multi_calendar_value.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/range_calendar_value.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/single_calendar_value.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/themes/base/calendar_theme.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/date_picker_dialog.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/calendar_value.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/utils/calendar_view.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_widget.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_month_year.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_item.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_item_type.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_grid.dart"
-            },
-            {
-              "source": "registry/components/display/calendar/_impl/core/calendar_grid_data.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/calendar/calendar.dart"
         }
       ],
       "shared": [
@@ -5351,7 +4697,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "date_picker",
@@ -5407,24 +4754,7 @@
         },
         {
           "source": "registry/components/form/date_picker/date_picker.dart",
-          "destination": "{installPath}/components/form/date_picker/date_picker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/date_picker/_impl/themes/base/date_picker_theme.dart"
-            },
-            {
-              "source": "registry/components/form/date_picker/_impl/core/controlled_date_picker.dart"
-            },
-            {
-              "source": "registry/components/form/date_picker/_impl/utils/date_picker_controller.dart"
-            },
-            {
-              "source": "registry/components/form/date_picker/_impl/core/date_range_picker.dart"
-            },
-            {
-              "source": "registry/components/form/date_picker/_impl/core/date_time_range.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/date_picker/date_picker.dart"
         }
       ],
       "shared": [
@@ -5443,7 +4773,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "file_input",
@@ -5463,12 +4794,7 @@
         },
         {
           "source": "registry/components/form/file_input/file_input.dart",
-          "destination": "{installPath}/components/form/file_input/file_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/file_input/_impl/utils/file_icon_provider_data.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/file_input/file_input.dart"
         }
       ],
       "shared": [],
@@ -5482,7 +4808,8 @@
       "postInstall": [
         "Wrap file list widgets with FileIconProvider so FileIconProvider.buildIcon can resolve extensions."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "file_picker",
@@ -5597,36 +4924,7 @@
         },
         {
           "source": "registry/components/form/file_picker/file_picker.dart",
-          "destination": "{installPath}/components/form/file_picker/file_picker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/file_picker/_impl/core/file_upload_options.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/core/file_upload_widget.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/core/file_item.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/core/file_upload_items_view.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/state/file_upload_state.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/state/file_upload_state_compact.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/state/file_upload_state_uploads.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/state/file_upload_state_surfaces.dart"
-            },
-            {
-              "source": "registry/components/form/file_picker/_impl/utils/file_upload_formatters.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/file_picker/file_picker.dart"
         }
       ],
       "shared": [
@@ -5651,7 +4949,8 @@
       "assets": [],
       "postInstall": [],
       "platform": {},
-      "version": "1.1.0"
+      "version": "1.1.0",
+      "tier": "pattern"
     },
     {
       "id": "keyboard_shortcut",
@@ -5706,27 +5005,7 @@
         },
         {
           "source": "registry/components/display/keyboard_shortcut/keyboard_shortcut.dart",
-          "destination": "{installPath}/components/display/keyboard_shortcut/keyboard_shortcut.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/core/keyboard_key_display.dart"
-            },
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/utils/_keyboard_shortcut_display_mapper_state.dart"
-            },
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_display_mapper.dart"
-            },
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/themes/base/keyboard_shortcut_theme.dart"
-            },
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_mapper.dart"
-            },
-            {
-              "source": "registry/components/display/keyboard_shortcut/_impl/core/keyboard_display.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/keyboard_shortcut/keyboard_shortcut.dart"
         }
       ],
       "shared": [
@@ -5745,7 +5024,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "fade_scroll",
@@ -5772,15 +5052,7 @@
         },
         {
           "source": "registry/components/layout/fade_scroll/fade_scroll.dart",
-          "destination": "{installPath}/components/layout/fade_scroll/fade_scroll.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/fade_scroll/_impl/core/_scale_gradient.dart"
-            },
-            {
-              "source": "registry/components/layout/fade_scroll/_impl/core/fade_scroll_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/fade_scroll/fade_scroll.dart"
         }
       ],
       "shared": [
@@ -5793,7 +5065,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "text_field",
@@ -6080,198 +5353,7 @@
         },
         {
           "source": "registry/components/form/text_field/text_field.dart",
-          "destination": "{installPath}/components/form/text_field/text_field.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/text_field/_impl/core/_always_visible_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_attached_input_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_auto_complete_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_auto_complete_item.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_auto_complete_item_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_auto_complete_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_focused_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_has_selection_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_hovered_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_clear_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_copy_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_hint_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_leading_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_password_toggle_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_paste_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_revalidate_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_spinner_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/_input_trailing_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_logic_and_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_logic_or_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_negate_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_never_visible_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_text_empty_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/_text_not_empty_input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/accept_suggestion_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/auto_complete.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/auto_complete_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/auto_complete_mode.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_auto_complete_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_clear_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_copy_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/input_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_hint_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_leading_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_password_toggle_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_paste_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_revalidate_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/input_show_hint_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_spinner_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_trailing_feature.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/navigate_suggestion_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/password_peek_mode.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_clear_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_replace_current_word_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_select_all_and_copy_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_set_selection_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_set_text_intent.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/themes/base/text_field_theme.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_feature_visibility.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_feature_base.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/text_field_gestures.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/text_input_mixin.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/text_input_stateful_widget.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/text_input_stateful_widget_cont.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/text_field_widget.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/state/text_field_state_part1.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/utils/text_field_intents.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_features_basic.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_features_autocomplete.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_features_spinner.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/input_features_copy_paste.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/themes/variants/auto_complete_theme.dart"
-            },
-            {
-              "source": "registry/components/form/text_field/_impl/core/auto_complete_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/text_field/text_field.dart"
         }
       ],
       "shared": [
@@ -6298,7 +5380,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "input",
@@ -6417,87 +5500,7 @@
         },
         {
           "source": "registry/components/form/input/input.dart",
-          "destination": "{installPath}/components/form/input/input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/input/_impl/state/_auto_complete_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_clear_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_copy_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_hint_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_above_below_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_leading_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_password_toggle_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_paste_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_revalidate_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_spinner_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_stepper_button_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/state/_input_trailing_feature_state.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_auto_complete_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_above_below_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_clear_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_copy_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_hint_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_leading_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_password_toggle_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_paste_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_revalidate_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/utils/input_show_hint_intent.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_spinner_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_stepper_button_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/input_trailing_feature.dart"
-            },
-            {
-              "source": "registry/components/form/input/_impl/core/password_peek_mode.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/input/input.dart"
         }
       ],
       "shared": [
@@ -6519,7 +5522,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "input_otp",
@@ -6598,42 +5602,7 @@
         },
         {
           "source": "registry/components/form/input_otp/input_otp.dart",
-          "destination": "{installPath}/components/form/input_otp/input_otp.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/input_otp/_impl/themes/base/input_otp_theme.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/_input_otp_child.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/_input_otp_spacing.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/state/_input_otp_state.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/_otp_character_input.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/state/_otp_character_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/character_input_otp_child.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/input_otp_child.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/input_otp_child_data.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/otp_separator.dart"
-            },
-            {
-              "source": "registry/components/form/input_otp/_impl/core/widget_input_otp_child.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/input_otp/input_otp.dart"
         }
       ],
       "shared": [
@@ -6654,7 +5623,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "form_field",
@@ -6705,33 +5675,7 @@
         },
         {
           "source": "registry/components/form/form_field/form_field.dart",
-          "destination": "{installPath}/components/form/form_field/form_field.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/form_field/_impl/core/_object_form_field_dialog.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/state/_object_form_field_dialog_state.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/core/_object_form_field_popup.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/state/_object_form_field_popup_state.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/core/object_form_field.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/core/object_form_field_dialog_result.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/state/object_form_field_state.dart"
-            },
-            {
-              "source": "registry/components/form/form_field/_impl/core/object_form_handler.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/form_field/form_field.dart"
         }
       ],
       "shared": [
@@ -6753,7 +5697,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "formatted_input",
@@ -6856,63 +5801,7 @@
         },
         {
           "source": "registry/components/form/formatted_input/formatted_input.dart",
-          "destination": "{installPath}/components/form/formatted_input/formatted_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/formatted_input/_impl/themes/base/formatted_input_theme.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/utils/_editable_part_controller.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/_editable_part_widget.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/state/_editable_part_widget_state.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/state/_formatted_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/utils/_formatted_object_controller.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/state/_formatted_object_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/_static_part_widget.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/state/_static_part_widget_state.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/editable_part.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/utils/formatted_input_controller.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/formatted_input_data.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/formatted_object_input.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/formatted_value.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/formatted_value_part.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/input_part.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/static_part.dart"
-            },
-            {
-              "source": "registry/components/form/formatted_input/_impl/core/widget_part.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/formatted_input/formatted_input.dart"
         }
       ],
       "shared": [
@@ -6930,7 +5819,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "form",
@@ -7137,153 +6027,7 @@
         },
         {
           "source": "registry/components/form/form/form.dart",
-          "destination": "{installPath}/components/form/form/form.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/form/_impl/core/validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/_form_entry_cached_value.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/_form_entry_handle_interceptor.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/state/_form_entry_interceptor_state.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/_validator_result_stash.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/compare_to.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/compare_type.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/compare_with.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/composite_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/conditional_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/email_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/utils/form_controller.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_entry.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/utils/form_entry_error_builder.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_entry_interceptor.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/state/form_entry_state.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/utils/form_error_builder.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_field.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_field_handle.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_inline.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_key.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/utils/form_pending_builder.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/state/form_state.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_table_layout.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_validation_mode.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_validity_notification.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/state/form_value_state.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/form_value_supplier.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/ignore_form.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/invalid_result.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/length_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/max_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/min_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/non_null_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/not_empty_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/not_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/or_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/range_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/regex_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/replace_result.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/safe_password_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/submission_result.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/submit_button.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/url_validator.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/validation_mode.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/validation_result.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/utils/validator_builder.dart"
-            },
-            {
-              "source": "registry/components/form/form/_impl/core/waiting_result.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/form/form.dart"
         }
       ],
       "shared": [
@@ -7304,7 +6048,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "object_input",
@@ -7352,30 +6097,7 @@
         },
         {
           "source": "registry/components/form/object_input/object_input.dart",
-          "destination": "{installPath}/components/form/object_input/object_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/object_input/_impl/state/_date_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/state/_duration_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/state/_time_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/core/duration_input.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/core/nullable_date.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/core/nullable_time_of_day.dart"
-            },
-            {
-              "source": "registry/components/form/object_input/_impl/core/time_input.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/object_input/object_input.dart"
         }
       ],
       "shared": [
@@ -7397,7 +6119,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "outlined_container",
@@ -7464,36 +6187,7 @@
         },
         {
           "source": "registry/components/layout/outlined_container/outlined_container.dart",
-          "destination": "{installPath}/components/layout/outlined_container/outlined_container.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/outlined_container/_impl/themes/base/outlined_container_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_painters.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_container_properties.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_line_properties.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_container.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_line.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/state/_outlined_container_state.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/outlined_container_2.dart"
-            },
-            {
-              "source": "registry/components/layout/outlined_container/_impl/core/dashed_painter.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/outlined_container/outlined_container.dart"
         }
       ],
       "shared": [
@@ -7510,7 +6204,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "phone_input",
@@ -7553,18 +6248,7 @@
         },
         {
           "source": "registry/components/form/phone_input/phone_input.dart",
-          "destination": "{installPath}/components/form/phone_input/phone_input.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/phone_input/_impl/core/phone_number.dart"
-            },
-            {
-              "source": "registry/components/form/phone_input/_impl/state/_phone_input_state.dart"
-            },
-            {
-              "source": "registry/components/form/phone_input/_impl/themes/base/phone_input_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/phone_input/phone_input.dart"
         }
       ],
       "shared": [
@@ -7588,7 +6272,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "radio_group",
@@ -7675,48 +6360,7 @@
         },
         {
           "source": "registry/components/form/radio_group/radio_group.dart",
-          "destination": "{installPath}/components/form/radio_group/radio_group.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/radio_group/_impl/themes/variants/radio_theme.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/state/_radio_card_state.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/state/_radio_item_state.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/core/controlled_radio_group.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/utils/next_item_intent.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/utils/previous_item_intent.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/core/radio.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/core/radio_card.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/themes/variants/radio_card_theme.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/utils/radio_group_controller.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/core/radio_group_data.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/state/radio_group_state.dart"
-            },
-            {
-              "source": "registry/components/form/radio_group/_impl/core/radio_item.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/radio_group/radio_group.dart"
         }
       ],
       "shared": [
@@ -7738,7 +6382,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "slider",
@@ -7839,7 +6484,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.1.0"
+      "version": "1.1.0",
+      "tier": "component"
     },
     {
       "id": "multiple_choice",
@@ -7910,36 +6556,7 @@
         },
         {
           "source": "registry/components/form/multiple_choice/multiple_choice.dart",
-          "destination": "{installPath}/components/form/multiple_choice/multiple_choice.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/multiple_choice/_impl/themes/base/multiple_choice_theme.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/state/_multiple_answer_state.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/state/_multiple_choice_state.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/core/choice.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/core/controlled_multiple_answer.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/core/controlled_multiple_choice.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/core/multiple_answer.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/utils/multiple_answer_controller.dart"
-            },
-            {
-              "source": "registry/components/form/multiple_choice/_impl/utils/multiple_choice_controller.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/multiple_choice/multiple_choice.dart"
         }
       ],
       "shared": [
@@ -7955,7 +6572,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "item_picker",
@@ -8018,42 +6636,7 @@
         },
         {
           "source": "registry/components/form/item_picker/item_picker.dart",
-          "destination": "{installPath}/components/form/item_picker/item_picker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/item_picker/_impl/core/_internal_item_picker.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/state/_item_picker_dialog_state.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/grid_item_picker_layout.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/utils/item_builder.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/utils/item_child_delegate.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/item_list.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/item_picker_data.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/item_picker_dialog.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/item_picker_layout.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/item_picker_option.dart"
-            },
-            {
-              "source": "registry/components/form/item_picker/_impl/core/list_item_picker_layout.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/item_picker/item_picker.dart"
         }
       ],
       "shared": [
@@ -8075,7 +6658,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "formatter",
@@ -8118,30 +6702,7 @@
         },
         {
           "source": "registry/components/form/formatter/formatter.dart",
-          "destination": "{installPath}/components/form/formatter/formatter.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_double_only_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_hex_text_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_integer_only_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_math_expression_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_time_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_to_lower_case_text_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/formatter/_impl/utils/_to_upper_case_text_formatter.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/formatter/formatter.dart"
         }
       ],
       "shared": [
@@ -8158,7 +6719,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "switch",
@@ -8213,24 +6775,7 @@
         },
         {
           "source": "registry/components/form/switch/switch.dart",
-          "destination": "{installPath}/components/form/switch/switch.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/switch/_impl/state/_switch_state.dart"
-            },
-            {
-              "source": "registry/components/form/switch/_impl/themes/base/switch_theme.dart"
-            },
-            {
-              "source": "registry/components/form/switch/_impl/utils/switch_controller.dart"
-            },
-            {
-              "source": "registry/components/form/switch/_impl/core/controlled_switch.dart"
-            },
-            {
-              "source": "registry/components/form/switch/_impl/core/switch_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/switch/switch.dart"
         }
       ],
       "shared": [
@@ -8247,7 +6792,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "text_area",
@@ -8270,15 +6816,7 @@
         },
         {
           "source": "registry/components/form/text_area/text_area.dart",
-          "destination": "{installPath}/components/form/text_area/text_area.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/text_area/_impl/state/text_area_state.dart"
-            },
-            {
-              "source": "registry/components/form/text_area/_impl/core/text_area_handle.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/text_area/text_area.dart"
         }
       ],
       "shared": [
@@ -8292,7 +6830,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "text",
@@ -8326,24 +6865,7 @@
         },
         {
           "source": "registry/components/display/text/text.dart",
-          "destination": "{installPath}/components/display/text/text.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/text/_impl/core/_rich_text_then_widget.dart"
-            },
-            {
-              "source": "registry/components/display/text/_impl/core/_selectable_text_then_widget.dart"
-            },
-            {
-              "source": "registry/components/display/text/_impl/core/_text_then_widget.dart"
-            },
-            {
-              "source": "registry/components/display/text/_impl/core/unordered_list_data.dart"
-            },
-            {
-              "source": "registry/components/display/text/_impl/core/wrapped_text.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/text/text.dart"
         }
       ],
       "shared": [
@@ -8360,7 +6882,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "selectable",
@@ -8378,12 +6901,7 @@
         },
         {
           "source": "registry/components/display/selectable/selectable.dart",
-          "destination": "{installPath}/components/display/selectable/selectable.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/selectable/_impl/core/selectable_text.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/selectable/selectable.dart"
         }
       ],
       "shared": [
@@ -8395,7 +6913,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "scrollbar",
@@ -8454,7 +6973,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "scrollable_client",
@@ -8484,21 +7004,7 @@
         },
         {
           "source": "registry/components/layout/scrollable_client/scrollable_client.dart",
-          "destination": "{installPath}/components/layout/scrollable_client/scrollable_client.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/scrollable_client/_impl/core/_scrollable_client_child_vicinity.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable_client/_impl/core/scrollable_client_viewport.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable_client/_impl/core/scrollable_client_2.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable_client/_impl/core/render_scrollable_client_viewport.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/scrollable_client/scrollable_client.dart"
         }
       ],
       "shared": [
@@ -8510,7 +7016,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "scrollview",
@@ -8546,7 +7053,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "triple_dots",
@@ -8570,7 +7078,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "icon",
@@ -8596,7 +7105,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "alert_dialog",
@@ -8619,15 +7129,7 @@
         },
         {
           "source": "registry/components/overlay/alert_dialog/alert_dialog.dart",
-          "destination": "{installPath}/components/overlay/alert_dialog/alert_dialog.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/alert_dialog/_impl/core/alert_dialog_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/alert_dialog/_impl/state/_alert_dialog_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/alert_dialog/alert_dialog.dart"
         }
       ],
       "shared": [
@@ -8642,7 +7144,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "dialog",
@@ -8721,45 +7224,7 @@
         },
         {
           "source": "registry/components/overlay/dialog/dialog.dart",
-          "destination": "{installPath}/components/overlay/dialog/dialog.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/dialog/_impl/themes/base/modal_backdrop_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/core/modal_backdrop.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/core/modal_container.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/core/surface_barrier_painter.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/core/dialog_route.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/utils/dialog_transitions.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/utils/dialog_api.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/utils/dialog_overlay_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/utils/dialog_overlay_full_screen_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/utils/dialog_overlay_completer.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/core/_dialog_overlay_wrapper.dart"
-            },
-            {
-              "source": "registry/components/overlay/dialog/_impl/state/_dialog_overlay_wrapper_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/dialog/dialog.dart"
         }
       ],
       "shared": [
@@ -8780,7 +7245,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "popover",
@@ -8813,7 +7279,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "overlay",
@@ -8845,7 +7312,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "popup",
@@ -8884,15 +7352,7 @@
         },
         {
           "source": "registry/components/overlay/popup/popup.dart",
-          "destination": "{installPath}/components/overlay/popup/popup.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/popup/_impl/themes/base/menu_popup_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/popup/_impl/core/menu_popup_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/popup/popup.dart"
         }
       ],
       "shared": [
@@ -8911,7 +7371,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tooltip",
@@ -8973,33 +7434,7 @@
         },
         {
           "source": "registry/components/overlay/tooltip/tooltip.dart",
-          "destination": "{installPath}/components/overlay/tooltip/tooltip.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/tooltip/_impl/themes/base/tooltip_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/core/tooltip_container.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/core/tooltip_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/utils/tooltip_overlay_handlers.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/core/instant_tooltip.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/state/_instant_tooltip_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/state/_tooltip_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/tooltip/_impl/utils/fixed_tooltip_overlay_handler.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/tooltip/tooltip.dart"
         }
       ],
       "shared": [
@@ -9022,7 +7457,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "refresh_trigger",
@@ -9085,33 +7521,7 @@
         },
         {
           "source": "registry/components/overlay/refresh_trigger/refresh_trigger.dart",
-          "destination": "{installPath}/components/overlay/refresh_trigger/refresh_trigger.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/themes/base/refresh_trigger_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/core/refresh_trigger_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/core/default_refresh_indicator.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/state/_default_refresh_indicator_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/utils/_refresh_trigger_tween.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/state/refresh_trigger_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/core/refresh_trigger_stage.dart"
-            },
-            {
-              "source": "registry/components/overlay/refresh_trigger/_impl/utils/refresh_trigger_physics.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/refresh_trigger/refresh_trigger.dart"
         }
       ],
       "shared": [
@@ -9133,7 +7543,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tracker",
@@ -9183,24 +7594,7 @@
         },
         {
           "source": "registry/components/display/tracker/tracker.dart",
-          "destination": "{installPath}/components/display/tracker/tracker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/tracker/_impl/utils/_simple_tracker_level.dart"
-            },
-            {
-              "source": "registry/components/display/tracker/_impl/utils/tracker_data.dart"
-            },
-            {
-              "source": "registry/components/display/tracker/_impl/utils/tracker_level.dart"
-            },
-            {
-              "source": "registry/components/display/tracker/_impl/themes/base/tracker_theme.dart"
-            },
-            {
-              "source": "registry/components/display/tracker/_impl/core/tracker_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/tracker/tracker.dart"
         }
       ],
       "shared": [
@@ -9216,7 +7610,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "hover",
@@ -9284,7 +7679,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "hover_card",
@@ -9327,18 +7723,7 @@
         },
         {
           "source": "registry/components/overlay/hover_card/hover_card.dart",
-          "destination": "{installPath}/components/overlay/hover_card/hover_card.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/hover_card/_impl/themes/base/hover_card_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/hover_card/_impl/core/hover_card_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/hover_card/_impl/state/_hover_card_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/hover_card/hover_card.dart"
         }
       ],
       "shared": [
@@ -9354,7 +7739,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "toast",
@@ -9404,21 +7790,7 @@
         },
         {
           "source": "registry/components/overlay/toast/toast.dart",
-          "destination": "{installPath}/components/overlay/toast/toast.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/toast/_impl/themes/base/toast_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/toast/_impl/core/toast_entry.dart"
-            },
-            {
-              "source": "registry/components/overlay/toast/_impl/utils/toast_controller.dart"
-            },
-            {
-              "source": "registry/components/overlay/toast/_impl/state/_toast_entry_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/toast/toast.dart"
         }
       ],
       "shared": [
@@ -9431,7 +7803,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "drawer",
@@ -9562,81 +7935,7 @@
         },
         {
           "source": "registry/components/overlay/drawer/drawer.dart",
-          "destination": "{installPath}/components/overlay/drawer/drawer.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/drawer_types.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/themes/base/drawer_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/drawer_api.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_wrapper.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/state/drawer_wrapper_state_part1.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_close_sheet.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/sheet_wrapper.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/overlay_position.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/backdrop_transform_data.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_overlay_wrapper.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/drawer_raw_api.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/mounted_overlay_entry_data.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_close_drawer.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_layer_data.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_overlay.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_entry_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/state/drawer_entry_widget_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/drawer_typedefs.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/core/drawer_overlay_entry.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/drawer_overlay_completer.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/utils/sheet_overlay_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/state/_drawer_overlay_wrapper_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/state/_sheet_wrapper_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/drawer/_impl/state/drawer_overlay_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/drawer/drawer.dart"
         }
       ],
       "shared": [
@@ -9660,7 +7959,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "menu",
@@ -9799,87 +8099,7 @@
         },
         {
           "source": "registry/components/overlay/menu/menu.dart",
-          "destination": "{installPath}/components/overlay/menu/menu.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/menu/_impl/styles/menu_text_styles.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/themes/base/menu_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_shortcut.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_item.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_radio_group.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_radio.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_divider.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_gap.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_button.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_label.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_checkbox.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/state/menu_button_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_group_data.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_data.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_group.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/state/menu_group_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menubar.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/utils/menu_intents.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/utils/menu_overlay_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/utils/menu_directional_intent.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/themes/variants/menu_popup_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/core/menu_popup.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/state/menubar_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/themes/variants/menubar_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/utils/next_menu_focus_intent.dart"
-            },
-            {
-              "source": "registry/components/overlay/menu/_impl/utils/open_sub_menu_intent.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/menu/menu.dart"
         }
       ],
       "shared": [
@@ -9905,7 +8125,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "menubar",
@@ -9948,18 +8169,7 @@
         },
         {
           "source": "registry/components/overlay/menubar/menubar.dart",
-          "destination": "{installPath}/components/overlay/menubar/menubar.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/menubar/_impl/themes/base/menubar_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/menubar/_impl/core/menubar_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/menubar/_impl/state/menubar_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/menubar/menubar.dart"
         }
       ],
       "shared": [
@@ -9978,7 +8188,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "media_query",
@@ -9996,12 +8207,7 @@
         },
         {
           "source": "registry/components/layout/media_query/media_query.dart",
-          "destination": "{installPath}/components/layout/media_query/media_query.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/media_query/_impl/core/media_query_visibility.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/media_query/media_query.dart"
         }
       ],
       "shared": [
@@ -10014,7 +8220,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "context_menu",
@@ -10077,30 +8284,7 @@
         },
         {
           "source": "registry/components/overlay/context_menu/context_menu.dart",
-          "destination": "{installPath}/components/overlay/context_menu/context_menu.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/context_menu/_impl/themes/base/context_menu_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/core/desktop_editable_text_context_menu.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/core/mobile_editable_text_context_menu.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/core/context_menu_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/state/_context_menu_state.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/core/context_menu_popup.dart"
-            },
-            {
-              "source": "registry/components/overlay/context_menu/_impl/core/_context_menu_scope.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/context_menu/context_menu.dart"
         }
       ],
       "shared": [
@@ -10123,7 +8307,8 @@
       "postInstall": [
         "Wrap editable text fields with `ContextMenu` to provide native-like action menus."
       ],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "dropdown_menu",
@@ -10170,21 +8355,7 @@
         },
         {
           "source": "registry/components/overlay/dropdown_menu/dropdown_menu.dart",
-          "destination": "{installPath}/components/overlay/dropdown_menu/dropdown_menu.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/dropdown_menu/_impl/utils/dropdown_menu_api.dart"
-            },
-            {
-              "source": "registry/components/overlay/dropdown_menu/_impl/themes/base/dropdown_menu_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/dropdown_menu/_impl/core/dropdown_menu_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/dropdown_menu/_impl/state/_dropdown_menu_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/dropdown_menu/dropdown_menu.dart"
         }
       ],
       "shared": [
@@ -10202,7 +8373,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "sortable",
@@ -10281,57 +8453,7 @@
         },
         {
           "source": "registry/components/layout/sortable/sortable.dart",
-          "destination": "{installPath}/components/layout/sortable/sortable.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_widget.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_dragging_session.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_drop_location.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_drop_fallback.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/state/sortable_drop_fallback_state.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_dropping_target.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_drop_transform.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/state/sortable_state_part1.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_drag_handle.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/state/sortable_drag_handle_state.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_data.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_layer.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/sortable_pending_drop_transform.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/state/sortable_layer_state.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/core/scrollable_sortable_layer.dart"
-            },
-            {
-              "source": "registry/components/layout/sortable/_impl/state/scrollable_sortable_layer_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/sortable/sortable.dart"
         }
       ],
       "shared": [
@@ -10345,7 +8467,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "navigation_bar",
@@ -10480,84 +8603,7 @@
         },
         {
           "source": "registry/components/navigation/navigation_bar/navigation_bar.dart",
-          "destination": "{installPath}/components/navigation/navigation_bar/navigation_bar.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_label_background_painter.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/utils/_navigation_label_delegate.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_child_overflow_handle.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/themes/base/navigation_bar_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_label.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_padding.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/_navigation_labeled.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_button_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_bar_item.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/abstract_navigation_button.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_abstract_navigation_button_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_button.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_item_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_item.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_divider.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_gap.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_control_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_child_control_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_sidebar_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_sidebar.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_rail_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_rail.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/state/_navigation_bar_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_bar/_impl/core/navigation_bar_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/navigation_bar/navigation_bar.dart"
         }
       ],
       "shared": [
@@ -10580,7 +8626,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "navigation_menu",
@@ -10619,27 +8666,7 @@
         },
         {
           "source": "registry/components/navigation/navigation_menu/navigation_menu.dart",
-          "destination": "{installPath}/components/navigation/navigation_menu/navigation_menu.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/state/navigation_menu_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_2.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_content_list.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_content.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/state/navigation_menu_item_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/navigation_menu/_impl/core/navigation_menu_item.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/navigation_menu/navigation_menu.dart"
         }
       ],
       "shared": [
@@ -10660,7 +8687,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "pagination",
@@ -10682,12 +8710,7 @@
         },
         {
           "source": "registry/components/navigation/pagination/pagination.dart",
-          "destination": "{installPath}/components/navigation/pagination/pagination.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/pagination/_impl/core/pagination_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/pagination/pagination.dart"
         }
       ],
       "shared": [
@@ -10705,7 +8728,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tabs",
@@ -10824,72 +8848,7 @@
         },
         {
           "source": "registry/components/navigation/tabs/tabs.dart",
-          "destination": "{installPath}/components/navigation/tabs/tabs.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/tabs/_impl/styles/tabs_text_styles.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/themes/base/tabs_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tabs_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/themes/variants/tab_list_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_list.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/themes/variants/tab_container_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_container_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_child_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_item.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_container.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/themes/variants/tab_pane_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_pane_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_pane_typedefs.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_pane_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_ghost_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/state/tab_pane_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/tab_item_painter.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/clip_rect_with_adjustment.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/keyed_tab_child_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tabs/_impl/core/keyed_tab_item.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/tabs/tabs.dart"
         }
       ],
       "shared": [
@@ -10910,7 +8869,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "tab_container",
@@ -10953,27 +8913,7 @@
         },
         {
           "source": "registry/components/navigation/tab_container/tab_container.dart",
-          "destination": "{installPath}/components/navigation/tab_container/tab_container.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/tab_container_2.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/tab_item.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/tab_child_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/tab_container_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/keyed_tab_child_widget.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_container/_impl/core/keyed_tab_item.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/tab_container/tab_container.dart"
         }
       ],
       "shared": [
@@ -10987,7 +8927,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tab_list",
@@ -11002,15 +8943,7 @@
       "files": [
         {
           "source": "registry/components/navigation/tab_list/_impl/core/tab_list.dart",
-          "destination": "{installPath}/components/navigation/tab_list/_impl/core/tab_list.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/tab_list/_impl/core/../styles/_tab_list_text_style.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_list/_impl/core/tab_list_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/tab_list/_impl/core/tab_list.dart"
         },
         {
           "source": "registry/components/navigation/tab_list/_impl/core/tab_list_2.dart",
@@ -11038,7 +8971,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tab_pane",
@@ -11081,27 +9015,7 @@
         },
         {
           "source": "registry/components/navigation/tab_pane/tab_pane.dart",
-          "destination": "{installPath}/components/navigation/tab_pane/tab_pane.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/core/_clip_rect_with_adjustment.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/core/_tab_item_painter.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/state/tab_pane_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/core/_tab_ghost_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/core/tab_pane_2.dart"
-            },
-            {
-              "source": "registry/components/navigation/tab_pane/_impl/core/tab_pane_data.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/tab_pane/tab_pane.dart"
         }
       ],
       "shared": [
@@ -11122,7 +9036,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "switcher",
@@ -11157,21 +9072,7 @@
         },
         {
           "source": "registry/components/navigation/switcher/switcher.dart",
-          "destination": "{installPath}/components/navigation/switcher/switcher.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/switcher/_impl/core/_switcher_transition.dart"
-            },
-            {
-              "source": "registry/components/navigation/switcher/_impl/core/_switcher_parent_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/switcher/_impl/state/_switcher_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/switcher/_impl/core/_render_switcher_transition.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/switcher/switcher.dart"
         }
       ],
       "shared": [
@@ -11183,7 +9084,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "table",
@@ -11346,108 +9248,7 @@
         },
         {
           "source": "registry/components/layout/table/table.dart",
-          "destination": "{installPath}/components/layout/table/table.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/table/_impl/themes/base/table_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/constrained_table_size.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/themes/variants/table_cell_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/themes/variants/resizable_table_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/hovered_line.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/utils/resizable_table_controller.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_cell_resize_mode.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/resizable_table.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/state/resizable_table_state.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/hover_callback.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/resizable_table_data.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/state/cell_resizer_state_part1.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_cell_data.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/hovered_cell.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_cell.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/themes/variants/table_cell_theme_builder.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_row.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_footer.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_header.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/flattened_table_cell.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_widget.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/state/table_state.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_ref.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/frozen_table_data.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/raw_cell.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/cell_predicate.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/raw_table_layout.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_size_supplier.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/render_table_layout_part1.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/intrinsic_computer.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/table_layout_result.dart"
-            },
-            {
-              "source": "registry/components/layout/table/_impl/core/cell_resizer.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/table/table.dart"
         }
       ],
       "shared": [
@@ -11463,7 +9264,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "overflow_marquee",
@@ -11498,24 +9300,7 @@
         },
         {
           "source": "registry/components/layout/overflow_marquee/overflow_marquee.dart",
-          "destination": "{installPath}/components/layout/overflow_marquee/overflow_marquee.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/overflow_marquee/_impl/core/_overflow_marquee_layout.dart"
-            },
-            {
-              "source": "registry/components/layout/overflow_marquee/_impl/core/_overflow_marquee_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/overflow_marquee/_impl/state/_overflow_marquee_state.dart"
-            },
-            {
-              "source": "registry/components/layout/overflow_marquee/_impl/core/overflow_marquee_2.dart"
-            },
-            {
-              "source": "registry/components/layout/overflow_marquee/_impl/core/_render_overflow_marquee_layout.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/overflow_marquee/overflow_marquee.dart"
         }
       ],
       "shared": [
@@ -11528,7 +9313,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "patch",
@@ -11569,7 +9355,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "time_picker",
@@ -11649,42 +9436,7 @@
         },
         {
           "source": "registry/components/form/time_picker/time_picker.dart",
-          "destination": "{installPath}/components/form/time_picker/time_picker.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/time_picker/_impl/themes/base/time_picker_theme.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/state/_duration_picker_dialog_state.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/utils/_time_formatter.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/state/_time_picker_dialog_state.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/core/controlled_time_picker.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/core/duration_picker.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/utils/duration_picker_controller.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/core/duration_picker_dialog.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/utils/time_picker_controller.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/core/time_picker_dialog.dart"
-            },
-            {
-              "source": "registry/components/form/time_picker/_impl/core/time_range.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/time_picker/time_picker.dart"
         }
       ],
       "shared": [
@@ -11707,7 +9459,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "validated",
@@ -11726,12 +9479,7 @@
         },
         {
           "source": "registry/components/form/validated/validated.dart",
-          "destination": "{installPath}/components/form/validated/validated.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/validated/_impl/state/_validated_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/validated/validated.dart"
         }
       ],
       "shared": [],
@@ -11743,7 +9491,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "stepper",
@@ -11838,54 +9587,7 @@
         },
         {
           "source": "registry/components/navigation/stepper/stepper.dart",
-          "destination": "{installPath}/components/navigation/stepper/stepper.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/stepper/_impl/state/_step_container_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step_container.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step_title.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step_number.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step_number_data.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/stepper_2.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/utils/stepper_controller.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/themes/base/stepper_theme.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step_properties.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/variants/step_variant.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_line.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_circle_alternative.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/variants/_step_variant_circle.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/step.dart"
-            },
-            {
-              "source": "registry/components/navigation/stepper/_impl/core/stepper_value.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/stepper/stepper.dart"
         }
       ],
       "shared": [
@@ -11906,7 +9608,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "steps",
@@ -11929,15 +9632,7 @@
         },
         {
           "source": "registry/components/layout/steps/steps.dart",
-          "destination": "{installPath}/components/layout/steps/steps.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/steps/_impl/core/step_item.dart"
-            },
-            {
-              "source": "registry/components/layout/steps/_impl/core/steps_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/steps/steps.dart"
         }
       ],
       "shared": [
@@ -11954,7 +9649,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "resizable",
@@ -12037,60 +9733,7 @@
         },
         {
           "source": "registry/components/layout/resizable/resizable.dart",
-          "destination": "{installPath}/components/layout/resizable/resizable.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizable_layout.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizable_layout_child.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizable_layout_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/state/_resizer_state.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizer.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/resizable_data.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/state/_resizable_panel_state.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizable_item.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/resizable_panel.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_resizable_panel_data.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/state/_resizable_pane_state.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/resizable_pane.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/utils/flexible_resizable_pane_controller.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/utils/absolute_resizable_pane_controller.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/vertical_resizable_dragger.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/horizontal_resizable_dragger.dart"
-            },
-            {
-              "source": "registry/components/layout/resizable/_impl/core/_render_resizable_layout.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/resizable/resizable.dart"
         }
       ],
       "shared": [
@@ -12108,7 +9751,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "shadcn_localizations",
@@ -12127,12 +9771,7 @@
         },
         {
           "source": "registry/components/utility/shadcn_localizations/shadcn_localizations.dart",
-          "destination": "{installPath}/components/utility/shadcn_localizations/shadcn_localizations.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/shadcn_localizations/shadcn_localizations.dart"
         }
       ],
       "shared": [],
@@ -12147,7 +9786,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "shadcn_localizations_en",
@@ -12176,7 +9816,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "shadcn_localizations_extensions",
@@ -12207,7 +9848,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "star_rating",
@@ -12266,27 +9908,7 @@
         },
         {
           "source": "registry/components/form/star_rating/star_rating.dart",
-          "destination": "{installPath}/components/form/star_rating/star_rating.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/form/star_rating/_impl/themes/base/star_rating_theme.dart"
-            },
-            {
-              "source": "registry/components/form/star_rating/_impl/state/_star_rating_state.dart"
-            },
-            {
-              "source": "registry/components/form/star_rating/_impl/core/controlled_star_rating.dart"
-            },
-            {
-              "source": "registry/components/form/star_rating/_impl/utils/decrease_star_intent.dart"
-            },
-            {
-              "source": "registry/components/form/star_rating/_impl/utils/increase_star_intent.dart"
-            },
-            {
-              "source": "registry/components/form/star_rating/_impl/utils/star_rating_controller.dart"
-            }
-          ]
+          "destination": "{installPath}/components/form/star_rating/star_rating.dart"
         }
       ],
       "shared": [
@@ -12304,7 +9926,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "subfocus",
@@ -12331,18 +9954,7 @@
         },
         {
           "source": "registry/components/navigation/subfocus/subfocus.dart",
-          "destination": "{installPath}/components/navigation/subfocus/subfocus.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/navigation/subfocus/_impl/state/_sub_focus_state.dart"
-            },
-            {
-              "source": "registry/components/navigation/subfocus/_impl/core/sub_focus.dart"
-            },
-            {
-              "source": "registry/components/navigation/subfocus/_impl/state/_sub_focus_scope_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/navigation/subfocus/subfocus.dart"
         }
       ],
       "shared": [],
@@ -12354,7 +9966,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "swiper",
@@ -12409,27 +10022,7 @@
         },
         {
           "source": "registry/components/overlay/swiper/swiper.dart",
-          "destination": "{installPath}/components/overlay/swiper/swiper.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/swiper/_impl/themes/base/swiper_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/swiper/_impl/utils/swiper_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/swiper/_impl/utils/drawer_swiper_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/swiper/_impl/utils/sheet_swiper_handler.dart"
-            },
-            {
-              "source": "registry/components/overlay/swiper/_impl/core/swiper_widget.dart"
-            },
-            {
-              "source": "registry/components/overlay/swiper/_impl/state/_swiper_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/swiper/swiper.dart"
         }
       ],
       "shared": [
@@ -12443,7 +10036,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "timeline",
@@ -12466,15 +10060,7 @@
         },
         {
           "source": "registry/components/layout/timeline/timeline.dart",
-          "destination": "{installPath}/components/layout/timeline/timeline.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/timeline/_impl/core/timeline_2.dart"
-            },
-            {
-              "source": "registry/components/layout/timeline/_impl/core/timeline_data.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/timeline/timeline.dart"
         }
       ],
       "shared": [
@@ -12491,7 +10077,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "scaffold",
@@ -12558,48 +10145,7 @@
         },
         {
           "source": "registry/components/layout/scaffold/scaffold.dart",
-          "destination": "{installPath}/components/layout/scaffold/scaffold.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/_render_scaffold_padding.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_footer_padding.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_header_padding.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/_scaffold_render_flex.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/_scaffold_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/_scaffold_flex.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/state/_app_bar_state.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/app_bar.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_box_constraints.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_padding_storage.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/state/scaffold_state.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_bar_data.dart"
-            },
-            {
-              "source": "registry/components/layout/scaffold/_impl/core/scaffold_2.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/scaffold/scaffold.dart"
         }
       ],
       "shared": [
@@ -12619,7 +10165,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "stage_container",
@@ -12662,18 +10209,7 @@
         },
         {
           "source": "registry/components/layout/stage_container/stage_container.dart",
-          "destination": "{installPath}/components/layout/stage_container/stage_container.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/stage_container/_impl/core/stage_container_2.dart"
-            },
-            {
-              "source": "registry/components/layout/stage_container/_impl/themes/base/stage_container_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/stage_container/_impl/core/staged_breakpoint.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/stage_container/stage_container.dart"
         }
       ],
       "shared": [
@@ -12686,7 +10222,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "tree",
@@ -12789,75 +10326,7 @@
         },
         {
           "source": "registry/components/display/tree/tree.dart",
-          "destination": "{installPath}/components/display/tree/tree.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/tree/_impl/core/_path_painter.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/_tree_item_view_state.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/_tree_view_state.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/branch_line.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/collapse_tree_node_intent.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/directional_select_tree_node_intent.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/expand_tree_node_intent.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/focus_change_reason.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/indent_guide_line.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/indent_guide_none.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/indent_guide_path.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/select_tree_node_intent.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/selection_position.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_item.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_item_expand_default_handler.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_item_view.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_node.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_node_data.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_node_depth.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_root.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_selection_default_handler.dart"
-            },
-            {
-              "source": "registry/components/display/tree/_impl/core/tree_view.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/tree/tree.dart"
         }
       ],
       "shared": [
@@ -12876,7 +10345,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "wrapper",
@@ -12894,12 +10364,7 @@
         },
         {
           "source": "registry/components/utility/wrapper/wrapper.dart",
-          "destination": "{installPath}/components/utility/wrapper/wrapper.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/wrapper/_impl/state/wrapper_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/wrapper/wrapper.dart"
         }
       ],
       "shared": [],
@@ -12909,7 +10374,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "primitive"
     },
     {
       "id": "window",
@@ -12984,54 +10450,7 @@
         },
         {
           "source": "registry/components/layout/window/window.dart",
-          "destination": "{installPath}/components/layout/window/window.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/window/_impl/core/_blur_container.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_actions.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_viewport.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/state/_snap_hover_state.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/_snap_hover.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/state/_window_navigator_state.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/_window_layer_group.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/_dragging_window.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_2.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_navigator.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/state/_window_widget_state.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_widget.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/utils/window_controller.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/state/window_state.dart"
-            },
-            {
-              "source": "registry/components/layout/window/_impl/core/window_snap_strategy.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/window/window.dart"
         }
       ],
       "shared": [
@@ -13055,7 +10474,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "timeline_animation",
@@ -13098,30 +10518,7 @@
         },
         {
           "source": "registry/components/utility/timeline_animation/timeline_animation.dart",
-          "destination": "{installPath}/components/utility/timeline_animation/timeline_animation.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/utils/transformers.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/core/keyframe.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/core/absolute_keyframe.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/core/relative_keyframe.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/core/still_keyframe.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/utils/timeline_animatable.dart"
-            },
-            {
-              "source": "registry/components/utility/timeline_animation/_impl/core/timeline_animation_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/utility/timeline_animation/timeline_animation.dart"
         }
       ],
       "shared": [],
@@ -13131,7 +10528,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "repeated_animation_builder",
@@ -13158,7 +10556,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "feature_carousel",
@@ -13237,33 +10636,7 @@
         },
         {
           "source": "registry/components/display/feature_carousel/feature_carousel.dart",
-          "destination": "{installPath}/components/display/feature_carousel/feature_carousel.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_carousel_intent.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_center_card.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_cta_button.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_feature_card_carousel_state.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_ghost_card.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_ghost_transform.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/_nav_arrow.dart"
-            },
-            {
-              "source": "registry/components/display/feature_carousel/_impl/core/feature_card_carousel.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/feature_carousel/feature_carousel.dart"
         }
       ],
       "shared": [],
@@ -13273,7 +10646,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "dropzone",
@@ -13310,7 +10684,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "empty_state",
@@ -13389,7 +10764,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "error_system",
@@ -13588,7 +10964,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     },
     {
       "id": "flex",
@@ -13643,39 +11020,7 @@
         },
         {
           "source": "registry/components/layout/flex/flex.dart",
-          "destination": "{installPath}/components/layout/flex/flex.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/flex/_impl/core/flex_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/flex_widget.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/flexible_widgets.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/paint_order_mixin.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/paint_order_parent_data_mixin.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/positioned_widget.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/render_flex.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/render_stack.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/stack_parent_data.dart"
-            },
-            {
-              "source": "registry/components/layout/flex/_impl/core/stack_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/flex/flex.dart"
         }
       ],
       "shared": [],
@@ -13684,7 +11029,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "component"
     },
     {
       "id": "scrollable",
@@ -13739,27 +11085,7 @@
         },
         {
           "source": "registry/components/layout/scrollable/scrollable.dart",
-          "destination": "{installPath}/components/layout/scrollable/scrollable.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/scrollable/_impl/core/faded_scrollable_viewport.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable/_impl/core/render_scrollable_client_viewport.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable/_impl/core/scrollable_client.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable/_impl/core/scrollable_client_child_vicinity.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable/_impl/core/scrollable_client_viewport.dart"
-            },
-            {
-              "source": "registry/components/layout/scrollable/_impl/themes/base/scrollable_client_theme.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/scrollable/scrollable.dart"
         }
       ],
       "shared": [],
@@ -13768,7 +11094,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "component"
     },
     {
       "id": "border_loading",
@@ -13809,27 +11136,7 @@
         },
         {
           "source": "registry/components/display/border_loading/border_loading.dart",
-          "destination": "{installPath}/components/display/border_loading/border_loading.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/border_loading/_impl/state/border_loading_controller.dart"
-            },
-            {
-              "source": "registry/components/display/border_loading/_impl/core/border_loading_painter.dart"
-            },
-            {
-              "source": "registry/components/display/border_loading/_impl/variants/border_progress_painter.dart"
-            },
-            {
-              "source": "registry/components/display/border_loading/_impl/variants/border_tracer_painter.dart"
-            },
-            {
-              "source": "registry/components/display/border_loading/_impl/utils/gradient_adapter.dart"
-            },
-            {
-              "source": "registry/components/display/border_loading/_impl/utils/shape_path.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/border_loading/border_loading.dart"
         }
       ],
       "shared": [],
@@ -13838,7 +11145,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "component"
     },
     {
       "id": "text_animate",
@@ -13931,48 +11239,7 @@
         },
         {
           "source": "registry/components/display/text_animate/text_animate.dart",
-          "destination": "{installPath}/components/display/text_animate/text_animate.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/text_animate/_impl/core/streaming_cursor.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/streaming_text_effect_adapter.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/typewriter_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/blur_in_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/fade_in_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/slide_in_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/scramble_in_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/core/combined_effect.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/styles/character_span_factory.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/utils/text_diff.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/utils/time_math.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/themes/base/text_animate_theme.dart"
-            },
-            {
-              "source": "registry/components/display/text_animate/_impl/state/streaming_text_state.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/text_animate/text_animate.dart"
         }
       ],
       "shared": [
@@ -13984,7 +11251,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "component"
     },
     {
       "id": "filter_bar",
@@ -14050,24 +11318,7 @@
         },
         {
           "source": "registry/components/layout/filter_bar/filter_bar.dart",
-          "destination": "{installPath}/components/layout/filter_bar/filter_bar.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/filter_bar/_impl/core/filter_bar_content.dart"
-            },
-            {
-              "source": "registry/components/layout/filter_bar/_impl/styles/filter_bar_style.dart"
-            },
-            {
-              "source": "registry/components/layout/filter_bar/_impl/themes/base/filter_bar_theme.dart"
-            },
-            {
-              "source": "registry/components/layout/filter_bar/_impl/utils/filter_bar_utils.dart"
-            },
-            {
-              "source": "registry/components/layout/filter_bar/_impl/variants/filter_bar_layout.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/filter_bar/filter_bar.dart"
         },
         {
           "source": "registry/components/layout/filter_bar/filter_bar_logic.dart",
@@ -14095,7 +11346,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "pattern"
     },
     {
       "id": "app",
@@ -14115,12 +11367,7 @@
         },
         {
           "source": "registry/components/layout/app/app.dart",
-          "destination": "{installPath}/components/layout/app/app.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart"
-            }
-          ]
+          "destination": "{installPath}/components/layout/app/app.dart"
         }
       ],
       "shared": [
@@ -14138,7 +11385,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "pattern"
     },
     {
       "id": "gooey_toast",
@@ -14198,30 +11446,7 @@
         },
         {
           "source": "registry/components/overlay/gooey_toast/gooey_toast.dart",
-          "destination": "{installPath}/components/overlay/gooey_toast/gooey_toast.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_constants.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_defaults.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_models.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/themes/base/gooey_toast_theme.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_controller.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/utils/gooey_toast_utils.dart"
-            },
-            {
-              "source": "registry/components/overlay/gooey_toast/_impl/core/gooey_toast_widget.dart"
-            }
-          ]
+          "destination": "{installPath}/components/overlay/gooey_toast/gooey_toast.dart"
         }
       ],
       "shared": [
@@ -14234,7 +11459,8 @@
         "dependencies": {}
       },
       "assets": [],
-      "postInstall": []
+      "postInstall": [],
+      "tier": "component"
     },
     {
       "id": "markdown",
@@ -14371,69 +11597,7 @@
         },
         {
           "source": "registry/components/display/markdown/markdown.dart",
-          "destination": "{installPath}/components/display/markdown/markdown.dart",
-          "dependsOn": [
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_api.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_block_type.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_block.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_chunk.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_disclosure.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_document.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_editing_bar.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_editing_controller.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/core/markdown_tap_reporter.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/state/markdown_live_preview.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/state/markdown_state.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/themes/base/markdown_theme.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_editing_helpers.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_html_sanitizer.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_inline_spans.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_blocks.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_document.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_blocks.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_html_utils.dart"
-            },
-            {
-              "source": "registry/components/display/markdown/_impl/utils/markdown_parser_streaming.dart"
-            }
-          ]
+          "destination": "{installPath}/components/display/markdown/markdown.dart"
         }
       ],
       "shared": [],
@@ -14443,7 +11607,8 @@
       },
       "assets": [],
       "postInstall": [],
-      "version": "1.0.0"
+      "version": "1.0.0",
+      "tier": "component"
     }
   ],
   "manifestVersion": 1

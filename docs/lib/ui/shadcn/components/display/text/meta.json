@@ -3,6 +3,7 @@
   "name": "Text",
   "description": "Typography helpers and fluent text modifiers.",
   "category": "display",
+  "tier": "primitive",
   "tags": [
     "text",
     "typography"

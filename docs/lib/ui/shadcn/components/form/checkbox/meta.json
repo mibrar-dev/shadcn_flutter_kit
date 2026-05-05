@@ -3,6 +3,7 @@
   "name": "Checkbox",
   "description": "Animated checkbox with tri-state support and controllers.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

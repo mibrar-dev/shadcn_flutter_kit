@@ -3,6 +3,7 @@
   "name": "Dot Indicator",
   "description": "Animated dot indicator for carousels/steppers with optional tap behavior.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "navigation",

@@ -3,6 +3,7 @@
   "name": "App",
   "description": "App wrapper with shadcn theme and overlay handling.",
   "category": "layout",
+  "tier": "pattern",
   "version": "1.0.0",
   "tags": [
     "layout",

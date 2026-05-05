@@ -3,6 +3,7 @@
   "name": "File Input",
   "description": "Utilities for mapping file extensions to icon widgets.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "file",

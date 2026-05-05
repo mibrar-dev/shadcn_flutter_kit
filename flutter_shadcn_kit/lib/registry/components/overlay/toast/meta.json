@@ -3,6 +3,7 @@
   "name": "Toast",
   "description": "Overlay toast notifications with configurable timing.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "notification"

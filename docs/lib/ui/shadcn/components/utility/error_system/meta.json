@@ -3,6 +3,7 @@
   "name": "Error System",
   "description": "Production-ready error handling system with UI components and repository mapping.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "error",
     "system",

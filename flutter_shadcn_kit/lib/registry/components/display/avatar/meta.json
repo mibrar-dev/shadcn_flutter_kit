@@ -3,6 +3,7 @@
   "name": "Avatar",
   "description": "Initials/photo avatar with badge and group support.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "profile",

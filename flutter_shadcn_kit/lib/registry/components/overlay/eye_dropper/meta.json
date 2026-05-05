@@ -3,6 +3,7 @@
   "name": "Eye Dropper",
   "description": "Layer that lets users sample colors from the screen with preview adornments.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "color",
     "picker",

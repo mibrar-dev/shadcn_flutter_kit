@@ -157,3 +157,69 @@ void _deleteDirIfEmpty(Directory directory) {
     directory.deleteSync();
   }
 }
+
+Directory? findSiblingDocsRegistryRoot(Directory repoRoot) {
+  final candidates = <String>{
+    Directory('${repoRoot.parent.path}/docs/lib/ui/shadcn').absolute.path,
+    Directory('${repoRoot.path}/../docs/lib/ui/shadcn').absolute.path,
+  };
+  for (final candidate in candidates) {
+    final dir = Directory(candidate);
+    if (dir.existsSync()) {
+      return dir;
+    }
+  }
+  return null;
+}
+
+void syncDocsRegistryMetadata({
+  required Directory registryDir,
+  required Directory docsRegistryRoot,
+}) {
+  final canonicalMetaRelativePaths = <String>{};
+
+  void mirrorMetaTree(String bucket) {
+    final canonicalRoot = Directory('${registryDir.path}/$bucket');
+    final docsRoot = Directory('${docsRegistryRoot.path}/$bucket');
+
+    if (!canonicalRoot.existsSync()) return;
+    for (final entity in canonicalRoot.listSync(recursive: true)) {
+      if (entity is! File) continue;
+      final normalizedPath = entity.path.replaceAll('\\', '/');
+      if (!normalizedPath.endsWith('/meta.json')) continue;
+      final relativePath = entity.path
+          .substring(registryDir.path.length + 1)
+          .replaceAll('\\', '/');
+      canonicalMetaRelativePaths.add(relativePath);
+      final target = File('${docsRegistryRoot.path}/$relativePath');
+      target.parent.createSync(recursive: true);
+      target.writeAsStringSync(entity.readAsStringSync());
+    }
+
+    if (!docsRoot.existsSync()) return;
+    for (final entity in docsRoot.listSync(recursive: true)) {
+      if (entity is! File) continue;
+      final normalizedPath = entity.path.replaceAll('\\', '/');
+      if (!normalizedPath.endsWith('/meta.json')) continue;
+      final relativePath = entity.path
+          .substring(docsRegistryRoot.path.length + 1)
+          .replaceAll('\\', '/');
+      if (canonicalMetaRelativePaths.contains(relativePath)) continue;
+      entity.deleteSync();
+      _deleteDirIfEmpty(entity.parent);
+    }
+  }
+
+  mirrorMetaTree('components');
+  mirrorMetaTree('composites');
+
+  final manifestsDir = Directory('${registryDir.path}/manifests');
+  final docsManifestsDir = Directory('${docsRegistryRoot.path}/manifests');
+  docsManifestsDir.createSync(recursive: true);
+  for (final fileName in const ['components.json', 'components.schema.json']) {
+    final source = File('${manifestsDir.path}/$fileName');
+    if (!source.existsSync()) continue;
+    final target = File('${docsManifestsDir.path}/$fileName');
+    target.writeAsStringSync(source.readAsStringSync());
+  }
+}

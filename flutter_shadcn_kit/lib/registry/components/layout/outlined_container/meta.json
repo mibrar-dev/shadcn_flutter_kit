@@ -3,6 +3,7 @@
   "name": "Outlined Container",
   "description": "Animated outlined container with theme-aware borders and blur.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "container",

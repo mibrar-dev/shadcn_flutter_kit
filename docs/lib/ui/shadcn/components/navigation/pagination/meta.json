@@ -3,6 +3,7 @@
   "name": "Pagination",
   "description": "Page navigation controls with skip, previous/next, and ellipsis handling.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "navigation",
     "pagination"

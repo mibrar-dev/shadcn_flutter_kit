@@ -3,6 +3,7 @@
   "name": "Form",
   "description": "Composable form state, validation, and submit helpers.",
   "category": "form",
+  "tier": "pattern",
   "tags": [
     "form",
     "validation",

@@ -3,6 +3,7 @@
   "name": "Alert",
   "description": "Flexible alert panels with destructive/resilient styling.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "display",
     "status",

@@ -3,6 +3,7 @@
   "name": "Star Rating",
   "description": "Interactive star rating input with theming support.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "rating",

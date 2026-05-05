@@ -3,6 +3,7 @@
   "name": "Dialog",
   "description": "Modal dialog primitives with alert dialog and overlay handlers.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "modal",

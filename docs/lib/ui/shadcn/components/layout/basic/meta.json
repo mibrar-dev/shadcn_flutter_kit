@@ -3,6 +3,7 @@
   "name": "Basic",
   "description": "Flexible row layout for leading/title/content/trailing sections.",
   "category": "layout",
+  "tier": "primitive",
   "tags": [
     "layout",
     "list",

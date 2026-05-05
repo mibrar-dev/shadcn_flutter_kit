@@ -3,6 +3,7 @@
   "name": "Steps",
   "description": "Vertical step list with numbered indicators and connectors.",
   "category": "layout",
+  "tier": "pattern",
   "tags": [
     "steps",
     "progress",

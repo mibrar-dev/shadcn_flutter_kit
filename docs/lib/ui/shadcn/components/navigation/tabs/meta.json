@@ -3,6 +3,7 @@
   "name": "Tabs",
   "description": "Tabbed navigation primitives with lists and panes.",
   "category": "navigation",
+  "tier": "primitive",
   "tags": [
     "tabs",
     "navigation",

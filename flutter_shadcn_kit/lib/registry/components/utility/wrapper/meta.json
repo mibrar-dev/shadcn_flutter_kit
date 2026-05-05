@@ -3,6 +3,7 @@
   "name": "Wrapper",
   "description": "Conditional wrapper for preserving widget structure.",
   "category": "utility",
+  "tier": "primitive",
   "tags": [
     "utility",
     "layout"

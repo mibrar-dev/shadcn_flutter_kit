@@ -3,6 +3,7 @@
   "name": "Chat",
   "description": "Chat bubbles, groups, and tail helpers for conversational layouts.",
   "category": "display",
+  "tier": "pattern",
   "tags": [
     "display",
     "chat",

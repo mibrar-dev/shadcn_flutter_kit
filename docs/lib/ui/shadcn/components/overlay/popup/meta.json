@@ -3,6 +3,7 @@
   "name": "Popup",
   "description": "Styled popup container for menus and dropdowns.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "menu",

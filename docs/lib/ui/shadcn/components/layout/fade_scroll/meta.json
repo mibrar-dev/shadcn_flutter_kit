@@ -3,6 +3,7 @@
   "name": "Fade Scroll",
   "description": "Edge fade overlays for scrollable content.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "scroll",

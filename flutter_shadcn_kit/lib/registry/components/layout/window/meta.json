@@ -3,6 +3,7 @@
   "name": "Window",
   "description": "Desktop-style window system with drag, resize, and snapping.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "window",
     "layout",

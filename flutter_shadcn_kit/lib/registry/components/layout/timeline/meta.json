@@ -3,6 +3,7 @@
   "name": "Timeline",
   "description": "Vertical timeline for chronological entries.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "timeline",
     "layout",

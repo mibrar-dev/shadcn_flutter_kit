@@ -6,7 +6,20 @@ import 'package:flutter/widgets.dart' as widgets;
 
 export 'package:flutter/widgets.dart'
 /// Stores `Positioned` state/configuration for this implementation.
-    hide Flexible, Expanded, Row, Column, Flex, Stack, Positioned;
+    hide
+        ErrorWidgetBuilder,
+        Flexible,
+        Expanded,
+        Form,
+        FormField,
+        FormState,
+        RadioGroup,
+        Row,
+        Column,
+        Flex,
+        Stack,
+        Positioned,
+        TableCell;
 
 export 'package:flutter/rendering.dart'
     show

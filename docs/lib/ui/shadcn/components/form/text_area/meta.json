@@ -3,6 +3,7 @@
   "name": "Text Area",
   "description": "Resizable multi-line text input built on text field primitives.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

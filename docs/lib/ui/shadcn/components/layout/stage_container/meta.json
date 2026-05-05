@@ -3,6 +3,7 @@
   "name": "Stage Container",
   "description": "Responsive container that snaps to breakpoint widths.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "responsive",

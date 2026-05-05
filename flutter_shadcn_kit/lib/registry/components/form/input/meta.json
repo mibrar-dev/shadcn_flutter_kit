@@ -3,6 +3,7 @@
   "name": "Input",
   "description": "Single-line text input with feature hooks, popovers, and controller integration.",
   "category": "form",
+  "tier": "primitive",
   "tags": [
     "form",
     "input",

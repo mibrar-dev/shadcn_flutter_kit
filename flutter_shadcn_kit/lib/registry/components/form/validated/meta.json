@@ -3,6 +3,7 @@
   "name": "Validated",
   "description": "Validation wrapper that exposes form error state.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "validation",

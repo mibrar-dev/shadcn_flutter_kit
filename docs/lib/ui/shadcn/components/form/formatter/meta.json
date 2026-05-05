@@ -3,6 +3,7 @@
   "name": "Formatter",
   "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, etc.) and helpers for selection clipping.",
   "category": "form",
+  "tier": "primitive",
   "tags": [
     "input",
     "format",

@@ -144,11 +144,18 @@
     },
     "componentEntry": {
       "type": "object",
-      "required": ["id", "name", "description", "category", "files", "shared", "dependsOn", "pubspec", "assets", "postInstall"],
+      "required": ["id", "tier", "version", "name", "description", "category", "files", "shared", "dependsOn", "pubspec", "assets", "postInstall"],
       "additionalProperties": false,
       "properties": {
         "id": {"type": "string"},
-        "version": {"type": "string"},
+        "tier": {
+          "type": "string",
+          "enum": ["primitive", "component", "pattern"]
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+        },
         "name": {"type": "string"},
         "description": {"type": "string"},
         "category": {"type": "string"},

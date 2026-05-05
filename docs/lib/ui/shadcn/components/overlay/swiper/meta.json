@@ -3,6 +3,7 @@
   "name": "Swiper",
   "description": "Swipe-triggered overlays for drawers and sheets.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "drawer",

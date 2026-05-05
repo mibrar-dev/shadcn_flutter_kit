@@ -3,6 +3,7 @@
   "name": "CardImage",
   "description": "Interactive card that pairs an image with title/subtitle content.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "display",
     "image",

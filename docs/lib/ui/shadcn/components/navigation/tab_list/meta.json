@@ -3,6 +3,7 @@
   "name": "Tab List",
   "description": "Horizontal tab header row with active indicator.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "tabs",
     "navigation",

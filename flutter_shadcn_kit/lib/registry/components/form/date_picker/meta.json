@@ -3,6 +3,7 @@
   "name": "Date Picker",
   "description": "Popover/dialog calendar for single-date and range selection.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "date",

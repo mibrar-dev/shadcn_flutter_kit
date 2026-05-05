@@ -3,6 +3,7 @@
   "name": "Table",
   "description": "Resizable table layout with headers, footers, and frozen cells.",
   "category": "layout",
+  "tier": "pattern",
   "tags": [
     "table",
     "layout",

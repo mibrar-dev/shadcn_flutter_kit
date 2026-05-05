@@ -3,6 +3,7 @@
   "name": "Refresh Trigger",
   "description": "Pull-to-refresh wrapper with customizable indicator, extents, and completion animations.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "scroll",
@@ -47,7 +48,6 @@
       "`RefreshTrigger`",
       "`RefreshTriggerStage`",
       "`RefreshIndicatorBuilder`",
-      "`FutureVoidCallback`",
       "`RefreshTriggerTheme`"
     ]
   },

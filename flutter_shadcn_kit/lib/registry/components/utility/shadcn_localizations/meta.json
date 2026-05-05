@@ -3,6 +3,7 @@
   "name": "Shadcn Localizations",
   "description": "Full localization delegate and base translations.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "localization",
     "i18n",

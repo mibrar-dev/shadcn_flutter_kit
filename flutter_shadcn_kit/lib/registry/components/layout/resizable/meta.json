@@ -3,6 +3,7 @@
   "name": "Resizable",
   "description": "Resizable panels with draggable dividers.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "resizable",

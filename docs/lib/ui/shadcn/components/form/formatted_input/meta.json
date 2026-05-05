@@ -3,6 +3,7 @@
   "name": "Formatted Input",
   "description": "Low-level formatted-field helpers that sync multiple InputPart segments.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

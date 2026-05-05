@@ -3,6 +3,7 @@
   "name": "Hidden",
   "description": "Animated visibility helper with axis-aware size control.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "animation",
     "layout",

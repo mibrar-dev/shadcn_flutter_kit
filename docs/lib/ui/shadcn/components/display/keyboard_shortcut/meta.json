@@ -3,6 +3,7 @@
   "name": "Keyboard Shortcut",
   "description": "Displays keyboard shortcuts as styled keycaps.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "keyboard",

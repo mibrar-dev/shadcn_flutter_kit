@@ -3,6 +3,7 @@
   "name": "Sortable",
   "description": "Drag-and-drop sorting primitives with drop zones and scrolling.",
   "category": "layout",
+  "tier": "primitive",
   "tags": [
     "drag",
     "sortable",

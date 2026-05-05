@@ -3,6 +3,7 @@
   "name": "Command",
   "description": "Command palette with search, keyboard navigation, and customizable result builders.",
   "category": "control",
+  "tier": "component",
   "tags": [
     "command",
     "input",

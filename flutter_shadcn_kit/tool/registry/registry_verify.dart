@@ -107,10 +107,12 @@ void _printUsage() {
   stdout.writeln('  - duplicate/missing/extra component entries');
   stdout.writeln('  - file list mismatches');
   stdout.writeln('  - meta.json presence and id/category alignment');
+  stdout.writeln('  - manifest tier/version alignment with meta.json');
   stdout.writeln('  - meta.json file list matches');
   stdout.writeln('  - shared deps / component deps / pubspec deps validity');
   stdout.writeln('  - shared file coverage and duplicates');
   stdout.writeln('  - docs snapshot consistency');
+  stdout.writeln('  - docs mirror meta.json consistency');
   stdout.writeln('  - generated root barrel consistency');
   stdout.writeln('');
   stdout.writeln('Options:');
@@ -136,11 +138,13 @@ void _printVerificationReport({
   required bool ciMode,
   required Set<String> idSet,
   required Set<String> duplicates,
+  required List<String> invalidManifestIds,
   required List<String> missingEntries,
   required List<String> extraEntries,
   required List<String> fileMismatches,
   required List<String> metaMissing,
   required List<String> metaMismatches,
+  required List<String> metaManifestMismatches,
   required List<String> metaFileMismatches,
   required List<String> invalidSharedDeps,
   required List<String> invalidComponentDeps,
@@ -149,16 +153,19 @@ void _printVerificationReport({
   required Set<String> duplicateSharedFiles,
   required List<String> missingSharedFiles,
   required List<String> docsMismatch,
+  required List<String> docsMetaMismatches,
   required List<String> rootBarrelMismatch,
   required List<String> nestedMetadataDirs,
 }) {
   final hasFailures =
       duplicates.isNotEmpty ||
+      invalidManifestIds.isNotEmpty ||
       missingEntries.isNotEmpty ||
       extraEntries.isNotEmpty ||
       fileMismatches.isNotEmpty ||
       metaMissing.isNotEmpty ||
       metaMismatches.isNotEmpty ||
+      metaManifestMismatches.isNotEmpty ||
       metaFileMismatches.isNotEmpty ||
       invalidSharedDeps.isNotEmpty ||
       invalidComponentDeps.isNotEmpty ||
@@ -167,6 +174,7 @@ void _printVerificationReport({
       duplicateSharedFiles.isNotEmpty ||
       missingSharedFiles.isNotEmpty ||
       docsMismatch.isNotEmpty ||
+      docsMetaMismatches.isNotEmpty ||
       rootBarrelMismatch.isNotEmpty ||
       nestedMetadataDirs.isNotEmpty;
 
@@ -180,6 +188,9 @@ void _printVerificationReport({
 
     if (duplicates.isNotEmpty) {
       _printCiFailureDetails('Duplicate ids', duplicates);
+    }
+    if (invalidManifestIds.isNotEmpty) {
+      _printCiFailureDetails('Invalid manifest ids', invalidManifestIds);
     }
     if (missingEntries.isNotEmpty) {
       _printCiFailureDetails('Missing entries', missingEntries);
@@ -195,6 +206,12 @@ void _printVerificationReport({
     }
     if (metaMismatches.isNotEmpty) {
       _printCiFailureDetails('Meta id/category mismatches', metaMismatches);
+    }
+    if (metaManifestMismatches.isNotEmpty) {
+      _printCiFailureDetails(
+        'Manifest tier/version mismatches',
+        metaManifestMismatches,
+      );
     }
     if (metaFileMismatches.isNotEmpty) {
       _printCiFailureDetails('Meta file list mismatches', metaFileMismatches);
@@ -220,6 +237,9 @@ void _printVerificationReport({
     if (docsMismatch.isNotEmpty) {
       _printCiFailureDetails('Docs snapshot mismatch', docsMismatch);
     }
+    if (docsMetaMismatches.isNotEmpty) {
+      _printCiFailureDetails('Docs mirror meta mismatch', docsMetaMismatches);
+    }
     if (rootBarrelMismatch.isNotEmpty) {
       _printCiFailureDetails('Root barrel mismatch', rootBarrelMismatch);
     }
@@ -235,11 +255,15 @@ void _printVerificationReport({
   stdout.writeln('Registry verification summary:');
   stdout.writeln('  Total entries: ${idSet.length}');
   stdout.writeln('  Duplicate ids: ${duplicates.length}');
+  stdout.writeln('  Invalid manifest ids: ${invalidManifestIds.length}');
   stdout.writeln('  Missing entries: ${missingEntries.length}');
   stdout.writeln('  Extra entries: ${extraEntries.length}');
   stdout.writeln('  File list mismatches: ${fileMismatches.length}');
   stdout.writeln('  Meta missing: ${metaMissing.length}');
   stdout.writeln('  Meta mismatches: ${metaMismatches.length}');
+  stdout.writeln(
+    '  Manifest tier/version mismatches: ${metaManifestMismatches.length}',
+  );
   stdout.writeln('  Meta file list mismatches: ${metaFileMismatches.length}');
   stdout.writeln('  Invalid shared deps: ${invalidSharedDeps.length}');
   stdout.writeln('  Invalid component deps: ${invalidComponentDeps.length}');
@@ -250,6 +274,7 @@ void _printVerificationReport({
   stdout.writeln(
     '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
   );
+  stdout.writeln('  Docs mirror meta mismatch: ${docsMetaMismatches.length}');
   stdout.writeln(
     '  Root barrel mismatch: ${rootBarrelMismatch.isNotEmpty ? 1 : 0}',
   );
@@ -259,6 +284,11 @@ void _printVerificationReport({
 
   if (duplicates.isNotEmpty) {
     stdout.writeln('Duplicate ids: ${_sortedStrings(duplicates)}');
+  }
+  if (invalidManifestIds.isNotEmpty) {
+    stdout.writeln(
+      'Invalid manifest ids: ${_sortedStrings(invalidManifestIds)}',
+    );
   }
   if (missingEntries.isNotEmpty) {
     stdout.writeln('Missing entries: ${_sortedStrings(missingEntries)}');
@@ -275,6 +305,11 @@ void _printVerificationReport({
   if (metaMismatches.isNotEmpty) {
     stdout.writeln(
       'Meta id/category mismatches: ${_sortedStrings(metaMismatches)}',
+    );
+  }
+  if (metaManifestMismatches.isNotEmpty) {
+    stdout.writeln(
+      'Manifest tier/version mismatches: ${_sortedStrings(metaManifestMismatches)}',
     );
   }
   if (metaFileMismatches.isNotEmpty) {
@@ -312,6 +347,11 @@ void _printVerificationReport({
   }
   if (docsMismatch.isNotEmpty) {
     stdout.writeln('Docs snapshot mismatch: ${docsMismatch.first}');
+  }
+  if (docsMetaMismatches.isNotEmpty) {
+    stdout.writeln(
+      'Docs mirror meta mismatch: ${_sortedStrings(docsMetaMismatches)}',
+    );
   }
   if (rootBarrelMismatch.isNotEmpty) {
     stdout.writeln('Root barrel mismatch: ${rootBarrelMismatch.first}');
@@ -362,16 +402,23 @@ void main(List<String> args) {
   final ids = <String>[];
   final duplicates = <String>{};
   final idSet = <String>{};
+  final entryById = <String, JsonMap>{};
+  final invalidManifestIds = <String>[];
 
-  for (final entry in entries) {
+  for (var index = 0; index < entries.length; index++) {
+    final entry = entries[index];
     if (entry is! Map) continue;
     final id = entry['id'];
-    if (id is! String || id.isEmpty) continue;
+    if (id is! String || id.trim().isEmpty) {
+      invalidManifestIds.add('index:$index');
+      continue;
+    }
     if (idSet.contains(id)) {
       duplicates.add(id);
     } else {
       idSet.add(id);
       ids.add(id);
+      entryById[id] = Map<String, dynamic>.from(entry);
     }
   }
 
@@ -380,11 +427,13 @@ void main(List<String> args) {
   final fileMismatches = <String>[];
   final metaMissing = <String>[];
   final metaMismatches = <String>[];
+  final metaManifestMismatches = <String>[];
   final metaFileMismatches = <String>[];
   final invalidSharedDeps = <String>[];
   final invalidComponentDeps = <String>[];
   final invalidPubspecDeps = <String>[];
   final docsMismatch = <String>[];
+  final docsMetaMismatches = <String>[];
   final rootBarrelMismatch = <String>[];
   final missingSharedFiles = <String>[];
   final nestedMetadataDirs = <String>[];
@@ -392,6 +441,7 @@ void main(List<String> args) {
   final duplicateSharedFiles = <String>{};
 
   final dirIndex = <String, Directory>{};
+  final canonicalMetaRelativePaths = <String>{};
 
   for (final type in ['components', 'composites']) {
     final rootDir = Directory('${registryDir.path}/$type');
@@ -417,10 +467,14 @@ void main(List<String> args) {
     }
   }
 
-  for (final entry in entries) {
+  for (var index = 0; index < entries.length; index++) {
+    final entry = entries[index];
     if (entry is! Map) continue;
     final id = entry['id'];
-    if (id is! String || id.isEmpty) continue;
+    if (id is! String || id.trim().isEmpty) {
+      invalidManifestIds.add('index:$index');
+      continue;
+    }
     final dir = dirIndex[id];
     if (dir == null) continue;
 
@@ -468,6 +522,11 @@ void main(List<String> args) {
       docsMismatch.add(docsSnapshot.path);
     }
   }
+
+  final docsMirrorRoots = <String>{
+    Directory('${root.parent.path}/docs/lib/ui/shadcn').absolute.path,
+    Directory('${root.path}/../docs/lib/ui/shadcn').absolute.path,
+  }.map(Directory.new).where((dir) => dir.existsSync()).toList();
 
   final rootBarrel = File('${root.path}/lib/flutter_shadcn_kit.dart');
   if (!rootBarrel.existsSync() ||
@@ -532,6 +591,13 @@ void main(List<String> args) {
       metaMismatches.add(id);
     }
 
+    final manifestEntry = entryById[id];
+    if (manifestEntry != null &&
+        (manifestEntry['tier'] != meta['tier'] ||
+            manifestEntry['version'] != meta['version'])) {
+      metaManifestMismatches.add(id);
+    }
+
     final deps = meta['dependencies'];
     if (deps is Map) {
       final shared = deps['shared'];
@@ -580,9 +646,40 @@ void main(List<String> args) {
       }
     }
 
+    final relativeMetaPath = metaFile.path
+        .substring(registryDir.path.length + 1)
+        .replaceAll('\\', '/');
+    canonicalMetaRelativePaths.add(relativeMetaPath);
+    for (final docsMirrorRoot in docsMirrorRoots) {
+      final docsMetaFile = File('${docsMirrorRoot.path}/$relativeMetaPath');
+      if (!docsMetaFile.existsSync()) {
+        docsMetaMismatches.add(id);
+        break;
+      }
+      final docsMeta = _readJson(docsMetaFile);
+      if (!_deepEquals(meta, docsMeta)) {
+        docsMetaMismatches.add(id);
+        break;
+      }
+    }
+
     final legacyDir = metadata.legacyMetadataDir;
     if (legacyDir.existsSync()) {
       nestedMetadataDirs.add(id);
+    }
+  }
+
+  for (final docsMirrorRoot in docsMirrorRoots) {
+    for (final entity in docsMirrorRoot.listSync(recursive: true)) {
+      if (entity is! File) continue;
+      final normalizedPath = entity.path.replaceAll('\\', '/');
+      if (!normalizedPath.endsWith('/meta.json')) continue;
+      final relativePath = entity.path
+          .substring(docsMirrorRoot.path.length + 1)
+          .replaceAll('\\', '/');
+      if (!canonicalMetaRelativePaths.contains(relativePath)) {
+        docsMetaMismatches.add(relativePath);
+      }
     }
   }
 
@@ -590,11 +687,13 @@ void main(List<String> args) {
     ciMode: ciMode,
     idSet: idSet,
     duplicates: duplicates,
+    invalidManifestIds: invalidManifestIds,
     missingEntries: missingEntries,
     extraEntries: extraEntries,
     fileMismatches: fileMismatches,
     metaMissing: metaMissing,
     metaMismatches: metaMismatches,
+    metaManifestMismatches: metaManifestMismatches,
     metaFileMismatches: metaFileMismatches,
     invalidSharedDeps: invalidSharedDeps,
     invalidComponentDeps: invalidComponentDeps,
@@ -603,16 +702,19 @@ void main(List<String> args) {
     duplicateSharedFiles: duplicateSharedFiles,
     missingSharedFiles: missingSharedFiles,
     docsMismatch: docsMismatch,
+    docsMetaMismatches: docsMetaMismatches,
     rootBarrelMismatch: rootBarrelMismatch,
     nestedMetadataDirs: nestedMetadataDirs,
   );
 
   if (duplicates.isNotEmpty ||
+      invalidManifestIds.isNotEmpty ||
       missingEntries.isNotEmpty ||
       extraEntries.isNotEmpty ||
       fileMismatches.isNotEmpty ||
       metaMissing.isNotEmpty ||
       metaMismatches.isNotEmpty ||
+      metaManifestMismatches.isNotEmpty ||
       metaFileMismatches.isNotEmpty ||
       invalidSharedDeps.isNotEmpty ||
       invalidComponentDeps.isNotEmpty ||
@@ -621,6 +723,7 @@ void main(List<String> args) {
       duplicateSharedFiles.isNotEmpty ||
       missingSharedFiles.isNotEmpty ||
       docsMismatch.isNotEmpty ||
+      docsMetaMismatches.isNotEmpty ||
       rootBarrelMismatch.isNotEmpty ||
       nestedMetadataDirs.isNotEmpty) {
     exitCode = 2;

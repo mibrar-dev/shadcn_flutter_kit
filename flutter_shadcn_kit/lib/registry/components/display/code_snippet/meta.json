@@ -3,6 +3,7 @@
   "name": "Code Snippet",
   "description": "Stylized code container with action slot and theme overrides.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "code",

@@ -3,6 +3,7 @@
   "name": "Linear Progress Indicator",
   "description": "Determinate/indeterminate progress bar with optional spark effects and theming.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "progress",

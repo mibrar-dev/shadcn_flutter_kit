@@ -3,6 +3,7 @@
   "name": "Progress",
   "description": "Normalized linear progress bar with theme overrides.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "progress",

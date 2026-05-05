@@ -3,6 +3,7 @@
   "name": "Media Query Visibility",
   "description": "Responsive helper that shows primary or alternate content based on width constraints.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "responsive"

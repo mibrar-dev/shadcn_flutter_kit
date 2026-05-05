@@ -3,6 +3,7 @@
   "name": "Slider",
   "description": "General-purpose single and range slider engine with snapping and pluggable builders.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

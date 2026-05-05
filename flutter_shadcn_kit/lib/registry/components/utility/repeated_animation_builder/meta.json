@@ -3,6 +3,7 @@
   "name": "Repeated Animation Builder",
   "description": "Looping animation builder with interpolated values.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "animation",
     "utility",

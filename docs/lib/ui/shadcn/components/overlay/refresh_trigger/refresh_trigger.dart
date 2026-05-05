@@ -33,11 +33,6 @@ part '_impl/utils/refresh_trigger_physics.dart';
 typedef RefreshIndicatorBuilder =
     Widget Function(BuildContext context, RefreshTriggerStage stage);
 
-/// Callback for async refresh operations.
-///
-/// Returns a Future that completes when the refresh operation finishes.
-typedef FutureVoidCallback = Future<void> Function();
-
 /// Theme configuration for [RefreshTrigger].
 ///
 /// Example usage:

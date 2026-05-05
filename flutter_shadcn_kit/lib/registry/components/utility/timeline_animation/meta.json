@@ -3,6 +3,7 @@
   "name": "Timeline Animation",
   "description": "Keyframe-based animation timeline utilities.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "animation",
     "timeline",

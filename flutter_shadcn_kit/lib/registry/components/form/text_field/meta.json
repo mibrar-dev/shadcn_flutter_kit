@@ -3,6 +3,7 @@
   "name": "Text Field",
   "description": "Text input with rich features, autocomplete, and actions.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "forms",
     "input",

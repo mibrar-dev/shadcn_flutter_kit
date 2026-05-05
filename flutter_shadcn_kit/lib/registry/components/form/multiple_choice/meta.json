@@ -3,6 +3,7 @@
   "name": "Multiple Choice",
   "description": "Choice widgets with single or multiple selection and form integration.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "choice",

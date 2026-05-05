@@ -3,6 +3,7 @@
   "name": "Divider",
   "description": "Horizontal and vertical separators with optional label support.",
   "category": "display",
+  "tier": "primitive",
   "tags": [
     "display",
     "layout",

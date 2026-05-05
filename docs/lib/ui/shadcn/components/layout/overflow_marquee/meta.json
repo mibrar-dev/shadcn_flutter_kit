@@ -3,6 +3,7 @@
   "name": "Overflow Marquee",
   "description": "Smooth marquee for overflowing content with fade edges and looped timing controls.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "animation",
     "scroll",

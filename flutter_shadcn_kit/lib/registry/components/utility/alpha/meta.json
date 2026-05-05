@@ -3,6 +3,7 @@
   "name": "Alpha",
   "description": "Checkerboard painter for transparency indicators.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "color",
     "picker",

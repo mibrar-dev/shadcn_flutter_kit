@@ -3,6 +3,7 @@
   "name": "File Upload",
   "description": "UI-only drag-drop, tile, and mobile file picker surfaces with upload list management.",
   "category": "form",
+  "tier": "pattern",
   "tags": [
     "form",
     "file",

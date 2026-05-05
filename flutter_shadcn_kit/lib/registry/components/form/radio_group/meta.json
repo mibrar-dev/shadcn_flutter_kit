@@ -3,6 +3,7 @@
   "name": "Radio Group",
   "description": "Exclusive selection group with radio items and cards.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

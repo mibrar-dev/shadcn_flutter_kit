@@ -3,6 +3,7 @@
   "name": "Spinner",
   "description": "Base spinner helpers for resolving color and size with theming.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "indicator",

@@ -3,6 +3,7 @@
   "name": "Tree",
   "description": "Hierarchical tree view with expandable, selectable nodes.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "tree",
     "hierarchy",

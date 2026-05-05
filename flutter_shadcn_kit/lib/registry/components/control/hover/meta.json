@@ -3,6 +3,7 @@
   "name": "Hover",
   "description": "Hover timing helpers plus lightweight state tracking widgets.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "hover",
     "pointer",

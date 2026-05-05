@@ -3,6 +3,7 @@
   "name": "Markdown",
   "description": "Advanced markdown renderer with asset/file sources and optional streaming support.",
   "category": "display",
+  "tier": "component",
   "version": "1.0.0",
   "tags": [
     "display",

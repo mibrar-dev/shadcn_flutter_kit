@@ -3,6 +3,7 @@
   "name": "Subfocus",
   "description": "Hierarchical focus scope for keyboard navigation.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "focus",
     "navigation",

@@ -3,6 +3,7 @@
   "name": "Tab Container",
   "description": "Coordinated tab state manager with customizable builders.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "tabs",
     "navigation",

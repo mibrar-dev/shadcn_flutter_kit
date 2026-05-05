@@ -3,6 +3,7 @@
   "name": "Menubar",
   "description": "Horizontal desktop-style menubar with dropdown menus and keyboard navigation.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "menu",
     "overlay",

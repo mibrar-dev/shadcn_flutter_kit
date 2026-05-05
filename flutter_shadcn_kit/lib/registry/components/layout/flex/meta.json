@@ -3,6 +3,7 @@
   "name": "Flex",
   "description": "Flex component for the registry.",
   "category": "layout",
+  "tier": "component",
   "version": "1.0.0",
   "tags": [
     "layout",

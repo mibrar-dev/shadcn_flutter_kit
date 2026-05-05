@@ -3,6 +3,7 @@
   "name": "Popover",
   "description": "Anchored overlay surfaces for floating content.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "popover",

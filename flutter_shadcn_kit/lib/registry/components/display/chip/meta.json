@@ -3,6 +3,7 @@
   "name": "Chip",
   "description": "Compact tag-style button with optional leading/trailing widgets.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "forms",

@@ -3,6 +3,7 @@
   "name": "Drawer",
   "description": "Sliding drawer and sheet overlays with drag support.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "drawer",

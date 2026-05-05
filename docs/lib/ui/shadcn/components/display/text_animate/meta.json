@@ -3,6 +3,7 @@
   "name": "Streaming Text",
   "description": "Stream-aware animated text renderer for incremental updates.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "text",

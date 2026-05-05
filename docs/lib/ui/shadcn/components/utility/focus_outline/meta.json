@@ -3,6 +3,7 @@
   "name": "Focus Outline",
   "description": "Keyboard focus visualization outline with theming support.",
   "category": "utility",
+  "tier": "primitive",
   "tags": [
     "focus",
     "accessibility",

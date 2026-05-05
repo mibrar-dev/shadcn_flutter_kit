@@ -3,6 +3,7 @@
   "name": "Accordion",
   "description": "Single-expansion accordion with configurable triggers and theming.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "navigation",
     "layout",

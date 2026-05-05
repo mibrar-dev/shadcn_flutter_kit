@@ -3,6 +3,7 @@
   "name": "Autocomplete",
   "description": "Autocomplete overlay for text inputs with keyboard navigation and theming.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

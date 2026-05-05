@@ -7,6 +7,32 @@ typedef JsonMap = Map<String, dynamic>;
 
 typedef JsonList = List<dynamic>;
 
+const _allowedTiers = {'primitive', 'component', 'pattern'};
+final _semVerPattern = RegExp(
+  r'^\d+\.\d+\.\d+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$',
+);
+
+class _RegistryValidationError implements Exception {
+  _RegistryValidationError(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
+class _PendingMetaWrite {
+  _PendingMetaWrite({
+    required this.metadata,
+    required this.originalMeta,
+    required this.updatedMeta,
+  });
+
+  final ComponentMetadataPaths metadata;
+  final JsonMap originalMeta;
+  final JsonMap updatedMeta;
+}
+
 Directory? _findRepoRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
@@ -137,6 +163,12 @@ void _printUsage() {
   );
   stdout.writeln(
     '  --component-version <id=v>    Set version for a specific component (repeatable).',
+  );
+  stdout.writeln(
+    '  --skip-meta-write             Do not rewrite component meta.json files.',
+  );
+  stdout.writeln(
+    '  --skip-docs-snapshot          Do not rewrite docs/assets registry snapshots.',
   );
   stdout.writeln(
     '  --bump-manifest-version       Increment manifestVersion in components.json.',
@@ -466,12 +498,33 @@ JsonMap _asJsonMap(dynamic value) {
   return <String, dynamic>{};
 }
 
+bool _deepEquals(dynamic a, dynamic b) {
+  if (a is Map && b is Map) {
+    if (a.length != b.length) return false;
+    for (final key in a.keys) {
+      if (!b.containsKey(key)) return false;
+      if (!_deepEquals(a[key], b[key])) return false;
+    }
+    return true;
+  }
+  if (a is List && b is List) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (!_deepEquals(a[i], b[i])) return false;
+    }
+    return true;
+  }
+  return a == b;
+}
+
 JsonMap _mergeMeta({
   required String id,
   required String category,
   required JsonMap meta,
   required JsonMap? existingEntry,
   required List<String> fileList,
+  required String metadataPath,
+  String? versionOverride,
 }) {
   final updated = JsonMap.from(meta);
 
@@ -483,6 +536,16 @@ JsonMap _mergeMeta({
       meta['description'] as String? ??
       (existingEntry?['description'] as String?) ??
       '';
+  final tier = _requireTier(
+    id: id,
+    value: meta['tier'],
+    metadataPath: metadataPath,
+  );
+  final version = _requireVersion(
+    id: id,
+    value: versionOverride ?? meta['version'],
+    metadataPath: versionOverride == null ? metadataPath : 'CLI override',
+  );
 
   final tags = meta['tags'] is List
       ? (meta['tags'] as List).whereType<String>().toList()
@@ -551,6 +614,7 @@ JsonMap _mergeMeta({
   updated['name'] = name;
   updated['description'] = description;
   updated['category'] = category;
+  updated['tier'] = tier;
   updated['tags'] = tags;
   updated['dependencies'] = {
     'shared': resolvedShared,
@@ -565,6 +629,7 @@ JsonMap _mergeMeta({
     updated['postInstall'] = postInstall;
   }
   updated['files'] = fileList;
+  updated['version'] = version;
 
   return updated;
 }
@@ -575,6 +640,8 @@ JsonMap _buildEntry({
   required String type,
   required JsonMap meta,
   required JsonMap? existingEntry,
+  required String metadataPath,
+  String? versionOverride,
 }) {
   final id = _basename(entryDir.path);
   final category = _basename(entryDir.parent.path);
@@ -586,10 +653,17 @@ JsonMap _buildEntry({
     meta: meta,
     existingEntry: existingEntry,
     fileList: fileList,
+    metadataPath: metadataPath,
+    versionOverride: versionOverride,
   );
 
   final name = updatedMeta['name'] as String? ?? _titleCase(id);
   final description = updatedMeta['description'] as String? ?? '';
+  final tier = _requireTier(
+    id: id,
+    value: updatedMeta['tier'],
+    metadataPath: metadataPath,
+  );
   final tags = updatedMeta['tags'] is List
       ? (updatedMeta['tags'] as List).whereType<String>().toList()
       : <String>[category, id];
@@ -627,6 +701,7 @@ JsonMap _buildEntry({
   entry['name'] = name;
   entry['description'] = description;
   entry['category'] = category;
+  entry['tier'] = tier;
   entry['tags'] = tags;
   entry['files'] = files;
   entry['shared'] = shared;
@@ -637,14 +712,53 @@ JsonMap _buildEntry({
   };
   entry['assets'] = assets;
   entry['postInstall'] = postInstall;
-  final version = updatedMeta['version'];
-  if (version is String && version.isNotEmpty) {
-    entry['version'] = version;
-  } else if (existingEntry?['version'] is String) {
-    entry['version'] = existingEntry!['version'];
-  }
+  entry['version'] = _requireVersion(
+    id: id,
+    value: updatedMeta['version'],
+    metadataPath: metadataPath,
+  );
 
   return entry;
+}
+
+String _requireTier({
+  required String id,
+  required dynamic value,
+  required String metadataPath,
+}) {
+  if (value is! String || value.trim().isEmpty) {
+    throw _RegistryValidationError(
+      'Component "$id" is missing tier in $metadataPath.',
+    );
+  }
+  final normalized = value.trim();
+  if (_allowedTiers.contains(normalized)) {
+    return normalized;
+  }
+  throw _RegistryValidationError(
+    'Component "$id" has invalid tier "$value" in $metadataPath. '
+    'Expected one of: ${_allowedTiers.join(', ')}.',
+  );
+}
+
+String _requireVersion({
+  required String id,
+  required dynamic value,
+  required String metadataPath,
+}) {
+  if (value is! String || value.trim().isEmpty) {
+    throw _RegistryValidationError(
+      'Component "$id" is missing version in $metadataPath.',
+    );
+  }
+  final normalized = value.trim();
+  if (_semVerPattern.hasMatch(normalized)) {
+    return normalized;
+  }
+  throw _RegistryValidationError(
+    'Component "$id" has invalid version "$value" in $metadataPath. '
+    'Expected SemVer format such as 1.0.0 or 1.2.3-beta.1.',
+  );
 }
 
 void main(List<String> args) {
@@ -678,6 +792,8 @@ void main(List<String> args) {
   );
   componentTargets.addAll(componentVersionOverrides.keys);
   final componentVersionAll = parsed.getValue('set-component-version');
+  final skipMetaWrite = parsed.hasFlag('skip-meta-write');
+  final skipDocsSnapshot = parsed.hasFlag('skip-docs-snapshot');
   final filterEnabled = componentTargets.isNotEmpty;
 
   final root = _findRepoRoot(Directory.current);
@@ -732,7 +848,9 @@ void main(List<String> args) {
   }
 
   final updatedEntries = <String, JsonMap>{};
+  final pendingMetaWrites = <_PendingMetaWrite>[];
   final missingMetaFiles = <String>[];
+  final validationErrors = <String>[];
 
   for (final type in ['components', 'composites']) {
     final rootDir = Directory('${registryDir.path}/$type');
@@ -756,42 +874,67 @@ void main(List<String> args) {
         if (filterEnabled && !componentTargets.contains(id)) {
           continue;
         }
-        final updatedEntry = _buildEntry(
-          registryDir: registryDir,
-          entryDir: entryDir,
-          type: type,
-          meta: meta,
-          existingEntry: existingEntries[id],
-        );
+        final overrideVersion =
+            componentVersionOverrides[id] ?? componentVersionAll;
 
-        if (componentVersionAll != null &&
-            (componentTargets.isEmpty || componentTargets.contains(id))) {
-          updatedEntry['version'] = componentVersionAll;
-        }
-        final overrideVersion = componentVersionOverrides[id];
-        if (overrideVersion != null) {
-          updatedEntry['version'] = overrideVersion;
-        }
+        try {
+          final updatedEntry = _buildEntry(
+            registryDir: registryDir,
+            entryDir: entryDir,
+            type: type,
+            meta: meta,
+            existingEntry: existingEntries[id],
+            metadataPath: metadata.canonicalMeta.path,
+            versionOverride: overrideVersion,
+          );
+          updatedEntries[id] = updatedEntry;
 
-        updatedEntries[id] = updatedEntry;
-
-        final fileList = listComponentSourceFilesRelative(entryDir);
-        final category = _basename(entryDir.parent.path);
-        final updatedMeta = _mergeMeta(
-          id: id,
-          category: category,
-          meta: meta,
-          existingEntry: existingEntries[id],
-          fileList: fileList,
-        );
-        final resolvedVersion = updatedEntry['version'];
-        if (resolvedVersion is String && resolvedVersion.isNotEmpty) {
-          updatedMeta['version'] = resolvedVersion;
+          final fileList = listComponentSourceFilesRelative(entryDir);
+          final category = _basename(entryDir.parent.path);
+          final updatedMeta = _mergeMeta(
+            id: id,
+            category: category,
+            meta: meta,
+            existingEntry: existingEntries[id],
+            fileList: fileList,
+            metadataPath: metadata.canonicalMeta.path,
+            versionOverride: overrideVersion,
+          );
+          pendingMetaWrites.add(
+            _PendingMetaWrite(
+              metadata: metadata,
+              originalMeta: meta,
+              updatedMeta: updatedMeta,
+            ),
+          );
+        } on _RegistryValidationError catch (error) {
+          validationErrors.add(error.message);
         }
+      }
+    }
+  }
+
+  if (validationErrors.isNotEmpty) {
+    stderr.writeln('Registry validation failed:');
+    for (final error in validationErrors) {
+      stderr.writeln('  - $error');
+    }
+    exitCode = 2;
+    return;
+  }
+
+  if (!skipMetaWrite) {
+    for (final pending in pendingMetaWrites) {
+      if (!_deepEquals(pending.originalMeta, pending.updatedMeta)) {
         writeJsonMirrored(
-          canonical: metadata.canonicalMeta,
-          legacy: metadata.legacyMeta,
-          data: updatedMeta,
+          canonical: pending.metadata.canonicalMeta,
+          legacy: pending.metadata.legacyMeta,
+          data: pending.updatedMeta,
+        );
+      } else {
+        mirrorExistingFile(
+          canonical: pending.metadata.canonicalMeta,
+          legacy: pending.metadata.legacyMeta,
         );
       }
     }
@@ -827,13 +970,23 @@ void main(List<String> args) {
   );
 
   _writeJson(componentsJson, registry);
-  final docsSnapshots = <File>{
-    File('${root.path}/docs/assets/registry/components.json'),
-    File('${root.parent.path}/docs/assets/registry/components.json'),
-  };
-  for (final docsSnapshot in docsSnapshots) {
-    if (!docsSnapshot.existsSync()) continue;
-    _writeJson(docsSnapshot, registry);
+  if (!skipDocsSnapshot) {
+    final docsSnapshots = <File>{
+      File('${root.path}/docs/assets/registry/components.json'),
+      File('${root.parent.path}/docs/assets/registry/components.json'),
+    };
+    for (final docsSnapshot in docsSnapshots) {
+      if (!docsSnapshot.existsSync()) continue;
+      _writeJson(docsSnapshot, registry);
+    }
+  }
+
+  final docsRegistryRoot = findSiblingDocsRegistryRoot(root);
+  if (docsRegistryRoot != null) {
+    syncDocsRegistryMetadata(
+      registryDir: registryDir,
+      docsRegistryRoot: docsRegistryRoot,
+    );
   }
 
   stdout.writeln('Components generation complete.');

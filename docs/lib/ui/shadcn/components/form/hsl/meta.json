@@ -3,6 +3,7 @@
   "name": "HSL Color Slider",
   "description": "Gradient slider that controls hue, saturation, lightness, or alpha for HSL colors.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "color",
     "slider",

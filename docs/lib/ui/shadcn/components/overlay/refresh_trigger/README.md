@@ -66,7 +66,6 @@ RefreshTrigger(
 - `RefreshTrigger`
 - `RefreshTriggerStage`
 - `RefreshIndicatorBuilder`
-- `FutureVoidCallback`
 - `RefreshTriggerTheme`
 
 ---

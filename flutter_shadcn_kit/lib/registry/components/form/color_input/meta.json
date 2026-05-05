@@ -3,6 +3,7 @@
   "name": "Color Input",
   "description": "Popover/dialog color selector that integrates the picker, history, and eye-dropper tools.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "color",
     "input",

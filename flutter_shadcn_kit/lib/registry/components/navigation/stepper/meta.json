@@ -3,6 +3,7 @@
   "name": "Stepper",
   "description": "Multi-step progress with interactive step indicators.",
   "category": "navigation",
+  "tier": "pattern",
   "tags": [
     "navigation",
     "stepper",

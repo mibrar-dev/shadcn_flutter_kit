@@ -3,6 +3,7 @@
   "name": "Hover Card",
   "description": "Hover or long-press triggered popovers for rich previews.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "hover",

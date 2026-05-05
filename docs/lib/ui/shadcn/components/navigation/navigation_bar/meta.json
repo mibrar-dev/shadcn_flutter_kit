@@ -3,6 +3,7 @@
   "name": "Navigation Bar",
   "description": "Themed navigation bar supporting destinations, overflow, and responsive layout.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "navigation",
     "bar",

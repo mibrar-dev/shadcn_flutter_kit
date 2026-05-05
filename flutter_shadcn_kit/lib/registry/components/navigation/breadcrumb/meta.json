@@ -3,6 +3,7 @@
   "name": "Breadcrumb",
   "description": "Horizontal breadcrumb trail with arrow/slash separators and overflow handling.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "navigation",
     "layout"

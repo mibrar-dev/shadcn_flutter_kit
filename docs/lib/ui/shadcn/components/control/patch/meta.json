@@ -3,6 +3,7 @@
   "name": "Click Detector",
   "description": "Tracks consecutive taps and exposes click count details.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "gesture",
     "interaction",

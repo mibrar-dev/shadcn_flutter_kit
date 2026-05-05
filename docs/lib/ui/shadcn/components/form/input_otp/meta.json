@@ -3,6 +3,7 @@
   "name": "Input OTP",
   "description": "Fixed-length OTP input field with clipboard integration, paste handling, and focus management.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

@@ -3,6 +3,7 @@
   "name": "Scrollable Client",
   "description": "Two-dimensional scroll surface with builder callbacks for viewport-aware layouts.",
   "category": "layout",
+  "tier": "component",
   "tags": [
     "layout",
     "scroll"

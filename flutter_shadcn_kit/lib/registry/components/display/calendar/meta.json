@@ -3,6 +3,7 @@
   "name": "Calendar",
   "description": "Date picker and calendar widgets for single, range, and multi selection.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "calendar",
     "date",

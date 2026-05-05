@@ -3,6 +3,7 @@
   "name": "Gooey Toast",
   "description": "Animated gooey-style toast built on existing overlay toast infrastructure.",
   "category": "overlay",
+  "tier": "component",
   "version": "1.0.0",
   "tags": [
     "overlay",

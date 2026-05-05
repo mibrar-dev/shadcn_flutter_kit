@@ -3,6 +3,7 @@
   "name": "Empty State",
   "description": "Standardized empty state block for empty, no-results, or error.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "empty",
     "state",

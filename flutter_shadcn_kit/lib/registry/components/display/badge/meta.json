@@ -3,6 +3,7 @@
   "name": "Badge",
   "description": "Compact label/status components built on button styles.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "status",

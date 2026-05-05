@@ -3,6 +3,7 @@
   "name": "Scrollbar",
   "description": "Themeable scrollbar wrapper built on RawScrollbar.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "control",
     "scroll"

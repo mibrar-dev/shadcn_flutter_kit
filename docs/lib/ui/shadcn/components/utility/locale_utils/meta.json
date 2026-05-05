@@ -3,6 +3,7 @@
   "name": "Locale Utils",
   "description": "Date/time/duration unit helpers and file size formatting locales.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "locale",
     "utility",

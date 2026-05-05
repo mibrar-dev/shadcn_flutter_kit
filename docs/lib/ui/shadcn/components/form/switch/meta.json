@@ -3,6 +3,7 @@
   "name": "Switch",
   "description": "Toggle control for boolean values with themed styling.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

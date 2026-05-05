@@ -3,6 +3,7 @@
   "name": "Async",
   "description": "Utility for widgets that work with both synchronous and asynchronous values.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "async",
     "builder",

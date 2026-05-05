@@ -3,6 +3,7 @@
   "name": "Form Field",
   "description": "Modal or popover editor field for complex objects.",
   "category": "form",
+  "tier": "pattern",
   "tags": [
     "form",
     "input",

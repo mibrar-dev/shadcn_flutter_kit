@@ -3,6 +3,7 @@
   "name": "Tooltip",
   "description": "Hover-triggered tooltip overlays with themed containers.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "overlay",
     "help"

@@ -3,6 +3,7 @@
   "name": "Color Picker",
   "description": "HSV/HSL/HEX color picker with popovers, eye dropper, and history controls.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "color",
     "picker",

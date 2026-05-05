@@ -3,6 +3,7 @@
   "name": "Context Menu",
   "description": "Desktop-style context menu overlay for editable text and custom actions.",
   "category": "overlay",
+  "tier": "component",
   "tags": [
     "menu",
     "context",

@@ -3,6 +3,7 @@
   "name": "Scaffold",
   "description": "Layout scaffold with headers, footers, and loading indicators.",
   "category": "layout",
+  "tier": "pattern",
   "tags": [
     "layout",
     "scaffold",

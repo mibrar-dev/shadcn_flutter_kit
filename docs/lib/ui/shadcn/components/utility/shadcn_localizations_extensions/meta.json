@@ -3,6 +3,7 @@
   "name": "Shadcn Localizations Extensions",
   "description": "Formatting helpers for localized dates, times, durations, and picker labels.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "localization",
     "formatting",

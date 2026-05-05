@@ -3,6 +3,7 @@
   "name": "Debug",
   "description": "Debug overlays and container helpers for layout inspection.",
   "category": "utility",
+  "tier": "component",
   "tags": [
     "debug",
     "overlay",

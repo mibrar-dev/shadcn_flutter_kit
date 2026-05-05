@@ -3,6 +3,7 @@
   "name": "Color History",
   "description": "Grid + storage helpers that track recently used colors for reuse.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "color",
     "history",

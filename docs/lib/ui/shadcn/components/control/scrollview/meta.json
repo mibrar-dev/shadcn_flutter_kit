@@ -3,6 +3,7 @@
   "name": "Scroll View Interceptor",
   "description": "Middle-click drag scroll interceptor for desktop/web.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "control",
     "scroll"

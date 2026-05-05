@@ -3,6 +3,7 @@
   "name": "Chip Input",
   "description": "Inline text input that converts typed tokens into chip widgets with removable buttons and autocomplete hooks.",
   "category": "form",
+  "tier": "component",
   "tags": [
     "form",
     "input",

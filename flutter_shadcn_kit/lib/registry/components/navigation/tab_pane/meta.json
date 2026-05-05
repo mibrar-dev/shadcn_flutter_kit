@@ -3,6 +3,7 @@
   "name": "Tab Pane",
   "description": "Sortable tab strip with integrated content card.",
   "category": "navigation",
+  "tier": "component",
   "tags": [
     "tabs",
     "navigation",

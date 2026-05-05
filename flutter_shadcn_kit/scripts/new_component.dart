@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 const _defaultVersion = '1.0.0';
+const _defaultTier = 'component';
 
 String _join(String a, String b) {
   if (a.endsWith(Platform.pathSeparator)) {
@@ -341,6 +342,7 @@ void main(List<String> args) {
       'name': title,
       'description': description,
       'category': category,
+      'tier': _defaultTier,
       'version': _defaultVersion,
       'tags': [category, componentId],
       'dependencies': {'pubspec': {}, 'shared': [], 'components': []},
@@ -435,6 +437,7 @@ void main(List<String> args) {
     'name': title,
     'description': description,
     'category': category,
+    'tier': _defaultTier,
     'tags': [category, componentId],
     'version': _defaultVersion,
     'files': [

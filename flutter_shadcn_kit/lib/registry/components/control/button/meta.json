@@ -3,6 +3,7 @@
   "name": "Button",
   "description": "Shadcn-style button system with variants, toggles, and groups.",
   "category": "control",
+  "tier": "primitive",
   "tags": [
     "controls",
     "forms",
@@ -93,12 +94,12 @@
   ],
   "api": {
     "constructors": [
-      "`Button` — base widget requiring `child` and `style`.",
-      "`PrimaryButton`, `SecondaryButton`, `OutlineButton`, `GhostButton`, `LinkButton`, `TextButton`, `DestructiveButton`, `CardButton`, `TabButton` — pre-styled variants.",
-      "`IconButton` — icon-only button, with named constructors like `IconButton.primary` and `IconButton.secondary`.",
-      "`Toggle` — boolean toggle button.",
-      "`SelectedButton` — selected/unselected button with distinct styles.",
-      "`ButtonGroup` — groups multiple buttons with shared borders."
+      "`Button` \u2014 base widget requiring `child` and `style`.",
+      "`PrimaryButton`, `SecondaryButton`, `OutlineButton`, `GhostButton`, `LinkButton`, `TextButton`, `DestructiveButton`, `CardButton`, `TabButton` \u2014 pre-styled variants.",
+      "`IconButton` \u2014 icon-only button, with named constructors like `IconButton.primary` and `IconButton.secondary`.",
+      "`Toggle` \u2014 boolean toggle button.",
+      "`SelectedButton` \u2014 selected/unselected button with distinct styles.",
+      "`ButtonGroup` \u2014 groups multiple buttons with shared borders."
     ],
     "callbacks": [
       "`onPressed` (buttons and icon buttons)",

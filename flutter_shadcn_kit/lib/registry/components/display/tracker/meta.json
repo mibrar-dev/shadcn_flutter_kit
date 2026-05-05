@@ -3,6 +3,7 @@
   "name": "Tracker",
   "description": "Horizontal tracker segments with tooltips.",
   "category": "display",
+  "tier": "component",
   "tags": [
     "display",
     "status"

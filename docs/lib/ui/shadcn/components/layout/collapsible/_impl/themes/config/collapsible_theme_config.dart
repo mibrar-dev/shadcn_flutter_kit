@@ -15,10 +15,11 @@ class CollapsibleThemeConfig {
   static const CollapsibleThemeDefaults defaults = CollapsibleThemeDefaults();
   static const CollapsibleThemeTokens tokens = collapsibleThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CollapsibleTheme: global,
+  };
+
   static T? resolve<T extends CollapsibleTheme>() {
-    if (T == CollapsibleTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

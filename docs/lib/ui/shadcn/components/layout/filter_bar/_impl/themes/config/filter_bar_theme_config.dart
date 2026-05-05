@@ -15,10 +15,11 @@ class FilterBarThemeConfig {
   static const FilterBarThemeDefaults defaults = FilterBarThemeDefaults();
   static const FilterBarThemeTokens tokens = filterBarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    FilterBarStyle: global,
+  };
+
   static T? resolve<T extends FilterBarStyle>() {
-    if (T == FilterBarStyle) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

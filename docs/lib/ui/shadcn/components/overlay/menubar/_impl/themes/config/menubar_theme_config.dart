@@ -15,10 +15,11 @@ class MenubarThemeConfig {
   static const MenubarThemeDefaults defaults = MenubarThemeDefaults();
   static const MenubarThemeTokens tokens = menubarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    MenubarTheme: global,
+  };
+
   static T? resolve<T extends MenubarTheme>() {
-    if (T == MenubarTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

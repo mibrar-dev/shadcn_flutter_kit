@@ -17,10 +17,11 @@ class CircularProgressIndicatorThemeConfig {
   static const CircularProgressIndicatorThemeTokens tokens =
       circularProgressIndicatorThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CircularProgressIndicatorTheme: global,
+  };
+
   static T? resolve<T extends CircularProgressIndicatorTheme>() {
-    if (T == CircularProgressIndicatorTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -22,13 +22,12 @@ class RadioGroupThemeConfig {
   static const RadioThemeDefaults radioThemeDefaults = RadioThemeDefaults();
   static const RadioThemeTokens radioThemeTokenConfig = radioThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    RadioCardTheme: radioCardTheme,
+    RadioTheme: radioTheme,
+  };
+
   static T? resolve<T>() {
-    if (T == RadioCardTheme) {
-      return radioCardTheme as T?;
-    }
-    if (T == RadioTheme) {
-      return radioTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

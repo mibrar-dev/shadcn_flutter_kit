@@ -15,10 +15,11 @@ class ColorPickerThemeConfig {
   static const ColorPickerThemeDefaults defaults = ColorPickerThemeDefaults();
   static const ColorPickerThemeTokens tokens = colorPickerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ColorPickerTheme: global,
+  };
+
   static T? resolve<T extends ColorPickerTheme>() {
-    if (T == ColorPickerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -17,10 +17,11 @@ class PopupThemeConfig {
   static const MenuPopupThemeTokens menuPopupThemeTokenConfig =
       menuPopupThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    MenuPopupTheme: menuPopupTheme,
+  };
+
   static T? resolve<T extends MenuPopupTheme>() {
-    if (T == MenuPopupTheme) {
-      return menuPopupTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

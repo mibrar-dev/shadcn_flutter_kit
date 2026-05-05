@@ -17,10 +17,11 @@ class LinearProgressIndicatorThemeConfig {
   static const LinearProgressIndicatorThemeTokens tokens =
       linearProgressIndicatorThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    LinearProgressIndicatorTheme: global,
+  };
+
   static T? resolve<T extends LinearProgressIndicatorTheme>() {
-    if (T == LinearProgressIndicatorTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

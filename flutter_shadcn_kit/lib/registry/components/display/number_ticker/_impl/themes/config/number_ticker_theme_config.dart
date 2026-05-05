@@ -15,10 +15,11 @@ class NumberTickerThemeConfig {
   static const NumberTickerThemeDefaults defaults = NumberTickerThemeDefaults();
   static const NumberTickerThemeTokens tokens = numberTickerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    NumberTickerTheme: global,
+  };
+
   static T? resolve<T extends NumberTickerTheme>() {
-    if (T == NumberTickerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

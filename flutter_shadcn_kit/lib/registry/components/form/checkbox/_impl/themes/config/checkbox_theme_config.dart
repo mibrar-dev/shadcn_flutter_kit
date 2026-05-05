@@ -15,10 +15,11 @@ class CheckboxThemeConfig {
   static const CheckboxThemeDefaults defaults = CheckboxThemeDefaults();
   static const CheckboxThemeTokens tokens = checkboxThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CheckboxTheme: global,
+  };
+
   static T? resolve<T extends CheckboxTheme>() {
-    if (T == CheckboxTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

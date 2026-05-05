@@ -34,19 +34,14 @@ class TabsThemeConfig {
       TabPaneThemeDefaults();
   static const TabPaneThemeTokens tabPaneThemeTokenConfig = tabPaneThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TabsTheme: global,
+    TabContainerTheme: tabContainerTheme,
+    TabListTheme: tabListTheme,
+    TabPaneTheme: tabPaneTheme,
+  };
+
   static T? resolve<T>() {
-    if (T == TabsTheme) {
-      return global as T?;
-    }
-    if (T == TabContainerTheme) {
-      return tabContainerTheme as T?;
-    }
-    if (T == TabListTheme) {
-      return tabListTheme as T?;
-    }
-    if (T == TabPaneTheme) {
-      return tabPaneTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

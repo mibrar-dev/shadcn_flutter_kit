@@ -15,10 +15,11 @@ class DotIndicatorThemeConfig {
   static const DotIndicatorThemeDefaults defaults = DotIndicatorThemeDefaults();
   static const DotIndicatorThemeTokens tokens = dotIndicatorThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    DotIndicatorTheme: global,
+  };
+
   static T? resolve<T extends DotIndicatorTheme>() {
-    if (T == DotIndicatorTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

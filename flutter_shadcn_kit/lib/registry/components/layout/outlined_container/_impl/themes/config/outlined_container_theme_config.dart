@@ -17,10 +17,11 @@ class OutlinedContainerThemeConfig {
   static const OutlinedContainerThemeTokens tokens =
       outlinedContainerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    OutlinedContainerTheme: global,
+  };
+
   static T? resolve<T extends OutlinedContainerTheme>() {
-    if (T == OutlinedContainerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class AccordionThemeConfig {
   static const AccordionThemeDefaults defaults = AccordionThemeDefaults();
   static const AccordionThemeTokens tokens = accordionThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    AccordionTheme: global,
+  };
+
   static T? resolve<T extends AccordionTheme>() {
-    if (T == AccordionTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

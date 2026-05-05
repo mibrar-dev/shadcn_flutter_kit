@@ -15,10 +15,11 @@ class ColorInputThemeConfig {
   static const ColorInputThemeDefaults defaults = ColorInputThemeDefaults();
   static const ColorInputThemeTokens tokens = colorInputThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ColorInputTheme: global,
+  };
+
   static T? resolve<T extends ColorInputTheme>() {
-    if (T == ColorInputTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

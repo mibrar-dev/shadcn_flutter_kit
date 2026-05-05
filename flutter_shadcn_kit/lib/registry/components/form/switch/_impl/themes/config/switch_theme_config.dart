@@ -15,10 +15,11 @@ class SwitchThemeConfig {
   static const SwitchThemeDefaults defaults = SwitchThemeDefaults();
   static const SwitchThemeTokens tokens = switchThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SwitchTheme: global,
+  };
+
   static T? resolve<T extends SwitchTheme>() {
-    if (T == SwitchTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class BadgeThemeConfig {
   static const BadgeThemeDefaults defaults = BadgeThemeDefaults();
   static const BadgeThemeTokens tokens = badgeThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    BadgeTheme: global,
+  };
+
   static T? resolve<T extends BadgeTheme>() {
-    if (T == BadgeTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

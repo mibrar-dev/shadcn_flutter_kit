@@ -15,10 +15,11 @@ class ContextMenuThemeConfig {
   static const ContextMenuThemeDefaults defaults = ContextMenuThemeDefaults();
   static const ContextMenuThemeTokens tokens = contextMenuThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ContextMenuTheme: global,
+  };
+
   static T? resolve<T extends ContextMenuTheme>() {
-    if (T == ContextMenuTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

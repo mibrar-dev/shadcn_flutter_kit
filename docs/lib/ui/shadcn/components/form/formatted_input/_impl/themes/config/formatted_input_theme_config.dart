@@ -16,10 +16,11 @@ class FormattedInputThemeConfig {
       FormattedInputThemeDefaults();
   static const FormattedInputThemeTokens tokens = formattedInputThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    FormattedInputTheme: global,
+  };
+
   static T? resolve<T extends FormattedInputTheme>() {
-    if (T == FormattedInputTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

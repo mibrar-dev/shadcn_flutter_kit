@@ -15,10 +15,11 @@ class SelectThemeConfig {
   static const SelectThemeDefaults defaults = SelectThemeDefaults();
   static const SelectThemeTokens tokens = selectThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SelectTheme: global,
+  };
+
   static T? resolve<T extends SelectTheme>() {
-    if (T == SelectTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

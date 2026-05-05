@@ -15,10 +15,11 @@ class AlertThemeConfig {
   static const AlertThemeDefaults defaults = AlertThemeDefaults();
   static const AlertThemeTokens tokens = alertThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    AlertTheme: global,
+  };
+
   static T? resolve<T extends AlertTheme>() {
-    if (T == AlertTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class AvatarThemeConfig {
   static const AvatarThemeDefaults defaults = AvatarThemeDefaults();
   static const AvatarThemeTokens tokens = avatarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    AvatarTheme: global,
+  };
+
   static T? resolve<T extends AvatarTheme>() {
-    if (T == AvatarTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

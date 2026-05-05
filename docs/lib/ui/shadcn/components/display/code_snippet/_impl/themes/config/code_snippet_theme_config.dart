@@ -15,10 +15,11 @@ class CodeSnippetThemeConfig {
   static const CodeSnippetThemeDefaults defaults = CodeSnippetThemeDefaults();
   static const CodeSnippetThemeTokens tokens = codeSnippetThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CodeSnippetTheme: global,
+  };
+
   static T? resolve<T extends CodeSnippetTheme>() {
-    if (T == CodeSnippetTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class TrackerThemeConfig {
   static const TrackerThemeDefaults defaults = TrackerThemeDefaults();
   static const TrackerThemeTokens tokens = trackerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TrackerTheme: global,
+  };
+
   static T? resolve<T extends TrackerTheme>() {
-    if (T == TrackerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class HiddenThemeConfig {
   static const HiddenThemeDefaults defaults = HiddenThemeDefaults();
   static const HiddenThemeTokens tokens = hiddenThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    HiddenTheme: global,
+  };
+
   static T? resolve<T extends HiddenTheme>() {
-    if (T == HiddenTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

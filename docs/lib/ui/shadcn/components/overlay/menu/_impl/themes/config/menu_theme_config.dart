@@ -28,16 +28,13 @@ class MenuThemeConfig {
       MenubarThemeDefaults();
   static const MenubarThemeTokens menubarThemeTokenConfig = menubarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    MenuTheme: global,
+    MenuPopupTheme: menuPopupTheme,
+    MenubarTheme: menubarTheme,
+  };
+
   static T? resolve<T>() {
-    if (T == MenuTheme) {
-      return global as T?;
-    }
-    if (T == MenuPopupTheme) {
-      return menuPopupTheme as T?;
-    }
-    if (T == MenubarTheme) {
-      return menubarTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

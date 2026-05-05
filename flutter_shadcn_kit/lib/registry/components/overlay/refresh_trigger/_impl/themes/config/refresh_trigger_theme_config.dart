@@ -16,10 +16,11 @@ class RefreshTriggerThemeConfig {
       RefreshTriggerThemeDefaults();
   static const RefreshTriggerThemeTokens tokens = refreshTriggerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    RefreshTriggerTheme: global,
+  };
+
   static T? resolve<T extends RefreshTriggerTheme>() {
-    if (T == RefreshTriggerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -16,10 +16,11 @@ class NavigationBarThemeConfig {
       NavigationBarThemeDefaults();
   static const NavigationBarThemeTokens tokens = navigationBarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    NavigationBarTheme: global,
+  };
+
   static T? resolve<T extends NavigationBarTheme>() {
-    if (T == NavigationBarTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

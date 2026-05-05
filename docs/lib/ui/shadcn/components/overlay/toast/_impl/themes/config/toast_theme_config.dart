@@ -15,10 +15,11 @@ class ToastThemeConfig {
   static const ToastThemeDefaults defaults = ToastThemeDefaults();
   static const ToastThemeTokens tokens = toastThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ToastTheme: global,
+  };
+
   static T? resolve<T extends ToastTheme>() {
-    if (T == ToastTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

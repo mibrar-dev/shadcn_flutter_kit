@@ -15,10 +15,11 @@ class PhoneInputThemeConfig {
   static const PhoneInputThemeDefaults defaults = PhoneInputThemeDefaults();
   static const PhoneInputThemeTokens tokens = phoneInputThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    PhoneInputTheme: global,
+  };
+
   static T? resolve<T extends PhoneInputTheme>() {
-    if (T == PhoneInputTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

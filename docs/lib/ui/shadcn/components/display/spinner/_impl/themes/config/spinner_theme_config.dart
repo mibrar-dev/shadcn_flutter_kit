@@ -15,10 +15,11 @@ class SpinnerThemeConfig {
   static const SpinnerThemeDefaults defaults = SpinnerThemeDefaults();
   static const SpinnerThemeTokens tokens = spinnerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SpinnerTheme: global,
+  };
+
   static T? resolve<T extends SpinnerTheme>() {
-    if (T == SpinnerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

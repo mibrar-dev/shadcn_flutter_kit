@@ -15,10 +15,11 @@ class ChipThemeConfig {
   static const ChipThemeDefaults defaults = ChipThemeDefaults();
   static const ChipThemeTokens tokens = chipThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ChipTheme: global,
+  };
+
   static T? resolve<T extends ChipTheme>() {
-    if (T == ChipTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

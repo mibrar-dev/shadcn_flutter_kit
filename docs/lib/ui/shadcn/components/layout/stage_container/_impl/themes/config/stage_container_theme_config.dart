@@ -16,10 +16,11 @@ class StageContainerThemeConfig {
       StageContainerThemeDefaults();
   static const StageContainerThemeTokens tokens = stageContainerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    StageContainerTheme: global,
+  };
+
   static T? resolve<T extends StageContainerTheme>() {
-    if (T == StageContainerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -16,10 +16,11 @@ class FeatureCarouselThemeConfig {
       FeatureCarouselThemeDefaults();
   static const FeatureCarouselThemeTokens tokens = featureCarouselThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    FeatureCarouselThemeData: global,
+  };
+
   static T? resolve<T extends FeatureCarouselThemeData>() {
-    if (T == FeatureCarouselThemeData) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

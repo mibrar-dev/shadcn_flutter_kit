@@ -15,10 +15,11 @@ class CardThemeConfig {
   static const CardThemeDefaults defaults = CardThemeDefaults();
   static const CardThemeTokens tokens = cardThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CardTheme: global,
+  };
+
   static T? resolve<T extends CardTheme>() {
-    if (T == CardTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

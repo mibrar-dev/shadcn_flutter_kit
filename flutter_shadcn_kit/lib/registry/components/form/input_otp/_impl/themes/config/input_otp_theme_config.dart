@@ -17,10 +17,11 @@ class InputOtpThemeConfig {
   static const InputOTPThemeTokens inputOTPThemeTokenConfig =
       inputOTPThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    InputOTPTheme: inputOTPTheme,
+  };
+
   static T? resolve<T extends InputOTPTheme>() {
-    if (T == InputOTPTheme) {
-      return inputOTPTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

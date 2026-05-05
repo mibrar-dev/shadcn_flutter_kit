@@ -15,10 +15,11 @@ class DrawerThemeConfig {
   static const DrawerThemeDefaults defaults = DrawerThemeDefaults();
   static const DrawerThemeTokens tokens = drawerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    DrawerTheme: global,
+  };
+
   static T? resolve<T extends DrawerTheme>() {
-    if (T == DrawerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

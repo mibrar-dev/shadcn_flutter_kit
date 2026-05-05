@@ -16,10 +16,11 @@ class KeyboardShortcutThemeConfig {
       KeyboardShortcutThemeDefaults();
   static const KeyboardShortcutThemeTokens tokens = keyboardShortcutThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    KeyboardShortcutTheme: global,
+  };
+
   static T? resolve<T extends KeyboardShortcutTheme>() {
-    if (T == KeyboardShortcutTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

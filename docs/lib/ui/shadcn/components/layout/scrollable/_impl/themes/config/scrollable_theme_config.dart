@@ -17,10 +17,11 @@ class ScrollableThemeConfig {
   static const ScrollableClientThemeTokens scrollableClientThemeTokenConfig =
       scrollableClientThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ScrollableClientTheme: scrollableClientTheme,
+  };
+
   static T? resolve<T>() {
-    if (T == ScrollableClientTheme) {
-      return scrollableClientTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

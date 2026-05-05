@@ -17,10 +17,11 @@ class DialogThemeConfig {
   static const ModalBackdropThemeTokens modalBackdropThemeTokenConfig =
       modalBackdropThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ModalBackdropTheme: modalBackdropTheme,
+  };
+
   static T? resolve<T extends ModalBackdropTheme>() {
-    if (T == ModalBackdropTheme) {
-      return modalBackdropTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

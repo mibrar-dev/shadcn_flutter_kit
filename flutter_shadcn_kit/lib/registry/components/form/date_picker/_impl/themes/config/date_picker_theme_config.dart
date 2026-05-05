@@ -15,10 +15,11 @@ class DatePickerThemeConfig {
   static const DatePickerThemeDefaults defaults = DatePickerThemeDefaults();
   static const DatePickerThemeTokens tokens = datePickerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    DatePickerTheme: global,
+  };
+
   static T? resolve<T extends DatePickerTheme>() {
-    if (T == DatePickerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

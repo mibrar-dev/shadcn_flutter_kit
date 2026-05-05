@@ -15,10 +15,11 @@ class DropdownMenuThemeConfig {
   static const DropdownMenuThemeDefaults defaults = DropdownMenuThemeDefaults();
   static const DropdownMenuThemeTokens tokens = dropdownMenuThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    DropdownMenuTheme: global,
+  };
+
   static T? resolve<T extends DropdownMenuTheme>() {
-    if (T == DropdownMenuTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

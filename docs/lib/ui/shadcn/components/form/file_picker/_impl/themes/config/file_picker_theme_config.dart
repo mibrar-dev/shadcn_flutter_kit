@@ -17,10 +17,11 @@ class FilePickerThemeConfig {
   static const FileUploadDropzoneThemeTokens
   fileUploadDropzoneThemeTokenConfig = fileUploadDropzoneThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    FileUploadDropzoneTheme: fileUploadDropzoneTheme,
+  };
+
   static T? resolve<T extends FileUploadDropzoneTheme>() {
-    if (T == FileUploadDropzoneTheme) {
-      return fileUploadDropzoneTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

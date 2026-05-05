@@ -15,10 +15,11 @@ class EmptyStateThemeConfig {
   static const EmptyStateThemeDefaults defaults = EmptyStateThemeDefaults();
   static const EmptyStateThemeTokens tokens = emptyStateThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    EmptyStateTheme: global,
+  };
+
   static T? resolve<T extends EmptyStateTheme>() {
-    if (T == EmptyStateTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

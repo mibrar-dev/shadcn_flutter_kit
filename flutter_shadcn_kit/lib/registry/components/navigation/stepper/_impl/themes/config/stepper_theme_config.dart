@@ -15,10 +15,11 @@ class StepperThemeConfig {
   static const StepperThemeDefaults defaults = StepperThemeDefaults();
   static const StepperThemeTokens tokens = stepperThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    StepperTheme: global,
+  };
+
   static T? resolve<T extends StepperTheme>() {
-    if (T == StepperTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

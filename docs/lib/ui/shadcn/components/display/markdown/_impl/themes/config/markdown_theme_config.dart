@@ -15,10 +15,11 @@ class MarkdownThemeConfig {
   static const MarkdownThemeDefaults defaults = MarkdownThemeDefaults();
   static const MarkdownThemeTokens tokens = markdownThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    MarkdownTheme: global,
+  };
+
   static T? resolve<T extends MarkdownTheme>() {
-    if (T == MarkdownTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

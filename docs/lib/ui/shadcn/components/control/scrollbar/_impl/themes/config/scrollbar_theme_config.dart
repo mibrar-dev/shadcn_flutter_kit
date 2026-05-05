@@ -15,10 +15,11 @@ class ScrollbarThemeConfig {
   static const ScrollbarThemeDefaults defaults = ScrollbarThemeDefaults();
   static const ScrollbarThemeTokens tokens = scrollbarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ScrollbarTheme: global,
+  };
+
   static T? resolve<T extends ScrollbarTheme>() {
-    if (T == ScrollbarTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

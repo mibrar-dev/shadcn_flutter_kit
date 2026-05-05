@@ -16,10 +16,11 @@ class MultipleChoiceThemeConfig {
       MultipleChoiceThemeDefaults();
   static const MultipleChoiceThemeTokens tokens = multipleChoiceThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    MultipleChoiceTheme: global,
+  };
+
   static T? resolve<T extends MultipleChoiceTheme>() {
-    if (T == MultipleChoiceTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class SwiperThemeConfig {
   static const SwiperThemeDefaults defaults = SwiperThemeDefaults();
   static const SwiperThemeTokens tokens = swiperThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SwiperTheme: global,
+  };
+
   static T? resolve<T extends SwiperTheme>() {
-    if (T == SwiperTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

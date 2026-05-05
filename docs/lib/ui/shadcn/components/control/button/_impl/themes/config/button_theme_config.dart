@@ -117,43 +117,22 @@ class ButtonThemeConfig {
   static const ButtonCoreWidgetTokens coreWidgetTokenConfig =
       buttonCoreWidgetTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    PrimaryButtonTheme: primaryButtonTheme,
+    SecondaryButtonTheme: secondaryButtonTheme,
+    OutlineButtonTheme: outlineButtonTheme,
+    GhostButtonTheme: ghostButtonTheme,
+    LinkButtonTheme: linkButtonTheme,
+    TextButtonTheme: textButtonTheme,
+    DestructiveButtonTheme: destructiveButtonTheme,
+    FixedButtonTheme: fixedButtonTheme,
+    MenuButtonTheme: menuButtonTheme,
+    MenubarButtonTheme: menubarButtonTheme,
+    MutedButtonTheme: mutedButtonTheme,
+    CardButtonTheme: cardButtonTheme,
+  };
+
   static T? resolve<T extends ButtonTheme>() {
-    if (T == PrimaryButtonTheme) {
-      return primaryButtonTheme as T?;
-    }
-    if (T == SecondaryButtonTheme) {
-      return secondaryButtonTheme as T?;
-    }
-    if (T == OutlineButtonTheme) {
-      return outlineButtonTheme as T?;
-    }
-    if (T == GhostButtonTheme) {
-      return ghostButtonTheme as T?;
-    }
-    if (T == LinkButtonTheme) {
-      return linkButtonTheme as T?;
-    }
-    if (T == TextButtonTheme) {
-      return textButtonTheme as T?;
-    }
-    if (T == DestructiveButtonTheme) {
-      return destructiveButtonTheme as T?;
-    }
-    if (T == FixedButtonTheme) {
-      return fixedButtonTheme as T?;
-    }
-    if (T == MenuButtonTheme) {
-      return menuButtonTheme as T?;
-    }
-    if (T == MenubarButtonTheme) {
-      return menubarButtonTheme as T?;
-    }
-    if (T == MutedButtonTheme) {
-      return mutedButtonTheme as T?;
-    }
-    if (T == CardButtonTheme) {
-      return cardButtonTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

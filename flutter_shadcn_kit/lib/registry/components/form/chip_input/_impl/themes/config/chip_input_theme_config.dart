@@ -15,10 +15,11 @@ class ChipInputThemeConfig {
   static const ChipInputThemeDefaults defaults = ChipInputThemeDefaults();
   static const ChipInputThemeTokens tokens = chipInputThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ChipInputTheme: global,
+  };
+
   static T? resolve<T extends ChipInputTheme>() {
-    if (T == ChipInputTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

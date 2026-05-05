@@ -15,10 +15,11 @@ class ErrorSystemThemeConfig {
   static const ErrorSystemThemeDefaults defaults = ErrorSystemThemeDefaults();
   static const ErrorSystemThemeTokens tokens = errorSystemThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ErrorSystemTheme: global,
+  };
+
   static T? resolve<T extends ErrorSystemTheme>() {
-    if (T == ErrorSystemTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

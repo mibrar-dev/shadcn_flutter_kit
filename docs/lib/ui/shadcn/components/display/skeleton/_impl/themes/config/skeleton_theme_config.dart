@@ -15,10 +15,11 @@ class SkeletonThemeConfig {
   static const SkeletonThemeDefaults defaults = SkeletonThemeDefaults();
   static const SkeletonThemeTokens tokens = skeletonThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SkeletonTheme: global,
+  };
+
   static T? resolve<T extends SkeletonTheme>() {
-    if (T == SkeletonTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

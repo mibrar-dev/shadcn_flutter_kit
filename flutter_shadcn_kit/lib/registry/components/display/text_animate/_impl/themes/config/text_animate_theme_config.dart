@@ -15,10 +15,11 @@ class TextAnimateThemeConfig {
   static const TextAnimateThemeDefaults defaults = TextAnimateThemeDefaults();
   static const TextAnimateThemeTokens tokens = textAnimateThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TextAnimateTheme: global,
+  };
+
   static T? resolve<T extends TextAnimateTheme>() {
-    if (T == TextAnimateTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

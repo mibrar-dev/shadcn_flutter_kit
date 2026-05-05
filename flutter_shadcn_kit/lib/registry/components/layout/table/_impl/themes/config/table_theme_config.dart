@@ -22,13 +22,12 @@ class TableThemeConfig {
   static const ResizableTableThemeTokens resizableTableThemeTokenConfig =
       resizableTableThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TableTheme: global,
+    ResizableTableTheme: resizableTableTheme,
+  };
+
   static T? resolve<T>() {
-    if (T == TableTheme) {
-      return global as T?;
-    }
-    if (T == ResizableTableTheme) {
-      return resizableTableTheme as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

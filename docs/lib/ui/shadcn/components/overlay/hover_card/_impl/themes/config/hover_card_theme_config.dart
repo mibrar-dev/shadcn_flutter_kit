@@ -15,10 +15,11 @@ class HoverCardThemeConfig {
   static const HoverCardThemeDefaults defaults = HoverCardThemeDefaults();
   static const HoverCardThemeTokens tokens = hoverCardThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    HoverCardTheme: global,
+  };
+
   static T? resolve<T extends HoverCardTheme>() {
-    if (T == HoverCardTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

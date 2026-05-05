@@ -15,10 +15,11 @@ class GooeyToastThemeConfig {
   static const GooeyToastThemeDefaults defaults = GooeyToastThemeDefaults();
   static const GooeyToastThemeTokens tokens = gooeyToastThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    GooeyToastTheme: global,
+  };
+
   static T? resolve<T extends GooeyToastTheme>() {
-    if (T == GooeyToastTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

@@ -15,10 +15,11 @@ class SliderThemeConfig {
   static const SliderThemeDefaults defaults = SliderThemeDefaults();
   static const SliderThemeTokens tokens = sliderThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    SliderTheme: global,
+  };
+
   static T? resolve<T extends SliderTheme>() {
-    if (T == SliderTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

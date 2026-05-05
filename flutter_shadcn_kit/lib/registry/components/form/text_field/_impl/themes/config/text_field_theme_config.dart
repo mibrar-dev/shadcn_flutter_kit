@@ -15,10 +15,11 @@ class TextFieldThemeConfig {
   static const TextFieldThemeDefaults defaults = TextFieldThemeDefaults();
   static const TextFieldThemeTokens tokens = textFieldThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TextFieldTheme: global,
+  };
+
   static T? resolve<T extends TextFieldTheme>() {
-    if (T == TextFieldTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

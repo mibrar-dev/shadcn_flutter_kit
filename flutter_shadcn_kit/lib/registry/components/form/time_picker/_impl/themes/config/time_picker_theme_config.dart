@@ -15,10 +15,11 @@ class TimePickerThemeConfig {
   static const TimePickerThemeDefaults defaults = TimePickerThemeDefaults();
   static const TimePickerThemeTokens tokens = timePickerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TimePickerTheme: global,
+  };
+
   static T? resolve<T extends TimePickerTheme>() {
-    if (T == TimePickerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

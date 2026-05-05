@@ -15,10 +15,11 @@ class CarouselThemeConfig {
   static const CarouselThemeDefaults defaults = CarouselThemeDefaults();
   static const CarouselThemeTokens tokens = carouselThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CarouselTheme: global,
+  };
+
   static T? resolve<T extends CarouselTheme>() {
-    if (T == CarouselTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

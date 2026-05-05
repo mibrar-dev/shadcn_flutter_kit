@@ -15,10 +15,11 @@ class DividerThemeConfig {
   static const DividerThemeDefaults defaults = DividerThemeDefaults();
   static const DividerThemeTokens tokens = dividerThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    DividerTheme: global,
+  };
+
   static T? resolve<T extends DividerTheme>() {
-    if (T == DividerTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

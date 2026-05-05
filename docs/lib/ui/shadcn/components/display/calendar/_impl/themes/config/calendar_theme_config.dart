@@ -15,10 +15,11 @@ class CalendarThemeConfig {
   static const CalendarThemeDefaults defaults = CalendarThemeDefaults();
   static const CalendarThemeTokens tokens = calendarThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    CalendarTheme: global,
+  };
+
   static T? resolve<T extends CalendarTheme>() {
-    if (T == CalendarTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

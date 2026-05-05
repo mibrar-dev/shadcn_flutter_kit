@@ -15,10 +15,11 @@ class FocusOutlineThemeConfig {
   static const FocusOutlineThemeDefaults defaults = FocusOutlineThemeDefaults();
   static const FocusOutlineThemeTokens tokens = focusOutlineThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    FocusOutlineTheme: global,
+  };
+
   static T? resolve<T extends FocusOutlineTheme>() {
-    if (T == FocusOutlineTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

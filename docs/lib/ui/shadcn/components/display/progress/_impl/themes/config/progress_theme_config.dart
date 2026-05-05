@@ -15,10 +15,11 @@ class ProgressThemeConfig {
   static const ProgressThemeDefaults defaults = ProgressThemeDefaults();
   static const ProgressThemeTokens tokens = progressThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    ProgressTheme: global,
+  };
+
   static T? resolve<T extends ProgressTheme>() {
-    if (T == ProgressTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

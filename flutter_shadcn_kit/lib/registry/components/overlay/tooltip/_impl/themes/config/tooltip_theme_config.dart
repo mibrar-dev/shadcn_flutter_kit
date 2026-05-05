@@ -15,10 +15,11 @@ class TooltipThemeConfig {
   static const TooltipThemeDefaults defaults = TooltipThemeDefaults();
   static const TooltipThemeTokens tokens = tooltipThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    TooltipTheme: global,
+  };
+
   static T? resolve<T extends TooltipTheme>() {
-    if (T == TooltipTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

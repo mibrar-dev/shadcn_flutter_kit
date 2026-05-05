@@ -15,10 +15,11 @@ class HoverThemeConfig {
   static const HoverThemeDefaults defaults = HoverThemeDefaults();
   static const HoverThemeTokens tokens = hoverThemeTokens;
 
+  static final Map<Type, Object?> _resolveByType = <Type, Object?>{
+    HoverTheme: global,
+  };
+
   static T? resolve<T extends HoverTheme>() {
-    if (T == HoverTheme) {
-      return global as T?;
-    }
-    return null;
+    return _resolveByType[T] as T?;
   }
 }

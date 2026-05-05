@@ -1,6 +1,6 @@
 # Checkpoint: branch-p1-theme-config-map-rollout
-Last updated: 2026-05-05 03:14
-Status: IN_PROGRESS
+Last updated: 2026-05-05 03:15
+Status: DONE
 
 ## Completed Steps
 - [x] Treat all 68 `*_theme_config.dart` files as the fixed rollout scope for this branch.
@@ -11,7 +11,7 @@ Status: IN_PROGRESS
 - [x] Update changelog/release notes if the generated API surface changes in a consumer-visible way.
 
 ## Current Step
-Commit the review follow-up docs clarification, then push, merge to `main`, and start the next branch from updated `main`.
+SESSION END — Next session should resume from: `branch-p1-generated-root-barrel` after `branch-p1-theme-config-map-rollout` is merged to `main`.
 
 ## Blocked On
 Nothing

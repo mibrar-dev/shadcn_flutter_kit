@@ -52,6 +52,10 @@ bool shouldIncludeSharedSourceFile(String relativePath) {
   if (fileName == '.DS_Store') return false;
   if (fileName == 'README.md') return false;
   if (fileName == 'GETTING_STARTED.md') return false;
+  if (normalized.startsWith('theme/generated/') &&
+      fileName.endsWith('.install.txt')) {
+    return false;
+  }
   if (fileName == 'preview.dart' || fileName.endsWith('_preview.dart')) {
     return false;
   }

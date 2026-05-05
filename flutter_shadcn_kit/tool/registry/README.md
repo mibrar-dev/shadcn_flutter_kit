@@ -15,6 +15,15 @@ Scripts for building and validating registry metadata/manifests.
 3. `dart run tool/registry/registry_index_generate.dart`
 4. `dart run tool/registry/registry_verify.dart`
 
+## Pre-PR Check
+
+Run these commands before opening a PR:
+
+1. `cd flutter_shadcn_kit && dart run tool/registry/registry_verify.dart --ci`
+2. `cd docs && flutter analyze && flutter build web`
+3. `cd flutter_shadcn_kit/flutter_cli_verification_example && flutter analyze && flutter build web`
+4. Optional harness smoke test: `cd flutter_shadcn_kit/flutter_cli_verification_example && flutter test test/widget_test.dart`
+
 ## Scripts
 
 - `registry_sync_all.dart`

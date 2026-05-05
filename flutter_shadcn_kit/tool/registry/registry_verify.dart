@@ -108,13 +108,215 @@ void _printUsage() {
   stdout.writeln('  - docs snapshot consistency');
   stdout.writeln('');
   stdout.writeln('Options:');
+  stdout.writeln('  --ci        Enable CI mode.');
   stdout.writeln('  -h, --help  Show this help.');
 }
 
-void main(List<String> args) {
-  if (args.contains('-h') || args.contains('--help')) {
-    _printUsage();
+List<String> _sortedStrings(Iterable<String> values) {
+  final sorted = values.toList()..sort();
+  return sorted;
+}
+
+void _printCiFailureDetails(String label, Iterable<String> values) {
+  const sampleSize = 3;
+  final items = _sortedStrings(values);
+  final sample = items.take(sampleSize).join(', ');
+  final remaining = items.length - sampleSize;
+  final suffix = remaining > 0 ? ', ... (+$remaining more)' : '';
+  stdout.writeln('  $label (${items.length}): $sample$suffix');
+}
+
+void _printVerificationReport({
+  required bool ciMode,
+  required Set<String> idSet,
+  required Set<String> duplicates,
+  required List<String> missingEntries,
+  required List<String> extraEntries,
+  required List<String> fileMismatches,
+  required List<String> metaMissing,
+  required List<String> metaMismatches,
+  required List<String> metaFileMismatches,
+  required List<String> invalidSharedDeps,
+  required List<String> invalidComponentDeps,
+  required List<String> invalidPubspecDeps,
+  required Set<String> duplicateSharedIds,
+  required Set<String> duplicateSharedFiles,
+  required List<String> missingSharedFiles,
+  required List<String> docsMismatch,
+  required List<String> nestedMetadataDirs,
+}) {
+  final hasFailures =
+      duplicates.isNotEmpty ||
+      missingEntries.isNotEmpty ||
+      extraEntries.isNotEmpty ||
+      fileMismatches.isNotEmpty ||
+      metaMissing.isNotEmpty ||
+      metaMismatches.isNotEmpty ||
+      metaFileMismatches.isNotEmpty ||
+      invalidSharedDeps.isNotEmpty ||
+      invalidComponentDeps.isNotEmpty ||
+      invalidPubspecDeps.isNotEmpty ||
+      duplicateSharedIds.isNotEmpty ||
+      duplicateSharedFiles.isNotEmpty ||
+      missingSharedFiles.isNotEmpty ||
+      docsMismatch.isNotEmpty ||
+      nestedMetadataDirs.isNotEmpty;
+
+  if (ciMode) {
+    stdout.writeln('Registry verification summary:');
+    stdout.writeln('  Total entries: ${idSet.length}');
+    stdout.writeln('  Status: ${hasFailures ? 'FAILED' : 'OK'}');
+    if (!hasFailures) {
+      return;
+    }
+
+    if (duplicates.isNotEmpty) {
+      _printCiFailureDetails('Duplicate ids', duplicates);
+    }
+    if (missingEntries.isNotEmpty) {
+      _printCiFailureDetails('Missing entries', missingEntries);
+    }
+    if (extraEntries.isNotEmpty) {
+      _printCiFailureDetails('Extra entries', extraEntries);
+    }
+    if (fileMismatches.isNotEmpty) {
+      _printCiFailureDetails('File list mismatches', fileMismatches);
+    }
+    if (metaMissing.isNotEmpty) {
+      _printCiFailureDetails('Missing meta.json', metaMissing);
+    }
+    if (metaMismatches.isNotEmpty) {
+      _printCiFailureDetails('Meta id/category mismatches', metaMismatches);
+    }
+    if (metaFileMismatches.isNotEmpty) {
+      _printCiFailureDetails('Meta file list mismatches', metaFileMismatches);
+    }
+    if (invalidSharedDeps.isNotEmpty) {
+      _printCiFailureDetails('Invalid shared deps', invalidSharedDeps);
+    }
+    if (invalidComponentDeps.isNotEmpty) {
+      _printCiFailureDetails('Invalid component deps', invalidComponentDeps);
+    }
+    if (invalidPubspecDeps.isNotEmpty) {
+      _printCiFailureDetails('Invalid pubspec deps', invalidPubspecDeps);
+    }
+    if (duplicateSharedIds.isNotEmpty) {
+      _printCiFailureDetails('Duplicate shared ids', duplicateSharedIds);
+    }
+    if (duplicateSharedFiles.isNotEmpty) {
+      _printCiFailureDetails('Duplicate shared files', duplicateSharedFiles);
+    }
+    if (missingSharedFiles.isNotEmpty) {
+      _printCiFailureDetails('Missing shared files', missingSharedFiles);
+    }
+    if (docsMismatch.isNotEmpty) {
+      _printCiFailureDetails('Docs snapshot mismatch', docsMismatch);
+    }
+    if (nestedMetadataDirs.isNotEmpty) {
+      _printCiFailureDetails(
+        'Nested component registry dirs',
+        nestedMetadataDirs,
+      );
+    }
     return;
+  }
+
+  stdout.writeln('Registry verification summary:');
+  stdout.writeln('  Total entries: ${idSet.length}');
+  stdout.writeln('  Duplicate ids: ${duplicates.length}');
+  stdout.writeln('  Missing entries: ${missingEntries.length}');
+  stdout.writeln('  Extra entries: ${extraEntries.length}');
+  stdout.writeln('  File list mismatches: ${fileMismatches.length}');
+  stdout.writeln('  Meta missing: ${metaMissing.length}');
+  stdout.writeln('  Meta mismatches: ${metaMismatches.length}');
+  stdout.writeln('  Meta file list mismatches: ${metaFileMismatches.length}');
+  stdout.writeln('  Invalid shared deps: ${invalidSharedDeps.length}');
+  stdout.writeln('  Invalid component deps: ${invalidComponentDeps.length}');
+  stdout.writeln('  Invalid pubspec deps: ${invalidPubspecDeps.length}');
+  stdout.writeln('  Shared duplicate ids: ${duplicateSharedIds.length}');
+  stdout.writeln('  Shared duplicate files: ${duplicateSharedFiles.length}');
+  stdout.writeln('  Missing shared files: ${missingSharedFiles.length}');
+  stdout.writeln(
+    '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
+  );
+  stdout.writeln(
+    '  Nested component registry dirs: ${nestedMetadataDirs.length}',
+  );
+
+  if (duplicates.isNotEmpty) {
+    stdout.writeln('Duplicate ids: ${_sortedStrings(duplicates)}');
+  }
+  if (missingEntries.isNotEmpty) {
+    stdout.writeln('Missing entries: ${_sortedStrings(missingEntries)}');
+  }
+  if (extraEntries.isNotEmpty) {
+    stdout.writeln('Extra entries: ${_sortedStrings(extraEntries)}');
+  }
+  if (fileMismatches.isNotEmpty) {
+    stdout.writeln('File list mismatches: ${_sortedStrings(fileMismatches)}');
+  }
+  if (metaMissing.isNotEmpty) {
+    stdout.writeln('Missing meta.json: ${_sortedStrings(metaMissing)}');
+  }
+  if (metaMismatches.isNotEmpty) {
+    stdout.writeln(
+      'Meta id/category mismatches: ${_sortedStrings(metaMismatches)}',
+    );
+  }
+  if (metaFileMismatches.isNotEmpty) {
+    stdout.writeln(
+      'Meta file list mismatches: ${_sortedStrings(metaFileMismatches)}',
+    );
+  }
+  if (invalidSharedDeps.isNotEmpty) {
+    stdout.writeln('Invalid shared deps: ${_sortedStrings(invalidSharedDeps)}');
+  }
+  if (invalidComponentDeps.isNotEmpty) {
+    stdout.writeln(
+      'Invalid component deps: ${_sortedStrings(invalidComponentDeps)}',
+    );
+  }
+  if (invalidPubspecDeps.isNotEmpty) {
+    stdout.writeln(
+      'Invalid pubspec deps: ${_sortedStrings(invalidPubspecDeps)}',
+    );
+  }
+  if (duplicateSharedIds.isNotEmpty) {
+    stdout.writeln(
+      'Duplicate shared ids: ${_sortedStrings(duplicateSharedIds)}',
+    );
+  }
+  if (duplicateSharedFiles.isNotEmpty) {
+    stdout.writeln(
+      'Duplicate shared files: ${_sortedStrings(duplicateSharedFiles)}',
+    );
+  }
+  if (missingSharedFiles.isNotEmpty) {
+    stdout.writeln(
+      'Missing shared files: ${_sortedStrings(missingSharedFiles)}',
+    );
+  }
+  if (docsMismatch.isNotEmpty) {
+    stdout.writeln('Docs snapshot mismatch: ${docsMismatch.first}');
+  }
+  if (nestedMetadataDirs.isNotEmpty) {
+    stdout.writeln(
+      'Nested component registry dirs: ${_sortedStrings(nestedMetadataDirs)}',
+    );
+  }
+}
+
+void main(List<String> args) {
+  var ciMode = false;
+  for (final arg in args) {
+    switch (arg) {
+      case '-h':
+      case '--help':
+        _printUsage();
+        return;
+      case '--ci':
+        ciMode = true;
+    }
   }
 
   final root = _findRepoRoot(Directory.current);
@@ -359,79 +561,25 @@ void main(List<String> args) {
     }
   }
 
-  stdout.writeln('Registry verification summary:');
-  stdout.writeln('  Total entries: ${idSet.length}');
-  stdout.writeln('  Duplicate ids: ${duplicates.length}');
-  stdout.writeln('  Missing entries: ${missingEntries.length}');
-  stdout.writeln('  Extra entries: ${extraEntries.length}');
-  stdout.writeln('  File list mismatches: ${fileMismatches.length}');
-  stdout.writeln('  Meta missing: ${metaMissing.length}');
-  stdout.writeln('  Meta mismatches: ${metaMismatches.length}');
-  stdout.writeln('  Meta file list mismatches: ${metaFileMismatches.length}');
-  stdout.writeln('  Invalid shared deps: ${invalidSharedDeps.length}');
-  stdout.writeln('  Invalid component deps: ${invalidComponentDeps.length}');
-  stdout.writeln('  Invalid pubspec deps: ${invalidPubspecDeps.length}');
-  stdout.writeln('  Shared duplicate ids: ${duplicateSharedIds.length}');
-  stdout.writeln('  Shared duplicate files: ${duplicateSharedFiles.length}');
-  stdout.writeln('  Missing shared files: ${missingSharedFiles.length}');
-  stdout.writeln(
-    '  Docs snapshot mismatch: ${docsMismatch.isNotEmpty ? 1 : 0}',
+  _printVerificationReport(
+    ciMode: ciMode,
+    idSet: idSet,
+    duplicates: duplicates,
+    missingEntries: missingEntries,
+    extraEntries: extraEntries,
+    fileMismatches: fileMismatches,
+    metaMissing: metaMissing,
+    metaMismatches: metaMismatches,
+    metaFileMismatches: metaFileMismatches,
+    invalidSharedDeps: invalidSharedDeps,
+    invalidComponentDeps: invalidComponentDeps,
+    invalidPubspecDeps: invalidPubspecDeps,
+    duplicateSharedIds: duplicateSharedIds,
+    duplicateSharedFiles: duplicateSharedFiles,
+    missingSharedFiles: missingSharedFiles,
+    docsMismatch: docsMismatch,
+    nestedMetadataDirs: nestedMetadataDirs,
   );
-  stdout.writeln(
-    '  Nested component registry dirs: ${nestedMetadataDirs.length}',
-  );
-
-  if (duplicates.isNotEmpty) {
-    stdout.writeln('Duplicate ids: ${duplicates.toList()..sort()}');
-  }
-  if (missingEntries.isNotEmpty) {
-    stdout.writeln('Missing entries: ${missingEntries..sort()}');
-  }
-  if (extraEntries.isNotEmpty) {
-    stdout.writeln('Extra entries: ${extraEntries..sort()}');
-  }
-  if (fileMismatches.isNotEmpty) {
-    stdout.writeln('File list mismatches: ${fileMismatches..sort()}');
-  }
-  if (metaMissing.isNotEmpty) {
-    stdout.writeln('Missing meta.json: ${metaMissing..sort()}');
-  }
-  if (metaMismatches.isNotEmpty) {
-    stdout.writeln('Meta id/category mismatches: ${metaMismatches..sort()}');
-  }
-  if (metaFileMismatches.isNotEmpty) {
-    stdout.writeln('Meta file list mismatches: ${metaFileMismatches..sort()}');
-  }
-  if (invalidSharedDeps.isNotEmpty) {
-    stdout.writeln('Invalid shared deps: ${invalidSharedDeps..sort()}');
-  }
-  if (invalidComponentDeps.isNotEmpty) {
-    stdout.writeln('Invalid component deps: ${invalidComponentDeps..sort()}');
-  }
-  if (invalidPubspecDeps.isNotEmpty) {
-    stdout.writeln('Invalid pubspec deps: ${invalidPubspecDeps..sort()}');
-  }
-  if (duplicateSharedIds.isNotEmpty) {
-    stdout.writeln(
-      'Duplicate shared ids: ${duplicateSharedIds.toList()..sort()}',
-    );
-  }
-  if (duplicateSharedFiles.isNotEmpty) {
-    stdout.writeln(
-      'Duplicate shared files: ${duplicateSharedFiles.toList()..sort()}',
-    );
-  }
-  if (missingSharedFiles.isNotEmpty) {
-    stdout.writeln('Missing shared files: ${missingSharedFiles..sort()}');
-  }
-  if (docsMismatch.isNotEmpty) {
-    stdout.writeln('Docs snapshot mismatch: ${docsMismatch.first}');
-  }
-  if (nestedMetadataDirs.isNotEmpty) {
-    stdout.writeln(
-      'Nested component registry dirs: ${nestedMetadataDirs..sort()}',
-    );
-  }
 
   if (duplicates.isNotEmpty ||
       missingEntries.isNotEmpty ||

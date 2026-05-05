@@ -1,6 +1,6 @@
 # Checkpoint: branch-p1-generated-root-barrel
-Last updated: 2026-05-05 04:01
-Status: IN_PROGRESS
+Last updated: 2026-05-05 04:04
+Status: DONE
 
 ## Completed Steps
 - [x] Rebase this branch after Task 4 merges.
@@ -14,7 +14,7 @@ Status: IN_PROGRESS
 - [x] Verify the consumer harness still builds and document any breaking changes in changelog/release notes.
 
 ## Current Step
-Run pre-merge code review, then commit, push, merge to `main`, and create the next branch from updated `main`.
+Merged to `main`. No remaining steps.
 
 ## Blocked On
 Nothing
@@ -69,3 +69,4 @@ Nothing
 - Implemented the root barrel generator as a reusable builder plus a write script, using `components.json` as the component source of truth, a fixed shared-theme export list, and an explicit hide-override table for current collision cases.
 - Review found that the initial generator still depended on the `{id}.dart` naming convention and that the stale check was CRLF-sensitive; both were fixed before merge.
 - The final generated root barrel now derives top-level component entrypoints from the manifest file list, preferring `{id}.dart` when present and otherwise using a single top-level public `.dart` file. This surfaced three previously omitted valid exports: `form/hsl/hsl_color_slider.dart`, `form/hsv/hsv_color_slider.dart`, and `layout/group/group_widget.dart`.
+- SESSION END — Next session should resume from: initialize `branch-p1-component-barrel-cleanup` from updated `main`.

@@ -15,10 +15,9 @@ class _ConfigFile {
 }
 
 class _Registration {
-  final String typeConst;
   final String resolverField;
 
-  const _Registration({required this.typeConst, required this.resolverField});
+  const _Registration({required this.resolverField});
 }
 
 void main() {
@@ -42,7 +41,9 @@ void main() {
         ..sort((a, b) => a.path.compareTo(b.path));
 
   final classRe = RegExp(r'class\s+(\w+ThemeConfig)\s*\{');
-  final typeRe = RegExp(r'static const String\s+(\w+Type)\s*=\s*');
+  final registrationRe = RegExp(
+    r'static const\s+([A-Za-z0-9_]+)\?\s+([A-Za-z0-9_]+)\s*=\s*null\s*;',
+  );
 
   final configs = <_ConfigFile>[];
   for (var i = 0; i < files.length; i++) {
@@ -57,15 +58,9 @@ void main() {
         .replaceAll('\\', '/');
 
     final regs = <_Registration>[];
-    for (final m in typeRe.allMatches(content)) {
-      final typeConst = m.group(1)!;
-      final resolverField = typeConst.substring(
-        0,
-        typeConst.length - 'Type'.length,
-      );
-      regs.add(
-        _Registration(typeConst: typeConst, resolverField: resolverField),
-      );
+    for (final m in registrationRe.allMatches(content)) {
+      final resolverField = m.group(2)!;
+      regs.add(_Registration(resolverField: resolverField));
     }
 
     configs.add(
@@ -101,8 +96,7 @@ void main() {
   for (final c in configs) {
     for (final reg in c.regs) {
       buffer
-        ..writeln('  ComponentThemeGlobalRegistry.registerByName(')
-        ..writeln('    ${c.alias}.${c.configClass}.${reg.typeConst},')
+        ..writeln('  ComponentThemeGlobalRegistry.register(')
         ..writeln('    () => ${c.alias}.${c.configClass}.${reg.resolverField},')
         ..writeln('  );');
     }

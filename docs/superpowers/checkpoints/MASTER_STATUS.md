@@ -1,10 +1,10 @@
 # Master Status
-Last updated: 2026-05-05 01:48
+Last updated: 2026-05-05 02:09
 
 | Branch                                | Status      | Step Progress | Notes |
 |---------------------------------------|-------------|---------------|-------|
-| branch-p0-registry-verify-gate        | DONE        | 8/8           | Ready for integration |
-| branch-p0-type-safe-theme-registry    | NOT_STARTED | -             |       |
+| branch-p0-registry-verify-gate        | DONE        | 8/8           | Merged |
+| branch-p0-type-safe-theme-registry    | DONE        | 4/4           | Ready for integration |
 | branch-p0-token-pipeline-pilot        | NOT_STARTED | -             |       |
 | branch-p1-theme-config-map-rollout    | NOT_STARTED | -             |       |
 | branch-p1-generated-root-barrel       | NOT_STARTED | -             |       |

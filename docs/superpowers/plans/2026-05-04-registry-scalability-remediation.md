@@ -205,7 +205,7 @@ your next Claude session:
 
 ---
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` for every task in this plan. Use `superpowers:executing-plans` only as a fallback if subagent-driven execution is unavailable. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Stabilize the registry and theme architecture so new components can be added without manual multi-file drift, token theme overrides actually work, and future scaling to 150+ components does not introduce brittle global bottlenecks.
 
@@ -238,6 +238,7 @@ your next Claude session:
 - Merge only after verification passes for that task.
 - If a task depends on a prior task, rebase or recreate from updated `main` after the dependency merges.
 - Branch prefix: `branch-`.
+- Every task below must be executed with `superpowers:subagent-driven-development` so implementation, verification, and review can run faster through isolated subagents.
 
 ## Branch Naming Convention
 

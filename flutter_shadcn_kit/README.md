@@ -21,6 +21,9 @@ installs from and the docs that describe each component.
 
 For step-by-step instructions, see `tool/docs/getting-started.md`.
 
+For a summary of the stabilization work and the current usage rules, see
+`tool/docs/registry_stabilization_guide.md`.
+
 Selective preload example:
 
 ```dart
@@ -102,6 +105,7 @@ Docs for each tool live in `tool/docs/`:
 - `tool/docs/registry_tool.md`
 - `tool/docs/registry_readme_meta.md`
 - `tool/docs/registry_skill_bundle.md`
+- `tool/docs/registry_stabilization_guide.md`
 
 ### Component Scaffolding
 Located in `scripts/`.

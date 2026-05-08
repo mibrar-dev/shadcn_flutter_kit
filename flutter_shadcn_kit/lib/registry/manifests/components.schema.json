@@ -108,6 +108,41 @@
         }
       }
     },
+    "localeResource": {
+      "type": "object",
+      "required": ["locale", "format", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "locale": {"type": "string"},
+        "format": {
+          "type": "string",
+          "enum": ["arb", "json"]
+        },
+        "source": {"type": "string"},
+        "destinationName": {"type": "string"},
+        "required": {"type": "boolean"},
+        "sha256": {"type": "string"}
+      }
+    },
+    "localeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "defaultLocale": {"type": "string"},
+        "required": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "optional": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "resources": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/localeResource"}
+        }
+      }
+    },
     "platformEntry": {
       "type": "object",
       "additionalProperties": false,
@@ -196,6 +231,7 @@
           "type": "object",
           "additionalProperties": {"$ref": "#/$defs/platformEntry"}
         },
+        "locale": {"$ref": "#/$defs/localeEntry"},
         "postInstall": {
           "type": "array",
           "items": {"type": "string"}

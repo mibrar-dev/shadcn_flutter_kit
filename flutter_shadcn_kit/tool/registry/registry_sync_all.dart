@@ -65,6 +65,20 @@ void _writeRootBarrel(Directory root) {
   output.writeAsStringSync(buildRootBarrel(root));
 }
 
+void _generateLocaleResources(Directory root) {
+  final result = Process.runSync('dart', [
+    'run',
+    'tool/registry/registry_locale_resources.dart',
+  ], workingDirectory: root.path);
+  if (result.stdout.toString().trim().isNotEmpty) {
+    stdout.writeln(result.stdout.toString().trim());
+  }
+  if (result.exitCode != 0) {
+    stderr.writeln(result.stderr);
+    throw Exception('Locale resource generation failed.');
+  }
+}
+
 String _join(String a, String b) {
   if (a.endsWith(Platform.pathSeparator)) {
     return '$a$b';
@@ -545,6 +559,26 @@ JsonMap _asJsonMap(dynamic value) {
   return <String, dynamic>{};
 }
 
+JsonMap? _localeMetadataForSharedDeps(List<String> shared) {
+  if (!shared.contains('localizations') &&
+      !shared.contains('localizations_extensions')) {
+    return null;
+  }
+  return {
+    'defaultLocale': 'en',
+    'required': ['en'],
+    'resources': [
+      {
+        'locale': 'en',
+        'format': 'arb',
+        'source': 'registry/locales/shadcn_en.arb',
+        'destinationName': 'app_en.arb',
+        'required': true,
+      },
+    ],
+  };
+}
+
 bool _deepEquals(dynamic a, dynamic b) {
   if (a is Map && b is Map) {
     if (a.length != b.length) return false;
@@ -756,6 +790,12 @@ JsonMap _buildEntry({
   };
   entry['assets'] = assets;
   entry['postInstall'] = postInstall;
+  final locale = _localeMetadataForSharedDeps(shared);
+  if (locale != null) {
+    entry['locale'] = locale;
+  } else {
+    entry.remove('locale');
+  }
   entry['version'] = _requireVersion(
     id: id,
     value: updatedMeta['version'],
@@ -836,6 +876,7 @@ void main(List<String> args) {
     exitCode = 1;
     return;
   }
+  _generateLocaleResources(root);
 
   final registryDir = Directory('${root.path}/lib/registry');
   final componentsJson = File('${registryDir.path}/manifests/components.json');

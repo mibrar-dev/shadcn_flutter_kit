@@ -3394,7 +3394,22 @@
         "Wrap ColorPicker widgets with RecentColorsScope or EyeDropperLayer for full history/sampling."
       ],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "color_input",
@@ -3490,7 +3505,22 @@
         "Wrap your tree with RecentColorsScope so ColorInput shares history information with pickers."
       ],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "hsl",
@@ -4825,7 +4855,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "control",
@@ -5376,7 +5421,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "date_picker",
@@ -5469,7 +5529,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "file_input",
@@ -6787,7 +6862,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "pattern"
+      "tier": "pattern",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "formatted_input",
@@ -7434,7 +7524,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "pattern"
+      "tier": "pattern",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "outlined_container",
@@ -9193,7 +9298,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "tracker",
@@ -10192,7 +10312,22 @@
         "Wrap editable text fields with `ContextMenu` to provide native-like action menus."
       ],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "dropdown_menu",
@@ -10779,7 +10914,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "tabs",
@@ -11790,7 +11940,22 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "validated",
@@ -14205,7 +14370,22 @@
       },
       "assets": [],
       "postInstall": [],
-      "tier": "pattern"
+      "tier": "pattern",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "arb",
+            "source": "registry/locales/shadcn_en.arb",
+            "destinationName": "app_en.arb",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "app",

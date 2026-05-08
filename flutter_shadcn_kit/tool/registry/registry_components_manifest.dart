@@ -553,6 +553,26 @@ JsonMap _asJsonMap(dynamic value) {
   return <String, dynamic>{};
 }
 
+JsonMap? _localeMetadataForSharedDeps(List<String> shared) {
+  if (!shared.contains('localizations') &&
+      !shared.contains('localizations_extensions')) {
+    return null;
+  }
+  return {
+    'defaultLocale': 'en',
+    'required': ['en'],
+    'resources': [
+      {
+        'locale': 'en',
+        'format': 'arb',
+        'source': 'registry/locales/shadcn_en.arb',
+        'destinationName': 'app_en.arb',
+        'required': true,
+      },
+    ],
+  };
+}
+
 bool _deepEquals(dynamic a, dynamic b) {
   if (a is Map && b is Map) {
     if (a.length != b.length) return false;
@@ -767,6 +787,12 @@ JsonMap _buildEntry({
   };
   entry['assets'] = assets;
   entry['postInstall'] = postInstall;
+  final locale = _localeMetadataForSharedDeps(shared);
+  if (locale != null) {
+    entry['locale'] = locale;
+  } else {
+    entry.remove('locale');
+  }
   entry['version'] = _requireVersion(
     id: id,
     value: updatedMeta['version'],

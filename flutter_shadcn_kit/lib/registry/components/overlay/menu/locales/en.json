@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "menuCopy": "Copy",
+  "menuCut": "Cut",
+  "menuDelete": "Delete",
+  "menuLiveTextInput": "Live text input",
+  "menuPaste": "Paste",
+  "menuRedo": "Redo",
+  "menuSearchWeb": "Search web",
+  "menuSelectAll": "Select all",
+  "menuShare": "Share",
+  "menuUndo": "Undo"
+}

@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "refreshTriggerComplete": "Refresh complete",
+  "refreshTriggerPull": "Pull to refresh",
+  "refreshTriggerRefreshing": "Refreshing...",
+  "refreshTriggerRelease": "Release to refresh"
+}

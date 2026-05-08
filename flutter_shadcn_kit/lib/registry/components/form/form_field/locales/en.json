@@ -1,0 +1,66 @@
+{
+  "@@locale": "en",
+  "buttonCancel": "Cancel",
+  "buttonSave": "Save",
+  "formBetweenExclusively": "Must be between {min} and {max} (exclusive).",
+  "@formBetweenExclusively": {
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "formBetweenInclusively": "Must be between {min} and {max} (inclusive).",
+  "@formBetweenInclusively": {
+    "placeholders": {
+      "min": {},
+      "max": {}
+    }
+  },
+  "formEqualTo": "Must be equal to {value}.",
+  "@formEqualTo": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "formGreaterThan": "Must be greater than {value}.",
+  "@formGreaterThan": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "formGreaterThanOrEqualTo": "Must be greater than or equal to {value}.",
+  "@formGreaterThanOrEqualTo": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "formLengthGreaterThan": "Must be at least {limit} characters.",
+  "@formLengthGreaterThan": {
+    "placeholders": {
+      "limit": {}
+    }
+  },
+  "formLengthLessThan": "Must be shorter than {limit} characters.",
+  "@formLengthLessThan": {
+    "placeholders": {
+      "limit": {}
+    }
+  },
+  "formLessThan": "Must be less than {value}.",
+  "@formLessThan": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "formLessThanOrEqualTo": "Must be less than or equal to {value}.",
+  "@formLessThanOrEqualTo": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "formNotEmpty": "This field cannot be empty.",
+  "formPasswordDigits": "Must include at least one digit.",
+  "formPasswordLowercase": "Must include at least one lowercase letter.",
+  "formPasswordSpecial": "Must include at least one special character.",
+  "formPasswordUppercase": "Must include at least one uppercase letter."
+}

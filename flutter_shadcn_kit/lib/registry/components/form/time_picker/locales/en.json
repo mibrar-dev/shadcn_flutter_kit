@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "durationDay": "Day",
+  "durationHour": "Hour",
+  "durationMinute": "Minute",
+  "durationSecond": "Second",
+  "placeholderDurationPicker": "Select a duration",
+  "placeholderTimePicker": "Select a time",
+  "timeAM": "AM",
+  "timeDaysAbbreviation": "DD",
+  "timeHour": "Hour",
+  "timeHoursAbbreviation": "HH",
+  "timeMinute": "Minute",
+  "timeMinutesAbbreviation": "MM",
+  "timePM": "PM",
+  "timeSecond": "Second",
+  "timeSecondsAbbreviation": "SS"
+}

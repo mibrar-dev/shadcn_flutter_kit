@@ -1830,7 +1830,21 @@
         "Optional: wrap a subtree with Theme(data: ThemeData(...), child: ...) to override defaults."
       ],
       "version": "1.0.0",
-      "tier": "primitive"
+      "tier": "primitive",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/control/button/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "clickable",
@@ -3166,7 +3180,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/utility/color/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "history",
@@ -3403,9 +3431,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/form/color_picker/locales/en.json",
             "required": true
           }
         ]
@@ -3514,9 +3541,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/form/color_input/locales/en.json",
             "required": true
           }
         ]
@@ -4864,9 +4890,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/control/command/locales/en.json",
             "required": true
           }
         ]
@@ -5430,9 +5455,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/display/calendar/locales/en.json",
             "required": true
           }
         ]
@@ -5538,9 +5562,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/form/date_picker/locales/en.json",
             "required": true
           }
         ]
@@ -6404,7 +6427,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/form/text_field/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "input",
@@ -6626,7 +6663,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "primitive"
+      "tier": "primitive",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/form/input/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "input_otp",
@@ -6871,9 +6922,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/form/form_field/locales/en.json",
             "required": true
           }
         ]
@@ -7430,7 +7480,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "pattern"
+      "tier": "pattern",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/form/form/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "object_input",
@@ -7524,22 +7588,7 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "pattern",
-      "locale": {
-        "defaultLocale": "en",
-        "required": [
-          "en"
-        ],
-        "resources": [
-          {
-            "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
-            "required": true
-          }
-        ]
-      }
+      "tier": "pattern"
     },
     {
       "id": "outlined_container",
@@ -9307,9 +9356,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/overlay/refresh_trigger/locales/en.json",
             "required": true
           }
         ]
@@ -10091,7 +10139,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/overlay/menu/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "menubar",
@@ -10321,9 +10383,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/overlay/context_menu/locales/en.json",
             "required": true
           }
         ]
@@ -10923,9 +10984,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/navigation/pagination/locales/en.json",
             "required": true
           }
         ]
@@ -11949,9 +12009,8 @@
         "resources": [
           {
             "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
+            "format": "json",
+            "source": "registry/components/form/time_picker/locales/en.json",
             "required": true
           }
         ]
@@ -12400,7 +12459,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/utility/shadcn_localizations/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "shadcn_localizations_en",
@@ -12430,7 +12503,21 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0",
-      "tier": "component"
+      "tier": "component",
+      "locale": {
+        "defaultLocale": "en",
+        "required": [
+          "en"
+        ],
+        "resources": [
+          {
+            "locale": "en",
+            "format": "json",
+            "source": "registry/components/utility/shadcn_localizations_en/locales/en.json",
+            "required": true
+          }
+        ]
+      }
     },
     {
       "id": "shadcn_localizations_extensions",
@@ -14370,22 +14457,7 @@
       },
       "assets": [],
       "postInstall": [],
-      "tier": "pattern",
-      "locale": {
-        "defaultLocale": "en",
-        "required": [
-          "en"
-        ],
-        "resources": [
-          {
-            "locale": "en",
-            "format": "arb",
-            "source": "registry/locales/shadcn_en.arb",
-            "destinationName": "app_en.arb",
-            "required": true
-          }
-        ]
-      }
+      "tier": "pattern"
     },
     {
       "id": "app",

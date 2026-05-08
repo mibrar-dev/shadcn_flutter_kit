@@ -26,6 +26,7 @@ bool shouldIncludeComponentSourceFile(String relativePath) {
   final fileName = normalized.split('/').last;
 
   if (normalized.startsWith('$componentRegistryFolder/')) return false;
+  if (normalized.startsWith('locales/')) return false;
   if (_excludedComponentTopLevelFiles.contains(fileName)) return false;
   if (fileName.endsWith('_preview.dart')) return false;
   if (fileName.endsWith('.meta.json')) return false;

@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "commandActivate": "Activate",
+  "commandEmpty": "No results found",
+  "commandMoveDown": "Move down",
+  "commandMoveUp": "Move up",
+  "commandSearch": "Type a command or search..."
+}

@@ -553,20 +553,25 @@ JsonMap _asJsonMap(dynamic value) {
   return <String, dynamic>{};
 }
 
-JsonMap? _localeMetadataForSharedDeps(List<String> shared) {
-  if (!shared.contains('localizations') &&
-      !shared.contains('localizations_extensions')) {
+JsonMap? _localeMetadataForComponent({
+  required Directory registryDir,
+  required Directory entryDir,
+}) {
+  final localeFile = File('${entryDir.path}/locales/en.json');
+  if (!localeFile.existsSync()) {
     return null;
   }
+  final baseRel = entryDir.path
+      .substring(registryDir.path.length + 1)
+      .replaceAll('\\', '/');
   return {
     'defaultLocale': 'en',
     'required': ['en'],
     'resources': [
       {
         'locale': 'en',
-        'format': 'arb',
-        'source': 'registry/locales/shadcn_en.arb',
-        'destinationName': 'app_en.arb',
+        'format': 'json',
+        'source': 'registry/$baseRel/locales/en.json',
         'required': true,
       },
     ],
@@ -787,7 +792,10 @@ JsonMap _buildEntry({
   };
   entry['assets'] = assets;
   entry['postInstall'] = postInstall;
-  final locale = _localeMetadataForSharedDeps(shared);
+  final locale = _localeMetadataForComponent(
+    registryDir: registryDir,
+    entryDir: entryDir,
+  );
   if (locale != null) {
     entry['locale'] = locale;
   } else {

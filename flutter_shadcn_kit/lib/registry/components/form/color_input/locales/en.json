@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "colorAlpha": "Alpha",
+  "colorBlue": "Blue",
+  "colorGreen": "Green",
+  "colorHue": "Hue",
+  "colorLightness": "Lightness",
+  "colorPickerTabHEX": "HEX",
+  "colorPickerTabHSL": "HSL",
+  "colorPickerTabHSV": "HSV",
+  "colorPickerTabRGB": "RGB",
+  "colorRed": "Red",
+  "colorSaturation": "Saturation",
+  "colorValue": "Value",
+  "placeholderColorPicker": "Pick a color"
+}

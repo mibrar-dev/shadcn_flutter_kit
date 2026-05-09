@@ -2247,7 +2247,8 @@
         "theme",
         "style_value",
         "constants",
-        "clickable"
+        "clickable",
+        "axis"
       ],
       "dependsOn": [
         "basic",
@@ -4221,7 +4222,8 @@
         "constants",
         "animated_value_builder",
         "util",
-        "text_modifiers"
+        "text_modifiers",
+        "axis"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -7325,7 +7327,8 @@
       "shared": [
         "theme",
         "focus_outline",
-        "text_modifiers"
+        "text_modifiers",
+        "phone_number"
       ],
       "dependsOn": [
         "button",
@@ -14218,6 +14221,10 @@
         "overlay"
       ],
       "files": [
+        {
+          "source": "registry/components/component_theme_global_configs.dart",
+          "destination": "{installPath}/components/component_theme_global_configs.dart"
+        },
         {
           "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart",
           "destination": "{installPath}/components/layout/app/_impl/core/shadcn_ui.dart"

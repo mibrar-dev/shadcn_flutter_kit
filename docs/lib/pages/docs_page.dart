@@ -120,8 +120,8 @@ class DocsPageRef {
     String? routeName,
     Map<String, String>? pathParameters,
     this.tag,
-  })  : routeName = routeName ?? name,
-        pathParameters = pathParameters ?? const {};
+  }) : routeName = routeName ?? name,
+       pathParameters = pathParameters ?? const {};
 }
 
 class DocsSection {
@@ -140,23 +140,35 @@ class DocsPageState extends State<DocsPage> {
       DocsPageRef('Complete Guide', 'complete-guide'),
       DocsPageRef('App Setup', 'app-setup'),
       DocsPageRef('Registry Guide', 'registry-guide'),
+      DocsPageRef('Theme', 'theme'),
+      DocsPageRef('Typography', 'typography'),
+      DocsPageRef('Layout', 'layout'),
+      DocsPageRef('Web Preloader', 'web_preloader'),
+      DocsPageRef('Components', 'components'),
+      DocsPageRef('Icons', 'icons'),
+      DocsPageRef('Colors', 'colors'),
+      DocsPageRef('Material/Cupertino', 'material'),
+      DocsPageRef('State Management', 'state'),
+      DocsPageRef(
+        'CLI',
+        'cli-overview',
+        routeName: 'cli_reference',
+        pathParameters: {'id': 'cli-overview'},
+      ),
     ]),
   ];
 
   static final List<DocsSection> cliBaseSections = [
     for (final section in cliReferenceSections)
-      DocsSection(
-          section.title,
-          [
-            for (final pageId in section.pageIds)
-              DocsPageRef(
-                cliReferenceDocs[pageId]!.title,
-                pageId,
-                routeName: 'cli_reference',
-                pathParameters: {'id': pageId},
-              ),
-          ],
-          icon: Icons.terminal),
+      DocsSection(section.title, [
+        for (final pageId in section.pageIds)
+          DocsPageRef(
+            cliReferenceDocs[pageId]!.title,
+            pageId,
+            routeName: 'cli_reference',
+            pathParameters: {'id': pageId},
+          ),
+      ], icon: Icons.terminal),
   ];
 
   final ScrollController scrollController = ScrollController();
@@ -445,7 +457,9 @@ class DocsPageState extends State<DocsPage> {
     if (widget.sidebarMode == DocsSidebarMode.cli) {
       return _sections.toList(growable: false);
     }
-    return _baseSectionsForMode(DocsSidebarMode.main).toList(growable: false);
+    return _sections
+        .where((section) => section.title.toLowerCase() != 'application')
+        .toList(growable: false);
   }
 
   DocsTag? _tagForComponent(String componentId) {
@@ -479,9 +493,11 @@ class DocsPageState extends State<DocsPage> {
     final showSearchBar = width >= breakpointWidth2;
     final showDrawer = width < breakpointWidth;
     final horizontalPadding = width >= breakpointWidth2 ? 32.0 : 18.0;
-    final backLabel =
-        width >= breakpointWidth2 ? 'shadcn_registry_docs' : 'docs';
-    final shellSurface = Color.lerp(
+    final backLabel = width >= breakpointWidth2
+        ? 'shadcn_registry_docs'
+        : 'docs';
+    final shellSurface =
+        Color.lerp(
           theme.colorScheme.background,
           theme.colorScheme.card,
           theme.brightness == Brightness.dark ? 0.72 : 0.48,
@@ -635,7 +651,8 @@ class DocsPageState extends State<DocsPage> {
         final theme = shadcn_theme.Theme.of(context);
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(
+            padding:
+                const EdgeInsets.only(
                   left: 32,
                   right: 32,
                   bottom: 48,
@@ -763,7 +780,8 @@ class DocsPageState extends State<DocsPage> {
                           child: SingleChildScrollView(
                             controller: _sidebarScrollController,
                             key: const PageStorageKey('sidebar'),
-                            padding: EdgeInsets.only(
+                            padding:
+                                EdgeInsets.only(
                                   top: 32,
                                   left: (isThemePage ? 12 : 24) + padding.left,
                                   bottom: 32,
@@ -803,11 +821,13 @@ class DocsPageState extends State<DocsPage> {
                           ? SingleChildScrollView(
                               controller: scrollController,
                               clipBehavior: Clip.none,
-                              padding: (EdgeInsets.symmetric(
+                              padding:
+                                  (EdgeInsets.symmetric(
                                         horizontal: isThemePage ? 32 : 40,
                                         vertical: 32,
                                       ).copyWith(
-                                        right: (hasOnThisPage ||
+                                        right:
+                                            (hasOnThisPage ||
                                                 widget.sidebar != null)
                                             ? (isThemePage ? 16 : 24)
                                             : padding.right + 32,
@@ -826,7 +846,8 @@ class DocsPageState extends State<DocsPage> {
                                       children: [
                                         shadcn_buttons.LinkButton(
                                           density: shadcn_buttons
-                                              .ButtonDensity.compact,
+                                              .ButtonDensity
+                                              .compact,
                                           onPressed: () {
                                             if (widget.sidebarMode ==
                                                 DocsSidebarMode.cli) {
@@ -870,7 +891,8 @@ class DocsPageState extends State<DocsPage> {
                         minWidth: breakpointWidth2,
                         child: FocusTraversalGroup(
                           child: SingleChildScrollView(
-                            padding: EdgeInsets.only(
+                            padding:
+                                EdgeInsets.only(
                                   top: 32,
                                   right: isThemePage ? 16 : 24,
                                   bottom: 32,
@@ -902,7 +924,8 @@ class DocsPageState extends State<DocsPage> {
                               ],
                               child: SingleChildScrollView(
                                 controller: _onThisPageScrollController,
-                                padding: EdgeInsets.only(
+                                padding:
+                                    EdgeInsets.only(
                                       top: 32,
                                       right: isThemePage ? 16 : 24,
                                       bottom: 32,
@@ -932,8 +955,8 @@ class DocsPageState extends State<DocsPage> {
                                             },
                                             selected:
                                                 entry.value.currentContext !=
-                                                        null &&
-                                                    isVisible(entry.value),
+                                                    null &&
+                                                isVisible(entry.value),
                                             child: Text(entry.key),
                                           ),
                                       ],

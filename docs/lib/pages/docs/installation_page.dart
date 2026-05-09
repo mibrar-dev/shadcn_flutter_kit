@@ -40,6 +40,10 @@ class InstallationPage extends StatelessWidget {
             ),
             child: const Text('Open the full CLI command guide'),
           ),
+          TextButton(
+            onPressed: () => context.goNamed('complete-guide'),
+            child: const Text('Open the complete A-Z user guide'),
+          ),
           const SizedBox(height: 12),
           DocsSectionTitle(title: 'CLI setup', anchor: cliKey),
           const SizedBox(height: 12),
@@ -56,15 +60,9 @@ class InstallationPage extends StatelessWidget {
             text:
                 'Add the pub cache bin directory to your PATH if needed. The CLI also provides a short alias: `shadcn`.',
           ),
-          const DocsCodeBlock(
-            code: r'$HOME/.pub-cache/bin',
-            mode: 'bash',
-          ),
+          const DocsCodeBlock(code: r'$HOME/.pub-cache/bin', mode: 'bash'),
           const SizedBox(height: 12),
-          const DocsCodeBlock(
-            code: 'flutter_shadcn --help',
-            mode: 'bash',
-          ),
+          const DocsCodeBlock(code: 'flutter_shadcn --help', mode: 'bash'),
           const SizedBox(height: 20),
           DocsSectionTitle(title: 'Initialize a project', anchor: initKey),
           const SizedBox(height: 12),
@@ -78,13 +76,8 @@ class InstallationPage extends StatelessWidget {
             mode: 'bash',
           ),
           const SizedBox(height: 12),
-          const DocsParagraph(
-            text: 'Skip prompts and use defaults:',
-          ),
-          const DocsCodeBlock(
-            code: 'flutter_shadcn init --yes',
-            mode: 'bash',
-          ),
+          const DocsParagraph(text: 'Skip prompts and use defaults:'),
+          const DocsCodeBlock(code: 'flutter_shadcn init --yes', mode: 'bash'),
           const SizedBox(height: 12),
           const DocsParagraph(
             text: 'Install typography + icon assets during init:',
@@ -131,9 +124,7 @@ class InstallationPage extends StatelessWidget {
             mode: 'bash',
           ),
           const SizedBox(height: 12),
-          const DocsParagraph(
-            text: 'Add multiple components at once:',
-          ),
+          const DocsParagraph(text: 'Add multiple components at once:'),
           const DocsCodeBlock(
             code: 'flutter_shadcn add command dialog',
             mode: 'bash',
@@ -142,14 +133,9 @@ class InstallationPage extends StatelessWidget {
           const DocsParagraph(
             text: 'Install all components from the active registry:',
           ),
-          const DocsCodeBlock(
-            code: 'flutter_shadcn add --all',
-            mode: 'bash',
-          ),
+          const DocsCodeBlock(code: 'flutter_shadcn add --all', mode: 'bash'),
           const SizedBox(height: 12),
-          const DocsParagraph(
-            text: 'Control optional files during install:',
-          ),
+          const DocsParagraph(text: 'Control optional files during install:'),
           const DocsCodeBlock(
             code: 'flutter_shadcn add @shadcn/button --include-files=preview',
             mode: 'bash',
@@ -161,9 +147,7 @@ class InstallationPage extends StatelessWidget {
             mode: 'bash',
           ),
           const SizedBox(height: 12),
-          const DocsParagraph(
-            text: 'Remove a component:',
-          ),
+          const DocsParagraph(text: 'Remove a component:'),
           const DocsCodeBlock(
             code: 'flutter_shadcn remove button',
             mode: 'bash',
@@ -220,10 +204,7 @@ class InstallationPage extends StatelessWidget {
             mode: 'bash',
           ),
           const SizedBox(height: 12),
-          const DocsCodeBlock(
-            code: 'flutter_shadcn registries',
-            mode: 'bash',
-          ),
+          const DocsCodeBlock(code: 'flutter_shadcn registries', mode: 'bash'),
         ],
       ),
     );

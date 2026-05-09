@@ -2,6 +2,10 @@
 
 Flutter web documentation app for the shadcn Flutter kit.
 
+The user-facing install and command walkthrough lives in the website at
+`/#/complete-guide`. Keep that page aligned with the CLI markdown guide in
+`flutter_shadcn_cli/docs/user/complete-guide.md` when command behavior changes.
+
 ## Registry docs workflow
 
 The docs app consumes the production registry layout:

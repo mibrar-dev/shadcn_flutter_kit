@@ -43,20 +43,20 @@ dart pub global activate flutter_shadcn_cli
 2) Initialize your project:
 
 ```bash
-flutter_shadcn init --path lib/ui/shadcn --shared lib/ui/shadcn/shared
+flutter_shadcn init --yes
 ```
 
 3) Add components:
 
 ```bash
 flutter_shadcn add button badge accordion
+flutter analyze
 ```
 
-4) Sync registry into the docs app (this repo only):
+4) Open the complete install and command guide:
 
-```bash
-rsync -a registry/ shadcn_flutter_kit/docs/lib/ui/shadcn/
-```
+- Website: `/#/complete-guide`
+- CLI markdown: `flutter_shadcn_cli/docs/user/complete-guide.md`
 
 ---
 

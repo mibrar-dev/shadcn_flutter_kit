@@ -11,6 +11,7 @@ import 'package:yaml/yaml.dart';
 
 import 'pages/docs/colors_page.dart';
 import 'pages/docs/components_page.dart';
+import 'pages/docs/complete_guide_page.dart';
 import 'pages/docs/component_detail_page.dart';
 import 'pages/docs/icons_page.dart';
 import 'pages/docs/installation_page.dart';
@@ -53,13 +54,11 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final settings = await _loadSettings(prefs);
 
-  runApp(_DeferredFirstFrameApp(
-    child: DocsRoot(
-      docsConfig: docsConfig,
-      settings: settings,
-      prefs: prefs,
+  runApp(
+    _DeferredFirstFrameApp(
+      child: DocsRoot(docsConfig: docsConfig, settings: settings, prefs: prefs),
     ),
-  ));
+  );
   _notifyWebAppReady();
 }
 
@@ -106,7 +105,8 @@ Future<DocsSettings> _loadSettings(SharedPreferences prefs) async {
   final themeMode = prefs.getString(kPrefsThemeMode) ?? 'dark';
   final brightness = themeMode == 'dark' ? Brightness.dark : Brightness.light;
   shadcn_colors.ColorScheme scheme;
-  final customRaw = prefs.getString(
+  final customRaw =
+      prefs.getString(
         brightness == Brightness.dark
             ? kPrefsCustomSchemeDark
             : kPrefsCustomSchemeLight,
@@ -225,34 +225,32 @@ class _DocsRootState extends State<DocsRoot> {
         GoRoute(
           path: '/',
           name: 'introduction',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const IntroductionPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const IntroductionPage()),
         ),
         GoRoute(
           path: '/installation',
           name: 'installation',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const InstallationPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const InstallationPage()),
+        ),
+        GoRoute(
+          path: '/complete-guide',
+          name: 'complete-guide',
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const CompleteGuidePage()),
         ),
         GoRoute(
           path: '/app-setup',
           name: 'app-setup',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const AppSetupPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const AppSetupPage()),
         ),
         GoRoute(
           path: '/registry-guide',
           name: 'registry-guide',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const RegistryGuidePage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const RegistryGuidePage()),
         ),
         GoRoute(
           path: '/cli/:id',
@@ -267,82 +265,62 @@ class _DocsRootState extends State<DocsRoot> {
         GoRoute(
           path: '/theme',
           name: 'theme',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const ThemePage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const ThemePage()),
         ),
         GoRoute(
           path: '/typography',
           name: 'typography',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const TypographyPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const TypographyPage()),
         ),
         GoRoute(
           path: '/layout',
           name: 'layout',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const LayoutPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const LayoutPage()),
         ),
         GoRoute(
           path: '/icons',
           name: 'icons',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const IconsPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const IconsPage()),
         ),
         GoRoute(
           path: '/colors',
           name: 'colors',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const ColorsPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const ColorsPage()),
         ),
         GoRoute(
           path: '/material',
           name: 'material',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const MaterialExample(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const MaterialExample()),
         ),
         GoRoute(
           path: '/state',
           name: 'state',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const StatePage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const StatePage()),
         ),
         GoRoute(
           path: '/web_preloader',
           name: 'web_preloader',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const WebPreloaderPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const WebPreloaderPage()),
         ),
         GoRoute(
           path: '/components',
           name: 'components',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const ComponentsPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const ComponentsPage()),
         ),
         GoRoute(
           path: '/components/error-system/quick-start',
           name: 'error_system_quick_start',
-          pageBuilder: (context, state) => _buildTransitionPage(
-            state,
-            const ErrorSystemQuickStartPage(),
-          ),
+          pageBuilder: (context, state) =>
+              _buildTransitionPage(state, const ErrorSystemQuickStartPage()),
         ),
         GoRoute(
           path: '/components/:id',

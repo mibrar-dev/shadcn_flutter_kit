@@ -1690,8 +1690,11 @@ class _GooeyGlobalSettings {
 }
 
 Color _resolveToastSurface(BuildContext context) {
-  final brightness = Theme.of(context).brightness;
-  return brightness == Brightness.dark
+  return resolveGooeyToastDocsSurface(Theme.of(context).brightness);
+}
+
+Color resolveGooeyToastDocsSurface(Brightness brightness) {
+  return brightness == Brightness.light
       ? const Color(0xFF0D1117)
       : const Color(0xFFF8FAFC);
 }

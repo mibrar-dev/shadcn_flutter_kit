@@ -6,10 +6,9 @@ import '../../../../ui/shadcn/components/form/file_picker/file_picker.dart'
 Future<List<shadcn_file_picker.FileLike>> pickFilesWithPackage(
   shadcn_file_picker.FileUploadPickRequest request,
 ) async {
-  final allowedExtensions = request.allowedExtensions
-      ?.map((ext) => ext.toLowerCase().replaceFirst('.', ''))
-      .where((ext) => ext.isNotEmpty)
-      .toList();
+  final allowedExtensions = normalizeFilePickerAllowedExtensions(
+    request.allowedExtensions,
+  );
 
   final result = await native_picker.FilePicker.pickFiles(
     allowMultiple: request.allowMultiple,
@@ -40,6 +39,16 @@ Future<List<shadcn_file_picker.FileLike>> pickFilesWithPackage(
       source: file,
     );
   }).toList(growable: false);
+}
+
+List<String>? normalizeFilePickerAllowedExtensions(
+  Iterable<String>? extensions,
+) {
+  final normalized = extensions
+      ?.map((ext) => ext.trim().toLowerCase().replaceFirst('.', ''))
+      .where((ext) => ext.isNotEmpty)
+      .toList(growable: false);
+  return normalized == null || normalized.isEmpty ? null : normalized;
 }
 
 String _resolveExtension(String name, String? extension) {

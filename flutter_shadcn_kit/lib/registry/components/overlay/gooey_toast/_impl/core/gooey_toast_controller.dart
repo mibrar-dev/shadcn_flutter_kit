@@ -27,8 +27,10 @@ class GooeyToastController extends ChangeNotifier {
   void dismiss(String id) {
     final record = _records.remove(id);
     if (record == null) return;
+    final data = record.data.value;
     record.dispose();
     record.entry.remove();
+    _refreshRegionAutoDismiss(data.position, data.expandDirection);
     _rebuildAllEntries();
     notifyListeners();
   }
@@ -346,6 +348,34 @@ class GooeyToastController extends ChangeNotifier {
         GooeyToastDefaults.dismissDragThreshold;
     final resolvedSpacing =
         spacing ?? gooeyTheme?.spacing ?? GooeyToastDefaults.spacing;
+    final resolvedOverlapStackWhenMultiple =
+        overlapStackWhenMultiple ??
+        gooeyTheme?.overlapStackWhenMultiple ??
+        GooeyToastDefaults.overlapStackWhenMultiple;
+    final resolvedOverlapStackOffset =
+        overlapStackOffset ??
+        gooeyTheme?.overlapStackOffset ??
+        GooeyToastDefaults.overlapStackOffset;
+    final resolvedPauseAutoDismissWhenMultiple =
+        pauseAutoDismissWhenMultiple ??
+        gooeyTheme?.pauseAutoDismissWhenMultiple ??
+        GooeyToastDefaults.pauseAutoDismissWhenMultiple;
+    final resolvedStackAnimationDuration =
+        stackAnimationDuration ??
+        gooeyTheme?.stackAnimationDuration ??
+        GooeyToastDefaults.stackAnimationDuration;
+    final resolvedStackAnimationCurve =
+        stackAnimationCurve ??
+        gooeyTheme?.stackAnimationCurve ??
+        Curves.easeOutCubic;
+    final resolvedMaxVisibleCount =
+        maxVisibleCount ??
+        gooeyTheme?.maxVisibleCount ??
+        GooeyToastDefaults.maxVisibleCount;
+    final resolvedDismissWholeStackWhenMultiple =
+        dismissWholeStackWhenMultiple ??
+        gooeyTheme?.dismissWholeStackWhenMultiple ??
+        GooeyToastDefaults.dismissWholeStackWhenMultiple;
     final resolvedNewToastBehavior =
         newToastBehavior ?? GooeyToastDefaults.newToastBehavior;
 
@@ -396,6 +426,13 @@ class GooeyToastController extends ChangeNotifier {
       dismissDirections: resolvedDismissDirections,
       dismissDragThreshold: resolvedDismissDragThreshold,
       spacing: resolvedSpacing,
+      overlapStackWhenMultiple: resolvedOverlapStackWhenMultiple,
+      overlapStackOffset: resolvedOverlapStackOffset,
+      pauseAutoDismissWhenMultiple: resolvedPauseAutoDismissWhenMultiple,
+      stackAnimationDuration: resolvedStackAnimationDuration,
+      stackAnimationCurve: resolvedStackAnimationCurve,
+      maxVisibleCount: resolvedMaxVisibleCount,
+      dismissWholeStackWhenMultiple: resolvedDismissWholeStackWhenMultiple,
       persistUntilDismissed: persistUntilDismissed,
       left: resolvedAnchors.$1,
       right: resolvedAnchors.$2,
@@ -418,6 +455,8 @@ class GooeyToastController extends ChangeNotifier {
       existing.updatedAt = DateTime.now();
       _updateDetails(toastId, data);
       _scheduleAutoDismiss(toastId, data);
+      _enforceMaxVisibleCount(resolvedPosition, resolvedExpandDirection);
+      _refreshRegionAutoDismiss(resolvedPosition, resolvedExpandDirection);
       _rebuildAllEntries();
       notifyListeners();
       return;
@@ -445,14 +484,22 @@ class GooeyToastController extends ChangeNotifier {
           record.data.value.expandDirection,
         );
         final index = stackList.indexWhere((r) => r.id == toastId);
-        final offset = (index < 0 ? 0 : index) * record.data.value.spacing;
+        final renderData = record.data.value;
+        final hasMultiple = stackList.length > 1;
+        final visibleLimit = renderData.maxVisibleCount;
+        if (visibleLimit > 0 && index >= visibleLimit) {
+          return const SizedBox.shrink();
+        }
+        final stackOffset = hasMultiple && renderData.overlapStackWhenMultiple
+            ? renderData.overlapStackOffset
+            : renderData.spacing;
+        final offset = (index < 0 ? 0 : index) * stackOffset;
         final top = record.data.value.top == null
             ? null
             : record.data.value.top! + offset;
         final bottom = record.data.value.bottom == null
             ? null
             : record.data.value.bottom! + offset;
-        final hasMultiple = stackList.length > 1;
         final isPrimary = index == 0;
 
         return ValueListenableBuilder<_GooeyToastRenderData>(
@@ -503,11 +550,19 @@ class GooeyToastController extends ChangeNotifier {
                 ? _GooeyToastSwipeDismissRegion(
                     dismissDirections: render.dismissDirections,
                     dismissDragThreshold: render.dismissDragThreshold,
-                    onDismissed: () => dismiss(render.id),
+                    onDismissed: () {
+                      if (render.dismissWholeStackWhenMultiple && hasMultiple) {
+                        _dismissRegion(render.position, render.expandDirection);
+                        return;
+                      }
+                      dismiss(render.id);
+                    },
                     child: toastChild,
                   )
                 : toastChild;
-            return Positioned(
+            return AnimatedPositioned(
+              duration: render.stackAnimationDuration,
+              curve: render.stackAnimationCurve,
               top: top,
               bottom: bottom,
               left: render.left,
@@ -529,6 +584,8 @@ class GooeyToastController extends ChangeNotifier {
     _updateDetails(toastId, data);
     overlay.insert(entry);
     _scheduleAutoDismiss(toastId, data);
+    _enforceMaxVisibleCount(resolvedPosition, resolvedExpandDirection);
+    _refreshRegionAutoDismiss(resolvedPosition, resolvedExpandDirection);
     _rebuildAllEntries();
     notifyListeners();
   }
@@ -692,6 +749,76 @@ class GooeyToastController extends ChangeNotifier {
     record.dismissTimer = Timer(data.duration, () {
       if (_records.containsKey(id)) dismiss(id);
     });
+  }
+
+  void _pauseAutoDismiss(String id, _GooeyToastRecord record) {
+    final data = record.data.value;
+    if (data.persistUntilDismissed || data.duration <= Duration.zero) return;
+
+    final startedAt = record.dismissStartedAt;
+    if (startedAt != null) {
+      final elapsed = DateTime.now().difference(startedAt);
+      final base = record.remaining ?? data.duration;
+      final next = base - elapsed;
+      record.remaining = next.isNegative ? Duration.zero : next;
+    } else {
+      record.remaining ??= data.duration;
+    }
+    record.dismissTimer?.cancel();
+    record.dismissTimer = null;
+    record.dismissStartedAt = null;
+  }
+
+  void _resumeAutoDismiss(String id, _GooeyToastRecord record) {
+    final data = record.data.value;
+    if (data.persistUntilDismissed || data.duration <= Duration.zero) return;
+    if (record.interacting || record.dismissTimer != null) return;
+
+    final remaining = record.remaining ?? data.duration;
+    if (remaining <= Duration.zero) {
+      dismiss(id);
+      return;
+    }
+
+    record.dismissStartedAt = DateTime.now();
+    record.dismissTimer = Timer(remaining, () {
+      if (_records.containsKey(id)) dismiss(id);
+    });
+  }
+
+  void _refreshRegionAutoDismiss(
+    GooeyToastPosition position,
+    GooeyToastExpandDirection direction,
+  ) {
+    final records = _regionRecords(position, direction);
+    final hasMultiple = records.length > 1;
+    for (final record in records) {
+      final data = record.data.value;
+      if (!data.pauseAutoDismissWhenMultiple) continue;
+      if (hasMultiple) {
+        _pauseAutoDismiss(record.id, record);
+      } else {
+        _resumeAutoDismiss(record.id, record);
+      }
+    }
+  }
+
+  void _enforceMaxVisibleCount(
+    GooeyToastPosition position,
+    GooeyToastExpandDirection direction,
+  ) {
+    final records = _regionRecords(position, direction);
+    if (records.isEmpty) return;
+    final limits = records
+        .map((record) => record.data.value.maxVisibleCount)
+        .where((value) => value > 0);
+    if (limits.isEmpty) return;
+    final maxVisible = limits.reduce((a, b) => a < b ? a : b);
+    if (records.length <= maxVisible) return;
+    final overflowIds = records.skip(maxVisible).map((record) => record.id);
+    for (final id in overflowIds.toList()) {
+      dismiss(id);
+    }
   }
 
   void _updateDetails(String id, _GooeyToastRenderData data) {
@@ -875,6 +1002,13 @@ class _GooeyToastRenderData {
     required this.dismissDirections,
     required this.dismissDragThreshold,
     required this.spacing,
+    required this.overlapStackWhenMultiple,
+    required this.overlapStackOffset,
+    required this.pauseAutoDismissWhenMultiple,
+    required this.stackAnimationDuration,
+    required this.stackAnimationCurve,
+    required this.maxVisibleCount,
+    required this.dismissWholeStackWhenMultiple,
     required this.persistUntilDismissed,
     required this.left,
     required this.right,
@@ -966,6 +1100,27 @@ class _GooeyToastRenderData {
   /// Inter-toast spacing in stacked region.
   final double spacing;
 
+  /// Whether stacked toasts should use overlap offset instead of spacing.
+  final bool overlapStackWhenMultiple;
+
+  /// Per-item offset when overlap stacking is active.
+  final double overlapStackOffset;
+
+  /// Whether auto-dismiss pauses while the region has multiple toasts.
+  final bool pauseAutoDismissWhenMultiple;
+
+  /// Duration used when stack entries reflow.
+  final Duration stackAnimationDuration;
+
+  /// Curve used when stack entries reflow.
+  final Curve stackAnimationCurve;
+
+  /// Max visible entries in this region. `0` means unlimited.
+  final int maxVisibleCount;
+
+  /// Whether a dismiss gesture clears the whole region stack.
+  final bool dismissWholeStackWhenMultiple;
+
   /// Whether manual dismiss is required.
   final bool persistUntilDismissed;
 
@@ -1010,6 +1165,13 @@ class _GooeyToastRenderData {
     Set<GooeyToastSwipeDirection>? dismissDirections,
     double? dismissDragThreshold,
     double? spacing,
+    bool? overlapStackWhenMultiple,
+    double? overlapStackOffset,
+    bool? pauseAutoDismissWhenMultiple,
+    Duration? stackAnimationDuration,
+    Curve? stackAnimationCurve,
+    int? maxVisibleCount,
+    bool? dismissWholeStackWhenMultiple,
     bool? persistUntilDismissed,
     double? left,
     double? right,
@@ -1055,6 +1217,17 @@ class _GooeyToastRenderData {
       dismissDirections: dismissDirections ?? this.dismissDirections,
       dismissDragThreshold: dismissDragThreshold ?? this.dismissDragThreshold,
       spacing: spacing ?? this.spacing,
+      overlapStackWhenMultiple:
+          overlapStackWhenMultiple ?? this.overlapStackWhenMultiple,
+      overlapStackOffset: overlapStackOffset ?? this.overlapStackOffset,
+      pauseAutoDismissWhenMultiple:
+          pauseAutoDismissWhenMultiple ?? this.pauseAutoDismissWhenMultiple,
+      stackAnimationDuration:
+          stackAnimationDuration ?? this.stackAnimationDuration,
+      stackAnimationCurve: stackAnimationCurve ?? this.stackAnimationCurve,
+      maxVisibleCount: maxVisibleCount ?? this.maxVisibleCount,
+      dismissWholeStackWhenMultiple:
+          dismissWholeStackWhenMultiple ?? this.dismissWholeStackWhenMultiple,
       persistUntilDismissed:
           persistUntilDismissed ?? this.persistUntilDismissed,
       left: left ?? this.left,

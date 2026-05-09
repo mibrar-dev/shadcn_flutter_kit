@@ -164,6 +164,7 @@ class GooeyToast extends StatefulWidget {
   final GooeyCompactMorph compactMorph;
 
   @override
+
   /// Creates the mutable animation/timing state for this toast widget.
   State<GooeyToast> createState() => _GooeyToastState();
 }
@@ -194,13 +195,13 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   late final AnimationController _openController;
 
   /// Curved open progress animation.
-  late Animation<double> _openCurve;
+  late CurvedAnimation _openCurve;
 
   /// Controller for compact icon/title morph.
   late final AnimationController _compactMorphController;
 
   /// Curved compact morph animation.
-  late Animation<double> _compactMorphCurve;
+  late CurvedAnimation _compactMorphCurve;
 
   /// Last expanded height kept during closing interpolation.
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
@@ -304,6 +305,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     if (oldWidget.autopilot != widget.autopilot ||
         oldWidget.duration != widget.duration ||
         oldWidget.description != widget.description ||
+        oldWidget.expandedChild != widget.expandedChild ||
         oldWidget.action != widget.action ||
         oldWidget.state != widget.state) {
       _syncOpenAnimation();
@@ -314,6 +316,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _openController
         ..duration = duration
         ..reverseDuration = duration;
+      _openCurve.dispose();
       _openCurve = CurvedAnimation(
         parent: _openController,
         curve: _curveForAnimationStyle(widget.animationStyle),
@@ -323,15 +326,16 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _compactMorphController.duration = widget.compactMorph.duration;
     }
     if (oldWidget.compactMorph.curve != widget.compactMorph.curve) {
+      _compactMorphCurve.dispose();
       _compactMorphCurve = CurvedAnimation(
         parent: _compactMorphController,
         curve: widget.compactMorph.curve,
       );
     }
-    final defaultCompactTransition =
-        oldWidget.compactChild == null &&
+    final defaultCompactTransition = oldWidget.compactChild == null &&
         widget.compactChild == null &&
-        (oldWidget.title != widget.title ||
+        (oldWidget.stateTag != widget.stateTag ||
+            oldWidget.title != widget.title ||
             oldWidget.state != widget.state ||
             oldWidget.icon != widget.icon);
     if (defaultCompactTransition) {
@@ -350,9 +354,17 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     _collapseTimer?.cancel();
     _openController.removeStatusListener(_handleOpenStatus);
     _openController.removeListener(_handleOpenProgress);
+    _openCurve.dispose();
     _openController.dispose();
+    _compactMorphCurve.dispose();
     _compactMorphController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _syncFromStackScope(context);
   }
 
   void _setExpanded(bool value) {
@@ -436,34 +448,29 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _syncFromStackScope(context);
     final stack = GooeyToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
     final shadTheme = shad.Theme.of(context);
     final gooeyTheme = shad.ComponentTheme.maybeOf<GooeyToastTheme>(context);
     final resolvedShapeStyle =
         widget.shapeStyle == GooeyToastShapeStyle.defaultShape
-        ? (gooeyTheme?.shapeStyle ?? widget.shapeStyle)
-        : widget.shapeStyle;
-    final toastWidth = widget.width > 0
-        ? widget.width
-        : (gooeyTheme?.width ?? _kToastWidth);
+            ? (gooeyTheme?.shapeStyle ?? widget.shapeStyle)
+            : widget.shapeStyle;
+    final toastWidth =
+        widget.width > 0 ? widget.width : (gooeyTheme?.width ?? _kToastWidth);
     final resolvedRoundness = _roundnessForShape(
       widget.roundness,
       resolvedShapeStyle,
     );
     final themeFill = gooeyTheme?.fill;
-    final effectiveThemeFill = themeFill == GooeyToastDefaults.fill
-        ? null
-        : themeFill;
+    final effectiveThemeFill =
+        themeFill == GooeyToastDefaults.fill ? null : themeFill;
     final baseFillColor =
         widget.fill ?? effectiveThemeFill ?? _defaultFillForTheme(shadTheme);
-    final themedSurfaceOpacity = (shadTheme.surfaceOpacity ?? 1.0)
-        .clamp(0.0, 1.0)
-        .toDouble();
-    final themedSurfaceBlur = (shadTheme.surfaceBlur ?? 0.0)
-        .clamp(0.0, 36.0)
-        .toDouble();
+    final themedSurfaceOpacity =
+        (shadTheme.surfaceOpacity ?? 1.0).clamp(0.0, 1.0).toDouble();
+    final themedSurfaceBlur =
+        (shadTheme.surfaceBlur ?? 0.0).clamp(0.0, 36.0).toDouble();
     final blurOpacityFactor =
         1 - (((themedSurfaceBlur / 36).clamp(0.0, 1.0)) * 0.35);
     final fillColor = baseFillColor.withValues(
@@ -473,16 +480,14 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       ),
     );
     final tone = _toneForState(widget.state, gooeyTheme);
-    final titleStyle =
-        gooeyTheme?.titleStyle ??
+    final titleStyle = gooeyTheme?.titleStyle ??
         theme.textTheme.bodyMedium?.copyWith(
           fontSize: 13.2,
           height: 1.0,
           fontWeight: FontWeight.w500,
           color: tone,
         );
-    final descriptionStyle =
-        gooeyTheme?.descriptionStyle ??
+    final descriptionStyle = gooeyTheme?.descriptionStyle ??
         theme.textTheme.bodyMedium?.copyWith(
           fontSize: 14,
           height: 1.43,
@@ -494,7 +499,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     final showExpandedControls = showStackControls && stack.expanded;
     final basePillWidth =
         _measurePillWidth(theme.textTheme, toastWidth, titleStyle) +
-        (showExpandedControls ? 112.0 : 0.0);
+            (showExpandedControls ? 112.0 : 0.0);
     final pillWidth = basePillWidth.clamp(_kToastHeight, toastWidth).toDouble();
     final contentHeight = _measureContentHeight(
       theme.textTheme,
@@ -522,9 +527,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       GooeyToastPosition.centerLeft => 0.0,
       GooeyToastPosition.centerRight => toastWidth - pillWidth,
     };
-    final targetExpandedHeight = targetOpen
-        ? rawExpanded
-        : _frozenExpandedHeight;
+    final targetExpandedHeight =
+        targetOpen ? rawExpanded : _frozenExpandedHeight;
     final passThroughToStack = _stackControlled && (stack?.isPrimary == false);
     final compactToggle = _stackControlled
         ? null
@@ -611,33 +615,28 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                   final openProgress = _stackControlled && !_stackItemExpanded
                       ? 0.0
                       : rawOpenProgress;
-                  final normalizedOpen = openProgress
-                      .clamp(0.0, 1.0)
-                      .toDouble();
-                  final visualHeight =
-                      lerpDouble(
+                  final normalizedOpen =
+                      openProgress.clamp(0.0, 1.0).toDouble();
+                  final visualHeight = lerpDouble(
                         _kToastHeight,
                         targetExpandedHeight,
                         openProgress,
                       ) ??
                       _kToastHeight;
-                  final canvasHeight = _hasContent
-                      ? visualHeight
-                      : _kToastHeight;
+                  final canvasHeight =
+                      _hasContent ? visualHeight : _kToastHeight;
                   final expandedContentHeight =
                       (targetExpandedHeight - _kToastHeight)
                           .clamp(0.0, 1000.0)
                           .toDouble();
-                  final pillScaleY =
-                      lerpDouble(
+                  final pillScaleY = lerpDouble(
                         _kToastHeight / pillHeight,
                         1.0,
                         openProgress,
                       ) ??
                       1.0;
                   final bodyScaleY = Curves.easeInOut.transform(normalizedOpen);
-                  final translateY =
-                      (widget.expandDirection ==
+                  final translateY = (widget.expandDirection ==
                               GooeyToastExpandDirection.bottom
                           ? 3.0
                           : -3.0) *
@@ -649,43 +648,43 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                   );
                   final contentAlignment =
                       widget.expandDirection == GooeyToastExpandDirection.bottom
-                      ? Alignment.topCenter
-                      : Alignment.bottomCenter;
+                          ? Alignment.topCenter
+                          : Alignment.bottomCenter;
                   final contentEase = Curves.easeOutCubic.transform(
                     contentProgress,
                   );
                   final contentDirectionSign =
                       widget.expandDirection == GooeyToastExpandDirection.bottom
-                      ? -1.0
-                      : 1.0;
+                          ? -1.0
+                          : 1.0;
 
                   final contentAnimation = switch (widget.bodyAnimationStyle) {
                     GooeyToastBodyAnimationStyle.fade => (
-                      opacity: contentEase,
-                      heightFactor: contentProgress,
-                      slide: 0.0,
-                      scale: 1.0,
-                    ),
+                        opacity: contentEase,
+                        heightFactor: contentProgress,
+                        slide: 0.0,
+                        scale: 1.0,
+                      ),
                     GooeyToastBodyAnimationStyle.fadeSlide => (
-                      opacity: contentEase,
-                      heightFactor: contentProgress,
-                      slide: (1 - contentEase) * 6.0 * contentDirectionSign,
-                      scale: 1.0,
-                    ),
+                        opacity: contentEase,
+                        heightFactor: contentProgress,
+                        slide: (1 - contentEase) * 6.0 * contentDirectionSign,
+                        scale: 1.0,
+                      ),
                     GooeyToastBodyAnimationStyle.fadeScale => (
-                      opacity: contentEase,
-                      heightFactor: contentProgress,
-                      slide: 0.0,
-                      scale: (lerpDouble(0.96, 1.0, contentEase) ?? 1.0)
-                          .clamp(0.94, 1.0)
-                          .toDouble(),
-                    ),
+                        opacity: contentEase,
+                        heightFactor: contentProgress,
+                        slide: 0.0,
+                        scale: (lerpDouble(0.96, 1.0, contentEase) ?? 1.0)
+                            .clamp(0.94, 1.0)
+                            .toDouble(),
+                      ),
                     GooeyToastBodyAnimationStyle.none => (
-                      opacity: contentProgress >= 0.999 ? 1.0 : 0.0,
-                      heightFactor: contentProgress >= 0.999 ? 1.0 : 0.0,
-                      slide: 0.0,
-                      scale: 1.0,
-                    ),
+                        opacity: contentProgress >= 0.999 ? 1.0 : 0.0,
+                        heightFactor: contentProgress >= 0.999 ? 1.0 : 0.0,
+                        slide: 0.0,
+                        scale: 1.0,
+                      ),
                   };
                   final contentOpacity = contentAnimation.opacity;
                   final contentHeightFactor = contentAnimation.heightFactor;
@@ -708,13 +707,11 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                         clipBehavior: Clip.none,
                         children: [
                           Positioned(
-                            top:
-                                widget.expandDirection ==
+                            top: widget.expandDirection ==
                                     GooeyToastExpandDirection.bottom
                                 ? 0
                                 : null,
-                            bottom:
-                                widget.expandDirection ==
+                            bottom: widget.expandDirection ==
                                     GooeyToastExpandDirection.top
                                 ? 0
                                 : null,
@@ -747,13 +744,11 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                           ),
                           Positioned(
                             left: pillX,
-                            top:
-                                widget.expandDirection ==
+                            top: widget.expandDirection ==
                                     GooeyToastExpandDirection.bottom
                                 ? 0
                                 : null,
-                            bottom:
-                                widget.expandDirection ==
+                            bottom: widget.expandDirection ==
                                     GooeyToastExpandDirection.top
                                 ? 0
                                 : null,
@@ -770,8 +765,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                   width: pillWidth,
                                   height: _kToastHeight,
                                   padding: const EdgeInsets.all(8),
-                                  child:
-                                      widget.compactChild ??
+                                  child: widget.compactChild ??
                                       Row(
                                         children: [
                                           _buildCompactIcon(
@@ -812,8 +806,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                           if (_hasContent)
                             Positioned(
                               left: 0,
-                              top:
-                                  widget.expandDirection ==
+                              top: widget.expandDirection ==
                                       GooeyToastExpandDirection.bottom
                                   ? _kToastHeight
                                   : 0,
@@ -887,17 +880,23 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                                   padding: const EdgeInsets.all(
                                                     16,
                                                   ),
-                                                  child: _MeasureSize(
-                                                    onSizeChanged:
-                                                        onVisibleExpandedSizeChanged ??
-                                                        (_) {},
-                                                    child:
-                                                        _buildExpandedContent(
+                                                  child: widget.expandedChild ==
+                                                          null
+                                                      ? _buildExpandedContent(
                                                           descriptionStyle:
                                                               descriptionStyle,
                                                           tone: tone,
+                                                        )
+                                                      : _MeasureSize(
+                                                          onSizeChanged:
+                                                              onVisibleExpandedSizeChanged!,
+                                                          child:
+                                                              _buildExpandedContent(
+                                                            descriptionStyle:
+                                                                descriptionStyle,
+                                                            tone: tone,
+                                                          ),
                                                         ),
-                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -927,8 +926,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     required TextStyle? descriptionStyle,
     required Color tone,
   }) {
-    final baseContent =
-        widget.expandedChild ??
+    final baseContent = widget.expandedChild ??
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -976,12 +974,10 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
             : 1.0;
         final morph = widget.compactMorph;
         final previousTone = _toneForState(_previousState ?? state, gooeyTheme);
-        final previousOpacity = _showPreviousCompact
-            ? (1 - t).clamp(0.0, 1.0).toDouble()
-            : 0.0;
-        final currentOpacity = _showPreviousCompact
-            ? t.clamp(0.0, 1.0).toDouble()
-            : 1.0;
+        final previousOpacity =
+            _showPreviousCompact ? (1 - t).clamp(0.0, 1.0).toDouble() : 0.0;
+        final currentOpacity =
+            _showPreviousCompact ? t.clamp(0.0, 1.0).toDouble() : 1.0;
         return SizedBox(
           height: 24,
           width: 24,
@@ -995,8 +991,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                     tone: previousTone,
                     icon: _previousIcon,
                     state: _previousState ?? state,
-                    scale:
-                        morph.scaleFrom +
+                    scale: morph.scaleFrom +
                         (1 - morph.scaleFrom) * previousOpacity,
                   ),
                 ),
@@ -1053,12 +1048,10 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
         final t = _showPreviousCompact
             ? _compactMorphCurve.value.clamp(0.0, 1.0).toDouble()
             : 1.0;
-        final previousOpacity = _showPreviousCompact
-            ? (1 - t).clamp(0.0, 1.0).toDouble()
-            : 0.0;
-        final currentOpacity = _showPreviousCompact
-            ? t.clamp(0.0, 1.0).toDouble()
-            : 1.0;
+        final previousOpacity =
+            _showPreviousCompact ? (1 - t).clamp(0.0, 1.0).toDouble() : 0.0;
+        final currentOpacity =
+            _showPreviousCompact ? t.clamp(0.0, 1.0).toDouble() : 1.0;
         final previousOffset = _showPreviousCompact
             ? Offset(
                 -morph.slideOffset.dx * t,
@@ -1170,8 +1163,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     double toastWidth,
     TextStyle? titleStyle,
   ) {
-    final style =
-        titleStyle ??
+    final style = titleStyle ??
         textTheme.bodyMedium?.copyWith(
           fontSize: 13.2,
           fontWeight: FontWeight.w500,
@@ -1200,8 +1192,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       return measuredExpandedChildHeight + 32;
     }
 
-    final textStyle =
-        descriptionStyle ??
+    final textStyle = descriptionStyle ??
         textTheme.bodyMedium?.copyWith(
           fontSize: 14,
           height: 1.43,
@@ -1358,7 +1349,7 @@ class _GooeyLayer extends StatelessWidget {
                 child: const SizedBox.expand(),
               ),
             ),
-          if (enableGooeyBlur)
+          if (enableGooeyBlur && blur > 0)
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -1561,17 +1552,15 @@ Path _buildGooeyBodyPath({
 }) {
   if (bodyHeight <= 0 || bodyScaleY <= 0.04) return Path();
   const seamOverlap = 4.0;
-  final normalizedProgress = ((bodyScaleY - 0.04) / 0.96)
-      .clamp(0.0, 1.0)
-      .toDouble();
+  final normalizedProgress =
+      ((bodyScaleY - 0.04) / 0.96).clamp(0.0, 1.0).toDouble();
   final t = Curves.easeInOutCubicEmphasized.transform(normalizedProgress);
   final morphWidth = (lerpDouble(pillWidth, size.width, t) ?? size.width)
       .clamp(0.0, size.width)
       .toDouble();
   final maxLeft = (size.width - morphWidth).clamp(0.0, size.width).toDouble();
-  final morphLeft = (lerpDouble(pillX, 0.0, t) ?? 0.0)
-      .clamp(0.0, maxLeft)
-      .toDouble();
+  final morphLeft =
+      (lerpDouble(pillX, 0.0, t) ?? 0.0).clamp(0.0, maxLeft).toDouble();
   final path = Path()
     ..addRRect(
       RRect.fromRectAndRadius(

@@ -257,6 +257,20 @@ Map<String, Set<String>> _collectPartDependencies(Directory entryDir) {
   return dependencies;
 }
 
+List<String> _componentSourceFilesWithPartDependencies(Directory entryDir) {
+  final files = listComponentSourceFilesRelative(entryDir).toSet();
+  final partDependencies = _collectPartDependencies(entryDir);
+  for (final deps in partDependencies.values) {
+    for (final dep in deps) {
+      final file = File(_join(entryDir.path, dep));
+      if (file.existsSync()) {
+        files.add(dep);
+      }
+    }
+  }
+  return files.toList()..sort();
+}
+
 List<JsonMap> _buildFileMappings({
   required Directory registryDir,
   required Directory entryDir,
@@ -266,10 +280,12 @@ List<JsonMap> _buildFileMappings({
   final baseRel = entryDir.path
       .substring(registryDir.path.length + 1)
       .replaceAll('\\', '/');
-  final relFiles = listComponentSourceFilesRelative(entryDir);
   final partDependencies = type == 'components'
       ? _collectPartDependencies(entryDir)
       : const {};
+  final relFiles = type == 'components'
+      ? _componentSourceFilesWithPartDependencies(entryDir)
+      : listComponentSourceFilesRelative(entryDir);
   for (final rel in relFiles) {
     final registryRel = '$baseRel/$rel';
     final source = type == 'components' ? 'registry/$registryRel' : registryRel;
@@ -609,6 +625,8 @@ JsonMap _mergeMeta({
             : <String>[category, id]);
 
   final metaDeps = _asJsonMap(meta['dependencies']);
+  final hasMetaShared = metaDeps.containsKey('shared');
+  final hasMetaComponents = metaDeps.containsKey('components');
   final shared = _asStringList(metaDeps['shared']);
   final components = _asStringList(metaDeps['components']);
 
@@ -619,8 +637,8 @@ JsonMap _mergeMeta({
       ? (existingEntry?['dependsOn'] as List).whereType<String>().toList()
       : <String>[];
 
-  final resolvedShared = shared.isNotEmpty ? shared : existingShared;
-  final resolvedComponents = components.isNotEmpty
+  final resolvedShared = hasMetaShared ? shared : existingShared;
+  final resolvedComponents = hasMetaComponents
       ? components
       : existingComponents;
 
@@ -700,7 +718,9 @@ JsonMap _buildEntry({
 }) {
   final id = _basename(entryDir.path);
   final category = _basename(entryDir.parent.path);
-  final fileList = listComponentSourceFilesRelative(entryDir);
+  final fileList = type == 'components'
+      ? _componentSourceFilesWithPartDependencies(entryDir)
+      : listComponentSourceFilesRelative(entryDir);
 
   final updatedMeta = _mergeMeta(
     id: id,
@@ -944,7 +964,9 @@ void main(List<String> args) {
           );
           updatedEntries[id] = updatedEntry;
 
-          final fileList = listComponentSourceFilesRelative(entryDir);
+          final fileList = type == 'components'
+              ? _componentSourceFilesWithPartDependencies(entryDir)
+              : listComponentSourceFilesRelative(entryDir);
           final category = _basename(entryDir.parent.path);
           final updatedMeta = _mergeMeta(
             id: id,

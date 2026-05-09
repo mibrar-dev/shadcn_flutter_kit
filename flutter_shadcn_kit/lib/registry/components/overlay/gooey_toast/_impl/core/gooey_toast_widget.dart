@@ -194,13 +194,13 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
   late final AnimationController _openController;
 
   /// Curved open progress animation.
-  late Animation<double> _openCurve;
+  late CurvedAnimation _openCurve;
 
   /// Controller for compact icon/title morph.
   late final AnimationController _compactMorphController;
 
   /// Curved compact morph animation.
-  late Animation<double> _compactMorphCurve;
+  late CurvedAnimation _compactMorphCurve;
 
   /// Last expanded height kept during closing interpolation.
   double _frozenExpandedHeight = _kToastHeight * _kMinExpandRatio;
@@ -304,6 +304,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     if (oldWidget.autopilot != widget.autopilot ||
         oldWidget.duration != widget.duration ||
         oldWidget.description != widget.description ||
+        oldWidget.expandedChild != widget.expandedChild ||
         oldWidget.action != widget.action ||
         oldWidget.state != widget.state) {
       _syncOpenAnimation();
@@ -314,6 +315,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _openController
         ..duration = duration
         ..reverseDuration = duration;
+      _openCurve.dispose();
       _openCurve = CurvedAnimation(
         parent: _openController,
         curve: _curveForAnimationStyle(widget.animationStyle),
@@ -323,6 +325,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
       _compactMorphController.duration = widget.compactMorph.duration;
     }
     if (oldWidget.compactMorph.curve != widget.compactMorph.curve) {
+      _compactMorphCurve.dispose();
       _compactMorphCurve = CurvedAnimation(
         parent: _compactMorphController,
         curve: widget.compactMorph.curve,
@@ -331,7 +334,8 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     final defaultCompactTransition =
         oldWidget.compactChild == null &&
         widget.compactChild == null &&
-        (oldWidget.title != widget.title ||
+        (oldWidget.stateTag != widget.stateTag ||
+            oldWidget.title != widget.title ||
             oldWidget.state != widget.state ||
             oldWidget.icon != widget.icon);
     if (defaultCompactTransition) {
@@ -350,9 +354,17 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
     _collapseTimer?.cancel();
     _openController.removeStatusListener(_handleOpenStatus);
     _openController.removeListener(_handleOpenProgress);
+    _openCurve.dispose();
     _openController.dispose();
+    _compactMorphCurve.dispose();
     _compactMorphController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _syncFromStackScope(context);
   }
 
   void _setExpanded(bool value) {
@@ -436,7 +448,6 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _syncFromStackScope(context);
     final stack = GooeyToastStackScope.maybeOf(context);
     final theme = Theme.of(context);
     final shadTheme = shad.Theme.of(context);
@@ -887,17 +898,23 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                                   padding: const EdgeInsets.all(
                                                     16,
                                                   ),
-                                                  child: _MeasureSize(
-                                                    onSizeChanged:
-                                                        onVisibleExpandedSizeChanged ??
-                                                        (_) {},
-                                                    child:
-                                                        _buildExpandedContent(
+                                                  child:
+                                                      widget.expandedChild ==
+                                                          null
+                                                      ? _buildExpandedContent(
                                                           descriptionStyle:
                                                               descriptionStyle,
                                                           tone: tone,
+                                                        )
+                                                      : _MeasureSize(
+                                                          onSizeChanged:
+                                                              onVisibleExpandedSizeChanged!,
+                                                          child: _buildExpandedContent(
+                                                            descriptionStyle:
+                                                                descriptionStyle,
+                                                            tone: tone,
+                                                          ),
                                                         ),
-                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -1358,7 +1375,7 @@ class _GooeyLayer extends StatelessWidget {
                 child: const SizedBox.expand(),
               ),
             ),
-          if (enableGooeyBlur)
+          if (enableGooeyBlur && blur > 0)
             Stack(
               clipBehavior: Clip.none,
               children: [

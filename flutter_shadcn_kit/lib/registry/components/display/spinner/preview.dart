@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart' as m;
 
+import 'circle_spinner.dart';
 import '../spinner/spinner.dart';
-
-part 'circle_spinner.dart';
 
 /// Core class used by the spinner component.
 class SpinnerPreview extends m.StatelessWidget {

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -23,17 +25,17 @@ class WidgetStatesData {
   const WidgetStatesData(this.states);
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is WidgetStatesData && setEquals(states, other.states);
   }
 
   @override
-/// Stores `hashCode` state/configuration for this implementation.
+  /// Stores `hashCode` state/configuration for this implementation.
   int get hashCode => states.hashCode;
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() => 'WidgetStatesData(states: $states)';
 }

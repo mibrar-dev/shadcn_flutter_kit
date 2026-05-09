@@ -1,22 +1,28 @@
-part of '../../hidden.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../hidden.dart';
 
 /// _HiddenLayout defines a reusable type for this registry module.
 class _HiddenLayout extends SingleChildRenderObjectWidget {
-/// Stores `keepCrossAxisSize` state/configuration for this implementation.
+  /// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool keepCrossAxisSize;
-/// Stores `keepMainAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool keepMainAxisSize;
-/// Stores `textDirection` state/configuration for this implementation.
+
+  /// Stores `textDirection` state/configuration for this implementation.
   final TextDirection textDirection;
-/// Stores `direction` state/configuration for this implementation.
+
+  /// Stores `direction` state/configuration for this implementation.
   final Axis direction;
-/// Stores `reverse` state/configuration for this implementation.
+
+  /// Stores `reverse` state/configuration for this implementation.
   final bool reverse;
-/// Stores `progress` state/configuration for this implementation.
+
+  /// Stores `progress` state/configuration for this implementation.
   final double progress;
 
-/// Creates a `_HiddenLayout` instance.
+  /// Creates a `_HiddenLayout` instance.
   const _HiddenLayout({
     required this.keepCrossAxisSize,
     required this.keepMainAxisSize,
@@ -28,7 +34,7 @@ class _HiddenLayout extends SingleChildRenderObjectWidget {
   });
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return _HiddenLayoutRender(
       keepCrossAxisSize: keepCrossAxisSize,
@@ -42,7 +48,9 @@ class _HiddenLayout extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _HiddenLayoutRender renderObject) {
+    BuildContext context,
+    _HiddenLayoutRender renderObject,
+  ) {
     renderObject
       ..keepCrossAxisSize = keepCrossAxisSize
       ..keepMainAxisSize = keepMainAxisSize

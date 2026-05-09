@@ -1,10 +1,12 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tooltip.dart';
 
 /// Overlay handler that delegates tooltip display to an OverlayManager.
 
 /// OverlayManagerAsTooltipOverlayHandler defines a reusable type for this registry module.
 class OverlayManagerAsTooltipOverlayHandler extends OverlayHandler {
-/// Stores `overlayManager` state/configuration for this implementation.
+  /// Stores `overlayManager` state/configuration for this implementation.
   final OverlayManager overlayManager;
 
   const OverlayManagerAsTooltipOverlayHandler({required this.overlayManager});

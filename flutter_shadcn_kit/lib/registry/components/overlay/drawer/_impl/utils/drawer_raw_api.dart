@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../drawer.dart';
 
 DrawerOverlayCompleter<T?> openRawDrawer<T>({
@@ -21,9 +23,11 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
     context,
     useRootDrawerOverlay,
   );
-/// Stores `themes` state/configuration for this implementation.
+
+  /// Stores `themes` state/configuration for this implementation.
   CapturedThemes? themes;
-/// Stores `data` state/configuration for this implementation.
+
+  /// Stores `data` state/configuration for this implementation.
   CapturedData? data;
   if (parentLayer != null) {
     themes = InheritedTheme.capture(
@@ -69,7 +73,7 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
                     ? AnimatedBuilder(
                         animation: animation,
                         builder: (context, child) {
-/// Stores `size` state/configuration for this implementation.
+                          /// Stores `size` state/configuration for this implementation.
                           Size size = constraints.biggest;
                           double scale =
                               1 - (1 - kBackdropScaleDown) * animation.value;
@@ -111,7 +115,7 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
                     : AnimatedBuilder(
                         animation: animation,
                         builder: (context, child) {
-/// Stores `size` state/configuration for this implementation.
+                          /// Stores `size` state/configuration for this implementation.
                           Size size = constraints.biggest;
                           double scale =
                               1 - (1 - kBackdropScaleDown) * animation.value;
@@ -178,7 +182,8 @@ DrawerOverlayCompleter<T?> openRawDrawer<T>({
     completer: completer,
     position: position,
   );
-/// Stores `overlay` state/configuration for this implementation.
+
+  /// Stores `overlay` state/configuration for this implementation.
   final overlay = parentLayer!.overlay;
   overlay.addEntry(entry);
   completer.future.whenComplete(() {

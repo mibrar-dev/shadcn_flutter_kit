@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import '../accordion/accordion.dart';
 
@@ -6,7 +8,7 @@ class AccordionPreview extends StatelessWidget {
   const AccordionPreview({super.key});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -17,21 +19,23 @@ class AccordionPreview extends StatelessWidget {
               width: 600,
               child: const Accordion(
                 items: [
-/// Creates a `AccordionItem` instance.
+                  /// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it accessible?')),
                     content: Text(
                       'Yes. It adheres to the WAI-ARIA design pattern.',
                     ),
                   ),
-/// Creates a `AccordionItem` instance.
+
+                  /// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it styled?')),
                     content: Text(
                       'Yes. It comes with default styles that you can customize.',
                     ),
                   ),
-/// Creates a `AccordionItem` instance.
+
+                  /// Creates a `AccordionItem` instance.
                   AccordionItem(
                     trigger: AccordionTrigger(child: Text('Is it animated?')),
                     content: Text(

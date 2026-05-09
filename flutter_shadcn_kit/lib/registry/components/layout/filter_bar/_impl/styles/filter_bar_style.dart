@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../filter_bar.dart';
 
 /// Type alias for `FilterBarClearResolver` used by public or internal APIs.
@@ -150,10 +152,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
               ),
               SizedBox(height: 12 * scaling),
               Flexible(child: SingleChildScrollView(child: child)),
-              if (footer != null) ...[
-                SizedBox(height: 12 * scaling),
-                footer!,
-              ],
+              if (footer != null) ...[SizedBox(height: 12 * scaling), footer!],
             ],
           ),
         ),

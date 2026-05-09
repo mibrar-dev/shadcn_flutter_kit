@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../clickable.dart';
 
 /// WidgetStatesProvider defines a reusable type for this registry module.
@@ -43,34 +45,29 @@ class WidgetStatesProvider extends StatelessWidget {
   /// ## Parameters
   ///
   /// * [child] - The descendant widget.
-  const WidgetStatesProvider.boundary({
-    super.key,
-    required this.child,
-  })  : boundary = true,
-        controller = null,
-        states = null,
-        inherit = false;
+  const WidgetStatesProvider.boundary({super.key, required this.child})
+    : boundary = true,
+      controller = null,
+      states = null,
+      inherit = false;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (boundary) {
-      return Data<WidgetStatesData>.boundary(
-        child: child,
-      );
+      return Data<WidgetStatesData>.boundary(child: child);
     }
-/// Stores `parentStates` state/configuration for this implementation.
+
+    /// Stores `parentStates` state/configuration for this implementation.
     Set<WidgetState>? parentStates;
     if (inherit) {
       WidgetStatesData? parentData = Data.maybeOf<WidgetStatesData>(context);
       parentStates = parentData?.states;
     }
     return ListenableBuilder(
-      listenable: Listenable.merge([
-        if (controller != null) controller!,
-      ]),
+      listenable: Listenable.merge([if (controller != null) controller!]),
       builder: (context, child) {
-/// Stores `currentStates` state/configuration for this implementation.
+        /// Stores `currentStates` state/configuration for this implementation.
         Set<WidgetState> currentStates = states ?? {};
         if (controller != null) {
           currentStates = currentStates.union(controller!.value);

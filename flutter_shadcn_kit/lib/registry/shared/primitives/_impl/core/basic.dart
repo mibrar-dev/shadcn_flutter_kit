@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../basic.dart';
 
 /// Basic defines a reusable type for this registry module.
@@ -64,48 +66,58 @@ class Basic extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<BasicTheme>(context);
     final padding = styleValue(
-        widgetValue: this.padding,
-        themeValue: compTheme?.padding,
-        defaultValue: EdgeInsets.zero);
+      widgetValue: this.padding,
+      themeValue: compTheme?.padding,
+      defaultValue: EdgeInsets.zero,
+    );
     final contentSpacing = styleValue(
-        widgetValue: this.contentSpacing,
-        themeValue: compTheme?.contentSpacing,
-        defaultValue: 16 * scaling);
+      widgetValue: this.contentSpacing,
+      themeValue: compTheme?.contentSpacing,
+      defaultValue: 16 * scaling,
+    );
     final titleSpacing = styleValue(
-        widgetValue: this.titleSpacing,
-        themeValue: compTheme?.titleSpacing,
-        defaultValue: 4 * scaling);
+      widgetValue: this.titleSpacing,
+      themeValue: compTheme?.titleSpacing,
+      defaultValue: 4 * scaling,
+    );
     final leadingAlignment = styleValue(
-        widgetValue: this.leadingAlignment,
-        themeValue: compTheme?.leadingAlignment,
-        defaultValue: Alignment.topCenter);
+      widgetValue: this.leadingAlignment,
+      themeValue: compTheme?.leadingAlignment,
+      defaultValue: Alignment.topCenter,
+    );
     final trailingAlignment = styleValue(
-        widgetValue: this.trailingAlignment,
-        themeValue: compTheme?.trailingAlignment,
-        defaultValue: Alignment.topCenter);
+      widgetValue: this.trailingAlignment,
+      themeValue: compTheme?.trailingAlignment,
+      defaultValue: Alignment.topCenter,
+    );
     final titleAlignment = styleValue(
-        widgetValue: this.titleAlignment,
-        themeValue: compTheme?.titleAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.titleAlignment,
+      themeValue: compTheme?.titleAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     final subtitleAlignment = styleValue(
-        widgetValue: this.subtitleAlignment,
-        themeValue: compTheme?.subtitleAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.subtitleAlignment,
+      themeValue: compTheme?.subtitleAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     final contentAlignment = styleValue(
-        widgetValue: this.contentAlignment,
-        themeValue: compTheme?.contentAlignment,
-        defaultValue: Alignment.topLeft);
+      widgetValue: this.contentAlignment,
+      themeValue: compTheme?.contentAlignment,
+      defaultValue: Alignment.topLeft,
+    );
     final mainAxisAlignment = styleValue(
-        widgetValue: this.mainAxisAlignment,
-        themeValue: compTheme?.mainAxisAlignment,
-        defaultValue: MainAxisAlignment.center);
+      widgetValue: this.mainAxisAlignment,
+      themeValue: compTheme?.mainAxisAlignment,
+      defaultValue: MainAxisAlignment.center,
+    );
     return Padding(
       padding: padding,
       child: IntrinsicWidth(
@@ -115,43 +127,40 @@ class Basic extends StatelessWidget {
             mainAxisAlignment: mainAxisAlignment,
             children: [
               if (leading != null)
-/// Creates a `Align` instance.
-                Align(
-                  alignment: leadingAlignment,
-                  child: leading!,
-                ),
+                /// Creates a `Align` instance.
+                Align(alignment: leadingAlignment, child: leading!),
               if (leading != null &&
                   (title != null || content != null || subtitle != null))
-/// Creates a `SizedBox` instance.
+                /// Creates a `SizedBox` instance.
                 SizedBox(width: contentSpacing),
               if (title != null || content != null || subtitle != null)
-/// Creates a `Expanded` instance.
+                /// Creates a `Expanded` instance.
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: mainAxisAlignment,
                     children: [
                       if (title != null)
-/// Creates a `Align` instance.
+                        /// Creates a `Align` instance.
                         Align(
                           alignment: titleAlignment,
                           child: title!,
                         ).small().medium(),
                       if (title != null && subtitle != null)
-/// Creates a `SizedBox` instance.
+                        /// Creates a `SizedBox` instance.
                         SizedBox(height: 2 * scaling),
                       if (subtitle != null)
-/// Creates a `Align` instance.
+                        /// Creates a `Align` instance.
                         Align(
                           alignment: subtitleAlignment,
                           child: subtitle!,
                         ).xSmall().muted(),
                       if ((title != null || subtitle != null) &&
                           content != null)
-/// Creates a `SizedBox` instance.
+                        /// Creates a `SizedBox` instance.
                         SizedBox(height: titleSpacing),
                       if (content != null)
-/// Creates a `Align` instance.
+                        /// Creates a `Align` instance.
                         Align(
                           alignment: contentAlignment,
                           child: content!,
@@ -164,15 +173,12 @@ class Basic extends StatelessWidget {
                       content != null ||
                       leading != null ||
                       subtitle != null))
-/// Creates a `SizedBox` instance.
+                /// Creates a `SizedBox` instance.
                 SizedBox(width: contentSpacing),
               // if (trailing != null) trailing!,
               if (trailing != null)
-/// Creates a `Align` instance.
-                Align(
-                  alignment: trailingAlignment,
-                  child: trailing!,
-                ),
+                /// Creates a `Align` instance.
+                Align(alignment: trailingAlignment, child: trailing!),
             ],
           ),
         ),

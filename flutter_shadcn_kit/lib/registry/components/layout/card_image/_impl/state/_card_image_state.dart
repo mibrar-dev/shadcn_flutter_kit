@@ -1,10 +1,12 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../card_image.dart';
 
 /// _CardImageState defines a reusable type for this registry module.
 class _CardImageState extends State<CardImage> {
   final WidgetStatesController _statesController = WidgetStatesController();
 
-/// Executes `_wrapIntrinsic` behavior for this component/composite.
+  /// Executes `_wrapIntrinsic` behavior for this component/composite.
   Widget _wrapIntrinsic(Widget child, Axis direction) {
     return direction == Axis.horizontal
         ? IntrinsicHeight(child: child)
@@ -12,10 +14,11 @@ class _CardImageState extends State<CardImage> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<CardImageTheme>(context);
     final style = styleValue(
@@ -59,12 +62,12 @@ class _CardImageState extends State<CardImage> {
       onPressed: widget.onPressed,
       enabled: widget.enabled,
       child: _wrapIntrinsic(
-/// Creates a `Flex` instance.
+        /// Creates a `Flex` instance.
         Flex(
           direction: direction,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-/// Creates a `Flexible` instance.
+            /// Creates a `Flexible` instance.
             Flexible(
               child: OutlinedContainer(
                 backgroundColor: backgroundColor,
@@ -84,9 +87,11 @@ class _CardImageState extends State<CardImage> {
                 ),
               ),
             ),
-/// Creates a `Gap` instance.
+
+            /// Creates a `Gap` instance.
             Gap(gap),
-/// Creates a `Basic` instance.
+
+            /// Creates a `Basic` instance.
             Basic(
               title: widget.title,
               subtitle: widget.subtitle,

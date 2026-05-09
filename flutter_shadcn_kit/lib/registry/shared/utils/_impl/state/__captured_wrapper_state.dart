@@ -1,16 +1,14 @@
-part of '../../util.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../util.dart';
 
 /// _CapturedWrapperState defines a reusable type for this registry module.
 class _CapturedWrapperState extends State<CapturedWrapper> {
   final GlobalKey _key = GlobalKey();
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    Widget child = KeyedSubtree(
-      key: _key,
-      child: widget.child,
-    );
+    Widget child = KeyedSubtree(key: _key, child: widget.child);
     if (widget.themes != null) {
       child = widget.themes!.wrap(child);
     }
@@ -22,15 +20,17 @@ class _CapturedWrapperState extends State<CapturedWrapper> {
 }
 
 (bool enabled, Object? invokeResult) invokeActionOnFocusedWidget(
-    Intent intent) {
-/// Stores `context` state/configuration for this implementation.
+  Intent intent,
+) {
+  /// Stores `context` state/configuration for this implementation.
   final context = primaryFocus?.context;
   if (context != null) {
     final action = Actions.maybeFind<Intent>(context, intent: intent);
     if (action != null) {
-/// Creates a `final` instance.
-      final (bool enabled, Object? invokeResult) =
-          Actions.of(context).invokeActionIfEnabled(action, intent);
+      /// Creates a `final` instance.
+      final (bool enabled, Object? invokeResult) = Actions.of(
+        context,
+      ).invokeActionIfEnabled(action, intent);
       return (enabled, invokeResult);
     }
   }
@@ -38,7 +38,11 @@ class _CapturedWrapperState extends State<CapturedWrapper> {
 }
 
 void swapItemInLists<T>(
-    List<List<T>> lists, T element, List<T> targetList, int targetIndex) {
+  List<List<T>> lists,
+  T element,
+  List<T> targetList,
+  int targetIndex,
+) {
   for (final list in lists) {
     if (list != targetList) {
       list.remove(element);
@@ -62,7 +66,7 @@ extension WidgetPaddingExtension on Widget {
     double? all,
     EdgeInsetsGeometry? padding,
   }) {
-/// Creates a `assert` instance.
+    /// Creates a `assert` instance.
     assert(() {
       if (all != null) {
         if (top != null ||
@@ -72,17 +76,20 @@ extension WidgetPaddingExtension on Widget {
             horizontal != null ||
             vertical != null) {
           throw FlutterError(
-              'All padding properties cannot be used with other padding properties.');
+            'All padding properties cannot be used with other padding properties.',
+          );
         }
       } else if (horizontal != null) {
         if (left != null || right != null) {
           throw FlutterError(
-              'Horizontal padding cannot be used with left or right padding.');
+            'Horizontal padding cannot be used with left or right padding.',
+          );
         }
       } else if (vertical != null) {
         if (top != null || bottom != null) {
           throw FlutterError(
-              'Vertical padding cannot be used with top or bottom padding.');
+            'Vertical padding cannot be used with top or bottom padding.',
+          );
         }
       }
       return true;
@@ -93,10 +100,7 @@ extension WidgetPaddingExtension on Widget {
       left: left ?? horizontal ?? all ?? 0,
       right: right ?? horizontal ?? all ?? 0,
     );
-    return Padding(
-      padding: padding ?? edgeInsets,
-      child: this,
-    );
+    return Padding(padding: padding ?? edgeInsets, child: this);
   }
 
   /// Wraps this widget in an [Expanded] to fill available space.
@@ -106,7 +110,7 @@ extension WidgetPaddingExtension on Widget {
 
   /// Wraps this widget with intrinsic sizing on both axes.
   Widget intrinsic({bool width = true, bool height = true}) {
-/// Stores `current` state/configuration for this implementation.
+    /// Stores `current` state/configuration for this implementation.
     Widget current = this;
     if (height) {
       current = IntrinsicHeight(child: current);
@@ -157,16 +161,20 @@ extension WidgetSizingExtension on Widget {
     if (this is ConstrainedBox) {
       return ConstrainedBox(
         constraints: BoxConstraints(
-          minWidth: width ??
+          minWidth:
+              width ??
               minWidth ??
               (this as ConstrainedBox).constraints.minWidth,
-          maxWidth: width ??
+          maxWidth:
+              width ??
               maxWidth ??
               (this as ConstrainedBox).constraints.maxWidth,
-          minHeight: height ??
+          minHeight:
+              height ??
               minHeight ??
               (this as ConstrainedBox).constraints.minHeight,
-          maxHeight: height ??
+          maxHeight:
+              height ??
               maxHeight ??
               (this as ConstrainedBox).constraints.maxHeight,
         ),

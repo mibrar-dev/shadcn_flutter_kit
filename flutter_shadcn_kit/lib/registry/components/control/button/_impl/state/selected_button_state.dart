@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/primitives/clickable.dart';
@@ -18,7 +20,7 @@ class SelectedButtonState extends State<SelectedButton> {
   /// states and updates them based on user interactions and the selection value.
   late WidgetStatesController statesController;
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     statesController = widget.statesController ?? WidgetStatesController();
@@ -26,7 +28,7 @@ class SelectedButtonState extends State<SelectedButton> {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(SelectedButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.statesController != widget.statesController) {
@@ -39,7 +41,7 @@ class SelectedButtonState extends State<SelectedButton> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       statesController: statesController,

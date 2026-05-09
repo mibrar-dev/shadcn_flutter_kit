@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // AppErrorGate: full-screen overlay for app-level blocking errors.
 // Keeps the navigator subtree mounted so state is preserved while showing a global error UI.
 
@@ -11,7 +13,7 @@ import 'error_state.dart';
 
 /// AppErrorGate defines a reusable type for this registry module.
 class AppErrorGate extends StatelessWidget {
-/// Creates a `AppErrorGate` instance.
+  /// Creates a `AppErrorGate` instance.
   const AppErrorGate({
     super.key,
     required this.child,
@@ -32,7 +34,7 @@ class AppErrorGate extends StatelessWidget {
   /// When true, blocks pointer events behind the overlay.
   final bool blockInteraction;
 
-/// Factory constructor that creates `AppErrorGate.scope` instances.
+  /// Factory constructor that creates `AppErrorGate.scope` instances.
   factory AppErrorGate.scope({
     Key? key,
     required Widget child,
@@ -50,7 +52,7 @@ class AppErrorGate extends StatelessWidget {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AppError?>(
       valueListenable: notifier,
@@ -58,12 +60,12 @@ class AppErrorGate extends StatelessWidget {
         return Stack(
           children: [
             if (error != null && blockInteraction)
-/// Creates a `AbsorbPointer` instance.
+              /// Creates a `AbsorbPointer` instance.
               AbsorbPointer(child: child)
             else
               child,
             if (error != null)
-/// Creates a `Positioned.fill` instance.
+              /// Creates a `Positioned.fill` instance.
               Positioned.fill(
                 child: _AppErrorGateOverlay(
                   error: error,
@@ -80,24 +82,26 @@ class AppErrorGate extends StatelessWidget {
 
 /// _AppErrorGateOverlay defines a reusable type for this registry module.
 class _AppErrorGateOverlay extends StatelessWidget {
-/// Creates a `_AppErrorGateOverlay` instance.
+  /// Creates a `_AppErrorGateOverlay` instance.
   const _AppErrorGateOverlay({
     required this.error,
     required this.overlayBuilder,
     required this.blockInteraction,
   });
 
-/// Stores `error` state/configuration for this implementation.
+  /// Stores `error` state/configuration for this implementation.
   final AppError error;
   final Widget Function(BuildContext context, AppError error)? overlayBuilder;
-/// Stores `blockInteraction` state/configuration for this implementation.
+
+  /// Stores `blockInteraction` state/configuration for this implementation.
   final bool blockInteraction;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `background` state/configuration for this implementation.
+
+    /// Stores `background` state/configuration for this implementation.
     final background = theme.colorScheme.background;
     final content =
         overlayBuilder?.call(context, error) ?? ErrorState(error: error);

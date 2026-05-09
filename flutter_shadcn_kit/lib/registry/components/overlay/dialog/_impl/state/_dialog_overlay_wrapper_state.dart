@@ -1,10 +1,12 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../dialog.dart';
 
 /// _DialogOverlayWrapperState defines a reusable type for this registry module.
 class _DialogOverlayWrapperState<T> extends State<_DialogOverlayWrapper<T>>
     with OverlayHandlerStateMixin {
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Data<OverlayHandlerStateMixin>.inherit(
       data: this,
@@ -13,7 +15,7 @@ class _DialogOverlayWrapperState<T> extends State<_DialogOverlayWrapper<T>>
   }
 
   @override
-/// Executes `close` behavior for this component/composite.
+  /// Executes `close` behavior for this component/composite.
   Future<void> close([bool immediate = false]) {
     if (immediate || !widget.route.isCurrent) {
       widget.route.navigator?.removeRoute(widget.route);
@@ -24,7 +26,7 @@ class _DialogOverlayWrapperState<T> extends State<_DialogOverlayWrapper<T>>
   }
 
   @override
-/// Executes `closeLater` behavior for this component/composite.
+  /// Executes `closeLater` behavior for this component/composite.
   void closeLater() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (widget.route.isCurrent) {

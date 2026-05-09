@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../fade_scroll.dart';
 
 /// FadeScroll defines a reusable type for this registry module.
@@ -36,21 +38,24 @@ class FadeScroll extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<FadeScrollTheme>(context);
     final startOffset = styleValue(
-        widgetValue: this.startOffset,
-        themeValue: compTheme?.startOffset,
-        defaultValue: 0.0);
+      widgetValue: this.startOffset,
+      themeValue: compTheme?.startOffset,
+      defaultValue: 0.0,
+    );
     final endOffset = styleValue(
-        widgetValue: this.endOffset,
-        themeValue: compTheme?.endOffset,
-        defaultValue: 0.0);
+      widgetValue: this.endOffset,
+      themeValue: compTheme?.endOffset,
+      defaultValue: 0.0,
+    );
     final gradient = styleValue(
-        widgetValue: this.gradient,
-        themeValue: compTheme?.gradient,
-        defaultValue: const [Colors.white, Colors.transparent]);
+      widgetValue: this.gradient,
+      themeValue: compTheme?.gradient,
+      defaultValue: const [Colors.white, Colors.transparent],
+    );
     return ListenableBuilder(
       listenable: controller,
       child: child,
@@ -58,19 +63,26 @@ class FadeScroll extends StatelessWidget {
         if (!controller.hasClients) {
           return child!;
         }
-/// Stores `position` state/configuration for this implementation.
+
+        /// Stores `position` state/configuration for this implementation.
         final position = controller.position.pixels;
-/// Stores `max` state/configuration for this implementation.
+
+        /// Stores `max` state/configuration for this implementation.
         final max = controller.position.maxScrollExtent;
-/// Stores `min` state/configuration for this implementation.
+
+        /// Stores `min` state/configuration for this implementation.
         final min = controller.position.minScrollExtent;
-/// Stores `direction` state/configuration for this implementation.
+
+        /// Stores `direction` state/configuration for this implementation.
         final direction = controller.position.axis;
-/// Stores `size` state/configuration for this implementation.
+
+        /// Stores `size` state/configuration for this implementation.
         final size = controller.position.viewportDimension;
-/// Stores `shouldFadeStart` state/configuration for this implementation.
+
+        /// Stores `shouldFadeStart` state/configuration for this implementation.
         bool shouldFadeStart = position > min;
-/// Stores `shouldFadeEnd` state/configuration for this implementation.
+
+        /// Stores `shouldFadeEnd` state/configuration for this implementation.
         bool shouldFadeEnd = position < max;
         if (!shouldFadeStart && !shouldFadeEnd) {
           return child!;
@@ -83,9 +95,11 @@ class FadeScroll extends StatelessWidget {
             Alignment end = direction == Axis.horizontal
                 ? Alignment.centerRight
                 : Alignment.bottomCenter;
-/// Stores `relativeStart` state/configuration for this implementation.
+
+            /// Stores `relativeStart` state/configuration for this implementation.
             double relativeStart = startOffset / size;
-/// Stores `relativeEnd` state/configuration for this implementation.
+
+            /// Stores `relativeEnd` state/configuration for this implementation.
             double relativeEnd = 1 - endOffset / size;
             List<double> stops = shouldFadeStart && shouldFadeEnd
                 ? [
@@ -97,31 +111,30 @@ class FadeScroll extends StatelessWidget {
                       relativeEnd + (i / gradient.length) * (1 - relativeEnd),
                   ]
                 : shouldFadeStart
-                    ? [
-                        for (int i = 0; i < gradient.length; i++)
-                          (i / gradient.length) * relativeStart,
-                        relativeStart,
-                        1
-                      ]
-                    : [
-                        0,
-                        relativeEnd,
-                        for (int i = 1; i < gradient.length + 1; i++)
-                          relativeEnd +
-                              (i / gradient.length) * (1 - relativeEnd),
-                      ];
+                ? [
+                    for (int i = 0; i < gradient.length; i++)
+                      (i / gradient.length) * relativeStart,
+                    relativeStart,
+                    1,
+                  ]
+                : [
+                    0,
+                    relativeEnd,
+                    for (int i = 1; i < gradient.length + 1; i++)
+                      relativeEnd + (i / gradient.length) * (1 - relativeEnd),
+                  ];
             return LinearGradient(
-                    colors: [
-                  if (shouldFadeStart) ...gradient,
-                  Colors.white,
-                  Colors.white,
-                  if (shouldFadeEnd) ...gradient.reversed,
-                ],
-                    stops: stops,
-                    begin: start,
-                    end: end,
-                    transform: const _ScaleGradient(Offset(1, 1.5)))
-                .createShader(bounds);
+              colors: [
+                if (shouldFadeStart) ...gradient,
+                Colors.white,
+                Colors.white,
+                if (shouldFadeEnd) ...gradient.reversed,
+              ],
+              stops: stops,
+              begin: start,
+              end: end,
+              transform: const _ScaleGradient(Offset(1, 1.5)),
+            ).createShader(bounds);
           },
           child: child!,
         );

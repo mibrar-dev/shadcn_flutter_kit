@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart' hide AlertDialog;
@@ -10,7 +12,7 @@ class CardImagePreview extends StatelessWidget {
   const CardImagePreview({super.key});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScrollConfiguration(
@@ -26,10 +28,11 @@ class CardImagePreview extends StatelessWidget {
               children: [
                 for (int i = 0; i < 10; i++) ...[
                   if (i > 0) const SizedBox(width: 8),
-/// Creates a `CardImage` instance.
+
+                  /// Creates a `CardImage` instance.
                   CardImage(
                     onPressed: () {
-/// Creates a `showDialog` instance.
+                      /// Creates a `showDialog` instance.
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -37,7 +40,7 @@ class CardImagePreview extends StatelessWidget {
                             title: const Text('Card Image'),
                             content: const Text('You clicked on a card image.'),
                             actions: [
-/// Creates a `PrimaryButton` instance.
+                              /// Creates a `PrimaryButton` instance.
                               PrimaryButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();

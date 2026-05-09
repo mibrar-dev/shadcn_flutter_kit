@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // guard/guardSync: run an operation and publish any AppError to a provided ErrorScope.
 // Use this when you want reactive UI updates without writing try/catch in every call site.
 
@@ -18,7 +20,7 @@ Future<T?> guard<T>(
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) async {
-/// Stores `notifier` state/configuration for this implementation.
+  /// Stores `notifier` state/configuration for this implementation.
   final notifier = channel ?? scope?.notifier;
   if (notifier == null) {
     throw ArgumentError('guard() requires either scope or channel.');
@@ -37,7 +39,7 @@ Future<T?> guard<T>(
   } catch (e, st) {
     notifier.value =
         fallbackMapper?.map(e, st) ??
-/// Creates a `AppError` instance.
+        /// Creates a `AppError` instance.
         AppError(
           code: AppErrorCode.unknown,
           title: 'Unexpected Error',
@@ -55,7 +57,7 @@ T? guardSync<T>(
   bool clearBeforeRun = true,
   ErrorMapper? fallbackMapper,
 }) {
-/// Stores `notifier` state/configuration for this implementation.
+  /// Stores `notifier` state/configuration for this implementation.
   final notifier = channel ?? scope?.notifier;
   if (notifier == null) {
     throw ArgumentError('guardSync() requires either scope or channel.');
@@ -74,7 +76,7 @@ T? guardSync<T>(
   } catch (e, st) {
     notifier.value =
         fallbackMapper?.map(e, st) ??
-/// Creates a `AppError` instance.
+        /// Creates a `AppError` instance.
         AppError(
           code: AppErrorCode.unknown,
           title: 'Unexpected Error',

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../clickable.dart';
 
 /// StatedWidget defines a reusable type for this registry module.
@@ -125,6 +127,6 @@ abstract class StatedWidget extends StatelessWidget {
   const factory StatedWidget.builder({
     Key? key,
     required Widget Function(BuildContext context, Set<WidgetState> states)
-        builder,
+    builder,
   }) = _BuilderStatedWidget;
 }

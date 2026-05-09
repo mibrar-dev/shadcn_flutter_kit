@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../preview.dart';
 
 /// _DrawerPreviewState defines a reusable type for this registry module.
@@ -9,9 +11,9 @@ class _DrawerPreviewState extends State<DrawerPreview> {
     OverlayPosition.start,
   ];
 
-/// Executes `open` behavior for this component/composite.
+  /// Executes `open` behavior for this component/composite.
   void open(BuildContext context, int count) {
-/// Creates a `openDrawer` instance.
+    /// Creates a `openDrawer` instance.
     openDrawer(
       context: context,
       expands: true,
@@ -23,7 +25,7 @@ class _DrawerPreviewState extends State<DrawerPreview> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-/// Creates a `Text` instance.
+                /// Creates a `Text` instance.
                 Text(
                   'Drawer at ${positions[count % positions.length].name}',
                   style: const TextStyle(
@@ -31,18 +33,22 @@ class _DrawerPreviewState extends State<DrawerPreview> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-/// Creates a `SizedBox` instance.
+
+                /// Creates a `SizedBox` instance.
                 const SizedBox(height: 16),
-/// Creates a `PrimaryButton` instance.
+
+                /// Creates a `PrimaryButton` instance.
                 PrimaryButton(
                   onPressed: () {
                     open(context, count + 1);
                   },
                   child: const Text('Open Another Drawer'),
                 ),
-/// Creates a `SizedBox` instance.
+
+                /// Creates a `SizedBox` instance.
                 const SizedBox(height: 8),
-/// Creates a `SecondaryButton` instance.
+
+                /// Creates a `SecondaryButton` instance.
                 SecondaryButton(
                   onPressed: () {
                     closeOverlay(context);
@@ -59,7 +65,7 @@ class _DrawerPreviewState extends State<DrawerPreview> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

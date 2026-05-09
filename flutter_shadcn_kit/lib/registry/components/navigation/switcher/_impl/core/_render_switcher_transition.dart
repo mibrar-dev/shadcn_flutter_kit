@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../switcher.dart';
 
 /// _RenderSwitcherTransition defines a reusable type for this registry module.
@@ -5,47 +7,53 @@ class _RenderSwitcherTransition extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, _SwitcherParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, _SwitcherParentData> {
-/// Stores `progress` state/configuration for this implementation.
+  /// Stores `progress` state/configuration for this implementation.
   double progress = 0;
-/// Stores `direction` state/configuration for this implementation.
+
+  /// Stores `direction` state/configuration for this implementation.
   AxisDirection direction = AxisDirection.down;
-/// Stores `absolute` state/configuration for this implementation.
+
+  /// Stores `absolute` state/configuration for this implementation.
   bool absolute = false;
 
   @override
-/// Executes `setupParentData` behavior for this component/composite.
+  /// Executes `setupParentData` behavior for this component/composite.
   void setupParentData(covariant RenderObject child) {
     if (child.parent != this) {
       child.parentData = _SwitcherParentData();
     }
   }
 
-/// Executes `_lerpDouble` behavior for this component/composite.
+  /// Executes `_lerpDouble` behavior for this component/composite.
   double _lerpDouble(double a, double b, double t) {
     return a + (b - a) * t;
   }
 
   @override
-/// Executes `performLayout` behavior for this component/composite.
+  /// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
     if (firstChild == null || childAfter(firstChild!) == null) {
       size = Size.zero;
       return;
     }
-/// Stores `oldChild` state/configuration for this implementation.
+
+    /// Stores `oldChild` state/configuration for this implementation.
     final oldChild = firstChild!;
     final newChild = childAfter(oldChild)!;
 
     oldChild.layout(constraints, parentUsesSize: true);
     newChild.layout(constraints, parentUsesSize: true);
-/// Stores `oldSize` state/configuration for this implementation.
+
+    /// Stores `oldSize` state/configuration for this implementation.
     final oldSize = oldChild.size;
-/// Stores `newSize` state/configuration for this implementation.
+
+    /// Stores `newSize` state/configuration for this implementation.
     final newSize = newChild.size;
 
-/// Stores `oldData` state/configuration for this implementation.
+    /// Stores `oldData` state/configuration for this implementation.
     final oldData = oldChild.parentData! as _SwitcherParentData;
-/// Stores `newData` state/configuration for this implementation.
+
+    /// Stores `newData` state/configuration for this implementation.
     final newData = newChild.parentData! as _SwitcherParentData;
 
     final lerpedSize = Size.lerp(oldSize, newSize, progress)!;
@@ -121,13 +129,13 @@ class _RenderSwitcherTransition extends RenderBox
   }
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(PaintingContext context, Offset offset) {
     defaultPaint(context, offset);
   }
 
   @override
-/// Executes `hitTestChildren` behavior for this component/composite.
+  /// Executes `hitTestChildren` behavior for this component/composite.
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     return defaultHitTestChildren(result, position: position);
   }

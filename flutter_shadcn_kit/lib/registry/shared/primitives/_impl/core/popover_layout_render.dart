@@ -1,37 +1,52 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// PopoverLayoutRender defines a reusable type for this registry module.
 class PopoverLayoutRender extends RenderShiftedBox {
-/// Stores `_alignment` state/configuration for this implementation.
+  /// Stores `_alignment` state/configuration for this implementation.
   Alignment _alignment;
-/// Stores `_anchorAlignment` state/configuration for this implementation.
+
+  /// Stores `_anchorAlignment` state/configuration for this implementation.
   Alignment _anchorAlignment;
-/// Stores `_position` state/configuration for this implementation.
+
+  /// Stores `_position` state/configuration for this implementation.
   Offset? _position;
-/// Stores `_anchorSize` state/configuration for this implementation.
+
+  /// Stores `_anchorSize` state/configuration for this implementation.
   Size? _anchorSize;
-/// Stores `_widthConstraint` state/configuration for this implementation.
+
+  /// Stores `_widthConstraint` state/configuration for this implementation.
   PopoverConstraint _widthConstraint;
-/// Stores `_heightConstraint` state/configuration for this implementation.
+
+  /// Stores `_heightConstraint` state/configuration for this implementation.
   PopoverConstraint _heightConstraint;
-/// Stores `_offset` state/configuration for this implementation.
+
+  /// Stores `_offset` state/configuration for this implementation.
   Offset? _offset;
-/// Stores `_margin` state/configuration for this implementation.
+
+  /// Stores `_margin` state/configuration for this implementation.
   EdgeInsets _margin;
-/// Stores `_scale` state/configuration for this implementation.
+
+  /// Stores `_scale` state/configuration for this implementation.
   double _scale;
-/// Stores `_scaleAlignment` state/configuration for this implementation.
+
+  /// Stores `_scaleAlignment` state/configuration for this implementation.
   Alignment _scaleAlignment;
-/// Stores `_filterQuality` state/configuration for this implementation.
+
+  /// Stores `_filterQuality` state/configuration for this implementation.
   FilterQuality? _filterQuality;
-/// Stores `_allowInvertHorizontal` state/configuration for this implementation.
+
+  /// Stores `_allowInvertHorizontal` state/configuration for this implementation.
   bool _allowInvertHorizontal;
-/// Stores `_allowInvertVertical` state/configuration for this implementation.
+
+  /// Stores `_allowInvertVertical` state/configuration for this implementation.
   bool _allowInvertVertical;
 
-/// Stores `_invertX` state/configuration for this implementation.
+  /// Stores `_invertX` state/configuration for this implementation.
   bool _invertX = false;
-/// Stores `_invertY` state/configuration for this implementation.
+
+  /// Stores `_invertY` state/configuration for this implementation.
   bool _invertY = false;
 
   /// Creates a popover layout render object.
@@ -69,22 +84,23 @@ class PopoverLayoutRender extends RenderShiftedBox {
        super(child);
 
   @override
-/// Executes `computeDryLayout` behavior for this component/composite.
+  /// Executes `computeDryLayout` behavior for this component/composite.
   Size computeDryLayout(covariant BoxConstraints constraints) {
     return constraints.biggest;
   }
 
   @override
-/// Executes `hitTest` behavior for this component/composite.
+  /// Executes `hitTest` behavior for this component/composite.
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     return hitTestChildren(result, position: position);
   }
 
   Matrix4 get _effectiveTransform {
-/// Stores `childSize` state/configuration for this implementation.
+    /// Stores `childSize` state/configuration for this implementation.
     Size childSize = child!.size;
     Offset childOffset = (child!.parentData as BoxParentData).offset;
-/// Stores `scaleAlignment` state/configuration for this implementation.
+
+    /// Stores `scaleAlignment` state/configuration for this implementation.
     var scaleAlignment = _scaleAlignment;
     if (_invertX || _invertY) {
       scaleAlignment = Alignment(
@@ -95,7 +111,8 @@ class PopoverLayoutRender extends RenderShiftedBox {
     Matrix4 transform = Matrix4.identity();
     Offset alignmentTranslation = scaleAlignment.alongSize(childSize);
     transform.translateByDouble(childOffset.dx, childOffset.dy, 0, 1);
-/// Creates a `transform.translateByDouble` instance.
+
+    /// Creates a `transform.translateByDouble` instance.
     transform.translateByDouble(
       alignmentTranslation.dx,
       alignmentTranslation.dy,
@@ -103,7 +120,8 @@ class PopoverLayoutRender extends RenderShiftedBox {
       1,
     );
     transform.scaleByDouble(_scale, _scale, 1, 1);
-/// Creates a `transform.translateByDouble` instance.
+
+    /// Creates a `transform.translateByDouble` instance.
     transform.translateByDouble(
       -alignmentTranslation.dx,
       -alignmentTranslation.dy,
@@ -115,7 +133,7 @@ class PopoverLayoutRender extends RenderShiftedBox {
   }
 
   @override
-/// Executes `hitTestChildren` behavior for this component/composite.
+  /// Executes `hitTestChildren` behavior for this component/composite.
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     return result.addWithPaintTransform(
       transform: _effectiveTransform,
@@ -127,23 +145,23 @@ class PopoverLayoutRender extends RenderShiftedBox {
   }
 
   @override
-/// Executes `applyPaintTransform` behavior for this component/composite.
+  /// Executes `applyPaintTransform` behavior for this component/composite.
   void applyPaintTransform(RenderBox child, Matrix4 transform) {
-/// Stores `effectiveTransform` state/configuration for this implementation.
+    /// Stores `effectiveTransform` state/configuration for this implementation.
     Matrix4 effectiveTransform = _effectiveTransform;
     transform.multiply(effectiveTransform);
     super.applyPaintTransform(child, transform);
   }
 
   @override
-/// Stores `alwaysNeedsCompositing` state/configuration for this implementation.
+  /// Stores `alwaysNeedsCompositing` state/configuration for this implementation.
   bool get alwaysNeedsCompositing => child != null && _filterQuality != null;
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(PaintingContext context, Offset offset) {
     if (child != null) {
-/// Stores `transform` state/configuration for this implementation.
+      /// Stores `transform` state/configuration for this implementation.
       final Matrix4 transform = _effectiveTransform;
       if (_filterQuality == null) {
         final Offset? childOffset = MatrixUtils.getAsTranslation(transform);
@@ -166,7 +184,7 @@ class PopoverLayoutRender extends RenderShiftedBox {
         }
       } else {
         final Matrix4 effectiveTransform =
-/// Creates a `Matrix4.translationValues` instance.
+            /// Creates a `Matrix4.translationValues` instance.
             Matrix4.translationValues(offset.dx, offset.dy, 0.0)
               ..multiply(transform)
               ..translateByDouble(-offset.dx, -offset.dy, 0, 1);
@@ -175,14 +193,15 @@ class PopoverLayoutRender extends RenderShiftedBox {
           filterQuality: _filterQuality!,
         );
         if (layer is ImageFilterLayer) {
-/// Stores `filterLayer` state/configuration for this implementation.
+          /// Stores `filterLayer` state/configuration for this implementation.
           final ImageFilterLayer filterLayer = layer! as ImageFilterLayer;
           filterLayer.imageFilter = filter;
         } else {
           layer = ImageFilterLayer(imageFilter: filter);
         }
         context.pushLayer(layer!, super.paint, offset);
-/// Creates a `assert` instance.
+
+        /// Creates a `assert` instance.
         assert(() {
           layer!.debugCreator = debugCreator;
           return true;
@@ -201,13 +220,16 @@ class PopoverLayoutRender extends RenderShiftedBox {
   ///
   /// Returns box constraints with min/max values for width and height.
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-/// Stores `minWidth` state/configuration for this implementation.
+    /// Stores `minWidth` state/configuration for this implementation.
     double minWidth = 0;
-/// Stores `maxWidth` state/configuration for this implementation.
+
+    /// Stores `maxWidth` state/configuration for this implementation.
     double maxWidth = constraints.maxWidth;
-/// Stores `minHeight` state/configuration for this implementation.
+
+    /// Stores `minHeight` state/configuration for this implementation.
     double minHeight = 0;
-/// Stores `maxHeight` state/configuration for this implementation.
+
+    /// Stores `maxHeight` state/configuration for this implementation.
     double maxHeight = constraints.maxHeight;
     if (_widthConstraint == PopoverConstraint.anchorFixedSize) {
       assert(_anchorSize != null, 'anchorSize must not be null');
@@ -250,17 +272,21 @@ class PopoverLayoutRender extends RenderShiftedBox {
   }
 
   @override
-/// Executes `performLayout` behavior for this component/composite.
+  /// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
     child!.layout(getConstraintsForChild(constraints), parentUsesSize: true);
     size = constraints.biggest;
-/// Stores `childSize` state/configuration for this implementation.
+
+    /// Stores `childSize` state/configuration for this implementation.
     Size childSize = child!.size;
-/// Stores `offsetX` state/configuration for this implementation.
+
+    /// Stores `offsetX` state/configuration for this implementation.
     double offsetX = _offset?.dx ?? 0;
-/// Stores `offsetY` state/configuration for this implementation.
+
+    /// Stores `offsetY` state/configuration for this implementation.
     double offsetY = _offset?.dy ?? 0;
-/// Stores `position` state/configuration for this implementation.
+
+    /// Stores `position` state/configuration for this implementation.
     var position = _position;
     position ??= Offset(
       size.width / 2 + size.width / 2 * _anchorAlignment.x,
@@ -274,13 +300,17 @@ class PopoverLayoutRender extends RenderShiftedBox {
         position.dy -
         childSize.height / 2 -
         (childSize.height / 2 * _alignment.y);
-/// Stores `left` state/configuration for this implementation.
+
+    /// Stores `left` state/configuration for this implementation.
     double left = x - _margin.left;
-/// Stores `top` state/configuration for this implementation.
+
+    /// Stores `top` state/configuration for this implementation.
     double top = y - _margin.top;
-/// Stores `right` state/configuration for this implementation.
+
+    /// Stores `right` state/configuration for this implementation.
     double right = x + childSize.width + _margin.right;
-/// Stores `bottom` state/configuration for this implementation.
+
+    /// Stores `bottom` state/configuration for this implementation.
     double bottom = y + childSize.height + _margin.bottom;
     if ((left < 0 || right > size.width) && _allowInvertHorizontal) {
       x =
@@ -323,7 +353,8 @@ class PopoverLayoutRender extends RenderShiftedBox {
         ? size.height - bottom
         : 0;
     Offset result = Offset(x + dx + offsetX, y + dy + offsetY);
-/// Stores `childParentData` state/configuration for this implementation.
+
+    /// Stores `childParentData` state/configuration for this implementation.
     BoxParentData childParentData = child!.parentData as BoxParentData;
     childParentData.offset = result;
   }

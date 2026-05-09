@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../navigation_bar.dart';
 
 /// _NavigationItemState defines a reusable type for this registry module.
@@ -10,17 +12,23 @@ class _NavigationItemState
     NavigationChildControlData? childData,
   ) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-/// Stores `labelType` state/configuration for this implementation.
+
+    /// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
-/// Stores `direction` state/configuration for this implementation.
+
+    /// Stores `direction` state/configuration for this implementation.
     final direction = data?.direction ?? Axis.vertical;
-/// Stores `index` state/configuration for this implementation.
+
+    /// Stores `index` state/configuration for this implementation.
     var index = childData?.index ?? widget.index;
-/// Stores `isSelected` state/configuration for this implementation.
+
+    /// Stores `isSelected` state/configuration for this implementation.
     var isSelected = widget.selected ?? index == data?.selectedIndex;
-/// Stores `parentIndex` state/configuration for this implementation.
+
+    /// Stores `parentIndex` state/configuration for this implementation.
     var parentIndex = childData?.index;
     bool showLabel =
         labelType == NavigationLabelType.all ||

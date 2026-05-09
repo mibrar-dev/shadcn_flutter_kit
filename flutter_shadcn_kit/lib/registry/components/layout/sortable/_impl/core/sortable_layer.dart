@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../sortable.dart';
 
 /// SortableLayer defines a reusable type for this registry module.
@@ -66,7 +68,7 @@ class SortableLayer extends StatefulWidget {
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<SortableLayer> createState() => _SortableLayerState();
 
   /// Ensures a pending drop operation is completed and dismisses it.

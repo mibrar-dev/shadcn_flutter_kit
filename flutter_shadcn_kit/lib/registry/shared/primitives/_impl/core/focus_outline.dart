@@ -1,22 +1,28 @@
-part of '../../focus_outline.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../focus_outline.dart';
 
 /// FocusOutline defines a reusable type for this registry module.
 class FocusOutline extends StatelessWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `focused` state/configuration for this implementation.
+
+  /// Stores `focused` state/configuration for this implementation.
   final bool focused;
-/// Stores `borderRadius` state/configuration for this implementation.
+
+  /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
-/// Stores `align` state/configuration for this implementation.
+
+  /// Stores `align` state/configuration for this implementation.
   final double? align;
-/// Stores `border` state/configuration for this implementation.
+
+  /// Stores `border` state/configuration for this implementation.
   final Border? border;
-/// Stores `shape` state/configuration for this implementation.
+
+  /// Stores `shape` state/configuration for this implementation.
   final BoxShape? shape;
 
-/// Creates a `FocusOutline` instance.
+  /// Creates a `FocusOutline` instance.
   const FocusOutline({
     super.key,
     required this.child,
@@ -32,7 +38,7 @@ class FocusOutline extends StatelessWidget {
     double align,
     BorderRadiusGeometry? borderRadius,
   ) {
-/// Stores `rawRadius` state/configuration for this implementation.
+    /// Stores `rawRadius` state/configuration for this implementation.
     final rawRadius = borderRadius;
     if (rawRadius == null) return BorderRadius.zero;
     final resolved = rawRadius.resolve(textDirection);
@@ -45,7 +51,7 @@ class FocusOutline extends StatelessWidget {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<FocusOutlineTheme>(context);
     final double align = styleValue(
@@ -58,7 +64,8 @@ class FocusOutline extends StatelessWidget {
       widgetValue: borderRadius,
       defaultValue: null,
     );
-/// Stores `offset` state/configuration for this implementation.
+
+    /// Stores `offset` state/configuration for this implementation.
     final double offset = -align;
     final textDirection = Directionality.of(context);
     return Stack(
@@ -66,7 +73,8 @@ class FocusOutline extends StatelessWidget {
       fit: StackFit.passthrough,
       children: [
         child,
-/// Creates a `AnimatedValueBuilder` instance.
+
+        /// Creates a `AnimatedValueBuilder` instance.
         AnimatedValueBuilder(
           value: focused ? 1.0 : 0.0,
           duration: kDefaultDuration,
@@ -89,10 +97,9 @@ class FocusOutline extends StatelessWidget {
                     shape: shape ?? BoxShape.rectangle,
                     border: styleValue(
                       defaultValue: Border.all(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .ring
-                            .scaleAlpha(0.5),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.ring.scaleAlpha(0.5),
                         width: 3.0,
                       ),
                       themeValue: compTheme?.border,

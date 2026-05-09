@@ -1,8 +1,10 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../flex.dart';
 
 /// Patched [widgets.Flex] that supports paint order.
 class Flex extends widgets.Flex {
-/// Creates a `Flex` instance.
+  /// Creates a `Flex` instance.
   const Flex({
     super.key,
     required super.direction,
@@ -18,7 +20,7 @@ class Flex extends widgets.Flex {
   });
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderFlex createRenderObject(widgets.BuildContext context) {
     return RenderFlex(
       direction: direction,
@@ -53,7 +55,7 @@ class Flex extends widgets.Flex {
 
 /// Patched [widgets.Row] that supports paint order.
 class Row extends Flex {
-/// Creates a `Row` instance.
+  /// Creates a `Row` instance.
   const Row({
     super.key,
     super.mainAxisAlignment,
@@ -70,7 +72,7 @@ class Row extends Flex {
 
 /// Patched [widgets.Column] that supports paint order.
 class Column extends Flex {
-/// Creates a `Column` instance.
+  /// Creates a `Column` instance.
   const Column({
     super.key,
     super.mainAxisAlignment,

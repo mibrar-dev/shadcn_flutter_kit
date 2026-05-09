@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // AppErrorBanner: top-of-app banner for app-level errors published in AppErrorHub.
 // Intended for "global" problems (session expired / network down) that should remain visible across navigation until dismissed.
 

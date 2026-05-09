@@ -1,16 +1,18 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../sortable.dart';
 
 /// _SortableDragHandleState defines a reusable type for this registry module.
 class _SortableDragHandleState extends State<SortableDragHandle>
     with AutomaticKeepAliveClientMixin {
-/// Stores `_state` state/configuration for this implementation.
+  /// Stores `_state` state/configuration for this implementation.
   _SortableState? _state;
 
-/// Stores `_dragging` state/configuration for this implementation.
+  /// Stores `_dragging` state/configuration for this implementation.
   bool _dragging = false;
 
   @override
-/// Executes `didChangeDependencies` behavior for this component/composite.
+  /// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     _state = Data.maybeOf<_SortableState>(context);
@@ -22,7 +24,7 @@ class _SortableDragHandleState extends State<SortableDragHandle>
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     super.build(context);
     return MouseRegion(

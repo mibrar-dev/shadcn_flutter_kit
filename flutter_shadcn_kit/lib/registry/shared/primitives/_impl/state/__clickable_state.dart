@@ -1,18 +1,23 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../clickable.dart';
 
 /// _ClickableState defines a reusable type for this registry module.
 class _ClickableState extends State<Clickable> {
-/// Stores `_focusNode` state/configuration for this implementation.
+  /// Stores `_focusNode` state/configuration for this implementation.
   late FocusNode _focusNode;
-/// Stores `_controller` state/configuration for this implementation.
+
+  /// Stores `_controller` state/configuration for this implementation.
   late WidgetStatesController _controller;
-/// Stores `_lastTap` state/configuration for this implementation.
+
+  /// Stores `_lastTap` state/configuration for this implementation.
   DateTime? _lastTap;
-/// Stores `_tapCount` state/configuration for this implementation.
+
+  /// Stores `_tapCount` state/configuration for this implementation.
   int _tapCount = 0;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _focusNode = widget.focusNode ?? FocusNode();
@@ -21,7 +26,7 @@ class _ClickableState extends State<Clickable> {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant Clickable oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.statesController != oldWidget.statesController) {
@@ -45,7 +50,7 @@ class _ClickableState extends State<Clickable> {
     return Future<void>.value();
   }
 
-/// Executes `_onPressed` behavior for this component/composite.
+  /// Executes `_onPressed` behavior for this component/composite.
   void _onPressed() {
     if (!widget.enabled) return;
     Duration? deltaTap = _lastTap == null
@@ -71,7 +76,7 @@ class _ClickableState extends State<Clickable> {
     }
   }
 
-/// Executes `_updateState` behavior for this component/composite.
+  /// Executes `_updateState` behavior for this component/composite.
   void _updateState(WidgetState state, bool value) {
     if (!mounted) return;
     // Avoid notifying listeners during a build; defer to next frame if needed.
@@ -87,9 +92,9 @@ class _ClickableState extends State<Clickable> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-/// Stores `enabled` state/configuration for this implementation.
+    /// Stores `enabled` state/configuration for this implementation.
     var enabled = widget.enabled;
     return WidgetStatesProvider(
       controller: _controller,
@@ -98,15 +103,17 @@ class _ClickableState extends State<Clickable> {
     );
   }
 
-/// Executes `_builder` behavior for this component/composite.
+  /// Executes `_builder` behavior for this component/composite.
   Widget _builder(BuildContext context, Widget? _) {
     final theme = Theme.of(context);
-/// Stores `enabled` state/configuration for this implementation.
+
+    /// Stores `enabled` state/configuration for this implementation.
     final enabled = widget.enabled;
     var widgetStates = Data.maybeOf<WidgetStatesData>(context)?.states ?? {};
     widgetStates = widgetStates.union(_controller.value);
     Decoration? decoration = widget.decoration?.resolve(widgetStates);
-/// Stores `borderRadius` state/configuration for this implementation.
+
+    /// Stores `borderRadius` state/configuration for this implementation.
     BorderRadiusGeometry borderRadius;
     if (decoration is BoxDecoration) {
       borderRadius = decoration.borderRadius ?? theme.borderRadiusMd;
@@ -117,7 +124,7 @@ class _ClickableState extends State<Clickable> {
     return FocusOutline(
       focused:
           widget.focusOutline &&
-/// Creates a `widgetStates.contains` instance.
+          /// Creates a `widgetStates.contains` instance.
           widgetStates.contains(WidgetState.focused) &&
           !widget.disableFocusOutline,
       borderRadius: borderRadius,
@@ -172,25 +179,30 @@ class _ClickableState extends State<Clickable> {
           enabled: enabled,
           focusNode: _focusNode,
           shortcuts: {
-/// Creates a `LogicalKeySet` instance.
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.enter): const ActivateIntent(),
-/// Creates a `LogicalKeySet` instance.
+
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.space): const ActivateIntent(),
-/// Creates a `LogicalKeySet` instance.
+
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowUp):
-/// Creates a `DirectionalFocusIntent` instance.
+                /// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.up),
-/// Creates a `LogicalKeySet` instance.
+
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowDown):
-/// Creates a `DirectionalFocusIntent` instance.
+                /// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.down),
-/// Creates a `LogicalKeySet` instance.
+
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-/// Creates a `DirectionalFocusIntent` instance.
+                /// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.left),
-/// Creates a `LogicalKeySet` instance.
+
+            /// Creates a `LogicalKeySet` instance.
             LogicalKeySet(LogicalKeyboardKey.arrowRight):
-/// Creates a `DirectionalFocusIntent` instance.
+                /// Creates a `DirectionalFocusIntent` instance.
                 const DirectionalFocusIntent(TraversalDirection.right),
             ...?widget.shortcuts,
           },
@@ -203,9 +215,10 @@ class _ClickableState extends State<Clickable> {
             ),
             DirectionalFocusIntent: CallbackAction<DirectionalFocusIntent>(
               onInvoke: (e) {
-/// Stores `direction` state/configuration for this implementation.
+                /// Stores `direction` state/configuration for this implementation.
                 final direction = e.direction;
-/// Stores `focus` state/configuration for this implementation.
+
+                /// Stores `focus` state/configuration for this implementation.
                 final focus = _focusNode;
                 switch (direction) {
                   case TraversalDirection.up:
@@ -227,7 +240,7 @@ class _ClickableState extends State<Clickable> {
             ...?widget.actions,
           },
           onShowHoverHighlight: (value) {
-/// Creates a `_updateState` instance.
+            /// Creates a `_updateState` instance.
             _updateState(
               WidgetState.hovered,
               value && !widget.disableHoverEffect,
@@ -245,7 +258,7 @@ class _ClickableState extends State<Clickable> {
             child: IconTheme.merge(
               data:
                   widget.iconTheme?.resolve(widgetStates) ??
-/// Creates a `IconThemeData` instance.
+                  /// Creates a `IconThemeData` instance.
                   const IconThemeData(),
               child: AnimatedBuilder(
                 animation: _controller,

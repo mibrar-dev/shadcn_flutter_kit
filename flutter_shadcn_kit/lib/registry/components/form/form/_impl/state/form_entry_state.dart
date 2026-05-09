@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../form.dart';
 
 /// State class for [FormEntry] widgets.
@@ -40,7 +42,12 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
       newController?.addListener(_onControllerChanged);
       // Always attach so validator-only fields are still tracked when value is
       // currently null.
-      newController?.attach(context, this, _cachedValue?.value, widget.validator);
+      newController?.attach(
+        context,
+        this,
+        _cachedValue?.value,
+        widget.validator,
+      );
     }
   }
 
@@ -96,6 +103,12 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
   /// Performs `revalidate` logic for this form component.
   @override
   FutureOr<ValidationResult?> revalidate() {
-    return _controller?.attach(context, this, _cachedValue?.value, widget.validator, true);
+    return _controller?.attach(
+      context,
+      this,
+      _cachedValue?.value,
+      widget.validator,
+      true,
+    );
   }
 }

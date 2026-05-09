@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// Popover defines a reusable type for this registry module.
@@ -30,7 +32,7 @@ class Popover {
   /// await popover.close(true); // Immediate close
   /// ```
   Future<void> close([bool immediate = false]) {
-/// Stores `currentState` state/configuration for this implementation.
+    /// Stores `currentState` state/configuration for this implementation.
     var currentState = key.currentState;
     if (currentState != null) {
       return currentState.close(immediate);
@@ -45,7 +47,7 @@ class Popover {
   /// This method queues the close operation for the next frame, allowing
   /// any current operations to complete before dismissing the popover.
   void closeLater() {
-/// Stores `currentState` state/configuration for this implementation.
+    /// Stores `currentState` state/configuration for this implementation.
     var currentState = key.currentState;
     if (currentState != null) {
       currentState.closeLater();

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
@@ -70,7 +72,7 @@ EdgeInsets _densityCompact(EdgeInsets padding) {
 /// Executes `_densityIcon` behavior for this component/composite.
 EdgeInsets _densityIcon(EdgeInsets padding) {
   return EdgeInsets.all(
-/// Creates a `min` instance.
+    /// Creates a `min` instance.
     min(padding.top, min(padding.bottom, min(padding.left, padding.right))),
   );
 }
@@ -78,7 +80,7 @@ EdgeInsets _densityIcon(EdgeInsets padding) {
 /// Executes `_densityIconComfortable` behavior for this component/composite.
 EdgeInsets _densityIconComfortable(EdgeInsets padding) {
   return EdgeInsets.all(
-/// Creates a `max` instance.
+    /// Creates a `max` instance.
     max(padding.top, max(padding.bottom, max(padding.left, padding.right))),
   );
 }
@@ -86,7 +88,7 @@ EdgeInsets _densityIconComfortable(EdgeInsets padding) {
 /// Executes `_densityIconDense` behavior for this component/composite.
 EdgeInsets _densityIconDense(EdgeInsets padding) {
   return EdgeInsets.all(
-/// Creates a `min` instance.
+    /// Creates a `min` instance.
     min(padding.top, min(padding.bottom, min(padding.left, padding.right))) *
         0.5,
   );

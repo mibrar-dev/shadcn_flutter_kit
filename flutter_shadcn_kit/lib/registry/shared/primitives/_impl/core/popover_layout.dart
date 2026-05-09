@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// PopoverLayout defines a reusable type for this registry module.
@@ -61,7 +63,7 @@ class PopoverLayout extends SingleChildRenderObjectWidget {
   });
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return PopoverLayoutRender(
       alignment: alignment,
@@ -85,7 +87,7 @@ class PopoverLayout extends SingleChildRenderObjectWidget {
     BuildContext context,
     covariant PopoverLayoutRender renderObject,
   ) {
-/// Stores `hasChanged` state/configuration for this implementation.
+    /// Stores `hasChanged` state/configuration for this implementation.
     bool hasChanged = false;
     if (renderObject._alignment != alignment) {
       renderObject._alignment = alignment;

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../menu.dart';
 
 /// MenuRadioGroup defines a reusable type for this registry module.
@@ -25,18 +27,19 @@ class MenuRadioGroup<T> extends StatelessWidget implements MenuItem {
   });
 
   @override
-/// Stores `hasLeading` state/configuration for this implementation.
+  /// Stores `hasLeading` state/configuration for this implementation.
   bool get hasLeading => children.isNotEmpty;
 
   @override
-/// Stores `popoverController` state/configuration for this implementation.
+  /// Stores `popoverController` state/configuration for this implementation.
   PopoverController? get popoverController => null;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final menuGroupData = Data.maybeOf<MenuGroupData>(context);
-/// Creates a `assert` instance.
+
+    /// Creates a `assert` instance.
     assert(
       menuGroupData != null,
       'MenuRadioGroup must be a child of MenuGroup',

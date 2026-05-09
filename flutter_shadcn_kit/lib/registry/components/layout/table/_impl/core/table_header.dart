@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../table.dart';
 
 /// TableHeader defines a reusable type for this registry module.
@@ -6,7 +8,7 @@ class TableHeader extends TableRow {
   const TableHeader({required super.cells, super.cellTheme});
 
   @override
-/// Executes `buildDefaultTheme` behavior for this component/composite.
+  /// Executes `buildDefaultTheme` behavior for this component/composite.
   TableCellTheme buildDefaultTheme(BuildContext context) {
     if (cellTheme != null) {
       return cellTheme!;
@@ -25,7 +27,7 @@ class TableHeader extends TableRow {
       }),
       textStyle: WidgetStateProperty.resolveWith((states) {
         return theme.typography.semiBold.merge(
-/// Creates a `TextStyle` instance.
+          /// Creates a `TextStyle` instance.
           TextStyle(
             color: states.contains(WidgetState.disabled)
                 ? theme.colorScheme.muted

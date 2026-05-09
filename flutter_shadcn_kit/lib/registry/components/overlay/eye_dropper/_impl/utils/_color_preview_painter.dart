@@ -1,23 +1,31 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../eye_dropper.dart';
 
 /// _ColorPreviewPainter defines a reusable type for this registry module.
 class _ColorPreviewPainter extends CustomPainter {
-/// Stores `colors` state/configuration for this implementation.
+  /// Stores `colors` state/configuration for this implementation.
   final List<Color> colors;
-/// Stores `size` state/configuration for this implementation.
+
+  /// Stores `size` state/configuration for this implementation.
   final Size size;
-/// Stores `borderColor` state/configuration for this implementation.
+
+  /// Stores `borderColor` state/configuration for this implementation.
   final Color borderColor;
-/// Stores `borderWidth` state/configuration for this implementation.
+
+  /// Stores `borderWidth` state/configuration for this implementation.
   final double borderWidth;
-/// Stores `selectedBorderColor` state/configuration for this implementation.
+
+  /// Stores `selectedBorderColor` state/configuration for this implementation.
   final Color selectedBorderColor;
-/// Stores `selectedBorderWidth` state/configuration for this implementation.
+
+  /// Stores `selectedBorderWidth` state/configuration for this implementation.
   final double selectedBorderWidth;
-/// Stores `backgroundColor` state/configuration for this implementation.
+
+  /// Stores `backgroundColor` state/configuration for this implementation.
   final Color backgroundColor;
 
-/// Creates a `_ColorPreviewPainter` instance.
+  /// Creates a `_ColorPreviewPainter` instance.
   _ColorPreviewPainter(
     this.colors,
     this.size,
@@ -29,12 +37,12 @@ class _ColorPreviewPainter extends CustomPainter {
   );
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     // clip it to circle
     final clipPath = Path()
       ..addOval(
-/// Creates a `Rect.fromLTWH` instance.
+        /// Creates a `Rect.fromLTWH` instance.
         Rect.fromLTWH(
           0,
           0,
@@ -48,9 +56,10 @@ class _ColorPreviewPainter extends CustomPainter {
     // draw the background as background color
     paint.color = backgroundColor;
     paint.style = PaintingStyle.fill;
-/// Creates a `canvas.drawRect` instance.
+
+    /// Creates a `canvas.drawRect` instance.
     canvas.drawRect(
-/// Creates a `Rect.fromLTWH` instance.
+      /// Creates a `Rect.fromLTWH` instance.
       Rect.fromLTWH(
         0,
         0,
@@ -70,9 +79,10 @@ class _ColorPreviewPainter extends CustomPainter {
         final color = colors[y * this.size.width.floor() + x];
         paint.color = color;
         paint.style = PaintingStyle.fill;
-/// Creates a `canvas.drawRect` instance.
+
+        /// Creates a `canvas.drawRect` instance.
         canvas.drawRect(
-/// Creates a `Rect.fromLTWH` instance.
+          /// Creates a `Rect.fromLTWH` instance.
           Rect.fromLTWH(
             (x * cellSize.width).floorToDouble(),
             (y * cellSize.height).floorToDouble(),
@@ -85,9 +95,9 @@ class _ColorPreviewPainter extends CustomPainter {
         paint.style = PaintingStyle.stroke;
         paint.strokeWidth = borderWidth;
         // draw a border
-/// Creates a `canvas.drawRect` instance.
+        /// Creates a `canvas.drawRect` instance.
         canvas.drawRect(
-/// Creates a `Rect.fromLTWH` instance.
+          /// Creates a `Rect.fromLTWH` instance.
           Rect.fromLTWH(
             (x * cellSize.width).floorToDouble(),
             (y * cellSize.height).floorToDouble(),
@@ -102,17 +112,22 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.color = selectedBorderColor;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = selectedBorderWidth;
-/// Stores `centerX` state/configuration for this implementation.
+
+    /// Stores `centerX` state/configuration for this implementation.
     final centerX = size.width ~/ 2;
-/// Stores `centerY` state/configuration for this implementation.
+
+    /// Stores `centerY` state/configuration for this implementation.
     final centerY = size.height ~/ 2;
-/// Stores `cellX` state/configuration for this implementation.
+
+    /// Stores `cellX` state/configuration for this implementation.
     final cellX = centerX ~/ cellSize.width;
-/// Stores `cellY` state/configuration for this implementation.
+
+    /// Stores `cellY` state/configuration for this implementation.
     final cellY = centerY ~/ cellSize.height;
-/// Creates a `canvas.drawRect` instance.
+
+    /// Creates a `canvas.drawRect` instance.
     canvas.drawRect(
-/// Creates a `Rect.fromLTWH` instance.
+      /// Creates a `Rect.fromLTWH` instance.
       Rect.fromLTWH(
         (cellX * cellSize.width).floorToDouble(),
         (cellY * cellSize.height).floorToDouble(),
@@ -125,9 +140,10 @@ class _ColorPreviewPainter extends CustomPainter {
     paint.color = borderColor;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = borderWidth;
-/// Creates a `canvas.drawOval` instance.
+
+    /// Creates a `canvas.drawOval` instance.
     canvas.drawOval(
-/// Creates a `Rect.fromLTWH` instance.
+      /// Creates a `Rect.fromLTWH` instance.
       Rect.fromLTWH(
         0,
         0,
@@ -139,7 +155,7 @@ class _ColorPreviewPainter extends CustomPainter {
   }
 
   @override
-/// Executes `shouldRepaint` behavior for this component/composite.
+  /// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant _ColorPreviewPainter oldDelegate) {
     return !listEquals(oldDelegate.colors, colors) ||
         oldDelegate.size != size ||

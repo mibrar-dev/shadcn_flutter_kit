@@ -1,21 +1,20 @@
-part of '../../clickable.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../clickable.dart';
 
 /// _BuilderStatedWidget defines a reusable type for this registry module.
 class _BuilderStatedWidget extends StatedWidget {
   final Widget Function(BuildContext context, Set<WidgetState> states) builder;
 
-/// Creates a `_BuilderStatedWidget` instance.
-  const _BuilderStatedWidget({
-    super.key,
-    required this.builder,
-  }) : super._();
+  /// Creates a `_BuilderStatedWidget` instance.
+  const _BuilderStatedWidget({super.key, required this.builder}) : super._();
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     WidgetStatesData? statesData = Data.maybeOf(context);
-/// Stores `states` state/configuration for this implementation.
+
+    /// Stores `states` state/configuration for this implementation.
     Set<WidgetState> states = statesData?.states ?? {};
     return builder(context, states);
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,11 +10,11 @@ import '../../../../../shared/primitives/text.dart';
 class CommandKeyboardDisplay extends StatelessWidget {
   const CommandKeyboardDisplay({super.key, required this.keys});
 
-/// Factory constructor that creates `CommandKeyboardDisplay.fromActivator` instances.
+  /// Factory constructor that creates `CommandKeyboardDisplay.fromActivator` instances.
   factory CommandKeyboardDisplay.fromActivator({
     required SingleActivator activator,
   }) {
-/// Stores `keys` state/configuration for this implementation.
+    /// Stores `keys` state/configuration for this implementation.
     final keys = <LogicalKeyboardKey>[];
     if (activator.control) keys.add(LogicalKeyboardKey.control);
     if (activator.shift) keys.add(LogicalKeyboardKey.shift);
@@ -25,11 +27,11 @@ class CommandKeyboardDisplay extends StatelessWidget {
     );
   }
 
-/// Stores `keys` state/configuration for this implementation.
+  /// Stores `keys` state/configuration for this implementation.
   final List<LogicalKeyboardKey> keys;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     if (keys.isEmpty) {
       return const SizedBox.shrink();

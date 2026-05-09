@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/widgets.dart';
 
 import '../../control/button/button.dart';
@@ -169,9 +171,21 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
 
   static const _tickets = [
     _Ticket(title: 'Fix mobile overflow', status: 'open', assignee: 'Samantha'),
-    _Ticket(title: 'Review analytics event map', status: 'closed', assignee: 'Jason'),
-    _Ticket(title: 'Implement export endpoint', status: 'open', assignee: 'Maria'),
-    _Ticket(title: 'Refactor billing card', status: 'in_progress', assignee: 'Alex'),
+    _Ticket(
+      title: 'Review analytics event map',
+      status: 'closed',
+      assignee: 'Jason',
+    ),
+    _Ticket(
+      title: 'Implement export endpoint',
+      status: 'open',
+      assignee: 'Maria',
+    ),
+    _Ticket(
+      title: 'Refactor billing card',
+      status: 'in_progress',
+      assignee: 'Alex',
+    ),
   ];
 
   @override
@@ -182,19 +196,18 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
 
   @override
   Widget build(BuildContext context) {
-    final visible = _state.whereMatches(
-      _tickets,
-      [
-        TypedFilterBinding<_Ticket, String>(
-          field: _statusField,
-          selector: (item) => item.status,
-        ),
-        TypedFilterBinding<_Ticket, String>(
-          field: _assigneeField,
-          selector: (item) => item.assignee,
-        ),
-      ],
-    ).toList(growable: false);
+    final visible = _state
+        .whereMatches(_tickets, [
+          TypedFilterBinding<_Ticket, String>(
+            field: _statusField,
+            selector: (item) => item.status,
+          ),
+          TypedFilterBinding<_Ticket, String>(
+            field: _assigneeField,
+            selector: (item) => item.assignee,
+          ),
+        ])
+        .toList(growable: false);
 
     return _ExampleSection(
       title: 'Intermediate',
@@ -223,12 +236,18 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
                     popup: SelectPopup<String>(
                       items: SelectItemList(
                         children: const [
-                          SelectItemButton<String>(value: 'open', child: Text('Open')),
+                          SelectItemButton<String>(
+                            value: 'open',
+                            child: Text('Open'),
+                          ),
                           SelectItemButton<String>(
                             value: 'in_progress',
                             child: Text('In progress'),
                           ),
-                          SelectItemButton<String>(value: 'closed', child: Text('Closed')),
+                          SelectItemButton<String>(
+                            value: 'closed',
+                            child: Text('Closed'),
+                          ),
                         ],
                       ),
                     ).call,
@@ -239,12 +258,13 @@ class _IntermediateExampleState extends State<_IntermediateExample> {
               FilterCustomFilter(
                 id: _assigneeField.id,
                 builder: (context, state, onStateChanged) {
-                  _assigneeController.value = _assigneeController.value.copyWith(
-                    text: state.valueOf(_assigneeField) ?? '',
-                    selection: TextSelection.collapsed(
-                      offset: (state.valueOf(_assigneeField) ?? '').length,
-                    ),
-                  );
+                  _assigneeController.value = _assigneeController.value
+                      .copyWith(
+                        text: state.valueOf(_assigneeField) ?? '',
+                        selection: TextSelection.collapsed(
+                          offset: (state.valueOf(_assigneeField) ?? '').length,
+                        ),
+                      );
 
                   return SizedBox(
                     width: 320,
@@ -335,40 +355,59 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
   );
 
   static const _catalog = [
-    _Product(name: 'Nova Keyboard', category: 'electronics', priceBand: '200-600', retailer: 'direct'),
-    _Product(name: 'CloudDesk Chair', category: 'furniture', priceBand: '>600', retailer: 'marketplace'),
-    _Product(name: 'Pixel Dock', category: 'electronics', priceBand: '<200', retailer: 'reseller'),
-    _Product(name: 'Studio Lamp', category: 'home', priceBand: '<200', retailer: 'direct'),
+    _Product(
+      name: 'Nova Keyboard',
+      category: 'electronics',
+      priceBand: '200-600',
+      retailer: 'direct',
+    ),
+    _Product(
+      name: 'CloudDesk Chair',
+      category: 'furniture',
+      priceBand: '>600',
+      retailer: 'marketplace',
+    ),
+    _Product(
+      name: 'Pixel Dock',
+      category: 'electronics',
+      priceBand: '<200',
+      retailer: 'reseller',
+    ),
+    _Product(
+      name: 'Studio Lamp',
+      category: 'home',
+      priceBand: '<200',
+      retailer: 'direct',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final visible = _state.whereMatches(
-      _catalog,
-      [
-        TypedFilterBinding<_Product, String>(
-          field: _categoryField,
-          selector: (item) => item.category,
-        ),
-        TypedFilterBinding<_Product, String>(
-          field: _priceBandField,
-          selector: (item) => item.priceBand,
-        ),
-        TypedFilterBinding<_Product, String>(
-          field: FilterField<String>(
-            id: _retailerField.id,
-            matcher: FilterMatcher<String>((selected, candidate) {
-              final picked = _state.valueOf(_retailerField) ?? <String>{};
-              if (picked.isEmpty) {
-                return true;
-              }
-              return candidate is String && picked.contains(candidate);
-            }),
+    final visible = _state
+        .whereMatches(_catalog, [
+          TypedFilterBinding<_Product, String>(
+            field: _categoryField,
+            selector: (item) => item.category,
           ),
-          selector: (item) => item.retailer,
-        ),
-      ],
-    ).toList(growable: false);
+          TypedFilterBinding<_Product, String>(
+            field: _priceBandField,
+            selector: (item) => item.priceBand,
+          ),
+          TypedFilterBinding<_Product, String>(
+            field: FilterField<String>(
+              id: _retailerField.id,
+              matcher: FilterMatcher<String>((selected, candidate) {
+                final picked = _state.valueOf(_retailerField) ?? <String>{};
+                if (picked.isEmpty) {
+                  return true;
+                }
+                return candidate is String && picked.contains(candidate);
+              }),
+            ),
+            selector: (item) => item.retailer,
+          ),
+        ])
+        .toList(growable: false);
 
     return _ExampleSection(
       title: 'Advanced',
@@ -414,7 +453,10 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                             value: 'furniture',
                             child: Text('Furniture'),
                           ),
-                          SelectItemButton<String>(value: 'home', child: Text('Home')),
+                          SelectItemButton<String>(
+                            value: 'home',
+                            child: Text('Home'),
+                          ),
                         ],
                       ),
                     ).call,
@@ -433,12 +475,18 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                     popup: SelectPopup<String>(
                       items: SelectItemList(
                         children: const [
-                          SelectItemButton<String>(value: '<200', child: Text('< 200')),
+                          SelectItemButton<String>(
+                            value: '<200',
+                            child: Text('< 200'),
+                          ),
                           SelectItemButton<String>(
                             value: '200-600',
                             child: Text('200-600'),
                           ),
-                          SelectItemButton<String>(value: '>600', child: Text('> 600')),
+                          SelectItemButton<String>(
+                            value: '>600',
+                            child: Text('> 600'),
+                          ),
                         ],
                       ),
                     ).call,
@@ -463,7 +511,10 @@ class _AdvancedExampleState extends State<_AdvancedExample> {
                           next.add(id);
                         }
                         onStateChanged(
-                          state.setValue(_retailerField, next.isEmpty ? null : next),
+                          state.setValue(
+                            _retailerField,
+                            next.isEmpty ? null : next,
+                          ),
                         );
                       },
                       child: Row(
@@ -515,7 +566,8 @@ class _MobileOnlySheetExample extends StatefulWidget {
   const _MobileOnlySheetExample();
 
   @override
-  State<_MobileOnlySheetExample> createState() => _MobileOnlySheetExampleState();
+  State<_MobileOnlySheetExample> createState() =>
+      _MobileOnlySheetExampleState();
 }
 
 class _MobileOnlySheetExampleState extends State<_MobileOnlySheetExample> {
@@ -575,7 +627,9 @@ class _MobileOnlySheetExampleState extends State<_MobileOnlySheetExample> {
                           ),
                         ).call,
                         onChanged: (next) {
-                          onStateChanged(state.setCustomValue('quick_status', next));
+                          onStateChanged(
+                            state.setCustomValue('quick_status', next),
+                          );
                         },
                       );
                     },

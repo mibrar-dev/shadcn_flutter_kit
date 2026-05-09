@@ -1,33 +1,41 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../table.dart';
 
 /// _FlattenedTableCell defines a reusable type for this registry module.
 class _FlattenedTableCell extends _TableCellData {
   @override
-/// Stores `column` state/configuration for this implementation.
+  /// Stores `column` state/configuration for this implementation.
   final int column;
   @override
-/// Stores `row` state/configuration for this implementation.
+  /// Stores `row` state/configuration for this implementation.
   final int row;
   @override
-/// Stores `columnSpan` state/configuration for this implementation.
+  /// Stores `columnSpan` state/configuration for this implementation.
   final int columnSpan;
   @override
-/// Stores `rowSpan` state/configuration for this implementation.
+  /// Stores `rowSpan` state/configuration for this implementation.
   final int rowSpan;
-/// Stores `builder` state/configuration for this implementation.
+
+  /// Stores `builder` state/configuration for this implementation.
   final WidgetBuilder builder;
-/// Stores `enabled` state/configuration for this implementation.
+
+  /// Stores `enabled` state/configuration for this implementation.
   final bool enabled;
-/// Stores `hoveredCellNotifier` state/configuration for this implementation.
+
+  /// Stores `hoveredCellNotifier` state/configuration for this implementation.
   final ValueNotifier<_HoveredCell?> hoveredCellNotifier;
-/// Stores `dragNotifier` state/configuration for this implementation.
+
+  /// Stores `dragNotifier` state/configuration for this implementation.
   final ValueNotifier<_HoveredLine?>? dragNotifier;
-/// Stores `tableCellThemeBuilder` state/configuration for this implementation.
+
+  /// Stores `tableCellThemeBuilder` state/configuration for this implementation.
   final TableCellThemeBuilder tableCellThemeBuilder;
-/// Stores `selected` state/configuration for this implementation.
+
+  /// Stores `selected` state/configuration for this implementation.
   final bool selected;
 
-/// Creates a `_FlattenedTableCell` instance.
+  /// Creates a `_FlattenedTableCell` instance.
   _FlattenedTableCell({
     required this.column,
     required this.row,
@@ -42,7 +50,7 @@ class _FlattenedTableCell extends _TableCellData {
   });
 
   @override
-/// Executes `shift` behavior for this component/composite.
+  /// Executes `shift` behavior for this component/composite.
   _TableCellData shift(int column, int row) {
     return _FlattenedTableCell(
       column: this.column + column,
@@ -59,7 +67,7 @@ class _FlattenedTableCell extends _TableCellData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

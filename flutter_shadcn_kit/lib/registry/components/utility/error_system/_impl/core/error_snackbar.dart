@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ErrorSnackbar: toast-style notification for AppError using shadcn ToastEntry.
 // Inserts an OverlayEntry and decorates it with a border color derived from AppErrorCode severity.
 

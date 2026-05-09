@@ -1,20 +1,26 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../window.dart';
 
 /// _WindowWidgetState defines a reusable type for this registry module.
 class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   @override
-/// Stores `controller` state/configuration for this implementation.
+  /// Stores `controller` state/configuration for this implementation.
   late WindowController controller;
-/// Stores `state` state/configuration for this implementation.
+
+  /// Stores `state` state/configuration for this implementation.
   late WindowState state;
-/// Stores `_viewport` state/configuration for this implementation.
+
+  /// Stores `_viewport` state/configuration for this implementation.
   WindowViewport? _viewport;
-/// Stores `_entry` state/configuration for this implementation.
+
+  /// Stores `_entry` state/configuration for this implementation.
   Window? _entry;
-/// Stores `_dragAlignment` state/configuration for this implementation.
+
+  /// Stores `_dragAlignment` state/configuration for this implementation.
   Alignment? _dragAlignment;
 
-/// Executes `_initializeController` behavior for this component/composite.
+  /// Executes `_initializeController` behavior for this component/composite.
   void _initializeController() {
     if (widget.controller != null) {
       controller = widget.controller!;
@@ -37,13 +43,13 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
     controller.addListener(_handleControllerUpdate);
   }
 
-/// Executes `_handleControllerUpdate` behavior for this component/composite.
+  /// Executes `_handleControllerUpdate` behavior for this component/composite.
   void _handleControllerUpdate() {
     didControllerUpdate(state);
     state = controller.value;
   }
 
-/// Executes `didControllerUpdate` behavior for this component/composite.
+  /// Executes `didControllerUpdate` behavior for this component/composite.
   void didControllerUpdate(WindowState oldState) {
     if (oldState.alwaysOnTop != state.alwaysOnTop) {
       _viewport?.navigator.setAlwaysOnTop(_entry!, state.alwaysOnTop);
@@ -51,14 +57,14 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _initializeController();
   }
 
   @override
-/// Executes `didChangeDependencies` behavior for this component/composite.
+  /// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
     _viewport = Data.maybeOf<WindowViewport>(context);
@@ -66,13 +72,14 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant WindowWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
       controller.removeListener(_handleControllerUpdate);
       controller._attachedState = null;
-/// Stores `oldState` state/configuration for this implementation.
+
+      /// Stores `oldState` state/configuration for this implementation.
       WindowState oldState = state;
       _initializeController();
       if (oldState != state) {
@@ -94,9 +101,11 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
         onPanUpdate: (details) {
           if (state.maximized != null || state.minimized) return;
           var newBounds = onResize(bounds, details.delta);
-/// Stores `deltaXAdjustment` state/configuration for this implementation.
+
+          /// Stores `deltaXAdjustment` state/configuration for this implementation.
           double deltaXAdjustment = 0;
-/// Stores `deltaYAdjustment` state/configuration for this implementation.
+
+          /// Stores `deltaYAdjustment` state/configuration for this implementation.
           double deltaYAdjustment = 0;
           if (newBounds.width < state.constraints.minWidth) {
             deltaXAdjustment = state.constraints.minWidth - newBounds.width;
@@ -113,7 +122,8 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
           if (deltaXAdjustment != 0 || deltaYAdjustment != 0) {
             newBounds = onResize(
               newBounds,
-/// Creates a `Offset` instance.
+
+              /// Creates a `Offset` instance.
               Offset(deltaXAdjustment, deltaYAdjustment),
             );
           }
@@ -124,7 +134,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Data<WindowHandle>.inherit(
@@ -149,7 +159,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (widget.title != null || widget.actions != null)
-/// Creates a `ClickDetector` instance.
+                  /// Creates a `ClickDetector` instance.
                   ClickDetector(
                     onClick: maximizable
                         ? (details) {
@@ -165,13 +175,16 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     child: GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onPanStart: (details) {
-/// Stores `localPosition` state/configuration for this implementation.
+                        /// Stores `localPosition` state/configuration for this implementation.
                         var localPosition = details.localPosition;
-/// Stores `bounds` state/configuration for this implementation.
+
+                        /// Stores `bounds` state/configuration for this implementation.
                         var bounds = this.bounds;
-/// Stores `max` state/configuration for this implementation.
+
+                        /// Stores `max` state/configuration for this implementation.
                         var max = maximized;
-/// Stores `size` state/configuration for this implementation.
+
+                        /// Stores `size` state/configuration for this implementation.
                         var size = _viewport?.size;
                         if (max != null && size != null) {
                           bounds = Rect.fromLTWH(
@@ -256,7 +269,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                         ),
                         child: Row(
                           children: [
-/// Creates a `Expanded` instance.
+                            /// Creates a `Expanded` instance.
                             Expanded(
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -324,7 +337,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     maximized == null &&
                     _dragAlignment == null) ...[
                   // top left
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     left: 0,
@@ -343,7 +356,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // top right
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     right: 0,
@@ -362,7 +375,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom left
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     left: 0,
@@ -381,7 +394,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom right
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     right: 0,
@@ -400,7 +413,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // top
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: 0,
                     left: resizeThickness * theme.scaling,
@@ -419,7 +432,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // bottom
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     bottom: 0,
                     left: resizeThickness * theme.scaling,
@@ -438,7 +451,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // left
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: resizeThickness * theme.scaling,
                     left: 0,
@@ -457,7 +470,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
                     ),
                   ),
                   // right
-/// Creates a `GroupPositioned` instance.
+                  /// Creates a `GroupPositioned` instance.
                   GroupPositioned(
                     top: resizeThickness * theme.scaling,
                     right: 0,
@@ -479,9 +492,11 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
               ],
             ),
           );
-/// Stores `size` state/configuration for this implementation.
+
+          /// Stores `size` state/configuration for this implementation.
           final size = _viewport?.size ?? Size.zero;
-/// Stores `maximizedRect` state/configuration for this implementation.
+
+          /// Stores `maximizedRect` state/configuration for this implementation.
           final maximizedRect = maximized;
           final targetRect = maximizedRect == null
               ? bounds
@@ -507,51 +522,51 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Stores `alwaysOnTop` state/configuration for this implementation.
+  /// Stores `alwaysOnTop` state/configuration for this implementation.
   bool get alwaysOnTop => state.alwaysOnTop;
 
   @override
-/// Stores `bounds` state/configuration for this implementation.
+  /// Stores `bounds` state/configuration for this implementation.
   Rect get bounds => state.bounds;
 
   @override
-/// Stores `closable` state/configuration for this implementation.
+  /// Stores `closable` state/configuration for this implementation.
   bool get closable => state.closable;
 
   @override
-/// Stores `draggable` state/configuration for this implementation.
+  /// Stores `draggable` state/configuration for this implementation.
   bool get draggable => state.draggable;
 
   @override
-/// Stores `enableSnapping` state/configuration for this implementation.
+  /// Stores `enableSnapping` state/configuration for this implementation.
   bool get enableSnapping => state.enableSnapping;
 
   @override
-/// Stores `maximizable` state/configuration for this implementation.
+  /// Stores `maximizable` state/configuration for this implementation.
   bool get maximizable => state.maximizable;
 
   @override
-/// Stores `maximized` state/configuration for this implementation.
+  /// Stores `maximized` state/configuration for this implementation.
   Rect? get maximized => state.maximized;
 
   @override
-/// Stores `minimizable` state/configuration for this implementation.
+  /// Stores `minimizable` state/configuration for this implementation.
   bool get minimizable => state.minimizable;
 
   @override
-/// Stores `minimized` state/configuration for this implementation.
+  /// Stores `minimized` state/configuration for this implementation.
   bool get minimized => state.minimized;
 
   @override
-/// Stores `resizable` state/configuration for this implementation.
+  /// Stores `resizable` state/configuration for this implementation.
   bool get resizable => state.resizable;
 
   @override
-/// Stores `focused` state/configuration for this implementation.
+  /// Stores `focused` state/configuration for this implementation.
   bool get focused => state.alwaysOnTop;
 
   @override
-/// Executes `alwaysOnTop` behavior for this component/composite.
+  /// Executes `alwaysOnTop` behavior for this component/composite.
   set alwaysOnTop(bool value) {
     if (value != state.alwaysOnTop) {
       controller.value = state.copyWith(alwaysOnTop: () => value);
@@ -559,7 +574,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `bounds` behavior for this component/composite.
+  /// Executes `bounds` behavior for this component/composite.
   set bounds(Rect value) {
     if (value != state.bounds) {
       controller.value = state.copyWith(bounds: () => value);
@@ -567,7 +582,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `closable` behavior for this component/composite.
+  /// Executes `closable` behavior for this component/composite.
   set closable(bool value) {
     if (value != state.closable) {
       controller.value = state.copyWith(closable: () => value);
@@ -575,13 +590,13 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `close` behavior for this component/composite.
+  /// Executes `close` behavior for this component/composite.
   void close() {
     _entry?.closed.value = true;
   }
 
   @override
-/// Executes `draggable` behavior for this component/composite.
+  /// Executes `draggable` behavior for this component/composite.
   set draggable(bool value) {
     if (value != state.draggable) {
       controller.value = state.copyWith(draggable: () => value);
@@ -589,7 +604,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `enableSnapping` behavior for this component/composite.
+  /// Executes `enableSnapping` behavior for this component/composite.
   set enableSnapping(bool value) {
     if (value != state.enableSnapping) {
       controller.value = state.copyWith(enableSnapping: () => value);
@@ -597,7 +612,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `focused` behavior for this component/composite.
+  /// Executes `focused` behavior for this component/composite.
   set focused(bool value) {
     if (_entry == null) return;
     if (value) {
@@ -608,7 +623,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `maximizable` behavior for this component/composite.
+  /// Executes `maximizable` behavior for this component/composite.
   set maximizable(bool value) {
     if (value != state.maximizable) {
       controller.value = state.copyWith(maximizable: () => value);
@@ -616,7 +631,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `maximized` behavior for this component/composite.
+  /// Executes `maximized` behavior for this component/composite.
   set maximized(Rect? value) {
     if (value != state.maximized) {
       controller.value = state.withMaximized(value);
@@ -624,7 +639,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `minimizable` behavior for this component/composite.
+  /// Executes `minimizable` behavior for this component/composite.
   set minimizable(bool value) {
     if (value != state.minimizable) {
       controller.value = state.copyWith(minimizable: () => value);
@@ -632,7 +647,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `minimized` behavior for this component/composite.
+  /// Executes `minimized` behavior for this component/composite.
   set minimized(bool value) {
     if (value != state.minimized) {
       controller.value = state.copyWith(minimized: () => value);
@@ -640,7 +655,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
   }
 
   @override
-/// Executes `resizable` behavior for this component/composite.
+  /// Executes `resizable` behavior for this component/composite.
   set resizable(bool value) {
     if (value != state.resizable) {
       controller.value = state.copyWith(resizable: () => value);

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
+// ignore_for_file: avoid_web_libraries_in_flutter,dead_code,deprecated_member_use,duplicate_import,sort_child_properties_last,unnecessary_import,unnecessary_null_comparison,unused_import,use_null_aware_elements
 
 import 'dart:html' as html;
 

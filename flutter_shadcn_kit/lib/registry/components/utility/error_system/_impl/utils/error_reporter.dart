@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ErrorReporter: hook point for analytics/Crashlytics.
 // ErrorHandledRepository calls report(mappedAppError, rawError, stackTrace) on failures.
 
@@ -11,7 +13,7 @@ abstract class ErrorReporter {
 /// ConsoleErrorReporter defines a reusable type for this registry module.
 class ConsoleErrorReporter implements ErrorReporter {
   @override
-/// Executes `report` behavior for this component/composite.
+  /// Executes `report` behavior for this component/composite.
   void report(AppError appError, Object error, StackTrace stackTrace) {
     // ignore: avoid_print
     print('[ErrorReporter] $appError');

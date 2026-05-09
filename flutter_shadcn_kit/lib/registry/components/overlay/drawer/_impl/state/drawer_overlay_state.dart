@@ -1,11 +1,13 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../drawer.dart';
 
 /// DrawerOverlayState defines a reusable type for this registry module.
 class DrawerOverlayState extends State<DrawerOverlay> {
-/// Stores `_layerData` state/configuration for this implementation.
+  /// Stores `_layerData` state/configuration for this implementation.
   DrawerLayerData? _layerData;
 
-/// Stores `_entries` state/configuration for this implementation.
+  /// Stores `_entries` state/configuration for this implementation.
   final List<DrawerOverlayEntry> _entries = [];
 
   /// Key for the backdrop widget to enable transformations.
@@ -27,7 +29,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
   /// drawerState.addEntry(entry);
   /// ```
   void addEntry(DrawerOverlayEntry entry) {
-/// Creates a `setState` instance.
+    /// Creates a `setState` instance.
     setState(() {
       _entries.add(entry);
     });
@@ -42,7 +44,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
   ///
   /// Returns [Size] of the overlay area.
   Size computeSize() {
-/// Stores `size` state/configuration for this implementation.
+    /// Stores `size` state/configuration for this implementation.
     Size? size = context.size;
     assert(size != null, 'DrawerOverlay is not ready');
     return size!;
@@ -57,7 +59,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
   /// - [entry] (DrawerOverlayEntry, required): Entry to remove
   void removeEntry(DrawerOverlayEntry entry) {
     if (mounted) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _entries.remove(entry);
       });
@@ -65,13 +67,14 @@ class DrawerOverlayState extends State<DrawerOverlay> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final parentLayer = Data.maybeOf<DrawerLayerData>(context);
     _layerData = DrawerLayerData(this, parentLayer);
     DrawerOverlay._registerLayer(_layerData!);
     Widget child = KeyedSubtree(key: backdropKey, child: widget.child);
-/// Stores `index` state/configuration for this implementation.
+
+    /// Stores `index` state/configuration for this implementation.
     int index = 0;
     for (final entry in _entries) {
       child = DrawerEntryWidget(
@@ -99,10 +102,10 @@ class DrawerOverlayState extends State<DrawerOverlay> {
       canPop: _entries.isEmpty,
       onPopInvokedWithResult: (didPop, result) {
         if (_entries.isNotEmpty) {
-/// Stores `last` state/configuration for this implementation.
+          /// Stores `last` state/configuration for this implementation.
           var last = _entries.last;
           if (last.barrierDismissible) {
-/// Stores `state` state/configuration for this implementation.
+            /// Stores `state` state/configuration for this implementation.
             var state = last.key.currentState;
             if (state != null) {
               state.close(result);
@@ -117,7 +120,7 @@ class DrawerOverlayState extends State<DrawerOverlay> {
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     if (_layerData != null) {
       DrawerOverlay._clearLayer(_layerData!);

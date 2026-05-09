@@ -1,22 +1,26 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../filter_bar.dart';
 
 /// _FilterBarLayout defines a reusable type for this registry module.
 class _FilterBarLayout {
-/// Stores `isSingleRow` state/configuration for this implementation.
+  /// Stores `isSingleRow` state/configuration for this implementation.
   final bool isSingleRow;
-/// Stores `maxSearchWidth` state/configuration for this implementation.
+
+  /// Stores `maxSearchWidth` state/configuration for this implementation.
   final double maxSearchWidth;
-/// Stores `sortWidth` state/configuration for this implementation.
+
+  /// Stores `sortWidth` state/configuration for this implementation.
   final double sortWidth;
 
-/// Creates a `_FilterBarLayout` instance.
+  /// Creates a `_FilterBarLayout` instance.
   const _FilterBarLayout({
     required this.isSingleRow,
     required this.maxSearchWidth,
     required this.sortWidth,
   });
 
-/// Factory constructor that creates `_FilterBarLayout.resolve` instances.
+  /// Factory constructor that creates `_FilterBarLayout.resolve` instances.
   factory _FilterBarLayout.resolve({
     required double maxWidth,
     required FilterBarStyle style,
@@ -51,7 +55,7 @@ class _FilterBarLayout {
         (hasClearAction ? 86 : 0) +
         gapWidth;
 
-/// Stores `isSingleRow` state/configuration for this implementation.
+    /// Stores `isSingleRow` state/configuration for this implementation.
     final isSingleRow = maxWidth >= minWidth;
     return _FilterBarLayout(
       isSingleRow: isSingleRow,

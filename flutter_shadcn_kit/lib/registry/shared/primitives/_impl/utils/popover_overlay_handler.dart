@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// PopoverOverlayHandler defines a reusable type for this registry module.
@@ -41,7 +43,7 @@ class PopoverOverlayHandler extends OverlayHandler {
     final themes = InheritedTheme.capture(from: context, to: overlay.context);
     final data = Data.capture(from: context, to: overlay.context);
 
-/// Stores `anchorSize` state/configuration for this implementation.
+    /// Stores `anchorSize` state/configuration for this implementation.
     Size? anchorSize;
     if (position == null) {
       RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -57,14 +59,18 @@ class PopoverOverlayHandler extends OverlayHandler {
       );
     }
     final OverlayPopoverEntry<T> popoverEntry = OverlayPopoverEntry();
-/// Stores `completer` state/configuration for this implementation.
+
+    /// Stores `completer` state/configuration for this implementation.
     final completer = popoverEntry.completer;
-/// Stores `animationCompleter` state/configuration for this implementation.
+
+    /// Stores `animationCompleter` state/configuration for this implementation.
     final animationCompleter = popoverEntry.animationCompleter;
     ValueNotifier<bool> isClosed = ValueNotifier(false);
-/// Stores `barrierEntry` state/configuration for this implementation.
+
+    /// Stores `barrierEntry` state/configuration for this implementation.
     OverlayEntry? barrierEntry;
-/// Stores `overlayEntry` state/configuration for this implementation.
+
+    /// Stores `overlayEntry` state/configuration for this implementation.
     late OverlayEntry overlayEntry;
     if (modal) {
       if (consumeOutsideTaps) {

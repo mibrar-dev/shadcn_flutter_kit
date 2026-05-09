@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../dialog.dart';
 
 /// SurfaceBarrierPainter defines a reusable type for this registry module.
@@ -63,7 +65,7 @@ class SurfaceBarrierPainter extends CustomPainter {
   }
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = barrierColor
@@ -75,7 +77,7 @@ class SurfaceBarrierPainter extends CustomPainter {
       Path path = Path()
         ..addRect(bigOffset & bigScreen)
         ..addRRect(
-/// Creates a `RRect.fromRectAndCorners` instance.
+          /// Creates a `RRect.fromRectAndCorners` instance.
           RRect.fromRectAndCorners(
             rect,
             topLeft: borderRadius.topLeft,
@@ -91,7 +93,7 @@ class SurfaceBarrierPainter extends CustomPainter {
   }
 
   @override
-/// Executes `shouldRepaint` behavior for this component/composite.
+  /// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant SurfaceBarrierPainter oldDelegate) {
     return oldDelegate.borderRadius != borderRadius ||
         oldDelegate.barrierColor != barrierColor ||

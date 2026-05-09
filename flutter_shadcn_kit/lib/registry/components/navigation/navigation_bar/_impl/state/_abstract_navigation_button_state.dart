@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../navigation_bar.dart';
 
 /// _AbstractNavigationButtonState defines a reusable type for this registry module.
@@ -6,14 +8,15 @@ abstract class _AbstractNavigationButtonState<
 >
     extends State<T> {
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<NavigationControlData>(context);
     final childData = Data.maybeOf<NavigationChildControlData>(context);
     if (data?.containerType == NavigationContainerType.sidebar) {
       return buildSliver(context, data, childData);
     }
-/// Stores `labelType` state/configuration for this implementation.
+
+    /// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
     if (labelType == NavigationLabelType.tooltip) {
       return buildTooltip(context, data, childData);
@@ -29,9 +32,11 @@ abstract class _AbstractNavigationButtonState<
     if (widget.label == null) {
       return buildBox(context, data, childData);
     }
-/// Stores `alignment` state/configuration for this implementation.
+
+    /// Stores `alignment` state/configuration for this implementation.
     AlignmentGeometry alignment = Alignment.topCenter;
-/// Stores `anchorAlignment` state/configuration for this implementation.
+
+    /// Stores `anchorAlignment` state/configuration for this implementation.
     AlignmentGeometry anchorAlignment = Alignment.bottomCenter;
     if (data?.direction == Axis.vertical) {
       alignment = AlignmentDirectional.centerStart;
@@ -53,7 +58,7 @@ abstract class _AbstractNavigationButtonState<
     NavigationControlData? data,
     NavigationChildControlData? childData,
   ) {
-/// Stores `labelType` state/configuration for this implementation.
+    /// Stores `labelType` state/configuration for this implementation.
     final labelType = data?.parentLabelType ?? NavigationLabelType.none;
     if (labelType == NavigationLabelType.tooltip) {
       return SliverToBoxAdapter(child: buildTooltip(context, data, childData));
@@ -70,7 +75,7 @@ abstract class _AbstractNavigationButtonState<
       return buildBox(context, data, null);
     }
     return RepaintBoundary.wrap(
-/// Creates a `buildBox` instance.
+      /// Creates a `buildBox` instance.
       buildBox(context, data, childData),
       childData.actualIndex,
     );

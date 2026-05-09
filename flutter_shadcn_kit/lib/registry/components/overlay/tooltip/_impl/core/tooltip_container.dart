@@ -1,21 +1,28 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tooltip.dart';
 
 /// Styled container widget for tooltip content.
 class TooltipContainer extends StatelessWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `surfaceOpacity` state/configuration for this implementation.
+
+  /// Stores `surfaceOpacity` state/configuration for this implementation.
   final double? surfaceOpacity;
-/// Stores `surfaceBlur` state/configuration for this implementation.
+
+  /// Stores `surfaceBlur` state/configuration for this implementation.
   final double? surfaceBlur;
-/// Stores `padding` state/configuration for this implementation.
+
+  /// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
-/// Stores `backgroundColor` state/configuration for this implementation.
+
+  /// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
-/// Stores `borderRadius` state/configuration for this implementation.
+
+  /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
-/// Creates a `TooltipContainer` instance.
+  /// Creates a `TooltipContainer` instance.
   const TooltipContainer({
     super.key,
     this.surfaceOpacity,
@@ -26,16 +33,17 @@ class TooltipContainer extends StatelessWidget {
     required this.child,
   });
 
-/// Executes `call` behavior for this component/composite.
+  /// Executes `call` behavior for this component/composite.
   Widget call(BuildContext context) {
     return this;
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TooltipTheme>(context);
     Color resolvedColor = styleValue(
@@ -43,15 +51,17 @@ class TooltipContainer extends StatelessWidget {
       themeValue: compTheme?.backgroundColor,
       defaultValue: theme.colorScheme.primary,
     );
-/// Stores `resolvedOpacity` state/configuration for this implementation.
+
+    /// Stores `resolvedOpacity` state/configuration for this implementation.
     var resolvedOpacity = surfaceOpacity ?? compTheme?.surfaceOpacity;
-/// Stores `resolvedBlur` state/configuration for this implementation.
+
+    /// Stores `resolvedBlur` state/configuration for this implementation.
     var resolvedBlur = surfaceBlur ?? compTheme?.surfaceBlur;
     if (resolvedOpacity != null) {
       resolvedColor = resolvedColor.scaleAlpha(resolvedOpacity);
     }
     final resolvedPadding =
-/// Creates a `styleValue` instance.
+        /// Creates a `styleValue` instance.
         styleValue(
           widgetValue: padding,
           themeValue: compTheme?.padding,

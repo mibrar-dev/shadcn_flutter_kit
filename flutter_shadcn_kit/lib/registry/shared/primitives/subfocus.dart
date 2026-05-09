@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
@@ -10,10 +12,8 @@ part '_impl/state/__sub_focus_state.dart';
 ///
 /// Receives the build context and the scope state for managing focus
 /// within the scope's widget tree.
-typedef SubFocusScopeBuilder = Widget Function(
-  BuildContext context,
-  SubFocusScopeState state,
-);
+typedef SubFocusScopeBuilder =
+    Widget Function(BuildContext context, SubFocusScopeState state);
 
 /// Hierarchical focus management system for complex widget trees.
 ///

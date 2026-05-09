@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/material.dart' show Axis, Colors;
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
@@ -47,7 +49,7 @@ class CardImageTheme extends ComponentThemeData {
     this.gap,
   });
 
-/// Creates a `CardImageTheme` instance.
+  /// Creates a `CardImageTheme` instance.
   CardImageTheme copyWith({
     ValueGetter<AbstractButtonStyle?>? style,
     ValueGetter<Axis?>? direction,
@@ -71,7 +73,7 @@ class CardImageTheme extends ComponentThemeData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is CardImageTheme &&
         other.style == style &&

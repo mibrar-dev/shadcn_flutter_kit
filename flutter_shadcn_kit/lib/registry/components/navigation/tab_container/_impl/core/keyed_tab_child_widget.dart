@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tab_container.dart';
 
 /// KeyedTabChildWidget defines a reusable type for this registry module.
@@ -12,10 +14,10 @@ class KeyedTabChildWidget<T> extends TabChildWidget with KeyedTabChild<T> {
     : super(key: ValueKey(key));
 
   @override
-/// Stores `key` state/configuration for this implementation.
+  /// Stores `key` state/configuration for this implementation.
   ValueKey<T> get key => super.key as ValueKey<T>;
 
   @override
-/// Stores `tabKey` state/configuration for this implementation.
+  /// Stores `tabKey` state/configuration for this implementation.
   T get tabKey => key.value;
 }

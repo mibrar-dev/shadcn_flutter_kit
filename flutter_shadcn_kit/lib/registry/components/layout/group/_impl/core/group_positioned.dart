@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../group_widget.dart';
 
 /// GroupPositioned defines a reusable type for this registry module.
@@ -38,25 +40,31 @@ class GroupPositioned extends ParentDataWidget<GroupParentData> {
        right = null,
        bottom = null;
 
-/// Stores `top` state/configuration for this implementation.
+  /// Stores `top` state/configuration for this implementation.
   final double? top;
-/// Stores `left` state/configuration for this implementation.
+
+  /// Stores `left` state/configuration for this implementation.
   final double? left;
-/// Stores `right` state/configuration for this implementation.
+
+  /// Stores `right` state/configuration for this implementation.
   final double? right;
-/// Stores `bottom` state/configuration for this implementation.
+
+  /// Stores `bottom` state/configuration for this implementation.
   final double? bottom;
-/// Stores `width` state/configuration for this implementation.
+
+  /// Stores `width` state/configuration for this implementation.
   final double? width;
-/// Stores `height` state/configuration for this implementation.
+
+  /// Stores `height` state/configuration for this implementation.
   final double? height;
 
   @override
-/// Executes `applyParentData` behavior for this component/composite.
+  /// Executes `applyParentData` behavior for this component/composite.
   void applyParentData(RenderObject renderObject) {
-/// Stores `parentData` state/configuration for this implementation.
+    /// Stores `parentData` state/configuration for this implementation.
     final parentData = renderObject.parentData as GroupParentData;
-/// Stores `needsLayout` state/configuration for this implementation.
+
+    /// Stores `needsLayout` state/configuration for this implementation.
     bool needsLayout = false;
 
     if (parentData.top != top) {
@@ -85,7 +93,7 @@ class GroupPositioned extends ParentDataWidget<GroupParentData> {
     }
 
     if (needsLayout) {
-/// Stores `targetParent` state/configuration for this implementation.
+      /// Stores `targetParent` state/configuration for this implementation.
       final targetParent = renderObject.parent;
       if (targetParent is RenderObject) {
         targetParent.markNeedsLayout();
@@ -94,6 +102,6 @@ class GroupPositioned extends ParentDataWidget<GroupParentData> {
   }
 
   @override
-/// Stores `debugTypicalAncestorWidgetClass` state/configuration for this implementation.
+  /// Stores `debugTypicalAncestorWidgetClass` state/configuration for this implementation.
   Type get debugTypicalAncestorWidgetClass => GroupWidget;
 }

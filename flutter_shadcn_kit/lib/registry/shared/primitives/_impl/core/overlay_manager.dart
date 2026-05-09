@@ -1,18 +1,21 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// OverlayManager defines a reusable type for this registry module.
 abstract class OverlayManager implements OverlayHandler {
-/// Stores `_current` state/configuration for this implementation.
+  /// Stores `_current` state/configuration for this implementation.
   static OverlayManager? _current;
-/// Stores `_didWarnFallback` state/configuration for this implementation.
+
+  /// Stores `_didWarnFallback` state/configuration for this implementation.
   static bool _didWarnFallback = false;
 
-/// Executes `_register` behavior for this component/composite.
+  /// Executes `_register` behavior for this component/composite.
   static void _register(OverlayManager manager) {
     _current = manager;
   }
 
-/// Executes `_unregister` behavior for this component/composite.
+  /// Executes `_unregister` behavior for this component/composite.
   static void _unregister(OverlayManager manager) {
     if (_current == manager) {
       _current = null;
@@ -31,11 +34,12 @@ abstract class OverlayManager implements OverlayHandler {
   static OverlayManager of(BuildContext context) {
     var manager = Data.maybeOf<OverlayManager>(context) ?? _current;
     if (manager == null) {
-/// Creates a `assert` instance.
+      /// Creates a `assert` instance.
       assert(() {
         if (!_didWarnFallback) {
           _didWarnFallback = true;
-/// Creates a `debugPrint` instance.
+
+          /// Creates a `debugPrint` instance.
           debugPrint(
             'shadcn_flutter: No OverlayManagerLayer found. '
             'Falling back to per-widget overlay handling. '

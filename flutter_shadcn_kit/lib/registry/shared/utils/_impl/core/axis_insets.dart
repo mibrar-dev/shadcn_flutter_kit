@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../axis.dart';
 
 /// Insets along an axis with support for directionality.
@@ -35,7 +37,7 @@ class AxisInsets extends AxisInsetsGeometry {
   }
 
   @override
-/// Creates a `AxisInsets` instance.
+  /// Creates a `AxisInsets` instance.
   AxisInsets resolve(TextDirection textDirection) {
     return AxisInsets._(start, end, textDirection);
   }

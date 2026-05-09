@@ -1,22 +1,31 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../table.dart';
 
 /// ResizableTableController defines a reusable type for this registry module.
 class ResizableTableController extends ChangeNotifier {
-/// Stores `_columnWidths` state/configuration for this implementation.
+  /// Stores `_columnWidths` state/configuration for this implementation.
   Map<int, double>? _columnWidths;
-/// Stores `_rowHeights` state/configuration for this implementation.
+
+  /// Stores `_rowHeights` state/configuration for this implementation.
   Map<int, double>? _rowHeights;
-/// Stores `_defaultColumnWidth` state/configuration for this implementation.
+
+  /// Stores `_defaultColumnWidth` state/configuration for this implementation.
   final double _defaultColumnWidth;
-/// Stores `_defaultRowHeight` state/configuration for this implementation.
+
+  /// Stores `_defaultRowHeight` state/configuration for this implementation.
   final double _defaultRowHeight;
-/// Stores `_defaultWidthConstraint` state/configuration for this implementation.
+
+  /// Stores `_defaultWidthConstraint` state/configuration for this implementation.
   final ConstrainedTableSize? _defaultWidthConstraint;
-/// Stores `_defaultHeightConstraint` state/configuration for this implementation.
+
+  /// Stores `_defaultHeightConstraint` state/configuration for this implementation.
   final ConstrainedTableSize? _defaultHeightConstraint;
-/// Stores `_widthConstraints` state/configuration for this implementation.
+
+  /// Stores `_widthConstraints` state/configuration for this implementation.
   final Map<int, ConstrainedTableSize>? _widthConstraints;
-/// Stores `_heightConstraints` state/configuration for this implementation.
+
+  /// Stores `_heightConstraints` state/configuration for this implementation.
   final Map<int, ConstrainedTableSize>? _heightConstraints;
 
   /// Creates a controller for managing resizable table dimensions.
@@ -106,13 +115,16 @@ class ResizableTableController extends ChangeNotifier {
       return 0;
     }
     // make sure that both previous and next column have width enough to resize
-/// Stores `previousWidth` state/configuration for this implementation.
+    /// Stores `previousWidth` state/configuration for this implementation.
     var previousWidth = _columnWidths?[previousColumn] ?? _defaultColumnWidth;
-/// Stores `newPreviousWidth` state/configuration for this implementation.
+
+    /// Stores `newPreviousWidth` state/configuration for this implementation.
     double newPreviousWidth = previousWidth + deltaWidth;
-/// Stores `nextWidth` state/configuration for this implementation.
+
+    /// Stores `nextWidth` state/configuration for this implementation.
     var nextWidth = _columnWidths?[nextColumn] ?? _defaultColumnWidth;
-/// Stores `newNextWidth` state/configuration for this implementation.
+
+    /// Stores `newNextWidth` state/configuration for this implementation.
     double newNextWidth = nextWidth - deltaWidth;
     double clampedPreviousWidth = newPreviousWidth.clamp(
       _widthConstraints?[previousColumn]?.min ??
@@ -128,9 +140,11 @@ class ResizableTableController extends ChangeNotifier {
           _defaultWidthConstraint?.max ??
           double.infinity,
     );
-/// Stores `previousDelta` state/configuration for this implementation.
+
+    /// Stores `previousDelta` state/configuration for this implementation.
     double previousDelta = clampedPreviousWidth - previousWidth;
-/// Stores `nextDelta` state/configuration for this implementation.
+
+    /// Stores `nextDelta` state/configuration for this implementation.
     double nextDelta = clampedNextWidth - nextWidth;
     // find the delta that can be applied to both columns
     double delta = _absClosestTo(previousDelta, -nextDelta, 0);
@@ -144,7 +158,7 @@ class ResizableTableController extends ChangeNotifier {
     return delta;
   }
 
-/// Executes `_absClosestTo` behavior for this component/composite.
+  /// Executes `_absClosestTo` behavior for this component/composite.
   double _absClosestTo(double a, double b, double target) {
     double absA = (a - target).abs();
     double absB = (b - target).abs();
@@ -164,13 +178,16 @@ class ResizableTableController extends ChangeNotifier {
       return 0;
     }
     // make sure that both previous and next row have height enough to resize
-/// Stores `previousHeight` state/configuration for this implementation.
+    /// Stores `previousHeight` state/configuration for this implementation.
     var previousHeight = _rowHeights?[previousRow] ?? _defaultRowHeight;
-/// Stores `newPreviousHeight` state/configuration for this implementation.
+
+    /// Stores `newPreviousHeight` state/configuration for this implementation.
     double newPreviousHeight = previousHeight + deltaHeight;
-/// Stores `nextHeight` state/configuration for this implementation.
+
+    /// Stores `nextHeight` state/configuration for this implementation.
     var nextHeight = _rowHeights?[nextRow] ?? _defaultRowHeight;
-/// Stores `newNextHeight` state/configuration for this implementation.
+
+    /// Stores `newNextHeight` state/configuration for this implementation.
     double newNextHeight = nextHeight - deltaHeight;
     double clampedPreviousHeight = newPreviousHeight.clamp(
       _heightConstraints?[previousRow]?.min ??
@@ -186,9 +203,11 @@ class ResizableTableController extends ChangeNotifier {
           _defaultHeightConstraint?.max ??
           double.infinity,
     );
-/// Stores `previousDelta` state/configuration for this implementation.
+
+    /// Stores `previousDelta` state/configuration for this implementation.
     double previousDelta = clampedPreviousHeight - previousHeight;
-/// Stores `nextDelta` state/configuration for this implementation.
+
+    /// Stores `nextDelta` state/configuration for this implementation.
     double nextDelta = clampedNextHeight - nextHeight;
     // find the delta that can be applied to both rows
     double delta = _absClosestTo(previousDelta, -nextDelta, 0);

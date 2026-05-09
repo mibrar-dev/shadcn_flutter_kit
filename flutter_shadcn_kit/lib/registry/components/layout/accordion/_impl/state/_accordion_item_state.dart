@@ -1,21 +1,25 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../accordion.dart';
 
 /// _AccordionItemState defines a reusable type for this registry module.
 class _AccordionItemState extends State<AccordionItem>
     with SingleTickerProviderStateMixin {
-/// Stores `accordion` state/configuration for this implementation.
+  /// Stores `accordion` state/configuration for this implementation.
   AccordionState? accordion;
   final ValueNotifier<bool> _expanded = ValueNotifier(false);
 
-/// Stores `_controller` state/configuration for this implementation.
+  /// Stores `_controller` state/configuration for this implementation.
   late AnimationController _controller;
-/// Stores `_easeInAnimation` state/configuration for this implementation.
+
+  /// Stores `_easeInAnimation` state/configuration for this implementation.
   late CurvedAnimation _easeInAnimation;
-/// Stores `_theme` state/configuration for this implementation.
+
+  /// Stores `_theme` state/configuration for this implementation.
   AccordionTheme? _theme;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _expanded.value = widget.expanded;
@@ -23,7 +27,7 @@ class _AccordionItemState extends State<AccordionItem>
     _updateAnimations();
   }
 
-/// Executes `_updateAnimations` behavior for this component/composite.
+  /// Executes `_updateAnimations` behavior for this component/composite.
   void _updateAnimations() {
     _controller.duration =
         _theme?.duration ?? const Duration(milliseconds: 200);
@@ -36,7 +40,7 @@ class _AccordionItemState extends State<AccordionItem>
   }
 
   @override
-/// Executes `didChangeDependencies` behavior for this component/composite.
+  /// Executes `didChangeDependencies` behavior for this component/composite.
   void didChangeDependencies() {
     super.didChangeDependencies();
 
@@ -62,19 +66,19 @@ class _AccordionItemState extends State<AccordionItem>
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _controller.dispose();
     accordion?._expanded.removeListener(_onExpandedChanged);
     super.dispose();
   }
 
-/// Executes `_onExpandedChanged` behavior for this component/composite.
+  /// Executes `_onExpandedChanged` behavior for this component/composite.
   void _onExpandedChanged() {
-/// Stores `shouldBeExpanded` state/configuration for this implementation.
+    /// Stores `shouldBeExpanded` state/configuration for this implementation.
     final shouldBeExpanded = accordion?._expanded.value == this;
     if (_expanded.value != shouldBeExpanded) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _expanded.value = shouldBeExpanded;
         if (shouldBeExpanded) {
@@ -86,19 +90,19 @@ class _AccordionItemState extends State<AccordionItem>
     }
   }
 
-/// Executes `_expand` behavior for this component/composite.
+  /// Executes `_expand` behavior for this component/composite.
   void _expand() {
     _controller.forward();
     _expanded.value = true;
   }
 
-/// Executes `_collapse` behavior for this component/composite.
+  /// Executes `_collapse` behavior for this component/composite.
   void _collapse() {
     _controller.reverse();
     _expanded.value = false;
   }
 
-/// Executes `_dispatchToggle` behavior for this component/composite.
+  /// Executes `_dispatchToggle` behavior for this component/composite.
   void _dispatchToggle() {
     if (accordion?._expanded.value == this) {
       accordion?._expanded.value = null;
@@ -108,10 +112,11 @@ class _AccordionItemState extends State<AccordionItem>
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
 
     return Data.inherit(
@@ -120,7 +125,8 @@ class _AccordionItemState extends State<AccordionItem>
         child: Column(
           children: [
             widget.trigger,
-/// Creates a `SizeTransition` instance.
+
+            /// Creates a `SizeTransition` instance.
             SizeTransition(
               key: const ValueKey('accordion_size_transition'),
               sizeFactor: _easeInAnimation,

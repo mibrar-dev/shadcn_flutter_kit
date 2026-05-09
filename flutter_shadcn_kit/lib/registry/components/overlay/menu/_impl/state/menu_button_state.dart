@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../menu.dart';
 
 /// _MenuButtonState defines a reusable type for this registry module.
@@ -5,14 +7,14 @@ class _MenuButtonState extends State<MenuButton> {
   final ValueNotifier<List<MenuItem>> _children = ValueNotifier([]);
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _children.value = widget.subMenu ?? [];
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant MenuButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!listEquals(widget.subMenu, oldWidget.subMenu)) {
@@ -25,21 +27,24 @@ class _MenuButtonState extends State<MenuButton> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final menuBarData = Data.maybeOf<MenubarState>(context);
     final menuData = Data.maybeOf<MenuData>(context);
     final menuGroupData = Data.maybeOf<MenuGroupData>(context);
     assert(menuGroupData != null, 'MenuButton must be a child of MenuGroup');
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<MenuTheme>(context);
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
     final isDialogOverlay = DialogOverlayHandler.isDialogOverlay(context);
-/// Stores `isIndependentOverlay` state/configuration for this implementation.
+
+    /// Stores `isIndependentOverlay` state/configuration for this implementation.
     final isIndependentOverlay = isSheetOverlay || isDialogOverlay;
-/// Executes `openSubMenu` behavior for this component/composite.
+
+    /// Executes `openSubMenu` behavior for this component/composite.
     void openSubMenu(BuildContext context, bool autofocus) {
       menuGroupData!.closeOthers();
       final overlayManager = OverlayManager.of(context);
@@ -55,9 +60,11 @@ class _MenuButtonState extends State<MenuButton> {
         ),
         builder: (context) {
           final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+          /// Stores `scaling` state/configuration for this implementation.
           final scaling = theme.scaling;
-/// Stores `itemPadding` state/configuration for this implementation.
+
+          /// Stores `itemPadding` state/configuration for this implementation.
           var itemPadding = menuGroupData.itemPadding;
           final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
           if (isSheetOverlay) {
@@ -67,7 +74,7 @@ class _MenuButtonState extends State<MenuButton> {
           }
           return ConstrainedBox(
             constraints:
-/// Creates a `BoxConstraints` instance.
+                /// Creates a `BoxConstraints` instance.
                 const BoxConstraints(
                   minWidth: 192, // 12rem
                 ) *
@@ -82,7 +89,7 @@ class _MenuButtonState extends State<MenuButton> {
                   regionGroupId: menuGroupData.regionGroupId,
                   subMenuOffset:
                       compTheme?.subMenuOffset ??
-/// Creates a `Offset` instance.
+                      /// Creates a `Offset` instance.
                       const Offset(8, -4 + -1) * scaling,
                   itemPadding: itemPadding,
                   autofocus: autofocus,
@@ -130,7 +137,7 @@ class _MenuButtonState extends State<MenuButton> {
       child: SubFocus(
         enabled: widget.enabled,
         builder: (context, subFocusState) {
-/// Stores `hasFocus` state/configuration for this implementation.
+          /// Stores `hasFocus` state/configuration for this implementation.
           bool hasFocus = subFocusState.isFocused && menuBarData == null;
           return Data<MenuData>.boundary(
             child: Data<MenubarState>.boundary(
@@ -178,7 +185,7 @@ class _MenuButtonState extends State<MenuButton> {
                                 if (widget.trailing != null) widget.trailing!,
                                 if (widget.subMenu != null &&
                                     menuBarData == null)
-/// Creates a `Icon` instance.
+                                  /// Creates a `Icon` instance.
                                   const Icon(
                                     RadixIcons.chevronRight,
                                   ).iconSmall(),

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:math';
 
 import '../../../shared/utils/util.dart';
@@ -95,16 +97,18 @@ double _log10(num x) {
 /// ```
 String formatFileSize(int bytes, SizeUnitLocale unit) {
   if (bytes <= 0) return '0 ${unit.units[0]}';
-/// Stores `base` state/configuration for this implementation.
+
+  /// Stores `base` state/configuration for this implementation.
   final base = unit.base;
-/// Stores `units` state/configuration for this implementation.
+
+  /// Stores `units` state/configuration for this implementation.
   final units = unit.units;
   int digitGroups = (_log10(bytes) / _log10(base)).floor();
   // return '${NumberFormat('#,##0.#').format(bytes / pow(base, digitGroups))} ${units[digitGroups]}';
   // do it without NumberFormat, but format to #,##0.# format
   final value = bytes / pow(base, digitGroups);
   final formattedValue = value.toStringAsFixed(
-/// Creates a `value.truncateToDouble` instance.
+    /// Creates a `value.truncateToDouble` instance.
     value.truncateToDouble() == value ? 0 : 1,
   );
   return '$formattedValue ${units[digitGroups]}';
@@ -112,8 +116,10 @@ String formatFileSize(int bytes, SizeUnitLocale unit) {
 
 /// Executes `_getYear` behavior for this component/composite.
 int _getYear(DateTime dateTime) => dateTime.year;
+
 /// Executes `_getMonth` behavior for this component/composite.
 int _getMonth(DateTime dateTime) => dateTime.month;
+
 /// Executes `_getDay` behavior for this component/composite.
 int _getDay(DateTime dateTime) => dateTime.day;
 
@@ -126,9 +132,10 @@ int _getDay(DateTime dateTime) => dateTime.day;
 }
 
 (int? min, int? max) _computeDayValueRange(Map<DatePart, int> values) {
-/// Stores `year` state/configuration for this implementation.
+  /// Stores `year` state/configuration for this implementation.
   final year = values[DatePart.year];
-/// Stores `month` state/configuration for this implementation.
+
+  /// Stores `month` state/configuration for this implementation.
   final month = values[DatePart.month];
   if (year == null || month == null) return (1, 31);
   final daysInMonth = DateTime(year, month + 1, 0).day;
@@ -137,10 +144,13 @@ int _getDay(DateTime dateTime) => dateTime.day;
 
 /// Executes `_getDurationDay` behavior for this component/composite.
 int _getDurationDay(Duration duration) => duration.inDays;
+
 /// Executes `_getDurationHour` behavior for this component/composite.
 int _getDurationHour(Duration duration) => duration.inHours % 24;
+
 /// Executes `_getDurationMinute` behavior for this component/composite.
 int _getDurationMinute(Duration duration) => duration.inMinutes % 60;
+
 /// Executes `_getDurationSecond` behavior for this component/composite.
 int _getDurationSecond(Duration duration) => duration.inSeconds % 60;
 
@@ -159,8 +169,10 @@ int _getDurationSecond(Duration duration) => duration.inSeconds % 60;
 
 /// Executes `_getTimeHour` behavior for this component/composite.
 int _getTimeHour(TimeOfDay time) => time.hour;
+
 /// Executes `_getTimeMinute` behavior for this component/composite.
 int _getTimeMinute(TimeOfDay time) => time.minute;
+
 /// Executes `_getTimeSecond` behavior for this component/composite.
 int _getTimeSecond(TimeOfDay time) => time.second;
 

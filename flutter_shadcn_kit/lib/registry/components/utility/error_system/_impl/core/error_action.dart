@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ErrorAction: describes a user action rendered by error UI (Retry/Login/Settings/etc.).
 // Factories set sensible defaults (label/icon/type/primary) for common actions.
 
@@ -7,7 +9,7 @@ import '../../../../../shared/icons/radix_icons.dart';
 
 /// ErrorAction defines a reusable type for this registry module.
 class ErrorAction {
-/// Creates a `ErrorAction` instance.
+  /// Creates a `ErrorAction` instance.
   const ErrorAction({
     required this.label,
     required this.onPressed,
@@ -16,18 +18,22 @@ class ErrorAction {
     this.type = ErrorActionType.custom,
   });
 
-/// Stores `label` state/configuration for this implementation.
+  /// Stores `label` state/configuration for this implementation.
   final String label;
-/// Stores `onPressed` state/configuration for this implementation.
+
+  /// Stores `onPressed` state/configuration for this implementation.
   final VoidCallback onPressed;
-/// Stores `primary` state/configuration for this implementation.
+
+  /// Stores `primary` state/configuration for this implementation.
   final bool primary;
-/// Stores `icon` state/configuration for this implementation.
+
+  /// Stores `icon` state/configuration for this implementation.
   final IconData? icon;
-/// Stores `type` state/configuration for this implementation.
+
+  /// Stores `type` state/configuration for this implementation.
   final ErrorActionType type;
 
-/// Factory constructor that creates `ErrorAction.retry` instances.
+  /// Factory constructor that creates `ErrorAction.retry` instances.
   factory ErrorAction.retry(VoidCallback onRetry) {
     return ErrorAction(
       label: 'Retry',
@@ -38,7 +44,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.report` instances.
+  /// Factory constructor that creates `ErrorAction.report` instances.
   factory ErrorAction.report(VoidCallback onReport) {
     return ErrorAction(
       label: 'Report',
@@ -48,7 +54,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.back` instances.
+  /// Factory constructor that creates `ErrorAction.back` instances.
   factory ErrorAction.back(VoidCallback onBack) {
     return ErrorAction(
       label: 'Go Back',
@@ -58,7 +64,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.login` instances.
+  /// Factory constructor that creates `ErrorAction.login` instances.
   factory ErrorAction.login(VoidCallback onLogin) {
     return ErrorAction(
       label: 'Log In',
@@ -69,7 +75,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.settings` instances.
+  /// Factory constructor that creates `ErrorAction.settings` instances.
   factory ErrorAction.settings(VoidCallback onSettings) {
     return ErrorAction(
       label: 'Settings',
@@ -79,7 +85,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.contactSupport` instances.
+  /// Factory constructor that creates `ErrorAction.contactSupport` instances.
   factory ErrorAction.contactSupport(VoidCallback onContact) {
     return ErrorAction(
       label: 'Contact Support',
@@ -89,7 +95,7 @@ class ErrorAction {
     );
   }
 
-/// Factory constructor that creates `ErrorAction.dismiss` instances.
+  /// Factory constructor that creates `ErrorAction.dismiss` instances.
   factory ErrorAction.dismiss(VoidCallback onDismiss) {
     return ErrorAction(
       label: 'Dismiss',

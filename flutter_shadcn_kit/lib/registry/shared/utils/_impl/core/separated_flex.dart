@@ -1,30 +1,40 @@
-part of '../../util.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../util.dart';
 
 /// SeparatedFlex defines a reusable type for this registry module.
 class SeparatedFlex extends StatefulWidget {
-/// Stores `direction` state/configuration for this implementation.
+  /// Stores `direction` state/configuration for this implementation.
   final Axis direction;
-/// Stores `mainAxisAlignment` state/configuration for this implementation.
+
+  /// Stores `mainAxisAlignment` state/configuration for this implementation.
   final MainAxisAlignment mainAxisAlignment;
-/// Stores `mainAxisSize` state/configuration for this implementation.
+
+  /// Stores `mainAxisSize` state/configuration for this implementation.
   final MainAxisSize mainAxisSize;
-/// Stores `crossAxisAlignment` state/configuration for this implementation.
+
+  /// Stores `crossAxisAlignment` state/configuration for this implementation.
   final CrossAxisAlignment crossAxisAlignment;
-/// Stores `textDirection` state/configuration for this implementation.
+
+  /// Stores `textDirection` state/configuration for this implementation.
   final TextDirection? textDirection;
-/// Stores `verticalDirection` state/configuration for this implementation.
+
+  /// Stores `verticalDirection` state/configuration for this implementation.
   final VerticalDirection verticalDirection;
-/// Stores `textBaseline` state/configuration for this implementation.
+
+  /// Stores `textBaseline` state/configuration for this implementation.
   final TextBaseline? textBaseline;
-/// Stores `clipBehavior` state/configuration for this implementation.
+
+  /// Stores `clipBehavior` state/configuration for this implementation.
   final Clip clipBehavior;
-/// Stores `separator` state/configuration for this implementation.
+
+  /// Stores `separator` state/configuration for this implementation.
   final Widget separator;
-/// Stores `children` state/configuration for this implementation.
+
+  /// Stores `children` state/configuration for this implementation.
   final List<Widget> children;
 
-/// Creates a `SeparatedFlex` instance.
+  /// Creates a `SeparatedFlex` instance.
   const SeparatedFlex({
     super.key,
     required this.direction,
@@ -40,6 +50,6 @@ class SeparatedFlex extends StatefulWidget {
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<SeparatedFlex> createState() => _SeparatedFlexState();
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -63,16 +65,19 @@ part '_impl/utils/shadcn_localizations_delegate.dart';
 /// be consistent with the languages listed in the ShadcnLocalizations.supportedLocales
 /// property.
 abstract class ShadcnLocalizations {
-/// Creates a `ShadcnLocalizations` instance.
+  /// Creates a `ShadcnLocalizations` instance.
   ShadcnLocalizations(String locale)
     : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
-/// Stores `localeName` state/configuration for this implementation.
+  /// Stores `localeName` state/configuration for this implementation.
   final String localeName;
 
-/// Executes `of` behavior for this component/composite.
+  /// Executes `of` behavior for this component/composite.
   static ShadcnLocalizations of(BuildContext context) {
-    return Localizations.of<ShadcnLocalizations>(context, ShadcnLocalizations) ??
+    return Localizations.of<ShadcnLocalizations>(
+          context,
+          ShadcnLocalizations,
+        ) ??
         ShadcnLocalizationsEn();
   }
 

@@ -1,25 +1,34 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../hidden.dart';
 
 /// Hidden defines a reusable type for this registry module.
 class Hidden extends StatelessWidget {
-/// Stores `hidden` state/configuration for this implementation.
+  /// Stores `hidden` state/configuration for this implementation.
   final bool hidden;
-/// Stores `child` state/configuration for this implementation.
+
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `direction` state/configuration for this implementation.
+
+  /// Stores `direction` state/configuration for this implementation.
   final Axis? direction;
-/// Stores `reverse` state/configuration for this implementation.
+
+  /// Stores `reverse` state/configuration for this implementation.
   final bool? reverse;
-/// Stores `duration` state/configuration for this implementation.
+
+  /// Stores `duration` state/configuration for this implementation.
   final Duration? duration;
-/// Stores `curve` state/configuration for this implementation.
+
+  /// Stores `curve` state/configuration for this implementation.
   final Curve? curve;
-/// Stores `keepCrossAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool? keepCrossAxisSize;
-/// Stores `keepMainAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool? keepMainAxisSize;
 
-/// Creates a `Hidden` instance.
+  /// Creates a `Hidden` instance.
   const Hidden({
     super.key,
     required this.hidden,
@@ -33,7 +42,7 @@ class Hidden extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final textDirection = Directionality.of(context);
     final compTheme = ComponentTheme.maybeOf<HiddenTheme>(context);

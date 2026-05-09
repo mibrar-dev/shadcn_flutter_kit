@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../timeline.dart';
 
 /// Timeline defines a reusable type for this registry module.
@@ -56,10 +58,11 @@ class Timeline extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TimelineTheme>(context);
     final timeConstraints =
@@ -68,27 +71,33 @@ class Timeline extends StatelessWidget {
         BoxConstraints(minWidth: 120 * scaling, maxWidth: 120 * scaling);
     final spacing =
         compTheme?.spacing ?? theme.density.baseContentPadding * scaling;
-/// Stores `dotSize` state/configuration for this implementation.
+
+    /// Stores `dotSize` state/configuration for this implementation.
     final dotSize = compTheme?.dotSize ?? 12 * scaling;
-/// Stores `connectorThickness` state/configuration for this implementation.
+
+    /// Stores `connectorThickness` state/configuration for this implementation.
     final connectorThickness = compTheme?.connectorThickness ?? 2 * scaling;
-/// Stores `defaultColor` state/configuration for this implementation.
+
+    /// Stores `defaultColor` state/configuration for this implementation.
     final defaultColor = compTheme?.color ?? theme.colorScheme.primary;
-/// Stores `rowGap` state/configuration for this implementation.
+
+    /// Stores `rowGap` state/configuration for this implementation.
     final rowGap = compTheme?.rowGap ?? 16 * scaling;
-/// Stores `rows` state/configuration for this implementation.
+
+    /// Stores `rows` state/configuration for this implementation.
     List<Widget> rows = [];
     for (int i = 0; i < data.length; i++) {
-/// Stores `data` state/configuration for this implementation.
+      /// Stores `data` state/configuration for this implementation.
       final data = this.data[i];
-/// Creates a `rows.add` instance.
+
+      /// Creates a `rows.add` instance.
       rows.add(
-/// Creates a `IntrinsicHeight` instance.
+        /// Creates a `IntrinsicHeight` instance.
         IntrinsicHeight(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-/// Creates a `ConstrainedBox` instance.
+              /// Creates a `ConstrainedBox` instance.
               ConstrainedBox(
                 constraints: timeConstraints,
                 child: Align(
@@ -96,13 +105,15 @@ class Timeline extends StatelessWidget {
                   child: data.time.medium().small(),
                 ),
               ),
-/// Creates a `Gap` instance.
+
+              /// Creates a `Gap` instance.
               Gap(spacing),
-/// Creates a `Column` instance.
+
+              /// Creates a `Column` instance.
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-/// Creates a `Container` instance.
+                  /// Creates a `Container` instance.
                   Container(
                     margin: EdgeInsets.only(
                       top: theme.density.baseGap * scaling * 0.5,
@@ -117,7 +128,7 @@ class Timeline extends StatelessWidget {
                     ),
                   ),
                   if (i != this.data.length - 1)
-/// Creates a `Expanded` instance.
+                    /// Creates a `Expanded` instance.
                     Expanded(
                       child: VerticalDivider(
                         thickness: connectorThickness,
@@ -127,9 +138,11 @@ class Timeline extends StatelessWidget {
                     ),
                 ],
               ),
-/// Creates a `Gap` instance.
+
+              /// Creates a `Gap` instance.
               Gap(spacing),
-/// Creates a `Expanded` instance.
+
+              /// Creates a `Expanded` instance.
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -142,7 +155,7 @@ class Timeline extends StatelessWidget {
                         .withPadding(left: 4 * scaling),
                     if (data.content != null) DensityGap(gapSm),
                     if (data.content != null)
-/// Creates a `Expanded` instance.
+                      /// Creates a `Expanded` instance.
                       Expanded(child: data.content!.muted().small()),
                   ],
                 ),

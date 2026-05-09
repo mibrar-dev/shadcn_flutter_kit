@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/primitives/clickable.dart';
@@ -17,7 +19,7 @@ class ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
   final WidgetStatesController statesController = WidgetStatesController();
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     statesController.update(WidgetState.selected, widget.value);
@@ -25,7 +27,7 @@ class ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(Toggle oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
@@ -35,7 +37,7 @@ class ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
   }
 
   @override
-/// Executes `didReplaceFormValue` behavior for this component/composite.
+  /// Executes `didReplaceFormValue` behavior for this component/composite.
   void didReplaceFormValue(bool value) {
     if (widget.onChanged != null) {
       widget.onChanged!(value);
@@ -43,7 +45,7 @@ class ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Button(
       statesController: statesController,

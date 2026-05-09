@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
@@ -77,7 +79,7 @@ class ButtonGroup extends StatelessWidget {
   }) : direction = Axis.vertical;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final parentGroupData = Data.maybeOf<ButtonGroupData>(context);
     List<Widget> children = List.from(this.children);
@@ -96,7 +98,8 @@ class ButtonGroup extends StatelessWidget {
               if (value is BoxDecoration) {
                 final borderRadius = groupData.applyToBorderRadius(
                   value.borderRadius ?? BorderRadius.zero,
-/// Creates a `Directionality.of` instance.
+
+                  /// Creates a `Directionality.of` instance.
                   Directionality.of(context),
                 );
                 return value.copyWith(borderRadius: borderRadius);

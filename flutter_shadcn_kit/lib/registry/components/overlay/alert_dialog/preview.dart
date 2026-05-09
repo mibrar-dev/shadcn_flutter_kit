@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/material.dart' as m;
 
 import '../alert_dialog/alert_dialog.dart' as shadcn;
@@ -13,7 +15,7 @@ class AlertDialogPreview extends m.StatelessWidget {
       body: m.Center(
         child: shadcn.PrimaryButton(
           onPressed: () {
-/// Creates a `m.showDialog` instance.
+            /// Creates a `m.showDialog` instance.
             m.showDialog(
               context: context,
               builder: (context) {
@@ -23,14 +25,15 @@ class AlertDialogPreview extends m.StatelessWidget {
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                   ),
                   actions: [
-/// Creates a `shadcn.OutlineButton` instance.
+                    /// Creates a `shadcn.OutlineButton` instance.
                     shadcn.OutlineButton(
                       onPressed: () {
                         m.Navigator.pop(context);
                       },
                       child: const m.Text('Cancel'),
                     ),
-/// Creates a `shadcn.PrimaryButton` instance.
+
+                    /// Creates a `shadcn.PrimaryButton` instance.
                     shadcn.PrimaryButton(
                       onPressed: () {
                         m.Navigator.pop(context);

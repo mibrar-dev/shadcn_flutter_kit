@@ -1,8 +1,10 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../outlined_container.dart';
 
 /// DashedContainer defines a reusable type for this registry module.
 class DashedContainer extends StatelessWidget {
-/// Creates a `DashedContainer` instance.
+  /// Creates a `DashedContainer` instance.
   const DashedContainer({
     super.key,
     this.strokeWidth,
@@ -13,21 +15,26 @@ class DashedContainer extends StatelessWidget {
     required this.child,
   });
 
-/// Stores `strokeWidth` state/configuration for this implementation.
+  /// Stores `strokeWidth` state/configuration for this implementation.
   final double? strokeWidth;
-/// Stores `gap` state/configuration for this implementation.
+
+  /// Stores `gap` state/configuration for this implementation.
   final double? gap;
-/// Stores `thickness` state/configuration for this implementation.
+
+  /// Stores `thickness` state/configuration for this implementation.
   final double? thickness;
-/// Stores `color` state/configuration for this implementation.
+
+  /// Stores `color` state/configuration for this implementation.
   final Color? color;
-/// Stores `borderRadius` state/configuration for this implementation.
+
+  /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
-/// Stores `child` state/configuration for this implementation.
+
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedValueBuilder<DashedContainerProperties>(
@@ -40,9 +47,10 @@ class DashedContainer extends StatelessWidget {
       ),
       duration: kDefaultDuration,
       lerp: (a, b, t) {
-/// Stores `start` state/configuration for this implementation.
+        /// Stores `start` state/configuration for this implementation.
         final start = a ?? b;
-/// Stores `end` state/configuration for this implementation.
+
+        /// Stores `end` state/configuration for this implementation.
         final end = b ?? a ?? start;
         if (start == null || end == null) {
           return a ?? b;

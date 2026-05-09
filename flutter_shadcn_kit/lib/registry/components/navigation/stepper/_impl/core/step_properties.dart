@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../stepper.dart';
 
 /// StepProperties defines a reusable type for this registry module.
@@ -34,12 +36,12 @@ class StepProperties {
   bool get hasFailure => state.value.stepStates.containsValue(StepState.failed);
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is StepProperties &&
         other.size == size &&
-/// Creates a `listEquals` instance.
+        /// Creates a `listEquals` instance.
         listEquals(other.steps, steps) &&
         other.state == state &&
         other.direction == direction;

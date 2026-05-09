@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  exclude:
+    - flutter_cli_verification_example/**
   errors:
     duplicate_import: ignore
     unnecessary_import: ignore

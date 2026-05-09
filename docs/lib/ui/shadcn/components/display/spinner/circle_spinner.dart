@@ -1,4 +1,6 @@
-part of 'preview.dart';
+import 'package:flutter/material.dart' as m;
+
+import 'spinner.dart';
 
 /// Core class used by the spinner component.
 class CircleSpinner extends Spinner {

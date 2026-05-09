@@ -2247,8 +2247,7 @@
         "theme",
         "style_value",
         "constants",
-        "clickable",
-        "axis"
+        "clickable"
       ],
       "dependsOn": [
         "basic",
@@ -4222,8 +4221,7 @@
         "constants",
         "animated_value_builder",
         "util",
-        "text_modifiers",
-        "axis"
+        "text_modifiers"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -7327,8 +7325,7 @@
       "shared": [
         "theme",
         "focus_outline",
-        "text_modifiers",
-        "phone_number"
+        "text_modifiers"
       ],
       "dependsOn": [
         "button",
@@ -14222,10 +14219,6 @@
       ],
       "files": [
         {
-          "source": "registry/components/component_theme_global_configs.dart",
-          "destination": "{installPath}/components/component_theme_global_configs.dart"
-        },
-        {
           "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart",
           "destination": "{installPath}/components/layout/app/_impl/core/shadcn_ui.dart"
         },
@@ -14406,10 +14399,6 @@
         {
           "source": "registry/components/display/markdown/_impl/state/_markdown_preview_state.dart",
           "destination": "{installPath}/components/display/markdown/_impl/state/_markdown_preview_state.dart"
-        },
-        {
-          "source": "registry/components/display/markdown/_impl/state/markdown_live_preview.dart",
-          "destination": "{installPath}/components/display/markdown/_impl/state/markdown_live_preview.dart"
         },
         {
           "source": "registry/components/display/markdown/_impl/state/markdown_state.dart",

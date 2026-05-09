@@ -11,11 +11,12 @@ class GooeyToastController extends ChangeNotifier {
 
   /// Returns active toasts sorted newest-first by last update.
   List<GooeyToastDetails> get activeToasts {
-    final items = _records.values
-        .map((r) => r.details)
-        .whereType<GooeyToastDetails>()
-        .toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    final items =
+        _records.values
+            .map((r) => r.details)
+            .whereType<GooeyToastDetails>()
+            .toList()
+          ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     return List<GooeyToastDetails>.unmodifiable(items);
   }
 
@@ -310,24 +311,30 @@ class GooeyToastController extends ChangeNotifier {
     final resolvedFill = fill;
     final resolvedRoundness =
         roundness ?? gooeyTheme?.roundness ?? _kDefaultRoundness;
-    final resolvedAnimationStyle = animationStyle ??
+    final resolvedAnimationStyle =
+        animationStyle ??
         gooeyTheme?.animationStyle ??
         GooeyToastDefaults.animationStyle;
     final resolvedShapeStyle =
         shapeStyle ?? gooeyTheme?.shapeStyle ?? GooeyToastDefaults.shapeStyle;
-    final resolvedBodyAnimationStyle = bodyAnimationStyle ??
+    final resolvedBodyAnimationStyle =
+        bodyAnimationStyle ??
         gooeyTheme?.bodyAnimationStyle ??
         GooeyToastDefaults.bodyAnimationStyle;
-    final resolvedEnableGooeyBlur = enableGooeyBlur ??
+    final resolvedEnableGooeyBlur =
+        enableGooeyBlur ??
         gooeyTheme?.enableGooeyBlur ??
         GooeyToastDefaults.enableGooeyBlur;
-    final resolvedPauseOnHover = pauseOnHover ??
+    final resolvedPauseOnHover =
+        pauseOnHover ??
         gooeyTheme?.pauseOnHover ??
         GooeyToastDefaults.pauseOnHover;
-    final resolvedSwipeToDismiss = swipeToDismiss ??
+    final resolvedSwipeToDismiss =
+        swipeToDismiss ??
         gooeyTheme?.swipeToDismiss ??
         GooeyToastDefaults.swipeToDismiss;
-    final resolvedDismissDirections = dismissDirections ??
+    final resolvedDismissDirections =
+        dismissDirections ??
         gooeyTheme?.dismissDirections ??
         (resolvedSwipeToDismiss
             ? _defaultDismissDirections(
@@ -335,33 +342,40 @@ class GooeyToastController extends ChangeNotifier {
                 expandDirection: expandDirection,
               )
             : const <GooeyToastSwipeDirection>{});
-    final resolvedDismissDragThreshold = dismissDragThreshold ??
+    final resolvedDismissDragThreshold =
+        dismissDragThreshold ??
         gooeyTheme?.dismissDragThreshold ??
         GooeyToastDefaults.dismissDragThreshold;
     final resolvedSpacing =
         spacing ?? gooeyTheme?.spacing ?? GooeyToastDefaults.spacing;
-    final resolvedOverlapStackWhenMultiple = overlapStackWhenMultiple ??
+    final resolvedOverlapStackWhenMultiple =
+        overlapStackWhenMultiple ??
         gooeyTheme?.overlapStackWhenMultiple ??
         GooeyToastDefaults.overlapStackWhenMultiple;
-    final resolvedOverlapStackOffset = overlapStackOffset ??
+    final resolvedOverlapStackOffset =
+        overlapStackOffset ??
         gooeyTheme?.overlapStackOffset ??
         GooeyToastDefaults.overlapStackOffset;
-    final resolvedPauseAutoDismissWhenMultiple = pauseAutoDismissWhenMultiple ??
+    final resolvedPauseAutoDismissWhenMultiple =
+        pauseAutoDismissWhenMultiple ??
         gooeyTheme?.pauseAutoDismissWhenMultiple ??
         GooeyToastDefaults.pauseAutoDismissWhenMultiple;
-    final resolvedStackAnimationDuration = stackAnimationDuration ??
+    final resolvedStackAnimationDuration =
+        stackAnimationDuration ??
         gooeyTheme?.stackAnimationDuration ??
         GooeyToastDefaults.stackAnimationDuration;
-    final resolvedStackAnimationCurve = stackAnimationCurve ??
+    final resolvedStackAnimationCurve =
+        stackAnimationCurve ??
         gooeyTheme?.stackAnimationCurve ??
         Curves.easeOutCubic;
-    final resolvedMaxVisibleCount = maxVisibleCount ??
+    final resolvedMaxVisibleCount =
+        maxVisibleCount ??
         gooeyTheme?.maxVisibleCount ??
         GooeyToastDefaults.maxVisibleCount;
     final resolvedDismissWholeStackWhenMultiple =
         dismissWholeStackWhenMultiple ??
-            gooeyTheme?.dismissWholeStackWhenMultiple ??
-            GooeyToastDefaults.dismissWholeStackWhenMultiple;
+        gooeyTheme?.dismissWholeStackWhenMultiple ??
+        GooeyToastDefaults.dismissWholeStackWhenMultiple;
     final resolvedNewToastBehavior =
         newToastBehavior ?? GooeyToastDefaults.newToastBehavior;
 
@@ -371,10 +385,10 @@ class GooeyToastController extends ChangeNotifier {
     final hasExplicitId = id != null && id.isNotEmpty;
     final toastId =
         resolvedNewToastBehavior == GooeyToastNewToastBehavior.transition
-            ? (inRegion.isNotEmpty
-                ? inRegion.first.id
-                : (hasExplicitId ? id : 'gooey-${_nonce++}'))
-            : (hasExplicitId ? id : 'gooey-${_nonce++}');
+        ? (inRegion.isNotEmpty
+              ? inRegion.first.id
+              : (hasExplicitId ? id : 'gooey-${_nonce++}'))
+        : (hasExplicitId ? id : 'gooey-${_nonce++}');
 
     final resolvedAnchors = _resolveAnchors(
       context: context,
@@ -529,7 +543,8 @@ class GooeyToastController extends ChangeNotifier {
                 compactMorph: render.compactMorph,
               ),
             );
-            final wrappedToast = render.swipeToDismiss &&
+            final wrappedToast =
+                render.swipeToDismiss &&
                     render.dismissDirections.isNotEmpty &&
                     render.dismissDragThreshold > 0
                 ? _GooeyToastSwipeDismissRegion(
@@ -587,9 +602,9 @@ class GooeyToastController extends ChangeNotifier {
     // Smooth close phase before compact/expand handoff.
     final closeDelay = Duration(
       milliseconds: (closeDuration.inMilliseconds * 0.72).round().clamp(
-            160,
-            620,
-          ),
+        160,
+        620,
+      ),
     );
     const compactGap = Duration(milliseconds: 72);
 
@@ -628,7 +643,8 @@ class GooeyToastController extends ChangeNotifier {
       _rebuildAllEntries();
       notifyListeners();
 
-      final hasExpandedContent = nextData.description != null ||
+      final hasExpandedContent =
+          nextData.description != null ||
           nextData.expandedChild != null ||
           nextData.action != null;
       if (!hasExpandedContent) return;
@@ -830,8 +846,7 @@ class GooeyToastController extends ChangeNotifier {
     final items = _records.values.where((r) {
       final d = r.data.value;
       return d.position == position && d.expandDirection == direction;
-    }).toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    }).toList()..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
     return items;
   }
 
@@ -864,7 +879,8 @@ class GooeyToastController extends ChangeNotifier {
       edgeInset,
       screenHeight - (_kToastHeight * _kMinExpandRatio) - edgeInset,
     );
-    final isCenterBandPosition = position == GooeyToastPosition.centerLeft ||
+    final isCenterBandPosition =
+        position == GooeyToastPosition.centerLeft ||
         position == GooeyToastPosition.centerRight;
 
     final resolvedLeft = switch (position) {
@@ -885,8 +901,9 @@ class GooeyToastController extends ChangeNotifier {
     final resolvedTop = isCenterBandPosition
         ? centerTop.toDouble()
         : (showTop ? edgeInset : null);
-    final resolvedBottom =
-        isCenterBandPosition ? null : (showTop ? null : edgeInset);
+    final resolvedBottom = isCenterBandPosition
+        ? null
+        : (showTop ? null : edgeInset);
 
     return (resolvedLeft, resolvedRight, resolvedTop, resolvedBottom);
   }

@@ -36,9 +36,16 @@ class InstallationPage extends StatelessWidget {
           TextButton(
             onPressed: () => context.goNamed(
               'cli_reference',
-              pathParameters: {'id': 'cli-overview'},
+              pathParameters: {'id': 'cli-install'},
             ),
-            child: const Text('Open the full CLI command guide'),
+            child: const Text('Open the CLI install guide'),
+          ),
+          TextButton(
+            onPressed: () => context.goNamed(
+              'cli_reference',
+              pathParameters: {'id': 'cli-app-setup'},
+            ),
+            child: const Text('Open required app setup'),
           ),
           TextButton(
             onPressed: () => context.goNamed('complete-guide'),

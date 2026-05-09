@@ -111,6 +111,13 @@ class CompleteGuidePage extends StatelessWidget {
             ),
             child: const Text('Open the add command reference'),
           ),
+          TextButton(
+            onPressed: () => context.goNamed(
+              'cli_reference',
+              pathParameters: {'id': 'cli-app-setup'},
+            ),
+            child: const Text('Open required ShadcnApp and overlay setup'),
+          ),
           const SizedBox(height: 20),
           DocsSectionTitle(title: 'Daily workflow', anchor: dailyKey),
           const SizedBox(height: 12),

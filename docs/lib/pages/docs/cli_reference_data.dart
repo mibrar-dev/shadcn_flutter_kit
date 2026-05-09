@@ -38,13 +38,145 @@ class CliReferenceSection {
   final String title;
   final List<String> pageIds;
 
-  const CliReferenceSection({
-    required this.title,
-    required this.pageIds,
-  });
+  const CliReferenceSection({required this.title, required this.pageIds});
 }
 
 final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
+  'cli-intro': const CliReferenceDoc(
+    id: 'cli-intro',
+    title: 'CLI Intro',
+    summary:
+        'Start here if you are new to flutter_shadcn. The CLI is a registry installer: it copies component source, shared primitives, assets, and project metadata into your Flutter app instead of adding a black-box UI package.',
+    syntax: <String>[
+      'flutter_shadcn <command> [options]',
+      'flutter_shadcn --help',
+      'flutter_shadcn <command> --help',
+    ],
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'Production install path',
+        command:
+            'dart pub global activate flutter_shadcn_cli\nflutter_shadcn init --yes\nflutter_shadcn add button\nflutter analyze',
+        description:
+            'Install the CLI, initialize a Flutter project, copy a component, then verify the app still analyzes cleanly.',
+      ),
+      CliExampleDoc(
+        title: 'Discover before installing',
+        command:
+            'flutter_shadcn list\nflutter_shadcn search toast\nflutter_shadcn info gooey_toast',
+        description:
+            'Inspect registry contents before copying component files into your app.',
+      ),
+    ],
+    behavior: <String>[
+      'Run commands from the root of a Flutter project unless the command is only inspecting CLI help or version information.',
+      'init writes .shadcn/config.json and .shadcn/state.json so future add, sync, theme, audit, and doctor commands resolve the same registry paths.',
+      'add copies component files into your application source and pulls required shared files, assets, and pubspec dependencies.',
+      'Commit .shadcn files and installed component files with the rest of your application source so teammates and CI see the same registry state.',
+      'After installing overlay-driven widgets, wire the app root with ShadcnApp, ShadcnLayer, or OverlayManagerLayer before testing runtime behavior.',
+    ],
+    related: <String>[
+      'cli-install',
+      'cli-app-setup',
+      'cli-overview',
+      'cli-init',
+      'cli-add',
+    ],
+  ),
+  'cli-install': const CliReferenceDoc(
+    id: 'cli-install',
+    title: 'CLI Install',
+    summary:
+        'Install flutter_shadcn_cli globally with Dart, make sure the pub global executable directory is on PATH, then verify the command is available before initializing a project.',
+    syntax: <String>[
+      'dart pub global activate flutter_shadcn_cli',
+      'flutter_shadcn version',
+      'flutter_shadcn --help',
+    ],
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'Install and verify',
+        command:
+            'dart pub global activate flutter_shadcn_cli\nflutter_shadcn version\nflutter_shadcn --help',
+        description:
+            'Activates the published CLI package and confirms the executable can run.',
+      ),
+      CliExampleDoc(
+        title: 'Fix PATH on macOS or Linux',
+        command:
+            'export PATH="\$PATH:\$HOME/.pub-cache/bin"\n# Add the same line to ~/.zshrc, ~/.bashrc, or ~/.bash_profile',
+        description:
+            'Use this when dart pub global activation succeeds but flutter_shadcn is not found by your shell.',
+      ),
+      CliExampleDoc(
+        title: 'Check for updates',
+        command: 'flutter_shadcn version --check\nflutter_shadcn upgrade',
+        description:
+            'Checks the published version and upgrades the globally activated CLI when a newer release is available.',
+      ),
+    ],
+    behavior: <String>[
+      'The main executable is flutter_shadcn. The package also exposes the shorter shadcn alias when your shell can find pub global executables.',
+      'The first remote registry fetch needs network access. After the registry and theme data are cached, offline commands can use --offline when the needed payloads already exist locally.',
+      'Use dart pub global deactivate flutter_shadcn_cli only when you intentionally want to remove the CLI from the current Dart environment.',
+      'After installation, run flutter_shadcn init from a Flutter project root before installing components.',
+    ],
+    related: <String>[
+      'cli-intro',
+      'cli-init',
+      'cli-overview',
+      'cli-version',
+      'cli-upgrade',
+    ],
+  ),
+  'cli-app-setup': const CliReferenceDoc(
+    id: 'cli-app-setup',
+    title: 'Important App Setup',
+    summary:
+        'The CLI copies files, but runtime widgets still need the app root wiring. Use ShadcnApp for a full shadcn app shell, ShadcnLayer when keeping an existing MaterialApp, or OverlayManagerLayer when you only need explicit overlay handling.',
+    syntax: <String>[
+      'flutter_shadcn init --yes',
+      'flutter_shadcn add app overlay toast gooey_toast dialog popover tooltip menu',
+    ],
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'Preferred shadcn app wrapper',
+        command:
+            "import 'package:your_app/ui/shadcn/components/layout/app/app.dart';\n\nreturn ShadcnApp(\n  home: const MyHomePage(),\n);",
+        description:
+            'ShadcnApp wires theme defaults, localizations, material fallback behavior, and overlay management for a normal app root.',
+      ),
+      CliExampleDoc(
+        title: 'Existing MaterialApp or router',
+        command:
+            "import 'package:your_app/ui/shadcn/shared/primitives/overlay.dart';\n\nreturn ShadcnLayer(\n  child: MaterialApp.router(routerConfig: router),\n);",
+        description:
+            'Use ShadcnLayer when your project already owns MaterialApp, GoRouter, or another app shell and only needs shadcn theme plus overlay context.',
+      ),
+      CliExampleDoc(
+        title: 'Explicit overlay manager',
+        command:
+            'return OverlayManagerLayer(\n  popoverHandler: OverlayHandler.popover,\n  tooltipHandler: OverlayHandler.popover,\n  menuHandler: OverlayHandler.popover,\n  child: MaterialApp.router(routerConfig: router),\n);',
+        description:
+            'Use OverlayManagerLayer directly when you want to control the overlay handlers yourself.',
+      ),
+    ],
+    behavior: <String>[
+      'ShadcnApp is the recommended default for new apps because it wraps the application with shadcn theme, localization defaults, material fallback support, and overlay management.',
+      'ShadcnLayer is the recommended integration point for existing apps because it keeps your app shell intact and inserts OverlayManagerLayer when one is not already present.',
+      'OverlayManagerLayer provides the popover, tooltip, and menu overlay handlers used by higher-level widgets.',
+      'Install/init copies code into your app; app root setup is what makes overlay-driven widgets work at runtime.',
+      'Overlay-dependent widgets include Toast, GooeyToast, Dialog, AlertDialog, Drawer, Popover, Tooltip, Menu, Menubar, DropdownMenu, ContextMenu, HoverCard, EyeDropper, and Autocomplete.',
+      'If you see a missing OverlayManagerLayer warning or overlays fail to render, check the app root before debugging individual widgets.',
+    ],
+    related: <String>[
+      'cli-install',
+      'cli-init',
+      'cli-add',
+      'cli-theme',
+      'cli-troubleshooting',
+    ],
+  ),
   'cli-overview': const CliReferenceDoc(
     id: 'cli-overview',
     title: 'CLI Overview',
@@ -103,6 +235,9 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'Developer registry overrides and experimental file/URL theme imports require --advanced.',
     ],
     related: <String>[
+      'cli-intro',
+      'cli-install',
+      'cli-app-setup',
       'cli-init',
       'cli-add',
       'cli-theme',
@@ -380,25 +515,30 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--icons',
-          value: 'flag',
-          description: 'Install icon font assets.'),
+        name: '--icons',
+        value: 'flag',
+        description: 'Install icon font assets.',
+      ),
       DocsOptionRow(
-          name: '--typography',
-          value: 'flag',
-          description: 'Install typography font assets.'),
+        name: '--typography',
+        value: 'flag',
+        description: 'Install typography font assets.',
+      ),
       DocsOptionRow(
-          name: '--fonts',
-          value: 'flag',
-          description: 'Alias for --typography.'),
+        name: '--fonts',
+        value: 'flag',
+        description: 'Alias for --typography.',
+      ),
       DocsOptionRow(
-          name: '--list',
-          value: 'flag',
-          description: 'List available asset bundles.'),
+        name: '--list',
+        value: 'flag',
+        description: 'List available asset bundles.',
+      ),
       DocsOptionRow(
-          name: '--all, -a',
-          value: 'flag',
-          description: 'Install icon and typography assets together.'),
+        name: '--all, -a',
+        value: 'flag',
+        description: 'Install icon and typography assets together.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -424,10 +564,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     title: 'sync',
     summary:
         'Re-applies the current .shadcn/config.json settings, including install paths and active global theme, to an already initialized project.',
-    syntax: <String>[
-      'flutter_shadcn sync',
-      'flutter_shadcn sync @shadcn',
-    ],
+    syntax: <String>['flutter_shadcn sync', 'flutter_shadcn sync @shadcn'],
     behavior: <String>[
       'sync is useful after you change path aliases, install roots, or theme configuration and want generated files to match the new config.',
       'The command uses the same namespace-aware installer selection as add/remove/theme.',
@@ -453,13 +590,15 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--all, -a',
-          value: 'flag',
-          description: 'Preview the plan for every available component.'),
+        name: '--all, -a',
+        value: 'flag',
+        description: 'Preview the plan for every available component.',
+      ),
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit the dry-run plan as machine-readable JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit the dry-run plan as machine-readable JSON.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -485,13 +624,15 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--refresh',
-          value: 'flag',
-          description: 'Refresh the cached component index from the registry.'),
+        name: '--refresh',
+        value: 'flag',
+        description: 'Refresh the cached component index from the registry.',
+      ),
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit list results as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit list results as JSON.',
+      ),
     ],
     behavior: <String>[
       'list accepts an inline namespace token but no search query text. Use search when you need filtering.',
@@ -518,13 +659,15 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--refresh',
-          value: 'flag',
-          description: 'Refresh the cached component index before searching.'),
+        name: '--refresh',
+        value: 'flag',
+        description: 'Refresh the cached component index before searching.',
+      ),
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit search results as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit search results as JSON.',
+      ),
     ],
     behavior: <String>[
       'If no query text is supplied, search falls back to the list command behavior for the selected namespace.',
@@ -550,14 +693,16 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--refresh',
-          value: 'flag',
-          description:
-              'Refresh the cached component index before reading the component entry.'),
+        name: '--refresh',
+        value: 'flag',
+        description:
+            'Refresh the cached component index before reading the component entry.',
+      ),
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit component metadata as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit component metadata as JSON.',
+      ),
     ],
     behavior: <String>[
       'A fully qualified component reference sets the namespace automatically.',
@@ -578,15 +723,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     title: 'doctor',
     summary:
         'Diagnoses registry resolution, schema validation, config path issues, and required theme files in the current project.',
-    syntax: <String>[
-      'flutter_shadcn doctor',
-      'flutter_shadcn doctor --json',
-    ],
+    syntax: <String>['flutter_shadcn doctor', 'flutter_shadcn doctor --json'],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit diagnostics as machine-readable JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit diagnostics as machine-readable JSON.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -613,9 +756,10 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit validation output as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit validation output as JSON.',
+      ),
     ],
     behavior: <String>[
       'validate is registry-focused. It checks registry correctness, not the installed project state.',
@@ -637,15 +781,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     title: 'audit',
     summary:
         'Audits installed components against registry metadata to detect drift between the project and the source registry.',
-    syntax: <String>[
-      'flutter_shadcn audit',
-      'flutter_shadcn audit --json',
-    ],
+    syntax: <String>['flutter_shadcn audit', 'flutter_shadcn audit --json'],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit audit results as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit audit results as JSON.',
+      ),
     ],
     behavior: <String>[
       'audit is project-focused. It compares the installed state to registry metadata for the selected namespace.',
@@ -666,20 +808,19 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     title: 'deps',
     summary:
         'Compares registry dependency versions against the current pubspec.yaml.',
-    syntax: <String>[
-      'flutter_shadcn deps',
-      'flutter_shadcn deps --all --json',
-    ],
+    syntax: <String>['flutter_shadcn deps', 'flutter_shadcn deps --all --json'],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--all, -a',
-          value: 'flag',
-          description:
-              'Compare dependency versions for all registry components, not only installed ones.'),
+        name: '--all, -a',
+        value: 'flag',
+        description:
+            'Compare dependency versions for all registry components, not only installed ones.',
+      ),
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit dependency comparison output as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit dependency comparison output as JSON.',
+      ),
     ],
     behavior: <String>[
       'deps is useful when registry manifests change package versions and you want to see whether the project is behind or over-pinned.',
@@ -705,17 +846,20 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--list',
-          value: 'flag',
-          description: 'Print the merged platform target map.'),
+        name: '--list',
+        value: 'flag',
+        description: 'Print the merged platform target map.',
+      ),
       DocsOptionRow(
-          name: '--set',
-          value: 'platform.section=path',
-          description: 'Set a platform target override. Repeatable.'),
+        name: '--set',
+        value: 'platform.section=path',
+        description: 'Set a platform target override. Repeatable.',
+      ),
       DocsOptionRow(
-          name: '--reset',
-          value: 'platform.section',
-          description: 'Remove a platform target override. Repeatable.'),
+        name: '--reset',
+        value: 'platform.section',
+        description: 'Remove a platform target override. Repeatable.',
+      ),
     ],
     behavior: <String>[
       'Overrides are merged with the built-in defaults and saved back into .shadcn/config.json.',
@@ -742,9 +886,10 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--json',
-          value: 'flag',
-          description: 'Emit registry summaries as JSON.'),
+        name: '--json',
+        value: 'flag',
+        description: 'Emit registry summaries as JSON.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -764,10 +909,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     title: 'default',
     summary:
         'Shows or updates the default registry namespace used when a command does not receive an explicit namespace token.',
-    syntax: <String>[
-      'flutter_shadcn default',
-      'flutter_shadcn default shadcn',
-    ],
+    syntax: <String>['flutter_shadcn default', 'flutter_shadcn default shadcn'],
     examples: <CliExampleDoc>[
       CliExampleDoc(
         title: 'Check the active default namespace',
@@ -797,10 +939,11 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--generate, -g',
-          value: 'flag',
-          description:
-              'Regenerate docs/reference/commands from Dart command metadata. This is the default action.'),
+        name: '--generate, -g',
+        value: 'flag',
+        description:
+            'Regenerate docs/reference/commands from Dart command metadata. This is the default action.',
+      ),
     ],
     behavior: <String>[
       'docs requires --advanced and writes the committed generated command reference.',
@@ -820,23 +963,27 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--type, -t',
-          value: 'type',
-          description:
-              'Feedback type: bug, feature, docs, question, performance, or other.'),
+        name: '--type, -t',
+        value: 'type',
+        description:
+            'Feedback type: bug, feature, docs, question, performance, or other.',
+      ),
       DocsOptionRow(
-          name: '--title',
-          value: 'text',
-          description: 'Issue title for non-interactive feedback.'),
+        name: '--title',
+        value: 'text',
+        description: 'Issue title for non-interactive feedback.',
+      ),
       DocsOptionRow(
-          name: '--body',
-          value: 'text',
-          description: 'Issue body for non-interactive feedback.'),
+        name: '--body',
+        value: 'text',
+        description: 'Issue body for non-interactive feedback.',
+      ),
       DocsOptionRow(
-          name: '@namespace',
-          value: 'token',
-          description:
-              'Optional registry context to include with the feedback report.'),
+        name: '@namespace',
+        value: 'token',
+        description:
+            'Optional registry context to include with the feedback report.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -870,42 +1017,50 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--available, -a',
-          value: 'flag',
-          description: 'List skills available from the skill registry.'),
+        name: '--available, -a',
+        value: 'flag',
+        description: 'List skills available from the skill registry.',
+      ),
       DocsOptionRow(
-          name: '--list',
-          value: 'flag',
-          description: 'List locally installed skills.'),
+        name: '--list',
+        value: 'flag',
+        description: 'List locally installed skills.',
+      ),
       DocsOptionRow(
-          name: '--skill, -s',
-          value: 'id',
-          description: 'Select a skill to install.'),
+        name: '--skill, -s',
+        value: 'id',
+        description: 'Select a skill to install.',
+      ),
       DocsOptionRow(
-          name: '--model, -m',
-          value: 'name',
-          description: 'Select the target model folder.'),
+        name: '--model, -m',
+        value: 'name',
+        description: 'Select the target model folder.',
+      ),
       DocsOptionRow(
-          name: '--skills-url',
-          value: 'url-or-path',
-          description: 'Override the skill registry source.'),
+        name: '--skills-url',
+        value: 'url-or-path',
+        description: 'Override the skill registry source.',
+      ),
       DocsOptionRow(
-          name: '--symlink',
-          value: 'flag',
-          description: 'Symlink a shared skill into a target model folder.'),
+        name: '--symlink',
+        value: 'flag',
+        description: 'Symlink a shared skill into a target model folder.',
+      ),
       DocsOptionRow(
-          name: '--uninstall',
-          value: 'id',
-          description:
-              'Uninstall a skill. Use --model for single-model removal.'),
+        name: '--uninstall',
+        value: 'id',
+        description: 'Uninstall a skill. Use --model for single-model removal.',
+      ),
       DocsOptionRow(
-          name: '--uninstall-interactive',
-          value: 'flag',
-          description: 'Choose skills and models interactively for removal.'),
+        name: '--uninstall-interactive',
+        value: 'flag',
+        description: 'Choose skills and models interactively for removal.',
+      ),
       DocsOptionRow(
-          name: '--interactive, -i',
-          value: 'flag',
-          description: 'Run interactive multi-skill installation.'),
+        name: '--interactive, -i',
+        value: 'flag',
+        description: 'Run interactive multi-skill installation.',
+      ),
     ],
     examples: <CliExampleDoc>[
       CliExampleDoc(
@@ -939,9 +1094,10 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--check',
-          value: 'flag',
-          description: 'Check whether a newer CLI version is available.'),
+        name: '--check',
+        value: 'flag',
+        description: 'Check whether a newer CLI version is available.',
+      ),
     ],
     related: <String>['cli-upgrade'],
   ),
@@ -956,10 +1112,11 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     options: <DocsOptionRow>[
       DocsOptionRow(
-          name: '--force, -f',
-          value: 'flag',
-          description:
-              'Force the upgrade even when the current version already appears up to date.'),
+        name: '--force, -f',
+        value: 'flag',
+        description:
+            'Force the upgrade even when the current version already appears up to date.',
+      ),
     ],
     related: <String>['cli-version', 'cli-troubleshooting'],
   ),
@@ -1037,7 +1194,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'cli-validate',
       'cli-audit',
       'cli-exit-codes',
-      'cli-theme-widget'
+      'cli-theme-widget',
     ],
   ),
   'cli-development': const CliReferenceDoc(
@@ -1079,12 +1236,15 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'cli-theme-widget',
       'cli-validate',
       'cli-docs',
-      'cli-install-skill'
+      'cli-install-skill',
     ],
   ),
 };
 
 const List<String> cliReferenceOrder = <String>[
+  'cli-intro',
+  'cli-install',
+  'cli-app-setup',
   'cli-overview',
   'cli-init',
   'cli-add',
@@ -1116,8 +1276,11 @@ const List<String> cliReferenceOrder = <String>[
 
 const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
   CliReferenceSection(
-    title: 'Getting Started',
+    title: 'Start Here',
     pageIds: <String>[
+      'cli-intro',
+      'cli-install',
+      'cli-app-setup',
       'cli-overview',
       'cli-init',
       'cli-add',
@@ -1128,27 +1291,15 @@ const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
   ),
   CliReferenceSection(
     title: 'Discovery',
-    pageIds: <String>[
-      'cli-list',
-      'cli-search',
-      'cli-info',
-    ],
+    pageIds: <String>['cli-list', 'cli-search', 'cli-info'],
   ),
   CliReferenceSection(
     title: 'Themes & Assets',
-    pageIds: <String>[
-      'cli-theme',
-      'cli-theme-widget',
-      'cli-assets',
-    ],
+    pageIds: <String>['cli-theme', 'cli-theme-widget', 'cli-assets'],
   ),
   CliReferenceSection(
     title: 'Registry & Config',
-    pageIds: <String>[
-      'cli-registries',
-      'cli-default',
-      'cli-platform',
-    ],
+    pageIds: <String>['cli-registries', 'cli-default', 'cli-platform'],
   ),
   CliReferenceSection(
     title: 'Diagnostics',
@@ -1162,24 +1313,14 @@ const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
   ),
   CliReferenceSection(
     title: 'Tooling',
-    pageIds: <String>[
-      'cli-feedback',
-      'cli-version',
-      'cli-upgrade',
-    ],
+    pageIds: <String>['cli-feedback', 'cli-version', 'cli-upgrade'],
   ),
   CliReferenceSection(
     title: 'Advanced',
-    pageIds: <String>[
-      'cli-docs',
-      'cli-install-skill',
-    ],
+    pageIds: <String>['cli-docs', 'cli-install-skill'],
   ),
   CliReferenceSection(
     title: 'Guides',
-    pageIds: <String>[
-      'cli-troubleshooting',
-      'cli-development',
-    ],
+    pageIds: <String>['cli-troubleshooting', 'cli-development'],
   ),
 ];

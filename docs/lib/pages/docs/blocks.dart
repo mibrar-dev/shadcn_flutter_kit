@@ -168,10 +168,21 @@ class _DocsTableCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final headerBackground = colorScheme.brightness == Brightness.dark
+        ? colorScheme.onSurface.withValues(alpha: 0.08)
+        : colorScheme.surface;
+    final headerForeground = colorScheme.onSurface;
+    final content = isHeader
+        ? DefaultTextStyle.merge(
+            style: TextStyle(color: headerForeground),
+            child: child,
+          )
+        : child;
     return Container(
-      color: isHeader ? Theme.of(context).colorScheme.surface : null,
+      color: isHeader ? headerBackground : null,
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      child: child,
+      child: content,
     );
   }
 }

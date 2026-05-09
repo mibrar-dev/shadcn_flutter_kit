@@ -1813,6 +1813,7 @@
       "shared": [
         "theme",
         "color_extensions",
+        "geometry_extensions",
         "clickable",
         "form_control",
         "form_value_supplier",
@@ -12254,9 +12255,7 @@
         }
       ],
       "shared": [],
-      "dependsOn": [
-        "shadcn_localizations"
-      ],
+      "dependsOn": [],
       "pubspec": {
         "dependencies": {
           "intl": "any"
@@ -14400,6 +14399,10 @@
         {
           "source": "registry/components/display/markdown/_impl/state/_markdown_preview_state.dart",
           "destination": "{installPath}/components/display/markdown/_impl/state/_markdown_preview_state.dart"
+        },
+        {
+          "source": "registry/components/display/markdown/_impl/state/markdown_live_preview.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/state/markdown_live_preview.dart"
         },
         {
           "source": "registry/components/display/markdown/_impl/state/markdown_state.dart",

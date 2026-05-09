@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-05-04T03:05:25.178221Z",
+  "generatedAt": "2026-05-09T02:56:49.718134Z",
   "components": [
     {
       "id": "accordion",
@@ -526,6 +526,7 @@
         "shared": [
           "theme",
           "color_extensions",
+          "geometry_extensions",
           "clickable",
           "form_control",
           "form_value_supplier",
@@ -3937,7 +3938,6 @@
           "`RefreshTrigger`",
           "`RefreshTriggerStage`",
           "`RefreshIndicatorBuilder`",
-          "`FutureVoidCallback`",
           "`RefreshTriggerTheme`"
         ]
       },

@@ -13,6 +13,7 @@
     "shared": [
       "theme",
       "color_extensions",
+      "geometry_extensions",
       "clickable",
       "form_control",
       "form_value_supplier",

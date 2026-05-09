@@ -107,6 +107,7 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'cli-add',
       'cli-theme',
       'cli-doctor',
+      'cli-exit-codes',
       'cli-troubleshooting',
       'cli-development',
     ],
@@ -962,6 +963,46 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
     ],
     related: <String>['cli-version', 'cli-troubleshooting'],
   ),
+  'cli-exit-codes': const CliReferenceDoc(
+    id: 'cli-exit-codes',
+    title: 'Exit Codes',
+    summary:
+        'flutter_shadcn returns 0 for success and a documented non-zero process exit code for command failures. JSON-capable commands also expose the same number in meta.exitCode and use the matching label as the machine-readable error code when available.',
+    examples: <CliExampleDoc>[
+      CliExampleDoc(
+        title: 'Read the exit code in a shell',
+        command: 'flutter_shadcn doctor\necho \$?',
+        description:
+            'Use the numeric process status in CI or shell scripts after any flutter_shadcn command.',
+      ),
+      CliExampleDoc(
+        title: 'Read the exit code from JSON',
+        command: 'flutter_shadcn validate --json',
+        description:
+            'JSON output includes meta.exitCode and error labels such as schema_invalid or validation_failed.',
+      ),
+    ],
+    behavior: <String>[
+      '0 success: the command completed without a blocking error.',
+      '1 unknown_error: an unexpected failure was reported outside a more specific category. Re-run with --verbose and report the command/output if it repeats.',
+      '2 usage_error: command syntax or option usage is invalid, such as missing arguments, incompatible flags, or advanced-only options without --advanced.',
+      '10 registry_not_found: the selected namespace, configured registry, registry path, or registry directory entry could not be resolved.',
+      '20 schema_invalid: registries.json, a component manifest, an index, a theme payload, or local registry metadata failed schema validation.',
+      '30 component_missing: the requested component could not be found or resolved from the active registry selection.',
+      '31 file_missing: a required registry file, manifest-referenced file, installed file, or generated project file is missing.',
+      '40 network_error: the CLI needed online registry, theme, or version data and the network fetch failed.',
+      '41 offline_unavailable: --offline was requested but the required cached registry or theme data is not available yet.',
+      '50 validation_failed: diagnostics found project, registry, dependency, installed-file, or theme drift that must be repaired.',
+      '60 config_invalid: .shadcn/config.json, .shadcn/state.json, platform target config, locale config, or Flutter project setup is invalid.',
+      '70 io_error: a required read, write, copy, open, launch, activation, or filesystem safety operation failed.',
+    ],
+    related: <String>[
+      'cli-doctor',
+      'cli-validate',
+      'cli-audit',
+      'cli-troubleshooting',
+    ],
+  ),
   'cli-troubleshooting': const CliReferenceDoc(
     id: 'cli-troubleshooting',
     title: 'Troubleshooting',
@@ -989,11 +1030,13 @@ final Map<String, CliReferenceDoc> cliReferenceDocs = <String, CliReferenceDoc>{
       'If global theme apply-file or apply-url fails, make sure you passed --advanced and that the payload is valid JSON.',
       'If offline mode fails, rerun once online to warm the registry/theme caches first.',
       'If a patch anchor is missing, the converter or installed files have drifted. Re-run sync, then audit, then inspect the registry converter output.',
+      'If a script or CI job fails, check the process exit code. The Exit Codes page maps every numeric value to its label, meaning, and recovery path.',
     ],
     related: <String>[
       'cli-doctor',
       'cli-validate',
       'cli-audit',
+      'cli-exit-codes',
       'cli-theme-widget'
     ],
   ),
@@ -1066,6 +1109,7 @@ const List<String> cliReferenceOrder = <String>[
   'cli-install-skill',
   'cli-version',
   'cli-upgrade',
+  'cli-exit-codes',
   'cli-troubleshooting',
   'cli-development',
 ];
@@ -1113,6 +1157,7 @@ const List<CliReferenceSection> cliReferenceSections = <CliReferenceSection>[
       'cli-validate',
       'cli-audit',
       'cli-deps',
+      'cli-exit-codes',
     ],
   ),
   CliReferenceSection(

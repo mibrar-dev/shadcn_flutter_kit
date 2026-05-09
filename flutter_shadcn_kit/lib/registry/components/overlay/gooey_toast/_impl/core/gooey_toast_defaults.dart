@@ -55,6 +55,24 @@ class GooeyToastDefaults {
   /// Default spacing between region-stacked toasts.
   static const double spacing = 8;
 
+  /// Default overlap stack toggle.
+  static const bool overlapStackWhenMultiple = false;
+
+  /// Default overlap offset between stacked toasts.
+  static const double overlapStackOffset = 8;
+
+  /// Default multi-toast auto-dismiss pause toggle.
+  static const bool pauseAutoDismissWhenMultiple = false;
+
+  /// Default stack reflow animation duration.
+  static const Duration stackAnimationDuration = Duration(milliseconds: 220);
+
+  /// Default max visible stack entries. `0` keeps all entries visible.
+  static const int maxVisibleCount = 0;
+
+  /// Default whole-stack dismissal toggle.
+  static const bool dismissWholeStackWhenMultiple = false;
+
   /// Default behavior when a new toast is shown in same region.
   static const GooeyToastNewToastBehavior newToastBehavior =
       GooeyToastNewToastBehavior.stack;

@@ -7,11 +7,11 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../component_theme_global_configs.dart';
 import '../../../shared/primitives/overlay.dart';
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/constants.dart';
+import 'component_theme_global_configs.dart';
 
 part '_impl/core/shadcn_ui.dart';
 

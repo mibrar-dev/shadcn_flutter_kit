@@ -767,6 +767,20 @@ JsonMap _buildEntry({
     entryDir: entryDir,
     type: type,
   );
+  final extraFiles = updatedMeta['extraFiles'];
+  if (extraFiles is List) {
+    for (final file in extraFiles.whereType<Map>()) {
+      final source = file['source']?.toString();
+      final destination = file['destination']?.toString();
+      if (source == null ||
+          source.trim().isEmpty ||
+          destination == null ||
+          destination.trim().isEmpty) {
+        continue;
+      }
+      files.add({'source': source, 'destination': destination});
+    }
+  }
 
   final entry = <String, dynamic>{};
   if (existingEntry != null) {

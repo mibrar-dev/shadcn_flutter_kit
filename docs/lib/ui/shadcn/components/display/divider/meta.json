@@ -15,6 +15,10 @@
       "style_value",
       "constants",
       "animated_value_builder",
+      "axis",
+      "axis_insets",
+      "axis_insets_directional",
+      "axis_insets_geometry",
       "util",
       "text_modifiers"
     ],

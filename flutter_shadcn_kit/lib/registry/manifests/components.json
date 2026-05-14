@@ -1815,6 +1815,7 @@
         "color_extensions",
         "geometry_extensions",
         "clickable",
+        "focus_outline",
         "form_control",
         "form_value_supplier",
         "menu_group"
@@ -1886,7 +1887,8 @@
         }
       ],
       "shared": [
-        "clickable"
+        "clickable",
+        "focus_outline"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4220,6 +4222,10 @@
         "style_value",
         "constants",
         "animated_value_builder",
+        "axis",
+        "axis_insets",
+        "axis_insets_directional",
+        "axis_insets_geometry",
         "util",
         "text_modifiers"
       ],
@@ -14230,10 +14236,17 @@
               "source": "registry/components/layout/app/_impl/core/shadcn_ui.dart"
             }
           ]
+        },
+        {
+          "source": "registry/components/layout/app/component_theme_global_configs.dart",
+          "destination": "{installPath}/components/layout/app/component_theme_global_configs.dart"
         }
       ],
       "shared": [
         "theme",
+        "app_theme",
+        "app_theme_preset",
+        "preset_themes",
         "overlay",
         "constants"
       ],

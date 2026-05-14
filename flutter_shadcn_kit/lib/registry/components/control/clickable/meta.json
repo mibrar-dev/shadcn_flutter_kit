@@ -11,7 +11,8 @@
   ],
   "dependencies": {
     "shared": [
-      "clickable"
+      "clickable",
+      "focus_outline"
     ],
     "components": [],
     "pubspec": {

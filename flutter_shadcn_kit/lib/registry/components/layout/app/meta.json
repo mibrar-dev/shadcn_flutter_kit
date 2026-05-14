@@ -14,6 +14,9 @@
   "dependencies": {
     "shared": [
       "theme",
+      "app_theme",
+      "app_theme_preset",
+      "preset_themes",
       "overlay",
       "constants"
     ],
@@ -26,7 +29,8 @@
   },
   "files": [
     "_impl/core/shadcn_ui.dart",
-    "app.dart"
+    "app.dart",
+    "component_theme_global_configs.dart"
   ],
   "api": {
     "constructors": [],

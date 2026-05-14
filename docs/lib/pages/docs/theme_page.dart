@@ -126,15 +126,21 @@ class _ThemePageState extends State<ThemePage> {
               ],
               _buildKitchenPreview(context),
               const SizedBox(height: 28),
-              const Text('Code').h2(),
-              const SizedBox(height: 12),
-              const Text('Generated Theme Preset').semiBold(),
-              const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildPresetCodeSnippet(controller)),
-              const SizedBox(height: 16),
-              const Text('ShadcnApp Usage').semiBold(),
-              const SizedBox(height: 8),
-              DocsCodeBlock(code: _buildAppCodeSnippet(controller)),
+              if (_isSinglePresetSelection) ...[
+                const Text('Install Command').h2(),
+                const SizedBox(height: 12),
+                DocsCodeBlock(code: _buildThemeInstallCommand()),
+              ] else ...[
+                const Text('Code').h2(),
+                const SizedBox(height: 12),
+                const Text('Generated Theme Preset').semiBold(),
+                const SizedBox(height: 8),
+                DocsCodeBlock(code: _buildPresetCodeSnippet(controller)),
+                const SizedBox(height: 16),
+                const Text('ShadcnApp Usage').semiBold(),
+                const SizedBox(height: 8),
+                DocsCodeBlock(code: _buildAppCodeSnippet(controller)),
+              ],
             ],
           );
         },
@@ -227,6 +233,7 @@ class _ThemePageState extends State<ThemePage> {
     if (_basePresetId == nextBasePresetId) return;
     setState(() {
       _basePresetId = nextBasePresetId;
+      _accentPresetId = nextBasePresetId;
     });
     _applyPresetSelections(controller, baseChanged: true);
   }
@@ -1075,17 +1082,14 @@ class _ThemePageState extends State<ThemePage> {
       density: data.density,
       presetDensity: presetTokens.density,
     );
-    final panelForeground = isDark
-        ? const Color(0xFFF5F5F5)
-        : theme.colorScheme.foreground;
-    final panelMutedForeground = isDark
-        ? const Color(0xFFB8B8B8)
-        : theme.colorScheme.mutedForeground;
+    final panelForeground =
+        isDark ? const Color(0xFFF5F5F5) : theme.colorScheme.foreground;
+    final panelMutedForeground =
+        isDark ? const Color(0xFFB8B8B8) : theme.colorScheme.mutedForeground;
 
     return OutlinedContainer(
-      backgroundColor: isDark
-          ? const Color(0xFF141414)
-          : theme.colorScheme.card,
+      backgroundColor:
+          isDark ? const Color(0xFF141414) : theme.colorScheme.card,
       borderColor: theme.colorScheme.border,
       surfaceOpacity: isDark ? 0.98 : 1,
       surfaceBlur: isDark ? 10 : 0,
@@ -1354,6 +1358,12 @@ class _ThemePageState extends State<ThemePage> {
           orElse: () => const MapEntry('Default', Density.defaultDensity),
         )
         .key;
+  }
+
+  bool get _isSinglePresetSelection => _basePresetId == _accentPresetId;
+
+  String _buildThemeInstallCommand() {
+    return 'flutter_shadcn theme --apply $_basePresetId';
   }
 
   String _buildPresetCodeSnippet(DocsThemeController controller) {

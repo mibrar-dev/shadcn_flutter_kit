@@ -15,6 +15,7 @@
       "color_extensions",
       "geometry_extensions",
       "clickable",
+      "focus_outline",
       "form_control",
       "form_value_supplier",
       "menu_group"

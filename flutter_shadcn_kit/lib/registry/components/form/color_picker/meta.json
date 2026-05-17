@@ -71,5 +71,7 @@
       "`onChanged`, `onChanging`, `onModeChanged`, `onEyeDropperRequested`"
     ]
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

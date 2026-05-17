@@ -8,13 +8,37 @@ Combined branch: `branch-v1-registry-manifest-hard-errors-combined`
 
 ## Purpose
 
-The previous registry audit still had hard component-manifest errors where components imported shared files but their `meta.json` did not declare those shared dependencies. That means the CLI could install a component without copying all shared files it needs.
+The registry audit exposed two classes of production readiness issues:
 
-This pass split the remaining hard errors across three agents. Each agent edited disjoint component `meta.json` files and committed its own branch. The combined branch cherry-picks all agent commits and verifies the full registry state together.
+- Hard component manifest errors: components imported shared registry files that were not declared in the component `meta.json`.
+- Warning-level metadata and theme install issues: many component manifests did not expose flat `assets` and `fonts` keys, and shared theme entries still referenced generated theme folders too broadly.
 
-## Audit Result After Combined Work
+The work was split across OpenCode worker branches and then cherry-picked into the combined branch for final verification.
 
-Command:
+## Before
+
+Initial audit state before the hard-error pass:
+
+- `component_manifests` hard errors: `39`
+- Missing shared dependency declarations meant the CLI could install a component without installing every shared file it imports.
+
+Audit state after the first hard-error pass, before this continuation:
+
+- `component_manifests` hard errors: `0`
+- Remaining hazards: `214`
+- Warning-level component metadata gaps: `106` components missing flat `assets` or `fonts`
+- Theme-install warnings: `2`
+
+## After
+
+Final audit state on the combined branch:
+
+- `component_manifests` hard errors: `0`
+- Warning-level metadata hazards: `0`
+- Theme-install hazards: `0`
+- Total registry audit hazards: `0`
+
+Verification command:
 
 ```bash
 dart run flutter_shadcn_kit/tool/registry_manifest_audit.dart
@@ -22,151 +46,181 @@ dart run flutter_shadcn_kit/tool/registry_manifest_audit.dart
 
 Result:
 
-- `component_manifests` errors: `0`
-- Remaining hazards: `214`
-- Remaining warning-level component metadata gaps: `106` unique components still miss flat `assets`/`fonts` fields
-- Remaining theme warnings: `2`
+```text
+Registry manifest audit passed. No hazards found.
+```
 
-The hard install correctness issue is resolved for the audited shared-dependency mismatches. Remaining work is warning-level metadata completion and theme-install narrowing.
+Additional JSON verification:
 
-## Agent A: Form And Input Manifests
+```bash
+python3 -m json.tool flutter_shadcn_kit/lib/registry/manifests/components.json >/dev/null
+find flutter_shadcn_kit/lib/registry/components -path '*/meta.json' -exec python3 -m json.tool {} >/dev/null \;
+```
+
+Both commands exited successfully.
+
+## Agent A: Form And Input Manifest Dependencies
 
 Branch: `branch-v1-registry-form-input-manifests`
 
-Commit: `49002b99`
+Original worker commit: `49002b99`
+
+Combined commit: `8182fc44`
 
 Scope:
 
-- `flutter_shadcn_kit/lib/registry/components/form/autocomplete/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/form/checkbox/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/form/form/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/form/formatted_input/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/form/text_field/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/control/clickable/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/display/keyboard_shortcut/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/layout/sortable/meta.json`
+- Form components with missing shared dependency declarations.
+- Control/display/layout components that were part of the same hard-error group.
 
 What changed:
 
-- Added missing shared dependency IDs used by imports:
-  - `util`
-  - `color_extensions`
-  - `animated_value_builder`
-  - `constants`
-  - `phone_number`
-  - `slider_value`
-  - `focus_outline`
-  - `text_input_utils`
-  - `keyboard_shortcut_utils`
-  - `clickable`
-- Added empty `assets: []` and `fonts: []` to the touched manifests where missing.
+- Added missing shared dependency IDs used by Dart imports.
+- Added empty `assets: []` and `fonts: []` where needed on touched manifests.
 
-Effect on current code:
+Code impact:
 
-- Installing these form/control components now pulls the shared files they actually import.
-- The registry source of truth is more complete per component.
-- The CLI has fewer chances to produce generated component installs with missing imports.
+- Form and related component installs now pull required shared primitives and utility files through the component manifest.
+- The CLI can treat the component manifest as the per-component install source of truth for these components.
 
-Verification:
-
-- All edited JSON files parsed successfully.
-- Audit no longer reports errors for the scoped components.
-
-## Agent B: Overlay And Navigation Manifests
+## Agent B: Overlay And Navigation Manifest Dependencies
 
 Branch: `branch-v1-registry-overlay-nav-manifests`
 
-Commit: `e6a0a1f0`
+Original worker commit: `e6a0a1f0`
+
+Combined commit: `6cb65d3d`
 
 Scope:
 
-- `flutter_shadcn_kit/lib/registry/components/overlay/context_menu/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/overlay/drawer/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/form/file_picker/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/overlay/menu/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/overlay/popup/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/overlay/tooltip/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/navigation/navigation_bar/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/navigation/navigation_menu/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/navigation/pagination/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/navigation/tabs/meta.json`
+- Overlay components.
+- Navigation components.
+- `form/file_picker`, which was located in the form registry path but grouped with this dependency issue.
 
 What changed:
 
-- Added missing shared dependency IDs used by imports:
-  - `animated_value_builder`
-  - `util`
-  - `lucide_icons`
-  - `overlay`
-  - `outlined_container`
-  - `geometry_extensions`
-  - `sheet_overlay`
-  - `icon_extensions`
-  - `color_extensions`
-- Added empty `assets: []` and `fonts: []` to the touched manifests where missing.
+- Added missing shared dependency IDs including overlay primitives, icon helpers, geometry helpers, and utility files.
+- Added empty `assets: []` and `fonts: []` where needed on touched manifests.
 
-Effect on current code:
+Code impact:
 
-- Overlay and navigation component installs now declare the shared primitives, icons, and utilities they depend on.
-- `file_picker` is corrected at its actual registry path under `form/file_picker`.
-- The CLI can trust these component manifests more safely during per-component installs.
+- Overlay and navigation component installs now declare the shared files they import.
+- The `file_picker` manifest now resolves from its actual registry path and declares its dependency surface correctly.
 
-Verification:
-
-- All edited JSON files parsed successfully.
-- Audit no longer reports errors for the scoped components.
-
-## Agent C: Display And Utility Manifests
+## Agent C: Display And Utility Manifest Dependencies
 
 Branch: `branch-v1-registry-display-utility-manifests`
 
-Commit: `01859a14`
+Original worker commit: `01859a14`
+
+Combined commit: `a9de1e32`
 
 Scope:
 
-- `flutter_shadcn_kit/lib/registry/components/display/chat/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/display/markdown/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/display/skeleton/meta.json`
-- `flutter_shadcn_kit/lib/registry/components/utility/error_system/meta.json`
+- Display components with missing dependency declarations.
+- Utility registry components involved in the hard-error audit.
 
 What changed:
 
-- Added missing shared dependency IDs used by imports:
-  - `axis`
-  - `outlined_container`
-  - `style_value`
-  - `color_extensions`
-- Added empty `assets: []` and `fonts: []` to `markdown` where missing.
+- Added missing shared dependency IDs used by display and utility imports.
+- Added flat metadata keys where needed on touched manifests.
 
-Effect on current code:
+Code impact:
 
-- Display and utility components now declare the shared helpers their Dart files import.
-- `error_system` is corrected at its actual registry path under `utility/error_system`.
-- The audit no longer flags these display/utility install manifests as incomplete.
+- Display and utility component installs now include required shared helpers instead of relying on broad init-time shared installs.
 
-Verification:
+## Theme Manifest Fix
 
-- All edited JSON files parsed successfully.
-- Audit no longer reports errors for the scoped components.
+Combined commit: `5db8c5a3`
 
-## Combined Branch
+Scope:
 
-Branch: `branch-v1-registry-manifest-hard-errors-combined`
+- `flutter_shadcn_kit/lib/registry/manifests/components.json`
 
-Commits:
+What changed:
 
-- `8182fc44` - form/input manifest fixes
-- `6cb65d3d` - overlay/navigation manifest fixes
-- `a9de1e32` - display/utility manifest fixes
+- Removed generated theme folder file entries from shared registry entries:
+  - `preset_themes`
+  - `app_theme_preset`
 
-What the combined branch changes:
+Code impact:
 
-- Brings all three agent scopes together in one branch.
-- Reduces `component_manifests` hard errors from `39` to `0`.
-- Leaves warning-level metadata and theme-install cleanup as explicit follow-up work.
+- Init/shared install paths no longer copy every generated theme file through broad shared entries.
+- Theme installation is narrower and aligns with the requirement that init should not install unused generated theme folders.
 
-## Remaining Work
+## Agent D: Form And Control Metadata Completion
 
-- Add flat `assets: []` and `fonts: []` fields to the remaining 106 warning-level component manifests.
-- Resolve the two theme-install warnings for `preset_themes` and `app_theme_preset`.
-- Re-run the full CLI install QA after the combined branch is merged into the registry branch consumed by the CLI.
+Branch: `branch-v1-registry-metadata-form-control`
+
+Original worker commit: `81307aec`
+
+Combined commit: `9feec8b7`
+
+Scope:
+
+- 31 form/control component manifests.
+
+What changed:
+
+- Added missing top-level `assets: []` and `fonts: []` fields.
+
+Code impact:
+
+- Form/control manifests now expose explicit empty asset and font metadata.
+- The CLI can read component asset/font metadata without falling back to implicit assumptions.
+
+## Agent E: Display And Utility Metadata Completion
+
+Branch: `branch-v1-registry-metadata-display-utility`
+
+Original worker commit: `0afacddc`
+
+Combined commit: `124e4a45`
+
+Scope:
+
+- 34 display/utility component manifests.
+
+What changed:
+
+- Added missing top-level `assets: []` and `fonts: []` fields.
+
+Code impact:
+
+- Display/utility component manifests now have complete flat metadata for asset/font resolution.
+
+## Agent F: Layout, Overlay, And Navigation Metadata Completion
+
+Branch: `branch-v1-registry-metadata-layout-overlay-nav`
+
+Original worker commit: `a17ffa5c`
+
+Combined commit: `80da22d4`
+
+Scope:
+
+- 41 layout/overlay/navigation component manifests.
+
+What changed:
+
+- Added missing top-level `assets: []` and `fonts: []` fields.
+- Normalized several manifests that had dependency metadata but lacked the flat asset/font keys required by the audit.
+
+Code impact:
+
+- Layout, overlay, and navigation component manifests now expose complete install metadata.
+- Component installs can stay per-component instead of depending on broad shared file copying during init.
+
+## Final Combined Branch Commits
+
+- `8182fc44` - Fix form and input registry manifest dependencies
+- `6cb65d3d` - Fix overlay and navigation registry manifest dependencies
+- `a9de1e32` - Fix display registry manifest dependencies
+- `6d292032` - Report registry manifest agent fixes
+- `5db8c5a3` - Limit shared theme manifest entries
+- `9feec8b7` - Add form and control asset font metadata
+- `124e4a45` - Add display and utility asset font metadata
+- `80da22d4` - Add layout overlay navigation asset font metadata
+
+## Current Status
+
+The registry manifest audit is clean on the combined branch. The remaining production validation work is CLI-side end-to-end QA against this registry state: interactive `init`, optional assets/fonts/icons prompts, per-component install behavior, and `pubspec.yaml` preservation.

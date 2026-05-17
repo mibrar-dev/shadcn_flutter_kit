@@ -26,6 +26,8 @@
       "gap": "^3.0.1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_calendar_preview_state.dart",
     "_impl/core/_calendar_state.dart",

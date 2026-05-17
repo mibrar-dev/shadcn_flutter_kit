@@ -19,6 +19,8 @@
     ],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/chip_button.dart",
     "_impl/themes/base/chip_theme.dart",

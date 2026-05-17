@@ -17,6 +17,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/themes/base/progress_theme.dart",
     "_impl/themes/config/progress_theme_config.dart",

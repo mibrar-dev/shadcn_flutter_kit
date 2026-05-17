@@ -21,6 +21,8 @@
       "skeletonizer": "^2.1.0+1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/color_derivative.dart",
     "_impl/core/color_gradient.dart",

@@ -19,6 +19,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/themes/base/focus_outline_theme.dart",
     "_impl/themes/config/focus_outline_theme_config.dart",

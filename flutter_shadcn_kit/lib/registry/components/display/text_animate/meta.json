@@ -18,6 +18,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/blur_in_effect.dart",
     "_impl/core/combined_effect.dart",

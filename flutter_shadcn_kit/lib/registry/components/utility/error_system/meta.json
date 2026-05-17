@@ -29,6 +29,8 @@
       "gap": "^3.0.1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/app_error.dart",
     "_impl/core/app_error_banner.dart",

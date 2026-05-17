@@ -14,7 +14,8 @@
       "theme",
       "style_value",
       "constants",
-      "clickable"
+      "clickable",
+      "axis"
     ],
     "components": [
       "basic",

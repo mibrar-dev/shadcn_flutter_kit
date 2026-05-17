@@ -27,6 +27,24 @@
     ],
     "pubspec": {}
   },
+  "shared": [
+    "theme",
+    "app_theme",
+    "app_theme_preset",
+    "preset_themes",
+    "overlay",
+    "constants"
+  ],
+  "dependsOn": [
+    "scaffold",
+    "divider",
+    "shadcn_localizations"
+  ],
+  "pubspec": {
+    "dependencies": {}
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/shadcn_ui.dart",
     "app.dart",

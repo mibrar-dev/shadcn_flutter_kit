@@ -16,6 +16,15 @@
       "intl": "any"
     }
   },
+  "shared": [],
+  "dependsOn": [],
+  "pubspec": {
+    "dependencies": {
+      "intl": "any"
+    }
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "shadcn_localizations_en.dart"
   ],

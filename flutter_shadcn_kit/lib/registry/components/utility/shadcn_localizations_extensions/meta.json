@@ -20,6 +20,19 @@
     ],
     "pubspec": {}
   },
+  "shared": [
+    "util"
+  ],
+  "dependsOn": [
+    "color_picker",
+    "locale_utils",
+    "shadcn_localizations"
+  ],
+  "pubspec": {
+    "dependencies": {}
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "shadcn_localizations_extensions.dart"
   ],

@@ -19,6 +19,18 @@
       "intl": "any"
     }
   },
+  "shared": [],
+  "dependsOn": [
+    "shadcn_localizations_en"
+  ],
+  "pubspec": {
+    "dependencies": {
+      "flutter_localizations": "sdk: flutter",
+      "intl": "any"
+    }
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/utils/shadcn_localizations_delegate.dart",
     "shadcn_localizations.dart"

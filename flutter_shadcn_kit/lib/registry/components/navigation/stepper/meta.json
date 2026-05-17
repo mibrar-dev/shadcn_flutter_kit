@@ -25,6 +25,24 @@
       "gap": "^3.0.1"
     }
   },
+  "shared": [
+    "clickable",
+    "constants",
+    "theme",
+    "util"
+  ],
+  "dependsOn": [
+    "icon",
+    "text"
+  ],
+  "pubspec": {
+    "dependencies": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    }
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/step.dart",
     "_impl/core/step_container.dart",

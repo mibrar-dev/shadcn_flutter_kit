@@ -18,7 +18,8 @@
       "focus_outline",
       "form_control",
       "form_value_supplier",
-      "menu_group"
+      "menu_group",
+      "platform_utils"
     ],
     "components": [],
     "pubspec": {
@@ -26,6 +27,26 @@
       "gap": "^3.0.1"
     }
   },
+  "shared": [
+    "theme",
+    "color_extensions",
+    "geometry_extensions",
+    "clickable",
+    "focus_outline",
+    "form_control",
+    "form_value_supplier",
+    "menu_group",
+    "platform_utils"
+  ],
+  "dependsOn": [],
+  "pubspec": {
+    "dependencies": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    }
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/button_core.dart",
     "_impl/core/button_group.dart",

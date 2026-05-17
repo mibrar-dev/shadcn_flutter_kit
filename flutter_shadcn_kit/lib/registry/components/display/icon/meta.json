@@ -15,6 +15,15 @@
     "components": [],
     "pubspec": {}
   },
+  "shared": [
+    "theme"
+  ],
+  "dependsOn": [],
+  "pubspec": {
+    "dependencies": {}
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "icon.dart"
   ],

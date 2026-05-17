@@ -16,6 +16,15 @@
     "components": [],
     "pubspec": {}
   },
+  "shared": [
+    "util"
+  ],
+  "dependsOn": [],
+  "pubspec": {
+    "dependencies": {}
+  },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/date_part.dart",
     "_impl/core/duration_part.dart",

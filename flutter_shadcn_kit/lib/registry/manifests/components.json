@@ -15,146 +15,6 @@
       "description": "Core theme data, color schemes, and typography.",
       "files": [
         {
-          "source": "registry/shared/fonts/NotoSansSymbols2-Regular.ttf",
-          "destination": "{sharedPath}/fonts/NotoSansSymbols2-Regular.ttf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Black.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Black.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-BlackItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-BlackItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Bold.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Bold.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-BoldItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-BoldItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-ExtraLightItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-ExtraLightItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Light.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Light.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-LightItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-LightItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Medium.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Medium.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-MediumItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-MediumItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Regular.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Regular.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-RegularItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-RegularItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-SemiBold.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-SemiBold.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-SemiBoldItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-SemiBoldItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-Thin.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-Thin.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-ThinItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-ThinItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-UltraBlack.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-UltraBlack.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/Geist-UltraLight.otf",
-          "destination": "{sharedPath}/fonts/geist/Geist-UltraLight.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Black.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Black.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-BlackItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-BlackItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Bold.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Bold.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-BoldItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-BoldItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-ExtraLightItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-ExtraLightItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Italic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Italic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Light.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Light.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-LightItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-LightItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Medium.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Medium.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-MediumItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-MediumItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Regular.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Regular.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-SemiBold.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-SemiBold.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-SemiBoldItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-SemiBoldItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-Thin.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-Thin.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-ThinItalic.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-ThinItalic.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-UltraBlack.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-UltraBlack.otf"
-        },
-        {
-          "source": "registry/shared/fonts/geist/GeistMono-UltraLight.otf",
-          "destination": "{sharedPath}/fonts/geist/GeistMono-UltraLight.otf"
-        },
-        {
           "source": "registry/shared/theme/_impl/core/adaptive_scaler.dart",
           "destination": "{sharedPath}/theme/_impl/core/adaptive_scaler.dart"
         },
@@ -827,10 +687,6 @@
       "description": "Lucide icon font mappings used by controls.",
       "files": [
         {
-          "source": "registry/shared/fonts/lucide.ttf",
-          "destination": "{sharedPath}/fonts/lucide.ttf"
-        },
-        {
           "source": "registry/shared/icons/lucide_icons.dart",
           "destination": "{sharedPath}/icons/lucide_icons.dart"
         },
@@ -844,10 +700,6 @@
       "id": "radix_icons",
       "description": "Radix icon font mappings used by menus.",
       "files": [
-        {
-          "source": "registry/shared/fonts/radix.otf",
-          "destination": "{sharedPath}/fonts/radix.otf"
-        },
         {
           "source": "registry/shared/icons/radix_icons.dart",
           "destination": "{sharedPath}/icons/radix_icons.dart"
@@ -1530,10 +1382,6 @@
       "id": "bootstrap_icons",
       "description": "Bootstrap icon font mappings used by icon-based components.",
       "files": [
-        {
-          "source": "registry/shared/fonts/bootstrap.otf",
-          "destination": "{sharedPath}/fonts/bootstrap.otf"
-        },
         {
           "source": "registry/shared/icons/bootstrap_icons.dart",
           "destination": "{sharedPath}/icons/bootstrap_icons.dart"

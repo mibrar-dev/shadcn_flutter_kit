@@ -26,12 +26,14 @@
   ],
   "api": {
     "constructors": [
-      "`Basic` — styled layout with title/subtitle/content.",
-      "`BasicLayout` — layout without text styling.",
-      "`Label` — label row with leading/trailing widgets.",
-      "`BasicTheme` — alignment, spacing, and padding defaults."
+      "`Basic` \u2014 styled layout with title/subtitle/content.",
+      "`BasicLayout` \u2014 layout without text styling.",
+      "`Label` \u2014 label row with leading/trailing widgets.",
+      "`BasicTheme` \u2014 alignment, spacing, and padding defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

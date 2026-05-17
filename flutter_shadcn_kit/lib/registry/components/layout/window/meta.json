@@ -48,13 +48,15 @@
   ],
   "api": {
     "constructors": [
-      "`Window` — main window widget.",
-      "`WindowController` — controller for window state.",
-      "`WindowState` — bounds, minimization, resizing flags.",
-      "`WindowTheme` — title bar height and resize thickness.",
-      "`WindowSnapStrategy` — snapping behavior."
+      "`Window` \u2014 main window widget.",
+      "`WindowController` \u2014 controller for window state.",
+      "`WindowState` \u2014 bounds, minimization, resizing flags.",
+      "`WindowTheme` \u2014 title bar height and resize thickness.",
+      "`WindowSnapStrategy` \u2014 snapping behavior."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

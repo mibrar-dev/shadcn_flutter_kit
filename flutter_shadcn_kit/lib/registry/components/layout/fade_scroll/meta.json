@@ -28,9 +28,11 @@
       "`FadeScroll`",
       "`startOffset`, `endOffset`",
       "`gradient` (`List<Color>?`)",
-      "`FadeScrollTheme` — theme defaults."
+      "`FadeScrollTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

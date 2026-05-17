@@ -28,11 +28,13 @@
   ],
   "api": {
     "constructors": [
-      "`Steps` — container for step items.",
-      "`StepItem` — title + content block.",
-      "`StepsTheme` — indicator size, spacing, and colors."
+      "`Steps` \u2014 container for step items.",
+      "`StepItem` \u2014 title + content block.",
+      "`StepsTheme` \u2014 indicator size, spacing, and colors."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

@@ -4,6 +4,8 @@
   "description": "Two-dimensional scrollable client and faded viewport utilities.",
   "category": "layout",
   "tier": "component",
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0",
   "tags": [
     "layout",

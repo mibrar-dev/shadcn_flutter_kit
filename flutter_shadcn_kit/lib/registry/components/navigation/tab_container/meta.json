@@ -35,11 +35,13 @@
       "`onChanged` (`ValueChanged<int>?`)",
       "`children` (`List<Widget>`)",
       "`builder`, `childBuilder`",
-      "`TabItem` / `KeyedTabItem` — tab items.",
-      "`TabChildWidget` / `KeyedTabChildWidget` — tab content wrappers.",
-      "`TabContainerTheme` — builder defaults."
+      "`TabItem` / `KeyedTabItem` \u2014 tab items.",
+      "`TabChildWidget` / `KeyedTabChildWidget` \u2014 tab content wrappers.",
+      "`TabContainerTheme` \u2014 builder defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

@@ -32,9 +32,11 @@
       "`index` (`int?`)",
       "`onChanged` (`ValueChanged<int>?`)",
       "`children` (`List<TabChild>`)",
-      "`TabListTheme` — border and indicator styling."
+      "`TabListTheme` \u2014 border and indicator styling."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

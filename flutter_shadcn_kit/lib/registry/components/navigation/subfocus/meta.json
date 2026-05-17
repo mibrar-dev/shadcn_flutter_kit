@@ -27,10 +27,12 @@
       "`SubFocusScope`",
       "`builder` (`SubFocusScopeBuilder?`)",
       "`autofocus` (`bool`)",
-      "`SubFocus` — focusable child widget.",
-      "`SubFocusScopeState` — focus management interface."
+      "`SubFocus` \u2014 focusable child widget.",
+      "`SubFocusScopeState` \u2014 focus management interface."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

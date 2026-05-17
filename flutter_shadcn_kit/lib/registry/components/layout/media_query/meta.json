@@ -26,9 +26,11 @@
       "`minWidth`, `maxWidth`",
       "`child` (`Widget`, required)",
       "`alternate` (`Widget?`)",
-      "`MediaQueryVisibilityTheme` — theme defaults."
+      "`MediaQueryVisibilityTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

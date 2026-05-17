@@ -30,9 +30,11 @@
       "`OverflowMarquee`",
       "`direction`, `duration`, `delayDuration`",
       "`step`, `fadePortion`, `curve`",
-      "`OverflowMarqueeTheme` — theme defaults."
+      "`OverflowMarqueeTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

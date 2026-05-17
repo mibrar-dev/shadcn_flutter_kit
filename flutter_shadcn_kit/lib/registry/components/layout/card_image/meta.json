@@ -39,9 +39,11 @@
       "`title`, `subtitle`, `content` (`Widget?`)",
       "`direction` (`Axis?`)",
       "`onPressed` (`VoidCallback?`)",
-      "`CardImageTheme` — style, spacing, and hover settings."
+      "`CardImageTheme` \u2014 style, spacing, and hover settings."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

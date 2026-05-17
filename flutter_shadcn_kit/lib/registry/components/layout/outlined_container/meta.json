@@ -39,12 +39,14 @@
   ],
   "api": {
     "constructors": [
-      "`OutlinedContainer` — main bordered surface.",
-      "`DashedContainer` — dashed border variant.",
-      "`SurfaceBlur` — optional blur layer wrapper.",
-      "`OutlinedContainerTheme` — border and background defaults."
+      "`OutlinedContainer` \u2014 main bordered surface.",
+      "`DashedContainer` \u2014 dashed border variant.",
+      "`SurfaceBlur` \u2014 optional blur layer wrapper.",
+      "`OutlinedContainerTheme` \u2014 border and background defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

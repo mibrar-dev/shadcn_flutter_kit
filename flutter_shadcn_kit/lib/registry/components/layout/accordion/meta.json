@@ -38,12 +38,14 @@
   ],
   "api": {
     "constructors": [
-      "`Accordion` — takes `items` list.",
-      "`AccordionItem` — section with `title`, `content`.",
-      "`AccordionTrigger` — interactive header widget.",
-      "`AccordionTheme` — theme for spacing and styles."
+      "`Accordion` \u2014 takes `items` list.",
+      "`AccordionItem` \u2014 section with `title`, `content`.",
+      "`AccordionTrigger` \u2014 interactive header widget.",
+      "`AccordionTheme` \u2014 theme for spacing and styles."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

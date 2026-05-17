@@ -11,7 +11,8 @@
   ],
   "dependencies": {
     "shared": [
-      "constants"
+      "constants",
+      "util"
     ],
     "components": [],
     "pubspec": {
@@ -47,5 +48,7 @@
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

@@ -13,7 +13,8 @@
     "shared": [
       "overlay",
       "theme",
-      "style_value"
+      "style_value",
+      "util"
     ],
     "components": [
       "button",
@@ -47,5 +48,7 @@
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

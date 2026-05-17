@@ -14,7 +14,8 @@
       "theme",
       "style_value",
       "color_extensions",
-      "util"
+      "util",
+      "keyboard_shortcut_utils"
     ],
     "components": [
       "card"
@@ -46,5 +47,7 @@
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

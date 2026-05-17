@@ -16,7 +16,9 @@
       "style_value",
       "constants",
       "outlined_container",
-      "fade_scroll"
+      "fade_scroll",
+      "geometry_extensions",
+      "util"
     ],
     "components": [
       "sortable"
@@ -54,6 +56,8 @@
     "_impl/utils/tab_builder_typedefs.dart",
     "tabs.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [
       "`Tabs`",

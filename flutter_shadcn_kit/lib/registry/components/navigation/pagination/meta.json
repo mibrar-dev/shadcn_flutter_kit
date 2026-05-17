@@ -13,7 +13,8 @@
       "theme",
       "style_value",
       "localizations",
-      "radix_icons"
+      "radix_icons",
+      "icon_extensions"
     ],
     "components": [
       "button",
@@ -26,6 +27,8 @@
     "_impl/state/_pagination_preview_state.dart",
     "pagination.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [
       "`Pagination`",

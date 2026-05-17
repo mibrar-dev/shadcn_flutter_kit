@@ -18,7 +18,8 @@
       "geometry_extensions",
       "controlled_animation",
       "outlined_container",
-      "overlay"
+      "overlay",
+      "util"
     ],
     "components": [
       "dialog"
@@ -60,6 +61,8 @@
     "_impl/utils/sheet_overlay_handler.dart",
     "drawer.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [],
     "callbacks": [],

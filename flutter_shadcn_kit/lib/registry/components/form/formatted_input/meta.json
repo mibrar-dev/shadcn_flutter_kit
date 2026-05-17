@@ -15,7 +15,10 @@
       "form_control",
       "clickable",
       "overlay",
-      "util"
+      "util",
+      "focus_outline",
+      "color_extensions",
+      "text_input_utils"
     ],
     "components": [
       "button"
@@ -62,5 +65,7 @@
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

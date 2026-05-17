@@ -13,7 +13,11 @@
     "shared": [
       "theme",
       "focus_outline",
-      "text_modifiers"
+      "text_modifiers",
+      "phone_number",
+      "slider_value",
+      "color_extensions",
+      "util"
     ],
     "components": [
       "button",
@@ -92,5 +96,7 @@
       "`onChanged` (FormEntry/FormField)"
     ]
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

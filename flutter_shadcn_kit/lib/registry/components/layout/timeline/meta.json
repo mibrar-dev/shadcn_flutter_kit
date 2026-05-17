@@ -31,10 +31,12 @@
       "`Timeline`",
       "`data` (`List<TimelineData>`, required)",
       "`timeConstraints`, `spacing`, `dotSize`, `connectorThickness`, `rowGap`",
-      "`TimelineData` — `time`, `title`, `content`, `color`.",
-      "`TimelineTheme` — theme defaults."
+      "`TimelineData` \u2014 `time`, `title`, `content`, `color`.",
+      "`TimelineTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

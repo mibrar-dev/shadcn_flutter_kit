@@ -35,11 +35,13 @@
   ],
   "api": {
     "constructors": [
-      "`Card` — standard container.",
-      "`SurfaceCard` — card with optional surface blur.",
-      "`CardTheme` — padding, radius, and background defaults."
+      "`Card` \u2014 standard container.",
+      "`SurfaceCard` \u2014 card with optional surface blur.",
+      "`CardTheme` \u2014 padding, radius, and background defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

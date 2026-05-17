@@ -40,9 +40,11 @@
       "`direction` (`Axis?`)",
       "`duration`, `curve`, `reverse`",
       "`keepCrossAxisSize`, `keepMainAxisSize`",
-      "`HiddenTheme` — theme defaults for animation and axis."
+      "`HiddenTheme` \u2014 theme defaults for animation and axis."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

@@ -4,6 +4,8 @@
   "description": "Flex component for the registry.",
   "category": "layout",
   "tier": "component",
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0",
   "tags": [
     "layout",

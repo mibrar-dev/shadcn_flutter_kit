@@ -33,10 +33,12 @@
       "`breakpoint` (`StageBreakpoint?`)",
       "`padding` (`EdgeInsetsGeometry?`)",
       "`builder` (`Widget Function(BuildContext, EdgeInsetsGeometry)`, required)",
-      "`StageBreakpoint` — `constant`, `staged`, `defaultBreakpoints`.",
-      "`StageContainerTheme` — padding/breakpoint defaults."
+      "`StageBreakpoint` \u2014 `constant`, `staged`, `defaultBreakpoints`.",
+      "`StageContainerTheme` \u2014 padding/breakpoint defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

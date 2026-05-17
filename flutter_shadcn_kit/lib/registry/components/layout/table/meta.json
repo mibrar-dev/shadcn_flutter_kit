@@ -62,14 +62,16 @@
   ],
   "api": {
     "constructors": [
-      "`Table` — main table widget.",
-      "`ResizableTable` — table with resizable columns.",
-      "`TableHeader` / `TableFooter` — row types.",
-      "`TableRow` — row model.",
-      "`TableCell` — cell model.",
-      "`ResizableTableController` — column sizing controller."
+      "`Table` \u2014 main table widget.",
+      "`ResizableTable` \u2014 table with resizable columns.",
+      "`TableHeader` / `TableFooter` \u2014 row types.",
+      "`TableRow` \u2014 row model.",
+      "`TableCell` \u2014 cell model.",
+      "`ResizableTableController` \u2014 column sizing controller."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

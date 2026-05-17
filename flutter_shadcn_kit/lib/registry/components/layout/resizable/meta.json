@@ -44,13 +44,15 @@
   ],
   "api": {
     "constructors": [
-      "`ResizablePanel` — container for panes.",
-      "`ResizablePane` — resizable pane with controller.",
-      "`HorizontalResizableDragger` / `VerticalResizableDragger` — dividers.",
-      "`ResizablePaneController` — base controller interface.",
-      "`AbsoluteResizablePaneController` / `FlexibleResizablePaneController` — controller types."
+      "`ResizablePanel` \u2014 container for panes.",
+      "`ResizablePane` \u2014 resizable pane with controller.",
+      "`HorizontalResizableDragger` / `VerticalResizableDragger` \u2014 dividers.",
+      "`ResizablePaneController` \u2014 base controller interface.",
+      "`AbsoluteResizablePaneController` / `FlexibleResizablePaneController` \u2014 controller types."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

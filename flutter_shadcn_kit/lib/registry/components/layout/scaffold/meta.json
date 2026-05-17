@@ -47,10 +47,12 @@
       "`child`",
       "`loadingProgress`, `showLoadingSparks`",
       "`resizeToAvoidBottomInset`",
-      "`AppBar` — header bar widget.",
-      "`ScaffoldTheme` — background and loading styling."
+      "`AppBar` \u2014 header bar widget.",
+      "`ScaffoldTheme` \u2014 background and loading styling."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

@@ -30,9 +30,11 @@
       "`children` (`List<Widget>`, required)",
       "`separator` (`Widget?`)",
       "`padding` (`EdgeInsetsGeometry?`)",
-      "`BreadcrumbTheme` — separator/padding defaults."
+      "`BreadcrumbTheme` \u2014 separator/padding defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

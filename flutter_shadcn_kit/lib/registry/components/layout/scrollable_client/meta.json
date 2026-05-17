@@ -28,10 +28,12 @@
       "`builder` (`ScrollableBuilder`, required)",
       "`child` (`Widget?`)",
       "`controller` / `diagonalDragBehavior` / `dragStartBehavior`",
-      "`ScrollableClientViewport` — viewport widget.",
-      "`ScrollableBuilder` — `Widget Function(BuildContext, Offset, Size, Widget?)`."
+      "`ScrollableClientViewport` \u2014 viewport widget.",
+      "`ScrollableBuilder` \u2014 `Widget Function(BuildContext, Offset, Size, Widget?)`."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

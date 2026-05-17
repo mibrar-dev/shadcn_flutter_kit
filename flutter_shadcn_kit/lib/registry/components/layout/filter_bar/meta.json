@@ -4,6 +4,8 @@
   "description": "Controlled filter toolbar for list/table pages with search, sort, chips, date range, and clear-all.",
   "category": "layout",
   "tier": "pattern",
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0",
   "tags": [
     "layout",

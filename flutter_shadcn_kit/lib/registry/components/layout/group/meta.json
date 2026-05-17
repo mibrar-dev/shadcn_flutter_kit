@@ -22,10 +22,12 @@
   ],
   "api": {
     "constructors": [
-      "`GroupWidget` — parent for absolute positioning.",
-      "`GroupPositioned` — child with explicit `left`, `top`, `right`, `bottom`, `width`, `height`."
+      "`GroupWidget` \u2014 parent for absolute positioning.",
+      "`GroupPositioned` \u2014 child with explicit `left`, `top`, `right`, `bottom`, `width`, `height`."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

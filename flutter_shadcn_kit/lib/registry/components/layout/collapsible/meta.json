@@ -43,11 +43,13 @@
       "`children` (`List<Widget>`, required)",
       "`isExpanded` (`bool?`)",
       "`onExpansionChanged` (`ValueChanged<bool>?`)",
-      "`CollapsibleTrigger` — interactive header.",
-      "`CollapsibleContent` — animated content panel.",
-      "`CollapsibleTheme` — spacing and styling."
+      "`CollapsibleTrigger` \u2014 interactive header.",
+      "`CollapsibleContent` \u2014 animated content panel.",
+      "`CollapsibleTheme` \u2014 spacing and styling."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

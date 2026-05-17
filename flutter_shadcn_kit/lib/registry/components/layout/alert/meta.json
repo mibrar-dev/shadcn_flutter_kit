@@ -35,10 +35,12 @@
       "`Alert`",
       "`leading`, `title`, `content`, `trailing`",
       "`destructive` (`bool`)",
-      "`Alert.destructive` — destructive styling shortcut.",
-      "`AlertTheme` — padding and surface defaults."
+      "`Alert.destructive` \u2014 destructive styling shortcut.",
+      "`AlertTheme` \u2014 padding and surface defaults."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

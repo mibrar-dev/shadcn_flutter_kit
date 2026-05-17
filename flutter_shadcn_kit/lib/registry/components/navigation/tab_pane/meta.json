@@ -43,10 +43,12 @@
       "`onFocused` (`ValueChanged<int>?`)",
       "`onSort` (`ValueChanged<List<TabPaneData<T>>>?`)",
       "`itemBuilder` (`TabPaneItemBuilder<T>`, required)",
-      "`TabPaneData<T>` — sortable tab data.",
-      "`TabPaneTheme` — container styling."
+      "`TabPaneData<T>` \u2014 sortable tab data.",
+      "`TabPaneTheme` \u2014 container styling."
     ],
     "callbacks": []
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

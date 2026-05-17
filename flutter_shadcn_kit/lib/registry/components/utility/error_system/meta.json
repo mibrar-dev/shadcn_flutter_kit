@@ -14,7 +14,8 @@
   "dependencies": {
     "shared": [
       "theme",
-      "radix_icons"
+      "radix_icons",
+      "outlined_container"
     ],
     "components": [
       "button",

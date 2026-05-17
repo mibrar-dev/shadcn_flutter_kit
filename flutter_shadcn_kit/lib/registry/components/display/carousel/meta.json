@@ -21,6 +21,8 @@
     ],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_carousel_preview_state.dart",
     "_impl/core/_placed_carousel_item.dart",

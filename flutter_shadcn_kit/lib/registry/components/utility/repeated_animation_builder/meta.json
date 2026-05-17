@@ -16,6 +16,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "repeated_animation_builder.dart"
   ],

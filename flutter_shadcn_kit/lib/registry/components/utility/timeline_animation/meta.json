@@ -14,6 +14,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/absolute_keyframe.dart",
     "_impl/core/keyframe.dart",

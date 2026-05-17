@@ -25,6 +25,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/vertical_divider.dart",
     "_impl/themes/base/divider_theme.dart",

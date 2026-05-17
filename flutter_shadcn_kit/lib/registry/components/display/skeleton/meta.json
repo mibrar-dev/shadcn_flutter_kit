@@ -23,6 +23,8 @@
       "skeletonizer": "^2.1.0+1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/themes/base/skeleton_theme.dart",
     "_impl/themes/config/skeleton_theme_config.dart",

@@ -20,6 +20,8 @@
       "gap": "^3.0.1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/state/_code_snippet_state.dart",
     "_impl/themes/base/code_snippet_theme.dart",

@@ -13,6 +13,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/state/wrapper_state.dart",
     "wrapper.dart"

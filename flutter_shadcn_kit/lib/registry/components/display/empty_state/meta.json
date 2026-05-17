@@ -24,6 +24,8 @@
       "gap": "^3.0.1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/empty_state.dart",
     "_impl/core/empty_state_action.dart",

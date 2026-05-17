@@ -19,6 +19,8 @@
     ],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/tracker_widget.dart",
     "_impl/themes/base/tracker_theme.dart",

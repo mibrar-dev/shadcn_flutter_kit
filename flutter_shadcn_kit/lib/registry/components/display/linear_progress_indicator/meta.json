@@ -23,6 +23,8 @@
       "gap": "^3.0.1"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/themes/base/linear_progress_indicator_theme.dart",
     "_impl/themes/config/linear_progress_indicator_theme_config.dart",

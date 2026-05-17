@@ -18,6 +18,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/_avatar_state.dart",
     "_impl/core/_avatar_widget.dart",

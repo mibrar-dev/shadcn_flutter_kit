@@ -17,6 +17,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/themes/base/spinner_theme.dart",
     "_impl/themes/config/spinner_theme_config.dart",

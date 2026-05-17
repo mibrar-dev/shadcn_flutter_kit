@@ -19,6 +19,8 @@
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_dot_indicator_preview_state.dart",
     "_impl/core/active_dot_item.dart",

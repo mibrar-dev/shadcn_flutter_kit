@@ -27,6 +27,8 @@
       "data_widget": "^0.0.2"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/_chat_tail_behavior.dart",
     "_impl/core/_tail_painter.dart",

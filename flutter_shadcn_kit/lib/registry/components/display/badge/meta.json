@@ -18,6 +18,8 @@
     ],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/badge_widgets.dart",
     "_impl/core/destructive_badge.dart",

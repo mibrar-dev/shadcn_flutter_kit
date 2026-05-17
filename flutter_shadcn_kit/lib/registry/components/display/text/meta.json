@@ -20,6 +20,8 @@
       "data_widget": "^0.0.2"
     }
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/_rich_text_then_widget.dart",
     "_impl/core/_selectable_text_then_widget.dart",

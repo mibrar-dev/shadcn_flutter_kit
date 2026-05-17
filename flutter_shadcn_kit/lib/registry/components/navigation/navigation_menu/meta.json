@@ -15,7 +15,9 @@
       "constants",
       "icon_extensions",
       "radix_icons",
-      "theme"
+      "theme",
+      "animated_value_builder",
+      "util"
     ],
     "components": [
       "button",
@@ -34,6 +36,8 @@
     "_impl/state/navigation_menu_state.dart",
     "navigation_menu.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [
       "`NavigationMenu`",

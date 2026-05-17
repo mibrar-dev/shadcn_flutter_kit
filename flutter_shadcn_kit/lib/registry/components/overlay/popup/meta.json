@@ -14,7 +14,8 @@
       "theme",
       "style_value",
       "overlay",
-      "menu_group"
+      "menu_group",
+      "sheet_overlay"
     ],
     "components": [
       "dialog"
@@ -32,6 +33,8 @@
     "_impl/themes/config/popup_theme_tokens.dart",
     "popup.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [],
     "callbacks": [],

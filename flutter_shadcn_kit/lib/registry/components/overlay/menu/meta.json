@@ -19,7 +19,10 @@
       "subfocus",
       "basic_layout",
       "keyboard_shortcut_utils",
-      "radix_icons"
+      "radix_icons",
+      "outlined_container",
+      "geometry_extensions",
+      "util"
     ],
     "components": [
       "dialog",
@@ -64,6 +67,8 @@
     "_impl/utils/open_sub_menu_intent.dart",
     "menu.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [],
     "callbacks": [],

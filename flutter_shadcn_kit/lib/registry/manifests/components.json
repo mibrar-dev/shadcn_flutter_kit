@@ -14414,6 +14414,10 @@
           "destination": "{installPath}/components/display/markdown/_impl/state/_markdown_preview_state.dart"
         },
         {
+          "source": "registry/components/display/markdown/_impl/state/markdown_live_preview.dart",
+          "destination": "{installPath}/components/display/markdown/_impl/state/markdown_live_preview.dart"
+        },
+        {
           "source": "registry/components/display/markdown/_impl/state/markdown_state.dart",
           "destination": "{installPath}/components/display/markdown/_impl/state/markdown_state.dart"
         },

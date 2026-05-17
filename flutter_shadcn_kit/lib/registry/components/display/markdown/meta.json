@@ -28,6 +28,7 @@
     "_impl/core/markdown_editing_controller.dart",
     "_impl/core/markdown_tap_reporter.dart",
     "_impl/state/_markdown_preview_state.dart",
+    "_impl/state/markdown_live_preview.dart",
     "_impl/state/markdown_state.dart",
     "_impl/themes/base/markdown_theme.dart",
     "_impl/themes/config/markdown_theme_config.dart",

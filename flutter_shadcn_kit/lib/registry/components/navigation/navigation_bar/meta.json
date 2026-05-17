@@ -16,7 +16,9 @@
       "constants",
       "animated_value_builder",
       "text_modifiers",
-      "util"
+      "util",
+      "outlined_container",
+      "color_extensions"
     ],
     "components": [
       "button",
@@ -60,6 +62,8 @@
     "_impl/utils/_navigation_label_delegate.dart",
     "navigation_bar.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [
       "`NavigationBar`",

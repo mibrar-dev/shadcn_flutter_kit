@@ -16,7 +16,8 @@
       "sheet_overlay",
       "localizations",
       "constants",
-      "util"
+      "util",
+      "animated_value_builder"
     ],
     "components": [
       "menu"
@@ -40,6 +41,8 @@
     "_impl/themes/config/context_menu_theme_tokens.dart",
     "context_menu.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "postInstall": [
     "Wrap editable text fields with `ContextMenu` to provide native-like action menus."
   ],

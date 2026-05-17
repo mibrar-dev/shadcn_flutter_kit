@@ -17,7 +17,8 @@
       "text_modifiers",
       "overlay",
       "hover",
-      "constants"
+      "constants",
+      "animated_value_builder"
     ],
     "components": [
       "popover"
@@ -41,6 +42,8 @@
     "_impl/utils/tooltip_overlay_handlers.dart",
     "tooltip.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [],
     "callbacks": [],

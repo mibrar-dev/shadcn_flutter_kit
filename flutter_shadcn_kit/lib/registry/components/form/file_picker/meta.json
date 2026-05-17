@@ -20,7 +20,9 @@
       "constants",
       "geometry_extensions",
       "color_extensions",
-      "radix_icons"
+      "radix_icons",
+      "lucide_icons",
+      "overlay"
     ],
     "components": [
       "button",
@@ -59,6 +61,8 @@
     "_impl/variants/file_upload_variant.dart",
     "file_picker.dart"
   ],
+  "assets": [],
+  "fonts": [],
   "api": {
     "constructors": [],
     "callbacks": [],

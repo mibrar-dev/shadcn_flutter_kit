@@ -13,10 +13,15 @@
     "file"
   ],
   "dependencies": {
-    "shared": [],
+    "shared": [
+      "axis",
+      "style_value"
+    ],
     "components": [],
     "pubspec": {}
   },
+  "assets": [],
+  "fonts": [],
   "files": [
     "_impl/core/markdown_api.dart",
     "_impl/core/markdown_block.dart",

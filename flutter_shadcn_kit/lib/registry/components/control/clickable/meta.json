@@ -12,7 +12,9 @@
   "dependencies": {
     "shared": [
       "clickable",
-      "focus_outline"
+      "focus_outline",
+      "animated_value_builder",
+      "constants"
     ],
     "components": [],
     "pubspec": {
@@ -54,5 +56,7 @@
       "`onHover`, `onFocus`"
     ]
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

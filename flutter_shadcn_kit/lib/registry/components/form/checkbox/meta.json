@@ -19,6 +19,7 @@
       "form_value_supplier",
       "animated_value_builder",
       "border_utils",
+      "color_extensions",
       "constants"
     ],
     "components": [],
@@ -56,5 +57,7 @@
       "`onChanged`"
     ]
   },
+  "assets": [],
+  "fonts": [],
   "version": "1.0.0"
 }

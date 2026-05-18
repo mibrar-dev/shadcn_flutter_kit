@@ -14244,17 +14244,11 @@
       ],
       "shared": [
         "theme",
-        "app_theme",
-        "app_theme_preset",
-        "preset_themes",
         "overlay",
+        "localizations",
         "constants"
       ],
-      "dependsOn": [
-        "scaffold",
-        "divider",
-        "shadcn_localizations"
-      ],
+      "dependsOn": [],
       "pubspec": {
         "dependencies": {}
       },

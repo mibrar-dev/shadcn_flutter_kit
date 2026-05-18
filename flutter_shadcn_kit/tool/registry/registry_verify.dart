@@ -35,6 +35,14 @@ String _basename(String path) {
   return '';
 }
 
+bool _isSharedFontAssetSource(String source) {
+  return source == 'registry/shared/fonts/NotoSansSymbols2-Regular.ttf' ||
+      source.startsWith('registry/shared/fonts/geist/') ||
+      source == 'registry/shared/fonts/lucide.ttf' ||
+      source == 'registry/shared/fonts/radix.otf' ||
+      source == 'registry/shared/fonts/bootstrap.otf';
+}
+
 JsonMap _readJson(File file) {
   return jsonDecode(file.readAsStringSync()) as JsonMap;
 }
@@ -562,7 +570,11 @@ void main(List<String> args) {
   final sharedFiles = <String>{};
   if (sharedRoot.existsSync()) {
     for (final rel in listSharedSourceFilesRelative(sharedRoot)) {
-      sharedFiles.add('registry/shared/$rel');
+      final source = 'registry/shared/$rel';
+      if (_isSharedFontAssetSource(source)) {
+        continue;
+      }
+      sharedFiles.add(source);
     }
   }
   for (final source in sharedFiles) {

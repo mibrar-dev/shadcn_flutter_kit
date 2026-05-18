@@ -422,9 +422,10 @@ List<JsonMap> _updateSharedEntries(
         <JsonMap>[];
   }
 
-  final allSources = listSharedSourceFilesRelative(
-    sharedRoot,
-  ).map((rel) => 'registry/shared/$rel').toList();
+  final allSources = listSharedSourceFilesRelative(sharedRoot)
+      .map((rel) => 'registry/shared/$rel')
+      .where((source) => !_isSharedFontAssetSource(source))
+      .toList();
   allSources.sort();
   final allSourceSet = allSources.toSet();
 
@@ -533,6 +534,14 @@ List<JsonMap> _updateSharedEntries(
   }
 
   return output;
+}
+
+bool _isSharedFontAssetSource(String source) {
+  return source == 'registry/shared/fonts/NotoSansSymbols2-Regular.ttf' ||
+      source.startsWith('registry/shared/fonts/geist/') ||
+      source == 'registry/shared/fonts/lucide.ttf' ||
+      source == 'registry/shared/fonts/radix.otf' ||
+      source == 'registry/shared/fonts/bootstrap.otf';
 }
 
 String _titleCase(String input) {

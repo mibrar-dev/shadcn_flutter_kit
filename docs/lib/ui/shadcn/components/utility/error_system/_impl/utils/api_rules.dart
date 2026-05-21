@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // API rules for mapping ApiException and timeouts to AppError.
 // Converts HTTP-like status codes into AppErrorCode and attaches context actions (retry/report/back).
 
@@ -25,9 +27,11 @@ List<ErrorRule> apiRules({
         message: e.message ?? _messageForStatus(e.statusCode),
         actions: [
           if (e.statusCode >= 500) ErrorAction.retry(onRetry),
-/// Creates a `ErrorAction.back` instance.
+
+          /// Creates a `ErrorAction.back` instance.
           ErrorAction.back(onBack),
-/// Creates a `ErrorAction.report` instance.
+
+          /// Creates a `ErrorAction.report` instance.
           ErrorAction.report(onReport),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../theme.dart';
 
 /// ThemeData defines a reusable type for this registry module.
@@ -26,7 +28,7 @@ class ThemeData {
   /// Shadow scale tokens for elevation styling.
   final ShadowScale shadows;
 
-/// Stores `_platform` state/configuration for this implementation.
+  /// Stores `_platform` state/configuration for this implementation.
   final TargetPlatform? _platform;
 
   /// Icon theme properties defining icon sizes across different scales.
@@ -61,7 +63,7 @@ class ThemeData {
     this.tracking = const TrackingScale(normal: 0),
     this.shadows = const ShadowScale(
       shadow2xs: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -70,7 +72,7 @@ class ThemeData {
         ),
       ],
       shadowXs: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -79,14 +81,15 @@ class ThemeData {
         ),
       ],
       shadowSm: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 1),
           blurRadius: 2,
@@ -95,14 +98,15 @@ class ThemeData {
         ),
       ],
       shadow: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 1),
           blurRadius: 2,
@@ -111,14 +115,15 @@ class ThemeData {
         ),
       ],
       shadowMd: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 2),
           blurRadius: 4,
@@ -127,14 +132,15 @@ class ThemeData {
         ),
       ],
       shadowLg: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 4),
           blurRadius: 6,
@@ -143,14 +149,15 @@ class ThemeData {
         ),
       ],
       shadowXl: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 8),
           blurRadius: 10,
@@ -159,7 +166,7 @@ class ThemeData {
         ),
       ],
       shadow2xl: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -196,7 +203,7 @@ class ThemeData {
     this.tracking = const TrackingScale(normal: 0),
     this.shadows = const ShadowScale(
       shadow2xs: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -205,7 +212,7 @@ class ThemeData {
         ),
       ],
       shadowXs: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -214,14 +221,15 @@ class ThemeData {
         ),
       ],
       shadowSm: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 1),
           blurRadius: 2,
@@ -230,14 +238,15 @@ class ThemeData {
         ),
       ],
       shadow: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 1),
           blurRadius: 2,
@@ -246,14 +255,15 @@ class ThemeData {
         ),
       ],
       shadowMd: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 2),
           blurRadius: 4,
@@ -262,14 +272,15 @@ class ThemeData {
         ),
       ],
       shadowLg: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 4),
           blurRadius: 6,
@@ -278,14 +289,15 @@ class ThemeData {
         ),
       ],
       shadowXl: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
           spreadRadius: -30,
           color: Color(0x26000000),
         ),
-/// Creates a `BoxShadow` instance.
+
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 8),
           blurRadius: 10,
@@ -294,7 +306,7 @@ class ThemeData {
         ),
       ],
       shadow2xl: [
-/// Creates a `BoxShadow` instance.
+        /// Creates a `BoxShadow` instance.
         BoxShadow(
           offset: Offset(20.5, 16.5),
           blurRadius: 25.5,
@@ -446,7 +458,7 @@ class ThemeData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
@@ -484,7 +496,7 @@ class ThemeData {
   }
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'ThemeData(colorScheme: $colorScheme, typography: $typography, radius: $radius, scaling: $scaling, spacing: $spacing, tracking: $tracking, shadows: $shadows, iconTheme: $iconTheme, surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur, enableFeedback: $enableFeedback)';
   }

@@ -161,8 +161,10 @@ class ObjectFormFieldState<T> extends State<ObjectFormField<T>>
     }
     final theme = Theme.of(context);
     return IconTheme(
-      data: IconThemeData(color: theme.colorScheme.mutedForeground),
-      child: IconTheme(data: theme.iconTheme.small, child: icon),
+      data: theme.iconTheme.small.copyWith(
+        color: theme.colorScheme.mutedForeground,
+      ),
+      child: icon,
     );
   }
 

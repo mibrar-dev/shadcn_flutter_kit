@@ -10,12 +10,10 @@ class _PhoneInputState extends State<PhoneInput>
   @override
   void initState() {
     super.initState();
-    _country =
-        widget.initialCountry ??
+    _country = widget.initialCountry ??
         widget.initialValue?.country ??
         Country.unitedStates;
-    _controller =
-        widget.controller ??
+    _controller = widget.controller ??
         TextEditingController(text: widget.initialValue?.number);
     formValue = value;
     _controller.addListener(_dispatchChanged);
@@ -171,8 +169,7 @@ class _PhoneInputState extends State<PhoneInput>
                               ),
                               Gap(
                                 styleValue(
-                                  defaultValue:
-                                      theme.density.baseGap *
+                                  defaultValue: theme.density.baseGap *
                                       theme.scaling *
                                       gapSm,
                                   themeValue: componentTheme?.flagGap,
@@ -181,8 +178,7 @@ class _PhoneInputState extends State<PhoneInput>
                               Expanded(child: Text(country.name)),
                               Gap(
                                 styleValue(
-                                  defaultValue:
-                                      theme.density.baseGap *
+                                  defaultValue: theme.density.baseGap *
                                       theme.scaling *
                                       gapLg,
                                   themeValue: componentTheme?.countryGap,
@@ -216,7 +212,6 @@ class _PhoneInputState extends State<PhoneInput>
                 ),
                 themeValue: componentTheme?.borderRadius,
               ),
-              initialValue: widget.initialValue?.number,
             ),
           ),
         ],

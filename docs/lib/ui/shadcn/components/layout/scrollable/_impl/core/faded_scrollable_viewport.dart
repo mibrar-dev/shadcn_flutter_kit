@@ -1,15 +1,19 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../scrollable.dart';
 
 /// A viewport wrapper that fades content near the leading/trailing edges.
 class FadedScrollableViewport extends StatefulWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `fadeExtent` state/configuration for this implementation.
+
+  /// Stores `fadeExtent` state/configuration for this implementation.
   final double fadeExtent;
-/// Stores `fadeSize` state/configuration for this implementation.
+
+  /// Stores `fadeSize` state/configuration for this implementation.
   final double fadeSize;
 
-/// Creates a `FadedScrollableViewport` instance.
+  /// Creates a `FadedScrollableViewport` instance.
   const FadedScrollableViewport({
     super.key,
     this.fadeExtent = 20.0,
@@ -18,18 +22,20 @@ class FadedScrollableViewport extends StatefulWidget {
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<FadedScrollableViewport> createState() =>
       _FadedScrollableViewportState();
 }
 
 /// _FadedScrollableViewportState defines a reusable type for this registry module.
 class _FadedScrollableViewportState extends State<FadedScrollableViewport> {
-/// Stores `_scrollOffset` state/configuration for this implementation.
+  /// Stores `_scrollOffset` state/configuration for this implementation.
   double _scrollOffset = 0.0;
-/// Stores `_scrollExtent` state/configuration for this implementation.
+
+  /// Stores `_scrollExtent` state/configuration for this implementation.
   double _scrollExtent = 0.0;
-/// Stores `_scrollAxis` state/configuration for this implementation.
+
+  /// Stores `_scrollAxis` state/configuration for this implementation.
   Axis _scrollAxis = Axis.vertical;
 
   double get _startFadeFraction {
@@ -50,11 +56,11 @@ class _FadedScrollableViewportState extends State<FadedScrollableViewport> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
-/// Creates a `setState` instance.
+        /// Creates a `setState` instance.
         setState(() {
           _scrollOffset = notification.metrics.pixels;
           _scrollExtent = notification.metrics.maxScrollExtent;

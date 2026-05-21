@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
@@ -49,8 +51,9 @@ part '_impl/utils/popover_overlay_handler.dart';
 /// closeOverlay(context, 'user_confirmed');
 /// ```
 Future<void> closeOverlay<T>(BuildContext context, [T? value]) {
-  return Data.maybeFind<OverlayHandlerStateMixin>(context)
-          ?.closeWithResult(value) ??
+  return Data.maybeFind<OverlayHandlerStateMixin>(
+        context,
+      )?.closeWithResult(value) ??
       Future.value();
 }
 

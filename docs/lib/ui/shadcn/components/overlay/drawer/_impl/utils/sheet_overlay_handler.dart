@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../drawer.dart';
 
 /// SheetOverlayHandler defines a reusable type for this registry module.
@@ -29,7 +31,7 @@ class SheetOverlayHandler extends OverlayHandler {
   });
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is SheetOverlayHandler &&

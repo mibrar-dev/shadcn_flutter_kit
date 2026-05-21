@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../theme.dart';
 
 /// AdaptiveScaling defines a reusable type for this registry module.
@@ -22,11 +24,11 @@ class AdaptiveScaling {
   /// Parameters:
   /// - [scaling] (`double`, default: 1): Scaling factor for radius, size, and text.
   const AdaptiveScaling([double scaling = 1])
-      : this.only(
-          radiusScaling: scaling,
-          sizeScaling: scaling,
-          textScaling: scaling,
-        );
+    : this.only(
+        radiusScaling: scaling,
+        sizeScaling: scaling,
+        textScaling: scaling,
+      );
 
   /// Creates [AdaptiveScaling] with individual scaling factors.
   ///
@@ -53,10 +55,12 @@ class AdaptiveScaling {
     return theme.copyWith(
       radius: radiusScaling == 1 ? null : () => theme.radius * radiusScaling,
       scaling: sizeScaling == 1 ? null : () => theme.scaling * sizeScaling,
-      typography:
-          textScaling == 1 ? null : () => theme.typography.scale(textScaling),
-      iconTheme:
-          textScaling == 1 ? null : () => theme.iconTheme.scale(textScaling),
+      typography: textScaling == 1
+          ? null
+          : () => theme.typography.scale(textScaling),
+      iconTheme: textScaling == 1
+          ? null
+          : () => theme.iconTheme.scale(textScaling),
     );
   }
 
@@ -71,11 +75,7 @@ class AdaptiveScaling {
   /// - [t] (double, required): Interpolation position (0.0 to 1.0)
   ///
   /// Returns interpolated AdaptiveScaling.
-  static AdaptiveScaling lerp(
-    AdaptiveScaling a,
-    AdaptiveScaling b,
-    double t,
-  ) {
+  static AdaptiveScaling lerp(AdaptiveScaling a, AdaptiveScaling b, double t) {
     return AdaptiveScaling.only(
       radiusScaling: lerpDouble(a.radiusScaling, b.radiusScaling, t)!,
       sizeScaling: lerpDouble(a.sizeScaling, b.sizeScaling, t)!,

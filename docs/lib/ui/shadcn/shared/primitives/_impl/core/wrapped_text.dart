@@ -1,26 +1,34 @@
-part of '../../text.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../text.dart';
 
 /// WrappedText defines a reusable type for this registry module.
 class WrappedText extends TextModifier {
-/// Stores `style` state/configuration for this implementation.
+  /// Stores `style` state/configuration for this implementation.
   final WrappedTextDataBuilder<TextStyle>? style;
-/// Stores `textAlign` state/configuration for this implementation.
+
+  /// Stores `textAlign` state/configuration for this implementation.
   final WrappedTextDataBuilder<TextAlign>? textAlign;
-/// Stores `softWrap` state/configuration for this implementation.
+
+  /// Stores `softWrap` state/configuration for this implementation.
   final WrappedTextDataBuilder<bool>? softWrap;
-/// Stores `overflow` state/configuration for this implementation.
+
+  /// Stores `overflow` state/configuration for this implementation.
   final WrappedTextDataBuilder<TextOverflow>? overflow;
-/// Stores `maxLines` state/configuration for this implementation.
+
+  /// Stores `maxLines` state/configuration for this implementation.
   final WrappedTextDataBuilder<int>? maxLines;
-/// Stores `textWidthBasis` state/configuration for this implementation.
+
+  /// Stores `textWidthBasis` state/configuration for this implementation.
   final WrappedTextDataBuilder<TextWidthBasis>? textWidthBasis;
-/// Stores `wrapper` state/configuration for this implementation.
+
+  /// Stores `wrapper` state/configuration for this implementation.
   final WidgetTextWrapper? wrapper;
-/// Stores `child` state/configuration for this implementation.
+
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
 
-/// Creates a `WrappedText` instance.
+  /// Creates a `WrappedText` instance.
   const WrappedText({
     super.key,
     this.style,
@@ -93,7 +101,7 @@ class WrappedText extends TextModifier {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return DefaultTextStyle.merge(
@@ -139,8 +147,9 @@ class WrappedText extends TextModifier {
       softWrap: softWrap == null ? this.softWrap : softWrap(),
       overflow: overflow == null ? this.overflow : overflow(),
       maxLines: maxLines == null ? this.maxLines : maxLines(),
-      textWidthBasis:
-          textWidthBasis == null ? this.textWidthBasis : textWidthBasis(),
+      textWidthBasis: textWidthBasis == null
+          ? this.textWidthBasis
+          : textWidthBasis(),
       child: child == null ? this.child : child(),
     );
   }
@@ -155,7 +164,7 @@ class WrappedText extends TextModifier {
     return WrappedText(
       wrapper: wrapper,
       style: (context, theme) =>
-/// Creates a `style` instance.
+          /// Creates a `style` instance.
           style(context, theme).merge(this.style?.call(context, theme)),
       textAlign: textAlign,
       softWrap: softWrap,

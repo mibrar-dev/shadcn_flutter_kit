@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../dialog.dart';
 
 /// FullScreenDialogOverlayHandler defines a reusable type for this registry module.
@@ -60,7 +62,8 @@ class FullScreenDialogOverlayHandler extends OverlayHandler {
       fullScreen: true,
       builder: (context) {
         final theme = Theme.of(context);
-/// Stores `surfaceOpacity` state/configuration for this implementation.
+
+        /// Stores `surfaceOpacity` state/configuration for this implementation.
         final surfaceOpacity = theme.surfaceOpacity;
         var child = _DialogOverlayWrapper(
           route: ModalRoute.of(context) as DialogRoute<T>,
@@ -80,7 +83,7 @@ class FullScreenDialogOverlayHandler extends OverlayHandler {
               padding: overlayBarrier.padding,
               barrierColor:
                   overlayBarrier.barrierColor ??
-/// Creates a `Color.fromRGBO` instance.
+                  /// Creates a `Color.fromRGBO` instance.
                   const Color.fromRGBO(0, 0, 0, 0.8),
               child: child,
             ),

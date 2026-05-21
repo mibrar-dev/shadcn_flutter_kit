@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import '../../components/utility/locale_utils/locale_utils.dart';
 import '../utils/util.dart';
 
@@ -7,10 +9,10 @@ import 'shadcn_localizations.dart';
 extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
   /// Default order used when rendering date fields.
   List<DatePart> get datePartsOrder => const [
-        DatePart.month,
-        DatePart.day,
-        DatePart.year,
-      ];
+    DatePart.month,
+    DatePart.day,
+    DatePart.year,
+  ];
 
   /// Returns the abbreviation for the provided [DatePart].
   String getDatePartAbbreviation(DatePart part) {
@@ -40,9 +42,12 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
   ///
   /// [use24HourFormat] - Whether to use 24-hour format.
   /// [showSeconds] - Whether to include seconds.
-  String formatTimeOfDay(TimeOfDay time,
-      {bool use24HourFormat = true, bool showSeconds = false}) {
-/// Stores `result` state/configuration for this implementation.
+  String formatTimeOfDay(
+    TimeOfDay time, {
+    bool use24HourFormat = true,
+    bool showSeconds = false,
+  }) {
+    /// Stores `result` state/configuration for this implementation.
     String result = '';
     if (use24HourFormat) {
       result +=
@@ -51,7 +56,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
         result += ':${time.second.toString().padLeft(2, '0')}';
       }
     } else {
-/// Stores `hour` state/configuration for this implementation.
+      /// Stores `hour` state/configuration for this implementation.
       int hour = time.hour;
       if (hour > 12) {
         hour -= 12;
@@ -81,20 +86,26 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
   /// [showHours] - Whether to show hours.
   /// [showMinutes] - Whether to show minutes.
   /// [showSeconds] - Whether to show seconds.
-  String formatDuration(Duration duration,
-      {bool showDays = true,
-      bool showHours = true,
-      bool showMinutes = true,
-      bool showSeconds = true}) {
-/// Stores `days` state/configuration for this implementation.
+  String formatDuration(
+    Duration duration, {
+    bool showDays = true,
+    bool showHours = true,
+    bool showMinutes = true,
+    bool showSeconds = true,
+  }) {
+    /// Stores `days` state/configuration for this implementation.
     final days = duration.inDays;
-/// Stores `hours` state/configuration for this implementation.
+
+    /// Stores `hours` state/configuration for this implementation.
     final hours = duration.inHours % Duration.hoursPerDay;
-/// Stores `minutes` state/configuration for this implementation.
+
+    /// Stores `minutes` state/configuration for this implementation.
     final minutes = duration.inMinutes % Duration.minutesPerHour;
-/// Stores `seconds` state/configuration for this implementation.
+
+    /// Stores `seconds` state/configuration for this implementation.
     final seconds = duration.inSeconds % Duration.secondsPerMinute;
-/// Stores `parts` state/configuration for this implementation.
+
+    /// Stores `parts` state/configuration for this implementation.
     final parts = <String>[];
     if (showDays && days > 0) {
       parts.add('${days}d');
@@ -131,12 +142,14 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
   /// [showTime] - Whether to include the time portion.
   /// [showSeconds] - Whether to include seconds in the time portion.
   /// [use24HourFormat] - Whether to use 24-hour time formatting.
-  String formatDateTime(DateTime dateTime,
-      {bool showDate = true,
-      bool showTime = true,
-      bool showSeconds = false,
-      bool use24HourFormat = true}) {
-/// Stores `result` state/configuration for this implementation.
+  String formatDateTime(
+    DateTime dateTime, {
+    bool showDate = true,
+    bool showTime = true,
+    bool showSeconds = false,
+    bool use24HourFormat = true,
+  }) {
+    /// Stores `result` state/configuration for this implementation.
     String result = '';
     if (showDate) {
       result += '${getMonth(dateTime.month)} ${dateTime.day}, ${dateTime.year}';
@@ -151,7 +164,7 @@ extension ShadcnLocalizationsObjectInputExtensions on ShadcnLocalizations {
           result += ':${dateTime.second}';
         }
       } else {
-/// Stores `hour` state/configuration for this implementation.
+        /// Stores `hour` state/configuration for this implementation.
         int hour = dateTime.hour;
         if (hour > 12) {
           hour -= 12;

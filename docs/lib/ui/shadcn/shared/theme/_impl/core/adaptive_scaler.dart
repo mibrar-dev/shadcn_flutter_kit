@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../theme.dart';
 
 /// AdaptiveScaler defines a reusable type for this registry module.
@@ -36,20 +38,13 @@ class AdaptiveScaler extends StatelessWidget {
   /// Parameters:
   /// - [scaling] (`AdaptiveScaling`, required): Scaling factors to apply.
   /// - [child] (`Widget`, required): Child widget.
-  const AdaptiveScaler({
-    super.key,
-    required this.scaling,
-    required this.child,
-  });
+  const AdaptiveScaler({super.key, required this.scaling, required this.child});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Theme(
-      data: scaling.scale(theme),
-      child: child,
-    );
+    return Theme(data: scaling.scale(theme), child: child);
   }
 }
 

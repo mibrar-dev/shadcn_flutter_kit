@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../context_menu.dart';
 
 /// MobileEditableTextContextMenu defines a reusable type for this registry module.
@@ -25,19 +27,21 @@ class MobileEditableTextContextMenu extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final localizations = ShadcnLocalizations.of(context);
-/// Stores `undoHistoryController` state/configuration for this implementation.
+
+    /// Stores `undoHistoryController` state/configuration for this implementation.
     var undoHistoryController = this.undoHistoryController;
     var contextMenuButtonItems = List.of(
       editableTextState.contextMenuButtonItems,
     );
 
-/// Executes `take` behavior for this component/composite.
+    /// Executes `take` behavior for this component/composite.
     ContextMenuButtonItem? take(ContextMenuButtonType type) {
       var item = contextMenuButtonItems
           .where((element) => element.type == type)
@@ -57,12 +61,12 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     var searchWebButton = take(ContextMenuButtonType.searchWeb);
     var liveTextInput = take(ContextMenuButtonType.liveTextInput);
 
-/// Stores `modificationCategory` state/configuration for this implementation.
+    /// Stores `modificationCategory` state/configuration for this implementation.
     List<MenuItem> modificationCategory = [];
     if (cutButton != null) {
-/// Creates a `modificationCategory.add` instance.
+      /// Creates a `modificationCategory.add` instance.
       modificationCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             cutButton.onPressed?.call();
@@ -72,9 +76,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
       );
     }
     if (copyButton != null) {
-/// Creates a `modificationCategory.add` instance.
+      /// Creates a `modificationCategory.add` instance.
       modificationCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             copyButton.onPressed?.call();
@@ -84,9 +88,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
       );
     }
     if (pasteButton != null) {
-/// Creates a `modificationCategory.add` instance.
+      /// Creates a `modificationCategory.add` instance.
       modificationCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             pasteButton.onPressed?.call();
@@ -96,9 +100,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
       );
     }
     if (selectAllButton != null) {
-/// Creates a `modificationCategory.add` instance.
+      /// Creates a `modificationCategory.add` instance.
       modificationCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             selectAllButton.onPressed?.call();
@@ -108,12 +112,12 @@ class MobileEditableTextContextMenu extends StatelessWidget {
       );
     }
 
-/// Stores `destructiveCategory` state/configuration for this implementation.
+    /// Stores `destructiveCategory` state/configuration for this implementation.
     List<MenuItem> destructiveCategory = [];
     if (deleteButton != null) {
-/// Creates a `destructiveCategory.add` instance.
+      /// Creates a `destructiveCategory.add` instance.
       destructiveCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             deleteButton.onPressed?.call();
@@ -124,9 +128,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     }
 
     if (shareButton != null) {
-/// Creates a `destructiveCategory.add` instance.
+      /// Creates a `destructiveCategory.add` instance.
       destructiveCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             shareButton.onPressed?.call();
@@ -137,9 +141,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     }
 
     if (searchWebButton != null) {
-/// Creates a `destructiveCategory.add` instance.
+      /// Creates a `destructiveCategory.add` instance.
       destructiveCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             searchWebButton.onPressed?.call();
@@ -150,9 +154,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
     }
 
     if (liveTextInput != null) {
-/// Creates a `destructiveCategory.add` instance.
+      /// Creates a `destructiveCategory.add` instance.
       destructiveCategory.add(
-/// Creates a `MenuButton` instance.
+        /// Creates a `MenuButton` instance.
         MenuButton(
           onPressed: (context) {
             liveTextInput.onPressed?.call();
@@ -192,12 +196,12 @@ class MobileEditableTextContextMenu extends StatelessWidget {
         child: AnimatedBuilder(
           animation: undoHistoryController,
           builder: (context, child) {
-/// Stores `historyCategory` state/configuration for this implementation.
+            /// Stores `historyCategory` state/configuration for this implementation.
             List<MenuItem> historyCategory = [];
             if (undoHistoryController.value.canUndo) {
-/// Creates a `historyCategory.add` instance.
+              /// Creates a `historyCategory.add` instance.
               historyCategory.add(
-/// Creates a `MenuButton` instance.
+                /// Creates a `MenuButton` instance.
                 MenuButton(
                   enabled: undoHistoryController.value.canUndo,
                   onPressed: (context) {
@@ -208,9 +212,9 @@ class MobileEditableTextContextMenu extends StatelessWidget {
               );
             }
             if (undoHistoryController.value.canRedo) {
-/// Creates a `historyCategory.add` instance.
+              /// Creates a `historyCategory.add` instance.
               historyCategory.add(
-/// Creates a `MenuButton` instance.
+                /// Creates a `MenuButton` instance.
                 MenuButton(
                   enabled: undoHistoryController.value.canRedo,
                   onPressed: (context) {

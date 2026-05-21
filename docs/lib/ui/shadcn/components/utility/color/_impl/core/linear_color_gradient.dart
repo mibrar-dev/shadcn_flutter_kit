@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../color.dart';
 
 /// A linear gradient implementation of [ColorGradient].
@@ -34,7 +36,7 @@ class LinearColorGradient extends ColorGradient {
   });
 
   @override
-/// Creates a `LinearColorGradient` instance.
+  /// Creates a `LinearColorGradient` instance.
   LinearColorGradient copyWith({
     List<ColorStop>? colors,
     GradientAngleGeometry? angle,
@@ -48,7 +50,7 @@ class LinearColorGradient extends ColorGradient {
   }
 
   @override
-/// Executes `changeColorAt` behavior for this component/composite.
+  /// Executes `changeColorAt` behavior for this component/composite.
   LinearColorGradient changeColorAt(int index, ColorDerivative color) {
     List<ColorStop> newColors = List.from(colors);
     newColors[index] = ColorStop(
@@ -59,7 +61,7 @@ class LinearColorGradient extends ColorGradient {
   }
 
   @override
-/// Executes `changePositionAt` behavior for this component/composite.
+  /// Executes `changePositionAt` behavior for this component/composite.
   LinearColorGradient changePositionAt(int index, double position) {
     List<ColorStop> newColors = List.from(colors);
     newColors[index] = ColorStop(
@@ -70,7 +72,7 @@ class LinearColorGradient extends ColorGradient {
   }
 
   @override
-/// Creates a `LinearColorGradient` instance.
+  /// Creates a `LinearColorGradient` instance.
   LinearColorGradient changeColorAndPositionAt(
     int index,
     ColorDerivative color,
@@ -90,11 +92,14 @@ class LinearColorGradient extends ColorGradient {
   ) {
     Alignment alignBegin = angle.begin.resolve(textDirection);
     Alignment alignEnd = angle.end.resolve(textDirection);
-/// Stores `dx` state/configuration for this implementation.
+
+    /// Stores `dx` state/configuration for this implementation.
     final dx = alignEnd.x - alignBegin.x;
-/// Stores `dy` state/configuration for this implementation.
+
+    /// Stores `dy` state/configuration for this implementation.
     final dy = alignEnd.y - alignBegin.y;
-/// Stores `lengthSquared` state/configuration for this implementation.
+
+    /// Stores `lengthSquared` state/configuration for this implementation.
     final lengthSquared = dx * dx + dy * dy;
     final px = (position.dx / size.width) * 2 - 1;
     final py = (position.dy / size.height) * 2 - 1;
@@ -102,7 +107,8 @@ class LinearColorGradient extends ColorGradient {
         ((px - alignBegin.x) * dx + (py - alignBegin.y) * dy) / lengthSquared;
     final pos = t.clamp(0.0, 1.0);
     List<ColorStop> newColors = List.from(colors);
-/// Stores `insertIndex` state/configuration for this implementation.
+
+    /// Stores `insertIndex` state/configuration for this implementation.
     int insertIndex = 0;
     for (int i = 0; i < newColors.length; i++) {
       if (newColors[i].position < pos) {
@@ -114,7 +120,7 @@ class LinearColorGradient extends ColorGradient {
   }
 
   @override
-/// Executes `toGradient` behavior for this component/composite.
+  /// Executes `toGradient` behavior for this component/composite.
   LinearGradient toGradient() {
     return LinearGradient(
       colors: colors.map((e) => e.color.toColor()).toList(),

@@ -1,16 +1,22 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/rendering.dart';
 
-String colorToHex(Color color,
-    [bool showAlpha = false, bool hashPrefix = true]) {
+String colorToHex(
+  Color color, [
+  bool showAlpha = false,
+  bool hashPrefix = true,
+]) {
   String r = ((color.r * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   String g = ((color.g * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   String b = ((color.b * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
   if (showAlpha) {
-    String a =
-        ((color.a * 255).round() & 0xFF).toRadixString(16).padLeft(2, '0');
+    String a = ((color.a * 255).round() & 0xFF)
+        .toRadixString(16)
+        .padLeft(2, '0');
     return hashPrefix ? '#$a$r$g$b' : '$a$r$g$b';
   } else {
     return hashPrefix ? '#$r$g$b' : '$r$g$b';
@@ -21,20 +27,22 @@ String colorToHex(Color color,
 extension ColorExtension on Color {
   /// Scales the alpha channel by a factor.
   Color scaleAlpha(double factor) {
-    return withValues(
-      alpha: a * factor,
-    );
+    return withValues(alpha: a * factor);
   }
 
   /// Gets a contrasting color based on luminance.
   Color getContrastColor([double luminanceContrast = 1]) {
-/// Creates a `assert` instance.
-    assert(luminanceContrast >= 0 && luminanceContrast <= 1,
-        'luminanceContrast should be between 0 and 1');
+    /// Creates a `assert` instance.
+    assert(
+      luminanceContrast >= 0 && luminanceContrast <= 1,
+      'luminanceContrast should be between 0 and 1',
+    );
     final hsl = HSLColor.fromColor(this);
-/// Stores `currentLuminance` state/configuration for this implementation.
+
+    /// Stores `currentLuminance` state/configuration for this implementation.
     double currentLuminance = hsl.lightness;
-/// Stores `targetLuminance` state/configuration for this implementation.
+
+    /// Stores `targetLuminance` state/configuration for this implementation.
     double targetLuminance;
     if (currentLuminance >= 0.5) {
       targetLuminance =
@@ -79,18 +87,23 @@ extension ColorExtension on Color {
 extension HSLColorExtension on HSLColor {
   /// Converts this HSL color to HSV color space.
   HSVColor toHSV() {
-/// Stores `l` state/configuration for this implementation.
+    /// Stores `l` state/configuration for this implementation.
     final double l = lightness;
-/// Stores `s` state/configuration for this implementation.
+
+    /// Stores `s` state/configuration for this implementation.
     final double s = saturation;
-/// Stores `h` state/configuration for this implementation.
+
+    /// Stores `h` state/configuration for this implementation.
     final double h = hue;
-/// Stores `a` state/configuration for this implementation.
+
+    /// Stores `a` state/configuration for this implementation.
     final double a = alpha;
     final double v = l + s * min(l, 1 - l);
-/// Stores `newH` state/configuration for this implementation.
+
+    /// Stores `newH` state/configuration for this implementation.
     double newH;
-/// Stores `newS` state/configuration for this implementation.
+
+    /// Stores `newS` state/configuration for this implementation.
     double newS;
     if (v == 0) {
       newH = 0;
@@ -107,18 +120,23 @@ extension HSLColorExtension on HSLColor {
 extension HSVColorExtension on HSVColor {
   /// Converts this HSV color to HSL color space.
   HSLColor toHSL() {
-/// Stores `v` state/configuration for this implementation.
+    /// Stores `v` state/configuration for this implementation.
     final double v = value;
-/// Stores `s` state/configuration for this implementation.
+
+    /// Stores `s` state/configuration for this implementation.
     final double s = saturation;
-/// Stores `h` state/configuration for this implementation.
+
+    /// Stores `h` state/configuration for this implementation.
     final double h = hue;
-/// Stores `a` state/configuration for this implementation.
+
+    /// Stores `a` state/configuration for this implementation.
     final double a = alpha;
     final double l = v * (1 - s / 2);
-/// Stores `newH` state/configuration for this implementation.
+
+    /// Stores `newH` state/configuration for this implementation.
     double newH;
-/// Stores `newS` state/configuration for this implementation.
+
+    /// Stores `newS` state/configuration for this implementation.
     double newS;
     if (l == 0 || l == 1) {
       newH = 0;

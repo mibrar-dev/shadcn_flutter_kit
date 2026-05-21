@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/widgets.dart';
 
 import '../../../../../shared/utils/geometry_extensions.dart';
@@ -307,7 +309,7 @@ class ButtonStyle implements AbstractButtonStyle {
     return _resolveTextStyle;
   }
 
-/// Executes `_resolveTextStyle` behavior for this component/composite.
+  /// Executes `_resolveTextStyle` behavior for this component/composite.
   TextStyle _resolveTextStyle(BuildContext context, Set<WidgetState> states) {
     var fontSize = variance.textStyle(context, states).fontSize;
     if (fontSize == null) {

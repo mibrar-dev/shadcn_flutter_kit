@@ -2,7 +2,7 @@
   "$schema": "./shared_manifest.schema.json",
   "manifestVersion": 1,
   "schemaVersion": 1,
-  "generatedAt": "2026-05-05T23:13:43.619402Z",
+  "generatedAt": "2026-05-18T16:12:53.858640Z",
   "root": "registry/shared",
   "files": [
     "README.md",

@@ -1,21 +1,24 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../filter_bar.dart';
 
 /// _Debouncer defines a reusable type for this registry module.
 class _Debouncer {
   _Debouncer(this.duration);
 
-/// Stores `duration` state/configuration for this implementation.
+  /// Stores `duration` state/configuration for this implementation.
   Duration duration;
-/// Stores `_timer` state/configuration for this implementation.
+
+  /// Stores `_timer` state/configuration for this implementation.
   Timer? _timer;
 
-/// Executes `schedule` behavior for this component/composite.
+  /// Executes `schedule` behavior for this component/composite.
   void schedule(VoidCallback callback) {
     _timer?.cancel();
     _timer = Timer(duration, callback);
   }
 
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _timer?.cancel();
   }

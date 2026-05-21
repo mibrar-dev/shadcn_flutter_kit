@@ -1,15 +1,17 @@
-part of '../../outlined_container.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../outlined_container.dart';
 
 /// _OutlinedContainerState defines a reusable type for this registry module.
 class _OutlinedContainerState extends State<OutlinedContainer> {
   final GlobalKey _mainContainerKey = GlobalKey();
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<OutlinedContainerTheme>(context);
     final borderRadius = styleValue(

@@ -1,31 +1,35 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../refresh_trigger.dart';
 
 /// _DefaultRefreshIndicatorState defines a reusable type for this registry module.
 class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
-/// Executes `buildRefreshingContent` behavior for this component/composite.
+  /// Executes `buildRefreshingContent` behavior for this component/composite.
   Widget buildRefreshingContent(BuildContext context) {
     final localizations = ShadcnLocalizations.of(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-/// Creates a `Flexible` instance.
+        /// Creates a `Flexible` instance.
         Flexible(child: Text(localizations.refreshTriggerRefreshing)),
-/// Creates a `CircularProgressIndicator` instance.
+
+        /// Creates a `CircularProgressIndicator` instance.
         const CircularProgressIndicator(),
       ],
     ).gap(8);
   }
 
-/// Executes `buildCompletedContent` behavior for this component/composite.
+  /// Executes `buildCompletedContent` behavior for this component/composite.
   Widget buildCompletedContent(BuildContext context) {
     final theme = Theme.of(context);
     final localizations = ShadcnLocalizations.of(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-/// Creates a `Flexible` instance.
+        /// Creates a `Flexible` instance.
         Flexible(child: Text(localizations.refreshTriggerComplete)),
-/// Creates a `SizedBox` instance.
+
+        /// Creates a `SizedBox` instance.
         SizedBox(
           width: 12.0 * theme.scaling,
           height: 8.0 * theme.scaling,
@@ -49,13 +53,13 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
     ).gap(8);
   }
 
-/// Executes `buildPullingContent` behavior for this component/composite.
+  /// Executes `buildPullingContent` behavior for this component/composite.
   Widget buildPullingContent(BuildContext context) {
     final localizations = ShadcnLocalizations.of(context);
     return AnimatedBuilder(
       animation: widget.stage.extent,
       builder: (context, child) {
-/// Stores `angle` state/configuration for this implementation.
+        /// Stores `angle` state/configuration for this implementation.
         double angle;
         if (widget.stage.direction == Axis.vertical) {
           // 0 -> 1 (0 -> 180)
@@ -67,12 +71,13 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-/// Creates a `Transform.rotate` instance.
+            /// Creates a `Transform.rotate` instance.
             Transform.rotate(
               angle: angle,
               child: const Icon(Icons.arrow_downward),
             ),
-/// Creates a `Flexible` instance.
+
+            /// Creates a `Flexible` instance.
             Flexible(
               child: Text(
                 widget.stage.extentValue < 1
@@ -80,7 +85,8 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
                     : localizations.refreshTriggerRelease,
               ),
             ),
-/// Creates a `Transform.rotate` instance.
+
+            /// Creates a `Transform.rotate` instance.
             Transform.rotate(
               angle: angle,
               child: const Icon(Icons.arrow_downward),
@@ -91,7 +97,7 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
     );
   }
 
-/// Executes `buildIdleContent` behavior for this component/composite.
+  /// Executes `buildIdleContent` behavior for this component/composite.
   Widget buildIdleContent(BuildContext context) {
     final localizations = ShadcnLocalizations.of(context);
     return Row(
@@ -101,9 +107,9 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-/// Stores `child` state/configuration for this implementation.
+    /// Stores `child` state/configuration for this implementation.
     Widget child;
     switch (widget.stage.stage) {
       case TriggerStage.refreshing:

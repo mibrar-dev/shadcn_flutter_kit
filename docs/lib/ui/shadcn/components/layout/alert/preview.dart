@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import '../alert/alert.dart';
 
@@ -6,7 +8,7 @@ class AlertPreview extends StatelessWidget {
   const AlertPreview({super.key});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -20,14 +22,14 @@ class AlertPreview extends StatelessWidget {
                 spacing: 16,
                 children: [
                   // Basic alert
-/// Creates a `Alert` instance.
+                  /// Creates a `Alert` instance.
                   const Alert(
                     title: Text('Alert title'),
                     content: Text('This is alert content.'),
                     leading: Icon(Icons.info_outline),
                   ),
                   // Destructive alert
-/// Creates a `Alert.destructive` instance.
+                  /// Creates a `Alert.destructive` instance.
                   const Alert.destructive(
                     title: Text('Error'),
                     content: Text(
@@ -36,7 +38,7 @@ class AlertPreview extends StatelessWidget {
                     leading: Icon(Icons.error_outline),
                   ),
                   // Alert with trailing action
-/// Creates a `Alert` instance.
+                  /// Creates a `Alert` instance.
                   Alert(
                     title: const Text('Notification'),
                     content: const Text('You have a new message.'),

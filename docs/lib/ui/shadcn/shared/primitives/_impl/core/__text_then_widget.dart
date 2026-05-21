@@ -1,17 +1,19 @@
-part of '../../text.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../text.dart';
 
 /// _TextThenWidget defines a reusable type for this registry module.
 class _TextThenWidget extends StatelessWidget {
-/// Stores `text` state/configuration for this implementation.
+  /// Stores `text` state/configuration for this implementation.
   final Text text;
-/// Stores `then` state/configuration for this implementation.
+
+  /// Stores `then` state/configuration for this implementation.
   final List<InlineSpan> then;
 
   const _TextThenWidget({required this.text, required this.then});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(

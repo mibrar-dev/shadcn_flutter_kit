@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:math';
 
 import 'package:flutter/gestures.dart';
@@ -71,7 +73,7 @@ class ScrollableClientTheme extends ComponentThemeData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) =>
       other is ScrollableClientTheme &&
       other.diagonalDragBehavior == diagonalDragBehavior &&
@@ -92,7 +94,7 @@ class ScrollableClientTheme extends ComponentThemeData {
   );
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() =>
       'ScrollableClientTheme(diagonalDragBehavior: $diagonalDragBehavior, dragStartBehavior: $dragStartBehavior, keyboardDismissBehavior: $keyboardDismissBehavior, clipBehavior: $clipBehavior, hitTestBehavior: $hitTestBehavior, overscroll: $overscroll)';
 }

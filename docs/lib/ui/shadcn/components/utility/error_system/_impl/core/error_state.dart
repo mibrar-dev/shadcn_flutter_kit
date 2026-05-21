@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ErrorState: full-page/section error UI built from shadcn Card/Divider/Button primitives.
 // Renders optional illustration + icon + title/message and maps ErrorAction list to buttons.
 

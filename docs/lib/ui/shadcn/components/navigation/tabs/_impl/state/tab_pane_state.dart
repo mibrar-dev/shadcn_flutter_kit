@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tabs.dart';
 
 /// TabPaneState defines a reusable type for this registry module.
@@ -14,17 +16,21 @@ class TabPaneState<T> extends State<TabPane<T>> {
   ) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
-/// Stores `isFocused` state/configuration for this implementation.
+
+    /// Stores `isFocused` state/configuration for this implementation.
     final isFocused = data.index == data.selected;
     final backgroundColor =
         widget.backgroundColor ??
         compTheme?.backgroundColor ??
         theme.colorScheme.card;
-/// Stores `border` state/configuration for this implementation.
+
+    /// Stores `border` state/configuration for this implementation.
     final border = widget.border ?? compTheme?.border;
-/// Stores `borderColor` state/configuration for this implementation.
+
+    /// Stores `borderColor` state/configuration for this implementation.
     final borderColor = border?.color ?? theme.colorScheme.border;
-/// Stores `borderWidth` state/configuration for this implementation.
+
+    /// Stores `borderWidth` state/configuration for this implementation.
     final borderWidth = border?.width ?? 1;
     final borderRadius =
         (widget.borderRadius ?? compTheme?.borderRadius ?? theme.borderRadiusLg)
@@ -54,9 +60,9 @@ class TabPaneState<T> extends State<TabPane<T>> {
     );
   }
 
-/// Executes `_buildTabItems` behavior for this component/composite.
+  /// Executes `_buildTabItems` behavior for this component/composite.
   List<TabChild> _buildTabItems() {
-/// Stores `children` state/configuration for this implementation.
+    /// Stores `children` state/configuration for this implementation.
     List<TabChild> children = [];
     for (int i = 0; i < widget.items.length; i++) {
       children.add(widget.itemBuilder(context, widget.items[i], i));
@@ -65,7 +71,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
@@ -78,7 +84,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
         widget.backgroundColor ??
         compTheme?.backgroundColor ??
         theme.colorScheme.card;
-/// Stores `border` state/configuration for this implementation.
+
+    /// Stores `border` state/configuration for this implementation.
     final border = widget.border ?? compTheme?.border;
     final barHeight =
         widget.barHeight ?? compTheme?.barHeight ?? (32 * theme.scaling);
@@ -91,7 +98,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         verticalDirection: VerticalDirection.up,
         children: [
-/// Creates a `Flexible` instance.
+          /// Creates a `Flexible` instance.
           Flexible(
             child: OutlinedContainer(
               borderRadius: resolvedBorderRadius,
@@ -99,7 +106,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
               child: widget.child,
             ),
           ),
-/// Creates a `Container` instance.
+
+          /// Creates a `Container` instance.
           Container(
             height: barHeight,
             padding: EdgeInsets.only(
@@ -109,7 +117,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-/// Creates a `Padding` instance.
+                /// Creates a `Padding` instance.
                 Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: theme.density.baseGap * theme.scaling * 0.25,
@@ -119,7 +127,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
                     children: widget.leading,
                   ),
                 ),
-/// Creates a `Flexible` instance.
+
+                /// Creates a `Flexible` instance.
                 Flexible(
                   child: FadeScroll(
                     startOffset: resolvedBorderRadius.bottomLeft.x,
@@ -137,11 +146,14 @@ class TabPaneState<T> extends State<TabPane<T>> {
                             if (value is! TabPaneData<T>) {
                               return;
                             }
-/// Stores `wasFocused` state/configuration for this implementation.
+
+                            /// Stores `wasFocused` state/configuration for this implementation.
                             bool wasFocused = widget.focused == value.data;
-/// Stores `tabs` state/configuration for this implementation.
+
+                            /// Stores `tabs` state/configuration for this implementation.
                             List<TabPaneData<T>> tabs = widget.items;
-/// Stores `tabValue` state/configuration for this implementation.
+
+                            /// Stores `tabValue` state/configuration for this implementation.
                             final tabValue = value;
                             tabs.swapItem(tabValue, tabs.length);
                             widget.onSort?.call(tabs);
@@ -181,7 +193,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
                                           }
                                           List<TabPaneData<T>> tabs =
                                               widget.items;
-/// Stores `tabValue` state/configuration for this implementation.
+
+                                          /// Stores `tabValue` state/configuration for this implementation.
                                           final tabValue = value;
                                           tabs.swapItem(tabValue, index);
                                           widget.onSort?.call(tabs);
@@ -193,7 +206,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
                                           }
                                           List<TabPaneData<T>> tabs =
                                               widget.items;
-/// Stores `tabValue` state/configuration for this implementation.
+
+                                          /// Stores `tabValue` state/configuration for this implementation.
                                           final tabValue = value;
                                           tabs.swapItem(tabValue, index + 1);
                                           widget.onSort?.call(tabs);
@@ -238,7 +252,8 @@ class TabPaneState<T> extends State<TabPane<T>> {
                     ),
                   ),
                 ),
-/// Creates a `Padding` instance.
+
+                /// Creates a `Padding` instance.
                 Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: theme.density.baseGap * theme.scaling * 0.25,

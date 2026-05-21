@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../axis.dart';
 
 /// Directional insets along an axis.
@@ -19,7 +21,7 @@ class AxisInsetsDirectional extends AxisInsetsGeometry {
   const AxisInsetsDirectional({required this.start, required this.end});
 
   @override
-/// Executes `resolve` behavior for this component/composite.
+  /// Executes `resolve` behavior for this component/composite.
   AxisInsets resolve(TextDirection textDirection) {
     return AxisInsets._(start, end, textDirection);
   }

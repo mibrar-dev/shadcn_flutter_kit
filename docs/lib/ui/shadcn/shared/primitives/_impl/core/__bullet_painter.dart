@@ -1,25 +1,30 @@
-part of '../../text.dart';
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+part of '../../text.dart';
 
 /// _BulletPainter defines a reusable type for this registry module.
 class _BulletPainter extends CustomPainter {
-/// Stores `color` state/configuration for this implementation.
+  /// Stores `color` state/configuration for this implementation.
   final Color? color;
-/// Stores `depth` state/configuration for this implementation.
+
+  /// Stores `depth` state/configuration for this implementation.
   final int depth;
 
   _BulletPainter({required this.color, required this.depth});
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = color ?? const Color(0xFF000000)
       ..style = PaintingStyle.fill;
     if (depth % 3 == 0) {
-/// Creates a `canvas.drawCircle` instance.
+      /// Creates a `canvas.drawCircle` instance.
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), size.width / 2, paint);
+        Offset(size.width / 2, size.height / 2),
+        size.width / 2,
+        paint,
+      );
     } else if (depth % 3 == 1) {
       canvas.drawRect(Offset(0, 0) & size, paint);
     } else {
@@ -33,7 +38,7 @@ class _BulletPainter extends CustomPainter {
   }
 
   @override
-/// Executes `shouldRepaint` behavior for this component/composite.
+  /// Executes `shouldRepaint` behavior for this component/composite.
   bool shouldRepaint(covariant _BulletPainter oldDelegate) {
     return oldDelegate.color != color || oldDelegate.depth != depth;
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 
@@ -56,7 +58,7 @@ Decoration buttonCardDecoration(BuildContext context, Set<WidgetState> states) {
     );
   }
   if (states.contains(WidgetState.hovered) ||
-/// Creates a `states.contains` instance.
+      /// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.border,
@@ -87,9 +89,9 @@ Decoration buttonMenuDecoration(BuildContext context, Set<WidgetState> states) {
     return const BoxDecoration();
   }
   if (states.contains(WidgetState.focused) ||
-/// Creates a `states.contains` instance.
+      /// Creates a `states.contains` instance.
       states.contains(WidgetState.hovered) ||
-/// Creates a `states.contains` instance.
+      /// Creates a `states.contains` instance.
       states.contains(WidgetState.selected)) {
     return BoxDecoration(
       color: themeData.colorScheme.accent,
@@ -115,7 +117,8 @@ TextStyle buttonMenuTextStyle(BuildContext context, Set<WidgetState> states) {
 /// Executes `buttonMenuPadding` behavior for this component/composite.
 EdgeInsets buttonMenuPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+  /// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   final menuGroupData = Data.maybeOf<MenuGroupData>(context);
   if (menuGroupData != null && menuGroupData.direction == Axis.horizontal) {
@@ -135,7 +138,8 @@ EdgeInsets buttonMenuPadding(BuildContext context, Set<WidgetState> states) {
 /// Executes `buttonMenubarPadding` behavior for this component/composite.
 EdgeInsets buttonMenubarPadding(BuildContext context, Set<WidgetState> states) {
   final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+  /// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   return EdgeInsets.symmetric(
     horizontal: theme.density.baseContentPadding * scaling * 0.75,

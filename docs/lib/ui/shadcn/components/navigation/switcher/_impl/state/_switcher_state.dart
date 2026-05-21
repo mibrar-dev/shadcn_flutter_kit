@@ -1,21 +1,24 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../switcher.dart';
 
 /// _SwitcherState defines a reusable type for this registry module.
 class _SwitcherState extends State<Switcher> {
-/// Stores `_index` state/configuration for this implementation.
+  /// Stores `_index` state/configuration for this implementation.
   late double _index;
-/// Stores `_dragging` state/configuration for this implementation.
+
+  /// Stores `_dragging` state/configuration for this implementation.
   bool _dragging = false;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _index = widget.index.toDouble();
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant Switcher oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.index != widget.index) {
@@ -24,7 +27,7 @@ class _SwitcherState extends State<Switcher> {
     }
   }
 
-/// Executes `buildDraggable` behavior for this component/composite.
+  /// Executes `buildDraggable` behavior for this component/composite.
   Widget buildDraggable(BuildContext context, Widget child) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -33,9 +36,10 @@ class _SwitcherState extends State<Switcher> {
       },
       onPanUpdate: (details) {
         if (_dragging) {
-/// Stores `currentSize` state/configuration for this implementation.
+          /// Stores `currentSize` state/configuration for this implementation.
           final currentSize = context.size!;
-/// Stores `delta` state/configuration for this implementation.
+
+          /// Stores `delta` state/configuration for this implementation.
           double delta;
           switch (widget.direction) {
             case AxisDirection.up:
@@ -51,7 +55,8 @@ class _SwitcherState extends State<Switcher> {
               delta = details.delta.dx / currentSize.width;
               break;
           }
-/// Creates a `setState` instance.
+
+          /// Creates a `setState` instance.
           setState(() {
             _index += delta;
             _index = _index.clamp(0, widget.children.length - 1).toDouble();
@@ -68,9 +73,9 @@ class _SwitcherState extends State<Switcher> {
     );
   }
 
-/// Executes `_snapIndex` behavior for this component/composite.
+  /// Executes `_snapIndex` behavior for this component/composite.
   void _snapIndex() {
-/// Creates a `setState` instance.
+    /// Creates a `setState` instance.
     setState(() {
       _dragging = false;
       _index = _index.roundToDouble();
@@ -81,11 +86,12 @@ class _SwitcherState extends State<Switcher> {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return buildDraggable(
       context,
-/// Creates a `AnimatedValueBuilder` instance.
+
+      /// Creates a `AnimatedValueBuilder` instance.
       AnimatedValueBuilder(
         value: _index,
         duration: _dragging ? Duration.zero : widget.duration,
@@ -93,7 +99,8 @@ class _SwitcherState extends State<Switcher> {
         builder: (context, value, child) {
           final sourceChild = value.floor();
           final targetChild = value.ceil();
-/// Stores `relativeProgress` state/configuration for this implementation.
+
+          /// Stores `relativeProgress` state/configuration for this implementation.
           final relativeProgress = value - sourceChild;
           return _SwitcherTransition(
             progress: relativeProgress,

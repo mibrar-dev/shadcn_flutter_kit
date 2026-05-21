@@ -1,1 +1,1 @@
-{"installPath":"lib/ui/shadcn","sharedPath":"lib/ui/shadcn/shared","themeId":"amber-minimal","managedDependencies":["data_widget","gap"],"defaultNamespace":"shadcn","registries":{"shadcn":{"installPath":"lib/ui/shadcn","sharedPath":"lib/ui/shadcn/shared","themeId":"amber-minimal"}}}
+{"installPath":"lib/ui/shadcn","sharedPath":"lib/ui/shadcn/shared","themeId":null,"managedDependencies":null,"defaultNamespace":"shadcn","registries":{"shadcn":{"installPath":"lib/ui/shadcn","sharedPath":"lib/ui/shadcn/shared","themeId":null}}}

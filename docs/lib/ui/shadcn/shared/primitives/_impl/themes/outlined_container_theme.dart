@@ -1,27 +1,37 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../outlined_container.dart';
 
 /// OutlinedContainerTheme defines a reusable type for this registry module.
 class OutlinedContainerTheme extends ComponentThemeData {
-/// Stores `backgroundColor` state/configuration for this implementation.
+  /// Stores `backgroundColor` state/configuration for this implementation.
   final Color? backgroundColor;
-/// Stores `borderColor` state/configuration for this implementation.
+
+  /// Stores `borderColor` state/configuration for this implementation.
   final Color? borderColor;
-/// Stores `borderRadius` state/configuration for this implementation.
+
+  /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
-/// Stores `borderStyle` state/configuration for this implementation.
+
+  /// Stores `borderStyle` state/configuration for this implementation.
   final BorderStyle? borderStyle;
-/// Stores `borderWidth` state/configuration for this implementation.
+
+  /// Stores `borderWidth` state/configuration for this implementation.
   final double? borderWidth;
-/// Stores `boxShadow` state/configuration for this implementation.
+
+  /// Stores `boxShadow` state/configuration for this implementation.
   final List<BoxShadow>? boxShadow;
-/// Stores `padding` state/configuration for this implementation.
+
+  /// Stores `padding` state/configuration for this implementation.
   final EdgeInsetsGeometry? padding;
-/// Stores `surfaceOpacity` state/configuration for this implementation.
+
+  /// Stores `surfaceOpacity` state/configuration for this implementation.
   final double? surfaceOpacity;
-/// Stores `surfaceBlur` state/configuration for this implementation.
+
+  /// Stores `surfaceBlur` state/configuration for this implementation.
   final double? surfaceBlur;
 
-/// Creates a `OutlinedContainerTheme` instance.
+  /// Creates a `OutlinedContainerTheme` instance.
   const OutlinedContainerTheme({
     super.themeDensity,
     super.themeSpacing,

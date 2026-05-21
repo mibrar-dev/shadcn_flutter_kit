@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // GENERATED CODE - DO NOT MODIFY BY HAND.
 // Run `dart run tool/generate_theme_presets.dart` to refresh.
 // ignore_for_file: prefer_const_constructors
@@ -58,38 +60,206 @@ class RegistryThemePreset {
 
 /// Standard light shadow (used by most light mode themes).
 final _shadowLightStandard = ShadowScale(
-  shadow2xs: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadowXs: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadowSm: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadow: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadowMd: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadowLg: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadowXl: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
-  shadow2xl: const [BoxShadow(offset: Offset(0, 4), blurRadius: 8, spreadRadius: -1, color: Color(0x1A000000))],
+  shadow2xs: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadowXs: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadowSm: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadow: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadowMd: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadowLg: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadowXl: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
+  shadow2xl: const [
+    BoxShadow(
+      offset: Offset(0, 4),
+      blurRadius: 8,
+      spreadRadius: -1,
+      color: Color(0x1A000000),
+    ),
+  ],
 );
 
 /// Standard dark shadow (used by most dark mode themes).
 final _shadowDarkStandard = ShadowScale(
-  shadow2xs: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadowXs: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadowSm: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadow: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadowMd: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadowLg: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadowXl: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
-  shadow2xl: const [BoxShadow(offset: Offset(20.5, 16.5), blurRadius: 25.5, spreadRadius: -30, color: Color(0x12000000))],
+  shadow2xs: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadowXs: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadowSm: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadow: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadowMd: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadowLg: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadowXl: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
+  shadow2xl: const [
+    BoxShadow(
+      offset: Offset(20.5, 16.5),
+      blurRadius: 25.5,
+      spreadRadius: -30,
+      color: Color(0x12000000),
+    ),
+  ],
 );
 
 /// Soft light shadow (used by amethyst, cosmic, etc).
 final _shadowLightSoft = ShadowScale(
-  shadow2xs: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadowXs: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadowSm: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadow: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadowMd: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadowLg: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadowXl: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
-  shadow2xl: const [BoxShadow(offset: Offset(1, 2), blurRadius: 5, spreadRadius: 1, color: Color(0x0F000000))],
+  shadow2xs: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadowXs: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadowSm: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadow: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadowMd: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadowLg: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadowXl: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
+  shadow2xl: const [
+    BoxShadow(
+      offset: Offset(1, 2),
+      blurRadius: 5,
+      spreadRadius: 1,
+      color: Color(0x0F000000),
+    ),
+  ],
 );
 
 // ============================================================================
@@ -103,16 +273,15 @@ RegistryThemePresetTokens _lightTokens({
   String? fontSans,
   String? fontSerif,
   String? fontMono,
-}) =>
-    RegistryThemePresetTokens(
-      radius: radius,
-      spacing: SpacingScale(spacingBase),
-      tracking: TrackingScale(normal: 0),
-      shadows: shadows ?? _shadowLightStandard,
-      fontSans: fontSans,
-      fontSerif: fontSerif,
-      fontMono: fontMono,
-    );
+}) => RegistryThemePresetTokens(
+  radius: radius,
+  spacing: SpacingScale(spacingBase),
+  tracking: TrackingScale(normal: 0),
+  shadows: shadows ?? _shadowLightStandard,
+  fontSans: fontSans,
+  fontSerif: fontSerif,
+  fontMono: fontMono,
+);
 
 RegistryThemePresetTokens _darkTokens({
   double radius = 0.5,
@@ -121,16 +290,15 @@ RegistryThemePresetTokens _darkTokens({
   String? fontSans,
   String? fontSerif,
   String? fontMono,
-}) =>
-    RegistryThemePresetTokens(
-      radius: radius,
-      spacing: SpacingScale(spacingBase),
-      tracking: TrackingScale(normal: 0),
-      shadows: shadows ?? _shadowDarkStandard,
-      fontSans: fontSans,
-      fontSerif: fontSerif,
-      fontMono: fontMono,
-    );
+}) => RegistryThemePresetTokens(
+  radius: radius,
+  spacing: SpacingScale(spacingBase),
+  tracking: TrackingScale(normal: 0),
+  shadows: shadows ?? _shadowDarkStandard,
+  fontSans: fontSans,
+  fontSerif: fontSerif,
+  fontMono: fontMono,
+);
 
 ShadowScale _uniformShadowScale({
   required num x,
@@ -138,17 +306,72 @@ ShadowScale _uniformShadowScale({
   required num blur,
   required num spread,
   required int color,
-}) =>
-    ShadowScale(
-      shadow2xs: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadowXs: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadowSm: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadow: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadowMd: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadowLg: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadowXl: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-      shadow2xl: [BoxShadow(offset: Offset(x.toDouble(), y.toDouble()), blurRadius: blur.toDouble(), spreadRadius: spread.toDouble(), color: Color(color))],
-    );
+}) => ShadowScale(
+  shadow2xs: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadowXs: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadowSm: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadow: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadowMd: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadowLg: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadowXl: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+  shadow2xl: [
+    BoxShadow(
+      offset: Offset(x.toDouble(), y.toDouble()),
+      blurRadius: blur.toDouble(),
+      spreadRadius: spread.toDouble(),
+      color: Color(color),
+    ),
+  ],
+);
 
 // ============================================================================
 // Presets List
@@ -411,7 +634,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.625,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 2, y: 2, blur: 4, spread: 0, color: 0x33835EF3),
+      shadows: _uniformShadowScale(
+        x: 2,
+        y: 2,
+        blur: 4,
+        spread: 0,
+        color: 0x33835EF3,
+      ),
       fontSans: 'Roboto, sans-serif',
       fontSerif: 'Playfair Display, serif',
       fontMono: 'Fira Code, monospace',
@@ -501,7 +730,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.4,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 3, y: 3, blur: 0, spread: 0, color: 0x80D1519A),
+      shadows: _uniformShadowScale(
+        x: 3,
+        y: 3,
+        blur: 0,
+        spread: 0,
+        color: 0x80D1519A,
+      ),
       fontSans: 'Poppins, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'Fira Code, monospace',
@@ -509,7 +744,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF324859),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0xFF324859,
+      ),
       fontSans: 'Poppins, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'Fira Code, monospace',
@@ -763,7 +1004,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.35,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 4, blur: 6, spread: 0, color: 0x1F2D2D53),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 4,
+        blur: 6,
+        spread: 0,
+        color: 0x1F2D2D53,
+      ),
       fontSans: 'Montserrat, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Fira Code, monospace',
@@ -937,7 +1184,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 1.25,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 2, y: 2, blur: 10, spread: 4, color: 0x2E95959D),
+      shadows: _uniformShadowScale(
+        x: 2,
+        y: 2,
+        blur: 10,
+        spread: 4,
+        color: 0x2E95959D,
+      ),
       fontSans: 'Plus Jakarta Sans, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'Roboto Mono, monospace',
@@ -945,7 +1198,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 1.25,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0xFF000000,
+      ),
       fontSans: 'Plus Jakarta Sans, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'Roboto Mono, monospace',
@@ -1117,7 +1376,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 4, blur: 10, spread: 0, color: 0x1F2D2D53),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 4,
+        blur: 10,
+        spread: 0,
+        color: 0x1F2D2D53,
+      ),
       fontSans: 'Inter, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'JetBrains Mono, monospace',
@@ -1207,7 +1472,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 4, blur: 8, spread: -2, color: 0x1A000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 4,
+        blur: 8,
+        spread: -2,
+        color: 0x1A000000,
+      ),
       fontSans: 'Outfit, sans-serif',
       fontMono: 'Fira Code, monospace',
     ),
@@ -1295,7 +1566,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.75,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 4, spread: 0, color: 0x0D000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 4,
+        spread: 0,
+        color: 0x0D000000,
+      ),
       fontSans: 'Geist Mono, ui-monospace, monospace',
       fontSerif: 'serif',
       fontMono: 'JetBrains Mono, monospace',
@@ -1303,7 +1580,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0xFF000000,
+      ),
       fontSans: 'Geist Mono, ui-monospace, monospace',
       fontSerif: 'serif',
       fontMono: 'JetBrains Mono, monospace',
@@ -1385,7 +1668,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.0,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 4, spread: 0, color: 0x66000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 4,
+        spread: 0,
+        color: 0x66000000,
+      ),
       fontSans: '"Oxanium", sans-serif',
       fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
       fontMono: '"Source Code Pro", monospace',
@@ -1393,7 +1682,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.0,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 5, spread: 0, color: 0x99000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 5,
+        spread: 0,
+        color: 0x99000000,
+      ),
       fontSans: '"Oxanium", sans-serif',
       fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
       fontMono: '"Source Code Pro", monospace',
@@ -1475,7 +1770,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.375,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 1, y: 1, blur: 16, spread: -2, color: 0x1F4B1111),
+      shadows: _uniformShadowScale(
+        x: 1,
+        y: 1,
+        blur: 16,
+        spread: -2,
+        color: 0x1F4B1111,
+      ),
       fontSans: 'Poppins, sans-serif',
       fontSerif: 'Libre Baskerville, serif',
       fontMono: 'IBM Plex Mono, monospace',
@@ -1565,7 +1866,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.35,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 0, spread: 0, color: 0x04333333),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 0,
+        spread: 0,
+        color: 0x04333333,
+      ),
       fontSans: 'Montserrat, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Fira Code, monospace',
@@ -1655,7 +1962,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.425,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 3, y: 3, blur: 2, spread: 0, color: 0x065B6D46),
+      shadows: _uniformShadowScale(
+        x: 3,
+        y: 3,
+        blur: 2,
+        spread: 0,
+        color: 0x065B6D46,
+      ),
       fontSans: 'Merriweather, serif',
       fontSerif: 'Source Serif 4, serif',
       fontMono: 'JetBrains Mono, monospace',
@@ -1745,7 +2058,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 5, blur: 10, spread: -2, color: 0x1A000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 5,
+        blur: 10,
+        spread: -2,
+        color: 0x1A000000,
+      ),
       fontSans: 'Montserrat, sans-serif',
       fontSerif: 'Playfair Display, serif',
       fontMono: 'Source Code Pro, monospace',
@@ -1835,7 +2154,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 2, y: 2, blur: 0, spread: 0, color: 0x0B997B6C),
+      shadows: _uniformShadowScale(
+        x: 2,
+        y: 2,
+        blur: 0,
+        spread: 0,
+        color: 0x0B997B6C,
+      ),
       fontSans: 'DM Sans, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Menlo, monospace',
@@ -1843,7 +2168,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x805A483F),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0x805A483F,
+      ),
       fontSans: 'DM Sans, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Menlo, monospace',
@@ -2015,7 +2346,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.0,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 0, spread: 0, color: 0x00000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 0,
+        spread: 0,
+        color: 0x00000000,
+      ),
       fontSans: 'Geist Mono, monospace',
       fontSerif: 'Geist Mono, monospace',
       fontMono: 'Geist Mono, monospace',
@@ -2195,7 +2532,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.0,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 4, y: 4, blur: 0, spread: 0, color: 0xFF000000),
+      shadows: _uniformShadowScale(
+        x: 4,
+        y: 4,
+        blur: 0,
+        spread: 0,
+        color: 0xFF000000,
+      ),
       fontSans: 'DM Sans, sans-serif',
       fontMono: 'Space Mono, monospace',
     ),
@@ -2373,7 +2716,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.625,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 1, y: 4, blur: 5, spread: 0, color: 0x08000000),
+      shadows: _uniformShadowScale(
+        x: 1,
+        y: 4,
+        blur: 5,
+        spread: 0,
+        color: 0x08000000,
+      ),
       fontSans: 'Architects Daughter, sans-serif',
       fontSerif: '"Times New Roman", Times, serif',
       fontMono: '"Courier New", Courier, monospace',
@@ -2381,7 +2730,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.625,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 1, y: 4, blur: 5, spread: 0, color: 0x08000000),
+      shadows: _uniformShadowScale(
+        x: 1,
+        y: 4,
+        blur: 5,
+        spread: 0,
+        color: 0x08000000,
+      ),
       fontSans: 'Architects Daughter, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: '"Fira Code", "Courier New", monospace',
@@ -2553,7 +2908,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 1.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 8, blur: 16, spread: -4, color: 0x14000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 8,
+        blur: 16,
+        spread: -4,
+        color: 0x14000000,
+      ),
       fontSans: 'Open Sans, sans-serif',
       fontSerif: 'Source Serif 4, serif',
       fontMono: 'IBM Plex Mono, monospace',
@@ -2643,7 +3004,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.125,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 1, y: 1, blur: 2, spread: 0, color: 0x06177982),
+      shadows: _uniformShadowScale(
+        x: 1,
+        y: 1,
+        blur: 2,
+        spread: 0,
+        color: 0x06177982,
+      ),
       fontSans: 'Courier New, monospace',
       fontSerif: 'Courier New, monospace',
       fontMono: 'Courier New, monospace',
@@ -2651,7 +3018,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.125,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 1, y: 1, blur: 2, spread: 0, color: 0x0A52E0E0),
+      shadows: _uniformShadowScale(
+        x: 1,
+        y: 1,
+        blur: 2,
+        spread: 0,
+        color: 0x0A52E0E0,
+      ),
       fontSans: 'Source Code Pro, monospace',
       fontSerif: 'Source Code Pro, monospace',
       fontMono: 'Source Code Pro, monospace',
@@ -2733,7 +3106,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 3, blur: 0, spread: 0, color: 0x0682174D),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 3,
+        blur: 0,
+        spread: 0,
+        color: 0x0682174D,
+      ),
       fontSans: 'Poppins, sans-serif',
       fontSerif: 'Playfair Display, serif',
       fontMono: 'Space Mono, monospace',
@@ -2741,7 +3120,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x40E619E6),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0x40E619E6,
+      ),
       fontSans: 'Quicksand, sans-serif',
       fontSerif: 'Playfair Display, serif',
       fontMono: 'Space Mono, monospace',
@@ -2823,7 +3208,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.25,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 2, y: 2, blur: 4, spread: 0, color: 0x2604232F),
+      shadows: _uniformShadowScale(
+        x: 2,
+        y: 2,
+        blur: 4,
+        spread: 0,
+        color: 0x2604232F,
+      ),
       fontSans: 'Outfit, sans-serif',
       fontMono: 'Space Mono, monospace',
     ),
@@ -2911,7 +3302,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.35,
       spacingBase: 3.68,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 2, spread: 0, color: 0x0A1A1F2E),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 2,
+        spread: 0,
+        color: 0x0A1A1F2E,
+      ),
       fontSans: 'Antic, ui-sans-serif, sans-serif, system-ui',
       fontSerif: 'Signifier, Georgia, serif',
       fontMono: 'JetBrains Mono, Courier New, monospace',
@@ -2919,7 +3316,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0xFF000000,
+      ),
       fontSans: 'Antic, ui-sans-serif, sans-serif, system-ui',
       fontSerif: 'Signifier, Georgia, serif',
       fontMono: 'JetBrains Mono, Courier New, monospace',
@@ -3001,7 +3404,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 1.0,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x0D1A1A1A),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0x0D1A1A1A,
+      ),
       fontSans: 'DM Sans, sans-serif',
       fontSerif: 'DM Sans, sans-serif',
       fontMono: 'Space Mono, monospace',
@@ -3009,7 +3418,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 1.0,
       spacingBase: 4.0,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x0D1A1A1A),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0x0D1A1A1A,
+      ),
       fontSans: 'DM Sans, sans-serif',
       fontSerif: 'DM Sans, sans-serif',
       fontMono: 'Space Mono, monospace',
@@ -3091,7 +3506,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.3,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x2E4B3F34),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 3,
+        spread: 0,
+        color: 0x2E4B3F34,
+      ),
       fontSans: 'Oxanium, sans-serif',
       fontSerif: 'Merriweather, serif',
       fontMono: 'Fira Code, monospace',
@@ -3099,7 +3520,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.3,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0xFF0D0D0D),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0xFF0D0D0D,
+      ),
       fontSans: 'Oxanium, sans-serif',
       fontSerif: 'Merriweather, serif',
       fontMono: 'Fira Code, monospace',
@@ -3267,7 +3694,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.625,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 6, blur: 12, spread: -3, color: 0x17000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 6,
+        blur: 12,
+        spread: -3,
+        color: 0x17000000,
+      ),
       fontSans: 'Montserrat, sans-serif',
       fontSerif: 'Merriweather, serif',
       fontMono: 'Ubuntu Mono, monospace',
@@ -3357,7 +3790,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 3, spread: 0, color: 0x2B000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 3,
+        spread: 0,
+        color: 0x2B000000,
+      ),
       fontSans: 'Outfit, sans-serif',
       fontSerif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
       fontMono: 'monospace',
@@ -3531,7 +3970,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.75,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 3, spread: 0, color: 0x1A000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 3,
+        spread: 0,
+        color: 0x1A000000,
+      ),
       fontSans: 'Inter, sans-serif',
       fontSerif: 'Source Serif 4, serif',
       fontMono: 'JetBrains Mono, monospace',
@@ -3621,7 +4066,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 1.3,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 0, spread: 0, color: 0x001DA1F2),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 0,
+        spread: 0,
+        color: 0x001DA1F2,
+      ),
       fontSans: 'Open Sans, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Menlo, monospace',
@@ -3629,7 +4080,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 0, blur: 0, spread: 0, color: 0x401DA1F2),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 0,
+        blur: 0,
+        spread: 0,
+        color: 0x401DA1F2,
+      ),
       fontSans: 'Open Sans, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Menlo, monospace',
@@ -3711,7 +4168,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.5,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 0, y: 1, blur: 2, spread: 0, color: 0x2E000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 1,
+        blur: 2,
+        spread: 0,
+        color: 0x2E000000,
+      ),
       fontSans: 'Geist, sans-serif',
       fontSerif: 'Georgia, serif',
       fontMono: 'Geist Mono, monospace',
@@ -3801,7 +4264,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 0.25,
       spacingBase: 3.84,
-      shadows: _uniformShadowScale(x: 2, y: 3, blur: 5, spread: 0, color: 0x1F3A332C),
+      shadows: _uniformShadowScale(
+        x: 2,
+        y: 3,
+        blur: 5,
+        spread: 0,
+        color: 0x1F3A332C,
+      ),
       fontSans: 'Libre Baskerville, serif',
       fontSerif: 'Lora, serif',
       fontMono: 'IBM Plex Mono, monospace',
@@ -3891,7 +4360,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     lightTokens: _lightTokens(
       radius: 1.4,
       spacingBase: 4.32,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x29000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 3,
+        spread: 0,
+        color: 0x29000000,
+      ),
       fontSans: 'Plus Jakarta Sans, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'IBM Plex Mono, monospace',
@@ -3899,7 +4374,13 @@ final List<RegistryThemePreset> registryThemePresets = [
     darkTokens: _darkTokens(
       radius: 1.4,
       spacingBase: 4.32,
-      shadows: _uniformShadowScale(x: 0, y: 2, blur: 3, spread: 0, color: 0x29000000),
+      shadows: _uniformShadowScale(
+        x: 0,
+        y: 2,
+        blur: 3,
+        spread: 0,
+        color: 0x29000000,
+      ),
       fontSans: 'Plus Jakarta Sans, sans-serif',
       fontSerif: 'Lora, serif',
       fontMono: 'IBM Plex Mono, monospace',

@@ -1,27 +1,37 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../navigation_bar.dart';
 
 /// _NavigationLabeled defines a reusable type for this registry module.
 class _NavigationLabeled extends StatelessWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `label` state/configuration for this implementation.
+
+  /// Stores `label` state/configuration for this implementation.
   final Widget label;
-/// Stores `position` state/configuration for this implementation.
+
+  /// Stores `position` state/configuration for this implementation.
   final NavigationLabelPosition position;
-/// Stores `spacing` state/configuration for this implementation.
+
+  /// Stores `spacing` state/configuration for this implementation.
   final double spacing;
-/// Stores `showLabel` state/configuration for this implementation.
+
+  /// Stores `showLabel` state/configuration for this implementation.
   final bool showLabel;
-/// Stores `labelType` state/configuration for this implementation.
+
+  /// Stores `labelType` state/configuration for this implementation.
   final NavigationLabelType labelType;
-/// Stores `direction` state/configuration for this implementation.
+
+  /// Stores `direction` state/configuration for this implementation.
   final Axis direction;
-/// Stores `keepCrossAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool keepCrossAxisSize;
-/// Stores `keepMainAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool keepMainAxisSize;
 
-/// Creates a `_NavigationLabeled` instance.
+  /// Creates a `_NavigationLabeled` instance.
   const _NavigationLabeled({
     required this.child,
     required this.label,
@@ -35,7 +45,7 @@ class _NavigationLabeled extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     var direction =
         position == NavigationLabelPosition.top ||
@@ -72,12 +82,12 @@ class _NavigationLabeled extends StatelessWidget {
           children: [
             if (position == NavigationLabelPosition.start ||
                 position == NavigationLabelPosition.top)
-/// Creates a `Flexible` instance.
+              /// Creates a `Flexible` instance.
               Flexible(child: animatedSize),
             child,
             if (position == NavigationLabelPosition.end ||
                 position == NavigationLabelPosition.bottom)
-/// Creates a `Flexible` instance.
+              /// Creates a `Flexible` instance.
               Flexible(child: animatedSize),
           ],
         ),

@@ -1,10 +1,12 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../drawer.dart';
 
 /// _DrawerOverlayWrapperState defines a reusable type for this registry module.
 class _DrawerOverlayWrapperState extends State<_DrawerOverlayWrapper>
     with OverlayHandlerStateMixin {
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Data<OverlayHandlerStateMixin>.inherit(
       data: this,
@@ -13,7 +15,7 @@ class _DrawerOverlayWrapperState extends State<_DrawerOverlayWrapper>
   }
 
   @override
-/// Executes `close` behavior for this component/composite.
+  /// Executes `close` behavior for this component/composite.
   Future<void> close([bool immediate = false]) {
     if (immediate) {
       widget.completer.complete();
@@ -23,7 +25,7 @@ class _DrawerOverlayWrapperState extends State<_DrawerOverlayWrapper>
   }
 
   @override
-/// Executes `closeLater` behavior for this component/composite.
+  /// Executes `closeLater` behavior for this component/composite.
   void closeLater() {
     if (mounted) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

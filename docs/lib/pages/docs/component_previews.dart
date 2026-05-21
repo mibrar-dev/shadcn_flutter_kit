@@ -16,6 +16,8 @@ import '../../ui/shadcn/components/display/text_animate/text_animate.dart'
     as shadcn_text_animate;
 import '../../ui/shadcn/components/form/checkbox/checkbox.dart'
     as shadcn_checkbox;
+import '../../ui/shadcn/components/form/phone_input/phone_input.dart'
+    as shadcn_phone_input;
 import '../../ui/shadcn/components/form/slider/slider.dart' as shadcn_slider;
 import '../../ui/shadcn/components/form/switch/switch.dart' as shadcn_switch;
 import '../../ui/shadcn/components/form/text_field/text_field.dart'
@@ -65,6 +67,7 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'divider': _dividerPreview,
   'checkbox': _checkboxPreview,
   'input': _inputPreview,
+  'phone_input': _phoneInputPreview,
   'slider': _sliderPreview,
   'switch': _switchPreview,
   'progress': _progressPreview,
@@ -191,6 +194,15 @@ Widget _inputPreview(BuildContext context) {
     width: 160,
     child: shadcn_text_field.TextField(
       hintText: 'Search...',
+    ),
+  );
+}
+
+Widget _phoneInputPreview(BuildContext context) {
+  return SizedBox(
+    width: 220,
+    child: IgnorePointer(
+      child: shadcn_phone_input.PhoneInput(onChanged: (_) {}),
     ),
   );
 }

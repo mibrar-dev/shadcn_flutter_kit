@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../navigation_bar.dart';
 
 /// NavigationLabel defines a reusable type for this registry module.
@@ -40,11 +42,11 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
   });
 
   @override
-/// Stores `selectable` state/configuration for this implementation.
+  /// Stores `selectable` state/configuration for this implementation.
   bool get selectable => false;
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final data = Data.maybeOf<NavigationControlData>(context);
     if (data?.containerType == NavigationContainerType.sidebar) {
@@ -64,7 +66,7 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
   ///
   /// Returns the wrapped child widget.
   Widget buildChild(BuildContext context, NavigationControlData? data) {
-/// Stores `expanded` state/configuration for this implementation.
+    /// Stores `expanded` state/configuration for this implementation.
     bool expanded = data?.expanded ?? true;
     return Hidden(
       hidden: !expanded,
@@ -94,7 +96,8 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
   /// Returns widget for box-based navigation.
   Widget buildBox(BuildContext context, NavigationControlData? data) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return DefaultTextStyle.merge(
       textAlign: TextAlign.center,
@@ -102,7 +105,7 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
         alignment: alignment ?? Alignment.center,
         padding:
             padding ??
-/// Creates a `EdgeInsets.symmetric` instance.
+            /// Creates a `EdgeInsets.symmetric` instance.
             EdgeInsets.symmetric(horizontal: theme.density.baseGap * scaling),
         child: buildChild(context, data).xSmall(),
       ),
@@ -121,7 +124,8 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
   /// Returns sliver widget for sidebar navigation.
   Widget buildSliver(BuildContext context, NavigationControlData? data) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     return AnimatedValueBuilder(
       duration: kDefaultDuration,
@@ -138,7 +142,7 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-/// Creates a `Scrollable.ensureVisible` instance.
+                /// Creates a `Scrollable.ensureVisible` instance.
                 Scrollable.ensureVisible(
                   context,
                   duration: kDefaultDuration,
@@ -149,7 +153,7 @@ class NavigationLabel extends StatelessWidget implements NavigationBarItem {
                 alignment: alignment ?? AlignmentDirectional.centerStart,
                 padding:
                     padding ??
-/// Creates a `EdgeInsets.symmetric` instance.
+                    /// Creates a `EdgeInsets.symmetric` instance.
                     EdgeInsets.symmetric(
                       horizontal: theme.density.baseContentPadding * scaling,
                     ),

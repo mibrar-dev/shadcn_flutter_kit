@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../table.dart';
 
 /// RenderTableLayout defines a reusable type for this registry module.
@@ -5,24 +7,31 @@ class RenderTableLayout extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, TableParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, TableParentData> {
-/// Stores `_width` state/configuration for this implementation.
+  /// Stores `_width` state/configuration for this implementation.
   TableSizeSupplier _width;
-/// Stores `_height` state/configuration for this implementation.
+
+  /// Stores `_height` state/configuration for this implementation.
   TableSizeSupplier _height;
-/// Stores `_clipBehavior` state/configuration for this implementation.
+
+  /// Stores `_clipBehavior` state/configuration for this implementation.
   Clip _clipBehavior;
-/// Stores `_frozenColumn` state/configuration for this implementation.
+
+  /// Stores `_frozenColumn` state/configuration for this implementation.
   CellPredicate? _frozenColumn;
-/// Stores `_frozenRow` state/configuration for this implementation.
+
+  /// Stores `_frozenRow` state/configuration for this implementation.
   CellPredicate? _frozenRow;
-/// Stores `_verticalOffset` state/configuration for this implementation.
+
+  /// Stores `_verticalOffset` state/configuration for this implementation.
   double? _verticalOffset;
-/// Stores `_horizontalOffset` state/configuration for this implementation.
+
+  /// Stores `_horizontalOffset` state/configuration for this implementation.
   double? _horizontalOffset;
-/// Stores `_viewportSize` state/configuration for this implementation.
+
+  /// Stores `_viewportSize` state/configuration for this implementation.
   Size? _viewportSize;
 
-/// Stores `_layoutResult` state/configuration for this implementation.
+  /// Stores `_layoutResult` state/configuration for this implementation.
   TableLayoutResult? _layoutResult;
 
   /// Creates a render object for table layout.
@@ -65,7 +74,7 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `setupParentData` behavior for this component/composite.
+  /// Executes `setupParentData` behavior for this component/composite.
   void setupParentData(RenderObject child) {
     if (child.parentData is! TableParentData) {
       child.parentData = TableParentData();
@@ -73,14 +82,14 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `hitTestChildren` behavior for this component/composite.
+  /// Executes `hitTestChildren` behavior for this component/composite.
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     // reverse hit test traversal so that the first child is hit tested last
     // important for column and row spans
-/// Stores `child` state/configuration for this implementation.
+    /// Stores `child` state/configuration for this implementation.
     RenderBox? child = firstChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       final hit = result.addWithPaintOffset(
         offset: parentData.offset,
@@ -98,10 +107,10 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `computeMinIntrinsicWidth` behavior for this component/composite.
+  /// Executes `computeMinIntrinsicWidth` behavior for this component/composite.
   double computeMinIntrinsicWidth(double height) {
     return computeTableSize(
-/// Creates a `BoxConstraints.loose` instance.
+      /// Creates a `BoxConstraints.loose` instance.
       BoxConstraints.loose(Size(double.infinity, height)),
       (child, extent) {
         return child.getMinIntrinsicWidth(extent);
@@ -110,27 +119,27 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `computeDryLayout` behavior for this component/composite.
+  /// Executes `computeDryLayout` behavior for this component/composite.
   Size computeDryLayout(BoxConstraints constraints) {
     return computeTableSize(constraints).size;
   }
 
   @override
-/// Executes `paint` behavior for this component/composite.
+  /// Executes `paint` behavior for this component/composite.
   void paint(PaintingContext context, Offset offset) {
     // reverse paint traversal so that the first child is painted last
     // important for column and row spans
     // (ASSUMPTION: children are already sorted in the correct order)
     if (_clipBehavior != Clip.none) {
-/// Creates a `context.pushClipRect` instance.
+      /// Creates a `context.pushClipRect` instance.
       context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
         context,
         offset,
       ) {
-/// Stores `child` state/configuration for this implementation.
+        /// Stores `child` state/configuration for this implementation.
         RenderBox? child = lastChild;
         while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+          /// Stores `parentData` state/configuration for this implementation.
           final parentData = child.parentData as TableParentData;
           if (parentData.computeSize &&
               !parentData.frozenRow &&
@@ -140,10 +149,11 @@ class RenderTableLayout extends RenderBox
           child = childBefore(child);
         }
       }, clipBehavior: _clipBehavior);
-/// Stores `child` state/configuration for this implementation.
+
+      /// Stores `child` state/configuration for this implementation.
       RenderBox? child = lastChild;
       while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+        /// Stores `parentData` state/configuration for this implementation.
         final parentData = child.parentData as TableParentData;
         if (!parentData.computeSize &&
             !parentData.frozenRow &&
@@ -152,15 +162,16 @@ class RenderTableLayout extends RenderBox
         }
         child = childBefore(child);
       }
-/// Creates a `context.pushClipRect` instance.
+
+      /// Creates a `context.pushClipRect` instance.
       context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
         context,
         offset,
       ) {
-/// Stores `child` state/configuration for this implementation.
+        /// Stores `child` state/configuration for this implementation.
         RenderBox? child = lastChild;
         while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+          /// Stores `parentData` state/configuration for this implementation.
           final parentData = child.parentData as TableParentData;
           if (parentData.frozenColumn) {
             context.paintChild(child, offset + parentData.offset);
@@ -168,15 +179,16 @@ class RenderTableLayout extends RenderBox
           child = childBefore(child);
         }
       }, clipBehavior: _clipBehavior);
-/// Creates a `context.pushClipRect` instance.
+
+      /// Creates a `context.pushClipRect` instance.
       context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
         context,
         offset,
       ) {
-/// Stores `child` state/configuration for this implementation.
+        /// Stores `child` state/configuration for this implementation.
         RenderBox? child = lastChild;
         while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+          /// Stores `parentData` state/configuration for this implementation.
           final parentData = child.parentData as TableParentData;
           if (parentData.frozenRow) {
             context.paintChild(child, offset + parentData.offset);
@@ -186,7 +198,7 @@ class RenderTableLayout extends RenderBox
       }, clipBehavior: _clipBehavior);
       child = lastChild;
       while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+        /// Stores `parentData` state/configuration for this implementation.
         final parentData = child.parentData as TableParentData;
         if (!parentData.computeSize && (parentData.frozenColumn)) {
           context.paintChild(child, offset + parentData.offset);
@@ -195,7 +207,7 @@ class RenderTableLayout extends RenderBox
       }
       child = lastChild;
       while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+        /// Stores `parentData` state/configuration for this implementation.
         final parentData = child.parentData as TableParentData;
         if (!parentData.computeSize && (parentData.frozenRow)) {
           context.paintChild(child, offset + parentData.offset);
@@ -204,10 +216,11 @@ class RenderTableLayout extends RenderBox
       }
       return;
     }
-/// Stores `child` state/configuration for this implementation.
+
+    /// Stores `child` state/configuration for this implementation.
     RenderBox? child = lastChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       if (!parentData.frozenRow && !parentData.frozenColumn) {
         context.paintChild(child, offset + parentData.offset);
@@ -216,7 +229,7 @@ class RenderTableLayout extends RenderBox
     }
     child = lastChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       if (parentData.frozenColumn) {
         context.paintChild(child, offset + parentData.offset);
@@ -225,7 +238,7 @@ class RenderTableLayout extends RenderBox
     }
     child = lastChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       if (parentData.frozenRow) {
         context.paintChild(child, offset + parentData.offset);
@@ -235,19 +248,21 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `performLayout` behavior for this component/composite.
+  /// Executes `performLayout` behavior for this component/composite.
   void performLayout() {
     final result = computeTableSize(constraints);
     size = constraints.constrain(result.size);
 
-/// Stores `frozenRows` state/configuration for this implementation.
+    /// Stores `frozenRows` state/configuration for this implementation.
     Map<int, double> frozenRows = {};
-/// Stores `frozenColumns` state/configuration for this implementation.
+
+    /// Stores `frozenColumns` state/configuration for this implementation.
     Map<int, double> frozenColumns = {};
 
-/// Stores `effectiveHorizontalOffset` state/configuration for this implementation.
+    /// Stores `effectiveHorizontalOffset` state/configuration for this implementation.
     double effectiveHorizontalOffset = _horizontalOffset ?? 0;
-/// Stores `effectiveVerticalOffset` state/configuration for this implementation.
+
+    /// Stores `effectiveVerticalOffset` state/configuration for this implementation.
     double effectiveVerticalOffset = _verticalOffset ?? 0;
 
     if (_viewportSize != null) {
@@ -266,28 +281,33 @@ class RenderTableLayout extends RenderBox
       effectiveVerticalOffset = max(0, effectiveVerticalOffset);
     }
 
-/// Stores `child` state/configuration for this implementation.
+    /// Stores `child` state/configuration for this implementation.
     RenderBox? child = firstChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
-/// Stores `column` state/configuration for this implementation.
+
+      /// Stores `column` state/configuration for this implementation.
       final column = parentData.column;
-/// Stores `row` state/configuration for this implementation.
+
+      /// Stores `row` state/configuration for this implementation.
       final row = parentData.row;
       if (column != null && row != null) {
-/// Stores `width` state/configuration for this implementation.
+        /// Stores `width` state/configuration for this implementation.
         double width = 0;
-/// Stores `height` state/configuration for this implementation.
+
+        /// Stores `height` state/configuration for this implementation.
         double height = 0;
-/// Stores `columnSpan` state/configuration for this implementation.
+
+        /// Stores `columnSpan` state/configuration for this implementation.
         int columnSpan = parentData.columnSpan ?? 1;
-/// Stores `rowSpan` state/configuration for this implementation.
+
+        /// Stores `rowSpan` state/configuration for this implementation.
         int rowSpan = parentData.rowSpan ?? 1;
         bool frozenRow = _frozenRow?.call(row, rowSpan) ?? false;
         bool frozenColumn = _frozenColumn?.call(column, columnSpan) ?? false;
         for (
-/// Stores `i` state/configuration for this implementation.
+          /// Stores `i` state/configuration for this implementation.
           int i = 0;
           i < columnSpan && column + i < result.columnWidths.length;
           i++
@@ -295,7 +315,7 @@ class RenderTableLayout extends RenderBox
           width += result.columnWidths[column + i];
         }
         for (
-/// Stores `i` state/configuration for this implementation.
+          /// Stores `i` state/configuration for this implementation.
           int i = 0;
           i < rowSpan && row + i < result.rowHeights.length;
           i++
@@ -304,31 +324,35 @@ class RenderTableLayout extends RenderBox
         }
         child.layout(BoxConstraints.tightFor(width: width, height: height));
         final offset = result.getOffset(column, row);
-/// Stores `offsetX` state/configuration for this implementation.
+
+        /// Stores `offsetX` state/configuration for this implementation.
         double offsetX = offset.dx;
-/// Stores `offsetY` state/configuration for this implementation.
+
+        /// Stores `offsetY` state/configuration for this implementation.
         double offsetY = offset.dy;
 
         if (frozenRow) {
-/// Stores `verticalOffset` state/configuration for this implementation.
+          /// Stores `verticalOffset` state/configuration for this implementation.
           double verticalOffset = effectiveVerticalOffset;
           double offsetInViewport =
               offsetY - (_viewportSize != null ? verticalOffset : 0);
 
           // make sure its visible on the viewport
-/// Stores `minViewport` state/configuration for this implementation.
+          /// Stores `minViewport` state/configuration for this implementation.
           double minViewport = 0;
-/// Stores `maxViewport` state/configuration for this implementation.
+
+          /// Stores `maxViewport` state/configuration for this implementation.
           double maxViewport = _viewportSize?.height ?? constraints.maxHeight;
           if (maxViewport == double.infinity) {
             maxViewport = size.height;
           }
           for (int i = 0; i < row; i++) {
-/// Stores `rowHeight` state/configuration for this implementation.
+            /// Stores `rowHeight` state/configuration for this implementation.
             var rowHeight = frozenRows[i] ?? 0;
             minViewport += rowHeight;
           }
-/// Stores `verticalAdjustment` state/configuration for this implementation.
+
+          /// Stores `verticalAdjustment` state/configuration for this implementation.
           double verticalAdjustment = 0;
           if (_viewportSize != null && verticalOffset < 0) {
             verticalAdjustment = verticalOffset;
@@ -342,25 +366,27 @@ class RenderTableLayout extends RenderBox
           offsetY += verticalAdjustment;
         }
         if (frozenColumn) {
-/// Stores `horizontalOffset` state/configuration for this implementation.
+          /// Stores `horizontalOffset` state/configuration for this implementation.
           double horizontalOffset = effectiveHorizontalOffset;
           double offsetInViewport =
               offsetX - (_viewportSize != null ? horizontalOffset : 0);
 
           // make sure its visible on the viewport
-/// Stores `minViewport` state/configuration for this implementation.
+          /// Stores `minViewport` state/configuration for this implementation.
           double minViewport = 0;
-/// Stores `maxViewport` state/configuration for this implementation.
+
+          /// Stores `maxViewport` state/configuration for this implementation.
           double maxViewport = _viewportSize?.width ?? constraints.maxWidth;
           if (maxViewport == double.infinity) {
             maxViewport = size.width;
           }
           for (int i = 0; i < column; i++) {
-/// Stores `columnWidth` state/configuration for this implementation.
+            /// Stores `columnWidth` state/configuration for this implementation.
             var columnWidth = frozenColumns[i] ?? 0;
             minViewport += columnWidth;
           }
-/// Stores `horizontalAdjustment` state/configuration for this implementation.
+
+          /// Stores `horizontalAdjustment` state/configuration for this implementation.
           double horizontalAdjustment = 0;
           if (_viewportSize != null && horizontalOffset < 0) {
             horizontalAdjustment = horizontalOffset;
@@ -404,45 +430,53 @@ class RenderTableLayout extends RenderBox
     BoxConstraints constraints, [
     IntrinsicComputer? intrinsicComputer,
   ]) {
-/// Stores `flexWidth` state/configuration for this implementation.
+    /// Stores `flexWidth` state/configuration for this implementation.
     double flexWidth = 0;
-/// Stores `flexHeight` state/configuration for this implementation.
+
+    /// Stores `flexHeight` state/configuration for this implementation.
     double flexHeight = 0;
-/// Stores `fixedWidth` state/configuration for this implementation.
+
+    /// Stores `fixedWidth` state/configuration for this implementation.
     double fixedWidth = 0;
-/// Stores `fixedHeight` state/configuration for this implementation.
+
+    /// Stores `fixedHeight` state/configuration for this implementation.
     double fixedHeight = 0;
 
-/// Stores `columnWidths` state/configuration for this implementation.
+    /// Stores `columnWidths` state/configuration for this implementation.
     Map<int, double> columnWidths = {};
-/// Stores `rowHeights` state/configuration for this implementation.
+
+    /// Stores `rowHeights` state/configuration for this implementation.
     Map<int, double> rowHeights = {};
 
-/// Stores `maxRow` state/configuration for this implementation.
+    /// Stores `maxRow` state/configuration for this implementation.
     int maxRow = 0;
-/// Stores `maxColumn` state/configuration for this implementation.
+
+    /// Stores `maxColumn` state/configuration for this implementation.
     int maxColumn = 0;
 
-/// Stores `hasTightFlexWidth` state/configuration for this implementation.
+    /// Stores `hasTightFlexWidth` state/configuration for this implementation.
     bool hasTightFlexWidth = false;
-/// Stores `hasTightFlexHeight` state/configuration for this implementation.
+
+    /// Stores `hasTightFlexHeight` state/configuration for this implementation.
     bool hasTightFlexHeight = false;
 
     // find the maximum row and column
-/// Stores `child` state/configuration for this implementation.
+    /// Stores `child` state/configuration for this implementation.
     RenderBox? child = firstChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       if (parentData.computeSize) {
-/// Stores `column` state/configuration for this implementation.
+        /// Stores `column` state/configuration for this implementation.
         int? column = parentData.column;
-/// Stores `row` state/configuration for this implementation.
+
+        /// Stores `row` state/configuration for this implementation.
         int? row = parentData.row;
         if (column != null && row != null) {
-/// Stores `columnSpan` state/configuration for this implementation.
+          /// Stores `columnSpan` state/configuration for this implementation.
           int columnSpan = parentData.columnSpan ?? 1;
-/// Stores `rowSpan` state/configuration for this implementation.
+
+          /// Stores `rowSpan` state/configuration for this implementation.
           int rowSpan = parentData.rowSpan ?? 1;
           maxColumn = max(maxColumn, column + columnSpan - 1);
           maxRow = max(maxRow, row + rowSpan - 1);
@@ -452,9 +486,10 @@ class RenderTableLayout extends RenderBox
     }
 
     // micro-optimization: avoid calculating flexes if there are no flexes
-/// Stores `hasFlexWidth` state/configuration for this implementation.
+    /// Stores `hasFlexWidth` state/configuration for this implementation.
     bool hasFlexWidth = false;
-/// Stores `hasFlexHeight` state/configuration for this implementation.
+
+    /// Stores `hasFlexHeight` state/configuration for this implementation.
     bool hasFlexHeight = false;
 
     // row
@@ -487,20 +522,23 @@ class RenderTableLayout extends RenderBox
         columnWidths[c] = max(columnWidths[c] ?? 0, widthConstraint.value);
       } else if (widthConstraint is FractionalTableSize &&
           constraints.hasBoundedWidth) {
-/// Stores `value` state/configuration for this implementation.
+        /// Stores `value` state/configuration for this implementation.
         double value = widthConstraint.fraction * constraints.maxWidth;
         fixedWidth += value;
         columnWidths[c] = max(columnWidths[c] ?? 0, value);
       }
     }
 
-/// Stores `spacePerFlexWidth` state/configuration for this implementation.
+    /// Stores `spacePerFlexWidth` state/configuration for this implementation.
     double spacePerFlexWidth = 0;
-/// Stores `spacePerFlexHeight` state/configuration for this implementation.
+
+    /// Stores `spacePerFlexHeight` state/configuration for this implementation.
     double spacePerFlexHeight = 0;
-/// Stores `remainingWidth` state/configuration for this implementation.
+
+    /// Stores `remainingWidth` state/configuration for this implementation.
     double remainingWidth;
-/// Stores `remainingHeight` state/configuration for this implementation.
+
+    /// Stores `remainingHeight` state/configuration for this implementation.
     double remainingHeight;
     if (constraints.hasBoundedWidth) {
       remainingWidth = constraints.maxWidth - fixedWidth;
@@ -516,25 +554,27 @@ class RenderTableLayout extends RenderBox
     // find the proper intrinsic sizes (if any)
     child = lastChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData as TableParentData;
       if (parentData.computeSize) {
-/// Stores `column` state/configuration for this implementation.
+        /// Stores `column` state/configuration for this implementation.
         int? column = parentData.column;
-/// Stores `row` state/configuration for this implementation.
+
+        /// Stores `row` state/configuration for this implementation.
         int? row = parentData.row;
         if (column != null && row != null) {
           final widthConstraint = _width(column);
           final heightConstraint = _height(row);
           if (widthConstraint is IntrinsicTableSize ||
               (widthConstraint is FlexTableSize && intrinsicComputer != null)) {
-/// Stores `extent` state/configuration for this implementation.
+            /// Stores `extent` state/configuration for this implementation.
             var extent = rowHeights[row] ?? remainingHeight;
             double maxIntrinsicWidth = intrinsicComputer != null
                 ? intrinsicComputer(child, extent)
                 : child.getMaxIntrinsicWidth(extent);
             maxIntrinsicWidth = min(maxIntrinsicWidth, remainingWidth);
-/// Stores `columnSpan` state/configuration for this implementation.
+
+            /// Stores `columnSpan` state/configuration for this implementation.
             int columnSpan = parentData.columnSpan ?? 1;
             // distribute the intrinsic width to all columns
             maxIntrinsicWidth = maxIntrinsicWidth / columnSpan;
@@ -548,13 +588,14 @@ class RenderTableLayout extends RenderBox
           if (heightConstraint is IntrinsicTableSize ||
               (heightConstraint is FlexTableSize &&
                   intrinsicComputer != null)) {
-/// Stores `extent` state/configuration for this implementation.
+            /// Stores `extent` state/configuration for this implementation.
             var extent = columnWidths[column] ?? remainingWidth;
             double maxIntrinsicHeight = intrinsicComputer != null
                 ? intrinsicComputer(child, extent)
                 : child.getMaxIntrinsicHeight(extent);
             maxIntrinsicHeight = min(maxIntrinsicHeight, remainingHeight);
-/// Stores `rowSpan` state/configuration for this implementation.
+
+            /// Stores `rowSpan` state/configuration for this implementation.
             int rowSpan = parentData.rowSpan ?? 1;
             // distribute the intrinsic height to all rows
 
@@ -573,13 +614,17 @@ class RenderTableLayout extends RenderBox
 
     double usedColumnWidth = columnWidths.values.fold(0, (a, b) => a + b);
     double usedRowHeight = rowHeights.values.fold(0, (a, b) => a + b);
-/// Stores `looseRemainingWidth` state/configuration for this implementation.
+
+    /// Stores `looseRemainingWidth` state/configuration for this implementation.
     double looseRemainingWidth = remainingWidth;
-/// Stores `looseRemainingHeight` state/configuration for this implementation.
+
+    /// Stores `looseRemainingHeight` state/configuration for this implementation.
     double looseRemainingHeight = remainingHeight;
-/// Stores `looseSpacePerFlexWidth` state/configuration for this implementation.
+
+    /// Stores `looseSpacePerFlexWidth` state/configuration for this implementation.
     double looseSpacePerFlexWidth = 0;
-/// Stores `looseSpacePerFlexHeight` state/configuration for this implementation.
+
+    /// Stores `looseSpacePerFlexHeight` state/configuration for this implementation.
     double looseSpacePerFlexHeight = 0;
 
     if (intrinsicComputer == null) {
@@ -654,12 +699,13 @@ class RenderTableLayout extends RenderBox
     if (intrinsicComputer == null) {
       child = lastChild;
       while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+        /// Stores `parentData` state/configuration for this implementation.
         final parentData = child.parentData as TableParentData;
         if (parentData.computeSize) {
-/// Stores `column` state/configuration for this implementation.
+          /// Stores `column` state/configuration for this implementation.
           int? column = parentData.column;
-/// Stores `row` state/configuration for this implementation.
+
+          /// Stores `row` state/configuration for this implementation.
           int? row = parentData.row;
           if (column != null && row != null) {
             final heightConstraint = _height(row);
@@ -668,9 +714,10 @@ class RenderTableLayout extends RenderBox
               // If column was Flex, it now has a calculated width in columnWidths
               // If column was Fixed, it's also in columnWidths
               // We can use the actual column width now
-/// Stores `columnSpan` state/configuration for this implementation.
+              /// Stores `columnSpan` state/configuration for this implementation.
               int columnSpan = parentData.columnSpan ?? 1;
-/// Stores `availableWidth` state/configuration for this implementation.
+
+              /// Stores `availableWidth` state/configuration for this implementation.
               double availableWidth = 0;
               for (int i = 0; i < columnSpan; i++) {
                 availableWidth += columnWidths[column + i] ?? 0;
@@ -682,7 +729,7 @@ class RenderTableLayout extends RenderBox
                 );
                 maxIntrinsicHeight = min(maxIntrinsicHeight, remainingHeight);
 
-/// Stores `rowSpan` state/configuration for this implementation.
+                /// Stores `rowSpan` state/configuration for this implementation.
                 int rowSpan = parentData.rowSpan ?? 1;
 
                 maxIntrinsicHeight = maxIntrinsicHeight / rowSpan;
@@ -704,17 +751,19 @@ class RenderTableLayout extends RenderBox
     List<double> columnWidthsList = List.generate(maxColumn + 1, (index) {
       return columnWidths[index] ?? 0;
     });
-/// Creates a `columnWidths.forEach` instance.
+
+    /// Creates a `columnWidths.forEach` instance.
     columnWidths.forEach((key, value) {
       columnWidthsList[key] = value;
     });
     List<double> rowHeightsList =
         // List.filled(rowHeights.keys.reduce(max) + 1, 0);
-/// Creates a `List.generate` instance.
+        /// Creates a `List.generate` instance.
         List.generate(maxRow + 1, (index) {
           return rowHeights[index] ?? 0;
         });
-/// Creates a `rowHeights.forEach` instance.
+
+    /// Creates a `rowHeights.forEach` instance.
     rowHeights.forEach((key, value) {
       rowHeightsList[key] = value;
     });
@@ -731,10 +780,10 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `computeMaxIntrinsicWidth` behavior for this component/composite.
+  /// Executes `computeMaxIntrinsicWidth` behavior for this component/composite.
   double computeMaxIntrinsicWidth(double height) {
     return computeTableSize(
-/// Creates a `BoxConstraints.loose` instance.
+      /// Creates a `BoxConstraints.loose` instance.
       BoxConstraints.loose(Size(double.infinity, height)),
       (child, extent) {
         return child.getMaxIntrinsicWidth(extent);
@@ -743,10 +792,10 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `computeMinIntrinsicHeight` behavior for this component/composite.
+  /// Executes `computeMinIntrinsicHeight` behavior for this component/composite.
   double computeMinIntrinsicHeight(double width) {
     return computeTableSize(
-/// Creates a `BoxConstraints.loose` instance.
+      /// Creates a `BoxConstraints.loose` instance.
       BoxConstraints.loose(Size(width, double.infinity)),
       (child, extent) {
         return child.getMinIntrinsicHeight(extent);
@@ -755,10 +804,10 @@ class RenderTableLayout extends RenderBox
   }
 
   @override
-/// Executes `computeMaxIntrinsicHeight` behavior for this component/composite.
+  /// Executes `computeMaxIntrinsicHeight` behavior for this component/composite.
   double computeMaxIntrinsicHeight(double width) {
     return computeTableSize(
-/// Creates a `BoxConstraints.loose` instance.
+      /// Creates a `BoxConstraints.loose` instance.
       BoxConstraints.loose(Size(width, double.infinity)),
       (child, extent) {
         return child.getMaxIntrinsicHeight(extent);

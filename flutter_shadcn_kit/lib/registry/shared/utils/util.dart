@@ -1,7 +1,6 @@
 // ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 import 'dart:async';
-import 'dart:math';
 
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
@@ -309,19 +308,14 @@ class _SeparatedIterator implements Iterator<Widget> {
   /// Stores `_separator` state/configuration for this implementation.
   final Widget _separator;
 
-  /// Stores `_isOnSeparator` state/configuration for this implementation.
-  bool _isOnSeparator = false;
-
-  /// Stores `_hasNext` state/configuration for this implementation.
-  bool _hasNext = true;
+  bool _isFirst = true;
+  bool _emitCurrentAfterSeparator = false;
 
   /// Stores `_current` state/configuration for this implementation.
   Widget? _current;
 
   /// Creates a `_SeparatedIterator` instance.
-  _SeparatedIterator(this._iterator, this._separator) {
-    _hasNext = _iterator.moveNext();
-  }
+  _SeparatedIterator(this._iterator, this._separator);
 
   @override
   /// Stores `current` state/configuration for this implementation.
@@ -330,26 +324,28 @@ class _SeparatedIterator implements Iterator<Widget> {
   @override
   /// Executes `moveNext` behavior for this component/composite.
   bool moveNext() {
-    if (!_hasNext) {
-      return false;
-    }
-
-    if (_isOnSeparator) {
+    if (_isFirst) {
+      _isFirst = false;
+      if (!_iterator.moveNext()) {
+        return false;
+      }
       _current = _iterator.current;
-      _isOnSeparator = false;
-      _hasNext = _iterator.moveNext();
       return true;
     }
 
-    _current = _iterator.current;
-    if (!_iterator.moveNext()) {
-      _hasNext = false;
+    if (_emitCurrentAfterSeparator) {
+      _emitCurrentAfterSeparator = false;
+      _current = _iterator.current;
       return true;
     }
 
-    _isOnSeparator = true;
-    _current = _separator;
-    return true;
+    if (_iterator.moveNext()) {
+      _emitCurrentAfterSeparator = true;
+      _current = _separator;
+      return true;
+    }
+
+    return false;
   }
 }
 

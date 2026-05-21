@@ -1,8 +1,10 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../hidden.dart';
 
 /// _HiddenLayout defines a reusable type for this registry module.
 class _HiddenLayout extends SingleChildRenderObjectWidget {
-/// Creates a `_HiddenLayout` instance.
+  /// Creates a `_HiddenLayout` instance.
   const _HiddenLayout({
     required this.textDirection,
     required this.direction,
@@ -13,21 +15,26 @@ class _HiddenLayout extends SingleChildRenderObjectWidget {
     super.child,
   });
 
-/// Stores `textDirection` state/configuration for this implementation.
+  /// Stores `textDirection` state/configuration for this implementation.
   final TextDirection textDirection;
-/// Stores `direction` state/configuration for this implementation.
+
+  /// Stores `direction` state/configuration for this implementation.
   final Axis direction;
-/// Stores `reverse` state/configuration for this implementation.
+
+  /// Stores `reverse` state/configuration for this implementation.
   final bool reverse;
-/// Stores `progress` state/configuration for this implementation.
+
+  /// Stores `progress` state/configuration for this implementation.
   final double progress;
-/// Stores `keepCrossAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool keepCrossAxisSize;
-/// Stores `keepMainAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool keepMainAxisSize;
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return _RenderHiddenLayout(
       textDirection: textDirection,
@@ -44,7 +51,7 @@ class _HiddenLayout extends SingleChildRenderObjectWidget {
     BuildContext context,
     _RenderHiddenLayout renderObject,
   ) {
-/// Stores `needsLayout` state/configuration for this implementation.
+    /// Stores `needsLayout` state/configuration for this implementation.
     bool needsLayout = false;
     if (renderObject.textDirection != textDirection) {
       renderObject.textDirection = textDirection;

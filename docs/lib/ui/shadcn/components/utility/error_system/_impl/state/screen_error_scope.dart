@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ScreenErrorScope: widget that owns a screen-level error channel and disposes it automatically.
 // Provides a typed HubScreenScope plus run/runSync helpers so screens can publish AppError without guard().
 
@@ -9,7 +11,7 @@ import '../core/hub_scopes.dart';
 
 /// ScreenErrorScope defines a reusable type for this registry module.
 class ScreenErrorScope extends StatefulWidget {
-/// Creates a `ScreenErrorScope` instance.
+  /// Creates a `ScreenErrorScope` instance.
   const ScreenErrorScope({
     super.key,
     required this.child,
@@ -17,14 +19,16 @@ class ScreenErrorScope extends StatefulWidget {
     this.clearOnInit = false,
   });
 
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `scopeKey` state/configuration for this implementation.
+
+  /// Stores `scopeKey` state/configuration for this implementation.
   final String? scopeKey;
-/// Stores `clearOnInit` state/configuration for this implementation.
+
+  /// Stores `clearOnInit` state/configuration for this implementation.
   final bool clearOnInit;
 
-/// Executes `of` behavior for this component/composite.
+  /// Executes `of` behavior for this component/composite.
   static ScreenErrorScopeState of(BuildContext context) {
     final scope = context
         .dependOnInheritedWidgetOfExactType<_ScreenErrorScopeHost>();
@@ -33,13 +37,13 @@ class ScreenErrorScope extends StatefulWidget {
   }
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<ScreenErrorScope> createState() => ScreenErrorScopeState();
 }
 
 /// ScreenErrorScopeState defines a reusable type for this registry module.
 class ScreenErrorScopeState extends State<ScreenErrorScope> {
-/// Stores `_counter` state/configuration for this implementation.
+  /// Stores `_counter` state/configuration for this implementation.
   static int _counter = 0;
 
   late final String _key =
@@ -47,13 +51,13 @@ class ScreenErrorScopeState extends State<ScreenErrorScope> {
       'screen.${DateTime.now().microsecondsSinceEpoch}-${_counter++}';
   late final HubScreenScope scope = HubScreenScope(_key);
 
-/// Stores `notifier` state/configuration for this implementation.
+  /// Stores `notifier` state/configuration for this implementation.
   ValueNotifier<AppError?> get notifier => scope.notifier;
 
-/// Executes `set` behavior for this component/composite.
+  /// Executes `set` behavior for this component/composite.
   void set(AppError? error) => scope.notifier.value = error;
 
-/// Executes `clear` behavior for this component/composite.
+  /// Executes `clear` behavior for this component/composite.
   void clear() => scope.clear();
 
   Future<T?> run<T>(
@@ -80,7 +84,7 @@ class ScreenErrorScopeState extends State<ScreenErrorScope> {
   }
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     if (widget.clearOnInit) {
@@ -89,14 +93,14 @@ class ScreenErrorScopeState extends State<ScreenErrorScope> {
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     scope.dispose();
     super.dispose();
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return _ScreenErrorScopeHost(state: this, child: widget.child);
   }
@@ -106,10 +110,10 @@ class ScreenErrorScopeState extends State<ScreenErrorScope> {
 class _ScreenErrorScopeHost extends InheritedWidget {
   const _ScreenErrorScopeHost({required this.state, required super.child});
 
-/// Stores `state` state/configuration for this implementation.
+  /// Stores `state` state/configuration for this implementation.
   final ScreenErrorScopeState state;
 
   @override
-/// Executes `updateShouldNotify` behavior for this component/composite.
+  /// Executes `updateShouldNotify` behavior for this component/composite.
   bool updateShouldNotify(_ScreenErrorScopeHost oldWidget) => false;
 }

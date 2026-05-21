@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tab_container.dart';
 
 /// TabContainer defines a reusable type for this registry module.
@@ -35,7 +37,7 @@ class TabContainer extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<TabContainerTheme>(context);
     final tabBuilder =
@@ -45,15 +47,16 @@ class TabContainer extends StatelessWidget {
     final tabChildBuilder =
         childBuilder ?? compTheme?.childBuilder ?? ((_, __, child) => child);
 
-/// Stores `wrappedChildren` state/configuration for this implementation.
+    /// Stores `wrappedChildren` state/configuration for this implementation.
     List<Widget> wrappedChildren = [];
-/// Stores `index` state/configuration for this implementation.
+
+    /// Stores `index` state/configuration for this implementation.
     int index = 0;
     for (TabChild child in children) {
       if (child.indexed) {
-/// Creates a `wrappedChildren.add` instance.
+        /// Creates a `wrappedChildren.add` instance.
         wrappedChildren.add(
-/// Creates a `Data.inherit` instance.
+          /// Creates a `Data.inherit` instance.
           Data.inherit(
             key: ValueKey(child),
             data: TabContainerData(

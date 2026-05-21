@@ -1,25 +1,33 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../tooltip.dart';
 
 /// Tooltip that appears after a hover delay.
 
 /// Tooltip defines a reusable type for this registry module.
 class Tooltip extends StatefulWidget {
-/// Stores `child` state/configuration for this implementation.
+  /// Stores `child` state/configuration for this implementation.
   final Widget child;
-/// Stores `tooltip` state/configuration for this implementation.
+
+  /// Stores `tooltip` state/configuration for this implementation.
   final WidgetBuilder tooltip;
-/// Stores `alignment` state/configuration for this implementation.
+
+  /// Stores `alignment` state/configuration for this implementation.
   final AlignmentGeometry alignment;
-/// Stores `anchorAlignment` state/configuration for this implementation.
+
+  /// Stores `anchorAlignment` state/configuration for this implementation.
   final AlignmentGeometry anchorAlignment;
-/// Stores `waitDuration` state/configuration for this implementation.
+
+  /// Stores `waitDuration` state/configuration for this implementation.
   final Duration waitDuration;
-/// Stores `showDuration` state/configuration for this implementation.
+
+  /// Stores `showDuration` state/configuration for this implementation.
   final Duration showDuration;
-/// Stores `minDuration` state/configuration for this implementation.
+
+  /// Stores `minDuration` state/configuration for this implementation.
   final Duration minDuration;
 
-/// Creates a `Tooltip` instance.
+  /// Creates a `Tooltip` instance.
   const Tooltip({
     super.key,
     required this.child,
@@ -32,6 +40,6 @@ class Tooltip extends StatefulWidget {
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<Tooltip> createState() => _TooltipState();
 }

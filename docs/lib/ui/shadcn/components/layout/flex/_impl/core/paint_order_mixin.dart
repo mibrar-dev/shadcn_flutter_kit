@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../flex.dart';
 
 /// Shared sort/paint/hit-test behavior for render objects with paint order.
@@ -13,7 +15,7 @@ mixin PaintOrderMixin on rendering.RenderBox {
 
   /// Rebuilds paint-order linked list. Stable for equal paint orders.
   void buildSortedLinkedList() {
-/// Stores `first` state/configuration for this implementation.
+    /// Stores `first` state/configuration for this implementation.
     final first = paintOrderFirstChild;
     if (first == null) {
       firstSortedChild = null;
@@ -23,15 +25,18 @@ mixin PaintOrderMixin on rendering.RenderBox {
 
     rendering.RenderBox? child = first;
     rendering.RenderBox? prev;
-/// Stores `needsSort` state/configuration for this implementation.
+
+    /// Stores `needsSort` state/configuration for this implementation.
     var needsSort = false;
-/// Stores `childCount` state/configuration for this implementation.
+
+    /// Stores `childCount` state/configuration for this implementation.
     var childCount = 0;
 
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData! as PaintOrderParentDataMixin;
-/// Stores `order` state/configuration for this implementation.
+
+      /// Stores `order` state/configuration for this implementation.
       final order = parentData.paintOrder;
       parentData.paintIndex = order ?? 0;
       if (order != null) {
@@ -63,7 +68,7 @@ mixin PaintOrderMixin on rendering.RenderBox {
     rendering.RenderBox? current = firstSortedChild;
     prev = null;
     while (current != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = current.parentData! as PaintOrderParentDataMixin;
       parentData.previousSortedSibling = prev;
       prev = current;
@@ -77,7 +82,7 @@ mixin PaintOrderMixin on rendering.RenderBox {
       return head;
     }
 
-/// Stores `mid` state/configuration for this implementation.
+    /// Stores `mid` state/configuration for this implementation.
     final mid = length ~/ 2;
     rendering.RenderBox? current = head;
     for (var i = 0; i < mid - 1 && current != null; i++) {
@@ -87,7 +92,7 @@ mixin PaintOrderMixin on rendering.RenderBox {
 
     rendering.RenderBox? secondHalf;
     if (current != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = current.parentData! as PaintOrderParentDataMixin;
       secondHalf = parentData.nextSortedSibling;
       parentData.nextSortedSibling = null;
@@ -109,9 +114,10 @@ mixin PaintOrderMixin on rendering.RenderBox {
     rendering.RenderBox? head;
     rendering.RenderBox? tail;
 
-/// Stores `leftData` state/configuration for this implementation.
+    /// Stores `leftData` state/configuration for this implementation.
     final leftData = left.parentData! as PaintOrderParentDataMixin;
-/// Stores `rightData` state/configuration for this implementation.
+
+    /// Stores `rightData` state/configuration for this implementation.
     final rightData = right.parentData! as PaintOrderParentDataMixin;
     if (leftData.paintIndex <= rightData.paintIndex) {
       head = left;
@@ -123,9 +129,10 @@ mixin PaintOrderMixin on rendering.RenderBox {
     tail = head;
 
     while (left != null && right != null) {
-/// Stores `leftParentData` state/configuration for this implementation.
+      /// Stores `leftParentData` state/configuration for this implementation.
       final leftParentData = left.parentData! as PaintOrderParentDataMixin;
-/// Stores `rightParentData` state/configuration for this implementation.
+
+      /// Stores `rightParentData` state/configuration for this implementation.
       final rightParentData = right.parentData! as PaintOrderParentDataMixin;
 
       if (leftParentData.paintIndex <= rightParentData.paintIndex) {
@@ -142,17 +149,17 @@ mixin PaintOrderMixin on rendering.RenderBox {
     }
 
     (tail!.parentData! as PaintOrderParentDataMixin).nextSortedSibling =
-/// Stores `right` state/configuration for this implementation.
+        /// Stores `right` state/configuration for this implementation.
         left ?? right;
     return head;
   }
 
   /// Paint children from back to front.
   void paintSorted(rendering.PaintingContext context, Offset offset) {
-/// Stores `clipBehavior` state/configuration for this implementation.
+    /// Stores `clipBehavior` state/configuration for this implementation.
     final clipBehavior = optionalClipBehavior;
     if (clipBehavior != null && clipBehavior != Clip.none) {
-/// Creates a `context.pushClipRect` instance.
+      /// Creates a `context.pushClipRect` instance.
       context.pushClipRect(
         needsCompositing,
         offset,
@@ -165,11 +172,11 @@ mixin PaintOrderMixin on rendering.RenderBox {
     }
   }
 
-/// Executes `_paintSorted` behavior for this component/composite.
+  /// Executes `_paintSorted` behavior for this component/composite.
   void _paintSorted(rendering.PaintingContext context, Offset offset) {
     rendering.RenderBox? child = firstSortedChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData! as PaintOrderParentDataMixin;
       context.paintChild(child, parentData.offset + offset);
       child = parentData.nextSortedSibling;
@@ -183,7 +190,7 @@ mixin PaintOrderMixin on rendering.RenderBox {
   }) {
     rendering.RenderBox? child = lastSortedChild;
     while (child != null) {
-/// Stores `parentData` state/configuration for this implementation.
+      /// Stores `parentData` state/configuration for this implementation.
       final parentData = child.parentData! as PaintOrderParentDataMixin;
       final isHit = result.addWithPaintOffset(
         offset: parentData.offset,

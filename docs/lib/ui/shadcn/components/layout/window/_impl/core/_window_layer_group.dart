@@ -1,19 +1,25 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../window.dart';
 
 /// _WindowLayerGroup defines a reusable type for this registry module.
 class _WindowLayerGroup extends StatelessWidget {
-/// Stores `constraints` state/configuration for this implementation.
+  /// Stores `constraints` state/configuration for this implementation.
   final BoxConstraints constraints;
-/// Stores `windows` state/configuration for this implementation.
+
+  /// Stores `windows` state/configuration for this implementation.
   final List<Window> windows;
-/// Stores `handle` state/configuration for this implementation.
+
+  /// Stores `handle` state/configuration for this implementation.
   final _WindowNavigatorState handle;
-/// Stores `alwaysOnTop` state/configuration for this implementation.
+
+  /// Stores `alwaysOnTop` state/configuration for this implementation.
   final bool alwaysOnTop;
-/// Stores `showTopSnapBar` state/configuration for this implementation.
+
+  /// Stores `showTopSnapBar` state/configuration for this implementation.
   final bool showTopSnapBar;
 
-/// Creates a `_WindowLayerGroup` instance.
+  /// Creates a `_WindowLayerGroup` instance.
   const _WindowLayerGroup({
     required this.constraints,
     required this.windows,
@@ -23,10 +29,11 @@ class _WindowLayerGroup extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `createPaneSnapStrategy` state/configuration for this implementation.
+
+    /// Stores `createPaneSnapStrategy` state/configuration for this implementation.
     final createPaneSnapStrategy = handle._createPaneSnapStrategy;
     return GroupWidget(
       children: [
@@ -47,7 +54,7 @@ class _WindowLayerGroup extends StatelessWidget {
         if (handle._snappingStrategy.value != null &&
             handle._draggingWindow.value != null &&
             handle._draggingWindow.value!.window.alwaysOnTop == alwaysOnTop)
-/// Creates a `GroupPositioned.fromRect` instance.
+          /// Creates a `GroupPositioned.fromRect` instance.
           GroupPositioned.fromRect(
             rect: Rect.fromLTWH(
               handle._snappingStrategy.value!.relativeBounds.left *
@@ -64,7 +71,7 @@ class _WindowLayerGroup extends StatelessWidget {
             ),
           ),
         if (showTopSnapBar)
-/// Creates a `ListenableBuilder` instance.
+          /// Creates a `ListenableBuilder` instance.
           ListenableBuilder(
             listenable: handle._hoveringTopSnapper,
             builder: (context, _) {
@@ -104,7 +111,8 @@ class _WindowLayerGroup extends StatelessWidget {
                         return Transform.translate(
                           offset: Offset(
                             0,
-/// Creates a `unlerpDouble` instance.
+
+                            /// Creates a `unlerpDouble` instance.
                             unlerpDouble(value, -1.0, 0.0).clamp(0, 1) * 24,
                           ),
                           child: FractionalTranslation(
@@ -128,22 +136,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                       theme.density.baseGap * theme.scaling,
                                   children: [
                                     // 0.5 | 0.5
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -155,11 +164,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.5,
@@ -177,22 +188,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                       ),
                                     ),
                                     // 0.7 | 0.3
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -204,11 +216,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.7,
@@ -227,22 +241,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                     ),
                                     // (0.5, 1) | (0.5, 0.5)
                                     //          | (0.5, 0.5)
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -254,11 +269,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.5,
@@ -271,11 +288,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 bottomRight: true,
                                                 topLeft: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.5,
@@ -295,22 +314,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                     ),
                                     // (0.5, 0.5) | (0.5, 0.5)
                                     // (0.5, 0.5) | (0.5, 0.5)
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -323,11 +343,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomLeft: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.5,
@@ -340,11 +362,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topLeft: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -357,11 +381,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0.5,
@@ -380,22 +406,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                       ),
                                     ),
                                     // 1/3 | 1/3 | 1/3
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -407,11 +434,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     1 / 3,
@@ -423,11 +452,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 allLeft: true,
                                                 allRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     2 / 3,
@@ -445,22 +476,23 @@ class _WindowLayerGroup extends StatelessWidget {
                                       ),
                                     ),
                                     // 2/7 | 3/7 | 2/7
-/// Creates a `AspectRatio` instance.
+                                    /// Creates a `AspectRatio` instance.
                                     AspectRatio(
                                       aspectRatio:
                                           constraints.biggest.width /
                                           constraints.biggest.height,
                                       child: LayoutBuilder(
                                         builder: (context, constraints) {
-/// Stores `size` state/configuration for this implementation.
+                                          /// Stores `size` state/configuration for this implementation.
                                           final size = constraints.biggest;
                                           return GroupWidget(
                                             children: [
-/// Creates a `createPaneSnapStrategy` instance.
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     0,
@@ -472,11 +504,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 topRight: true,
                                                 bottomRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     2 / 7,
@@ -488,11 +522,13 @@ class _WindowLayerGroup extends StatelessWidget {
                                                 allLeft: true,
                                                 allRight: true,
                                               ),
-/// Creates a `createPaneSnapStrategy` instance.
+
+                                              /// Creates a `createPaneSnapStrategy` instance.
                                               createPaneSnapStrategy(
                                                 size,
                                                 theme,
-/// Creates a `WindowSnapStrategy` instance.
+
+                                                /// Creates a `WindowSnapStrategy` instance.
                                                 const WindowSnapStrategy(
                                                   relativeBounds: Rect.fromLTWH(
                                                     5 / 7,

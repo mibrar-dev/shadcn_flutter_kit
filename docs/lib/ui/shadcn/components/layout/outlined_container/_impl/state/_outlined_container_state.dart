@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../outlined_container.dart';
 
 /// _OutlinedContainerState defines a reusable type for this registry module.
@@ -5,7 +7,7 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
   final GlobalKey _mainKey = GlobalKey();
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<OutlinedContainerTheme>(context);
@@ -20,7 +22,7 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
       defaultValue: theme.colorScheme.background,
     );
     final resolvedBorderRadius = borderRadius.resolve(
-/// Creates a `Directionality.of` instance.
+      /// Creates a `Directionality.of` instance.
       Directionality.of(context),
     );
     final surfaceOpacity = styleValue<double?>(

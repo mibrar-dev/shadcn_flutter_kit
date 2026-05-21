@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../dropdown_menu.dart';
 
 OverlayCompleter<T?> showDropdown<T>({
@@ -26,7 +28,8 @@ OverlayCompleter<T?> showDropdown<T>({
   Duration? dismissDuration,
 }) {
   final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+  /// Stores `scaling` state/configuration for this implementation.
   final scaling = theme.scaling;
   final GlobalKey key = GlobalKey();
   final overlayManager = OverlayManager.of(context);

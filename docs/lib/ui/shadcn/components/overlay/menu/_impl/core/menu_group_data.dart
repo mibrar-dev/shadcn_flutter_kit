@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../menu.dart';
 
 /// MenuGroupData defines a reusable type for this registry module.
@@ -89,7 +91,7 @@ class MenuGroupData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is MenuGroupData) {
@@ -108,7 +110,7 @@ class MenuGroupData {
   ///
   /// Returns the root [MenuGroupData].
   MenuGroupData get root {
-/// Stores `menuGroupData` state/configuration for this implementation.
+    /// Stores `menuGroupData` state/configuration for this implementation.
     var menuGroupData = parent;
     if (menuGroupData == null) {
       return this;
@@ -121,7 +123,7 @@ class MenuGroupData {
       Object.hash(children, parent, hasLeading, subMenuOffset, onDismissed);
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'MenuGroupData{parent: $parent, children: $children, hasLeading: $hasLeading, subMenuOffset: $subMenuOffset, onDismissed: $onDismissed, regionGroupId: $regionGroupId, direction: $direction}';
   }

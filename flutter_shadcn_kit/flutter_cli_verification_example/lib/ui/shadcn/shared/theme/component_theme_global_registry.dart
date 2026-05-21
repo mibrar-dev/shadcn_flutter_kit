@@ -1,15 +1,22 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 /// Global registry for component theme data provided by token config files.
 class ComponentThemeGlobalRegistry {
-  static final Map<String, Object? Function()> _resolvers = {};
+  static final Map<Type, Object? Function()> _resolvers = {};
 
-  /// Registers a resolver by runtime type name (e.g. `ToastTheme`).
-  static void registerByName(String typeName, Object? Function() resolver) {
-    _resolvers[typeName] = resolver;
+  /// Registers a resolver for [T].
+  static void register<T>(T? Function() resolver) {
+    _resolvers[T] = resolver;
+  }
+
+  /// Returns whether a resolver has been registered for [T].
+  static bool hasResolver<T>() {
+    return _resolvers.containsKey(T);
   }
 
   /// Looks up global component theme data for [T], if registered.
   static T? maybeOf<T>() {
-    final resolver = _resolvers[T.toString()];
+    final resolver = _resolvers[T];
     if (resolver == null) return null;
     return resolver() as T?;
   }

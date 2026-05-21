@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../stepper.dart';
 
 /// Stepper defines a reusable type for this registry module.
@@ -55,14 +57,17 @@ class Stepper extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<StepperTheme>(context);
-/// Stores `dir` state/configuration for this implementation.
+
+    /// Stores `dir` state/configuration for this implementation.
     final dir = direction ?? compTheme?.direction ?? Axis.horizontal;
-/// Stores `sz` state/configuration for this implementation.
+
+    /// Stores `sz` state/configuration for this implementation.
     final sz = size ?? compTheme?.size ?? StepSize.medium;
-/// Stores `varnt` state/configuration for this implementation.
+
+    /// Stores `varnt` state/configuration for this implementation.
     final varnt = variant ?? compTheme?.variant ?? StepVariant.circle;
     var stepProperties = StepProperties(
       size: sz,

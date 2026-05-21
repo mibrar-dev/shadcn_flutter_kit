@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../hover.dart';
 
 /// HoverTheme defines a reusable type for this registry module.
@@ -17,7 +19,7 @@ class HoverTheme extends ComponentThemeData {
   /// Duration for hover feedback show animations.
   final Duration? showDuration;
 
-/// Creates a `HoverTheme` instance.
+  /// Creates a `HoverTheme` instance.
   const HoverTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -29,7 +31,7 @@ class HoverTheme extends ComponentThemeData {
     this.showDuration,
   });
 
-/// Creates a `HoverTheme` instance.
+  /// Creates a `HoverTheme` instance.
   HoverTheme copyWith({
     ValueGetter<Duration?>? debounceDuration,
     ValueGetter<HitTestBehavior?>? hitTestBehavior,
@@ -51,7 +53,7 @@ class HoverTheme extends ComponentThemeData {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is HoverTheme &&
         other.debounceDuration == debounceDuration &&

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:ui' show Clip, Offset;
 
 import 'package:flutter/foundation.dart' as foundation;
@@ -5,8 +7,8 @@ import 'package:flutter/rendering.dart' as rendering;
 import 'package:flutter/widgets.dart' as widgets;
 
 export 'package:flutter/widgets.dart'
-/// Stores `Positioned` state/configuration for this implementation.
-    hide
+        /// Stores `Positioned` state/configuration for this implementation.
+        hide
         ErrorWidgetBuilder,
         Flexible,
         Expanded,

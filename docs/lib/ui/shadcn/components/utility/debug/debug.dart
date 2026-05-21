@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -55,7 +57,8 @@ void debugPostSticker(
     },
   );
   Overlay.of(context).insert(entry);
-/// Executes `Timer` behavior for this component/composite.
+
+  /// Executes `Timer` behavior for this component/composite.
   Timer(const Duration(seconds: 2), () {
     entry.remove();
   });

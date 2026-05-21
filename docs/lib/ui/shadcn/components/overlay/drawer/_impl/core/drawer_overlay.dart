@@ -1,23 +1,25 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../drawer.dart';
 
 /// DrawerOverlay defines a reusable type for this registry module.
 class DrawerOverlay extends StatefulWidget {
-/// Stores `_currentLayer` state/configuration for this implementation.
+  /// Stores `_currentLayer` state/configuration for this implementation.
   static DrawerLayerData? _currentLayer;
 
-/// Executes `_registerLayer` behavior for this component/composite.
+  /// Executes `_registerLayer` behavior for this component/composite.
   static void _registerLayer(DrawerLayerData layer) {
     _currentLayer = layer;
   }
 
-/// Executes `_clearLayer` behavior for this component/composite.
+  /// Executes `_clearLayer` behavior for this component/composite.
   static void _clearLayer(DrawerLayerData layer) {
     if (_currentLayer == layer) {
       _currentLayer = layer.parent;
     }
   }
 
-/// Stores `currentLayer` state/configuration for this implementation.
+  /// Stores `currentLayer` state/configuration for this implementation.
   static DrawerLayerData? get currentLayer => _currentLayer;
 
   /// Child widget displayed under the overlay layer.
@@ -30,7 +32,7 @@ class DrawerOverlay extends StatefulWidget {
   const DrawerOverlay({super.key, required this.child});
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<DrawerOverlay> createState() => DrawerOverlayState();
 
   /// Finds the drawer layer data from the widget tree.

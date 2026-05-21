@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../color_scheme.dart';
 
 /// SingleChartColorScheme defines a reusable type for this registry module.
@@ -9,27 +11,27 @@ class SingleChartColorScheme implements ChartColorScheme {
   const SingleChartColorScheme(this.color);
 
   @override
-/// Stores `chartColors` state/configuration for this implementation.
+  /// Stores `chartColors` state/configuration for this implementation.
   List<Color> get chartColors => [color, color, color, color, color];
 
   @override
-/// Stores `chart1` state/configuration for this implementation.
+  /// Stores `chart1` state/configuration for this implementation.
   Color get chart1 => color;
 
   @override
-/// Stores `chart2` state/configuration for this implementation.
+  /// Stores `chart2` state/configuration for this implementation.
   Color get chart2 => color;
 
   @override
-/// Stores `chart3` state/configuration for this implementation.
+  /// Stores `chart3` state/configuration for this implementation.
   Color get chart3 => color;
 
   @override
-/// Stores `chart4` state/configuration for this implementation.
+  /// Stores `chart4` state/configuration for this implementation.
   Color get chart4 => color;
 
   @override
-/// Stores `chart5` state/configuration for this implementation.
+  /// Stores `chart5` state/configuration for this implementation.
   Color get chart5 => color;
 }
 

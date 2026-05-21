@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../table.dart';
 
 /// TableCell defines a reusable type for this registry module.
@@ -61,14 +63,15 @@ class TableCell {
       flattenedData.columnSpan,
       flattenedData.rowSpan,
     );
-/// Stores `theme` state/configuration for this implementation.
+
+    /// Stores `theme` state/configuration for this implementation.
     var theme = this.theme;
     var defaultTheme = flattenedData.tableCellThemeBuilder(context);
     final appTheme = Theme.of(context);
     return Stack(
       fit: StackFit.passthrough,
       children: [
-/// Creates a `ColoredBox` instance.
+        /// Creates a `ColoredBox` instance.
         ColoredBox(
           color: backgroundColor ?? appTheme.colorScheme.background,
           child: MouseRegion(
@@ -91,9 +94,10 @@ class TableCell {
                 flattenedData.dragNotifier,
               ]),
               builder: (context, child) {
-/// Stores `hoveredCell` state/configuration for this implementation.
+                /// Stores `hoveredCell` state/configuration for this implementation.
                 var hoveredCell = flattenedData.hoveredCellNotifier.value;
-/// Stores `drag` state/configuration for this implementation.
+
+                /// Stores `drag` state/configuration for this implementation.
                 var drag = flattenedData.dragNotifier?.value;
                 if (drag != null) {
                   hoveredCell = null;
@@ -101,13 +105,13 @@ class TableCell {
                 var resolvedStates = {
                   if (hoveredCell != null &&
                       ((columnHover &&
-/// Creates a `hoveredCell.intersects` instance.
+                              /// Creates a `hoveredCell.intersects` instance.
                               hoveredCell.intersects(
                                 currentCell,
                                 Axis.vertical,
                               )) ||
                           (rowHover &&
-/// Creates a `hoveredCell.intersects` instance.
+                              /// Creates a `hoveredCell.intersects` instance.
                               hoveredCell.intersects(
                                 currentCell,
                                 Axis.horizontal,
@@ -138,7 +142,7 @@ class TableCell {
           ),
         ),
         if (resizedData != null && resizedState != null)
-/// Creates a `Positioned.fill` instance.
+          /// Creates a `Positioned.fill` instance.
           Positioned.fill(
             child: _CellResizer(
               controller: resizedData.controller,
@@ -156,7 +160,7 @@ class TableCell {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 

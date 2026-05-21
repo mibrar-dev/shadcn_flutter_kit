@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
@@ -12,7 +14,7 @@ BorderRadius subtractByBorder(BorderRadius radius, double borderWidth) {
     topRight: _subtractSafe(radius.topRight, Radius.circular(borderWidth)),
     bottomLeft: _subtractSafe(radius.bottomLeft, Radius.circular(borderWidth)),
     bottomRight:
-/// Creates a `_subtractSafe` instance.
+        /// Creates a `_subtractSafe` instance.
         _subtractSafe(radius.bottomRight, Radius.circular(borderWidth)),
   );
 }
@@ -20,9 +22,10 @@ BorderRadius subtractByBorder(BorderRadius radius, double borderWidth) {
 /// Executes `_subtractSafe` behavior for this component/composite.
 Radius _subtractSafe(Radius a, Radius b) {
   return Radius.elliptical(
-/// Creates a `max` instance.
+    /// Creates a `max` instance.
     max(0, a.x - b.x),
-/// Creates a `max` instance.
+
+    /// Creates a `max` instance.
     max(0, a.y - b.y),
   );
 }

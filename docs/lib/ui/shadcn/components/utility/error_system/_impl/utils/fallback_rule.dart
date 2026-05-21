@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // fallbackRule: default mapping when no ErrorRule matches.
 // Produces a generic AppError (AppErrorCode.unknown) with optional technical details.
 
@@ -8,7 +10,7 @@ import 'error_fingerprint.dart';
 
 /// Executes `fallbackRule` behavior for this component/composite.
 AppError fallbackRule(Object error, [StackTrace? stackTrace]) {
-/// Stores `details` state/configuration for this implementation.
+  /// Stores `details` state/configuration for this implementation.
   final details = Env.showTechnicalDetails ? '$error\n$stackTrace' : null;
   final appError = AppError(
     code: AppErrorCode.unknown,

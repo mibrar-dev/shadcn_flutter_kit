@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../stepper.dart';
 
 /// StepNumber defines a reusable type for this registry module.
@@ -28,17 +30,19 @@ class StepNumber extends StatelessWidget {
   const StepNumber({super.key, this.icon, this.onPressed});
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final properties = Data.maybeOf<StepProperties>(context);
     final stepNumberData = Data.maybeOf<StepNumberData>(context);
     assert(properties != null, 'StepNumber must be a descendant of Stepper');
-/// Creates a `assert` instance.
+
+    /// Creates a `assert` instance.
     assert(
       stepNumberData != null,
       'StepNumber must be a descendant of StepNumberData',
     );
-/// Stores `stepIndex` state/configuration for this implementation.
+
+    /// Stores `stepIndex` state/configuration for this implementation.
     final int stepIndex = stepNumberData!.stepIndex;
     final theme = Theme.of(context);
     return AnimatedBuilder(
@@ -46,7 +50,8 @@ class StepNumber extends StatelessWidget {
       builder: (context, child) {
         return properties.size.wrapper(
           context,
-/// Creates a `DefaultTextStyle.merge` instance.
+
+          /// Creates a `DefaultTextStyle.merge` instance.
           DefaultTextStyle.merge(
             style: TextStyle(
               color:
@@ -89,9 +94,9 @@ class StepNumber extends StatelessWidget {
                           : properties.state.value.currentStep > stepIndex
                           ? theme.colorScheme.primary
                           : properties.state.value.currentStep == stepIndex ||
-/// Creates a `states.contains` instance.
+                                /// Creates a `states.contains` instance.
                                 states.contains(WidgetState.hovered) ||
-/// Creates a `states.contains` instance.
+                                /// Creates a `states.contains` instance.
                                 states.contains(WidgetState.focused)
                           ? theme.colorScheme.secondary
                           : theme.colorScheme.background,

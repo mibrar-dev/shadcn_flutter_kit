@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // Auth rules for mapping AuthException to AppError.
 // Produces an authentication-required AppError with login/retry/report actions.
 
@@ -22,11 +24,13 @@ List<ErrorRule> authRules({
         title: 'Authentication required',
         message: e.message ?? 'Please log in to continue.',
         actions: [
-/// Creates a `ErrorAction.login` instance.
+          /// Creates a `ErrorAction.login` instance.
           ErrorAction.login(onLogin),
-/// Creates a `ErrorAction.retry` instance.
+
+          /// Creates a `ErrorAction.retry` instance.
           ErrorAction.retry(onRetry),
-/// Creates a `ErrorAction.report` instance.
+
+          /// Creates a `ErrorAction.report` instance.
           ErrorAction.report(onReport),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,

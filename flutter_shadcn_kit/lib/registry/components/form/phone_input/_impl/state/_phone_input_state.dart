@@ -218,7 +218,6 @@ class _PhoneInputState extends State<PhoneInput>
                 ),
                 themeValue: componentTheme?.borderRadius,
               ),
-              initialValue: widget.initialValue?.number,
             ),
           ),
         ],

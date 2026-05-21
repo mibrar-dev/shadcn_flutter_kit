@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../alert_dialog.dart';
 
 /// A modal dialog component for displaying alerts, confirmations, and other
@@ -48,6 +50,6 @@ class AlertDialog extends StatefulWidget {
   });
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<AlertDialog> createState() => _AlertDialogState();
 }

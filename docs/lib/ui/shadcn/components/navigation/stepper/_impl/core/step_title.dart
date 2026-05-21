@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../stepper.dart';
 
 /// StepTitle defines a reusable type for this registry module.
@@ -43,7 +45,7 @@ class StepTitle extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Clickable(
       mouseCursor: WidgetStatePropertyAll(
@@ -56,7 +58,7 @@ class StepTitle extends StatelessWidget {
           children: [
             title,
             if (subtitle != null) ...[
-/// Creates a `DensityGap` instance.
+              /// Creates a `DensityGap` instance.
               DensityGap(0.25),
               subtitle!.muted().xSmall(),
             ],

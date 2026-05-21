@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../sortable.dart';
 
 /// SortableData defines a reusable type for this registry module.
@@ -27,16 +29,16 @@ class SortableData<T> {
 
   @override
   @nonVirtual
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) => super == other;
 
   @override
   @nonVirtual
-/// Stores `hashCode` state/configuration for this implementation.
+  /// Stores `hashCode` state/configuration for this implementation.
   int get hashCode => super.hashCode;
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() => 'SortableData($data)';
 }
 

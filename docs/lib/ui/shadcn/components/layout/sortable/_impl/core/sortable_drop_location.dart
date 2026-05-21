@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../sortable.dart';
 
 /// _SortableDropLocation enumerates fixed values used by this implementation.
@@ -11,13 +13,16 @@ _SortableDropLocation? _getPosition(
   bool acceptRight = false,
   bool acceptBottom = false,
 }) {
-/// Stores `dx` state/configuration for this implementation.
+  /// Stores `dx` state/configuration for this implementation.
   double dx = position.dx;
-/// Stores `dy` state/configuration for this implementation.
+
+  /// Stores `dy` state/configuration for this implementation.
   double dy = position.dy;
-/// Stores `width` state/configuration for this implementation.
+
+  /// Stores `width` state/configuration for this implementation.
   double width = size.width;
-/// Stores `height` state/configuration for this implementation.
+
+  /// Stores `height` state/configuration for this implementation.
   double height = size.height;
   if (acceptTop && !acceptBottom) {
     return _SortableDropLocation.top;

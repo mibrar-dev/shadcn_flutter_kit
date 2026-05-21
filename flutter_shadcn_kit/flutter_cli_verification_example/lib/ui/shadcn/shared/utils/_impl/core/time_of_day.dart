@@ -1,4 +1,7 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../util.dart';
+
 /// Represents a time of day with hour, minute, and second.
 
 /// TimeOfDay defines a reusable type for this registry module.
@@ -18,11 +21,7 @@ class TimeOfDay {
   /// - [hour] (`int`, required): Hour (0-23).
   /// - [minute] (`int`, required): Minute (0-59).
   /// - [second] (`int`, default: 0): Second (0-59).
-  const TimeOfDay({
-    required this.hour,
-    required this.minute,
-    this.second = 0,
-  });
+  const TimeOfDay({required this.hour, required this.minute, this.second = 0});
 
   /// Creates a PM time (adds 12 to the hour).
   ///
@@ -30,11 +29,8 @@ class TimeOfDay {
   /// - [hour] (`int`, required): Hour in 12-hour format (1-12).
   /// - [minute] (`int`, required): Minute (0-59).
   /// - [second] (`int`, default: 0): Second (0-59).
-  const TimeOfDay.pm({
-    required int hour,
-    required this.minute,
-    this.second = 0,
-  }) : hour = hour + 12;
+  const TimeOfDay.pm({required int hour, required this.minute, this.second = 0})
+    : hour = hour + 12;
 
   /// Creates an AM time.
   ///
@@ -53,18 +49,18 @@ class TimeOfDay {
   /// Parameters:
   /// - [dateTime] (`DateTime`, required): DateTime to extract time from.
   TimeOfDay.fromDateTime(DateTime dateTime)
-      : hour = dateTime.hour,
-        minute = dateTime.minute,
-        second = dateTime.second;
+    : hour = dateTime.hour,
+      minute = dateTime.minute,
+      second = dateTime.second;
 
   /// Creates a [TimeOfDay] from a [Duration].
   ///
   /// Parameters:
   /// - [duration] (`Duration`, required): Duration to convert.
   TimeOfDay.fromDuration(Duration duration)
-      : hour = duration.inHours,
-        minute = duration.inMinutes % 60,
-        second = duration.inSeconds % 60;
+    : hour = duration.inHours,
+      minute = duration.inMinutes % 60,
+      second = duration.inSeconds % 60;
 
   /// Creates a [TimeOfDay] representing the current time.
   TimeOfDay.now() : this.fromDateTime(DateTime.now());
@@ -90,11 +86,7 @@ class TimeOfDay {
   }
 
   /// Creates a copy with optional replacements.
-  TimeOfDay replacing({
-    int? hour,
-    int? minute,
-    int? second,
-  }) {
+  TimeOfDay replacing({int? hour, int? minute, int? second}) {
     return TimeOfDay(
       hour: hour ?? this.hour,
       minute: minute ?? this.minute,
@@ -103,7 +95,7 @@ class TimeOfDay {
   }
 
   @override
-/// Executes `operator ==` behavior for this component/composite.
+  /// Executes `operator ==` behavior for this component/composite.
   bool operator ==(Object other) {
     return other is TimeOfDay &&
         other.hour == hour &&
@@ -115,7 +107,7 @@ class TimeOfDay {
   int get hashCode => Object.hash(hour, minute, second);
 
   @override
-/// Executes `toString` behavior for this component/composite.
+  /// Executes `toString` behavior for this component/composite.
   String toString() {
     return 'TimeOfDay{hour: $hour, minute: $minute, second: $second}';
   }

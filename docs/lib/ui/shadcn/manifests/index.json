@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-05-09T02:56:49.718134Z",
+  "generatedAt": "2026-05-18T16:12:53.582870Z",
   "components": [
     {
       "id": "accordion",
@@ -183,6 +183,7 @@
         "shared": [
           "theme",
           "overlay",
+          "localizations",
           "constants"
         ]
       },
@@ -528,6 +529,7 @@
           "color_extensions",
           "geometry_extensions",
           "clickable",
+          "focus_outline",
           "form_control",
           "form_value_supplier",
           "menu_group"
@@ -1014,7 +1016,8 @@
           "data_widget": "^0.0.2"
         },
         "shared": [
-          "clickable"
+          "clickable",
+          "focus_outline"
         ]
       },
       "related": [
@@ -1572,6 +1575,10 @@
           "style_value",
           "constants",
           "animated_value_builder",
+          "axis",
+          "axis_insets",
+          "axis_insets_directional",
+          "axis_insets_geometry",
           "util",
           "text_modifiers"
         ]

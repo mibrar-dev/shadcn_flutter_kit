@@ -1,12 +1,16 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../scaffold.dart';
 
 /// _ScaffoldFlex defines a reusable type for this registry module.
 class _ScaffoldFlex extends MultiChildRenderObjectWidget {
-/// Stores `floatingHeader` state/configuration for this implementation.
+  /// Stores `floatingHeader` state/configuration for this implementation.
   final bool floatingHeader;
-/// Stores `floatingFooter` state/configuration for this implementation.
+
+  /// Stores `floatingFooter` state/configuration for this implementation.
   final bool floatingFooter;
-/// Creates a `_ScaffoldFlex` instance.
+
+  /// Creates a `_ScaffoldFlex` instance.
   const _ScaffoldFlex({
     super.children,
     required this.floatingHeader,
@@ -14,7 +18,7 @@ class _ScaffoldFlex extends MultiChildRenderObjectWidget {
   });
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return _ScaffoldRenderFlex(
       floatingHeader: floatingHeader,
@@ -27,7 +31,7 @@ class _ScaffoldFlex extends MultiChildRenderObjectWidget {
     BuildContext context,
     _ScaffoldRenderFlex renderObject,
   ) {
-/// Stores `needsLayout` state/configuration for this implementation.
+    /// Stores `needsLayout` state/configuration for this implementation.
     bool needsLayout = false;
     if (renderObject._floatingHeader != floatingHeader) {
       renderObject._floatingHeader = floatingHeader;

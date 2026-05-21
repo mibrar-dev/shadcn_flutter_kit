@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of 'tab_list.dart';
 
 /// TabList defines a reusable type for this registry module.
@@ -46,7 +48,7 @@ class TabList extends StatelessWidget {
       children: [
         data.index == index ? child.foreground() : child.muted(),
         if (data.index == index)
-/// Creates a `Positioned` instance.
+          /// Creates a `Positioned` instance.
           Positioned(
             bottom: 0,
             left: 0,
@@ -58,10 +60,11 @@ class TabList extends StatelessWidget {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+    /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     final compTheme = ComponentTheme.maybeOf<TabListTheme>(context);
     final borderColor = styleValue(

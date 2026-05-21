@@ -1,41 +1,48 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../sortable.dart';
 
 /// _ScrollableSortableLayerState defines a reusable type for this registry module.
 class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
     with SingleTickerProviderStateMixin {
-/// Stores `ticker` state/configuration for this implementation.
+  /// Stores `ticker` state/configuration for this implementation.
   late Ticker ticker;
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     ticker = createTicker(_scroll);
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     ticker.dispose();
     super.dispose();
   }
 
-/// Stores `_attached` state/configuration for this implementation.
+  /// Stores `_attached` state/configuration for this implementation.
   _SortableState? _attached;
-/// Stores `_globalPosition` state/configuration for this implementation.
+
+  /// Stores `_globalPosition` state/configuration for this implementation.
   Offset? _globalPosition;
-/// Stores `_lastElapsed` state/configuration for this implementation.
+
+  /// Stores `_lastElapsed` state/configuration for this implementation.
   Duration? _lastElapsed;
-/// Executes `_scroll` behavior for this component/composite.
+
+  /// Executes `_scroll` behavior for this component/composite.
   void _scroll(Duration elapsed) {
-/// Stores `position` state/configuration for this implementation.
+    /// Stores `position` state/configuration for this implementation.
     var position = _globalPosition;
     if (position != null && _lastElapsed != null) {
       var renderBox = context.findRenderObject() as RenderBox;
       position = renderBox.globalToLocal(position);
-/// Stores `delta` state/configuration for this implementation.
+
+      /// Stores `delta` state/configuration for this implementation.
       int delta = elapsed.inMicroseconds - _lastElapsed!.inMicroseconds;
-/// Stores `scrollDelta` state/configuration for this implementation.
+
+      /// Stores `scrollDelta` state/configuration for this implementation.
       double scrollDelta = 0;
       var pos = widget.controller.position.axisDirection == AxisDirection.down
           ? position.dy
@@ -56,7 +63,7 @@ class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
     _lastElapsed = elapsed;
   }
 
-/// Executes `_startDrag` behavior for this component/composite.
+  /// Executes `_startDrag` behavior for this component/composite.
   void _startDrag(_SortableState state, Offset globalPosition) {
     if (_attached != null && _attached!.context.mounted) {
       return;
@@ -68,7 +75,7 @@ class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
     }
   }
 
-/// Executes `_updateDrag` behavior for this component/composite.
+  /// Executes `_updateDrag` behavior for this component/composite.
   void _updateDrag(_SortableState state, Offset globalPosition) {
     if (state != _attached) {
       return;
@@ -76,7 +83,7 @@ class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
     _globalPosition = globalPosition;
   }
 
-/// Executes `_endDrag` behavior for this component/composite.
+  /// Executes `_endDrag` behavior for this component/composite.
   void _endDrag(_SortableState state) {
     if (state != _attached) {
       return;
@@ -89,7 +96,7 @@ class _ScrollableSortableLayerState extends State<ScrollableSortableLayer>
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return Data.inherit(data: this, child: widget.child);
   }

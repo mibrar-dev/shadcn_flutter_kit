@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../media_query.dart';
 
 /// MediaQueryVisibility defines a reusable type for this registry module.
@@ -24,13 +26,14 @@ class MediaQueryVisibility extends StatelessWidget {
   });
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final compTheme = ComponentTheme.maybeOf<MediaQueryVisibilityTheme>(
       context,
     );
-/// Stores `size` state/configuration for this implementation.
+
+    /// Stores `size` state/configuration for this implementation.
     final size = mediaQuery.size.width;
     final minWidth = styleValue(
       widgetValue: this.minWidth,

@@ -1,27 +1,33 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../util.dart';
 
 /// ConvertedController defines a reusable type for this registry module.
 class ConvertedController<F, T> extends ChangeNotifier
     implements ComponentController<T> {
-/// Stores `_other` state/configuration for this implementation.
+  /// Stores `_other` state/configuration for this implementation.
   final ValueNotifier<F> _other;
-/// Stores `_convert` state/configuration for this implementation.
+
+  /// Stores `_convert` state/configuration for this implementation.
   final BiDirectionalConvert<F, T> _convert;
 
-/// Stores `_value` state/configuration for this implementation.
+  /// Stores `_value` state/configuration for this implementation.
   T _value;
-/// Stores `_isUpdating` state/configuration for this implementation.
+
+  /// Stores `_isUpdating` state/configuration for this implementation.
   bool _isUpdating = false;
 
   /// Creates a [ConvertedController].
-  ConvertedController(ValueNotifier<F> other, BiDirectionalConvert<F, T> convert)
-      : _other = other,
-        _convert = convert,
-        _value = convert.convertA(other.value) {
+  ConvertedController(
+    ValueNotifier<F> other,
+    BiDirectionalConvert<F, T> convert,
+  ) : _other = other,
+      _convert = convert,
+      _value = convert.convertA(other.value) {
     _other.addListener(_onOtherValueChanged);
   }
 
-/// Executes `_onOtherValueChanged` behavior for this component/composite.
+  /// Executes `_onOtherValueChanged` behavior for this component/composite.
   void _onOtherValueChanged() {
     if (_isUpdating) {
       return;
@@ -35,7 +41,7 @@ class ConvertedController<F, T> extends ChangeNotifier
     }
   }
 
-/// Executes `_onValueChanged` behavior for this component/composite.
+  /// Executes `_onValueChanged` behavior for this component/composite.
   void _onValueChanged() {
     if (_isUpdating) {
       return;
@@ -49,11 +55,11 @@ class ConvertedController<F, T> extends ChangeNotifier
   }
 
   @override
-/// Stores `value` state/configuration for this implementation.
+  /// Stores `value` state/configuration for this implementation.
   T get value => _value;
 
   @override
-/// Executes `value` behavior for this component/composite.
+  /// Executes `value` behavior for this component/composite.
   set value(T newValue) {
     if (newValue == _value) {
       return;
@@ -64,7 +70,7 @@ class ConvertedController<F, T> extends ChangeNotifier
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _other.removeListener(_onOtherValueChanged);
     super.dispose();

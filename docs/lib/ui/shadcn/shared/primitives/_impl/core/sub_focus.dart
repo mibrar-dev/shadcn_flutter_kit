@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../subfocus.dart';
 
 /// SubFocus defines a reusable type for this registry module.
@@ -22,7 +24,7 @@ class SubFocus extends StatefulWidget {
   const SubFocus({super.key, required this.builder, this.enabled = true});
 
   @override
-/// Executes `createState` behavior for this component/composite.
+  /// Executes `createState` behavior for this component/composite.
   State<SubFocus> createState() => _SubFocusState();
 }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 import 'package:flutter/widgets.dart';
 
 part '_impl/core/axis_alignment.dart';
@@ -29,11 +31,11 @@ enum AxisDirectional {
 
   /// Returns the reversed directional axis.
   AxisDirectional get reversed => switch (this) {
-        AxisDirectional.up => AxisDirectional.down,
-        AxisDirectional.down => AxisDirectional.up,
-        AxisDirectional.start => AxisDirectional.end,
-        AxisDirectional.end => AxisDirectional.start,
-      };
+    AxisDirectional.up => AxisDirectional.down,
+    AxisDirectional.down => AxisDirectional.up,
+    AxisDirectional.start => AxisDirectional.end,
+    AxisDirectional.end => AxisDirectional.start,
+  };
 }
 
 /// Base class for axis alignments that can resolve based on [TextDirection].

@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 // ErrorSlot: reactive error rendering for a specific ErrorScope.
 // Pair with ScreenErrorScope (screen-level) or HubAppScope (app-level) to render errors without string keys.
 
@@ -10,7 +12,7 @@ import 'error_state.dart';
 
 /// ErrorSlot defines a reusable type for this registry module.
 class ErrorSlot extends StatelessWidget {
-/// Creates a `ErrorSlot._` instance.
+  /// Creates a `ErrorSlot._` instance.
   const ErrorSlot._({
     super.key,
     required this.notifier,
@@ -27,7 +29,7 @@ class ErrorSlot extends StatelessWidget {
   /// Widget to render when there is no error.
   final Widget empty;
 
-/// Factory constructor that creates `ErrorSlot.scope` instances.
+  /// Factory constructor that creates `ErrorSlot.scope` instances.
   factory ErrorSlot.scope({
     Key? key,
     required ErrorScope scope,
@@ -43,7 +45,7 @@ class ErrorSlot extends StatelessWidget {
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AppError?>(
       valueListenable: notifier,

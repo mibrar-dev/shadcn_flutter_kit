@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../scrollable_client.dart';
 
 /// RenderScrollableClientViewport defines a reusable type for this registry module.
@@ -20,13 +22,15 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
   });
 
   @override
-/// Executes `layoutChildSequence` behavior for this component/composite.
+  /// Executes `layoutChildSequence` behavior for this component/composite.
   void layoutChildSequence() {
-/// Stores `horizontalPixels` state/configuration for this implementation.
+    /// Stores `horizontalPixels` state/configuration for this implementation.
     double horizontalPixels = horizontalOffset.pixels;
-/// Stores `verticalPixels` state/configuration for this implementation.
+
+    /// Stores `verticalPixels` state/configuration for this implementation.
     double verticalPixels = verticalOffset.pixels;
-/// Stores `viewportDimension` state/configuration for this implementation.
+
+    /// Stores `viewportDimension` state/configuration for this implementation.
     final Size viewportDimension = this.viewportDimension;
     final ChildVicinity vicinity = _ScrollableClientChildVicinity(
       viewportSize: viewportDimension,
@@ -34,9 +38,10 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
       yIndex: 0,
     );
     final RenderBox child = buildOrObtainChildFor(vicinity)!;
-/// Creates a `child.layout` instance.
+
+    /// Creates a `child.layout` instance.
     child.layout(
-/// Creates a `BoxConstraints` instance.
+      /// Creates a `BoxConstraints` instance.
       BoxConstraints(
         minWidth: constraints.maxWidth,
         minHeight: constraints.maxHeight,
@@ -46,24 +51,29 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
     if (!overscroll) {
       horizontalPixels = max(0.0, horizontalPixels);
       verticalPixels = max(0.0, verticalPixels);
-/// Stores `maxHorizontalPixels` state/configuration for this implementation.
+
+      /// Stores `maxHorizontalPixels` state/configuration for this implementation.
       double maxHorizontalPixels = child.size.width - viewportDimension.width;
-/// Stores `maxVerticalPixels` state/configuration for this implementation.
+
+      /// Stores `maxVerticalPixels` state/configuration for this implementation.
       double maxVerticalPixels = child.size.height - viewportDimension.height;
       horizontalPixels = min(horizontalPixels, maxHorizontalPixels);
       verticalPixels = min(verticalPixels, maxVerticalPixels);
     }
-/// Creates a `parentDataOf` instance.
+
+    /// Creates a `parentDataOf` instance.
     parentDataOf(child).layoutOffset = Offset(
       -horizontalPixels,
       -verticalPixels,
     );
-/// Creates a `horizontalOffset.applyContentDimensions` instance.
+
+    /// Creates a `horizontalOffset.applyContentDimensions` instance.
     horizontalOffset.applyContentDimensions(
       0,
       (child.size.width - viewportDimension.width).clamp(0.0, double.infinity),
     );
-/// Creates a `verticalOffset.applyContentDimensions` instance.
+
+    /// Creates a `verticalOffset.applyContentDimensions` instance.
     verticalOffset.applyContentDimensions(
       0,
       (child.size.height - viewportDimension.height).clamp(

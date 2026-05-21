@@ -1,21 +1,28 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../hidden.dart';
 
 /// HiddenTheme defines a reusable type for this registry module.
 class HiddenTheme extends ComponentThemeData {
-/// Stores `direction` state/configuration for this implementation.
+  /// Stores `direction` state/configuration for this implementation.
   final Axis? direction;
-/// Stores `duration` state/configuration for this implementation.
+
+  /// Stores `duration` state/configuration for this implementation.
   final Duration? duration;
-/// Stores `curve` state/configuration for this implementation.
+
+  /// Stores `curve` state/configuration for this implementation.
   final Curve? curve;
-/// Stores `reverse` state/configuration for this implementation.
+
+  /// Stores `reverse` state/configuration for this implementation.
   final bool? reverse;
-/// Stores `keepCrossAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepCrossAxisSize` state/configuration for this implementation.
   final bool? keepCrossAxisSize;
-/// Stores `keepMainAxisSize` state/configuration for this implementation.
+
+  /// Stores `keepMainAxisSize` state/configuration for this implementation.
   final bool? keepMainAxisSize;
 
-/// Creates a `HiddenTheme` instance.
+  /// Creates a `HiddenTheme` instance.
   const HiddenTheme({
     super.themeDensity,
     super.themeSpacing,
@@ -28,7 +35,7 @@ class HiddenTheme extends ComponentThemeData {
     this.keepMainAxisSize,
   });
 
-/// Creates a `HiddenTheme` instance.
+  /// Creates a `HiddenTheme` instance.
   HiddenTheme copyWith({
     ValueGetter<Axis?>? direction,
     ValueGetter<Duration?>? duration,

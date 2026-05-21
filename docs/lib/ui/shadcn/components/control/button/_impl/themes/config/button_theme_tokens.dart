@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element_parameter
+// ignore_for_file: dead_code,deprecated_member_use,duplicate_import,sort_child_properties_last,unnecessary_import,unnecessary_null_comparison,unused_element_parameter,unused_import,use_null_aware_elements
 
 import 'package:flutter/widgets.dart';
 

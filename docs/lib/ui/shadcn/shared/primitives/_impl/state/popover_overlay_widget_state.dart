@@ -1,50 +1,69 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overlay.dart';
 
 /// PopoverOverlayWidgetState defines a reusable type for this registry module.
 class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     with SingleTickerProviderStateMixin, OverlayHandlerStateMixin {
-/// Stores `_anchorContext` state/configuration for this implementation.
+  /// Stores `_anchorContext` state/configuration for this implementation.
   late BuildContext _anchorContext;
-/// Stores `_position` state/configuration for this implementation.
+
+  /// Stores `_position` state/configuration for this implementation.
   late Offset? _position;
-/// Stores `_offset` state/configuration for this implementation.
+
+  /// Stores `_offset` state/configuration for this implementation.
   late Offset? _offset;
-/// Stores `_alignment` state/configuration for this implementation.
+
+  /// Stores `_alignment` state/configuration for this implementation.
   late AlignmentGeometry _alignment;
-/// Stores `_anchorAlignment` state/configuration for this implementation.
+
+  /// Stores `_anchorAlignment` state/configuration for this implementation.
   late AlignmentGeometry _anchorAlignment;
-/// Stores `_widthConstraint` state/configuration for this implementation.
+
+  /// Stores `_widthConstraint` state/configuration for this implementation.
   late PopoverConstraint _widthConstraint;
-/// Stores `_heightConstraint` state/configuration for this implementation.
+
+  /// Stores `_heightConstraint` state/configuration for this implementation.
   late PopoverConstraint _heightConstraint;
-/// Stores `_margin` state/configuration for this implementation.
+
+  /// Stores `_margin` state/configuration for this implementation.
   late EdgeInsetsGeometry? _margin;
-/// Stores `_anchorSize` state/configuration for this implementation.
+
+  /// Stores `_anchorSize` state/configuration for this implementation.
   Size? _anchorSize;
-/// Stores `_follow` state/configuration for this implementation.
+
+  /// Stores `_follow` state/configuration for this implementation.
   late bool _follow;
-/// Stores `_allowInvertHorizontal` state/configuration for this implementation.
+
+  /// Stores `_allowInvertHorizontal` state/configuration for this implementation.
   late bool _allowInvertHorizontal;
-/// Stores `_allowInvertVertical` state/configuration for this implementation.
+
+  /// Stores `_allowInvertVertical` state/configuration for this implementation.
   late bool _allowInvertVertical;
-/// Stores `_ticker` state/configuration for this implementation.
+
+  /// Stores `_ticker` state/configuration for this implementation.
   late Ticker _ticker;
-/// Stores `_layerLink` state/configuration for this implementation.
+
+  /// Stores `_layerLink` state/configuration for this implementation.
   late LayerLink? _layerLink;
-/// Stores `_followAnchorDelta` state/configuration for this implementation.
+
+  /// Stores `_followAnchorDelta` state/configuration for this implementation.
   Offset? _followAnchorDelta;
-/// Stores `_scrollable` state/configuration for this implementation.
+
+  /// Stores `_scrollable` state/configuration for this implementation.
   ScrollableState? _scrollable;
-/// Stores `_scrollPosition` state/configuration for this implementation.
+
+  /// Stores `_scrollPosition` state/configuration for this implementation.
   ScrollPosition? _scrollPosition;
-/// Stores `_isClosingForRegionLoss` state/configuration for this implementation.
+
+  /// Stores `_isClosingForRegionLoss` state/configuration for this implementation.
   bool _isClosingForRegionLoss = false;
 
   @override
-/// Executes `offset` behavior for this component/composite.
+  /// Executes `offset` behavior for this component/composite.
   set offset(Offset? offset) {
     if (offset != null) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _offset = offset;
       });
@@ -52,7 +71,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `initState` behavior for this component/composite.
+  /// Executes `initState` behavior for this component/composite.
   void initState() {
     super.initState();
     _offset = widget.offset;
@@ -85,7 +104,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `close` behavior for this component/composite.
+  /// Executes `close` behavior for this component/composite.
   Future<void> close([bool immediate = false]) {
     if (!immediate) {
       return widget.onClose?.call() ?? Future.value();
@@ -96,7 +115,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `closeLater` behavior for this component/composite.
+  /// Executes `closeLater` behavior for this component/composite.
   void closeLater() {
     if (mounted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -108,7 +127,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `didUpdateWidget` behavior for this component/composite.
+  /// Executes `didUpdateWidget` behavior for this component/composite.
   void didUpdateWidget(covariant PopoverOverlayWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.alignment != widget.alignment) {
@@ -139,7 +158,8 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     if (_layerLink != widget.layerLink) {
       _layerLink = widget.layerLink;
     }
-/// Stores `shouldRunTicker` state/configuration for this implementation.
+
+    /// Stores `shouldRunTicker` state/configuration for this implementation.
     final shouldRunTicker = _follow && _layerLink == null;
     if (shouldRunTicker && !_ticker.isActive) {
       _ticker.start();
@@ -216,7 +236,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   /// Updates the layer link and manages ticker state for anchor tracking.
   set layerLink(LayerLink? value) {
     if (_layerLink != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _layerLink = value;
         if (_follow && _layerLink == null) {
@@ -231,10 +251,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `alignment` behavior for this component/composite.
+  /// Executes `alignment` behavior for this component/composite.
   set alignment(AlignmentGeometry value) {
     if (_alignment != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _alignment = value;
       });
@@ -246,7 +266,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   /// Updates the explicit position and triggers a rebuild.
   set position(Offset? value) {
     if (_position != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _position = value;
       });
@@ -254,10 +274,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `anchorAlignment` behavior for this component/composite.
+  /// Executes `anchorAlignment` behavior for this component/composite.
   set anchorAlignment(AlignmentGeometry value) {
     if (_anchorAlignment != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _anchorAlignment = value;
       });
@@ -265,10 +285,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `widthConstraint` behavior for this component/composite.
+  /// Executes `widthConstraint` behavior for this component/composite.
   set widthConstraint(PopoverConstraint value) {
     if (_widthConstraint != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _widthConstraint = value;
       });
@@ -276,10 +296,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `heightConstraint` behavior for this component/composite.
+  /// Executes `heightConstraint` behavior for this component/composite.
   set heightConstraint(PopoverConstraint value) {
     if (_heightConstraint != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _heightConstraint = value;
       });
@@ -287,10 +307,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `margin` behavior for this component/composite.
+  /// Executes `margin` behavior for this component/composite.
   set margin(EdgeInsetsGeometry? value) {
     if (_margin != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _margin = value;
       });
@@ -298,10 +318,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `follow` behavior for this component/composite.
+  /// Executes `follow` behavior for this component/composite.
   set follow(bool value) {
     if (_follow != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _follow = value;
       });
@@ -322,10 +342,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `anchorContext` behavior for this component/composite.
+  /// Executes `anchorContext` behavior for this component/composite.
   set anchorContext(BuildContext value) {
     if (_anchorContext != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _anchorContext = value;
       });
@@ -338,10 +358,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `allowInvertHorizontal` behavior for this component/composite.
+  /// Executes `allowInvertHorizontal` behavior for this component/composite.
   set allowInvertHorizontal(bool value) {
     if (_allowInvertHorizontal != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _allowInvertHorizontal = value;
       });
@@ -349,10 +369,10 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `allowInvertVertical` behavior for this component/composite.
+  /// Executes `allowInvertVertical` behavior for this component/composite.
   set allowInvertVertical(bool value) {
     if (_allowInvertVertical != value) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _allowInvertVertical = value;
       });
@@ -360,25 +380,25 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `dispose` behavior for this component/composite.
+  /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _detachScrollListener();
     _ticker.dispose();
     super.dispose();
   }
 
-/// Executes `_tick` behavior for this component/composite.
+  /// Executes `_tick` behavior for this component/composite.
   void _tick(Duration elapsed) {
     _updatePosition();
   }
 
-/// Executes `_globalRectForRenderBox` behavior for this component/composite.
+  /// Executes `_globalRectForRenderBox` behavior for this component/composite.
   Rect _globalRectForRenderBox(RenderBox box) {
     final topLeft = box.localToGlobal(Offset.zero);
     return topLeft & box.size;
   }
 
-/// Executes `_resolveVisibleRegionRect` behavior for this component/composite.
+  /// Executes `_resolveVisibleRegionRect` behavior for this component/composite.
   Rect? _resolveVisibleRegionRect() {
     final scrollableRenderObject = _scrollable?.context.findRenderObject();
     if (scrollableRenderObject is RenderBox && scrollableRenderObject.hasSize) {
@@ -391,7 +411,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     return null;
   }
 
-/// Executes `_updatePosition` behavior for this component/composite.
+  /// Executes `_updatePosition` behavior for this component/composite.
   void _updatePosition() {
     if (!mounted || !anchorContext.mounted) return;
     // update position based on anchorContext
@@ -411,7 +431,8 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     _isClosingForRegionLoss = false;
 
     final pos = renderObject.localToGlobal(Offset.zero);
-/// Stores `size` state/configuration for this implementation.
+
+    /// Stores `size` state/configuration for this implementation.
     final size = renderObject.size;
     final resolvedAnchorAlignment = _anchorAlignment.optionallyResolve(context);
     final anchorPosition = Offset(
@@ -419,7 +440,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
       pos.dy + size.height / 2 + size.height / 2 * resolvedAnchorAlignment.y,
     );
 
-/// Stores `newPos` state/configuration for this implementation.
+    /// Stores `newPos` state/configuration for this implementation.
     Offset newPos = anchorPosition;
     if (_follow && widget.position != null) {
       _followAnchorDelta ??= widget.position! - anchorPosition;
@@ -427,7 +448,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     }
 
     if (_position != newPos || _anchorSize != size) {
-/// Creates a `setState` instance.
+      /// Creates a `setState` instance.
       setState(() {
         _anchorSize = size;
         _position = newPos;
@@ -436,7 +457,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     }
   }
 
-/// Executes `_attachScrollListener` behavior for this component/composite.
+  /// Executes `_attachScrollListener` behavior for this component/composite.
   void _attachScrollListener() {
     if (!_follow || !mounted || !anchorContext.mounted) return;
     final scrollable = Scrollable.maybeOf(anchorContext);
@@ -449,7 +470,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
     _scrollPosition?.addListener(_updatePosition);
   }
 
-/// Executes `_detachScrollListener` behavior for this component/composite.
+  /// Executes `_detachScrollListener` behavior for this component/composite.
   void _detachScrollListener() {
     _scrollPosition?.removeListener(_updatePosition);
     _scrollPosition = null;
@@ -457,7 +478,7 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
   }
 
   @override
-/// Executes `build` behavior for this component/composite.
+  /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     Widget childWidget = Data<OverlayHandlerStateMixin>.inherit(
       data: this,
@@ -478,7 +499,8 @@ class PopoverOverlayWidgetState extends State<PopoverOverlayWidget>
           child: Builder(
             builder: (context) {
               final theme = Theme.of(context);
-/// Stores `scaling` state/configuration for this implementation.
+
+              /// Stores `scaling` state/configuration for this implementation.
               final scaling = theme.scaling;
               return PopoverLayout(
                 alignment: _alignment.optionallyResolve(context),

@@ -1,27 +1,37 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../overflow_marquee.dart';
 
 /// _OverflowMarqueeLayout defines a reusable type for this registry module.
 class _OverflowMarqueeLayout extends SingleChildRenderObjectWidget {
-/// Stores `direction` state/configuration for this implementation.
+  /// Stores `direction` state/configuration for this implementation.
   final Axis direction;
-/// Stores `fadePortion` state/configuration for this implementation.
+
+  /// Stores `fadePortion` state/configuration for this implementation.
   final double fadePortion;
-/// Stores `duration` state/configuration for this implementation.
+
+  /// Stores `duration` state/configuration for this implementation.
   final Duration duration;
-/// Stores `delayDuration` state/configuration for this implementation.
+
+  /// Stores `delayDuration` state/configuration for this implementation.
   final Duration delayDuration;
-/// Stores `ticker` state/configuration for this implementation.
+
+  /// Stores `ticker` state/configuration for this implementation.
   final Ticker ticker;
-/// Stores `elapsed` state/configuration for this implementation.
+
+  /// Stores `elapsed` state/configuration for this implementation.
   final Duration elapsed;
-/// Stores `step` state/configuration for this implementation.
+
+  /// Stores `step` state/configuration for this implementation.
   final double step;
-/// Stores `textDirection` state/configuration for this implementation.
+
+  /// Stores `textDirection` state/configuration for this implementation.
   final TextDirection textDirection;
-/// Stores `curve` state/configuration for this implementation.
+
+  /// Stores `curve` state/configuration for this implementation.
   final Curve curve;
 
-/// Creates a `_OverflowMarqueeLayout` instance.
+  /// Creates a `_OverflowMarqueeLayout` instance.
   const _OverflowMarqueeLayout({
     required this.direction,
     this.fadePortion = 25,
@@ -36,7 +46,7 @@ class _OverflowMarqueeLayout extends SingleChildRenderObjectWidget {
   }) : super(child: child);
 
   @override
-/// Executes `createRenderObject` behavior for this component/composite.
+  /// Executes `createRenderObject` behavior for this component/composite.
   RenderObject createRenderObject(BuildContext context) {
     return _RenderOverflowMarqueeLayout(
       direction: direction,
@@ -56,7 +66,7 @@ class _OverflowMarqueeLayout extends SingleChildRenderObjectWidget {
     BuildContext context,
     _RenderOverflowMarqueeLayout renderObject,
   ) {
-/// Stores `hasChanged` state/configuration for this implementation.
+    /// Stores `hasChanged` state/configuration for this implementation.
     bool hasChanged = false;
     if (renderObject.direction != direction) {
       renderObject.direction = direction;

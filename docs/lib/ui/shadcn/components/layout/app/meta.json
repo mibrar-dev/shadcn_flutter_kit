@@ -14,17 +14,11 @@
   "dependencies": {
     "shared": [
       "theme",
-      "app_theme",
-      "app_theme_preset",
-      "preset_themes",
       "overlay",
+      "localizations",
       "constants"
     ],
-    "components": [
-      "scaffold",
-      "divider",
-      "shadcn_localizations"
-    ],
+    "components": [],
     "pubspec": {}
   },
   "files": [

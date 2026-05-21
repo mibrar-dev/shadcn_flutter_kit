@@ -1143,7 +1143,7 @@ class _InteractiveReplyExpanded extends StatefulWidget {
 
 class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
   final TextEditingController _controller = TextEditingController();
-  final TextFieldKey _replyKey = const TextFieldKey(#reply_message);
+  String? _errorText;
 
   @override
   void dispose() {
@@ -1153,43 +1153,89 @@ class _InteractiveReplyExpandedState extends State<_InteractiveReplyExpanded> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final borderColor = widget.textColor.withValues(alpha: 0.24);
+    final fieldBackground = widget.textColor.withValues(alpha: 0.08);
+    final destructive = theme.colorScheme.destructive;
     return DefaultTextStyle.merge(
       style: TextStyle(color: widget.textColor),
-      child: Form(
-        onSubmit: (context, values) {
-          final text = _controller.text.trim();
-          if (text.isEmpty) return;
-          _controller.clear();
-          widget.onSend(text);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Click reply to respond from this thread.'),
-            const Gap(8),
-            FormField<String>(
-              key: _replyKey,
-              label: const Text('Reply'),
-              validator: const LengthValidator(min: 3, max: 160),
-              child: TextField(
-                controller: _controller,
-                placeholder: const Text('Type your reply...'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Click reply to respond from this thread.'),
+          const Gap(8),
+          Text(
+            'Reply',
+            style: TextStyle(
+              color: _errorText == null ? widget.textColor : destructive,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const Gap(6),
+          TextField(
+            controller: _controller,
+            placeholder: Text(
+              'Type your reply...',
+              style: TextStyle(
+                color: widget.textColor.withValues(alpha: 0.48),
               ),
             ),
-            const Gap(8),
-            Builder(
-              builder: (formContext) {
-                return PrimaryButton(
-                  onPressed: () => formContext.submitForm(),
-                  child: const Text('Send Reply'),
-                );
-              },
+            minLines: 2,
+            maxLines: 3,
+            style: TextStyle(color: widget.textColor),
+            cursorColor: widget.textColor,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              color: fieldBackground,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: _errorText == null ? borderColor : destructive,
+              ),
+            ),
+            onChanged: (_) {
+              if (_errorText != null) {
+                setState(() => _errorText = null);
+              }
+            },
+          ),
+          if (_errorText != null) ...[
+            const Gap(6),
+            Text(
+              _errorText!,
+              style: TextStyle(
+                color: destructive,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
-        ),
+          const Gap(10),
+          PrimaryButton(
+            onPressed: _submitReply,
+            child: const Text('Send Reply'),
+          ),
+        ],
       ),
     );
+  }
+
+  void _submitReply() {
+    final message = _controller.text.trim();
+    final nextError = switch (message.length) {
+      0 => 'Reply cannot be empty.',
+      < 3 => 'Must be at least 3 characters.',
+      > 160 => 'Must be shorter than 160 characters.',
+      _ => null,
+    };
+    if (nextError != null) {
+      setState(() => _errorText = nextError);
+      return;
+    }
+    _controller.clear();
+    setState(() => _errorText = null);
+    widget.onSend(message);
   }
 }
 

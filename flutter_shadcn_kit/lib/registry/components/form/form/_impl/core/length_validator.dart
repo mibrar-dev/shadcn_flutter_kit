@@ -42,7 +42,7 @@ class LengthValidator extends Validator<String> {
               Localizations.of(
                 context,
                 ShadcnLocalizations,
-              ).formLengthLessThan(min!),
+              ).formLengthGreaterThan(min!),
           state: state,
         );
       }
@@ -54,13 +54,13 @@ class LengthValidator extends Validator<String> {
     );
     if (min != null && value.length < min!) {
       return InvalidResult(
-        message ?? localizations.formLengthLessThan(min!),
+        message ?? localizations.formLengthGreaterThan(min!),
         state: state,
       );
     }
     if (max != null && value.length > max!) {
       return InvalidResult(
-        message ?? localizations.formLengthGreaterThan(max!),
+        message ?? localizations.formLengthLessThan(max!),
         state: state,
       );
     }

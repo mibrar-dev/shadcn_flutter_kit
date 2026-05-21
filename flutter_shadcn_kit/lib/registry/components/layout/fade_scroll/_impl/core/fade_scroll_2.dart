@@ -54,7 +54,7 @@ class FadeScroll extends StatelessWidget {
     final gradient = styleValue(
       widgetValue: this.gradient,
       themeValue: compTheme?.gradient,
-      defaultValue: const [Colors.white, Colors.transparent],
+      defaultValue: const [Colors.transparent, Colors.white],
     );
     return ListenableBuilder(
       listenable: controller,
@@ -73,10 +73,8 @@ class FadeScroll extends StatelessWidget {
         /// Stores `min` state/configuration for this implementation.
         final min = controller.position.minScrollExtent;
 
-        /// Stores `direction` state/configuration for this implementation.
         final direction = controller.position.axis;
 
-        /// Stores `size` state/configuration for this implementation.
         final size = controller.position.viewportDimension;
 
         /// Stores `shouldFadeStart` state/configuration for this implementation.
@@ -87,58 +85,94 @@ class FadeScroll extends StatelessWidget {
         if (!shouldFadeStart && !shouldFadeEnd) {
           return child!;
         }
-        return ShaderMask(
-          shaderCallback: (bounds) {
-            Alignment start = direction == Axis.horizontal
-                ? Alignment.centerLeft
-                : Alignment.topCenter;
-            Alignment end = direction == Axis.horizontal
-                ? Alignment.centerRight
-                : Alignment.bottomCenter;
 
-            /// Stores `relativeStart` state/configuration for this implementation.
-            double relativeStart = startOffset / size;
+        final startExtent = _edgeExtent(startOffset, size);
+        final endExtent = _edgeExtent(endOffset, size);
+        if (startExtent == 0 && endExtent == 0) {
+          return child!;
+        }
 
-            /// Stores `relativeEnd` state/configuration for this implementation.
-            double relativeEnd = 1 - endOffset / size;
-            List<double> stops = shouldFadeStart && shouldFadeEnd
-                ? [
-                    for (int i = 0; i < gradient.length; i++)
-                      (i / gradient.length) * relativeStart,
-                    relativeStart,
-                    relativeEnd,
-                    for (int i = 1; i < gradient.length + 1; i++)
-                      relativeEnd + (i / gradient.length) * (1 - relativeEnd),
-                  ]
-                : shouldFadeStart
-                ? [
-                    for (int i = 0; i < gradient.length; i++)
-                      (i / gradient.length) * relativeStart,
-                    relativeStart,
-                    1,
-                  ]
-                : [
-                    0,
-                    relativeEnd,
-                    for (int i = 1; i < gradient.length + 1; i++)
-                      relativeEnd + (i / gradient.length) * (1 - relativeEnd),
-                  ];
-            return LinearGradient(
-              colors: [
-                if (shouldFadeStart) ...gradient,
-                Colors.white,
-                Colors.white,
-                if (shouldFadeEnd) ...gradient.reversed,
-              ],
-              stops: stops,
-              begin: start,
-              end: end,
-              transform: const _ScaleGradient(Offset(1, 1.5)),
-            ).createShader(bounds);
-          },
-          child: child!,
+        return ClipRect(
+          child: Stack(
+            fit: StackFit.passthrough,
+            children: [
+              child!,
+              if (shouldFadeStart && startExtent > 0)
+                _EdgeFade(
+                  axis: direction,
+                  extent: startExtent,
+                  crossStart: startCrossOffset,
+                  crossEnd: endCrossOffset,
+                  colors: gradient.reversed.toList(growable: false),
+                  alignment: _EdgeFadeAlignment.start,
+                ),
+              if (shouldFadeEnd && endExtent > 0)
+                _EdgeFade(
+                  axis: direction,
+                  extent: endExtent,
+                  crossStart: startCrossOffset,
+                  crossEnd: endCrossOffset,
+                  colors: gradient,
+                  alignment: _EdgeFadeAlignment.end,
+                ),
+            ],
+          ),
         );
       },
+    );
+  }
+
+  double _edgeExtent(double extent, double viewportSize) {
+    if (extent <= 0 || viewportSize <= 0) {
+      return 0;
+    }
+    return extent.clamp(0, viewportSize / 2).toDouble();
+  }
+}
+
+enum _EdgeFadeAlignment { start, end }
+
+class _EdgeFade extends StatelessWidget {
+  const _EdgeFade({
+    required this.axis,
+    required this.extent,
+    required this.crossStart,
+    required this.crossEnd,
+    required this.colors,
+    required this.alignment,
+  });
+
+  final Axis axis;
+  final double extent;
+  final double crossStart;
+  final double crossEnd;
+  final List<Color> colors;
+  final _EdgeFadeAlignment alignment;
+
+  @override
+  Widget build(BuildContext context) {
+    final isHorizontal = axis == Axis.horizontal;
+    final isStart = alignment == _EdgeFadeAlignment.start;
+    return Positioned(
+      top: isHorizontal ? crossStart : (isStart ? 0 : null),
+      bottom: isHorizontal ? crossEnd : (isStart ? null : 0),
+      left: isHorizontal ? (isStart ? 0 : null) : crossStart,
+      right: isHorizontal ? (isStart ? null : 0) : crossEnd,
+      width: isHorizontal ? extent : null,
+      height: isHorizontal ? null : extent,
+      child: IgnorePointer(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: colors,
+              begin: isHorizontal ? Alignment.centerLeft : Alignment.topCenter,
+              end: isHorizontal
+                  ? Alignment.centerRight
+                  : Alignment.bottomCenter,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

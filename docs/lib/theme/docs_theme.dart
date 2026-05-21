@@ -99,6 +99,49 @@ class DocsThemeData {
       cardColor: colorScheme.card,
       dividerColor: colorScheme.border,
       canvasColor: colorScheme.background,
+      iconTheme: material.IconThemeData(color: colorScheme.foreground),
+      primaryIconTheme:
+          material.IconThemeData(color: colorScheme.primaryForeground),
+      textTheme: material.ThemeData(
+        brightness: colorScheme.brightness,
+        useMaterial3: true,
+      ).textTheme.apply(
+            bodyColor: colorScheme.foreground,
+            displayColor: colorScheme.foreground,
+          ),
+      textButtonTheme: material.TextButtonThemeData(
+        style: material.TextButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          iconColor: colorScheme.primary,
+        ),
+      ),
+      filledButtonTheme: material.FilledButtonThemeData(
+        style: material.FilledButton.styleFrom(
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.primaryForeground,
+          disabledBackgroundColor: colorScheme.muted,
+          disabledForegroundColor: colorScheme.mutedForeground,
+        ),
+      ),
+      inputDecorationTheme: material.InputDecorationTheme(
+        filled: true,
+        fillColor: colorScheme.input.withValues(alpha: 0.32),
+        hintStyle: material.TextStyle(color: colorScheme.mutedForeground),
+        labelStyle: material.TextStyle(color: colorScheme.foreground),
+        errorStyle: material.TextStyle(color: colorScheme.destructive),
+        enabledBorder: material.OutlineInputBorder(
+          borderSide: material.BorderSide(color: colorScheme.border),
+        ),
+        focusedBorder: material.OutlineInputBorder(
+          borderSide: material.BorderSide(color: colorScheme.ring),
+        ),
+        errorBorder: material.OutlineInputBorder(
+          borderSide: material.BorderSide(color: colorScheme.destructive),
+        ),
+        focusedErrorBorder: material.OutlineInputBorder(
+          borderSide: material.BorderSide(color: colorScheme.destructive),
+        ),
+      ),
     );
   }
 }

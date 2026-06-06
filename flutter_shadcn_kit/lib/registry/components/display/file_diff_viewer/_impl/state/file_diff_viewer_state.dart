@@ -4,6 +4,7 @@ part of '../../file_diff_viewer.dart';
 
 class _FileDiffViewerState extends State<FileDiffViewer> {
   final Set<String> _expandedCollapsedHunks = <String>{};
+  final Set<String> _copiedFiles = <String>{};
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +39,13 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
           child: SizedBox(
             height: widget.maxHeight,
             child: SingleChildScrollView(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  width: contentWidth,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      for (var i = 0; i < widget.files.length; i++)
-                        _buildFile(context, widget.files[i], i),
-                    ],
-                  ),
-                ),
+              primary: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var i = 0; i < widget.files.length; i++)
+                    _buildFile(context, widget.files[i], i, contentWidth),
+                ],
               ),
             ),
           ),
@@ -58,27 +54,46 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     );
   }
 
-  Widget _buildFile(BuildContext context, FileDiff file, int fileIndex) {
+  Widget _buildFile(
+    BuildContext context,
+    FileDiff file,
+    int fileIndex,
+    double contentWidth,
+  ) {
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (widget.showFileHeaders) _buildFileHeader(context, file),
-        for (var i = 0; i < file.hunks.length; i++)
-          _buildHunk(context, file, file.hunks[i], fileIndex, i),
+        if (widget.showFileHeaders) _buildFileHeader(context, file, fileIndex),
+        SingleChildScrollView(
+          primary: false,
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(
+            width: contentWidth,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (var i = 0; i < file.hunks.length; i++)
+                  _buildHunk(context, file, file.hunks[i], fileIndex, i),
+              ],
+            ),
+          ),
+        ),
         if (fileIndex < widget.files.length - 1)
           Container(height: theme.scaling, color: theme.colorScheme.border),
       ],
     );
   }
 
-  Widget _buildFileHeader(BuildContext context, FileDiff file) {
+  Widget _buildFileHeader(BuildContext context, FileDiff file, int fileIndex) {
     final theme = Theme.of(context);
     final compTheme = ComponentTheme.maybeOf<FileDiffViewerTheme>(context);
     final headerColor = styleValue(
       themeValue: compTheme?.headerBackgroundColor,
       defaultValue: theme.colorScheme.muted,
     );
+    final fileKey = '$fileIndex:${file.path}';
+    final copied = _copiedFiles.contains(fileKey);
 
     return Container(
       color: headerColor,
@@ -125,22 +140,25 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
           ),
           if (widget.showCopyAction) ...[
             const SizedBox(width: 12),
-            GestureDetector(
-              onTap: () =>
-                  Clipboard.setData(ClipboardData(text: file.toPatch())),
-              child: Text(
-                'Copy',
-                style: TextStyle(
-                  color: theme.colorScheme.primary,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            GhostButton(
+              onPressed: () => _copyFilePatch(fileKey, file),
+              size: ButtonSize.small,
+              density: ButtonDensity.dense,
+              child: Text(copied ? 'Copied' : 'Copy'),
             ),
           ],
         ],
       ),
     );
+  }
+
+  Future<void> _copyFilePatch(String fileKey, FileDiff file) async {
+    await Clipboard.setData(ClipboardData(text: file.toPatch()));
+    if (!mounted) return;
+    setState(() => _copiedFiles.add(fileKey));
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    if (!mounted) return;
+    setState(() => _copiedFiles.remove(fileKey));
   }
 
   Widget _buildStat(BuildContext context, String label, Color color) {
@@ -268,33 +286,30 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
   Widget _buildSplitLine(BuildContext context, FileDiffLine line) {
     final leftVisible = line.type != FileDiffLineType.addition;
     final rightVisible = line.type != FileDiffLineType.deletion;
-    return Container(
-      color: _lineColor(context, line.type),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: _buildSplitCell(
-              context,
-              leftVisible ? line.oldLineNumber : null,
-              leftVisible ? line : null,
-              leftVisible ? line.marker : '',
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: _buildSplitCell(
+            context,
+            leftVisible ? line.oldLineNumber : null,
+            leftVisible ? line : null,
+            leftVisible ? line.marker : '',
           ),
-          Container(
-            width: Theme.of(context).scaling,
-            color: Theme.of(context).colorScheme.border,
+        ),
+        Container(
+          width: Theme.of(context).scaling,
+          color: Theme.of(context).colorScheme.border,
+        ),
+        Expanded(
+          child: _buildSplitCell(
+            context,
+            rightVisible ? line.newLineNumber : null,
+            rightVisible ? line : null,
+            rightVisible ? line.marker : '',
           ),
-          Expanded(
-            child: _buildSplitCell(
-              context,
-              rightVisible ? line.newLineNumber : null,
-              rightVisible ? line : null,
-              rightVisible ? line.marker : '',
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -304,17 +319,23 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     FileDiffLine? line,
     String marker,
   ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.showLineNumbers) _buildGutter(context, _lineNumber(number)),
-        _buildMarker(context, marker),
-        Expanded(
-          child: line == null
-              ? Padding(padding: _linePadding(context), child: const Text(''))
-              : _buildContent(context, line),
-        ),
-      ],
+    return Container(
+      color: line == null
+          ? Theme.of(context).colorScheme.card
+          : _lineColor(context, line.type),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.showLineNumbers)
+            _buildGutter(context, _lineNumber(number)),
+          _buildMarker(context, marker),
+          Expanded(
+            child: line == null
+                ? Padding(padding: _linePadding(context), child: const Text(''))
+                : _buildContent(context, line),
+          ),
+        ],
+      ),
     );
   }
 
@@ -328,7 +349,15 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
 
     return Container(
       width: 52,
-      color: gutterColor,
+      decoration: BoxDecoration(
+        color: gutterColor,
+        border: Border(
+          right: BorderSide(
+            color: theme.colorScheme.border,
+            width: theme.scaling,
+          ),
+        ),
+      ),
       padding: _linePadding(context),
       child: Text(
         text,

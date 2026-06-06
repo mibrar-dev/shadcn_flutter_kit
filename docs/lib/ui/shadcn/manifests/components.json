@@ -14455,7 +14455,9 @@
         }
       ],
       "shared": [],
-      "dependsOn": [],
+      "dependsOn": [
+        "button"
+      ],
       "pubspec": {
         "dependencies": {}
       },

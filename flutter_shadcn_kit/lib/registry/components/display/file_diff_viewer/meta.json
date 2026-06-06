@@ -14,7 +14,9 @@
   ],
   "dependencies": {
     "shared": [],
-    "components": [],
+    "components": [
+      "button"
+    ],
     "pubspec": {}
   },
   "files": [

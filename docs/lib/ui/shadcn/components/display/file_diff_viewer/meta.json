@@ -13,7 +13,9 @@
     "review"
   ],
   "dependencies": {
-    "shared": [],
+    "shared": [
+      "radix_icons"
+    ],
     "components": [
       "button"
     ],

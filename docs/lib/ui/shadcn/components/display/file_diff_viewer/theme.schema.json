@@ -29,6 +29,23 @@
         },
         {
           "type": "color",
+          "name": "additionMarkerColor",
+          "label": "Addition Marker Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
           "name": "backgroundColor",
           "label": "Background Color",
           "description": "Generated from Dart type `Color?`.",
@@ -79,9 +96,61 @@
           "since": "1.0.0"
         },
         {
+          "type": "string",
+          "name": "codeFontFamily",
+          "label": "Code Font Family",
+          "description": "Generated from Dart type `String?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "codeFontSize",
+          "label": "Code Font Size",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
           "type": "color",
           "name": "deletionBackgroundColor",
           "label": "Deletion Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "deletionMarkerColor",
+          "label": "Deletion Marker Color",
           "description": "Generated from Dart type `Color?`.",
           "defaultValue": null,
           "required": false,
@@ -114,6 +183,41 @@
         },
         {
           "type": "color",
+          "name": "gutterForegroundColor",
+          "label": "Gutter Foreground Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "gutterWidth",
+          "label": "Gutter Width",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
           "name": "headerBackgroundColor",
           "label": "Header Background Color",
           "description": "Generated from Dart type `Color?`.",
@@ -126,6 +230,40 @@
           },
           "ui": {
             "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "headerIconColor",
+          "label": "Header Icon Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "headerPadding",
+          "label": "Header Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
           },
           "since": "1.0.0"
         },
@@ -147,6 +285,41 @@
           "since": "1.0.0"
         },
         {
+          "type": "number",
+          "name": "lineBackgroundOpacity",
+          "label": "Line Background Opacity",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "lineBorderRadius",
+          "label": "Line Border Radius",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
           "type": "object",
           "name": "linePadding",
           "label": "Line Padding",
@@ -161,6 +334,77 @@
           "ui": {
             "control": "input"
           },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "markerForegroundColor",
+          "label": "Marker Foreground Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "markerSize",
+          "label": "Marker Size",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "markerWidth",
+          "label": "Marker Width",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
+          "since": "1.0.0"
+        },
+        {
+          "type": "number",
+          "name": "segmentHighlightOpacity",
+          "label": "Segment Highlight Opacity",
+          "description": "Generated from Dart type `double?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "precision": 2,
           "since": "1.0.0"
         }
       ]

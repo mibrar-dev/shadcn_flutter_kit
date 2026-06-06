@@ -14454,7 +14454,9 @@
           ]
         }
       ],
-      "shared": [],
+      "shared": [
+        "radix_icons"
+      ],
       "dependsOn": [
         "button"
       ],

@@ -13,7 +13,7 @@ class FileDiffViewerPreview extends m.StatelessWidget {
   m.Widget build(m.BuildContext context) {
     return ShadcnApp(
       title: 'File Diff Viewer Preview',
-      theme: const shadcn.ThemeData(),
+      theme: const shadcn.ThemeData.dark(),
       home: m.Padding(
         padding: const m.EdgeInsets.all(24),
         child: m.SingleChildScrollView(

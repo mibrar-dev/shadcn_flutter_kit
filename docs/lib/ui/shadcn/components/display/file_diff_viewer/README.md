@@ -47,5 +47,5 @@ FileDiffViewer(
   code width before horizontal scrolling.
 - Collapsible hunks for long unchanged ranges.
 - `FileDiffSegment` support for inline changed spans.
-- `FileDiffViewerTheme` for colors, gutter styling, border radius, and line
-  padding.
+- `FileDiffViewerTheme` for colors, header icon, markers, code typography,
+  gutter styling, border radius, and line padding.

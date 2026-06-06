@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_shadcn_kit/registry/components/display/file_diff_viewer/file_diff_viewer.dart';
+import 'package:flutter_shadcn_kit/registry/shared/icons/radix_icons.dart';
 import 'package:flutter_shadcn_kit/registry/shared/theme/theme.dart' as shadcn;
 
 void main() {
@@ -11,6 +12,12 @@ void main() {
     expect(find.text('+1'), findsOneWidget);
     expect(find.text('-1'), findsOneWidget);
     expect(find.textContaining('newValue'), findsOneWidget);
+  });
+
+  testWidgets('FileDiffViewer renders file icon in the header', (tester) async {
+    await tester.pumpWidget(_testHost(const FileDiffViewer(files: _testFiles)));
+
+    expect(find.byIcon(RadixIcons.fileText), findsOneWidget);
   });
 
   testWidgets('FileDiffViewer hides copy actions when requested', (
@@ -102,6 +109,69 @@ void main() {
     await tester.pump();
 
     expect(find.textContaining('hidden = true'), findsOneWidget);
+  });
+
+  testWidgets('FileDiffViewer applies code typography theme tokens', (
+    tester,
+  ) async {
+    const codeFontFamily = 'JetBrains Mono';
+    const codeFontSize = 13.0;
+
+    await tester.pumpWidget(
+      _testHost(
+        shadcn.ComponentTheme<FileDiffViewerTheme>(
+          data: const FileDiffViewerTheme(
+            codeFontFamily: codeFontFamily,
+            codeFontSize: codeFontSize,
+          ),
+          child: const FileDiffViewer(files: _testFiles),
+        ),
+      ),
+    );
+
+    final hunkText = tester.widget<Text>(find.textContaining('@@').first);
+
+    expect(hunkText.style?.fontFamily, codeFontFamily);
+    expect(hunkText.style?.fontSize, codeFontSize);
+  });
+
+  testWidgets('FileDiffViewer applies gutter width theme token', (
+    tester,
+  ) async {
+    const gutterWidth = 72.0;
+
+    await tester.pumpWidget(
+      _testHost(
+        shadcn.ComponentTheme<FileDiffViewerTheme>(
+          data: const FileDiffViewerTheme(gutterWidth: gutterWidth),
+          child: const FileDiffViewer(files: _testFiles),
+        ),
+      ),
+    );
+
+    final sizedBoxes = tester.widgetList<Container>(find.byType(Container));
+
+    expect(
+      sizedBoxes.any(
+        (container) => container.constraints?.maxWidth == gutterWidth,
+      ),
+      isTrue,
+    );
+  });
+
+  testWidgets('FileDiffViewer renders circular change markers', (tester) async {
+    await tester.pumpWidget(_testHost(const FileDiffViewer(files: _testFiles)));
+
+    final containers = tester.widgetList<Container>(find.byType(Container));
+
+    expect(
+      containers.any((container) {
+        final decoration = container.decoration;
+        return decoration is BoxDecoration &&
+            decoration.shape == BoxShape.circle;
+      }),
+      isTrue,
+    );
   });
 }
 

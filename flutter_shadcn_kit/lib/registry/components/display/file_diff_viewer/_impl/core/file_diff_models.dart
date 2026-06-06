@@ -1,5 +1,3 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
-
 part of '../../file_diff_viewer.dart';
 
 /// A single file in a diff.
@@ -135,18 +133,12 @@ class FileDiffLine {
       segments = const [];
 
   /// Prefix used in unified patch text.
-  String get marker {
-    switch (type) {
-      case FileDiffLineType.addition:
-        return '+';
-      case FileDiffLineType.deletion:
-        return '-';
-      case FileDiffLineType.hunk:
-        return '';
-      case FileDiffLineType.context:
-        return ' ';
-    }
-  }
+  String get marker => switch (type) {
+    FileDiffLineType.addition => '+',
+    FileDiffLineType.deletion => '-',
+    FileDiffLineType.hunk => '',
+    FileDiffLineType.context => ' ',
+  };
 }
 
 /// Inline segment metadata for a diff line.

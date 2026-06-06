@@ -1,6 +1,17 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
-
 part of '../../file_diff_viewer.dart';
+
+const _codeFontFamily = 'Geist Mono';
+const _codeFontSize = 12.0;
+const _copiedFeedbackDuration = Duration(milliseconds: 1200);
+const _gutterWidth = 52.0;
+const _markerWidth = 28.0;
+const _statBadgeAlpha = 0.14;
+const _lineBackgroundAlpha = 0.12;
+const _segmentHighlightAlpha = 0.16;
+const _gutterBackgroundAlpha = 0.45;
+const _statBadgePadding = EdgeInsets.symmetric(horizontal: 8, vertical: 3);
+const _headerStatGap = 8.0;
+const _headerActionGap = 12.0;
 
 class _FileDiffViewerState extends State<FileDiffViewer> {
   final Set<String> _expandedCollapsedHunks = <String>{};
@@ -26,8 +37,10 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final contentWidth = constraints.maxWidth.isFinite
-            ? (constraints.maxWidth < 720.0 ? 720.0 : constraints.maxWidth)
-            : 720.0;
+            ? (constraints.maxWidth < widget.minContentWidth
+                  ? widget.minContentWidth
+                  : constraints.maxWidth)
+            : widget.minContentWidth;
 
         return Container(
           decoration: BoxDecoration(
@@ -128,18 +141,18 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
             ),
           ),
           _buildStat(context, '+${file.additions}', _additionColor(context)),
-          const SizedBox(width: 8),
+          const SizedBox(width: _headerStatGap),
           _buildStat(context, '-${file.deletions}', _deletionColor(context)),
-          const SizedBox(width: 12),
+          const SizedBox(width: _headerActionGap),
           Text(
             file.status,
             style: TextStyle(
               color: theme.colorScheme.mutedForeground,
-              fontSize: 12,
+              fontSize: _codeFontSize,
             ),
           ),
           if (widget.showCopyAction) ...[
-            const SizedBox(width: 12),
+            const SizedBox(width: _headerActionGap),
             GhostButton(
               onPressed: () => _copyFilePatch(fileKey, file),
               size: ButtonSize.small,
@@ -156,23 +169,23 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     await Clipboard.setData(ClipboardData(text: file.toPatch()));
     if (!mounted) return;
     setState(() => _copiedFiles.add(fileKey));
-    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    await Future<void>.delayed(_copiedFeedbackDuration);
     if (!mounted) return;
     setState(() => _copiedFiles.remove(fileKey));
   }
 
   Widget _buildStat(BuildContext context, String label, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      padding: _statBadgePadding,
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.14),
+        color: color.withValues(alpha: _statBadgeAlpha),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
         label,
         style: TextStyle(
           color: color,
-          fontSize: 12,
+          fontSize: _codeFontSize,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -221,15 +234,7 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     );
 
     return GestureDetector(
-      onTap: hunk.collapsed
-          ? () => setState(() {
-              if (_expandedCollapsedHunks.contains(key)) {
-                _expandedCollapsedHunks.remove(key);
-              } else {
-                _expandedCollapsedHunks.add(key);
-              }
-            })
-          : null,
+      onTap: hunk.collapsed ? () => _toggleCollapsedHunk(key) : null,
       child: Container(
         color: hunkColor,
         padding: _linePadding(context),
@@ -239,8 +244,8 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
               : hunk.header,
           style: TextStyle(
             color: theme.colorScheme.accentForeground,
-            fontFamily: 'Geist Mono',
-            fontSize: 12,
+            fontFamily: _codeFontFamily,
+            fontSize: _codeFontSize,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -258,12 +263,22 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
           'Show $count unchanged lines',
           style: TextStyle(
             color: theme.colorScheme.mutedForeground,
-            fontSize: 12,
-            fontFamily: 'Geist Mono',
+            fontSize: _codeFontSize,
+            fontFamily: _codeFontFamily,
           ),
         ),
       ),
     );
+  }
+
+  void _toggleCollapsedHunk(String key) {
+    setState(() {
+      if (_expandedCollapsedHunks.contains(key)) {
+        _expandedCollapsedHunks.remove(key);
+      } else {
+        _expandedCollapsedHunks.add(key);
+      }
+    });
   }
 
   Widget _buildUnifiedLine(BuildContext context, FileDiffLine line) {
@@ -344,11 +359,13 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     final compTheme = ComponentTheme.maybeOf<FileDiffViewerTheme>(context);
     final gutterColor = styleValue(
       themeValue: compTheme?.gutterBackgroundColor,
-      defaultValue: theme.colorScheme.muted.withValues(alpha: 0.45),
+      defaultValue: theme.colorScheme.muted.withValues(
+        alpha: _gutterBackgroundAlpha,
+      ),
     );
 
     return Container(
-      width: 52,
+      width: _gutterWidth,
       decoration: BoxDecoration(
         color: gutterColor,
         border: Border(
@@ -364,8 +381,8 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
         textAlign: TextAlign.right,
         style: TextStyle(
           color: theme.colorScheme.mutedForeground,
-          fontSize: 12,
-          fontFamily: 'Geist Mono',
+          fontSize: _codeFontSize,
+          fontFamily: _codeFontFamily,
         ),
       ),
     );
@@ -374,15 +391,15 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
   Widget _buildMarker(BuildContext context, String marker) {
     final theme = Theme.of(context);
     return Container(
-      width: 28,
+      width: _markerWidth,
       padding: _linePadding(context),
       child: Text(
         marker,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: theme.colorScheme.mutedForeground,
-          fontSize: 12,
-          fontFamily: 'Geist Mono',
+          fontSize: _codeFontSize,
+          fontFamily: _codeFontFamily,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -404,7 +421,7 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
                       style: segment.highlighted
                           ? TextStyle(
                               backgroundColor: theme.colorScheme.primary
-                                  .withValues(alpha: 0.16),
+                                  .withValues(alpha: _segmentHighlightAlpha),
                             )
                           : null,
                     ),
@@ -412,8 +429,8 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
         ),
         style: TextStyle(
           color: theme.colorScheme.foreground,
-          fontSize: 12,
-          fontFamily: 'Geist Mono',
+          fontSize: _codeFontSize,
+          fontFamily: _codeFontFamily,
           height: 1.45,
         ),
       ),
@@ -439,9 +456,9 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     final compTheme = ComponentTheme.maybeOf<FileDiffViewerTheme>(context);
     switch (type) {
       case FileDiffLineType.addition:
-        return _additionColor(context).withValues(alpha: 0.12);
+        return _additionColor(context).withValues(alpha: _lineBackgroundAlpha);
       case FileDiffLineType.deletion:
-        return _deletionColor(context).withValues(alpha: 0.12);
+        return _deletionColor(context).withValues(alpha: _lineBackgroundAlpha);
       case FileDiffLineType.hunk:
         return styleValue(
           themeValue: compTheme?.hunkBackgroundColor,

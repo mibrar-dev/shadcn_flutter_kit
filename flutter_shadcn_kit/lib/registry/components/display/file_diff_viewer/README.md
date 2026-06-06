@@ -43,7 +43,8 @@ FileDiffViewer(
 
 - Unified or split layout via `FileDiffLayout`.
 - File-level addition/deletion counts.
-- Optional file headers, line numbers, copy action, and max height.
+- Optional file headers, line numbers, copy action, max height, and minimum
+  code width before horizontal scrolling.
 - Collapsible hunks for long unchanged ranges.
 - `FileDiffSegment` support for inline changed spans.
 - `FileDiffViewerTheme` for colors, gutter styling, border radius, and line

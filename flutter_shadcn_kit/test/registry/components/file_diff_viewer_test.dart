@@ -23,6 +23,52 @@ void main() {
     expect(find.text('Copy'), findsNothing);
   });
 
+  testWidgets('FileDiffViewer hides file headers when requested', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _testHost(
+        const FileDiffViewer(files: _testFiles, showFileHeaders: false),
+      ),
+    );
+
+    expect(find.text('lib/example.dart'), findsNothing);
+    expect(find.textContaining('newValue'), findsOneWidget);
+  });
+
+  testWidgets('FileDiffViewer hides line number gutters when requested', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _testHost(
+        const FileDiffViewer(files: _testFiles, showLineNumbers: false),
+      ),
+    );
+
+    expect(find.text('1'), findsNothing);
+    expect(find.text('2'), findsNothing);
+    expect(find.textContaining('newValue'), findsOneWidget);
+  });
+
+  testWidgets('FileDiffViewer uses configurable minimum content width', (
+    tester,
+  ) async {
+    const minContentWidth = 960.0;
+
+    await tester.pumpWidget(
+      _testHost(
+        const FileDiffViewer(
+          files: _testFiles,
+          minContentWidth: minContentWidth,
+        ),
+      ),
+    );
+
+    final sizedBoxes = tester.widgetList<SizedBox>(find.byType(SizedBox));
+
+    expect(sizedBoxes.any((box) => box.width == minContentWidth), isTrue);
+  });
+
   testWidgets('FileDiffViewer expands collapsed hunks', (tester) async {
     await tester.pumpWidget(
       _testHost(

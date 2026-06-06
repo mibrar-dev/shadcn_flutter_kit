@@ -1,5 +1,3 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
-
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart' show SelectableText;
 import 'package:flutter/widgets.dart';
@@ -59,6 +57,9 @@ class FileDiffViewer extends StatefulWidget {
   /// Maximum height for the scrollable diff body.
   final double? maxHeight;
 
+  /// Minimum width reserved for code rows before horizontal scrolling begins.
+  final double minContentWidth;
+
   /// Creates a file diff viewer.
   const FileDiffViewer({
     super.key,
@@ -69,6 +70,7 @@ class FileDiffViewer extends StatefulWidget {
     this.collapseUnchanged = true,
     this.showCopyAction = true,
     this.maxHeight,
+    this.minContentWidth = 720.0,
   });
 
   /// Creates the State object used by this file diff viewer.

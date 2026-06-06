@@ -38,7 +38,6 @@ class FadeScroll extends StatelessWidget {
   });
 
   @override
-
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final compTheme = ComponentTheme.maybeOf<FadeScrollTheme>(context);
@@ -167,8 +166,9 @@ class _EdgeFade extends StatelessWidget {
             gradient: LinearGradient(
               colors: colors,
               begin: isHorizontal ? Alignment.centerLeft : Alignment.topCenter,
-              end:
-                  isHorizontal ? Alignment.centerRight : Alignment.bottomCenter,
+              end: isHorizontal
+                  ? Alignment.centerRight
+                  : Alignment.bottomCenter,
             ),
           ),
         ),

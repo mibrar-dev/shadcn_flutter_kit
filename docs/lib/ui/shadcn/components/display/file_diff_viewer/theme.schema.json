@@ -1,0 +1,170 @@
+{
+  "id": "file_diff_viewer",
+  "title": "File Diff Viewer Theme",
+  "description": "A comprehensive file diff viewer with unified and split layouts. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/file_diff_viewer` theme classes.",
+      "fields": [
+        {
+          "type": "color",
+          "name": "additionBackgroundColor",
+          "label": "Addition Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "backgroundColor",
+          "label": "Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "borderColor",
+          "label": "Border Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "borderRadius",
+          "label": "Border Radius",
+          "description": "Generated from Dart type `BorderRadiusGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "deletionBackgroundColor",
+          "label": "Deletion Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "gutterBackgroundColor",
+          "label": "Gutter Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "headerBackgroundColor",
+          "label": "Header Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "color",
+          "name": "hunkBackgroundColor",
+          "label": "Hunk Background Color",
+          "description": "Generated from Dart type `Color?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "color"
+          },
+          "since": "1.0.0"
+        },
+        {
+          "type": "object",
+          "name": "linePadding",
+          "label": "Line Padding",
+          "description": "Generated from Dart type `EdgeInsetsGeometry?`.",
+          "defaultValue": null,
+          "required": false,
+          "isAdvanced": false,
+          "visibleIf": [],
+          "validation": {
+            "clamp": "reject"
+          },
+          "ui": {
+            "control": "input"
+          },
+          "since": "1.0.0"
+        }
+      ]
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

@@ -30,6 +30,7 @@ export 'registry/components/display/divider/divider.dart';
 export 'registry/components/display/dot_indicator/dot_indicator.dart';
 export 'registry/components/display/empty_state/empty_state.dart';
 export 'registry/components/display/feature_carousel/feature_carousel.dart';
+export 'registry/components/display/file_diff_viewer/file_diff_viewer.dart';
 export 'registry/components/display/icon/icon.dart';
 export 'registry/components/display/keyboard_shortcut/keyboard_shortcut.dart';
 export 'registry/components/display/linear_progress_indicator/linear_progress_indicator.dart';

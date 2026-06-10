@@ -35,6 +35,7 @@ import 'components/empty_state/empty_state_examples.dart';
 import 'components/error_system/error_system_examples.dart';
 import 'components/expandable_sidebar/expandable_sidebar_examples.dart';
 import 'components/feature_carousel/feature_carousel_examples.dart';
+import 'components/file_diff_viewer/file_diff_viewer_examples.dart';
 import 'components/filter_bar/filter_bar_examples.dart';
 import 'components/file_picker/file_picker_examples.dart';
 import 'components/form/form_examples.dart';
@@ -132,6 +133,7 @@ const Set<String> originalComponentIds = {
   'error_system',
   'expandable_sidebar',
   'feature_carousel',
+  'file_diff_viewer',
   'filter_bar',
   'file_picker',
   'form',
@@ -234,6 +236,7 @@ const List<ComponentExampleBatch> exampleBatches = [
       'error_system',
       'expandable_sidebar',
       'feature_carousel',
+      'file_diff_viewer',
       'filter_bar',
       'file_picker',
       'form',
@@ -327,6 +330,7 @@ final Map<String, List<ComponentExample>> componentExamples = {
   'error_system': errorSystemExamples,
   'expandable_sidebar': expandableSidebarExamples,
   'feature_carousel': featureCarouselExamples,
+  'file_diff_viewer': fileDiffViewerExamples,
   'filter_bar': filterBarExamples,
   'file_picker': filePickerExamples,
   'form': formExamples,

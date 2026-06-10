@@ -92,6 +92,7 @@ export 'ui/shadcn/components/display/empty_state/empty_state.dart';
 export 'ui/shadcn/components/display/empty_state/preview.dart';
 export 'ui/shadcn/components/display/feature_carousel/feature_carousel.dart';
 export 'ui/shadcn/components/display/feature_carousel/preview.dart';
+export 'ui/shadcn/components/display/file_diff_viewer/file_diff_viewer.dart';
 export 'ui/shadcn/components/display/icon/icon.dart';
 export 'ui/shadcn/components/display/icon/preview.dart';
 export 'ui/shadcn/components/display/keyboard_shortcut/keyboard_shortcut.dart';

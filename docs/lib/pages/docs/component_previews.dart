@@ -6,6 +6,8 @@ import '../../ui/shadcn/components/control/button/button.dart'
 import '../../ui/shadcn/components/display/badge/badge.dart' as shadcn_badge;
 import '../../ui/shadcn/components/display/border_loading/border_loading.dart'
     as shadcn_border_loading;
+import '../../ui/shadcn/components/display/file_diff_viewer/file_diff_viewer.dart'
+    as shadcn_file_diff_viewer;
 import '../../ui/shadcn/components/display/divider/divider.dart'
     as shadcn_divider;
 import '../../ui/shadcn/components/display/markdown/markdown.dart'
@@ -47,6 +49,7 @@ const Map<String, String> componentStatusTags = {
   'border_loading': 'New',
   'empty_state': 'New',
   'error_system': 'New',
+  'file_diff_viewer': 'New',
   'gooey_toast': 'New',
   if (enableMarkdownComponent) 'markdown': 'Experimental',
   if (enableTextAnimateComponent) 'text_animate': 'New',
@@ -71,6 +74,7 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'slider': _sliderPreview,
   'switch': _switchPreview,
   'progress': _progressPreview,
+  'file_diff_viewer': _fileDiffViewerPreview,
   if (enableMarkdownComponent) 'markdown': _markdownPreview,
   if (enableTextAnimateComponent) 'text_animate': _textAnimatePreview,
 };
@@ -240,6 +244,33 @@ Widget _markdownPreview(BuildContext context) {
       selectable: false,
       followLinks: false,
     ),
+  );
+}
+
+Widget _fileDiffViewerPreview(BuildContext context) {
+  return const shadcn_file_diff_viewer.FileDiffViewer(
+    files: [
+      shadcn_file_diff_viewer.FileDiff(
+        path: 'lib/src/button.dart',
+        status: 'modified',
+        hunks: [
+          shadcn_file_diff_viewer.FileDiffHunk(
+            header: '@@ -1,3 +1,3 @@',
+            lines: [
+              shadcn_file_diff_viewer.FileDiffLine.deletion(
+                oldLineNumber: 1,
+                content: 'class Button extends StatelessWidget {',
+              ),
+              shadcn_file_diff_viewer.FileDiffLine.addition(
+                newLineNumber: 1,
+                content: 'class Button extends StatefulWidget {',
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+    maxHeight: 120,
   );
 }
 

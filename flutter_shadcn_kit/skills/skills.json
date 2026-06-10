@@ -5,6 +5,29 @@
   "description": "Canonical index of installable skills for flutter_shadcn CLI.",
   "skills": [
     {
+      "id": "flutter-shadcn-kit",
+      "name": "Flutter ShadCN Kit",
+      "version": "1.0.0",
+      "description": "Claude Code skill for building Flutter UI pages using the flutter_shadcn_kit component registry. Covers all 133 components, import patterns, theming, and complete example screens.",
+      "status": "stable",
+      "category": "ui-development",
+      "targetModel": "claude",
+      "installPath": "~/.claude/skills/flutter-shadcn-kit",
+      "path": "flutter-shadcn-kit",
+      "entry": "flutter-shadcn-kit/SKILL.md",
+      "manifest": "flutter-shadcn-kit/manifest.json",
+      "skillJson": "flutter-shadcn-kit/skill.json",
+      "references": {
+        "installation": "flutter-shadcn-kit/INSTALLATION.md",
+        "components": "flutter-shadcn-kit/references/components-catalog.md",
+        "examples": "flutter-shadcn-kit/references/example-pages.md"
+      },
+      "installation": {
+        "supportedByCli": true,
+        "command": "flutter_shadcn --advanced install-skill --skill flutter-shadcn-kit --model claude"
+      }
+    },
+    {
       "id": "flutter-shadcn-ui",
       "name": "Flutter shadcn CLI",
       "version": "2.0.0",

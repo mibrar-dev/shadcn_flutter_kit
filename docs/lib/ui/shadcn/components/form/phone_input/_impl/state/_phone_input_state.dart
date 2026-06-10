@@ -1,3 +1,5 @@
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+
 part of '../../phone_input.dart';
 
 /// _PhoneInputState stores and manages mutable widget state.
@@ -10,10 +12,12 @@ class _PhoneInputState extends State<PhoneInput>
   @override
   void initState() {
     super.initState();
-    _country = widget.initialCountry ??
+    _country =
+        widget.initialCountry ??
         widget.initialValue?.country ??
         Country.unitedStates;
-    _controller = widget.controller ??
+    _controller =
+        widget.controller ??
         TextEditingController(text: widget.initialValue?.number);
     formValue = value;
     _controller.addListener(_dispatchChanged);
@@ -169,7 +173,8 @@ class _PhoneInputState extends State<PhoneInput>
                               ),
                               Gap(
                                 styleValue(
-                                  defaultValue: theme.density.baseGap *
+                                  defaultValue:
+                                      theme.density.baseGap *
                                       theme.scaling *
                                       gapSm,
                                   themeValue: componentTheme?.flagGap,
@@ -178,7 +183,8 @@ class _PhoneInputState extends State<PhoneInput>
                               Expanded(child: Text(country.name)),
                               Gap(
                                 styleValue(
-                                  defaultValue: theme.density.baseGap *
+                                  defaultValue:
+                                      theme.density.baseGap *
                                       theme.scaling *
                                       gapLg,
                                   themeValue: componentTheme?.countryGap,

@@ -24,7 +24,7 @@ class LengthValidator extends Validator<String> {
 
   /// Custom error message, or null to use default localized message.
   final String?
-      message; // if null, use default message from ShadcnLocalizations
+  message; // if null, use default message from ShadcnLocalizations
 
   /// Creates a [LengthValidator] with optional min/max bounds.
   const LengthValidator({this.min, this.max, this.message});

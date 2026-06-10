@@ -14411,6 +14411,61 @@
       "postInstall": [],
       "version": "1.0.0",
       "tier": "component"
+    },
+    {
+      "id": "file_diff_viewer",
+      "name": "File Diff Viewer",
+      "description": "A comprehensive file diff viewer with unified and split layouts.",
+      "category": "display",
+      "tier": "component",
+      "tags": [
+        "display",
+        "file_diff_viewer",
+        "diff",
+        "code",
+        "review"
+      ],
+      "files": [
+        {
+          "source": "registry/components/display/file_diff_viewer/_impl/core/file_diff_models.dart",
+          "destination": "{installPath}/components/display/file_diff_viewer/_impl/core/file_diff_models.dart"
+        },
+        {
+          "source": "registry/components/display/file_diff_viewer/_impl/state/file_diff_viewer_state.dart",
+          "destination": "{installPath}/components/display/file_diff_viewer/_impl/state/file_diff_viewer_state.dart"
+        },
+        {
+          "source": "registry/components/display/file_diff_viewer/_impl/themes/base/file_diff_viewer_theme.dart",
+          "destination": "{installPath}/components/display/file_diff_viewer/_impl/themes/base/file_diff_viewer_theme.dart"
+        },
+        {
+          "source": "registry/components/display/file_diff_viewer/file_diff_viewer.dart",
+          "destination": "{installPath}/components/display/file_diff_viewer/file_diff_viewer.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/display/file_diff_viewer/_impl/core/file_diff_models.dart"
+            },
+            {
+              "source": "registry/components/display/file_diff_viewer/_impl/state/file_diff_viewer_state.dart"
+            },
+            {
+              "source": "registry/components/display/file_diff_viewer/_impl/themes/base/file_diff_viewer_theme.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "radix_icons"
+      ],
+      "dependsOn": [
+        "button"
+      ],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0"
     }
   ],
   "manifestVersion": 1

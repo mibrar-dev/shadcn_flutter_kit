@@ -11,7 +11,8 @@
   ],
   "dependencies": {
     "shared": [
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [
       "button"

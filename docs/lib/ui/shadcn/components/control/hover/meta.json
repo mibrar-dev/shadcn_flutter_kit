@@ -12,7 +12,8 @@
   "dependencies": {
     "shared": [
       "theme",
-      "style_value"
+      "style_value",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -32,8 +33,8 @@
   ],
   "api": {
     "constructors": [
-      "`Hover` — timed hover activation with `waitDuration`, `minDuration`, and `showDuration`.",
-      "`HoverActivity` — raw enter/exit/hover callbacks, optional `debounceDuration`."
+      "`Hover` \u2014 timed hover activation with `waitDuration`, `minDuration`, and `showDuration`.",
+      "`HoverActivity` \u2014 raw enter/exit/hover callbacks, optional `debounceDuration`."
     ],
     "callbacks": [
       "`onHover` (Hover, HoverActivity)",

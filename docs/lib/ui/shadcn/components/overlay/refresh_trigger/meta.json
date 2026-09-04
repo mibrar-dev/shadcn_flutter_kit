@@ -16,7 +16,8 @@
       "animated_value_builder",
       "constants",
       "localizations",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [
       "card",

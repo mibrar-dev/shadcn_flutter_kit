@@ -16,7 +16,8 @@
       "constants",
       "animated_value_builder",
       "color_extensions",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {
@@ -37,7 +38,7 @@
   "api": {
     "constructors": [
       "`LinearProgressIndicator`",
-      "`value` (`double?`) — null for indeterminate.",
+      "`value` (`double?`) \u2014 null for indeterminate.",
       "`color`, `backgroundColor` (`Color?`)",
       "`minHeight` (`double?`)",
       "`borderRadius` (`BorderRadiusGeometry?`)",

@@ -15,10 +15,18 @@
       "form_control",
       "clickable",
       "overlay",
-      "util"
+      "util",
+      "color_extensions",
+      "component_schema",
+      "focus_outline",
+      "text_input_utils",
+      "text_modifiers"
     ],
     "components": [
-      "button"
+      "button",
+      "form",
+      "outlined_container",
+      "text_field"
     ],
     "pubspec": {}
   },
@@ -54,11 +62,11 @@
       "`onChanged` (`ValueChanged<FormattedValue>?`)",
       "`controller` (`FormattedInputController?`)",
       "`style`, `leading`, `trailing`, `enabled`",
-      "`FormattedObjectInput<T>` — formatted input with popup editor.",
-      "`FormattedInputController` — controller for formatted values.",
-      "`FormattedValue` — list of `FormattedValuePart` entries.",
-      "`FormattedValuePart` — `static`, `editable`, or `widget` parts.",
-      "`InputPart`, `EditablePart`, `StaticPart` — low-level part types."
+      "`FormattedObjectInput<T>` \u2014 formatted input with popup editor.",
+      "`FormattedInputController` \u2014 controller for formatted values.",
+      "`FormattedValue` \u2014 list of `FormattedValuePart` entries.",
+      "`FormattedValuePart` \u2014 `static`, `editable`, or `widget` parts.",
+      "`InputPart`, `EditablePart`, `StaticPart` \u2014 low-level part types."
     ],
     "callbacks": []
   },

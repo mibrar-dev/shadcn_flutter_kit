@@ -13,7 +13,8 @@
     "shared": [
       "theme",
       "style_value",
-      "localizations"
+      "localizations",
+      "component_schema"
     ],
     "components": [
       "alpha",
@@ -65,7 +66,7 @@
       "`onModeChanged`",
       "`enableEyeDropper`, `onEyeDropperRequested`",
       "`orientation`, `spacing`, `controlSpacing`, `sliderSize`",
-      "`ColorPickerMode` — `rgb`, `hsl`, `hsv`, `hex`."
+      "`ColorPickerMode` \u2014 `rgb`, `hsl`, `hsv`, `hex`."
     ],
     "callbacks": [
       "`onChanged`, `onChanging`, `onModeChanged`, `onEyeDropperRequested`"

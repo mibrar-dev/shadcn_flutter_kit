@@ -20,7 +20,8 @@
       "axis_insets_directional",
       "axis_insets_geometry",
       "util",
-      "text_modifiers"
+      "text_modifiers",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -41,10 +42,10 @@
     "constructors": [
       "`Divider`",
       "`color`, `height`, `thickness`, `indent`, `endIndent`, `padding`",
-      "`child` (`Widget?`) — optional label",
+      "`child` (`Widget?`) \u2014 optional label",
       "`VerticalDivider`",
       "`color`, `width`, `thickness`, `indent`, `endIndent`, `padding`",
-      "`child` (`Widget?`) — optional label"
+      "`child` (`Widget?`) \u2014 optional label"
     ],
     "callbacks": []
   },

@@ -12,7 +12,8 @@
   "dependencies": {
     "shared": [
       "theme",
-      "style_value"
+      "style_value",
+      "generated_colors"
     ],
     "components": [],
     "pubspec": {}
@@ -28,7 +29,7 @@
       "`FadeScroll`",
       "`startOffset`, `endOffset`",
       "`gradient` (`List<Color>?`)",
-      "`FadeScrollTheme` — theme defaults."
+      "`FadeScrollTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

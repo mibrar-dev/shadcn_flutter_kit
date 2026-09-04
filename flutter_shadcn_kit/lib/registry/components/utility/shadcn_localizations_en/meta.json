@@ -11,7 +11,9 @@
   ],
   "dependencies": {
     "shared": [],
-    "components": [],
+    "components": [
+      "shadcn_localizations"
+    ],
     "pubspec": {
       "intl": "any"
     }

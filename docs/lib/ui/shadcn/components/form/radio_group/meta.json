@@ -17,7 +17,8 @@
       "form_control",
       "form_value_supplier",
       "style_value",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [
       "card"
@@ -53,10 +54,10 @@
       "`value` (`T?`)",
       "`onChanged` (`ValueChanged<T>?`)",
       "`enabled` (`bool?`)",
-      "`RadioItem<T>` — standard radio row.",
-      "`RadioCard<T>` — card-style radio option.",
-      "`ControlledRadioGroup<T>` — controller-backed group.",
-      "`RadioGroupController<T>` — controller."
+      "`RadioItem<T>` \u2014 standard radio row.",
+      "`RadioCard<T>` \u2014 card-style radio option.",
+      "`ControlledRadioGroup<T>` \u2014 controller-backed group.",
+      "`RadioGroupController<T>` \u2014 controller."
     ],
     "callbacks": [
       "`onChanged`"

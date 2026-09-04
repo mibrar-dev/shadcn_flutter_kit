@@ -23,7 +23,8 @@
       "text_modifiers",
       "util",
       "lucide_icons",
-      "radix_icons"
+      "radix_icons",
+      "component_schema"
     ],
     "components": [
       "async",
@@ -70,12 +71,12 @@
   ],
   "api": {
     "constructors": [
-      "`Select<T>` — single-value select.",
-      "`MultiSelect<T>` — multi-value select.",
-      "`SelectItem<T>` — item row.",
-      "`SelectGroup` — grouped items.",
-      "`SelectPopup` — menu/popup builders.",
-      "`SelectController<T>` / `MultiSelectController<T>` — controllers.",
+      "`Select<T>` \u2014 single-value select.",
+      "`MultiSelect<T>` \u2014 multi-value select.",
+      "`SelectItem<T>` \u2014 item row.",
+      "`SelectGroup` \u2014 grouped items.",
+      "`SelectPopup` \u2014 menu/popup builders.",
+      "`SelectController<T>` / `MultiSelectController<T>` \u2014 controllers.",
       "Builder types: `SelectPopupBuilder`, `SelectValueBuilder`."
     ],
     "callbacks": [

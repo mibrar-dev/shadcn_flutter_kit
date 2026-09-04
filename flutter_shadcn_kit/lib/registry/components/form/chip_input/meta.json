@@ -15,7 +15,8 @@
       "theme",
       "style_value",
       "form_value_supplier",
-      "lucide_icons"
+      "lucide_icons",
+      "component_schema"
     ],
     "components": [
       "chip",
@@ -49,7 +50,7 @@
       "`initialChips` (`List<T>?`)",
       "`useChips` (`bool?`)",
       "`autoInsertSuggestion` (`bool`)",
-      "`ChipEditingController<T>` — controller for chip text and values."
+      "`ChipEditingController<T>` \u2014 controller for chip text and values."
     ],
     "callbacks": [
       "`onChipsChanged`"

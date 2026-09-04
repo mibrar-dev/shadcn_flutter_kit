@@ -13,7 +13,10 @@
     "file"
   ],
   "dependencies": {
-    "shared": [],
+    "shared": [
+      "style_value",
+      "theme"
+    ],
     "components": [],
     "pubspec": {}
   },

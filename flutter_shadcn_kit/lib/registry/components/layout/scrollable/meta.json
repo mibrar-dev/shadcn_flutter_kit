@@ -10,7 +10,10 @@
     "scrollable"
   ],
   "dependencies": {
-    "shared": [],
+    "shared": [
+      "component_schema",
+      "theme"
+    ],
     "components": [],
     "pubspec": {}
   },

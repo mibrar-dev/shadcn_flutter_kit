@@ -13,7 +13,8 @@
     "shared": [
       "theme",
       "style_value",
-      "text_modifiers"
+      "text_modifiers",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {

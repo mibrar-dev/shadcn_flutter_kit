@@ -16,10 +16,15 @@
       "style_value",
       "constants",
       "outlined_container",
-      "fade_scroll"
+      "fade_scroll",
+      "component_schema",
+      "geometry_extensions",
+      "util"
     ],
     "components": [
-      "sortable"
+      "sortable",
+      "text",
+      "button"
     ],
     "pubspec": {
       "data_widget": "^0.0.2"
@@ -61,9 +66,9 @@
       "`children` (`List<TabChild>`, required)",
       "`index` (`int?`)",
       "`onChanged` (`ValueChanged<int>?`)",
-      "`TabList`, `TabPane`, `TabContainer` — tab primitives.",
-      "`TabItem` / `KeyedTabItem`, `TabChildWidget` — tab elements.",
-      "`TabsTheme` — overall styling."
+      "`TabList`, `TabPane`, `TabContainer` \u2014 tab primitives.",
+      "`TabItem` / `KeyedTabItem`, `TabChildWidget` \u2014 tab elements.",
+      "`TabsTheme` \u2014 overall styling."
     ],
     "callbacks": []
   },

@@ -22,10 +22,15 @@
       "geometry_extensions",
       "hidden",
       "overlay",
-      "lucide_icons"
+      "lucide_icons",
+      "clickable",
+      "component_schema",
+      "focus_outline",
+      "util"
     ],
     "components": [
-      "button"
+      "button",
+      "card"
     ],
     "pubspec": {
       "data_widget": "^0.0.2"
@@ -104,11 +109,11 @@
   ],
   "api": {
     "constructors": [
-      "`TextField` — main input widget.",
-      "`TextInputStatefulWidget` — shared base for inputs with features.",
-      "`InputFeature` factories — `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
-      "`InputFeatureVisibility` — `always`, `focused`, `textNotEmpty`, etc.",
-      "`PasswordPeekMode` — `toggle` or `peek`."
+      "`TextField` \u2014 main input widget.",
+      "`TextInputStatefulWidget` \u2014 shared base for inputs with features.",
+      "`InputFeature` factories \u2014 `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
+      "`InputFeatureVisibility` \u2014 `always`, `focused`, `textNotEmpty`, etc.",
+      "`PasswordPeekMode` \u2014 `toggle` or `peek`."
     ],
     "callbacks": []
   },

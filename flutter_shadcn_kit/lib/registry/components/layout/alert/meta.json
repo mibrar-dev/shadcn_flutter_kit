@@ -14,7 +14,8 @@
       "basic_layout",
       "outlined_container",
       "style_value",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -35,8 +36,8 @@
       "`Alert`",
       "`leading`, `title`, `content`, `trailing`",
       "`destructive` (`bool`)",
-      "`Alert.destructive` — destructive styling shortcut.",
-      "`AlertTheme` — padding and surface defaults."
+      "`Alert.destructive` \u2014 destructive styling shortcut.",
+      "`AlertTheme` \u2014 padding and surface defaults."
     ],
     "callbacks": []
   },

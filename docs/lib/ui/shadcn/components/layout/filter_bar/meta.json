@@ -16,7 +16,8 @@
     "shared": [
       "theme",
       "lucide_icons",
-      "localizations"
+      "localizations",
+      "component_schema"
     ],
     "components": [
       "button",
@@ -28,7 +29,8 @@
       "date_picker",
       "form_field",
       "drawer",
-      "scaffold"
+      "scaffold",
+      "stage_container"
     ],
     "pubspec": {}
   },

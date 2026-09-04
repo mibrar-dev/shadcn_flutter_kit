@@ -15,7 +15,8 @@
       "style_value",
       "constants",
       "animated_value_builder",
-      "color_extensions"
+      "color_extensions",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -31,7 +32,7 @@
   "api": {
     "constructors": [
       "`CircularProgressIndicator`",
-      "`value` (`double?`) — null for indeterminate.",
+      "`value` (`double?`) \u2014 null for indeterminate.",
       "`size` (`double?`)",
       "`color`, `backgroundColor` (`Color?`)",
       "`strokeWidth` (`double?`)",

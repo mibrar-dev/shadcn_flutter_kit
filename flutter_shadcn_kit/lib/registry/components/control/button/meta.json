@@ -18,7 +18,10 @@
       "focus_outline",
       "form_control",
       "form_value_supplier",
-      "menu_group"
+      "menu_group",
+      "component_schema",
+      "generated_colors",
+      "platform_utils"
     ],
     "components": [],
     "pubspec": {

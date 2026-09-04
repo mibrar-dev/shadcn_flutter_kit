@@ -2,7 +2,7 @@
 // Example: Settings Page with Tabs
 // Uses: Tabs/TabItem, Card, TextField, Switch, Button, Text extensions, Divider
 
-import 'package:flutter/material.dart' hide Card, TextField, Switch;
+import 'package:flutter/material.dart' hide Card, TextField, Switch, Divider;
 import '../registry/components/control/button/button.dart';
 import '../registry/components/layout/card/card.dart';
 import '../registry/components/display/text/text.dart';

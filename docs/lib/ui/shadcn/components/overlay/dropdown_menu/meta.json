@@ -12,7 +12,8 @@
   "dependencies": {
     "shared": [
       "theme",
-      "overlay"
+      "overlay",
+      "component_schema"
     ],
     "components": [
       "menu",

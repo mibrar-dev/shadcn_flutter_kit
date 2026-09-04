@@ -16,7 +16,8 @@
       "form_value_supplier",
       "text_modifiers",
       "color_extensions",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [
       "text_field"
@@ -50,10 +51,10 @@
       "`children` (`List<InputOTPChild>`, required)",
       "`initialValue` (`OTPCodepointList?`)",
       "`onChanged`, `onSubmitted`",
-      "`InputOTPChild` — base class for OTP parts.",
-      "`CharacterInputOTPChild` — standard character input box.",
-      "`WidgetInputOTPChild` — custom widget slot.",
-      "`OTPCodepointList` — list of nullable codepoints."
+      "`InputOTPChild` \u2014 base class for OTP parts.",
+      "`CharacterInputOTPChild` \u2014 standard character input box.",
+      "`WidgetInputOTPChild` \u2014 custom widget slot.",
+      "`OTPCodepointList` \u2014 list of nullable codepoints."
     ],
     "callbacks": [
       "`onChanged`, `onSubmitted`"

@@ -13,7 +13,8 @@
     "shared": [
       "theme",
       "style_value",
-      "animated_value_builder"
+      "animated_value_builder",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {

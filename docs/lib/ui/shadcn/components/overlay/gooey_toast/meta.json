@@ -12,7 +12,10 @@
   ],
   "dependencies": {
     "shared": [
-      "theme"
+      "theme",
+      "color_scheme",
+      "component_schema",
+      "preset_themes"
     ],
     "components": [
       "toast"

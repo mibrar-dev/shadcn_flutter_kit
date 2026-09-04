@@ -14,7 +14,8 @@
       "animated_value_builder",
       "constants",
       "geometry_extensions",
-      "tween_utils"
+      "tween_utils",
+      "overlay"
     ],
     "components": [],
     "pubspec": {

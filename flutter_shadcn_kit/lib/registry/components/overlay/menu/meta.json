@@ -19,11 +19,16 @@
       "subfocus",
       "basic_layout",
       "keyboard_shortcut_utils",
-      "radix_icons"
+      "radix_icons",
+      "component_schema",
+      "geometry_extensions",
+      "outlined_container",
+      "util"
     ],
     "components": [
       "dialog",
-      "drawer"
+      "drawer",
+      "button"
     ],
     "pubspec": {
       "data_widget": "^0.0.2",

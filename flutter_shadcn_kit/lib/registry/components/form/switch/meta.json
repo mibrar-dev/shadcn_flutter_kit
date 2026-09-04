@@ -16,7 +16,8 @@
       "border_utils",
       "form_control",
       "form_value_supplier",
-      "focus_outline"
+      "focus_outline",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -40,8 +41,8 @@
       "`value` (`bool`, required)",
       "`onChanged` (`ValueChanged<bool>?`)",
       "`enabled` (`bool?`)",
-      "`ControlledSwitch` — controller-backed switch.",
-      "`SwitchController` — controller."
+      "`ControlledSwitch` \u2014 controller-backed switch.",
+      "`SwitchController` \u2014 controller."
     ],
     "callbacks": [
       "`onChanged`"

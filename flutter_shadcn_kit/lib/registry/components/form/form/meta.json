@@ -13,11 +13,17 @@
     "shared": [
       "theme",
       "focus_outline",
-      "text_modifiers"
+      "text_modifiers",
+      "color_extensions",
+      "localizations",
+      "phone_number",
+      "slider_value",
+      "util"
     ],
     "components": [
       "button",
-      "text_field"
+      "text_field",
+      "checkbox"
     ],
     "pubspec": {
       "data_widget": "^0.0.2",
@@ -78,14 +84,14 @@
   ],
   "api": {
     "constructors": [
-      "`Form` — root form container.",
-      "`FormController` — manages values, validation, and submission.",
-      "`FormKey<T>` — typed keys for form fields.",
-      "`FormEntry<T>` — attaches validation to an input.",
-      "`FormField<T>` — labeled field wrapper with errors.",
-      "`FormInline<T>` — inline label+field layout.",
-      "`SubmitButton` — submit button with validation state.",
-      "`Validator<T>` and `ValidationResult` — validation helpers."
+      "`Form` \u2014 root form container.",
+      "`FormController` \u2014 manages values, validation, and submission.",
+      "`FormKey<T>` \u2014 typed keys for form fields.",
+      "`FormEntry<T>` \u2014 attaches validation to an input.",
+      "`FormField<T>` \u2014 labeled field wrapper with errors.",
+      "`FormInline<T>` \u2014 inline label+field layout.",
+      "`SubmitButton` \u2014 submit button with validation state.",
+      "`Validator<T>` and `ValidationResult` \u2014 validation helpers."
     ],
     "callbacks": [
       "`onSubmitted` (Form)",

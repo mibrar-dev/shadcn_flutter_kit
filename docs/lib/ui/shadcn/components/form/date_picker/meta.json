@@ -16,7 +16,9 @@
       "localizations",
       "lucide_icons",
       "style_value",
-      "theme"
+      "theme",
+      "component_schema",
+      "localizations_extensions"
     ],
     "components": [
       "calendar",
@@ -49,9 +51,9 @@
       "`DateRangePicker`",
       "`value` (`DateTimeRange?`, required)",
       "`onChanged` (`ValueChanged<DateTimeRange?>?`)",
-      "`ControlledDatePicker` — controller-backed picker.",
-      "`DatePickerController` — `ValueNotifier<DateTime?>` controller.",
-      "`DateTimeRange` — start/end date value type."
+      "`ControlledDatePicker` \u2014 controller-backed picker.",
+      "`DatePickerController` \u2014 `ValueNotifier<DateTime?>` controller.",
+      "`DateTimeRange` \u2014 start/end date value type."
     ],
     "callbacks": [
       "`onChanged`"

@@ -12,7 +12,8 @@
     "shared": [
       "theme",
       "style_value",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [
       "tooltip"
@@ -38,7 +39,7 @@
       "`TrackerData`",
       "`level` (`TrackerLevel`, required)",
       "`tooltip` (`Widget`, required)",
-      "`TrackerLevel` — `fine`, `warning`, `critical`, `unknown`"
+      "`TrackerLevel` \u2014 `fine`, `warning`, `critical`, `unknown`"
     ],
     "callbacks": []
   },

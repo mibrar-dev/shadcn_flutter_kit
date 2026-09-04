@@ -14,7 +14,8 @@
       "theme",
       "style_value",
       "animation_queue",
-      "wrap_utils"
+      "wrap_utils",
+      "component_schema"
     ],
     "components": [
       "dot_indicator"
@@ -49,9 +50,9 @@
       "`itemCount` (`int?`)",
       "`controller` (`CarouselController?`)",
       "`autoplaySpeed` / `pauseOnHover` / `wrap` / `draggable`",
-      "`CarouselController` — imperative control for index and animation.",
-      "`SlidingCarouselTransition`, `FadingCarouselTransition` — built-in transitions.",
-      "`CarouselDotIndicator` — indicator that follows a controller."
+      "`CarouselController` \u2014 imperative control for index and animation.",
+      "`SlidingCarouselTransition`, `FadingCarouselTransition` \u2014 built-in transitions.",
+      "`CarouselDotIndicator` \u2014 indicator that follows a controller."
     ],
     "callbacks": [
       "`onIndexChanged` (Carousel)"

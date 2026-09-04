@@ -16,11 +16,17 @@
       "constants",
       "animated_value_builder",
       "text_modifiers",
-      "util"
+      "util",
+      "color_extensions",
+      "component_schema",
+      "outlined_container",
+      "platform_utils"
     ],
     "components": [
       "button",
-      "hidden"
+      "hidden",
+      "overflow_marquee",
+      "tooltip"
     ],
     "pubspec": {
       "data_widget": "^0.0.2",
@@ -68,10 +74,10 @@
       "`children` (`List<Widget>`)",
       "`alignment` (`NavigationBarAlignment`)",
       "`type` (`NavigationContainerType`)",
-      "`NavigationItem` / `NavigationButton` — navigation entries.",
-      "`NavigationRail` / `NavigationSidebar` — alternate layouts.",
-      "`NavigationDivider`, `NavigationGap` — separators.",
-      "`NavigationBarTheme` — colors, padding, and label styles."
+      "`NavigationItem` / `NavigationButton` \u2014 navigation entries.",
+      "`NavigationRail` / `NavigationSidebar` \u2014 alternate layouts.",
+      "`NavigationDivider`, `NavigationGap` \u2014 separators.",
+      "`NavigationBarTheme` \u2014 colors, padding, and label styles."
     ],
     "callbacks": []
   },

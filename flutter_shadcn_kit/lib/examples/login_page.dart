@@ -2,7 +2,7 @@
 // Example: Login / Sign-in Page
 // Uses: Button, Card, TextField, Text extensions, Divider
 
-import 'package:flutter/material.dart' hide Card, TextField;
+import 'package:flutter/material.dart' hide Card, TextField, Divider;
 import '../registry/components/control/button/button.dart';
 import '../registry/components/layout/card/card.dart';
 import '../registry/components/display/text/text.dart';

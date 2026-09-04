@@ -16,7 +16,8 @@
       "style_value",
       "constants",
       "geometry_extensions",
-      "overlay"
+      "overlay",
+      "component_schema"
     ],
     "components": [
       "card"

@@ -14,7 +14,8 @@
       "theme",
       "style_value",
       "constants",
-      "clickable"
+      "clickable",
+      "axis"
     ],
     "components": [
       "basic",
@@ -58,8 +59,8 @@
       "`children` (`List<Widget>`, required)",
       "`avatarPrefix` / `avatarSuffix`",
       "`alignment`, `spacing`, `avatarAlignment`, `avatarSpacing`",
-      "`ChatBubbleType` — `plain`, `tail`, `sharpCorner`.",
-      "`ChatConstrainedBox` — width/align helper used by bubbles."
+      "`ChatBubbleType` \u2014 `plain`, `tail`, `sharpCorner`.",
+      "`ChatConstrainedBox` \u2014 width/align helper used by bubbles."
     ],
     "callbacks": []
   },

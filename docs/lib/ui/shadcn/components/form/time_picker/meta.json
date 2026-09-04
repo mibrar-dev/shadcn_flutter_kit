@@ -16,7 +16,8 @@
       "localizations",
       "localizations_extensions",
       "theme",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [
       "button",
@@ -56,10 +57,10 @@
       "`use24HourFormat`, `showSeconds`",
       "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`dialogTitle`, `placeholder`, `enabled`",
-      "`DurationPicker` — duration selector.",
-      "`ControlledTimePicker` — controller-backed picker.",
-      "`TimePickerController` / `DurationPickerController` — controllers.",
-      "`TimeRange` — time range value type."
+      "`DurationPicker` \u2014 duration selector.",
+      "`ControlledTimePicker` \u2014 controller-backed picker.",
+      "`TimePickerController` / `DurationPickerController` \u2014 controllers.",
+      "`TimeRange` \u2014 time range value type."
     ],
     "callbacks": [
       "`onChanged`"

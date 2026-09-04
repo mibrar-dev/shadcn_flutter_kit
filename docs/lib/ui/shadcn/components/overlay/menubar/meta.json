@@ -14,7 +14,8 @@
       "constants",
       "outlined_container",
       "text_modifiers",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [
       "menu"

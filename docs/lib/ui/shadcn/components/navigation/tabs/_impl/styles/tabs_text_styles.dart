@@ -2,55 +2,11 @@
 
 part of '../../tabs.dart';
 
-/// _TabsTextStyle defines a reusable type for this registry module.
-class _TabsTextStyle extends StatelessWidget {
-  /// Stores `child` state/configuration for this implementation.
-  final Widget child;
-  final TextStyle Function(ThemeData theme) styleBuilder;
-
-  const _TabsTextStyle({required this.child, required this.styleBuilder});
-
-  @override
-  /// Executes `build` behavior for this component/composite.
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return DefaultTextStyle.merge(style: styleBuilder(theme), child: child);
-  }
-}
-
-/// Extension helpers used by this registry module.
-extension TabsTextStyleExtensions on Widget {
-  /// Executes `muted` behavior for this component/composite.
-  Widget muted() {
-    return _TabsTextStyle(
-      child: this,
-      styleBuilder: (theme) =>
-          /// Creates a `TextStyle` instance.
-          TextStyle(color: theme.colorScheme.mutedForeground),
-    );
-  }
-
-  /// Executes `foreground` behavior for this component/composite.
-  Widget foreground() {
-    return _TabsTextStyle(
-      child: this,
-      styleBuilder: (theme) => TextStyle(color: theme.colorScheme.foreground),
-    );
-  }
-
-  /// Executes `small` behavior for this component/composite.
-  Widget small() {
-    return _TabsTextStyle(
-      child: this,
-      styleBuilder: (theme) => theme.typography.small,
-    );
-  }
-
-  /// Executes `medium` behavior for this component/composite.
-  Widget medium() {
-    return _TabsTextStyle(
-      child: this,
-      styleBuilder: (theme) => theme.typography.medium,
-    );
-  }
-}
+// NOTE: Text styling for tabs is provided by the canonical `TextExtension`
+// from `registry/components/display/text/text.dart` (imported by `tabs.dart`).
+// The former local `TabsTextStyleExtensions` (`muted`/`foreground`/`small`/
+// `medium`) was removed because it duplicated `TextExtension` and caused
+// `ambiguous_extension_member_access` errors in any file importing both
+// `text.dart` and `tabs.dart`.
+// Migration: use `TextExtension` instead — e.g. `Text('x').muted().small()`.
+// Visual output is identical (same theme color/typography values).

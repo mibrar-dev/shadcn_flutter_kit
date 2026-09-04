@@ -12,7 +12,9 @@
   "dependencies": {
     "shared": [
       "theme",
-      "style_value"
+      "style_value",
+      "color_extensions",
+      "component_schema"
     ],
     "components": [
       "avatar"

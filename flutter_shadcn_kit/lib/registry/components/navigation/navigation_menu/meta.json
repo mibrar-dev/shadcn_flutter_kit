@@ -15,11 +15,16 @@
       "constants",
       "icon_extensions",
       "radix_icons",
-      "theme"
+      "theme",
+      "animated_value_builder",
+      "util"
     ],
     "components": [
       "button",
-      "popover"
+      "popover",
+      "basic",
+      "outlined_container",
+      "text"
     ],
     "pubspec": {
       "data_widget": "^0.0.2"
@@ -39,10 +44,10 @@
       "`NavigationMenu`",
       "`children` (`List<Widget>`, required)",
       "`surfaceOpacity`, `surfaceBlur`, `margin`, `offset`",
-      "`NavigationMenuItem` — item with optional `content`.",
-      "`NavigationMenuContent` — content entry.",
-      "`NavigationMenuContentList` — grid/list of contents.",
-      "`NavigationMenuTheme` — surface styling."
+      "`NavigationMenuItem` \u2014 item with optional `content`.",
+      "`NavigationMenuContent` \u2014 content entry.",
+      "`NavigationMenuContentList` \u2014 grid/list of contents.",
+      "`NavigationMenuTheme` \u2014 surface styling."
     ],
     "callbacks": []
   },

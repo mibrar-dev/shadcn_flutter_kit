@@ -17,7 +17,8 @@
       "form_value_supplier",
       "style_value",
       "theme",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -45,8 +46,8 @@
       "`activeColor`, `backgroundColor`",
       "`starSize`, `starSpacing`, `starPoints`",
       "`starPointRounding`, `starValleyRounding`, `starSquash`, `starInnerRadiusRatio`, `starRotation`",
-      "`ControlledStarRating` — controller-backed rating.",
-      "`StarRatingController` — controller."
+      "`ControlledStarRating` \u2014 controller-backed rating.",
+      "`StarRatingController` \u2014 controller."
     ],
     "callbacks": [
       "`onChanged`"

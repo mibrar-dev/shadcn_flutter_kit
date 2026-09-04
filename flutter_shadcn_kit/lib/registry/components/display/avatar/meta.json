@@ -13,7 +13,8 @@
     "shared": [
       "theme",
       "style_value",
-      "geometry_extensions"
+      "geometry_extensions",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}
@@ -35,11 +36,11 @@
   ],
   "api": {
     "constructors": [
-      "`Avatar` — initials avatar with optional photo provider.",
-      "`Avatar.network` — loads a network image with optional resize caching.",
-      "`AvatarBadge` — small circular badge widget.",
-      "`AvatarGroup` — stacks multiple avatars with overlap.",
-      "`AvatarGroup.toLeft/toRight/toStart/toEnd/toTop/toBottom` — alignment helpers."
+      "`Avatar` \u2014 initials avatar with optional photo provider.",
+      "`Avatar.network` \u2014 loads a network image with optional resize caching.",
+      "`AvatarBadge` \u2014 small circular badge widget.",
+      "`AvatarGroup` \u2014 stacks multiple avatars with overlap.",
+      "`AvatarGroup.toLeft/toRight/toStart/toEnd/toTop/toBottom` \u2014 alignment helpers."
     ],
     "callbacks": []
   },

@@ -12,7 +12,11 @@
   "dependencies": {
     "shared": [
       "clickable",
-      "focus_outline"
+      "focus_outline",
+      "animated_value_builder",
+      "constants",
+      "platform_utils",
+      "theme"
     ],
     "components": [],
     "pubspec": {
@@ -33,16 +37,16 @@
   ],
   "api": {
     "constructors": [
-      "`child` (`Widget`, required) — content for the interactive surface.",
-      "`onPressed` (`VoidCallback?`) — primary tap callback.",
-      "`enabled` (`bool`) — enables/disables interactions (default: `true`).",
-      "`decoration`, `padding`, `margin`, `textStyle`, `iconTheme`, `mouseCursor`, `transform` — `WidgetStateProperty` values for state-based styling.",
-      "`focusNode`, `onFocus` — focus management and callbacks.",
-      "`onHover` — hover state callback.",
-      "`behavior` (`HitTestBehavior`) — hit testing behavior.",
-      "`disableTransition`, `disableHoverEffect`, `disableFocusOutline` — toggles for visual behavior.",
-      "`shortcuts`, `actions` — keyboard shortcut handling.",
-      "`statesController` — programmatic state control."
+      "`child` (`Widget`, required) \u2014 content for the interactive surface.",
+      "`onPressed` (`VoidCallback?`) \u2014 primary tap callback.",
+      "`enabled` (`bool`) \u2014 enables/disables interactions (default: `true`).",
+      "`decoration`, `padding`, `margin`, `textStyle`, `iconTheme`, `mouseCursor`, `transform` \u2014 `WidgetStateProperty` values for state-based styling.",
+      "`focusNode`, `onFocus` \u2014 focus management and callbacks.",
+      "`onHover` \u2014 hover state callback.",
+      "`behavior` (`HitTestBehavior`) \u2014 hit testing behavior.",
+      "`disableTransition`, `disableHoverEffect`, `disableFocusOutline` \u2014 toggles for visual behavior.",
+      "`shortcuts`, `actions` \u2014 keyboard shortcut handling.",
+      "`statesController` \u2014 programmatic state control."
     ],
     "callbacks": [
       "`onPressed`, `onDoubleTap`, `onLongPress`",

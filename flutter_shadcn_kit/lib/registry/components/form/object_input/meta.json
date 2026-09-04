@@ -17,13 +17,16 @@
       "text_modifiers",
       "lucide_icons",
       "localizations",
-      "util"
+      "util",
+      "localizations_extensions"
     ],
     "components": [
       "formatted_input",
       "date_picker",
       "card",
-      "locale_utils"
+      "locale_utils",
+      "calendar",
+      "form_field"
     ],
     "pubspec": {}
   },
@@ -49,7 +52,7 @@
       "`use24HourFormat`, `showSeconds`",
       "`DurationInput`",
       "`initialValue`, `onChanged`, `controller`, `enabled`",
-      "`NullableDate`, `NullableTimeOfDay` — wrappers for optional values."
+      "`NullableDate`, `NullableTimeOfDay` \u2014 wrappers for optional values."
     ],
     "callbacks": []
   },

@@ -19,7 +19,9 @@
       "form_value_supplier",
       "animated_value_builder",
       "border_utils",
-      "constants"
+      "constants",
+      "color_extensions",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {
@@ -48,9 +50,9 @@
       "`tristate` (`bool`)",
       "`leading`, `trailing` (`Widget?`)",
       "`size`, `gap`, `backgroundColor`, `activeColor`, `borderColor`, `borderRadius`",
-      "`ControlledCheckbox` — controller-backed checkbox.",
-      "`CheckboxController` — `ValueNotifier<CheckboxState>` controller.",
-      "`CheckboxState` — `checked`, `unchecked`, `indeterminate`."
+      "`ControlledCheckbox` \u2014 controller-backed checkbox.",
+      "`CheckboxController` \u2014 `ValueNotifier<CheckboxState>` controller.",
+      "`CheckboxState` \u2014 `checked`, `unchecked`, `indeterminate`."
     ],
     "callbacks": [
       "`onChanged`"

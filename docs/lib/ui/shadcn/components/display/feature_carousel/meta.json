@@ -11,7 +11,10 @@
     "feature"
   ],
   "dependencies": {
-    "shared": [],
+    "shared": [
+      "component_schema",
+      "theme"
+    ],
     "components": [],
     "pubspec": {}
   },
@@ -47,8 +50,8 @@
       "`icon` (`IconData?`)",
       "`iconBuilder` (`FeatureCarouselIconBuilder?`)",
       "`accentColor` (`Color?`)",
-      "`FeatureCarouselController` — autoplay, navigation, CTA configuration.",
-      "`FeatureCarouselAnimationStyle` — animation styles for transitions."
+      "`FeatureCarouselController` \u2014 autoplay, navigation, CTA configuration.",
+      "`FeatureCarouselAnimationStyle` \u2014 animation styles for transitions."
     ],
     "callbacks": [
       "`onPrimaryAction` (FeatureCarouselController)",

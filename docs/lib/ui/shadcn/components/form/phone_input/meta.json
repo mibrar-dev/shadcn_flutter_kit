@@ -16,7 +16,8 @@
       "overlay",
       "style_value",
       "text_modifiers",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [
       "select",
@@ -48,7 +49,7 @@
       "`filterPlusCode`, `filterZeroCode`, `filterCountryCode`, `onlyNumber`",
       "`countries` (`List<Country>?`)",
       "`searchPlaceholder` (`Widget?`)",
-      "`PhoneNumber` — value model."
+      "`PhoneNumber` \u2014 value model."
     ],
     "callbacks": []
   },

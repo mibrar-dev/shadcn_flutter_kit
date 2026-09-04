@@ -1666,7 +1666,10 @@
         "focus_outline",
         "form_control",
         "form_value_supplier",
-        "menu_group"
+        "menu_group",
+        "component_schema",
+        "generated_colors",
+        "platform_utils"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -1736,7 +1739,11 @@
       ],
       "shared": [
         "clickable",
-        "focus_outline"
+        "focus_outline",
+        "animated_value_builder",
+        "constants",
+        "platform_utils",
+        "theme"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -1810,7 +1817,8 @@
         "style_value",
         "border_utils",
         "outlined_container",
-        "sheet_overlay"
+        "sheet_overlay",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -1922,7 +1930,8 @@
         "basic_layout",
         "outlined_container",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -2097,7 +2106,8 @@
         "theme",
         "style_value",
         "constants",
-        "clickable"
+        "clickable",
+        "axis"
       ],
       "dependsOn": [
         "basic",
@@ -2224,7 +2234,8 @@
       "shared": [
         "overlay",
         "theme",
-        "style_value"
+        "style_value",
+        "util"
       ],
       "dependsOn": [
         "button",
@@ -2309,7 +2320,8 @@
       "shared": [
         "text_modifiers",
         "theme",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "button"
@@ -2372,7 +2384,8 @@
         "animated_value_builder",
         "constants",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -2497,7 +2510,8 @@
         "animated_value_builder",
         "constants",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -2589,7 +2603,9 @@
       "shared": [
         "theme",
         "constants",
-        "style_value"
+        "style_value",
+        "component_schema",
+        "text_modifiers"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -2674,7 +2690,8 @@
         }
       ],
       "shared": [
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [
         "button"
@@ -2780,7 +2797,8 @@
       "shared": [
         "theme",
         "style_value",
-        "geometry_extensions"
+        "geometry_extensions",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -2894,7 +2912,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [
         "button"
@@ -3222,7 +3241,8 @@
       "shared": [
         "theme",
         "style_value",
-        "localizations"
+        "localizations",
+        "component_schema"
       ],
       "dependsOn": [
         "alpha",
@@ -3321,7 +3341,8 @@
         "lucide_icons",
         "localizations",
         "form_control",
-        "form_value_supplier"
+        "form_value_supplier",
+        "component_schema"
       ],
       "dependsOn": [
         "button",
@@ -3656,7 +3677,8 @@
         "theme",
         "style_value",
         "form_value_supplier",
-        "lucide_icons"
+        "lucide_icons",
+        "component_schema"
       ],
       "dependsOn": [
         "chip",
@@ -3872,7 +3894,8 @@
         "text_modifiers",
         "util",
         "lucide_icons",
-        "radix_icons"
+        "radix_icons",
+        "component_schema"
       ],
       "dependsOn": [
         "async",
@@ -3983,7 +4006,9 @@
         "form_value_supplier",
         "animated_value_builder",
         "border_utils",
-        "constants"
+        "constants",
+        "color_extensions",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4075,7 +4100,8 @@
         "axis_insets_directional",
         "axis_insets_geometry",
         "util",
-        "text_modifiers"
+        "text_modifiers",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4156,7 +4182,8 @@
         "theme",
         "style_value",
         "constants",
-        "clickable"
+        "clickable",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4213,7 +4240,8 @@
         "style_value",
         "constants",
         "animated_value_builder",
-        "color_extensions"
+        "color_extensions",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4289,7 +4317,8 @@
         "constants",
         "animated_value_builder",
         "color_extensions",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4401,7 +4430,8 @@
       "shared": [
         "theme",
         "style_value",
-        "animated_value_builder"
+        "animated_value_builder",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4462,7 +4492,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4520,7 +4551,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4574,7 +4606,9 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "color_extensions",
+        "component_schema"
       ],
       "dependsOn": [
         "avatar"
@@ -4812,7 +4846,8 @@
         "theme",
         "style_value",
         "basic_layout",
-        "radix_icons"
+        "radix_icons",
+        "text_modifiers"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -4874,7 +4909,8 @@
       "shared": [
         "theme",
         "style_value",
-        "text_modifiers"
+        "text_modifiers",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -5013,7 +5049,8 @@
         "theme",
         "style_value",
         "animation_queue",
-        "wrap_utils"
+        "wrap_utils",
+        "component_schema"
       ],
       "dependsOn": [
         "dot_indicator"
@@ -5218,7 +5255,8 @@
         "text_modifiers",
         "icon_extensions",
         "localizations",
-        "lucide_icons"
+        "lucide_icons",
+        "component_schema"
       ],
       "dependsOn": [
         "button"
@@ -5312,7 +5350,9 @@
         "localizations",
         "lucide_icons",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema",
+        "localizations_extensions"
       ],
       "dependsOn": [
         "calendar",
@@ -5517,17 +5557,21 @@
         "constants",
         "geometry_extensions",
         "color_extensions",
-        "radix_icons"
+        "radix_icons",
+        "component_schema",
+        "overlay"
       ],
       "dependsOn": [
         "button",
         "dropzone",
         "linear_progress_indicator",
-        "scaffold"
+        "scaffold",
+        "file_input"
       ],
       "pubspec": {
         "dependencies": {
-          "web": "^1.1.1"
+          "web": "^1.1.1",
+          "gap": "^3.0.1"
         }
       },
       "assets": [],
@@ -5616,7 +5660,9 @@
         "theme",
         "style_value",
         "color_extensions",
-        "util"
+        "util",
+        "component_schema",
+        "keyboard_shortcut_utils"
       ],
       "dependsOn": [
         "card"
@@ -5669,7 +5715,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "generated_colors"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -6171,10 +6218,15 @@
         "geometry_extensions",
         "hidden",
         "overlay",
-        "lucide_icons"
+        "lucide_icons",
+        "clickable",
+        "component_schema",
+        "focus_outline",
+        "util"
       ],
       "dependsOn": [
-        "button"
+        "button",
+        "card"
       ],
       "pubspec": {
         "dependencies": {
@@ -6529,7 +6581,8 @@
         "form_value_supplier",
         "text_modifiers",
         "color_extensions",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "text_field"
@@ -6626,7 +6679,8 @@
         "theme",
         "localizations",
         "form_value_supplier",
-        "overlay"
+        "overlay",
+        "text_modifiers"
       ],
       "dependsOn": [
         "alert_dialog",
@@ -6809,10 +6863,18 @@
         "form_control",
         "clickable",
         "overlay",
-        "util"
+        "util",
+        "color_extensions",
+        "component_schema",
+        "focus_outline",
+        "text_input_utils",
+        "text_modifiers"
       ],
       "dependsOn": [
-        "button"
+        "button",
+        "form",
+        "outlined_container",
+        "text_field"
       ],
       "pubspec": {
         "dependencies": {}
@@ -7179,11 +7241,17 @@
       "shared": [
         "theme",
         "focus_outline",
-        "text_modifiers"
+        "text_modifiers",
+        "color_extensions",
+        "localizations",
+        "phone_number",
+        "slider_value",
+        "util"
       ],
       "dependsOn": [
         "button",
-        "text_field"
+        "text_field",
+        "checkbox"
       ],
       "pubspec": {
         "dependencies": {
@@ -7275,13 +7343,16 @@
         "text_modifiers",
         "lucide_icons",
         "localizations",
-        "util"
+        "util",
+        "localizations_extensions"
       ],
       "dependsOn": [
         "formatted_input",
         "date_picker",
         "card",
-        "locale_utils"
+        "locale_utils",
+        "calendar",
+        "form_field"
       ],
       "pubspec": {
         "dependencies": {}
@@ -7394,7 +7465,8 @@
         "constants",
         "geometry_extensions",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -7466,7 +7538,8 @@
         "overlay",
         "style_value",
         "text_modifiers",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [
         "select",
@@ -7620,7 +7693,8 @@
         "form_control",
         "form_value_supplier",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [
         "card"
@@ -7726,7 +7800,8 @@
         "form_value_supplier",
         "slider_value",
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -7841,7 +7916,8 @@
       "shared": [
         "form_control",
         "form_value_supplier",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -8138,7 +8214,8 @@
         "border_utils",
         "form_control",
         "form_value_supplier",
-        "focus_outline"
+        "focus_outline",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -8349,7 +8426,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -8677,7 +8755,8 @@
         "style_value",
         "constants",
         "geometry_extensions",
-        "overlay"
+        "overlay",
+        "component_schema"
       ],
       "dependsOn": [
         "card"
@@ -8746,7 +8825,8 @@
         "animated_value_builder",
         "constants",
         "geometry_extensions",
-        "tween_utils"
+        "tween_utils",
+        "overlay"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -8811,7 +8891,9 @@
         "theme",
         "style_value",
         "overlay",
-        "menu_group"
+        "menu_group",
+        "component_schema",
+        "sheet_overlay"
       ],
       "dependsOn": [
         "dialog"
@@ -8923,7 +9005,9 @@
         "text_modifiers",
         "overlay",
         "hover",
-        "constants"
+        "constants",
+        "animated_value_builder",
+        "component_schema"
       ],
       "dependsOn": [
         "popover"
@@ -9034,7 +9118,8 @@
         "animated_value_builder",
         "constants",
         "localizations",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "card",
@@ -9121,7 +9206,8 @@
       "shared": [
         "theme",
         "style_value",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "tooltip"
@@ -9192,7 +9278,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -9261,7 +9348,8 @@
       "shared": [
         "theme",
         "style_value",
-        "overlay"
+        "overlay",
+        "component_schema"
       ],
       "dependsOn": [
         "tooltip"
@@ -9341,7 +9429,8 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -9566,7 +9655,9 @@
         "geometry_extensions",
         "controlled_animation",
         "outlined_container",
-        "overlay"
+        "overlay",
+        "component_schema",
+        "util"
       ],
       "dependsOn": [
         "dialog"
@@ -9811,11 +9902,16 @@
         "subfocus",
         "basic_layout",
         "keyboard_shortcut_utils",
-        "radix_icons"
+        "radix_icons",
+        "component_schema",
+        "geometry_extensions",
+        "outlined_container",
+        "util"
       ],
       "dependsOn": [
         "dialog",
-        "drawer"
+        "drawer",
+        "button"
       ],
       "pubspec": {
         "dependencies": {
@@ -9887,7 +9983,8 @@
         "constants",
         "outlined_container",
         "text_modifiers",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [
         "menu"
@@ -10032,7 +10129,9 @@
         "sheet_overlay",
         "localizations",
         "constants",
-        "util"
+        "util",
+        "animated_value_builder",
+        "component_schema"
       ],
       "dependsOn": [
         "menu"
@@ -10113,7 +10212,8 @@
       ],
       "shared": [
         "theme",
-        "overlay"
+        "overlay",
+        "component_schema"
       ],
       "dependsOn": [
         "menu",
@@ -10260,7 +10360,8 @@
         }
       ],
       "shared": [
-        "constants"
+        "constants",
+        "util"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -10492,11 +10593,17 @@
         "constants",
         "animated_value_builder",
         "text_modifiers",
-        "util"
+        "util",
+        "color_extensions",
+        "component_schema",
+        "outlined_container",
+        "platform_utils"
       ],
       "dependsOn": [
         "button",
-        "hidden"
+        "hidden",
+        "overflow_marquee",
+        "tooltip"
       ],
       "pubspec": {
         "dependencies": {
@@ -10574,11 +10681,16 @@
         "constants",
         "icon_extensions",
         "radix_icons",
-        "theme"
+        "theme",
+        "animated_value_builder",
+        "util"
       ],
       "dependsOn": [
         "button",
-        "popover"
+        "popover",
+        "basic",
+        "outlined_container",
+        "text"
       ],
       "pubspec": {
         "dependencies": {
@@ -10622,7 +10734,8 @@
         "theme",
         "style_value",
         "localizations",
-        "radix_icons"
+        "radix_icons",
+        "icon_extensions"
       ],
       "dependsOn": [
         "button",
@@ -10827,10 +10940,15 @@
         "style_value",
         "constants",
         "outlined_container",
-        "fade_scroll"
+        "fade_scroll",
+        "component_schema",
+        "geometry_extensions",
+        "util"
       ],
       "dependsOn": [
-        "sortable"
+        "sortable",
+        "text",
+        "button"
       ],
       "pubspec": {
         "dependencies": {
@@ -11387,7 +11505,8 @@
       "shared": [
         "theme",
         "clickable",
-        "resizer"
+        "resizer",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -11629,7 +11748,8 @@
         "localizations",
         "localizations_extensions",
         "theme",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "button",
@@ -11831,7 +11951,8 @@
         "clickable",
         "constants",
         "theme",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [
         "icon",
@@ -12109,7 +12230,9 @@
         }
       ],
       "shared": [],
-      "dependsOn": [],
+      "dependsOn": [
+        "shadcn_localizations"
+      ],
       "pubspec": {
         "dependencies": {
           "intl": "any"
@@ -12239,7 +12362,8 @@
         "form_value_supplier",
         "style_value",
         "theme",
-        "util"
+        "util",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -12378,7 +12502,8 @@
         }
       ],
       "shared": [
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [
         "drawer"
@@ -12626,7 +12751,8 @@
       ],
       "shared": [
         "style_value",
-        "theme"
+        "theme",
+        "component_schema"
       ],
       "dependsOn": [],
       "pubspec": {
@@ -13220,7 +13346,10 @@
           ]
         }
       ],
-      "shared": [],
+      "shared": [
+        "component_schema",
+        "theme"
+      ],
       "dependsOn": [],
       "pubspec": {
         "dependencies": {}
@@ -13332,7 +13461,8 @@
       ],
       "shared": [
         "theme",
-        "radix_icons"
+        "radix_icons",
+        "component_schema"
       ],
       "dependsOn": [
         "card",
@@ -13528,7 +13658,9 @@
       ],
       "shared": [
         "theme",
-        "radix_icons"
+        "radix_icons",
+        "component_schema",
+        "outlined_container"
       ],
       "dependsOn": [
         "button",
@@ -13721,7 +13853,10 @@
           ]
         }
       ],
-      "shared": [],
+      "shared": [
+        "component_schema",
+        "theme"
+      ],
       "dependsOn": [],
       "pubspec": {
         "dependencies": {}
@@ -13938,9 +14073,12 @@
       ],
       "shared": [
         "theme",
-        "style_value"
+        "style_value",
+        "component_schema"
       ],
-      "dependsOn": [],
+      "dependsOn": [
+        "markdown"
+      ],
       "pubspec": {
         "dependencies": {}
       },
@@ -14039,7 +14177,8 @@
       "shared": [
         "theme",
         "lucide_icons",
-        "localizations"
+        "localizations",
+        "component_schema"
       ],
       "dependsOn": [
         "button",
@@ -14051,7 +14190,8 @@
         "date_picker",
         "form_field",
         "drawer",
-        "scaffold"
+        "scaffold",
+        "stage_container"
       ],
       "pubspec": {
         "dependencies": {}
@@ -14190,7 +14330,10 @@
         }
       ],
       "shared": [
-        "theme"
+        "theme",
+        "color_scheme",
+        "component_schema",
+        "preset_themes"
       ],
       "dependsOn": [
         "toast"
@@ -14402,7 +14545,10 @@
           ]
         }
       ],
-      "shared": [],
+      "shared": [
+        "style_value",
+        "theme"
+      ],
       "dependsOn": [],
       "pubspec": {
         "dependencies": {}
@@ -14455,7 +14601,9 @@
         }
       ],
       "shared": [
-        "radix_icons"
+        "radix_icons",
+        "style_value",
+        "theme"
       ],
       "dependsOn": [
         "button"

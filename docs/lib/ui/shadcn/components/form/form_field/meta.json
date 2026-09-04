@@ -14,7 +14,8 @@
       "theme",
       "localizations",
       "form_value_supplier",
-      "overlay"
+      "overlay",
+      "text_modifiers"
     ],
     "components": [
       "alert_dialog",
@@ -46,9 +47,9 @@
       "`editorBuilder` (`Widget Function(BuildContext, ObjectFormHandler<T>)`, required)",
       "`mode` (`PromptMode`), `dialogTitle`, `popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`leading`, `trailing`, `size`, `density`, `shape`, `enabled`, `decorate`",
-      "`ObjectFormHandler<T>` — interface for reading/updating value.",
-      "`ObjectFormFieldDialogResult<T>` — dialog result wrapper.",
-      "`PromptMode` — `dialog` or `popover`."
+      "`ObjectFormHandler<T>` \u2014 interface for reading/updating value.",
+      "`ObjectFormFieldDialogResult<T>` \u2014 dialog result wrapper.",
+      "`PromptMode` \u2014 `dialog` or `popover`."
     ],
     "callbacks": []
   },

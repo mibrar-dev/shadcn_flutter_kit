@@ -17,7 +17,8 @@
       "form_value_supplier",
       "slider_value",
       "style_value",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}

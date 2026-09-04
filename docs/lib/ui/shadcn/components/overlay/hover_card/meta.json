@@ -13,7 +13,8 @@
     "shared": [
       "theme",
       "style_value",
-      "overlay"
+      "overlay",
+      "component_schema"
     ],
     "components": [
       "tooltip"

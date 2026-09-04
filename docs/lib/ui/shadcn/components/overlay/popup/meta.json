@@ -14,7 +14,9 @@
       "theme",
       "style_value",
       "overlay",
-      "menu_group"
+      "menu_group",
+      "component_schema",
+      "sheet_overlay"
     ],
     "components": [
       "dialog"

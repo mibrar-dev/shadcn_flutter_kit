@@ -14,7 +14,8 @@
       "animated_value_builder",
       "constants",
       "style_value",
-      "theme"
+      "theme",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}

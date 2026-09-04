@@ -13,7 +13,8 @@
     "shared": [
       "overlay",
       "theme",
-      "style_value"
+      "style_value",
+      "util"
     ],
     "components": [
       "button",
@@ -42,8 +43,8 @@
       "`popoverConstraints`, `popoverWidthConstraint`",
       "`popoverAnchorAlignment`, `popoverAlignment`",
       "`completer` (`AutoCompleteCompleter`)",
-      "`AutoCompleteMode` — `append`, `replaceWord`, `replaceAll`",
-      "`AutoCompleteTheme` — popover sizing and alignment defaults"
+      "`AutoCompleteMode` \u2014 `append`, `replaceWord`, `replaceAll`",
+      "`AutoCompleteTheme` \u2014 popover sizing and alignment defaults"
     ],
     "callbacks": []
   },

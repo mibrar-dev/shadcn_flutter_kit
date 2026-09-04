@@ -18,7 +18,9 @@
       "geometry_extensions",
       "controlled_animation",
       "outlined_container",
-      "overlay"
+      "overlay",
+      "component_schema",
+      "util"
     ],
     "components": [
       "dialog"

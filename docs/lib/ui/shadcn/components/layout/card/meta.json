@@ -16,7 +16,8 @@
       "style_value",
       "border_utils",
       "outlined_container",
-      "sheet_overlay"
+      "sheet_overlay",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {
@@ -35,9 +36,9 @@
   ],
   "api": {
     "constructors": [
-      "`Card` — standard container.",
-      "`SurfaceCard` — card with optional surface blur.",
-      "`CardTheme` — padding, radius, and background defaults."
+      "`Card` \u2014 standard container.",
+      "`SurfaceCard` \u2014 card with optional surface blur.",
+      "`CardTheme` \u2014 padding, radius, and background defaults."
     ],
     "callbacks": []
   },

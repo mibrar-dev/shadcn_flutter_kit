@@ -17,7 +17,8 @@
       "text_modifiers",
       "icon_extensions",
       "localizations",
-      "lucide_icons"
+      "lucide_icons",
+      "component_schema"
     ],
     "components": [
       "button"
@@ -68,8 +69,8 @@
       "`selectionMode` (`CalendarSelectionMode`, required)",
       "`initialValue` (`CalendarValue?`)",
       "`onChanged` (`ValueChanged<CalendarValue?>?`)",
-      "`CalendarView` — view helpers (`now`, `fromDateTime`).",
-      "`CalendarValue` — single/range/multi selection values."
+      "`CalendarView` \u2014 view helpers (`now`, `fromDateTime`).",
+      "`CalendarValue` \u2014 single/range/multi selection values."
     ],
     "callbacks": [
       "`onChanged` (Calendar, DatePickerDialog)",

@@ -14,7 +14,8 @@
       "clickable",
       "constants",
       "theme",
-      "util"
+      "util",
+      "component_schema"
     ],
     "components": [
       "icon",
@@ -54,11 +55,11 @@
       "`steps` (`List<Step>`, required)",
       "`controller` (`StepperController?`)",
       "`direction`, `variant`, `size`",
-      "`Step` — step definition with title and optional content.",
-      "`StepperController` — controls current step.",
-      "`StepVariant` — visual variants.",
-      "`StepSize` — size presets.",
-      "`StepState` — e.g. `failed`."
+      "`Step` \u2014 step definition with title and optional content.",
+      "`StepperController` \u2014 controls current step.",
+      "`StepVariant` \u2014 visual variants.",
+      "`StepSize` \u2014 size presets.",
+      "`StepState` \u2014 e.g. `failed`."
     ],
     "callbacks": []
   },

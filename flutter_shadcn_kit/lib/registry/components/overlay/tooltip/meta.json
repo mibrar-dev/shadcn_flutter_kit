@@ -17,7 +17,9 @@
       "text_modifiers",
       "overlay",
       "hover",
-      "constants"
+      "constants",
+      "animated_value_builder",
+      "component_schema"
     ],
     "components": [
       "popover"

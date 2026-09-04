@@ -3,6 +3,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../utility/shadcn_localizations/shadcn_localizations.dart';
+import '../scaffold/scaffold.dart';
 import 'app.dart';
 
 class AppPreview extends StatelessWidget {

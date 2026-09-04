@@ -11,7 +11,8 @@
   "dependencies": {
     "shared": [
       "theme",
-      "style_value"
+      "style_value",
+      "component_schema"
     ],
     "components": [],
     "pubspec": {}

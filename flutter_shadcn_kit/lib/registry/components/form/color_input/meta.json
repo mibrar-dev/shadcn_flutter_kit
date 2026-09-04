@@ -18,7 +18,8 @@
       "lucide_icons",
       "localizations",
       "form_control",
-      "form_value_supplier"
+      "form_value_supplier",
+      "component_schema"
     ],
     "components": [
       "button",
@@ -58,8 +59,8 @@
       "`promptMode` (`PromptMode?`)",
       "`popoverAlignment`, `popoverAnchorAlignment`, `popoverPadding`",
       "`dialogTitle`, `placeholder`, `orientation`, `enabled`, `showHistory`",
-      "`ControlledColorInput` — controller-backed input.",
-      "`ColorInputController` — `ValueNotifier<ColorDerivative>` controller."
+      "`ControlledColorInput` \u2014 controller-backed input.",
+      "`ColorInputController` \u2014 `ValueNotifier<ColorDerivative>` controller."
     ],
     "callbacks": [
       "`onChanging`, `onChanged`"

@@ -16,7 +16,9 @@
       "sheet_overlay",
       "localizations",
       "constants",
-      "util"
+      "util",
+      "animated_value_builder",
+      "component_schema"
     ],
     "components": [
       "menu"

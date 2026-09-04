@@ -20,16 +20,20 @@
       "constants",
       "geometry_extensions",
       "color_extensions",
-      "radix_icons"
+      "radix_icons",
+      "component_schema",
+      "overlay"
     ],
     "components": [
       "button",
       "dropzone",
       "linear_progress_indicator",
-      "scaffold"
+      "scaffold",
+      "file_input"
     ],
     "pubspec": {
-      "web": "^1.1.1"
+      "web": "^1.1.1",
+      "gap": "^3.0.1"
     }
   },
   "files": [

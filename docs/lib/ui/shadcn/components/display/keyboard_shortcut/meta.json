@@ -14,7 +14,9 @@
       "theme",
       "style_value",
       "color_extensions",
-      "util"
+      "util",
+      "component_schema",
+      "keyboard_shortcut_utils"
     ],
     "components": [
       "card"
@@ -41,8 +43,8 @@
       "`KeyboardDisplay`",
       "`KeyboardDisplay(keys: ...)`",
       "`KeyboardDisplay.fromActivator(activator: ...)`",
-      "`KeyboardKeyDisplay` — single keycap.",
-      "`KeyboardShortcutDisplayMapper` — custom key rendering."
+      "`KeyboardKeyDisplay` \u2014 single keycap.",
+      "`KeyboardShortcutDisplayMapper` \u2014 custom key rendering."
     ],
     "callbacks": []
   },

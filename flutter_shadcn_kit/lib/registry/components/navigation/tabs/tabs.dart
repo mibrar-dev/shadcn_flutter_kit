@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' show Colors, VerticalDivider;
 import 'package:flutter/widgets.dart';
 
 import '../../control/button/button.dart';
+import '../../display/text/text.dart';
 import '../../layout/sortable/sortable.dart';
 import '../../../shared/primitives/fade_scroll.dart';
 import '../../../shared/primitives/outlined_container.dart';

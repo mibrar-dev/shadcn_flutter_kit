@@ -18,7 +18,9 @@
       "button",
       "tab_container"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/tab_list.dart",
@@ -32,7 +34,7 @@
       "`index` (`int?`)",
       "`onChanged` (`ValueChanged<int>?`)",
       "`children` (`List<TabChild>`)",
-      "`TabListTheme` — border and indicator styling."
+      "`TabListTheme` \u2014 border and indicator styling."
     ],
     "callbacks": []
   },

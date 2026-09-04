@@ -14,7 +14,9 @@
       "style_value"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/media_query_visibility.dart",
@@ -26,7 +28,7 @@
       "`minWidth`, `maxWidth`",
       "`child` (`Widget`, required)",
       "`alternate` (`Widget?`)",
-      "`MediaQueryVisibilityTheme` — theme defaults."
+      "`MediaQueryVisibilityTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

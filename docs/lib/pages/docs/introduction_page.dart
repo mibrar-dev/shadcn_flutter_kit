@@ -69,7 +69,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   icon: LucideIcons.github,
                   title: 'GitHub',
                   description: 'Source repo, issues, and discussions.',
-                  url: 'https://github.com/ibrar-x/shadcn_flutter_kit',
+                  url: 'https://github.com/mibrar-dev/shadcn_flutter_kit',
                 ),
               ),
               SizedBox(
@@ -79,7 +79,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   title: 'Registry',
                   description: 'Browse registry sources and metadata.',
                   url:
-                      'https://github.com/ibrar-x/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib/registry',
+                      'https://github.com/mibrar-dev/shadcn_flutter_kit/tree/main/flutter_shadcn_kit/lib/registry',
                 ),
               ),
             ],

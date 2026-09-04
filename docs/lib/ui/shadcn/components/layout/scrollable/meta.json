@@ -15,7 +15,9 @@
       "theme"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/faded_scrollable_viewport.dart",

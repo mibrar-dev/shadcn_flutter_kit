@@ -479,12 +479,16 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
         .toDouble();
     final blurOpacityFactor =
         1 - (((themedSurfaceBlur / 36).clamp(0.0, 1.0)) * 0.35);
-    final fillColor = baseFillColor.withValues(
-      alpha: (baseFillColor.a * themedSurfaceOpacity * blurOpacityFactor).clamp(
-        0.0,
-        1.0,
-      ),
-    );
+    // Composite the gooey shape layers fully opaque, then fade the whole
+    // group with [fillAlpha]. Painting the crisp layer translucent directly
+    // exposes a gray rim: the gooey threshold erodes the silhouette, so the
+    // band between the eroded gooey edge and the crisp edge would be covered
+    // only once at partial alpha (gray over dark backgrounds). Fading the
+    // composited group keeps interior and edge identical.
+    final fillAlpha = (baseFillColor.a * themedSurfaceOpacity * blurOpacityFactor)
+        .clamp(0.0, 1.0)
+        .toDouble();
+    final fillColor = baseFillColor.withValues(alpha: 1.0);
     final tone = _toneForState(widget.state, gooeyTheme);
     final titleStyle =
         gooeyTheme?.titleStyle ??
@@ -745,6 +749,7 @@ class _GooeyToastState extends State<GooeyToast> with TickerProviderStateMixin {
                                 width: toastWidth,
                                 height: canvasHeight,
                                 color: fillColor,
+                                fillAlpha: fillAlpha,
                                 blur: blur,
                                 surfaceBlur: themedSurfaceBlur,
                                 roundness: resolvedRoundness,
@@ -1304,6 +1309,7 @@ class _GooeyLayer extends StatelessWidget {
     required this.width,
     required this.height,
     required this.color,
+    required this.fillAlpha,
     required this.blur,
     required this.surfaceBlur,
     required this.roundness,
@@ -1319,6 +1325,7 @@ class _GooeyLayer extends StatelessWidget {
   final double width;
   final double height;
   final Color color;
+  final double fillAlpha;
   final double blur;
   final double surfaceBlur;
   final double roundness;
@@ -1377,46 +1384,84 @@ class _GooeyLayer extends StatelessWidget {
                 child: const SizedBox.expand(),
               ),
             ),
-          if (enableGooeyBlur && blur > 0)
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                ColorFiltered(
-                  colorFilter: const ColorFilter.matrix(<double>[
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    20,
-                    -2550,
-                  ]),
-                  child: ImageFiltered(
-                    imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                    child: shapeLayer(),
-                  ),
-                ),
-                shapeLayer(),
-              ],
-            )
-          else
-            shapeLayer(),
+          _GooeyShapeStack(
+            fillAlpha: fillAlpha,
+            shapeLayer: shapeLayer,
+            enableGooeyBlur: enableGooeyBlur,
+            blur: blur,
+          ),
         ],
       ),
     );
+  }
+}
+
+/// Paints the gooey-blurred silhouette plus the crisp shape, fading the
+/// composited group uniformly.
+///
+/// The blur/threshold silhouette must composite opaque: with a translucent
+/// paint color the threshold erodes the silhouette, leaving a band that only
+/// the crisp layer covers — visible as a gray rim on dark backgrounds.
+/// Callers pass an opaque [shapeLayer] color and the desired [fillAlpha].
+class _GooeyShapeStack extends StatelessWidget {
+  const _GooeyShapeStack({
+    required this.fillAlpha,
+    required this.shapeLayer,
+    required this.enableGooeyBlur,
+    required this.blur,
+  });
+
+  final double fillAlpha;
+  final Widget Function() shapeLayer;
+  final bool enableGooeyBlur;
+  final double blur;
+
+  @override
+  Widget build(BuildContext context) {
+    final gooey = Stack(
+      clipBehavior: Clip.none,
+      children: [
+        if (enableGooeyBlur && blur > 0)
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              ColorFiltered(
+                colorFilter: const ColorFilter.matrix(<double>[
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  20,
+                  -2550,
+                ]),
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                  child: shapeLayer(),
+                ),
+              ),
+              shapeLayer(),
+            ],
+          )
+        else
+          shapeLayer(),
+      ],
+    );
+    if (fillAlpha >= 1.0) return gooey;
+    return Opacity(opacity: fillAlpha.clamp(0.0, 1.0), child: gooey);
   }
 }
 

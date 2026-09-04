@@ -32,7 +32,9 @@
       "scaffold",
       "stage_container"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/filter_bar_content.dart",

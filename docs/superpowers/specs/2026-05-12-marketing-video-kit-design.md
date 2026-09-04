@@ -75,7 +75,7 @@ flutter_shadcn init
 Default CTA target for the first pass:
 
 ```text
-github.com/ibrar-x/shadcn_flutter_kit
+github.com/mibrar-dev/shadcn_flutter_kit
 ```
 
 ## Demo App Design
@@ -145,7 +145,7 @@ Before delivery, verify:
 
 ## Implementation Defaults
 
-- CTA URL: `github.com/ibrar-x/shadcn_flutter_kit`
+- CTA URL: `github.com/mibrar-dev/shadcn_flutter_kit`
 - Preferred app location: new `marketing_demo` Flutter app
 - First showcase components: `app`, `button`, `text_field`, `card`, `badge`, `table`, `file_picker`, and `gooey_toast`
 - First export only: square `1080x1080`; vertical and landscape are follow-up adaptations

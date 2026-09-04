@@ -18,7 +18,9 @@
     ],
     "components": [],
     "pubspec": {
-      "expressions": "^0.2.5+2"
+      "expressions": "^0.2.5+2",
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
     }
   },
   "files": [
@@ -40,7 +42,7 @@
       "`time(length)`",
       "`mathExpression(context)`",
       "`hex(hashPrefix)`",
-      "`contraintToNewText` — helper for selection bounds."
+      "`contraintToNewText` \u2014 helper for selection bounds."
     ],
     "callbacks": []
   },

@@ -13,15 +13,17 @@
       "theme"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "icon.dart"
   ],
   "api": {
     "constructors": [
-      "`WrappedIcon` — wraps an icon theme around a child.",
-      "`IconExtension` — provides helpers:",
+      "`WrappedIcon` \u2014 wraps an icon theme around a child.",
+      "`IconExtension` \u2014 provides helpers:",
       "size: `iconXSmall`, `iconSmall`, `iconMedium`, `iconLarge`, `iconXLarge`",
       "color: `iconMutedForeground`, `iconPrimary`, `iconSecondary`, `iconPrimaryForeground`"
     ],

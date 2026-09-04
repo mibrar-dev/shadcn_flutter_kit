@@ -1032,7 +1032,7 @@ class _ThemePageState extends State<ThemePage> {
 
   Widget _buildKitchenMentions() {
     return TextField(
-      placeholder: const Text('@ibrar-x'),
+      placeholder: const Text('@mibrar-dev'),
       features: [
         InputFeature.trailing(
           IconButton.primary(

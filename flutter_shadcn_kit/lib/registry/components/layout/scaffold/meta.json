@@ -21,7 +21,8 @@
       "text"
     ],
     "pubspec": {
-      "data_widget": "^0.0.2"
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
     }
   },
   "files": [
@@ -47,8 +48,8 @@
       "`child`",
       "`loadingProgress`, `showLoadingSparks`",
       "`resizeToAvoidBottomInset`",
-      "`AppBar` — header bar widget.",
-      "`ScaffoldTheme` — background and loading styling."
+      "`AppBar` \u2014 header bar widget.",
+      "`ScaffoldTheme` \u2014 background and loading styling."
     ],
     "callbacks": []
   },

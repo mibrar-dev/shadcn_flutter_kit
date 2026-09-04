@@ -20,7 +20,8 @@
       "icon"
     ],
     "pubspec": {
-      "data_widget": "^0.0.2"
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
     }
   },
   "files": [
@@ -56,8 +57,8 @@
       "`controller` (`ScrollController?`)",
       "`branchLine`, `padding`, `expandIcon`, `allowMultiSelect`, `recursiveSelection`",
       "`onSelectionChanged` (`TreeNodeSelectionChanged<T>?`)",
-      "`TreeItem<T>` — data-bearing node with `children`, `expanded`, `selected`.",
-      "`TreeNode<T>` — base class for tree nodes."
+      "`TreeItem<T>` \u2014 data-bearing node with `children`, `expanded`, `selected`.",
+      "`TreeNode<T>` \u2014 base class for tree nodes."
     ],
     "callbacks": [
       "`onSelectionChanged`",

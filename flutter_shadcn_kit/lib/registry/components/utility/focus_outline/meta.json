@@ -18,7 +18,9 @@
       "component_schema"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/themes/base/focus_outline_theme.dart",

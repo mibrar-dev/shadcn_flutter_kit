@@ -17,7 +17,9 @@
     "components": [
       "button"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/badge_widgets.dart",

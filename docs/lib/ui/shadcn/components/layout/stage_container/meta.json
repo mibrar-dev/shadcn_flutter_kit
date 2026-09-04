@@ -16,7 +16,9 @@
       "component_schema"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/stage_container_2.dart",

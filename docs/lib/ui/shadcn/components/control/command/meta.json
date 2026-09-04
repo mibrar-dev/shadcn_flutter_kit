@@ -33,7 +33,8 @@
       "text_field"
     ],
     "pubspec": {
-      "gap": "^3.0.1"
+      "gap": "^3.0.1",
+      "data_widget": "^0.0.2"
     }
   },
   "files": [
@@ -52,15 +53,15 @@
   ],
   "api": {
     "constructors": [
-      "`Command` — requires a `builder` that returns `Stream<List<Widget>>`.",
-      "`showCommandDialog` — shows a modal command palette dialog.",
-      "`CommandItem` — selectable command row with `leading`, `title`, `trailing`.",
-      "`CommandCategory` — groups items under a header.",
-      "`CommandEmpty` — default empty state widget.",
-      "`CommandKeyboardDisplay` — renders keyboard shortcuts."
+      "`Command` \u2014 requires a `builder` that returns `Stream<List<Widget>>`.",
+      "`showCommandDialog` \u2014 shows a modal command palette dialog.",
+      "`CommandItem` \u2014 selectable command row with `leading`, `title`, `trailing`.",
+      "`CommandCategory` \u2014 groups items under a header.",
+      "`CommandEmpty` \u2014 default empty state widget.",
+      "`CommandKeyboardDisplay` \u2014 renders keyboard shortcuts."
     ],
     "callbacks": [
-      "`builder` (Command) — `Stream<List<Widget>> Function(BuildContext, String?)`.",
+      "`builder` (Command) \u2014 `Stream<List<Widget>> Function(BuildContext, String?)`.",
       "`onTap` (CommandItem)",
       "`emptyBuilder`, `loadingBuilder`, `errorBuilder` (Command)"
     ]

@@ -23,7 +23,8 @@
       "form_field"
     ],
     "pubspec": {
-      "data_widget": "^0.0.2"
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
     }
   },
   "files": [
@@ -49,8 +50,8 @@
       "`value`, `onChanged`",
       "`layout` (`ItemPickerLayout?`)",
       "`mode` (`PromptMode?`), `title`, `constraints`, `placeholder`",
-      "`ItemList<T>` / `ItemBuilder<T>` — delegates for item sources.",
-      "`ItemPickerLayout` — `grid` or `list`."
+      "`ItemList<T>` / `ItemBuilder<T>` \u2014 delegates for item sources.",
+      "`ItemPickerLayout` \u2014 `grid` or `list`."
     ],
     "callbacks": []
   },

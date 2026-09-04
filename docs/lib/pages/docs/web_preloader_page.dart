@@ -50,7 +50,7 @@ class WebPreloaderPage extends StatelessWidget {
                   ),
                   DocsCodeBlock(
                     code:
-                        '<script src="https://ibrar-x.github.io/shadcn_flutter_kit/standard.js"></script>',
+                        '<script src="https://mibrar-dev.github.io/shadcn_flutter_kit/standard.js"></script>',
                     mode: 'html',
                   ),
                 ],
@@ -67,7 +67,7 @@ class WebPreloaderPage extends StatelessWidget {
 <html>
   <head>
     ...
-    <script src="https://ibrar-x.github.io/shadcn_flutter_kit/standard.js"></script>
+    <script src="https://mibrar-dev.github.io/shadcn_flutter_kit/standard.js"></script>
     ...
   </head>
 </html>''',

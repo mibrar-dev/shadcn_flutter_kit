@@ -1,7 +1,7 @@
 {
   "$schema": "./index.schema.json",
   "schemaVersion": 1,
-  "generatedAt": "2026-09-04T00:41:27.563933Z",
+  "generatedAt": "2026-09-04T02:04:07.319816Z",
   "components": [
     {
       "id": "accordion",
@@ -31,7 +31,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -73,7 +74,9 @@
         "minimal": "const Alert(\n  title: Text('Heads up'),\n  content: Text('Something needs your attention.'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "basic_layout",
           "outlined_container",
@@ -114,7 +117,10 @@
         "minimal": "AlertDialog(\n  title: const Text('Delete file?'),\n  content: const Text('This action cannot be undone.'),\n  actions: [\n    TextButton(\n      onPressed: () => Navigator.of(context).pop(),\n      child: const Text('Cancel'),\n    ),\n    TextButton(\n      onPressed: _delete,\n      child: const Text('Delete'),\n    ),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "overlay"
@@ -182,7 +188,10 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "overlay",
@@ -258,7 +267,10 @@
         "minimal": "AutoComplete(\n  suggestions: const ['Apple', 'Banana', 'Cherry'],\n  child: TextField(),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "overlay",
           "theme",
@@ -299,7 +311,9 @@
         "minimal": "Avatar(\n  initials: Avatar.getInitials('Jane Doe'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -342,7 +356,9 @@
         "minimal": "PrimaryBadge(\n  child: const Text('New'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "component_schema"
@@ -380,7 +396,10 @@
         "minimal": "Basic(\n  leading: const Icon(Icons.person),\n  title: const Text('Jane Doe'),\n  subtitle: const Text('Product Designer'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -476,7 +495,10 @@
         "minimal": "Breadcrumb(\n  children: const [\n    Text('Home'),\n    Text('Library'),\n    Text('Data'),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -592,7 +614,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -636,7 +659,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -730,7 +754,9 @@
         "minimal": "Carousel(\n  itemCount: 5,\n  transition: const SlidingCarouselTransition(),\n  itemBuilder: (context, index) => Text('Slide $index'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -829,7 +855,9 @@
       },
       "dependencies": {
         "pubspec": {
-          "animation_kit": "^0.0.2"
+          "animation_kit": "^0.0.2",
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -880,7 +908,9 @@
         "minimal": "Chip(\n  child: const Text('Tag'),\n  onPressed: () {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -975,7 +1005,9 @@
         "minimal": "CircularProgressIndicator(\n  value: 0.6,\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -1032,7 +1064,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "clickable",
@@ -1077,7 +1110,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -1220,7 +1254,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -1325,7 +1360,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "border_utils",
@@ -1382,7 +1418,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -1474,7 +1511,9 @@
         "minimal": "DatePicker(\n  value: DateTime.now(),\n  onChanged: (value) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "form_control",
           "localizations",
@@ -1555,7 +1594,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -1601,7 +1641,10 @@
         "minimal": "const Divider()"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -1653,7 +1696,10 @@
         "minimal": "DotIndicator(\n  index: 0,\n  length: 5,\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -1749,7 +1795,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -1949,7 +1996,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -1989,7 +2037,9 @@
         "minimal": "FadeScroll(\n  child: ListView.builder(\n    itemCount: 50,\n    itemBuilder: (_, i) => Text('Row $i'),\n  ),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -2039,7 +2089,9 @@
         "minimal": "FeatureCardCarousel(\n  items: const [\n    FeatureCarouselItem(title: 'Fast', description: 'Quick setup'),\n    FeatureCarouselItem(title: 'Flexible', description: 'Composable APIs'),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "component_schema",
           "theme"
@@ -2074,7 +2126,9 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "radix_icons",
           "style_value",
@@ -2160,7 +2214,8 @@
       "dependencies": {
         "pubspec": {
           "web": "^1.1.1",
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -2230,7 +2285,9 @@
         "minimal": "final controller = FilterBarController(\n  const FilterState(sortId: 'newest'),\n);\n\nFilterBar(\n  controller: controller,\n  sortOptions: const [\n    FilterSortOption(id: 'newest', label: 'Newest'),\n    FilterSortOption(id: 'oldest', label: 'Oldest'),\n  ],\n  resultsCount: 42,\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "lucide_icons",
@@ -2312,7 +2369,9 @@
         "minimal": "FocusOutline(\n  focused: isFocused,\n  child: const Text('Focusable'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "animated_value_builder",
           "constants",
@@ -2415,7 +2474,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -2464,7 +2524,10 @@
         "minimal": "FormattedInput(\n  initialValue: FormattedValue([\n    FormattedValuePart.static('('),\n    FormattedValuePart.editable('555', length: 3),\n    FormattedValuePart.static(') '),\n    FormattedValuePart.editable('123', length: 3),\n  ]),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "form_control",
@@ -2516,7 +2579,9 @@
       },
       "dependencies": {
         "pubspec": {
-          "expressions": "^0.2.5+2"
+          "expressions": "^0.2.5+2",
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -2552,7 +2617,9 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "color_scheme",
@@ -2623,7 +2690,9 @@
         "minimal": "Hidden(\n  hidden: isHidden,\n  child: const Text('Toggle me'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "animated_value_builder",
           "constants",
@@ -2707,7 +2776,9 @@
         "minimal": "Hover(\n  onHover: (hovered) {},\n  child: const Text('Hover me'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -2747,7 +2818,10 @@
         "minimal": "HoverCard(\n  child: const Text('Hover me'),\n  hoverBuilder: (context) => const Text('Preview content'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -2788,7 +2862,9 @@
         "minimal": "HSLColorSlider(\n  color: HSLColor.fromColor(Colors.blue),\n  sliderType: HSLColorSliderType.hue,\n  onChanged: (color) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -2826,7 +2902,9 @@
         "minimal": "HSVColorSlider(\n  value: HSVColor.fromColor(Colors.blue),\n  sliderType: HSVColorSliderType.hue,\n  onChanged: (color) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -2862,7 +2940,9 @@
         "minimal": "Icon(Icons.star).iconSmall"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -2943,7 +3023,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "constants",
@@ -2990,7 +3071,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3038,7 +3120,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3080,7 +3163,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3126,7 +3210,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -3172,7 +3257,10 @@
         "minimal": "final label = formatFileSize(1536, SizeUnitLocale.fileBytes);"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "util"
         ]
@@ -3206,7 +3294,9 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "style_value",
           "theme"
@@ -3241,7 +3331,9 @@
         "minimal": "MediaQueryVisibility(\n  minWidth: 600,\n  child: Text('Desktop layout'),\n  alternate: Text('Mobile layout'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value"
@@ -3344,7 +3436,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "constants",
@@ -3390,7 +3483,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "form_control",
@@ -3490,7 +3584,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "color_extensions",
@@ -3589,7 +3684,10 @@
         "minimal": "DateInput(\n  initialValue: DateTime.now(),\n  onChanged: (value) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "form_control",
@@ -3633,7 +3731,9 @@
         "minimal": "OutlinedContainer(\n  child: const Text('Outlined'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "animated_value_builder",
           "border_utils",
@@ -3676,7 +3776,9 @@
         "minimal": "OverflowMarquee(\n  child: const Text('Very long title that should scroll'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "style_value",
           "theme"
@@ -3723,7 +3825,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3768,7 +3871,9 @@
         "minimal": "Pagination(\n  page: 1,\n  total: 10,\n  onChanged: (page) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -3854,7 +3959,8 @@
         "pubspec": {
           "country_flags": "^4.1.1",
           "gap": "^3.0.1",
-          "phonecodes": "^0.0.4"
+          "phonecodes": "^0.0.4",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "form_value_supplier",
@@ -3901,7 +4007,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3944,7 +4051,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -3988,7 +4096,9 @@
         "minimal": "Progress(\n  progress: 40,\n  min: 0,\n  max: 100,\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -4034,7 +4144,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "color_extensions",
@@ -4081,7 +4192,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -4120,7 +4232,10 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "util"
         ]
@@ -4156,7 +4271,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "constants",
@@ -4201,7 +4317,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "color_extensions",
@@ -4250,7 +4367,9 @@
         "minimal": "ScrollableClient(\n  builder: (context, offset, viewportSize, child) {\n    return ClipRect(\n      child: Transform.translate(\n        offset: Offset(-offset.dx, -offset.dy),\n        child: child,\n      ),\n    );\n  },\n  child: SizedBox(width: 1200, height: 800),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "component_schema",
           "theme"
@@ -4290,7 +4409,9 @@
         "minimal": "ScrollableClient(\n  builder: (context, offset, size, child) {\n    return CustomPaint(size: size);\n  },\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -4332,7 +4453,9 @@
         "minimal": "Scrollbar(\n  child: ListView.builder(\n    itemCount: 30,\n    itemBuilder: (_, index) => Text('Row $index'),\n  ),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -4409,7 +4532,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -4467,7 +4591,9 @@
         "minimal": "const SelectableText('Copy this text')"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -4580,7 +4706,10 @@
         "minimal": "final strings = ShadcnLocalizations.of(context);\nfinal label = strings.formatDateTime(DateTime.now());"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "util"
         ]
@@ -4659,7 +4788,10 @@
         "minimal": ""
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "color_extensions",
           "form_control",
@@ -4701,7 +4833,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "constants",
@@ -4740,7 +4873,9 @@
         "minimal": "class CustomSpinner extends Spinner {\n  const CustomSpinner({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    final color = resolveColor(context) ?? Theme.of(context).colorScheme.primary;\n    final size = resolveSize(context, 24);\n    return SizedBox(\n      width: size,\n      height: size,\n      child: CircularProgressIndicator(color: color),\n    );\n  }\n}"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -4781,7 +4916,9 @@
         "minimal": "StageContainer(\n  builder: (context, padding) => Padding(\n    padding: padding,\n    child: const Text('Content'),\n  ),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "style_value",
           "theme",
@@ -4826,7 +4963,10 @@
         "minimal": "StarRating(\n  value: 3.5,\n  onChanged: (value) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "animated_value_builder",
           "constants",
@@ -4917,7 +5057,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -4994,7 +5135,9 @@
         "minimal": "Swiper(\n  position: OverlayPosition.left,\n  handler: SwiperHandler.drawer,\n  builder: (context) => const SizedBox(width: 260, child: Text('Drawer')),\n  child: const Text('Swipe from left'),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "component_schema"
@@ -5036,7 +5179,10 @@
         "minimal": "Switch(\n  value: enabled,\n  onChanged: (value) {},\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -5121,7 +5267,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme"
@@ -5160,7 +5307,9 @@
         "minimal": "TabList(\n  index: 0,\n  onChanged: (index) {},\n  children: const [\n    TabChild(child: Text('Tab 1')),\n    TabChild(child: Text('Tab 2')),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "style_value",
           "theme"
@@ -5203,7 +5352,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "fade_scroll",
@@ -5247,7 +5397,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -5292,7 +5443,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -5342,7 +5494,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme"
@@ -5407,7 +5560,9 @@
         "minimal": "StreamingText(\n  text: streamedText,\n  style: const TextStyle(fontSize: 16),\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -5449,7 +5604,9 @@
         "minimal": "const TextArea()"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme"
         ]
@@ -5487,7 +5644,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -5552,7 +5710,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "form_control",
@@ -5597,7 +5756,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "gap": "^3.0.1"
+          "gap": "^3.0.1",
+          "data_widget": "^0.0.2"
         },
         "shared": [
           "theme",
@@ -5661,7 +5821,9 @@
         "minimal": "final controller = ToastController();\n\ncontroller.show(\n  context: context,\n  builder: (context) => const Text('Saved'),\n);"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -5703,7 +5865,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "theme",
@@ -5751,7 +5914,10 @@
         "minimal": "Tracker(\n  data: const [\n    TrackerData(\n      level: TrackerLevel.fine,\n      tooltip: Text('All good'),\n    ),\n  ],\n)"
       },
       "dependencies": {
-        "pubspec": {},
+        "pubspec": {
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
+        },
         "shared": [
           "theme",
           "style_value",
@@ -5798,7 +5964,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "clickable",
@@ -5911,7 +6078,8 @@
       },
       "dependencies": {
         "pubspec": {
-          "data_widget": "^0.0.2"
+          "data_widget": "^0.0.2",
+          "gap": "^3.0.1"
         },
         "shared": [
           "animated_value_builder",

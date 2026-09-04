@@ -15,7 +15,9 @@
       "theme"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/_overflow_marquee_layout.dart",
@@ -30,7 +32,7 @@
       "`OverflowMarquee`",
       "`direction`, `duration`, `delayDuration`",
       "`step`, `fadePortion`, `curve`",
-      "`OverflowMarqueeTheme` — theme defaults."
+      "`OverflowMarqueeTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

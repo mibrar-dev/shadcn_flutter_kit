@@ -24,7 +24,10 @@
       "component_schema"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/vertical_divider.dart",

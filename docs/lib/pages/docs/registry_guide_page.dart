@@ -115,7 +115,7 @@ class RegistryGuidePage extends StatelessWidget {
           ),
           const DocsCodeBlock(
             code:
-                'flutter_shadcn add button --registry remote --registry-url https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/lib/registry',
+                'flutter_shadcn add button --registry remote --registry-url https://raw.githubusercontent.com/mibrar-dev/shadcn_flutter_kit/main/flutter_shadcn_kit/lib/registry',
             mode: 'bash',
           ),
           const SizedBox(height: 12),

@@ -18,7 +18,7 @@ Remote kit source fallback:
 
 ```bash
 flutter_shadcn --advanced install-skill \
-  --skills-url https://raw.githubusercontent.com/ibrar-x/shadcn_flutter_kit/main/flutter_shadcn_kit/skills \
+  --skills-url https://raw.githubusercontent.com/mibrar-dev/shadcn_flutter_kit/main/flutter_shadcn_kit/skills \
   --skill flutter-shadcn-ui \
   --model .codex
 ```

@@ -19,7 +19,9 @@
     "components": [
       "markdown"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/blur_in_effect.dart",

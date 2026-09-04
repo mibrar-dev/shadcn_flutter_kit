@@ -22,7 +22,8 @@
       "tab_container"
     ],
     "pubspec": {
-      "data_widget": "^0.0.2"
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
     }
   },
   "files": [
@@ -43,8 +44,8 @@
       "`onFocused` (`ValueChanged<int>?`)",
       "`onSort` (`ValueChanged<List<TabPaneData<T>>>?`)",
       "`itemBuilder` (`TabPaneItemBuilder<T>`, required)",
-      "`TabPaneData<T>` — sortable tab data.",
-      "`TabPaneTheme` — container styling."
+      "`TabPaneData<T>` \u2014 sortable tab data.",
+      "`TabPaneTheme` \u2014 container styling."
     ],
     "callbacks": []
   },

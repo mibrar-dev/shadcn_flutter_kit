@@ -21,7 +21,8 @@
     ],
     "components": [],
     "pubspec": {
-      "gap": "^3.0.1"
+      "gap": "^3.0.1",
+      "data_widget": "^0.0.2"
     }
   },
   "files": [

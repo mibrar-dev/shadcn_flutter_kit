@@ -18,7 +18,8 @@
       "text"
     ],
     "pubspec": {
-      "gap": "^3.0.1"
+      "gap": "^3.0.1",
+      "data_widget": "^0.0.2"
     }
   },
   "files": [
@@ -31,8 +32,8 @@
       "`Timeline`",
       "`data` (`List<TimelineData>`, required)",
       "`timeConstraints`, `spacing`, `dotSize`, `connectorThickness`, `rowGap`",
-      "`TimelineData` — `time`, `title`, `content`, `color`.",
-      "`TimelineTheme` — theme defaults."
+      "`TimelineData` \u2014 `time`, `title`, `content`, `color`.",
+      "`TimelineTheme` \u2014 theme defaults."
     ],
     "callbacks": []
   },

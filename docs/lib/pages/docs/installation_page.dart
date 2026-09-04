@@ -201,7 +201,7 @@ class InstallationPage extends StatelessWidget {
           const SizedBox(height: 12),
           const DocsCodeBlock(
             code:
-                'flutter_shadcn add button --registry remote --registry-url https://cdn.jsdelivr.net/gh/ibrar-x/shadcn_flutter_kit@latest/flutter_shadcn_kit/lib',
+                'flutter_shadcn add button --registry remote --registry-url https://cdn.jsdelivr.net/gh/mibrar-dev/shadcn_flutter_kit@latest/flutter_shadcn_kit/lib',
             mode: 'bash',
           ),
           const SizedBox(height: 12),

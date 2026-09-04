@@ -1,5 +1,5 @@
 # Available Registry Components
-total=133
+total=134
 
 control/button
 control/clickable
@@ -21,6 +21,7 @@ display/divider
 display/dot_indicator
 display/empty_state
 display/feature_carousel
+display/file_diff_viewer
 display/icon
 display/keyboard_shortcut
 display/linear_progress_indicator

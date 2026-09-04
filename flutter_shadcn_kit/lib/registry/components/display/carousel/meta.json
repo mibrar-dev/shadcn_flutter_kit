@@ -20,7 +20,9 @@
     "components": [
       "dot_indicator"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_carousel_preview_state.dart",

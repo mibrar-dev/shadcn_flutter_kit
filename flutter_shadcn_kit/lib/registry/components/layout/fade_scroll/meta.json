@@ -16,7 +16,9 @@
       "generated_colors"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/_scale_gradient.dart",

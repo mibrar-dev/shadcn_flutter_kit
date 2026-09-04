@@ -16,7 +16,9 @@
     "components": [
       "alpha"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/hsl_color_slider_painter.dart",

@@ -15,10 +15,10 @@ class CollapsibleExample1 extends StatelessWidget {
     return shadcn_collapsible.Collapsible(
       children: [
         const shadcn_collapsible.CollapsibleTrigger(
-          child: Text('@ibrar-x starred 3 repositories'),
+          child: Text('@mibrar-dev starred 3 repositories'),
         ),
         shadcn_outlined.OutlinedContainer(
-          child: const Text('@ibrar-x/shadcn_flutter_kit')
+          child: const Text('@mibrar-dev/shadcn_flutter_kit')
               .small()
               .mono()
               .withPadding(horizontal: 16, vertical: 8),

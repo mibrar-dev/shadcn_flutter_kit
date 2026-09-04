@@ -20,7 +20,9 @@
     "components": [
       "toast"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/gooey_toast_constants.dart",

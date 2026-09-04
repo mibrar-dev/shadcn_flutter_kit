@@ -14,7 +14,10 @@
       "util"
     ],
     "components": [],
-    "pubspec": {}
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "repeated_animation_builder.dart"

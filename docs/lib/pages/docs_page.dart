@@ -575,7 +575,7 @@ class DocsPageState extends State<DocsPage> {
             ),
           shadcn_buttons.GhostButton(
             onPressed: () => launchUrlString(
-              'https://github.com/ibrar-x/shadcn_flutter_kit',
+              'https://github.com/mibrar-dev/shadcn_flutter_kit',
             ),
             density: shadcn_buttons.ButtonDensity.icon,
             child: const Icon(LucideIcons.github),

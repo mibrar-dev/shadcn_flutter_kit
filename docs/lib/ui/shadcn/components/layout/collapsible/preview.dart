@@ -27,7 +27,7 @@ class CollapsiblePreview extends StatelessWidget {
               /// Creates a `OutlinedContainer` instance.
               OutlinedContainer(
                 padding: const EdgeInsets.all(12),
-                child: const Text('@ibrar-x/shadcn_flutter_kit'),
+                child: const Text('@mibrar-dev/shadcn_flutter_kit'),
               ),
 
               /// Creates a `CollapsibleContent` instance.

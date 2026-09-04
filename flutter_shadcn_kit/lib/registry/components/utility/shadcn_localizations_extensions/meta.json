@@ -18,7 +18,10 @@
       "locale_utils",
       "shadcn_localizations"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "data_widget": "^0.0.2",
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "shadcn_localizations_extensions.dart"

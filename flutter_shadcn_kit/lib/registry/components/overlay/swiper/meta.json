@@ -17,7 +17,9 @@
     "components": [
       "drawer"
     ],
-    "pubspec": {}
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
   },
   "files": [
     "_impl/core/swiper_widget.dart",

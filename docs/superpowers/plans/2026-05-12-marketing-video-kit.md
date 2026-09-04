@@ -402,7 +402,7 @@ class MarketingVideoCopy {
   static const headline = 'Production-ready Flutter UI components';
   static const subhead = 'Theming, overlays, localization, and CLI install.';
   static const ctaCommand = 'flutter_shadcn init';
-  static const ctaUrl = 'github.com/ibrar-x/shadcn_flutter_kit';
+  static const ctaUrl = 'github.com/mibrar-dev/shadcn_flutter_kit';
 
   static const cliCommands = <String>[
     r'$ flutter_shadcn init',
@@ -786,7 +786,7 @@ void main() {
     );
 
     expect(find.text('flutter_shadcn init'), findsOneWidget);
-    expect(find.text('github.com/ibrar-x/shadcn_flutter_kit'), findsOneWidget);
+    expect(find.text('github.com/mibrar-dev/shadcn_flutter_kit'), findsOneWidget);
   });
 }
 ```
@@ -1087,7 +1087,7 @@ class _MarketingVideoAppState extends State<MarketingVideoApp> {
       'cli-proof' => 'Installed from a registry-powered CLI',
       'component-showcase' => 'Copy, own, and customize real Flutter code',
       'app-capabilities' => 'Theming, overlays, localization, file input',
-      'cta' => 'github.com/ibrar-x/shadcn_flutter_kit',
+      'cta' => 'github.com/mibrar-dev/shadcn_flutter_kit',
       _ => '',
     };
   }
@@ -1318,7 +1318,7 @@ Production-ready Flutter UI components with theming, overlays, localization, and
 
 Real Flutter components. Registry powered. Copy the code into your app and own it.
 
-github.com/ibrar-x/shadcn_flutter_kit
+github.com/mibrar-dev/shadcn_flutter_kit
 
 ## Instagram / Reels
 

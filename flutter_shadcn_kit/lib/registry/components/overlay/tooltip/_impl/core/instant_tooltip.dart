@@ -19,6 +19,11 @@ class InstantTooltip extends StatefulWidget {
   /// Stores `tooltipAnchorAlignment` state/configuration for this implementation.
   final AlignmentGeometry? tooltipAnchorAlignment;
 
+  /// Whether this tooltip may adapt to a different presentation on mobile
+  /// platforms (upstream parity; see [Tooltip.adaptiveOverlay]).
+  /// Accepted/stored; defaults to `false`.
+  final bool adaptiveOverlay;
+
   /// Creates a `InstantTooltip` instance.
   const InstantTooltip({
     super.key,
@@ -27,6 +32,7 @@ class InstantTooltip extends StatefulWidget {
     this.behavior = HitTestBehavior.translucent,
     this.tooltipAlignment = Alignment.bottomCenter,
     this.tooltipAnchorAlignment,
+    this.adaptiveOverlay = false,
   });
 
   @override

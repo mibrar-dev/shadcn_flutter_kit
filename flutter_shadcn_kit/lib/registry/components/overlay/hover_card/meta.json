@@ -40,7 +40,8 @@
       "`hoverBuilder`, `child`",
       "`debounce`, `wait`",
       "`popoverAlignment`, `anchorAlignment`, `popoverOffset`",
-      "`controller`, `handler`, `behavior`"
+      "`controller`, `handler`, `behavior`",
+      "`adaptiveOverlay` (`bool`, upstream parity, accepted/stored, default false)."
     ],
     "callbacks": []
   },

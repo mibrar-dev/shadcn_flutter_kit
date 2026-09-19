@@ -45,10 +45,12 @@
       "`NavigationMenu`",
       "`children` (`List<Widget>`, required)",
       "`surfaceOpacity`, `surfaceBlur`, `margin`, `offset`",
-      "`NavigationMenuItem` \u2014 item with optional `content`.",
-      "`NavigationMenuContent` \u2014 content entry.",
-      "`NavigationMenuContentList` \u2014 grid/list of contents.",
-      "`NavigationMenuTheme` \u2014 surface styling."
+      "`NavigationMenuItem` — item with optional `content`.",
+      "`NavigationMenuContent` — content entry.",
+      "`NavigationMenuContentList` — grid/list of contents.",
+      "`NavigationMenuTheme` — surface styling.",
+      "`adaptiveOverlay` (`bool?`, upstream parity, accepted/stored).",
+      "`NavigationMenuTheme.adaptiveOverlay` (`bool?`, theme-level)."
     ],
     "callbacks": []
   },

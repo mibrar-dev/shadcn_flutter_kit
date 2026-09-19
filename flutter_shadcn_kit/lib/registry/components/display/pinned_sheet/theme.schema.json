@@ -1,0 +1,16 @@
+{
+  "id": "pinned_sheet",
+  "title": "Pinned Sheet Theme",
+  "description": "Upstream-parity controller-driven sheet with snap stages. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `display/pinned_sheet` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

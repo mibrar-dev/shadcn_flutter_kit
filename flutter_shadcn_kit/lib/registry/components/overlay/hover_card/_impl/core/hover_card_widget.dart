@@ -36,6 +36,12 @@ class HoverCard extends StatefulWidget {
   /// Stores `handler` state/configuration for this implementation.
   final OverlayHandler? handler;
 
+  /// Whether this hover card may adapt to a different presentation on mobile
+  /// platforms (upstream parity). Accepted/stored; defaults to `false` —
+  /// a hover card is presented via tooltip-style configuration just like
+  /// `Tooltip`.
+  final bool adaptiveOverlay;
+
   /// Creates a `HoverCard` instance.
   const HoverCard({
     super.key,
@@ -49,6 +55,7 @@ class HoverCard extends StatefulWidget {
     this.behavior,
     this.controller,
     this.handler,
+    this.adaptiveOverlay = false,
   });
 
   @override

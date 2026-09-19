@@ -47,7 +47,7 @@ class _IntegerOnlyFormatter extends TextInputFormatter {
     }
     return TextEditingValue(
       text: newText,
-      selection: contraintToNewText(newValue, newText),
+      selection: constraintToNewText(newValue, newText),
     );
   }
 }

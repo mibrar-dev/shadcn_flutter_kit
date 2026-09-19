@@ -1,0 +1,16 @@
+{
+  "id": "spell_check_suggestions_toolbar",
+  "title": "Spell Check Suggestions Toolbar Theme",
+  "description": "Upstream-parity shadcn spell check suggestions toolbar. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/spell_check_suggestions_toolbar` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

@@ -29,7 +29,7 @@ class _HexTextFormatter extends TextInputFormatter {
     if (!hexRegExp.hasMatch(newText)) {
       return oldValue;
     }
-    var selection = contraintToNewText(newValue, newText);
+    var selection = constraintToNewText(newValue, newText);
     // make sure selection is after the hash if hashPrefix is true
     if (hashPrefix) {
       if (selection.baseOffset == 0) {

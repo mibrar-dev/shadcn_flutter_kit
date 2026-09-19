@@ -4,6 +4,11 @@ part of '../../hsv_color_slider.dart';
 
 /// A custom painter for rendering HSV color slider gradients.
 ///
+/// NOTE: for the shared upstream-parity gradient engine, see
+/// `form/color_field` (`ColorFieldAxis`, `paintHSVColorField`). This painter
+/// keeps its legacy per-cell rendering; do not rewrite it to use the shared
+/// engine here (out of scope).
+///
 /// [HSVColorSliderPainter] draws the gradient background for HSV color sliders,
 /// showing the range of possible colors for the selected slider type. The
 /// gradient updates based on the current color and slider configuration.

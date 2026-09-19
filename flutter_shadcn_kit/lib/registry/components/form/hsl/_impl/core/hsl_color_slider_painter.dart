@@ -4,6 +4,11 @@ part of '../../hsl_color_slider.dart';
 
 /// A custom painter for rendering HSL color slider gradients.
 ///
+/// NOTE: for the shared upstream-parity gradient engine, see
+/// `form/color_field` (`ColorFieldAxis`, `paintHSLColorField`). This painter
+/// keeps its legacy per-cell rendering; do not rewrite it to use the shared
+/// engine here (out of scope).
+///
 /// [HSLColorSliderPainter] draws the gradient background for HSL color sliders,
 /// showing the range of possible colors for the selected slider type. The
 /// gradient updates based on the current color and slider configuration.

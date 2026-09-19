@@ -17,8 +17,11 @@ part '_impl/core/chat_bubble_corner.dart';
 part '_impl/core/chat_bubble_corner_directional.dart';
 part '_impl/core/chat_bubble_data.dart';
 part '_impl/core/chat_bubble_type.dart';
+part '_impl/core/chat_collapsible.dart';
 part '_impl/core/chat_group.dart';
 part '_impl/core/chat_group_theme.dart';
+part '_impl/core/chat_reaction.dart';
+part '_impl/core/chat_reaction_container.dart';
 part '_impl/core/chat_tail_theme.dart';
 part '_impl/core/chat_theme.dart';
 part '_impl/core/plain_chat_bubble_type.dart';
@@ -26,6 +29,7 @@ part '_impl/core/render_chat_constrained_box.dart';
 part '_impl/core/sharp_corner_chat_bubble_type.dart';
 part '_impl/core/tail_behavior.dart';
 part '_impl/core/tail_chat_bubble_type.dart';
+part '_impl/themes/base/chat_reaction_theme.dart';
 
 /// A widget that constrains the width of its child based on a factor and aligns it.
 ///

@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../manifests/readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "overlay_configuration",
+  "name": "Overlay Configuration",
+  "description": "Upstream-parity overlay configurations (OverlayConfiguration, Popover/Drawer/Sheet/Dialog/Menu/TooltipConfiguration, showOverlay) plus OverlayController, adapted to the registry PopoverController architecture.",
+  "install": "flutter_shadcn add overlay_configuration",
+  "import": "import 'package:<your_app>/ui/shadcn/overlay/overlay_configuration/overlay_configuration.dart';",
+  "whenToUse": {
+    "use": [
+      "you port upstream code that drives overlays via OverlayController/showOverlay.",
+      "you need one configuration object shared across call sites."
+    ],
+    "avoid": [
+      "native registry overlays (prefer `popover`, `dialog`, `menu` directly)."
+    ]
+  },
+  "examples": {
+    "minimal": "showOverlay(\n  context,\n  const PopoverConfiguration(alignment: Alignment.topCenter),\n  builder: (context) => const Text('Popover'),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`OverlayConfiguration`",
+      "`showOverlay`",
+      "`PopoverConfiguration`",
+      "`DrawerConfiguration`",
+      "`SheetConfiguration`",
+      "`DialogConfiguration`",
+      "`MenuConfiguration`",
+      "`TooltipConfiguration`",
+      "`OverlayController`"
+    ]
+  },
+  "theming": [
+    "No theme tokens; delegates to the registry overlay theme."
+  ],
+  "accessibility": [
+    "Keep modal presentations dismissible via barrier or keyboard."
+  ],
+  "do": [
+    "Publish configurations with `OverlayConfiguration.maybeOf` checks inside content."
+  ],
+  "dont": [
+    "Expect native drawer/sheet routes; those presentations delegate to popovers."
+  ],
+  "related": [
+    "anchor",
+    "popover",
+    "overlay",
+    "tooltip"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

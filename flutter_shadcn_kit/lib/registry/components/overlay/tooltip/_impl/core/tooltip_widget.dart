@@ -27,6 +27,12 @@ class Tooltip extends StatefulWidget {
   /// Stores `minDuration` state/configuration for this implementation.
   final Duration minDuration;
 
+  /// Whether this tooltip may adapt to a different presentation on mobile
+  /// platforms (upstream parity). Accepted/stored; the registry popover
+  /// presentation is already platform-aware. Defaults to `false` — a
+  /// tooltip should never become a bottom drawer.
+  final bool adaptiveOverlay;
+
   /// Creates a `Tooltip` instance.
   const Tooltip({
     super.key,
@@ -37,6 +43,7 @@ class Tooltip extends StatefulWidget {
     this.waitDuration = const Duration(milliseconds: 500),
     this.showDuration = const Duration(milliseconds: 200),
     this.minDuration = const Duration(milliseconds: 0),
+    this.adaptiveOverlay = false,
   });
 
   @override

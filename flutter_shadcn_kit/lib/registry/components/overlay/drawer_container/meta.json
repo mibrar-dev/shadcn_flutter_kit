@@ -1,0 +1,50 @@
+{
+  "id": "drawer_container",
+  "name": "Drawer Container",
+  "description": "Upstream-parity drawer/sheet chrome (AxisSize algebra, DrawerRawContainer, SheetRawContainer, DrawerContainerData, DrawerContainer, SheetContainer) for pinned sheets and drawer overlays.",
+  "category": "overlay",
+  "tier": "component",
+  "tags": [
+    "overlay",
+    "sheet",
+    "drawer",
+    "container"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "color_extensions",
+      "constants"
+    ],
+    "components": [
+      "drawer"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "_impl/core/axis_size.dart",
+    "_impl/core/drawer_container.dart",
+    "drawer_container.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`AxisSize`",
+      "`FixedAxisSize`",
+      "`FractionAxisSize`",
+      "`AdditiveAxisSize`",
+      "`SubtractedAxisSize`",
+      "`MultipliedAxisSize`",
+      "`DividedAxisSize`",
+      "`DrawerRawContainer`",
+      "`SheetRawContainer`",
+      "`DrawerContainerData`",
+      "`DrawerContainer`",
+      "`SheetContainer`"
+    ]
+  },
+  "version": "1.0.0"
+}

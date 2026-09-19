@@ -1,0 +1,37 @@
+{
+  "id": "color_field",
+  "name": "Color Field",
+  "description": "Shared gradient engine that paints HSV/HSL color fields along configurable axes.",
+  "category": "form",
+  "tier": "component",
+  "tags": [
+    "color",
+    "field",
+    "hsv",
+    "hsl"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "alpha"
+    ],
+    "pubspec": {
+      "gap": "^3.0.1"
+    }
+  },
+  "files": [
+    "_impl/core/color_field.dart",
+    "color_field.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`ColorFieldAxis` (`none`, `horizontal`, `vertical`)",
+      "`paintHSVColorField` (`color`, `hueAxis`, `saturationAxis`, `valueAxis`, `alphaAxis`)",
+      "`paintHSLColorField` (`color`, `hueAxis`, `saturationAxis`, `lightnessAxis`, `alphaAxis`)"
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
+}

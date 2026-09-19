@@ -43,6 +43,17 @@ class NavigationMenuState extends State<NavigationMenu> {
     super.dispose();
   }
 
+  /// Resolved adaptive-overlay flag (upstream parity).
+  ///
+  /// Accepted/stored from [NavigationMenu.adaptiveOverlay] with a
+  /// [NavigationMenuTheme.adaptiveOverlay] fallback. The registry popover
+  /// presentation is already platform-aware, so this is documented state
+  /// rather than an additional branch.
+  bool get adaptiveOverlay =>
+      widget.adaptiveOverlay ??
+      ComponentTheme.maybeOf<NavigationMenuTheme>(context)?.adaptiveOverlay ??
+      true;
+
   /// Executes `_show` behavior for this component/composite.
   void _show(BuildContext context) {
     if (_popoverController.hasOpenPopover) {

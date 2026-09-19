@@ -43,6 +43,11 @@ class NavigationMenuTheme extends ComponentThemeData {
   /// Offset for the popover relative to the trigger.
   final Offset? offset;
 
+  /// Whether this menu may adapt to a different presentation on mobile
+  /// platforms (upstream parity; accepted/stored — see
+  /// [NavigationMenu.adaptiveOverlay]).
+  final bool? adaptiveOverlay;
+
   /// Creates a [NavigationMenuTheme] with the specified appearance properties.
   ///
   /// All parameters are optional and will fall back to default values
@@ -54,6 +59,7 @@ class NavigationMenuTheme extends ComponentThemeData {
   /// - [surfaceBlur] (double?, optional): Blur effect intensity for popover
   /// - [margin] (EdgeInsetsGeometry?, optional): Space around the popover
   /// - [offset] (Offset?, optional): Position offset relative to trigger
+  /// - [adaptiveOverlay] (bool?, optional): whether adaptive conversion runs
   ///
   /// Example:
   /// ```dart
@@ -72,6 +78,7 @@ class NavigationMenuTheme extends ComponentThemeData {
     this.surfaceBlur,
     this.margin,
     this.offset,
+    this.adaptiveOverlay,
   });
 
   /// Returns a copy of this theme with the given fields replaced.
@@ -80,6 +87,7 @@ class NavigationMenuTheme extends ComponentThemeData {
     ValueGetter<double?>? surfaceBlur,
     ValueGetter<EdgeInsetsGeometry?>? margin,
     ValueGetter<Offset?>? offset,
+    ValueGetter<bool?>? adaptiveOverlay,
   }) {
     return NavigationMenuTheme(
       surfaceOpacity: surfaceOpacity == null
@@ -88,6 +96,9 @@ class NavigationMenuTheme extends ComponentThemeData {
       surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
       margin: margin == null ? this.margin : margin(),
       offset: offset == null ? this.offset : offset(),
+      adaptiveOverlay: adaptiveOverlay == null
+          ? this.adaptiveOverlay
+          : adaptiveOverlay(),
     );
   }
 
@@ -99,11 +110,18 @@ class NavigationMenuTheme extends ComponentThemeData {
         other.surfaceOpacity == surfaceOpacity &&
         other.surfaceBlur == surfaceBlur &&
         other.margin == margin &&
-        other.offset == offset;
+        other.offset == offset &&
+        other.adaptiveOverlay == adaptiveOverlay;
   }
 
   @override
-  int get hashCode => Object.hash(surfaceOpacity, surfaceBlur, margin, offset);
+  int get hashCode => Object.hash(
+        surfaceOpacity,
+        surfaceBlur,
+        margin,
+        offset,
+        adaptiveOverlay,
+      );
 }
 
 /// An individual menu item within a [NavigationMenu].

@@ -23,6 +23,93 @@ class ComponentDetailPage extends StatefulWidget {
   State<ComponentDetailPage> createState() => _ComponentDetailPageState();
 }
 
+/// Minimal runnable snippets for components without registered examples.
+const Map<String, String> _fallbackExampleCode = {
+  'anchor': '''OverlayAnchorScope(
+  child: OverlayAnchor(
+    anchor: 'menu',
+    child: TextButton(
+      onPressed: () {},
+      child: const Text('Open'),
+    ),
+  ),
+)''',
+  'backdrop_transform': '''const transform = ScaleBackdropTransform();
+transform.wrapBackdrop(context, backdrop, 0.5);''',
+  'drawer_container': '''Data<DrawerContainerData>.inherit(
+  data: const DrawerContainerData(
+    position: OverlayPosition.bottom,
+    size: Size.zero,
+    stackIndex: 0,
+  ),
+  child: const DrawerContainer(child: Text('Sheet content')),
+)''',
+  'overlay_configuration': '''showOverlay(
+  context,
+  const PopoverConfiguration(alignment: Alignment.topCenter),
+  builder: (context) => const Text('Hello'),
+  adaptive: false,
+);''',
+  'pinned_sheet': '''const SizedBox(
+  height: 320,
+  child: PinnedSheet(
+    stages: [SheetStage.closed(), SheetStage.expanded()],
+    initialStage: SheetStage.expanded(),
+    child: DrawerContainer(child: Text('Sheet content')),
+  ),
+)''',
+  'page_route': '''Navigator.of(context).push(
+  ShadcnPageRoute(
+    builder: (context) => const DetailsPage(),
+  ),
+);''',
+  'color_field': '''CustomPaint(
+  painter: _FieldPainter(color: color),
+)
+
+void _paint(Canvas canvas, Size size, HSVColor color) {
+  paintHSVColorField(
+    canvas,
+    size,
+    color: color,
+    saturationAxis: ColorFieldAxis.horizontal,
+    valueAxis: ColorFieldAxis.vertical,
+  );
+}''',
+  'form_sortable': '''const RawSortableStack(
+  children: [
+    RawSortableItemPositioned(
+      offset: Offset.zero,
+      child: Text('Item'),
+    ),
+  ],
+);''',
+  'fade_scroll_display': '''FadeScroll(
+  controller: controller,
+  startOffset: 48,
+  endOffset: 48,
+  child: ListView.builder(
+    controller: controller,
+    itemCount: 30,
+    itemBuilder: (context, index) => ListTile(
+      title: Text('Item \${index + 1}'),
+    ),
+  ),
+)''',
+  'spell_check_suggestions_toolbar': '''EditableText(
+  controller: controller,
+  focusNode: focusNode,
+  style: const TextStyle(),
+  cursorColor: Colors.blue,
+  backgroundCursorColor: Colors.grey,
+  spellCheckConfiguration: SpellCheckConfiguration(
+    spellCheckService: DefaultSpellCheckService(),
+    spellCheckSuggestionsToolbarBuilder:
+        SpellCheckSuggestionsToolbar.editableText,
+  ),
+)''',
+};
+
 class _ComponentDetailPageState extends State<ComponentDetailPage> {
   static const List<int> _maxRenderedOptions = [4, 6, 8, 12, 20];
 
@@ -246,7 +333,8 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
               _buildDependentSetupPanel(component.id)!,
             WidgetUsageExample(
               title: 'Preview',
-              code: '// Example coming soon',
+              code: _fallbackExampleCode[component.id] ??
+                  '// Example coming soon',
               installCommand: _exactInstallCommandFor(component.id),
               child: buildComponentPreview(
                 context,

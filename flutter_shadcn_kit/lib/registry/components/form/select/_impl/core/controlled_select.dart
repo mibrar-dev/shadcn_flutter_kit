@@ -64,11 +64,17 @@ class ControlledSelect<T> extends StatelessWidget
   @override
   final BoxConstraints? popupConstraints;
   @override
+  final OverlayConfiguration? overlayConfiguration;
+  @override
+  final bool? adaptiveOverlay;
+  @override
   final PopoverConstraint popupWidthConstraint;
   @override
   final BorderRadiusGeometry? borderRadius;
   @override
   final EdgeInsetsGeometry? padding;
+  @override
+  final WidgetStatePropertyDelegate<Decoration>? decoration;
   @override
   final AlignmentGeometry popoverAlignment;
   @override
@@ -89,6 +95,8 @@ class ControlledSelect<T> extends StatelessWidget
   final SelectValueSelectionPredicate<T>? valueSelectionPredicate;
   @override
   final Predicate<T>? showValuePredicate;
+  @override
+  final Widget? expandIcon;
 
   /// Creates a [ControlledSelect].
   ///
@@ -106,7 +114,11 @@ class ControlledSelect<T> extends StatelessWidget
   /// - [focusNode] (FocusNode?, optional): custom focus node for keyboard handling
   /// - [constraints] (BoxConstraints?, optional): size constraints for select widget
   /// - [popupConstraints] (BoxConstraints?, optional): size constraints for popup
-  /// - [popupWidthConstraint] (PopoverConstraint, default: anchorFixedSize): popup width behavior
+  /// - [popupWidthConstraint] (PopoverConstraint, default: anchorFixedSize): popup width behavior (alias; ignored when [overlayConfiguration] is set)
+  /// - [overlayConfiguration] (OverlayConfiguration?, optional): overrides the popup presentation
+  /// - [adaptiveOverlay] (bool?, optional): whether an adaptive presentation runs for this overlay
+  /// - [decoration] (`WidgetStatePropertyDelegate<Decoration>?`, optional): per-state override of the trigger decoration
+  /// - [expandIcon] (Widget?): the expand icon for the select, defaults to [SelectExpandIcon]; null hides it
   /// - [borderRadius] (BorderRadiusGeometry?, optional): override select border radius
   /// - [padding] (EdgeInsetsGeometry?, optional): override internal padding
   /// - [popoverAlignment] (AlignmentGeometry, default: topCenter): popup alignment
@@ -140,19 +152,23 @@ class ControlledSelect<T> extends StatelessWidget
     this.focusNode,
     this.constraints,
     this.popupConstraints,
+    this.overlayConfiguration,
     this.popupWidthConstraint = PopoverConstraint.anchorFixedSize,
     this.borderRadius,
     this.padding,
+    this.decoration,
     this.popoverAlignment = Alignment.topCenter,
     this.popoverAnchorAlignment,
     this.disableHoverEffect = false,
     this.canUnselect = false,
     this.autoClosePopover = true,
+    this.expandIcon = const SelectExpandIcon(),
     required this.popup,
     required this.itemBuilder,
     this.valueSelectionHandler,
     this.valueSelectionPredicate,
     this.showValuePredicate,
+    this.adaptiveOverlay,
   });
 
   /// Builds the widget tree for this component state.
@@ -167,10 +183,12 @@ class ControlledSelect<T> extends StatelessWidget
           focusNode: focusNode,
           constraints: constraints,
           popupConstraints: popupConstraints,
+          overlayConfiguration: overlayConfiguration,
           popupWidthConstraint: popupWidthConstraint,
           value: data.value,
           borderRadius: borderRadius,
           padding: padding,
+          decoration: decoration,
           popoverAlignment: popoverAlignment,
           popoverAnchorAlignment: popoverAnchorAlignment,
           disableHoverEffect: disableHoverEffect,
@@ -181,7 +199,9 @@ class ControlledSelect<T> extends StatelessWidget
           valueSelectionHandler: valueSelectionHandler,
           valueSelectionPredicate: valueSelectionPredicate,
           showValuePredicate: showValuePredicate,
+          expandIcon: expandIcon,
           popup: popup,
+          adaptiveOverlay: adaptiveOverlay,
         );
       },
       initialValue: initialValue,

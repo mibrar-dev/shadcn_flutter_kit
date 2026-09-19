@@ -12,6 +12,12 @@ enum InputFeaturePosition {
 
   /// Display the feature on the trailing side.
   trailing,
+
+  /// Display above the editable text.
+  above,
+
+  /// Display below the editable text.
+  below,
 }
 
 /// A callback that provides suggestions based on a query string.

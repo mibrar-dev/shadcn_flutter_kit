@@ -59,6 +59,26 @@ class FormattedObjectInput<T> extends StatefulWidget
   /// Offset for the popover position.
   final Offset? popoverOffset;
 
+  /// Upstream-parity overlay configuration override for the popup.
+  ///
+  /// Accepted and stored for API compatibility. The registry popup is always
+  /// presented via [PopoverController] with the `popover*` parameters above,
+  /// which has no `OverlayConfiguration` concept, so this value cannot be
+  /// honored.
+  @Deprecated(
+    'Stored for upstream parity only; use popoverAlignment/popoverAnchorAlignment/popoverOffset instead.',
+  )
+  final Object? overlayConfiguration;
+
+  /// Upstream-parity adaptive overlay flag for the popup.
+  ///
+  /// Accepted and stored for API compatibility. The registry popup always
+  /// presents as an anchored popover, so this value cannot be honored.
+  @Deprecated(
+    'Stored for upstream parity only; the registry popup is never adaptive.',
+  )
+  final bool? adaptiveOverlay;
+
   /// Icon displayed in the popover trigger.
   final Widget? popoverIcon;
 
@@ -75,6 +95,8 @@ class FormattedObjectInput<T> extends StatefulWidget
     this.popoverAlignment,
     this.popoverAnchorAlignment,
     this.popoverOffset,
+    this.overlayConfiguration,
+    this.adaptiveOverlay,
     this.popoverIcon,
     this.onPartsChanged,
   });

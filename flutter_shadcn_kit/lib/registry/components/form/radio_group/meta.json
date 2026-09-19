@@ -58,7 +58,8 @@
       "`RadioItem<T>` \u2014 standard radio row.",
       "`RadioCard<T>` \u2014 card-style radio option.",
       "`ControlledRadioGroup<T>` \u2014 controller-backed group.",
-      "`RadioGroupController<T>` \u2014 controller."
+      "`RadioGroupController<T>` \u2014 controller.",
+      "`NextItemIntent` / `PreviousItemIntent` \u2014 public keyboard-navigation intents (aliases)."
     ],
     "callbacks": [
       "`onChanged`"

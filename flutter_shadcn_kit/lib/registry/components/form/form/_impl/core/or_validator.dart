@@ -80,7 +80,7 @@ class OrValidator<T> extends Validator<T> {
   /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
-    return other is OrValidator && listEquals(other.validators, validators);
+    return other is OrValidator<T> && listEquals(other.validators, validators);
   }
 
   /// Flag indicating whether `hashCode` is enabled/active.

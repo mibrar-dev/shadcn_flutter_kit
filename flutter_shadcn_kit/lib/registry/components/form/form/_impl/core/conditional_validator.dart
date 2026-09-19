@@ -66,7 +66,7 @@ class ConditionalValidator<T> extends Validator<T> {
   /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
-    return other is ConditionalValidator &&
+    return other is ConditionalValidator<T> &&
         other.predicate == predicate &&
         other.message == message;
   }

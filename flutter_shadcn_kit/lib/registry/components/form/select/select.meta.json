@@ -22,11 +22,18 @@
   "api": {
     "constructors": [
       "`Select<T>` — single-value select.",
+      "`ControlledSelect<T>` — controller-backed single select.",
       "`MultiSelect<T>` — multi-value select.",
+      "`ControlledMultiSelect<T>` — controller-backed multi-select.",
       "`SelectItem<T>` — item row.",
       "`SelectGroup` — grouped items.",
       "`SelectPopup` — menu/popup builders.",
       "`SelectController<T>` / `MultiSelectController<T>` — controllers.",
+      "`SelectExpandIcon` — default expand icon (pass `expandIcon: null` to hide).",
+      "`SelectData` — popup state incl. `expandIcon`.",
+      "`SelectTheme` — incl. `overlayConfiguration`, `adaptiveOverlay`, `decoration`.",
+      "`OverlayConfiguration` / `PopoverConfiguration` — popup presentation passthrough wired to `PopoverController`.",
+      "`popupWidthConstraint` — legacy width alias, used when `overlayConfiguration` is null.",
       "Builder types: `SelectPopupBuilder`, `SelectValueBuilder`."
     ],
     "callbacks": [

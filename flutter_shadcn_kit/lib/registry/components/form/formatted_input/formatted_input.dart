@@ -23,6 +23,7 @@ import '../text_field/text_field.dart';
 part '_impl/themes/base/formatted_input_theme.dart';
 
 part '_impl/utils/_editable_part_controller.dart';
+part '_impl/utils/formatted_selection_coordinator.dart';
 part '_impl/core/_editable_part_widget.dart';
 part '_impl/state/_editable_part_widget_state.dart';
 part '_impl/state/_formatted_input_state.dart';

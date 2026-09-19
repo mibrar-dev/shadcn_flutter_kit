@@ -179,7 +179,8 @@ class ChipEditingController<T> extends TextEditingController {
                   text.codeUnitAt(i + 1) >= _chipStart &&
                   text.codeUnitAt(i + 1) <= _chipEnd;
               children.add(
-                WidgetSpan(
+                ChipSpan<T>(
+                  value: chip as T,
                   alignment: PlaceholderAlignment.middle,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -294,6 +295,87 @@ class ChipEditingController<T> extends TextEditingController {
       }
     }
     return buffer.toString();
+  }
+
+  /// Returns the spans covered by [selection], with chips as [ChipSpan]s.
+  ///
+  /// Runs of plain text become [TextSpan]s and each chip becomes a
+  /// [ChipSpan] carrying its value. Used to serialize a selection to the
+  /// clipboard so chips copy as their value instead of their placeholder
+  /// codepoint.
+  ///
+  /// Upstream parity: ported from `chip_input.dart` upstream.
+  List<InlineSpan> getSelectionSpans(TextSelection selection) {
+    final String text = value.text;
+    if (!selection.isValid) return const [];
+    final int start = selection.start.clamp(0, text.length);
+    final int end = selection.end.clamp(0, text.length);
+    final List<InlineSpan> spans = [];
+    final StringBuffer buffer = StringBuffer();
+    for (int i = start; i < end; i++) {
+      int codeUnit = text.codeUnitAt(i);
+      if (codeUnit >= _chipStart && codeUnit <= _chipEnd) {
+        if (buffer.isNotEmpty) {
+          spans.add(TextSpan(text: buffer.toString()));
+          buffer.clear();
+        }
+        T? chip = _chipMap[codeUnit - _chipStart];
+        if (chip != null) {
+          spans.add(ChipSpan<T>(value: chip, child: const SizedBox.shrink()));
+        }
+      } else {
+        buffer.writeCharCode(codeUnit);
+      }
+    }
+    if (buffer.isNotEmpty) {
+      spans.add(TextSpan(text: buffer.toString()));
+    }
+    return spans;
+  }
+
+  /// Replaces the current selection with the given [spans].
+  ///
+  /// [ChipSpan]s are inserted as chips (registered in the chip map), while
+  /// [TextSpan]s and their text descendants are inserted as plain text. If the
+  /// selection is not valid the spans are appended at the end. Used to
+  /// reconstruct pasted content produced by a [ClipboardHandler].
+  ///
+  /// Upstream parity: ported from `chip_input.dart` upstream.
+  void replaceSelectionWithSpans(List<InlineSpan> spans) {
+    final String text = value.text;
+    final TextSelection selection = value.selection;
+    final int start = selection.isValid ? selection.start : text.length;
+    final int end = selection.isValid ? selection.end : text.length;
+    final StringBuffer buffer = StringBuffer();
+    buffer.write(text.substring(0, start));
+    for (final span in spans) {
+      _writeSpan(buffer, span);
+    }
+    final int newOffset = buffer.length;
+    buffer.write(text.substring(end));
+    super.value = TextEditingValue(
+      text: buffer.toString(),
+      selection: TextSelection.collapsed(offset: newOffset),
+    );
+    _updateText(buffer.toString());
+  }
+
+  void _writeSpan(StringBuffer buffer, InlineSpan span) {
+    if (span is ChipSpan<T>) {
+      int chipIndex = _nextAvailableChipIndex;
+      buffer.writeCharCode(_chipStart + chipIndex);
+      _chipMap[chipIndex] = span.value;
+    } else if (span is TextSpan) {
+      if (span.text != null) {
+        buffer.write(span.text);
+      }
+      final children = span.children;
+      if (children != null) {
+        for (final child in children) {
+          _writeSpan(buffer, child);
+        }
+      }
+    }
   }
 
   /// Returns the text at the current cursor position.

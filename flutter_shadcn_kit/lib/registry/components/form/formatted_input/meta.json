@@ -56,6 +56,7 @@
     "_impl/utils/_editable_part_controller.dart",
     "_impl/utils/_formatted_object_controller.dart",
     "_impl/utils/formatted_input_controller.dart",
+    "_impl/utils/formatted_selection_coordinator.dart",
     "formatted_input.dart"
   ],
   "api": {
@@ -65,11 +66,13 @@
       "`onChanged` (`ValueChanged<FormattedValue>?`)",
       "`controller` (`FormattedInputController?`)",
       "`style`, `leading`, `trailing`, `enabled`",
-      "`FormattedObjectInput<T>` \u2014 formatted input with popup editor.",
-      "`FormattedInputController` \u2014 controller for formatted values.",
-      "`FormattedValue` \u2014 list of `FormattedValuePart` entries.",
-      "`FormattedValuePart` \u2014 `static`, `editable`, or `widget` parts.",
-      "`InputPart`, `EditablePart`, `StaticPart` \u2014 low-level part types."
+      "Cross-part selection: select-all + combined-copy via internal coordinator (upstream parity).",
+      "`FormattedObjectInput<T>` — formatted input with popup editor.",
+      "`overlayConfiguration`, `adaptiveOverlay` (`@Deprecated`, stored for upstream parity)",
+      "`FormattedInputController` — controller for formatted values.",
+      "`FormattedValue` — list of `FormattedValuePart` entries.",
+      "`FormattedValuePart` — `static`, `editable`, or `widget` parts.",
+      "`InputPart`, `EditablePart`, `StaticPart` — low-level part types."
     ],
     "callbacks": []
   },

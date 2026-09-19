@@ -25,7 +25,21 @@ mixin SelectBase<T> {
   /// Size constraints for the popup menu.
   BoxConstraints? get popupConstraints;
 
+  /// Overrides the [OverlayConfiguration] used to present the popup. When
+  /// null, the legacy popup knobs ([popoverAlignment],
+  /// [popoverAnchorAlignment], [popupWidthConstraint]) are used instead.
+  OverlayConfiguration? get overlayConfiguration;
+
+  /// Whether the popup may adapt to a different presentation on mobile
+  /// platforms. Accepted for upstream API parity; the registry overlay
+  /// always presents a popover, so this is currently stored but not honored.
+  bool? get adaptiveOverlay;
+
   /// How popup width should relate to trigger width.
+  ///
+  /// Alias kept for backwards compatibility. Used when
+  /// [overlayConfiguration] is null; otherwise the configuration's
+  /// `widthConstraint` wins.
   PopoverConstraint get popupWidthConstraint;
 
   /// Border radius of the select trigger.
@@ -33,6 +47,10 @@ mixin SelectBase<T> {
 
   /// Internal padding of the select trigger.
   EdgeInsetsGeometry? get padding;
+
+  /// Overrides the decoration of the select trigger, resolved per
+  /// [WidgetState]. See [SelectTheme.decoration].
+  WidgetStatePropertyDelegate<Decoration>? get decoration;
 
   /// Alignment of popup relative to trigger.
   AlignmentGeometry get popoverAlignment;
@@ -63,4 +81,7 @@ mixin SelectBase<T> {
 
   /// Predicate for showing value in trigger.
   Predicate<T>? get showValuePredicate;
+
+  /// Expand icon for the select.
+  Widget? get expandIcon;
 }

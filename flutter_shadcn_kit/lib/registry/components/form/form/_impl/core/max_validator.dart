@@ -42,10 +42,9 @@ class MaxValidator<T extends num> extends Validator<T> {
       if (value > max) {
         return InvalidResult(
           message ??
-              Localizations.of(
+              ShadcnLocalizations.of(
                 context,
-                ShadcnLocalizations,
-              ).formLessThanOrEqualTo(max),
+              ).formLessThanOrEqualTo(_describeValue(max)),
           state: state,
         );
       }
@@ -53,7 +52,7 @@ class MaxValidator<T extends num> extends Validator<T> {
       if (value >= max) {
         return InvalidResult(
           message ??
-              Localizations.of(context, ShadcnLocalizations).formLessThan(max),
+              ShadcnLocalizations.of(context).formLessThan(_describeValue(max)),
           state: state,
         );
       }

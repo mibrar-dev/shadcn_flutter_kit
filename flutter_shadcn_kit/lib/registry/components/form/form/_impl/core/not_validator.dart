@@ -32,7 +32,7 @@ class NotValidator<T> extends Validator<T> {
     T? value,
     FormValidationMode state,
   ) {
-    var localizations = Localizations.of(context, ShadcnLocalizations);
+    var localizations = ShadcnLocalizations.of(context);
     var result = validator.validate(context, value, state);
     if (result is Future<ValidationResult?>) {
       return result.then((value) {
@@ -53,7 +53,7 @@ class NotValidator<T> extends Validator<T> {
   /// Compares this object with another for value equality.
   @override
   operator ==(Object other) {
-    return other is NotValidator &&
+    return other is NotValidator<T> &&
         other.validator == validator &&
         other.message == message;
   }

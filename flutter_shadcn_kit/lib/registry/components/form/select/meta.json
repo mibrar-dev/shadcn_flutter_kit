@@ -68,16 +68,25 @@
     "_impl/utils/select_controller.dart",
     "_impl/utils/select_item_builder.dart",
     "_impl/utils/select_item_delegate.dart",
+    "_impl/core/select_expand_icon.dart",
+    "_impl/utils/select_overlay_configuration.dart",
     "select.dart"
   ],
   "api": {
     "constructors": [
       "`Select<T>` \u2014 single-value select.",
+      "`ControlledSelect<T>` \u2014 controller-backed single select.",
       "`MultiSelect<T>` \u2014 multi-value select.",
+      "`ControlledMultiSelect<T>` \u2014 controller-backed multi-select.",
       "`SelectItem<T>` \u2014 item row.",
       "`SelectGroup` \u2014 grouped items.",
       "`SelectPopup` \u2014 menu/popup builders.",
       "`SelectController<T>` / `MultiSelectController<T>` \u2014 controllers.",
+      "`SelectExpandIcon` \u2014 default expand icon (pass `expandIcon: null` to hide).",
+      "`SelectData` \u2014 popup state incl. `expandIcon`.",
+      "`SelectTheme` \u2014 incl. `overlayConfiguration`, `adaptiveOverlay`, `decoration`.",
+      "`OverlayConfiguration` / `PopoverConfiguration` \u2014 popup presentation passthrough wired to `PopoverController`.",
+      "`popupWidthConstraint` \u2014 legacy width alias, used when `overlayConfiguration` is null.",
       "Builder types: `SelectPopupBuilder`, `SelectValueBuilder`."
     ],
     "callbacks": [

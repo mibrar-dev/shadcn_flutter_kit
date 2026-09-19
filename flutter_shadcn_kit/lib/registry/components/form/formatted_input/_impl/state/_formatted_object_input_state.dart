@@ -140,6 +140,11 @@ class _FormattedObjectInputState<T> extends State<FormattedObjectInput<T>> {
   }
 
   /// Performs `_openPopover` logic for this form component.
+  ///
+  /// Note: [FormattedObjectInput.overlayConfiguration] and
+  /// [FormattedObjectInput.adaptiveOverlay] are accepted and stored for
+  /// upstream parity but cannot be honored by [PopoverController]; the popup
+  /// is always presented with the `popover*` parameters below.
   void _openPopover() {
     var popupBuilder = widget.popupBuilder;
     if (popupBuilder == null) {

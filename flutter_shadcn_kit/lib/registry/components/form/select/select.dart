@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 
 import '../../utility/async/async.dart';
 import '../../control/button/button.dart';
+import '../../control/clickable/clickable.dart'
+    show WidgetStatePropertyDelegate;
 import '../../display/chip/chip.dart';
 import '../../control/command/command.dart';
 import '../../overlay/dialog/dialog.dart';
@@ -41,6 +43,7 @@ part '_impl/core/multi_select.dart';
 part '_impl/core/multi_select_chip.dart';
 part '_impl/utils/multi_select_controller.dart';
 part '_impl/core/select_base.dart';
+part '_impl/core/select_expand_icon.dart';
 part '_impl/utils/select_controller.dart';
 part '_impl/core/select_data.dart';
 part '_impl/core/select_group.dart';
@@ -48,6 +51,7 @@ part '_impl/core/select_item.dart';
 part '_impl/utils/select_item_builder.dart';
 part '_impl/core/select_item_button.dart';
 part '_impl/utils/select_item_delegate.dart';
+part '_impl/utils/select_overlay_configuration.dart';
 part '_impl/core/select_item_list.dart';
 part '_impl/core/select_label.dart';
 part '_impl/core/select_popup.dart';
@@ -205,7 +209,25 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   @override
   final BoxConstraints? popupConstraints;
 
+  /// Overrides the [OverlayConfiguration] used to present the popup. When
+  /// null, the legacy [popoverAlignment], [popoverAnchorAlignment] and
+  /// [popupWidthConstraint] knobs are used instead. Wired to
+  /// [PopoverController] in [SelectState].
+  @override
+  final OverlayConfiguration? overlayConfiguration;
+
+  /// Whether the popup may adapt to a different presentation on mobile
+  /// platforms. Accepted for upstream API parity; the registry overlay
+  /// always presents a popover, so this is stored but currently not honored.
+  @override
+  @Deprecated('Use theme: SelectTheme(adaptiveOverlay: ...) instead.')
+  final bool? adaptiveOverlay;
+
   /// Field storing `popupWidthConstraint` for this form implementation.
+  ///
+  /// Alias kept for backwards compatibility. Used when
+  /// [overlayConfiguration] is null; otherwise the configuration's
+  /// `widthConstraint` wins.
   @override
   final PopoverConstraint popupWidthConstraint;
 
@@ -219,6 +241,12 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   /// Field storing `padding` for this form implementation.
   @override
   final EdgeInsetsGeometry? padding;
+
+  /// Overrides the decoration of the select trigger, resolved per
+  /// [WidgetState]. See [SelectTheme.decoration].
+  @override
+  @Deprecated('Use theme: SelectTheme(decoration: ...) instead.')
+  final WidgetStatePropertyDelegate<Decoration>? decoration;
 
   /// Field storing `popoverAlignment` for this form implementation.
   @override
@@ -263,6 +291,10 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   @override
   final Predicate<T>? showValuePredicate;
 
+  /// Expand icon for the select. When null, no expand icon is shown.
+  @override
+  final Widget? expandIcon;
+
   /// Creates a single-selection dropdown widget.
   ///
   /// The [popup] and [itemBuilder] parameters are required to define the
@@ -276,11 +308,13 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   /// - [focusNode] (FocusNode?): Focus node for keyboard interaction
   /// - [constraints] (BoxConstraints?): Size constraints for the select button
   /// - [popupConstraints] (BoxConstraints?): Size constraints for the popup menu
+  /// - [overlayConfiguration] (OverlayConfiguration?): overrides the popup presentation
   /// - [popupWidthConstraint] (PopoverConstraint): Width constraint mode for popup, defaults to `PopoverConstraint.anchorFixedSize`
   /// - [value] (T?): Currently selected value
   /// - [disableHoverEffect] (bool): Whether to disable hover visual feedback, defaults to false
   /// - [borderRadius] (BorderRadiusGeometry?): Custom border radius
   /// - [padding] (EdgeInsetsGeometry?): Custom padding
+  /// - [decoration] (`WidgetStatePropertyDelegate<Decoration>?`): Per-state override of the trigger decoration
   /// - [popoverAlignment] (AlignmentGeometry): Popup alignment, defaults to `Alignment.topCenter`
   /// - [popoverAnchorAlignment] (AlignmentGeometry?): Anchor alignment for popup positioning
   /// - [canUnselect] (bool): Whether user can deselect current value, defaults to false
@@ -289,6 +323,8 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   /// - [valueSelectionHandler] (`SelectValueSelectionHandler<T>?`): Custom selection logic
   /// - [valueSelectionPredicate] (`SelectValueSelectionPredicate<T>?`): Predicate for allowing selection
   /// - [showValuePredicate] (`Predicate<T>?`): Predicate for showing items
+  /// - [expandIcon] (Widget?): The expand icon for the select, defaults to [SelectExpandIcon]; null hides it
+  /// - [adaptiveOverlay] (bool?): whether an adaptive presentation runs for this overlay (stored, popover always used)
   /// - [popup] (SelectPopupBuilder): Required builder for popup content
   /// - [itemBuilder] (`SelectValueBuilder<T>`): Required builder for selected value display
   const Select({
@@ -299,11 +335,13 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
     this.focusNode,
     this.constraints,
     this.popupConstraints,
+    this.overlayConfiguration,
     this.popupWidthConstraint = PopoverConstraint.anchorFixedSize,
     this.value,
     this.disableHoverEffect = false,
     this.borderRadius,
     this.padding,
+    this.decoration,
     this.popoverAlignment = Alignment.topCenter,
     this.popoverAnchorAlignment,
     this.canUnselect = false,
@@ -312,8 +350,10 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
     this.valueSelectionHandler,
     this.valueSelectionPredicate,
     this.showValuePredicate,
+    this.expandIcon = const SelectExpandIcon(),
     required this.popup,
     required this.itemBuilder,
+    this.adaptiveOverlay,
   });
 
   /// Creates the `State` object for this widget.

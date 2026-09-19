@@ -15,6 +15,10 @@ import '_impl/styles/shad_slider_presets.dart';
 import '_impl/themes/base/slider_theme.dart';
 
 export '_impl/core/shad_slider_renderers.dart';
+export '_impl/core/upstream_slider_controller.dart';
+export '_impl/core/upstream_controlled_slider.dart';
+export '_impl/core/upstream_slider_intents.dart';
+export '_impl/core/upstream_slider_value_indicator.dart';
 export '_impl/variants/base_slider_variant.dart';
 export '_impl/variants/brightness_slider.dart';
 export '_impl/variants/range_soft_slider.dart';
@@ -29,6 +33,13 @@ export '_impl/variants/wave_slider.dart';
 ///
 /// Thumb placement can be controlled with [thumbEdgeOffsetPx] and
 /// [thumbVerticalOffsetPx].
+///
+/// Upstream parity note: the registry [Slider] preset API (double-based
+/// values, `ShadSnap`, pluggable builders) is retained unchanged. The
+/// upstream `SliderValue`-based API is available additively via
+/// [SliderController], [ControlledSlider], [IncreaseSliderValue],
+/// [DecreaseSliderValue], [SliderValueIndicator] and
+/// [SliderValueIndicatorBuilder] (exported from `_impl/core/upstream_*`).
 class Slider extends StatefulWidget {
   const Slider._({
     super.key,

@@ -67,7 +67,7 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
     T? value,
     FormValidationMode state,
   ) {
-    var localizations = Localizations.of(context, ShadcnLocalizations);
+    var localizations = ShadcnLocalizations.of(context);
     var otherValue = context.getFormValue(key);
     if (otherValue == null) {
       return InvalidResult(message ?? localizations.invalidValue, state: state);
@@ -77,7 +77,8 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
       case CompareType.greater:
         if (compare <= 0) {
           return InvalidResult(
-            message ?? localizations.formGreaterThan(otherValue),
+            message ??
+                localizations.formGreaterThan(_describeValue(otherValue)),
             state: state,
           );
         }
@@ -85,7 +86,10 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
       case CompareType.greaterOrEqual:
         if (compare < 0) {
           return InvalidResult(
-            message ?? localizations.formGreaterThanOrEqualTo(otherValue),
+            message ??
+                localizations.formGreaterThanOrEqualTo(
+                  _describeValue(otherValue),
+                ),
             state: state,
           );
         }
@@ -93,7 +97,7 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
       case CompareType.less:
         if (compare >= 0) {
           return InvalidResult(
-            message ?? localizations.formLessThan(otherValue),
+            message ?? localizations.formLessThan(_describeValue(otherValue)),
             state: state,
           );
         }
@@ -101,7 +105,8 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
       case CompareType.lessOrEqual:
         if (compare > 0) {
           return InvalidResult(
-            message ?? localizations.formLessThanOrEqualTo(otherValue),
+            message ??
+                localizations.formLessThanOrEqualTo(_describeValue(otherValue)),
             state: state,
           );
         }
@@ -109,7 +114,7 @@ class CompareWith<T extends Comparable<T>> extends Validator<T> {
       case CompareType.equal:
         if (compare != 0) {
           return InvalidResult(
-            message ?? localizations.formEqualTo(otherValue),
+            message ?? localizations.formEqualTo(_describeValue(otherValue)),
             state: state,
           );
         }

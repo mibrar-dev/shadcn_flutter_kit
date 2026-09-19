@@ -25,6 +25,45 @@ class ChipInputState<T> extends State<ChipInput<T>>
     );
   }
 
+  ClipboardHandler<T> get _clipboardHandler =>
+      widget.clipboardHandler ?? DefaultChipClipboardHandler<T>();
+
+  void _handleCopySelection(CopySelectionTextIntent intent) {
+    final selection = _controller.selection;
+    if (!selection.isValid || selection.isCollapsed) {
+      return;
+    }
+    final spans = _controller.getSelectionSpans(selection);
+    final serialized = _clipboardHandler.serializeClipboard(spans);
+    if (serialized.isNotEmpty) {
+      Clipboard.setData(ClipboardData(text: serialized));
+    }
+    // A collapsing intent (i.e. cut) removes the selection after copying.
+    if (intent.collapseSelection) {
+      final text = _controller.value.text;
+      final newText = selection.textBefore(text) + selection.textAfter(text);
+      _controller.value = TextEditingValue(
+        text: newText,
+        selection: TextSelection.collapsed(offset: selection.start),
+      );
+      widget.onChipsChanged?.call(_controller.chips);
+    }
+  }
+
+  Future<void> _handlePaste(PasteTextIntent intent) async {
+    final data = await Clipboard.getData(Clipboard.kTextPlain);
+    final content = data?.text;
+    if (content == null || content.isEmpty) {
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    final spans = _clipboardHandler.deserializeClipboard(content);
+    _controller.replaceSelectionWithSpans(spans);
+    widget.onChipsChanged?.call(_controller.chips);
+  }
+
   /// Initializes stateful resources for this widget.
   @override
   void initState() {
@@ -91,6 +130,18 @@ class ChipInputState<T> extends State<ChipInput<T>>
         },
         child: Actions(
           actions: {
+            CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
+              onInvoke: (intent) {
+                _handleCopySelection(intent);
+                return null;
+              },
+            ),
+            PasteTextIntent: CallbackAction<PasteTextIntent>(
+              onInvoke: (intent) {
+                _handlePaste(intent);
+                return null;
+              },
+            ),
             if (widget.autoInsertSuggestion)
               AutoCompleteIntent: Action.overridable(
                 defaultAction: CallbackAction<AutoCompleteIntent>(

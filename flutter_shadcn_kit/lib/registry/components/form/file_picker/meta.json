@@ -42,6 +42,7 @@
     "_impl/core/file_upload_items_view.dart",
     "_impl/core/file_upload_options.dart",
     "_impl/core/file_upload_widget.dart",
+    "_impl/core/upstream_file_picker_compat.dart",
     "_impl/state/_file_picker_preview_state.dart",
     "_impl/state/file_upload_state.dart",
     "_impl/state/file_upload_state_compact.dart",
@@ -77,7 +78,8 @@
       "`files` (`List<FileLike>?`), `controller` (`FileUploadController?`)",
       "`allowMultiple`, `maxFiles`, `maxFileSizeBytes`, `allowedExtensions`, `allowedMimeTypes`",
       "`maxConcurrentUploads` (`int`, default `1`) for sequential/batched uploads",
-      "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`"
+      "`onFilesSelected`, `onFilesChanged`, `onProgress`, `onComplete`, `onError`",
+      "Upstream-compat shims (deprecated): `FilePicker` + `UpstreamFileItem` (upstream `FileItem` signature; registry `FileItem` name is taken by the FileUpload system)"
     ]
   },
   "version": "1.1.0"

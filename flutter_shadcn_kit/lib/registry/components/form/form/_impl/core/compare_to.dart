@@ -67,13 +67,14 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
     T? value,
     FormValidationMode state,
   ) {
-    var localizations = Localizations.of(context, ShadcnLocalizations);
+    var localizations = ShadcnLocalizations.of(context);
     var compare = _compare(value, this.value);
     switch (type) {
       case CompareType.greater:
         if (compare <= 0) {
           return InvalidResult(
-            message ?? localizations.formGreaterThan(this.value),
+            message ??
+                localizations.formGreaterThan(_describeValue(this.value)),
             state: state,
           );
         }
@@ -81,7 +82,10 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
       case CompareType.greaterOrEqual:
         if (compare < 0) {
           return InvalidResult(
-            message ?? localizations.formGreaterThanOrEqualTo(this.value),
+            message ??
+                localizations.formGreaterThanOrEqualTo(
+                  _describeValue(this.value),
+                ),
             state: state,
           );
         }
@@ -89,7 +93,7 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
       case CompareType.less:
         if (compare >= 0) {
           return InvalidResult(
-            message ?? localizations.formLessThan(this.value),
+            message ?? localizations.formLessThan(_describeValue(this.value)),
             state: state,
           );
         }
@@ -97,7 +101,8 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
       case CompareType.lessOrEqual:
         if (compare > 0) {
           return InvalidResult(
-            message ?? localizations.formLessThanOrEqualTo(this.value),
+            message ??
+                localizations.formLessThanOrEqualTo(_describeValue(this.value)),
             state: state,
           );
         }
@@ -105,7 +110,7 @@ class CompareTo<T extends Comparable<T>> extends Validator<T> {
       case CompareType.equal:
         if (compare != 0) {
           return InvalidResult(
-            message ?? localizations.formEqualTo(this.value),
+            message ?? localizations.formEqualTo(_describeValue(this.value)),
             state: state,
           );
         }

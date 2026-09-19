@@ -32,7 +32,7 @@ class EmailValidator extends Validator<String> {
     }
     if (!email_validator.EmailValidator.validate(value)) {
       return InvalidResult(
-        message ?? Localizations.of(context, ShadcnLocalizations).invalidEmail,
+        message ?? ShadcnLocalizations.of(context).invalidEmail,
         state: state,
       );
     }

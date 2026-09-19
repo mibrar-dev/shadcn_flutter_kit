@@ -27,6 +27,30 @@ class AutoComplete extends StatefulWidget {
   /// Alignment point on the popover for anchor attachment.
   final AlignmentDirectional? popoverAlignment;
 
+  /// Overrides the overlay configuration used to present the suggestion
+  /// popover.
+  ///
+  /// Upstream parity: accepted and stored for API compatibility. The registry
+  /// [PopoverController] architecture has no `OverlayConfiguration` concept,
+  /// so this value cannot be honored; presentation is driven by
+  /// [popoverConstraints], [popoverWidthConstraint], [popoverAnchorAlignment]
+  /// and [popoverAlignment].
+  @Deprecated(
+    'Stored for upstream parity only; use popoverWidthConstraint/popoverAlignment instead.',
+  )
+  final Object? overlayConfiguration;
+
+  /// Whether the suggestion popover may adapt to a different presentation on
+  /// mobile platforms.
+  ///
+  /// Upstream parity: accepted and stored for API compatibility. The registry
+  /// [PopoverController] always presents an anchored popover, so this value
+  /// cannot be honored.
+  @Deprecated(
+    'Stored for upstream parity only; the registry popover is never adaptive.',
+  )
+  final bool? adaptiveOverlay;
+
   /// Text replacement strategy when a suggestion is selected.
   final AutoCompleteMode? mode;
 
@@ -42,6 +66,8 @@ class AutoComplete extends StatefulWidget {
     this.popoverWidthConstraint,
     this.popoverAnchorAlignment,
     this.popoverAlignment,
+    this.overlayConfiguration,
+    this.adaptiveOverlay,
     this.mode,
     this.completer = _defaultCompleter,
   });

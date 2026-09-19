@@ -33,6 +33,7 @@ export '_impl/utils/file_upload_models.dart';
 part '_impl/core/file_upload_options.dart';
 part '_impl/core/file_upload_widget.dart';
 part '_impl/core/file_item.dart';
+part '_impl/core/upstream_file_picker_compat.dart';
 part '_impl/core/file_upload_items_view.dart';
 part '_impl/state/file_upload_state.dart';
 part '_impl/state/file_upload_state_compact.dart';

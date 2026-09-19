@@ -37,6 +37,8 @@
     "_impl/themes/config/chip_input_theme_schema.dart",
     "_impl/themes/config/chip_input_theme_tokens.dart",
     "_impl/utils/_chip_provider.dart",
+    "_impl/utils/chip_span.dart",
+    "_impl/utils/chip_clipboard_handler.dart",
     "_impl/utils/chip_editing_controller.dart",
     "_impl/utils/chip_submit_intent.dart",
     "chip_input.dart"
@@ -50,7 +52,9 @@
       "`initialChips` (`List<T>?`)",
       "`useChips` (`bool?`)",
       "`autoInsertSuggestion` (`bool`)",
-      "`ChipEditingController<T>` \u2014 controller for chip text and values."
+      "`clipboardHandler` (`ClipboardHandler<T>?`) — copy/paste serialization.",
+      "`ChipSpan<T>`, `ClipboardHandler<T>`, `DefaultChipClipboardHandler<T>`, `DecoratedChipClipboardHandler<T>` — upstream-parity clipboard support.",
+      "`ChipEditingController<T>` — controller for chip text and values."
     ],
     "callbacks": [
       "`onChipsChanged`"

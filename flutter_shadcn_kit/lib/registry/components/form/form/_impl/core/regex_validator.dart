@@ -36,7 +36,7 @@ class RegexValidator extends Validator<String> {
     }
     if (!pattern.hasMatch(value)) {
       return InvalidResult(
-        message ?? Localizations.of(context, ShadcnLocalizations).invalidValue,
+        message ?? ShadcnLocalizations.of(context).invalidValue,
         state: state,
       );
     }

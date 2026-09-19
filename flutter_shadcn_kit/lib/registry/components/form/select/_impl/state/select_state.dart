@@ -38,6 +38,14 @@ class SelectState<T> extends State<Select<T>>
     defaultValue: null,
   );
 
+  OverlayConfiguration? get _overlayConfigurationOverride =>
+      widget.overlayConfiguration ?? _theme?.overlayConfiguration;
+
+  // NOTE: widget.adaptiveOverlay / theme.adaptiveOverlay are accepted and
+  // stored for upstream API parity, but the registry overlay always presents
+  // a popover (no adaptive drawer conversion), so there is nothing to
+  // resolve here yet.
+
   AlignmentGeometry get _popoverAlignment => styleValue(
     widgetValue: widget.popoverAlignment,
     themeValue: _theme?.popoverAlignment,
@@ -59,6 +67,12 @@ class SelectState<T> extends State<Select<T>>
   EdgeInsetsGeometry? get _padding => styleValue(
     widgetValue: widget.padding,
     themeValue: _theme?.padding,
+    defaultValue: null,
+  );
+
+  WidgetStatePropertyDelegate<Decoration>? get _decoration => styleValue(
+    widgetValue: widget.decoration,
+    themeValue: _theme?.decoration,
     defaultValue: null,
   );
 
@@ -137,12 +151,18 @@ class SelectState<T> extends State<Select<T>>
     super.dispose();
   }
 
-  BoxDecoration _overrideBorderRadius(
+  /// Applies [Select.borderRadius] and then [Select.decoration], so a decoration
+  /// delegate sees — and can override — the border radius the select resolved.
+  Decoration _overrideDecoration(
     BuildContext context,
     Set<WidgetState> states,
     Decoration value,
   ) {
-    return (value as BoxDecoration).copyWith(borderRadius: _borderRadius);
+    var result = value;
+    if (_borderRadius != null) {
+      result = (result as BoxDecoration).copyWith(borderRadius: _borderRadius);
+    }
+    return _decoration?.call(context, states, result) ?? result;
   }
 
   EdgeInsetsGeometry _overridePadding(
@@ -180,6 +200,8 @@ class SelectState<T> extends State<Select<T>>
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     var enabled = widget.enabled ?? widget.onChanged != null;
+    final overlay = _overlayConfigurationOverride;
+    final popoverConfig = overlay is PopoverConfiguration ? overlay : null;
     return IntrinsicWidth(
       child: ConstrainedBox(
         constraints: widget.constraints ?? const BoxConstraints(),
@@ -196,8 +218,8 @@ class SelectState<T> extends State<Select<T>>
                         ? ButtonVariance.secondary
                         : ButtonVariance.outline)
                     .copyWith(
-                      decoration: _borderRadius != null
-                          ? _overrideBorderRadius
+                      decoration: _borderRadius != null || _decoration != null
+                          ? _overrideDecoration
                           : null,
                       padding: _padding != null ? _overridePadding : null,
                     ),
@@ -210,16 +232,46 @@ class SelectState<T> extends State<Select<T>>
                     _popoverController
                         .show(
                           context: context,
-                          offset: Offset(0, 8 * scaling),
-                          alignment: _popoverAlignment,
-                          anchorAlignment: _popoverAnchorAlignment,
-                          widthConstraint: widget.popupWidthConstraint,
-                          overlayBarrier: OverlayBarrier(
-                            padding: EdgeInsets.symmetric(
-                              vertical: theme.density.baseGap * scaling,
-                            ),
-                            borderRadius: BorderRadius.circular(theme.radiusLg),
-                          ),
+                          offset:
+                              popoverConfig?.offset ?? Offset(0, 8 * scaling),
+                          alignment:
+                              popoverConfig?.alignment ?? _popoverAlignment,
+                          anchorAlignment:
+                              popoverConfig?.anchorAlignment ??
+                              _popoverAnchorAlignment,
+                          widthConstraint:
+                              popoverConfig?.widthConstraint ??
+                              widget.popupWidthConstraint,
+                          heightConstraint:
+                              popoverConfig?.heightConstraint ??
+                              PopoverConstraint.flexible,
+                          modal: popoverConfig?.modal ?? true,
+                          margin: popoverConfig?.margin,
+                          onTickFollow: popoverConfig?.onTickFollow,
+                          follow: popoverConfig?.follow ?? true,
+                          allowInvertHorizontal:
+                              popoverConfig?.allowInvertHorizontal ?? true,
+                          allowInvertVertical:
+                              popoverConfig?.allowInvertVertical ?? true,
+                          dismissBackdropFocus:
+                              popoverConfig?.dismissBackdropFocus ?? true,
+                          regionGroupId: popoverConfig?.regionGroupId,
+                          transitionAlignment:
+                              popoverConfig?.transitionAlignment,
+                          consumeOutsideTaps:
+                              popoverConfig?.consumeOutsideTaps ?? true,
+                          showDuration: popoverConfig?.showDuration,
+                          hideDuration: popoverConfig?.dismissDuration,
+                          overlayBarrier:
+                              popoverConfig?.overlayBarrier ??
+                              OverlayBarrier(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: theme.density.baseGap * scaling,
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  theme.radiusLg,
+                                ),
+                              ),
                           builder: (context) {
                             return ConstrainedBox(
                               constraints:
@@ -240,6 +292,7 @@ class SelectState<T> extends State<Select<T>>
                                       isSelected: _isSelected,
                                       onChanged: _onChanged,
                                       hasSelection: widget.value != null,
+                                      expandIcon: widget.expandIcon,
                                     ),
                                     child: Builder(
                                       key: popupKey,
@@ -258,18 +311,56 @@ class SelectState<T> extends State<Select<T>>
                         });
                   },
             child: WidgetStatesProvider.boundary(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Data.inherit(
-                    data: SelectData(
-                      enabled: enabled,
-                      autoClose: _autoClosePopover,
-                      isSelected: _isSelected,
-                      onChanged: _onChanged,
-                      hasSelection: widget.value != null,
-                    ),
-                    child: Expanded(
+              child: widget.expandIcon != null
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Data.inherit(
+                          data: SelectData(
+                            enabled: enabled,
+                            autoClose: _autoClosePopover,
+                            isSelected: _isSelected,
+                            onChanged: _onChanged,
+                            hasSelection: widget.value != null,
+                            expandIcon: widget.expandIcon,
+                          ),
+                          child: Expanded(
+                            child:
+                                widget.value != null &&
+                                    (widget.showValuePredicate?.call(
+                                          widget.value as T,
+                                        ) ??
+                                        true)
+                                ? Builder(
+                                    builder: (context) {
+                                      return widget.itemBuilder(
+                                        context,
+                                        widget.value as T,
+                                      );
+                                    },
+                                  )
+                                : _placeholder,
+                          ),
+                        ),
+                        SizedBox(width: 8 * scaling),
+                        IconTheme.merge(
+                          data: IconThemeData(
+                            color: theme.colorScheme.foreground,
+                            opacity: 0.5,
+                          ),
+                          child: widget.expandIcon!,
+                        ),
+                      ],
+                    )
+                  : Data.inherit(
+                      data: SelectData(
+                        enabled: enabled,
+                        autoClose: _autoClosePopover,
+                        isSelected: _isSelected,
+                        onChanged: _onChanged,
+                        hasSelection: widget.value != null,
+                        expandIcon: widget.expandIcon,
+                      ),
                       child:
                           widget.value != null &&
                               (widget.showValuePredicate?.call(
@@ -286,25 +377,6 @@ class SelectState<T> extends State<Select<T>>
                             )
                           : _placeholder,
                     ),
-                  ),
-                  SizedBox(width: theme.density.baseGap * scaling),
-                  Builder(
-                    builder: (context) {
-                      final triggerTextColor =
-                          DefaultTextStyle.of(context).style.color ??
-                          theme.colorScheme.secondaryForeground;
-                      return IconTheme.merge(
-                        data: IconThemeData(
-                          color: triggerTextColor.withValues(alpha: 0.72),
-                        ),
-                        child: const Icon(
-                          LucideIcons.chevronsUpDown,
-                        ).iconSmall(),
-                      );
-                    },
-                  ),
-                ],
-              ),
             ),
           ),
         ),

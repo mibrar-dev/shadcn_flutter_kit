@@ -24,7 +24,7 @@ class NotEmptyValidator extends NonNullValidator<String> {
     FormValidationMode state,
   ) {
     if (value == null || value.isEmpty) {
-      var localizations = Localizations.of(context, ShadcnLocalizations);
+      var localizations = ShadcnLocalizations.of(context);
       return InvalidResult(message ?? localizations.formNotEmpty, state: state);
     }
     return null;

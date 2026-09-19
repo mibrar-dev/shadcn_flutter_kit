@@ -28,8 +28,9 @@
     "constructors": [
       "`TextField` — main input widget.",
       "`TextInputStatefulWidget` — shared base for inputs with features.",
-      "`InputFeature` factories — `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
+      "`InputFeature` factories — `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `incrementButton`, `decrementButton`, `above`, `below`, `revalidate`.",
       "`InputFeatureVisibility` — `always`, `focused`, `textNotEmpty`, etc.",
+      "`InputFeaturePosition` — `leading`, `trailing`, `above`, `below`.",
       "`PasswordPeekMode` — `toggle` or `peek`."
     ],
     "callbacks": []

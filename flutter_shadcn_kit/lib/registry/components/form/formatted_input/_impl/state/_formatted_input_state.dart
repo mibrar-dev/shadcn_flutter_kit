@@ -15,6 +15,13 @@ class _FormattedInputState extends State<FormattedInput> {
   /// Focus node/reference used by `_focusNodes` interactions.
   late List<FocusNode> _focusNodes;
 
+  /// Coordinates selection across the separate editable part fields
+  /// (select-all, combined copy, cross-part drag-selection).
+  ///
+  /// Upstream parity: ported from `formatted_input.dart` upstream.
+  late final _FormattedSelectionCoordinator _selectionCoordinator =
+      _FormattedSelectionCoordinator(() => context);
+
   /// Initializes stateful resources for this widget.
   @override
   void initState() {
@@ -63,6 +70,7 @@ class _FormattedInputState extends State<FormattedInput> {
       controller: widget.controller,
       focusNode: index < 0 ? null : _focusNodes[index],
       focusNodes: _focusNodes,
+      selectionCoordinator: widget.enabled ? _selectionCoordinator : null,
     );
     return part.build(context, formattedInputData);
   }
@@ -157,17 +165,31 @@ class _FormattedInputState extends State<FormattedInput> {
                   ),
               child: Form(
                 controller: _controller,
-                child: FocusTraversalGroup(
-                  policy: WidgetOrderTraversalPolicy(),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (widget.leading != null) widget.leading!,
-                        ...children,
-                        if (widget.trailing != null) widget.trailing!,
-                      ],
+                child: Actions(
+                  actions: {
+                    SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+                      onInvoke: (intent) {
+                        _selectionCoordinator.selectAll();
+                        return null;
+                      },
+                    ),
+                    CopySelectionTextIntent: _FormattedInputCopyAction(
+                      _selectionCoordinator,
+                      () => _value,
+                    ),
+                  },
+                  child: FocusTraversalGroup(
+                    policy: WidgetOrderTraversalPolicy(),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (widget.leading != null) widget.leading!,
+                          ...children,
+                          if (widget.trailing != null) widget.trailing!,
+                        ],
+                      ),
                     ),
                   ),
                 ),

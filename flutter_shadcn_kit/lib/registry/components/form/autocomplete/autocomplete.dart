@@ -46,6 +46,20 @@ class AutoCompleteTheme extends ComponentThemeData {
   /// Alignment point on the popover that aligns with the anchor alignment.
   final AlignmentDirectional? popoverAlignment;
 
+  /// Upstream-parity overlay configuration override.
+  ///
+  /// Accepted and stored for API compatibility. The registry
+  /// [PopoverController] architecture has no `OverlayConfiguration` concept,
+  /// so this value cannot be honored; presentation is driven by the
+  /// `popover*` fields above.
+  final Object? overlayConfiguration;
+
+  /// Upstream-parity adaptive overlay flag.
+  ///
+  /// Accepted and stored for API compatibility. The registry popover always
+  /// presents as an anchored popover, so this value cannot be honored.
+  final bool? adaptiveOverlay;
+
   /// Default mode for how suggestions are applied to text fields.
   final AutoCompleteMode? mode;
 
@@ -58,6 +72,8 @@ class AutoCompleteTheme extends ComponentThemeData {
     this.popoverWidthConstraint,
     this.popoverAnchorAlignment,
     this.popoverAlignment,
+    this.overlayConfiguration,
+    this.adaptiveOverlay,
     this.mode,
   });
 
@@ -67,6 +83,8 @@ class AutoCompleteTheme extends ComponentThemeData {
     ValueGetter<PopoverConstraint?>? popoverWidthConstraint,
     ValueGetter<AlignmentDirectional?>? popoverAnchorAlignment,
     ValueGetter<AlignmentDirectional?>? popoverAlignment,
+    ValueGetter<Object?>? overlayConfiguration,
+    ValueGetter<bool?>? adaptiveOverlay,
     ValueGetter<AutoCompleteMode?>? mode,
   }) {
     return AutoCompleteTheme(
@@ -82,6 +100,12 @@ class AutoCompleteTheme extends ComponentThemeData {
       popoverAlignment: popoverAlignment == null
           ? this.popoverAlignment
           : popoverAlignment(),
+      overlayConfiguration: overlayConfiguration == null
+          ? this.overlayConfiguration
+          : overlayConfiguration(),
+      adaptiveOverlay: adaptiveOverlay == null
+          ? this.adaptiveOverlay
+          : adaptiveOverlay(),
       mode: mode == null ? this.mode : mode(),
     );
   }
@@ -95,6 +119,8 @@ class AutoCompleteTheme extends ComponentThemeData {
         other.popoverWidthConstraint == popoverWidthConstraint &&
         other.popoverAnchorAlignment == popoverAnchorAlignment &&
         other.popoverAlignment == popoverAlignment &&
+        other.overlayConfiguration == overlayConfiguration &&
+        other.adaptiveOverlay == adaptiveOverlay &&
         other.mode == mode;
   }
 
@@ -104,6 +130,8 @@ class AutoCompleteTheme extends ComponentThemeData {
     popoverWidthConstraint,
     popoverAnchorAlignment,
     popoverAlignment,
+    overlayConfiguration,
+    adaptiveOverlay,
     mode,
   );
 }

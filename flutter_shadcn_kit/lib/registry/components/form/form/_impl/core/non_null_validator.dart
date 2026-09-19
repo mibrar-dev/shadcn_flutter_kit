@@ -28,7 +28,7 @@ class NonNullValidator<T> extends Validator<T> {
     FormValidationMode state,
   ) {
     if (value == null) {
-      var localizations = Localizations.of(context, ShadcnLocalizations);
+      var localizations = ShadcnLocalizations.of(context);
       return InvalidResult(message ?? localizations.formNotEmpty, state: state);
     }
     return null;

@@ -3,7 +3,7 @@
 part of '../../scaffold.dart';
 
 /// Scaffold defines a reusable type for this registry module.
-class Scaffold extends StatefulWidget {
+class Scaffold extends StatefulWidget implements Styleable<ScaffoldTheme> {
   /// Header widgets displayed at the top of the scaffold.
   final List<Widget> headers;
 
@@ -40,6 +40,11 @@ class Scaffold extends StatefulWidget {
   /// Whether to resize when keyboard appears.
   final bool? resizeToAvoidBottomInset;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ScaffoldTheme? theme;
+
+
   /// Creates a [Scaffold].
   const Scaffold({
     super.key,
@@ -55,6 +60,7 @@ class Scaffold extends StatefulWidget {
     this.footerBackgroundColor,
     this.showLoadingSparks,
     this.resizeToAvoidBottomInset,
+    this.theme,
   });
 
   @override

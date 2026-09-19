@@ -11,7 +11,7 @@ import '../../../shared/utils/style_value.dart';
 part '_impl/themes/base/alert_theme.dart';
 
 /// Flexible alert box for status, warning, and info messages.
-class Alert extends StatelessWidget {
+class Alert extends StatelessWidget implements Styleable<AlertTheme> {
   /// Optional leading widget (icon/avatar).
   final Widget? leading;
 
@@ -27,6 +27,11 @@ class Alert extends StatelessWidget {
   /// Applies destructive styling when true.
   final bool destructive;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AlertTheme? theme;
+
+
   /// Creates a styled [Alert].
   const Alert({
     super.key,
@@ -35,6 +40,7 @@ class Alert extends StatelessWidget {
     this.content,
     this.trailing,
     this.destructive = false,
+    this.theme,
   });
 
   /// Convenience constructor for destructive alerts.
@@ -44,6 +50,7 @@ class Alert extends StatelessWidget {
     this.title,
     this.content,
     this.trailing,
+    this.theme,
   }) : destructive = true;
 
   @override
@@ -65,7 +72,7 @@ class Alert extends StatelessWidget {
   /// Executes `_build` behavior for this component/composite.
   Widget _build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<AlertTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<AlertTheme>(context);
     final densityContentPadding = theme.density.baseContentPadding * theme.scaling;
     final padding = styleValue(
       themeValue: compTheme?.padding,

@@ -3,7 +3,7 @@
 part of '../../window.dart';
 
 /// WindowWidget defines a reusable type for this registry module.
-class WindowWidget extends StatefulWidget {
+class WindowWidget extends StatefulWidget implements Styleable<WindowTheme> {
   /// Widget displayed in the window's title bar.
   ///
   /// Typically a [Text] widget, but can be any widget. Positioned on the
@@ -90,6 +90,11 @@ class WindowWidget extends StatefulWidget {
   /// If `null`, uses the theme's default resize thickness.
   final double? resizeThickness;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final WindowTheme? theme;
+
+
   /// Creates a window with direct state management.
   ///
   /// All window state properties ([bounds], [minimized], etc.) are managed
@@ -129,6 +134,7 @@ class WindowWidget extends StatefulWidget {
     this.maximized,
     bool this.minimized = false,
     BoxConstraints this.constraints = kDefaultWindowConstraints,
+    this.theme,
   }) : controller = null;
 
   /// Creates a window with controller-based state management.
@@ -169,6 +175,7 @@ class WindowWidget extends StatefulWidget {
     required WindowController this.controller,
     this.titleBarHeight,
     this.resizeThickness,
+    this.theme,
   }) : bounds = null,
        maximized = null,
        minimized = null,
@@ -196,6 +203,7 @@ class WindowWidget extends StatefulWidget {
     this.maximized,
     this.minimized,
     this.constraints,
+    this.theme,
   }) : titleBarHeight = null,
        resizeThickness = null;
 

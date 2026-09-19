@@ -3,7 +3,12 @@
 part of '../../outlined_container.dart';
 
 /// OutlinedContainer defines a reusable type for this registry module.
-class OutlinedContainer extends StatefulWidget {
+class OutlinedContainer extends StatefulWidget implements Styleable<OutlinedContainerTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final OutlinedContainerTheme? theme;
+
   /// Creates a `OutlinedContainer` instance.
   const OutlinedContainer({
     super.key,
@@ -21,6 +26,7 @@ class OutlinedContainer extends StatefulWidget {
     this.width,
     this.height,
     this.duration,
+    this.theme,
   });
 
   /// Stores `child` state/configuration for this implementation.

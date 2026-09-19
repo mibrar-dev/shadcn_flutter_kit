@@ -3,7 +3,7 @@
 part of '../../table.dart';
 
 /// Table defines a reusable type for this registry module.
-class Table extends StatefulWidget {
+class Table extends StatefulWidget implements Styleable<TableTheme> {
   /// List of rows to display in the table.
   ///
   /// Type: `List<TableRow>`. Contains the table data organized as rows.

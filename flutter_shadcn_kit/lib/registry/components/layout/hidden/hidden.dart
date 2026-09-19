@@ -14,7 +14,12 @@ part '_impl/themes/base/hidden_theme.dart';
 part '_impl/core/_render_hidden_layout.dart';
 
 /// Shows or hides a single child with optional animation along an axis.
-class Hidden extends StatelessWidget {
+class Hidden extends StatelessWidget implements Styleable<HiddenTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final HiddenTheme? theme;
+
   /// Creates a [Hidden] widget.
   const Hidden({
     super.key,
@@ -26,6 +31,7 @@ class Hidden extends StatelessWidget {
     this.reverse,
     this.keepCrossAxisSize,
     this.keepMainAxisSize,
+    this.theme,
   });
 
   /// Whether the child should be hidden.
@@ -55,7 +61,7 @@ class Hidden extends StatelessWidget {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<HiddenTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<HiddenTheme>(context);
     final directionValue = styleValue(
       widgetValue: direction,
       themeValue: compTheme?.direction,

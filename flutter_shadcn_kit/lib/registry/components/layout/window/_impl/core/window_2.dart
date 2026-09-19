@@ -49,6 +49,12 @@ class Window {
   /// Size constraints for the window (min/max width and height).
   final BoxConstraints? constraints;
 
+  /// Styling for the window, matching upstream [Window.theme].
+  ///
+  /// Forwarded to the internal [WindowWidget]; null falls back to the
+  /// ancestor theme as usual.
+  final WindowTheme? theme;
+
   final GlobalKey<_WindowWidgetState> _key = GlobalKey<_WindowWidgetState>(
     debugLabel: 'Window',
   );
@@ -83,6 +89,7 @@ class Window {
     this.actions = const WindowActions(),
     this.content,
     required this.controller,
+    this.theme,
   }) : bounds = null,
        maximized = null,
        minimized = null,
@@ -141,6 +148,7 @@ class Window {
     bool this.minimized = false,
     bool this.alwaysOnTop = false,
     BoxConstraints this.constraints = kDefaultWindowConstraints,
+    this.theme,
   }) : controller = null;
 
   /// Gets a handle to the window's internal state.
@@ -196,6 +204,7 @@ class Window {
           maximized: maximized,
           minimized: minimized,
           constraints: constraints,
+          theme: theme,
         ),
       ),
       builder: (context, child) {

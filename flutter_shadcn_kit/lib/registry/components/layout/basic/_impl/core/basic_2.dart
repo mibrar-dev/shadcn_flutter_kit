@@ -3,7 +3,7 @@
 part of '../../basic.dart';
 
 /// Basic defines a reusable type for this registry module.
-class Basic extends StatelessWidget {
+class Basic extends StatelessWidget implements Styleable<BasicTheme> {
   /// Leading widget, typically an icon or avatar.
   final Widget? leading;
 
@@ -46,6 +46,11 @@ class Basic extends StatelessWidget {
   /// Padding around the entire widget.
   final EdgeInsetsGeometry? padding;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final BasicTheme? theme;
+
+
   /// Creates a [Basic] layout widget.
   const Basic({
     super.key,
@@ -63,6 +68,7 @@ class Basic extends StatelessWidget {
     this.titleSpacing, //4
     this.mainAxisAlignment,
     this.padding,
+    this.theme,
   });
 
   @override
@@ -72,7 +78,7 @@ class Basic extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<BasicTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<BasicTheme>(context);
     final padding = styleValue(
       widgetValue: this.padding,
       themeValue: compTheme?.padding,

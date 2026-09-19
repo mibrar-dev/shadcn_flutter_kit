@@ -3,13 +3,19 @@
 part of '../../accordion.dart';
 
 /// An entry inside an [Accordion].
-class AccordionItem extends StatefulWidget {
+class AccordionItem extends StatefulWidget implements Styleable<AccordionTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AccordionTheme? theme;
+
   /// Creates a collapsible accordion entry.
   const AccordionItem({
     super.key,
     required this.trigger,
     required this.content,
     this.expanded = false,
+    this.theme,
   });
 
   /// Widget that toggles the expansion state.

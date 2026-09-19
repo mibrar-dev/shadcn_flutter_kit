@@ -142,7 +142,7 @@ class _WindowWidgetState extends State<WindowWidget> with WindowHandle {
       child: ListenableBuilder(
         listenable: controller,
         builder: (context, child) {
-          final compTheme = ComponentTheme.maybeOf<WindowTheme>(context);
+          final compTheme = widget.theme ?? ComponentTheme.maybeOf<WindowTheme>(context);
           var resizeThickness =
               widget.resizeThickness ?? compTheme?.resizeThickness ?? 8;
           final titleBarHeight =

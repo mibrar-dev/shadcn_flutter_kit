@@ -3,7 +3,7 @@
 part of '../../window.dart';
 
 /// WindowNavigator defines a reusable type for this registry module.
-class WindowNavigator extends StatefulWidget {
+class WindowNavigator extends StatefulWidget implements Styleable<WindowTheme> {
   /// Initial list of windows to display.
   final List<Window> initialWindows;
 
@@ -12,6 +12,11 @@ class WindowNavigator extends StatefulWidget {
 
   /// Whether to show the top snap bar for window snapping.
   final bool showTopSnapBar;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final WindowTheme? theme;
+
 
   /// Creates a [WindowNavigator].
   ///
@@ -24,6 +29,7 @@ class WindowNavigator extends StatefulWidget {
     required this.initialWindows,
     this.child,
     this.showTopSnapBar = true,
+    this.theme,
   });
 
   @override

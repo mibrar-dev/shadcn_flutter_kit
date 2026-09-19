@@ -3,9 +3,14 @@
 part of '../../collapsible.dart';
 
 /// Interactive trigger row used by [Collapsible].
-class CollapsibleTrigger extends StatelessWidget {
+class CollapsibleTrigger extends StatelessWidget implements Styleable<CollapsibleTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CollapsibleTheme? theme;
+
   /// Creates a trigger with [child] content.
-  const CollapsibleTrigger({super.key, required this.child});
+  const CollapsibleTrigger({super.key, required this.child, this.theme});
 
   /// Content shown alongside the indicator icon.
   final Widget child;
@@ -14,7 +19,7 @@ class CollapsibleTrigger extends StatelessWidget {
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<CollapsibleTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<CollapsibleTheme>(context);
     final state = Data.of<CollapsibleStateData>(context);
 
     /// Stores `scaling` state/configuration for this implementation.

@@ -18,7 +18,7 @@ import '../themes/base/icon_container_theme.dart';
 ///   borderRadius: BorderRadius.circular(8),
 /// )
 /// ```
-class IconContainer extends StatelessWidget {
+class IconContainer extends StatelessWidget implements Styleable<IconContainerTheme> {
   /// The icon widget to display.
   final Widget icon;
 
@@ -43,6 +43,11 @@ class IconContainer extends StatelessWidget {
   /// Resolved via `ComponentTheme.maybeOf<IconContainerTheme>` when null.
   final IconContainerTheme? theme;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final IconContainerTheme? theme;
+
+
   /// Creates an [IconContainer].
   ///
   /// Parameters:
@@ -59,13 +64,14 @@ class IconContainer extends StatelessWidget {
     this.backgroundColor,
     this.iconColor,
     this.theme,
+    this.theme,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme =
-        this.theme ?? ComponentTheme.maybeOf<IconContainerTheme>(context);
+        this.theme ?? this.theme ?? ComponentTheme.maybeOf<IconContainerTheme>(context);
     return Container(
       padding: styleValue(
         defaultValue: EdgeInsetsDensity.all(

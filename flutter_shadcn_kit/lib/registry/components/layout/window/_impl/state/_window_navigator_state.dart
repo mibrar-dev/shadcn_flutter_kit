@@ -91,7 +91,7 @@ class _WindowNavigatorState extends State<WindowNavigator>
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<WindowTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<WindowTheme>(context);
     final titleBarHeight = (compTheme?.titleBarHeight ?? 32) * theme.scaling;
     return LayoutBuilder(
       builder: (context, constraints) {

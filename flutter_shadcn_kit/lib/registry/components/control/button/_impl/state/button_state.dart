@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 
 import '../../../../../shared/primitives/clickable.dart';
 import '../../../../../shared/theme/theme.dart';
+import '../../../../../shared/utils/constants.dart';
 import '../../../../../shared/utils/geometry_extensions.dart';
 import '../../../../../shared/utils/platform_utils.dart';
 import '../styles/button_overrides.dart';
@@ -110,11 +111,27 @@ class ButtonState<T extends Button> extends State<T> {
     return _style!.iconTheme(context, states);
   }
 
+  Widget _buildAligned() {
+    if (widget.alignment != null) {
+      return AnimatedAlign(
+        duration: kDefaultDuration,
+        curve: Curves.easeInOut,
+        widthFactor: 1,
+        heightFactor: 1,
+        alignment: widget.alignment!,
+        child: widget.child,
+      );
+    }
+    return widget.child;
+  }
+
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     /// Stores `enableFeedback` state/configuration for this implementation.
     bool enableFeedback = widget.enableFeedback ?? _shouldEnableFeedback;
+    final theme = Theme.of(context);
+    final densityGap = theme.density.baseGap * theme.scaling;
     return Clickable(
       disableFocusOutline: widget.disableFocusOutline,
       statesController: widget.statesController,
@@ -158,12 +175,7 @@ class ButtonState<T extends Button> extends State<T> {
       onSecondaryLongPress: widget.onSecondaryLongPress,
       onTertiaryLongPress: widget.onTertiaryLongPress,
       child: widget.leading == null && widget.trailing == null
-          ? Align(
-              heightFactor: 1,
-              widthFactor: 1,
-              alignment: widget.alignment ?? Alignment.center,
-              child: widget.child,
-            )
+          ? _buildAligned()
           : IntrinsicWidth(
               child: IntrinsicHeight(
                 child: Row(
@@ -171,20 +183,11 @@ class ButtonState<T extends Button> extends State<T> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (widget.leading != null) widget.leading!,
-                    if (widget.leading != null) DensityGap(gapSm),
-
-                    /// Creates a `Expanded` instance.
-                    Expanded(
-                      child: Align(
-                        widthFactor: 1,
-                        heightFactor: 1,
-                        alignment:
-                            widget.alignment ??
-                            AlignmentDirectional.centerStart,
-                        child: widget.child,
-                      ),
-                    ),
-                    if (widget.trailing != null) DensityGap(gapSm),
+                    if (widget.leading != null)
+                      SizedBox(width: widget.leadingGap ?? densityGap),
+                    Expanded(child: _buildAligned()),
+                    if (widget.trailing != null)
+                      SizedBox(width: widget.trailingGap ?? densityGap),
                     if (widget.trailing != null) widget.trailing!,
                   ],
                 ),

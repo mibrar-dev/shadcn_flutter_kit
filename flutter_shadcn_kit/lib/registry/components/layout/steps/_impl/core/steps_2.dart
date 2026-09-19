@@ -37,13 +37,14 @@ class Steps extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
+    final densityGap = theme.density.baseGap * scaling;
+    final densityContainerPadding =
+        theme.density.baseContainerPadding * scaling;
     final compTheme = ComponentTheme.maybeOf<StepsTheme>(context);
 
     /// Stores `indicatorSize` state/configuration for this implementation.
     final indicatorSize = compTheme?.indicatorSize ?? 28 * scaling;
-    final spacing =
-        compTheme?.spacing ??
-        theme.density.baseContentPadding * scaling * 1.125;
+    final spacing = compTheme?.spacing ?? densityGap * 2.25;
 
     /// Stores `indicatorColor` state/configuration for this implementation.
     final indicatorColor = compTheme?.indicatorColor ?? theme.colorScheme.muted;
@@ -79,27 +80,25 @@ class Steps extends StatelessWidget {
                     ),
                   ),
 
-                  /// Creates a `DensityGap` instance.
-                  DensityGap(gapXs),
-
-                  /// Creates a `Expanded` instance.
+                  SizedBox(height: densityGap * 0.5),
                   Expanded(
                     child: VerticalDivider(
                       thickness: connectorThickness,
                       color: indicatorColor,
                     ),
                   ),
-
-                  /// Creates a `DensityGap` instance.
-                  DensityGap(gapXs),
+                  SizedBox(height: densityGap * 0.5),
                 ],
               ),
 
               /// Creates a `Gap` instance.
               Gap(spacing),
 
-              /// Creates a `Expanded` instance.
-              Expanded(child: children[i].withPadding(bottom: 32 * scaling)),
+              Expanded(
+                child: children[i].withPadding(
+                  bottom: densityContainerPadding * 2,
+                ),
+              ),
             ],
           ),
         ),

@@ -31,10 +31,7 @@ class KeyboardKeyDisplay extends StatelessWidget {
     final resolvedPadding = styleValue(
       widgetValue: padding,
       themeValue: compTheme?.keyPadding,
-      defaultValue: EdgeInsets.symmetric(
-        horizontal: theme.density.baseGap * 0.75,
-        vertical: theme.density.baseGap * 0.5,
-      ),
+      defaultValue: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
     ).resolve(directionality);
     final resolvedShadow = styleValue(
       widgetValue: boxShadow,

@@ -70,7 +70,11 @@ class ShadcnScrollbarState extends RawScrollbarState<ShadcnScrollbar> {
         defaultValue: Radius.circular(_theme.radiusSm),
       )
       ..minLength = _kScrollbarMinLength
-      ..padding = MediaQuery.paddingOf(context) + EdgeInsets.all(_theme.scaling)
+      ..padding =
+          MediaQuery.paddingOf(context) +
+          EdgeInsets.all(
+            _theme.density.baseGap * _theme.scaling * 0.125,
+          )
       ..scrollbarOrientation = widget.scrollbarOrientation
       ..ignorePointer = !enableGestures;
   }

@@ -58,7 +58,7 @@ class Breadcrumb extends StatelessWidget {
                     /// Creates a `Row` instance.
                     Row(children: [children[i].medium(), sep]),
             ],
-          ).small(),
+          ).small().muted(),
         ),
       ),
     );

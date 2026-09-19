@@ -126,7 +126,6 @@ const Set<String> originalComponentIds = {
   'color_picker',
   'command',
   'context_menu',
-  'country_flag',
   'date_picker',
   'dialog',
   'divider',

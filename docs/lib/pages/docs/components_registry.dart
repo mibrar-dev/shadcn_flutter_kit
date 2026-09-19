@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 
 /// Component ids added in the upstream-parity wave, badged as New in docs.
 const Set<String> kNewComponentIds = {
-  'country_flag',
   'fade_scroll_display',
   'pinned_sheet',
   'page_route',

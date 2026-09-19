@@ -29,8 +29,6 @@ import '../../ui/shadcn/components/layout/accordion/accordion.dart'
 import '../../ui/shadcn/components/layout/card/card.dart' as shadcn_card;
 import '../../ui/shadcn/shared/icons/lucide_icons.dart';
 import '../../ui/shadcn/shared/primitives/text.dart';
-import '../../ui/shadcn/components/display/country_flag/preview.dart'
-    as shadcn_country_flag;
 import '../../ui/shadcn/components/display/fade_scroll/preview.dart'
     as shadcn_fade_scroll;
 import '../../ui/shadcn/components/display/pinned_sheet/preview.dart'
@@ -78,6 +76,16 @@ const Map<String, String> componentStatusTags = {
   'window': 'Experimental',
   'audio_control': 'WIP',
   'video_control': 'WIP',
+  'fade_scroll_display': 'New',
+  'pinned_sheet': 'New',
+  'page_route': 'New',
+  'color_field': 'New',
+  'form_sortable': 'New',
+  'anchor': 'New',
+  'backdrop_transform': 'New',
+  'drawer_container': 'New',
+  'overlay_configuration': 'New',
+  'spell_check_suggestions_toolbar': 'New',
   'linear_gradient_picker': 'WIP',
   'radial_gradient_picker': 'WIP',
   'sweep_gradient_picker': 'WIP',
@@ -99,7 +107,6 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'file_diff_viewer': _fileDiffViewerPreview,
   if (enableMarkdownComponent) 'markdown': _markdownPreview,
   if (enableTextAnimateComponent) 'text_animate': _textAnimatePreview,
-  'country_flag': _countryFlagPreview,
   'fade_scroll_display': _fadeScrollPreview,
   'pinned_sheet': _pinnedSheetPreview,
   'page_route': _pageRoutePreview,
@@ -125,10 +132,6 @@ const Map<String, IconData> categoryIcons = {
 
 IconData iconForCategory(String category) {
   return categoryIcons[category.toLowerCase()] ?? LucideIcons.box;
-}
-
-Widget _countryFlagPreview(BuildContext context) {
-  return const shadcn_country_flag.CountryFlagPreview();
 }
 
 Widget _fadeScrollPreview(BuildContext context) {

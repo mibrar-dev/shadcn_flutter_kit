@@ -7,7 +7,7 @@ part of '../../keyboard_shortcut.dart';
 /// Renders keyboard key combinations as styled keyboard key representations,
 /// typically used in tooltips, help text, or UI elements that need to
 /// communicate keyboard shortcuts to users.
-class KeyboardDisplay extends StatelessWidget {
+class KeyboardDisplay extends StatelessWidget implements Styleable<KeyboardShortcutTheme> {
   /// List of keyboard keys to display when using direct key specification.
   final List<LogicalKeyboardKey>? _keys;
 
@@ -20,11 +20,17 @@ class KeyboardDisplay extends StatelessWidget {
   /// When null, uses theme-appropriate default spacing.
   final double? spacing;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final KeyboardShortcutTheme? theme;
+
+
   /// Creates a [KeyboardDisplay] from a list of keyboard keys.
   const KeyboardDisplay({
     super.key,
     required List<LogicalKeyboardKey> keys,
     this.spacing,
+    this.theme,
   }) : _keys = keys,
        _activator = null;
 
@@ -33,6 +39,7 @@ class KeyboardDisplay extends StatelessWidget {
     super.key,
     required ShortcutActivator activator,
     this.spacing,
+    this.theme,
   }) : _keys = null,
        _activator = activator;
 
@@ -40,7 +47,7 @@ class KeyboardDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<KeyboardShortcutTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<KeyboardShortcutTheme>(context);
     final keys = _keys ?? shortcutActivatorToKeySet(_activator!);
     final spacing = styleValue(
       widgetValue: this.spacing,

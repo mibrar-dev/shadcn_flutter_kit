@@ -3,7 +3,7 @@
 part of '../../badge.dart';
 
 /// A primary style badge widget for highlighting important information or status.
-class PrimaryBadge extends StatelessWidget {
+class PrimaryBadge extends StatelessWidget implements Styleable<BadgeTheme> {
   /// The main content of the badge.
   final Widget child;
 
@@ -19,6 +19,11 @@ class PrimaryBadge extends StatelessWidget {
   /// Optional custom style override for the badge.
   final AbstractButtonStyle? style;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final BadgeTheme? theme;
+
+
   /// Creates a primary badge.
   const PrimaryBadge({
     super.key,
@@ -27,12 +32,13 @@ class PrimaryBadge extends StatelessWidget {
     this.leading,
     this.trailing,
     this.style,
+    this.theme,
   });
 
   /// Builds the widget tree for badge.
   @override
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<BadgeTheme>(context);
     final baseStyle =
         style ??
         compTheme?.primaryStyle ??

@@ -36,18 +36,23 @@ Color _chatReactionDarken(Color color, [double amount = 0.1]) {
 ///
 /// Override the look through [ChatReactionTheme.decoration] and
 /// [ChatReactionTheme.containerPadding].
-class ChatReactionContainer extends StatelessWidget {
+class ChatReactionContainer extends StatelessWidget implements Styleable<ChatReactionTheme> {
   /// The reaction content, typically an emoji and a count.
   final Widget child;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChatReactionTheme? theme;
+
+
   /// Creates a reaction pill around [child].
-  const ChatReactionContainer({super.key, required this.child});
+  const ChatReactionContainer({super.key, required this.child, this.theme});
 
   /// Builds the widget tree for chat reaction container.
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
-    final theme = ComponentTheme.maybeOf<ChatReactionTheme>(context);
+    final theme = this.theme ?? ComponentTheme.maybeOf<ChatReactionTheme>(context);
     return Container(
       decoration:
           theme?.decoration ??

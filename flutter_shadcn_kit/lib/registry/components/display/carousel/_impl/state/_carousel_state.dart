@@ -27,7 +27,7 @@ class _CarouselState extends State<Carousel>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _theme = ComponentTheme.maybeOf<CarouselTheme>(context);
+    _theme = widget.theme ?? ComponentTheme.maybeOf<CarouselTheme>(context);
   }
 
   CarouselAlignment get _alignment => styleValue(

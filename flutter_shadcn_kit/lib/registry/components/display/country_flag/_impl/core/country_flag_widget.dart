@@ -18,7 +18,7 @@ part of '../../country_flag.dart';
 ///   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
 /// );
 /// ```
-class CountryFlag extends StatelessWidget {
+class CountryFlag extends StatelessWidget implements Styleable<CountryFlagTheme> {
   /// Draws a flag as a regional-indicator emoji pair, scaled to fit.
   ///
   /// This is what [CountryFlag] falls back to when [CountryFlagTheme.builder]
@@ -47,6 +47,11 @@ class CountryFlag extends StatelessWidget {
   /// Falls back to [CountryFlagTheme.shape], then to no clipping.
   final ShapeBorder? shape;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CountryFlagTheme? theme;
+
+
   /// Creates a flag for [country].
   const CountryFlag(
     this.country, {
@@ -54,6 +59,7 @@ class CountryFlag extends StatelessWidget {
     this.width,
     this.height,
     this.shape,
+    this.theme,
   });
 
   /// Creates a flag from an ISO 3166-1 alpha-2 country code, e.g. `US`.
@@ -65,6 +71,7 @@ class CountryFlag extends StatelessWidget {
     this.width,
     this.height,
     this.shape,
+    this.theme,
   }) : country = _findByCode(countryCode);
 
   /// Creates a flag from an ISO 4217 currency code, e.g. `USD`.
@@ -77,6 +84,7 @@ class CountryFlag extends StatelessWidget {
     this.width,
     this.height,
     this.shape,
+    this.theme,
   }) : country = _findByCurrency(currencyCode);
 
   /// Creates a flag from an international dial code, e.g. `+1`.
@@ -89,6 +97,7 @@ class CountryFlag extends StatelessWidget {
     this.width,
     this.height,
     this.shape,
+    this.theme,
   }) : country = _findByDialCode(prefix);
 
   static Country? _findByCode(String countryCode) {
@@ -119,7 +128,7 @@ class CountryFlag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<CountryFlagTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<CountryFlagTheme>(context);
     final widthValue = styleValue(
       widgetValue: width,
       themeValue: compTheme?.width,

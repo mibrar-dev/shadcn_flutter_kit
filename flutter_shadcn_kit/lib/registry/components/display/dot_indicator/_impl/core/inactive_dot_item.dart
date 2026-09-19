@@ -3,7 +3,12 @@
 part of '../../dot_indicator.dart';
 
 /// Inactive dot with optional border.
-class InactiveDotItem extends StatelessWidget {
+class InactiveDotItem extends StatelessWidget implements Styleable<DotIndicatorTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DotIndicatorTheme? theme;
+
   /// Creates `InactiveDotItem` for configuring or rendering dot indicator.
   const InactiveDotItem({
     super.key,
@@ -12,6 +17,7 @@ class InactiveDotItem extends StatelessWidget {
     this.borderRadius,
     this.borderColor,
     this.borderWidth,
+    this.theme,
   });
 
   /// Layout/size setting that affects dot indicator rendering.
@@ -33,7 +39,7 @@ class InactiveDotItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<DotIndicatorTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<DotIndicatorTheme>(context);
 
     final scaling = theme.scaling;
     final resolvedSize = styleValue(

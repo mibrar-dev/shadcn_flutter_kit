@@ -22,7 +22,7 @@ part of '../../chat.dart';
 ///  * [ChatReactionContainer], the default pill the reaction sits in.
 ///  * [ChatReactionTheme], which supplies the defaults for [corner] and
 ///    [extraWidth].
-class ChatReaction extends StatelessWidget {
+class ChatReaction extends StatelessWidget implements Styleable<ChatReactionTheme> {
   /// The chat bubble the reaction is attached to.
   final Widget child;
 
@@ -41,6 +41,11 @@ class ChatReaction extends StatelessWidget {
   /// reaction is wider than the bubble.
   final double? extraWidth;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChatReactionTheme? theme;
+
+
   /// Creates a chat bubble with an overlapping reaction badge.
   const ChatReaction({
     super.key,
@@ -48,12 +53,13 @@ class ChatReaction extends StatelessWidget {
     this.extraWidth,
     required this.reaction,
     required this.child,
+    this.theme,
   });
 
   /// Builds the widget tree for chat reaction.
   @override
   Widget build(BuildContext context) {
-    final theme = ComponentTheme.maybeOf<ChatReactionTheme>(context);
+    final theme = this.theme ?? ComponentTheme.maybeOf<ChatReactionTheme>(context);
     final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
     final t = Theme.of(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;

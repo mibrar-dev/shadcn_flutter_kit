@@ -26,7 +26,7 @@ part '_impl/core/carousel_layout.dart';
 part '_impl/themes/base/carousel_theme.dart';
 
 /// Interactive carousel widget with automatic transitions and customizable layouts.
-class Carousel extends StatefulWidget {
+class Carousel extends StatefulWidget implements Styleable<CarouselTheme> {
   /// The carousel transition.
   final CarouselTransition transition;
 
@@ -90,6 +90,11 @@ class Carousel extends StatefulWidget {
   /// Whether to disable dragging velocity.
   final bool disableDraggingVelocity;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CarouselTheme? theme;
+
+
   /// Creates a carousel.
   const Carousel({
     super.key,
@@ -114,6 +119,7 @@ class Carousel extends StatefulWidget {
     this.disableOverheadScrolling = true,
     this.disableDraggingVelocity = false,
     required this.transition,
+    this.theme,
   }) : assert(
          wrap || itemCount != null,
          'itemCount must be provided if wrap is false',

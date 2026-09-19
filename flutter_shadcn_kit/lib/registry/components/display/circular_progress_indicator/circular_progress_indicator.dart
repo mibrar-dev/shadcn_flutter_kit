@@ -12,7 +12,12 @@ import '../../../shared/utils/style_value.dart';
 part '_impl/themes/base/circular_progress_indicator_theme.dart';
 
 /// Circular progress indicator with determinate/indeterminate modes and theming.
-class CircularProgressIndicator extends StatelessWidget {
+class CircularProgressIndicator extends StatelessWidget implements Styleable<CircularProgressIndicatorTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CircularProgressIndicatorTheme? theme;
+
   /// Creates `CircularProgressIndicator` for configuring or rendering circular progress indicator.
   const CircularProgressIndicator({
     super.key,
@@ -24,6 +29,7 @@ class CircularProgressIndicator extends StatelessWidget {
     this.duration = kDefaultDuration,
     this.animated = true,
     this.onSurface = false,
+    this.theme,
   });
 
   /// Data consumed by `CircularProgressIndicator` to render circular progress indicator content.

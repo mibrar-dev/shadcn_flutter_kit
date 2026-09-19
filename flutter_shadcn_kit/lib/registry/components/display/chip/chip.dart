@@ -10,7 +10,12 @@ part '_impl/core/chip_button.dart';
 part '_impl/themes/base/chip_theme.dart';
 
 /// Compact interactive chip with optional leading/trailing widgets.
-class Chip extends StatelessWidget {
+class Chip extends StatelessWidget implements Styleable<ChipTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChipTheme? theme;
+
   /// Creates `Chip` for configuring or rendering chip.
   const Chip({
     super.key,
@@ -19,6 +24,7 @@ class Chip extends StatelessWidget {
     this.trailing,
     this.onPressed,
     this.style,
+    this.theme,
   });
 
   /// Child content displayed inside the chip widget.
@@ -40,7 +46,7 @@ class Chip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<ChipTheme>(context);
+    final componentTheme = this.theme ?? ComponentTheme.maybeOf<ChipTheme>(context);
     final resolvedStyle =
         style ?? componentTheme?.style ?? ButtonVariance.secondary;
 

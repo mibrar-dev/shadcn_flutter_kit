@@ -18,7 +18,7 @@ typedef DotBuilder =
     Widget Function(BuildContext context, int index, bool active);
 
 /// Navigation indicator with a row/column of animated dots.
-class DotIndicator extends StatelessWidget {
+class DotIndicator extends StatelessWidget implements Styleable<DotIndicatorTheme> {
   static Widget _defaultDotBuilder(
     BuildContext context,
     int index,
@@ -26,6 +26,11 @@ class DotIndicator extends StatelessWidget {
   ) {
     return active ? const ActiveDotItem() : const InactiveDotItem();
   }
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DotIndicatorTheme? theme;
+
 
   /// Creates `DotIndicator` for configuring or rendering dot indicator.
   const DotIndicator({
@@ -37,6 +42,7 @@ class DotIndicator extends StatelessWidget {
     this.direction = Axis.horizontal,
     this.padding,
     this.dotBuilder,
+    this.theme,
   });
 
   /// Positional/count metadata used by `DotIndicator` rendering logic.
@@ -67,7 +73,7 @@ class DotIndicator extends StatelessWidget {
     final directionality = Directionality.of(context);
 
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<DotIndicatorTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<DotIndicatorTheme>(context);
     final resolvedSpacing = styleValue(
       widgetValue: spacing,
       themeValue: compTheme?.spacing,

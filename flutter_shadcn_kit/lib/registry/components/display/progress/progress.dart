@@ -9,7 +9,12 @@ import '../linear_progress_indicator/linear_progress_indicator.dart';
 part '_impl/themes/base/progress_theme.dart';
 
 /// Normalized progress indicator that respects theme defaults.
-class Progress extends StatelessWidget {
+class Progress extends StatelessWidget implements Styleable<ProgressTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ProgressTheme? theme;
+
   /// Creates `Progress` for configuring or rendering progress.
   const Progress({
     super.key,
@@ -19,6 +24,7 @@ class Progress extends StatelessWidget {
     this.disableAnimation = false,
     this.color,
     this.backgroundColor,
+    this.theme,
   }) : assert(
          progress == null || (progress >= min && progress <= max),
          'Progress must be between min and max',
@@ -53,7 +59,7 @@ class Progress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<ProgressTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<ProgressTheme>(context);
     return LinearProgressIndicator(
       value: normalizedValue,
       disableAnimation: disableAnimation,

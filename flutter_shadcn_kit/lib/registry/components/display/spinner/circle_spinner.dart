@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart' as m;
 
+import '../../../shared/theme/theme.dart';
+import '_impl/themes/base/spinner_theme.dart';
 import 'spinner.dart';
 
 /// Core class used by the spinner component.
-class CircleSpinner extends Spinner {
-  const CircleSpinner({super.key, super.color, super.size});
+class CircleSpinner extends Spinner implements Styleable<SpinnerTheme> {
+  const CircleSpinner({super.key, super.color, super.size, super.theme});
 
   @override
   m.Widget build(m.BuildContext context) {

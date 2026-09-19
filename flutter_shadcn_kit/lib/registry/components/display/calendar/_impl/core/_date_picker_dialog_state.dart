@@ -73,7 +73,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<CalendarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<CalendarTheme>(context);
     final arrowColor = styleValue(
       themeValue: compTheme?.arrowIconColor,
       defaultValue: null,

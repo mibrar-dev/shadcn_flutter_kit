@@ -20,7 +20,12 @@ part '_impl/themes/base/divider_theme.dart';
 part '_impl/utils/divider_painters.dart';
 
 /// Horizontal line separating content with optional label.
-class Divider extends StatelessWidget implements PreferredSizeWidget {
+class Divider extends StatelessWidget implements PreferredSizeWidget, Styleable<DividerTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DividerTheme? theme;
+
   /// Creates `Divider` for configuring or rendering divider.
   const Divider({
     super.key,
@@ -32,6 +37,7 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
     this.child,
     this.padding,
     this.childAlignment,
+    this.theme,
   });
 
   /// Color value used by divider painting or state styling.
@@ -65,7 +71,7 @@ class Divider extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<DividerTheme>(context);
+    final componentTheme = this.theme ?? ComponentTheme.maybeOf<DividerTheme>(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final resolvedColor = styleValue(
       widgetValue: color,

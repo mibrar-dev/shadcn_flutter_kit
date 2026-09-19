@@ -15,7 +15,7 @@ part of '../../chat.dart';
 ///   color: Colors.blue,
 /// )
 /// ```
-class ChatBubble extends StatelessWidget {
+class ChatBubble extends StatelessWidget implements Styleable<ChatTheme> {
   /// The content of the chat bubble.
   final Widget child;
 
@@ -40,6 +40,11 @@ class ChatBubble extends StatelessWidget {
   /// The width factor of the chat bubble.
   final double? widthFactor;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChatTheme? theme;
+
+
   /// Creates a [ChatBubble].
   ///
   /// Parameters:
@@ -61,13 +66,14 @@ class ChatBubble extends StatelessWidget {
     this.padding,
     this.borderRadius,
     this.widthFactor,
+    this.theme,
   });
 
   /// Builds the widget tree for chat.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final chatTheme = ComponentTheme.maybeOf<ChatTheme>(context);
+    final chatTheme = this.theme ?? ComponentTheme.maybeOf<ChatTheme>(context);
     final textDirection = Directionality.maybeOf(context) ?? TextDirection.ltr;
     final alignment = styleValue(
       widgetValue: this.alignment,

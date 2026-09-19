@@ -20,7 +20,7 @@ part '_impl/themes/base/linear_progress_indicator_theme.dart';
 const int _kIndeterminateLinearDuration = 1800;
 
 /// Smooth determinate/indeterminate linear progress component with sparks.
-class LinearProgressIndicator extends StatelessWidget {
+class LinearProgressIndicator extends StatelessWidget implements Styleable<LinearProgressIndicatorTheme> {
   static const Curve _line1Head = Interval(
     0.0,
     750.0 / _kIndeterminateLinearDuration,
@@ -42,6 +42,11 @@ class LinearProgressIndicator extends StatelessWidget {
     curve: Cubic(0.10, 0.0, 0.45, 1.0),
   );
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final LinearProgressIndicatorTheme? theme;
+
+
   /// Creates `LinearProgressIndicator` for configuring or rendering linear progress indicator.
   const LinearProgressIndicator({
     super.key,
@@ -52,6 +57,7 @@ class LinearProgressIndicator extends StatelessWidget {
     this.borderRadius,
     this.showSparks,
     this.disableAnimation,
+    this.theme,
   });
 
   /// Data consumed by `LinearProgressIndicator` to render linear progress indicator content.

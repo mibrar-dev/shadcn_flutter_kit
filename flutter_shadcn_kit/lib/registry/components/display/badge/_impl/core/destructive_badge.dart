@@ -3,7 +3,7 @@
 part of '../../badge.dart';
 
 /// A destructive-styled badge for displaying warnings or dangerous actions.
-class DestructiveBadge extends StatelessWidget {
+class DestructiveBadge extends StatelessWidget implements Styleable<BadgeTheme> {
   /// The main content of the badge.
   final Widget child;
 
@@ -19,6 +19,11 @@ class DestructiveBadge extends StatelessWidget {
   /// Optional custom style override for the badge.
   final AbstractButtonStyle? style;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final BadgeTheme? theme;
+
+
   /// Creates a destructive badge with the specified child content.
   const DestructiveBadge({
     super.key,
@@ -27,12 +32,13 @@ class DestructiveBadge extends StatelessWidget {
     this.leading,
     this.trailing,
     this.style,
+    this.theme,
   });
 
   /// Builds the widget tree for badge.
   @override
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<BadgeTheme>(context);
     final baseStyle =
         style ??
         compTheme?.destructiveStyle ??

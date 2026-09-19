@@ -20,8 +20,9 @@ class InstantTooltip extends StatefulWidget {
   final AlignmentGeometry? tooltipAnchorAlignment;
 
   /// Whether this tooltip may adapt to a different presentation on mobile
-  /// platforms (upstream parity; see [Tooltip.adaptiveOverlay]).
-  /// Accepted/stored; defaults to `false`.
+  /// platforms (upstream parity). When true on a mobile platform the
+  /// tooltip is presented through the adaptive configuration system;
+  /// desktop presentation is unchanged. Defaults to `false`.
   final bool adaptiveOverlay;
 
   /// Creates a `InstantTooltip` instance.

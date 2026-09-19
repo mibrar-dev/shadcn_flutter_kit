@@ -14,6 +14,8 @@ import '../../layout/basic/basic.dart';
 import '../../control/button/button.dart';
 import '../../layout/outlined_container/outlined_container.dart';
 import '../../overlay/popover/popover.dart';
+import '../../overlay/overlay_configuration/overlay_configuration.dart';
+import '../../../shared/utils/platform_utils.dart';
 import '../../display/text/text.dart';
 part '_impl/state/navigation_menu_state.dart';
 part '_impl/core/navigation_menu_2.dart';

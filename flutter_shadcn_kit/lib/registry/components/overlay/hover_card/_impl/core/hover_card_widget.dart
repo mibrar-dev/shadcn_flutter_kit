@@ -37,9 +37,10 @@ class HoverCard extends StatefulWidget implements Styleable<HoverCardTheme> {
   final OverlayHandler? handler;
 
   /// Whether this hover card may adapt to a different presentation on mobile
-  /// platforms (upstream parity). Accepted/stored; defaults to `false` —
-  /// a hover card is presented via tooltip-style configuration just like
-  /// `Tooltip`.
+  /// platforms (upstream parity). When true on a mobile platform the card
+  /// is presented through the adaptive configuration system (fixed,
+  /// non-following overlay, like `Tooltip`); desktop presentation is
+  /// unchanged. Defaults to `false`.
   final bool adaptiveOverlay;
 
   /// Styling for this widget alone, overriding the ancestor theme.

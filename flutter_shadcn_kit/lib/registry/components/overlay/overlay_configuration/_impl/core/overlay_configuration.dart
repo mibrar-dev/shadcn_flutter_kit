@@ -304,32 +304,8 @@ class PopoverConfiguration extends OverlayConfiguration {
   }
 
   @override
-  OverlayConfiguration get nonAdaptive => PopoverConfiguration(
-        anchor: anchor,
-        alignment: alignment,
-        position: position,
-        anchorAlignment: anchorAlignment,
-        widthConstraint: widthConstraint,
-        heightConstraint: heightConstraint,
-        key: key,
-        rootOverlay: rootOverlay,
-        modal: modal,
-        barrierDismissable: barrierDismissable,
-        clipBehavior: clipBehavior,
-        regionGroupId: regionGroupId,
-        offset: offset,
-        transitionAlignment: transitionAlignment,
-        margin: margin,
-        follow: follow,
-        consumeOutsideTaps: consumeOutsideTaps,
-        onTickFollow: onTickFollow,
-        allowInvertHorizontal: allowInvertHorizontal,
-        allowInvertVertical: allowInvertVertical,
-        dismissBackdropFocus: dismissBackdropFocus,
-        showDuration: showDuration,
-        dismissDuration: dismissDuration,
-        overlayBarrier: overlayBarrier,
-      );
+  OverlayConfiguration get nonAdaptive =>
+      _NonAdaptivePopoverConfiguration(this);
 
   @override
   OverlayCompleter<T?> show<T>(BuildContext context, WidgetBuilder builder) {
@@ -354,6 +330,47 @@ class PopoverConfiguration extends OverlayConfiguration {
       overlayBarrier: overlayBarrier,
     );
   }
+}
+
+/// [PopoverConfiguration.nonAdaptive]'s result: a [PopoverConfiguration]
+/// that never converts, produced by copying every field of the source
+/// rather than wrapping it — so it stays a real [PopoverConfiguration]
+/// and every `is` check on it behaves exactly as on the original.
+class _NonAdaptivePopoverConfiguration extends PopoverConfiguration {
+  /// Creates a non-converting copy of [source].
+  _NonAdaptivePopoverConfiguration(PopoverConfiguration source)
+      : super(
+          anchor: source.anchor,
+          alignment: source.alignment,
+          position: source.position,
+          anchorAlignment: source.anchorAlignment,
+          widthConstraint: source.widthConstraint,
+          heightConstraint: source.heightConstraint,
+          key: source.key,
+          rootOverlay: source.rootOverlay,
+          modal: source.modal,
+          barrierDismissable: source.barrierDismissable,
+          clipBehavior: source.clipBehavior,
+          regionGroupId: source.regionGroupId,
+          offset: source.offset,
+          transitionAlignment: source.transitionAlignment,
+          margin: source.margin,
+          follow: source.follow,
+          consumeOutsideTaps: source.consumeOutsideTaps,
+          onTickFollow: source.onTickFollow,
+          allowInvertHorizontal: source.allowInvertHorizontal,
+          allowInvertVertical: source.allowInvertVertical,
+          dismissBackdropFocus: source.dismissBackdropFocus,
+          showDuration: source.showDuration,
+          dismissDuration: source.dismissDuration,
+          overlayBarrier: source.overlayBarrier,
+        );
+
+  @override
+  OverlayConfiguration adaptiveConversion(BuildContext context) => this;
+
+  @override
+  OverlayConfiguration get nonAdaptive => this;
 }
 
 /// [OverlayConfiguration] that presents its content as a drawer — upstream

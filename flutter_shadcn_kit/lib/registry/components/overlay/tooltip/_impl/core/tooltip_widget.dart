@@ -28,9 +28,10 @@ class Tooltip extends StatefulWidget {
   final Duration minDuration;
 
   /// Whether this tooltip may adapt to a different presentation on mobile
-  /// platforms (upstream parity). Accepted/stored; the registry popover
-  /// presentation is already platform-aware. Defaults to `false` — a
-  /// tooltip should never become a bottom drawer.
+  /// platforms (upstream parity). When true on a mobile platform the
+  /// tooltip is presented through the adaptive configuration system
+  /// (fixed, non-following overlay); desktop presentation is unchanged.
+  /// Defaults to `false`.
   final bool adaptiveOverlay;
 
   /// Creates a `Tooltip` instance.

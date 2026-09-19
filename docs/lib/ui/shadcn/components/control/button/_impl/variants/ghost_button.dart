@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/ghost_button_theme.dart';
 
 /// GhostButton defines a reusable type for this registry module.
-class GhostButton extends StatelessWidget {
+class GhostButton extends StatelessWidget implements Styleable<GhostButtonTheme> {
   /// The widget to display as the button's content.
   final Widget child;
 
@@ -98,6 +100,10 @@ class GhostButton extends StatelessWidget {
   final GestureLongPressUpCallback? onTertiaryLongPress;
 
   /// Creates a ghost button with the specified properties.
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final GhostButtonTheme? theme;
   const GhostButton({
     super.key,
     required this.child,
@@ -129,6 +135,7 @@ class GhostButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

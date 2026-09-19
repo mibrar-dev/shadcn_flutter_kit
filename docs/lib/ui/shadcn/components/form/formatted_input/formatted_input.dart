@@ -23,6 +23,7 @@ import '../text_field/text_field.dart';
 part '_impl/themes/base/formatted_input_theme.dart';
 
 part '_impl/utils/_editable_part_controller.dart';
+part '_impl/utils/formatted_selection_coordinator.dart';
 part '_impl/core/_editable_part_widget.dart';
 part '_impl/state/_editable_part_widget_state.dart';
 part '_impl/state/_formatted_input_state.dart';
@@ -68,7 +69,8 @@ part '_impl/core/widget_part.dart';
 /// );
 /// ```
 class FormattedInput extends StatefulWidget
-    with ControlledComponent<FormattedValue> {
+    with ControlledComponent<FormattedValue>
+    implements Styleable<FormattedInputTheme> {
   @override
   final FormattedValue? initialValue;
   @override
@@ -123,6 +125,10 @@ class FormattedInput extends StatefulWidget
   ///   style: TextStyle(fontSize: 16),
   /// );
   /// ```
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final FormattedInputTheme? theme;
+
   const FormattedInput({
     super.key,
     this.initialValue,
@@ -132,6 +138,7 @@ class FormattedInput extends StatefulWidget
     this.trailing,
     this.enabled = true,
     this.controller,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

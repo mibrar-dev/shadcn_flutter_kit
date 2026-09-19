@@ -1,0 +1,55 @@
+{
+  "$schema": "../../../manifests/readme_meta.schema.json",
+  "schemaVersion": 1,
+  "id": "drawer_container",
+  "name": "Drawer Container",
+  "description": "Upstream-parity drawer/sheet chrome (AxisSize algebra, DrawerRawContainer, SheetRawContainer, DrawerContainerData, DrawerContainer, SheetContainer) for pinned sheets and drawer overlays.",
+  "install": "flutter_shadcn add drawer_container",
+  "import": "import 'package:<your_app>/ui/shadcn/overlay/drawer_container/drawer_container.dart';",
+  "whenToUse": {
+    "use": [
+      "you build pinned sheets or custom drawer chrome around content.",
+      "you need cross-axis sizing algebra for sheets."
+    ],
+    "avoid": [
+      "simple dialogs or popovers (use `dialog`, `popover`)."
+    ]
+  },
+  "examples": {
+    "minimal": "DrawerContainerData(\n  position: OverlayPosition.bottom,\n  size: Size.zero,\n  stackIndex: 0,\n  child: DrawerContainer(child: Text('Sheet')),\n)"
+  },
+  "patterns": [],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`AxisSize`",
+      "`DrawerRawContainer`",
+      "`SheetRawContainer`",
+      "`DrawerContainerData`",
+      "`DrawerContainer`",
+      "`SheetContainer`"
+    ]
+  },
+  "theming": [
+    "Uses `Theme.of(context)` border, background, and radius tokens."
+  ],
+  "accessibility": [
+    "Provide a visible drag handle label when sheets are draggable."
+  ],
+  "do": [
+    "Read configuration via `DrawerContainerData` for data-driven sheets."
+  ],
+  "dont": [
+    "Own drag gestures inside the raw container; wrap it instead."
+  ],
+  "related": [
+    "pinned_sheet",
+    "backdrop_transform",
+    "drawer"
+  ],
+  "registryRules": [
+    "One public class per file",
+    "Helpers under `_impl/`"
+  ]
+}

@@ -4,6 +4,9 @@ import 'package:flutter/widgets.dart';
 
 import '../../../shared/theme/theme.dart';
 
+export '_impl/core/icon_container.dart';
+export '_impl/themes/base/icon_container_theme.dart';
+
 /// Extension on Widget providing icon theme utilities.
 extension IconExtension on Widget {
   WrappedIcon get iconX4Small {

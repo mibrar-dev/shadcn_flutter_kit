@@ -37,7 +37,23 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   @override
   final BoxConstraints? popupConstraints;
 
+  /// Overrides the [OverlayConfiguration] used to present the popup. When
+  /// null, the legacy [popoverAlignment], [popoverAnchorAlignment] and
+  /// [popupWidthConstraint] knobs are used instead.
+  @override
+  final OverlayConfiguration? overlayConfiguration;
+
+  /// Whether the popup may adapt to a different presentation on mobile
+  /// platforms. Accepted for upstream API parity; the registry overlay
+  /// always presents a popover, so this is stored but currently not honored.
+  @override
+  final bool? adaptiveOverlay;
+
   /// Field storing `popupWidthConstraint` for this form implementation.
+  ///
+  /// Alias kept for backwards compatibility. Used when
+  /// [overlayConfiguration] is null; otherwise the configuration's
+  /// `widthConstraint` wins.
   @override
   final PopoverConstraint popupWidthConstraint;
 
@@ -51,6 +67,11 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   /// Field storing `padding` for this form implementation.
   @override
   final EdgeInsetsGeometry? padding;
+
+  /// Overrides the decoration of the select trigger, resolved per
+  /// [WidgetState]. See [SelectTheme.decoration].
+  @override
+  final WidgetStatePropertyDelegate<Decoration>? decoration;
 
   /// Field storing `popoverAlignment` for this form implementation.
   @override
@@ -74,6 +95,10 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
 
   /// Whether the multi-select is enabled for user interaction.
   final bool? enabled;
+
+  /// Expand icon for the select. When null, no expand icon is shown.
+  @override
+  final Widget? expandIcon;
 
   /// Field storing `popup` for this form implementation.
   @override
@@ -111,13 +136,13 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   /// - [focusNode] (FocusNode?): Focus node for keyboard interaction
   /// - [constraints] (BoxConstraints?): Size constraints for the select button
   /// - [popupConstraints] (BoxConstraints?): Size constraints for the popup menu
+  /// - [overlayConfiguration] (OverlayConfiguration?): overrides the popup presentation
   /// - [popupWidthConstraint] (PopoverConstraint): Width constraint mode for popup, defaults to `PopoverConstraint.anchorFixedSize`
   /// - [value] (`Iterable<T>`): Required currently selected values
   /// - [disableHoverEffect] (bool): Whether to disable hover visual feedback, defaults to false
   /// - [borderRadius] (BorderRadiusGeometry?): Custom border radius
   /// - [padding] (EdgeInsetsGeometry?): Custom padding
-  /// - [popoverAlignment] (AlignmentGeometry): Popup alignment, defaults to `Alignment.topCenter`
-  /// - [popoverAnchorAlignment] (AlignmentGeometry?): Anchor alignment for popup positioning
+  /// - [decoration] (`WidgetStatePropertyDelegate<Decoration>?`): Per-state override of the trigger decoration
   /// - [canUnselect] (bool): Whether user can deselect items, defaults to true
   /// - [autoClosePopover] (bool?): Whether popup closes after selection, defaults to false
   /// - [enabled] (bool?): Whether multi-select is enabled for interaction
@@ -126,6 +151,8 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
   /// - [showValuePredicate] (`Predicate<Iterable<T>>?`): Predicate for showing items
   /// - [popup] (SelectPopupBuilder): Required builder for popup content
   /// - [itemBuilder] (`SelectValueBuilder<T>`): Required builder for individual chip items
+  /// - [expandIcon] (Widget?): The expand icon for the select, defaults to [SelectExpandIcon]; null hides it
+  /// - [adaptiveOverlay] (bool?): whether an adaptive presentation runs for this overlay (stored, popover always used)
   const MultiSelect({
     super.key,
     this.onChanged,
@@ -134,11 +161,13 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
     this.focusNode,
     this.constraints,
     this.popupConstraints,
+    this.overlayConfiguration,
     this.popupWidthConstraint = PopoverConstraint.anchorFixedSize,
     required this.value,
     this.disableHoverEffect = false,
     this.borderRadius,
     this.padding,
+    this.decoration,
     this.popoverAlignment = Alignment.topCenter,
     this.popoverAnchorAlignment,
     this.canUnselect = true,
@@ -147,8 +176,10 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
     this.valueSelectionHandler,
     this.valueSelectionPredicate,
     this.showValuePredicate,
+    this.expandIcon = const SelectExpandIcon(),
     required this.popup,
     required SelectValueBuilder<T> itemBuilder,
+    this.adaptiveOverlay,
   }) : multiItemBuilder = itemBuilder;
 
   static Widget _buildItem<T>(
@@ -179,16 +210,19 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
       focusNode: focusNode,
       constraints: constraints,
       popupConstraints: popupConstraints,
+      overlayConfiguration: overlayConfiguration,
       popupWidthConstraint: popupWidthConstraint,
       value: value,
       borderRadius: borderRadius,
       padding: padding,
+      decoration: decoration,
       popoverAlignment: popoverAlignment,
       popoverAnchorAlignment: popoverAnchorAlignment,
       disableHoverEffect: disableHoverEffect,
       canUnselect: canUnselect,
       autoClosePopover: autoClosePopover ?? true,
       enabled: enabled,
+      expandIcon: expandIcon,
       showValuePredicate: (test) {
         return test.isNotEmpty && (showValuePredicate?.call(test) ?? true);
       },
@@ -196,6 +230,7 @@ class MultiSelect<T> extends StatelessWidget with SelectBase<Iterable<T>> {
           valueSelectionHandler ?? _defaultMultiSelectValueSelectionHandler,
       valueSelectionPredicate:
           valueSelectionPredicate ?? _defaultMultiSelectValueSelectionPredicate,
+      adaptiveOverlay: adaptiveOverlay,
     );
   }
 }

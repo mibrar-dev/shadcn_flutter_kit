@@ -15,6 +15,10 @@ import '_impl/styles/shad_slider_presets.dart';
 import '_impl/themes/base/slider_theme.dart';
 
 export '_impl/core/shad_slider_renderers.dart';
+export '_impl/core/upstream_slider_controller.dart';
+export '_impl/core/upstream_controlled_slider.dart';
+export '_impl/core/upstream_slider_intents.dart';
+export '_impl/core/upstream_slider_value_indicator.dart';
 export '_impl/variants/base_slider_variant.dart';
 export '_impl/variants/brightness_slider.dart';
 export '_impl/variants/range_soft_slider.dart';
@@ -29,7 +33,19 @@ export '_impl/variants/wave_slider.dart';
 ///
 /// Thumb placement can be controlled with [thumbEdgeOffsetPx] and
 /// [thumbVerticalOffsetPx].
-class Slider extends StatefulWidget {
+///
+/// Upstream parity note: the registry [Slider] preset API (double-based
+/// values, `ShadSnap`, pluggable builders) is retained unchanged. The
+/// upstream `SliderValue`-based API is available additively via
+/// [SliderController], [ControlledSlider], [IncreaseSliderValue],
+/// [DecreaseSliderValue], [SliderValueIndicator] and
+/// [SliderValueIndicatorBuilder] (exported from `_impl/core/upstream_*`).
+class Slider extends StatefulWidget implements Styleable<SliderTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SliderTheme? theme;
+
   const Slider._({
     super.key,
     required this.min,
@@ -62,6 +78,7 @@ class Slider extends StatefulWidget {
     required this.dragPopoverOffset,
     required this.dragPopoverVisibility,
     required this.semanticLabel,
+    this.theme,
   });
 
   /// Creates a single-value slider.
@@ -171,6 +188,9 @@ class Slider extends StatefulWidget {
 
     /// Accessibility label override.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     return Slider.single(
       key: key,
@@ -202,6 +222,7 @@ class Slider extends StatefulWidget {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 
@@ -331,6 +352,9 @@ class Slider extends StatefulWidget {
 
     /// Accessibility label used by semantics.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     return Slider._(
       key: key,
@@ -364,6 +388,7 @@ class Slider extends StatefulWidget {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 
@@ -478,6 +503,9 @@ class Slider extends StatefulWidget {
 
     /// Accessibility label used by semantics.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     final rv = rangeValue.copyWith(minRange: minRange, allowSwap: allowSwap);
     return Slider._(
@@ -512,6 +540,7 @@ class Slider extends StatefulWidget {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 
@@ -700,7 +729,7 @@ class _SliderState extends State<Slider> {
     assert(widget.max > widget.min);
     final theme = Theme.of(context);
     final baseGap = theme.density.baseGap * theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<SliderTheme>(context);
 
     final resolvedTrackHeight = styleValue(
       widgetValue: widget.trackHeight,

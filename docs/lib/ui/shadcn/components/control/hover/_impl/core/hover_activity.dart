@@ -2,7 +2,9 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../../../../shared/theme/theme.dart';
 import '../state/hover_activity_state.dart';
+import '../themes/base/hover_theme.dart';
 
 /// A widget that tracks mouse hover state and triggers callbacks.
 ///
@@ -24,7 +26,7 @@ import '../state/hover_activity_state.dart';
 ///   ),
 /// )
 /// ```
-class HoverActivity extends StatefulWidget {
+class HoverActivity extends StatefulWidget implements Styleable<HoverTheme> {
   /// The widget to track for hover events.
   final Widget child;
 
@@ -47,6 +49,10 @@ class HoverActivity extends StatefulWidget {
   /// Hit test behavior determining how this widget participates in pointer event handling.
   final HitTestBehavior? hitTestBehavior;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final HoverTheme? theme;
+
   /// Creates a [HoverActivity] widget.
   const HoverActivity({
     super.key,
@@ -56,6 +62,7 @@ class HoverActivity extends StatefulWidget {
     this.onEnter,
     this.hitTestBehavior,
     this.debounceDuration,
+    this.theme,
   });
 
   @override

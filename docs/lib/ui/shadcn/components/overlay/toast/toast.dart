@@ -11,6 +11,7 @@ import '../../../shared/theme/theme.dart';
 
 part '_impl/themes/base/toast_theme.dart';
 part '_impl/core/toast_entry.dart';
+part '_impl/core/toast_compat.dart';
 part '_impl/utils/toast_controller.dart';
 part '_impl/state/_toast_entry_state.dart';
 
@@ -38,30 +39,54 @@ final ToastController _defaultToastController = ToastController();
 int _toastSequence = 0;
 
 /// Compatibility helper API used by docs/examples and installed projects.
+///
+/// Dual-model behavior (upstream parity + registry redesign):
+/// - When a [ToastLayer] ancestor is present and [location]/[duration] are
+///   omitted, upstream defaults apply ([ToastLocation.bottomRight], 5s).
+/// - Otherwise the registry defaults apply ([ToastLocation.topRight], 3s,
+///   [ToastController] singleton path).
+/// Explicit arguments always win in either model. [showDuration] (upstream
+/// name) takes precedence over [duration] when set. [onClosed] is invoked
+/// when the toast is dismissed. [dismissible] disables swipe-to-dismiss
+/// when false; [curve]/[entryDuration] are accepted for upstream API parity
+/// (entry animation remains owned by [ToastTheme]).
 void showToast({
   required BuildContext context,
-  required Widget Function(BuildContext context, ToastOverlay overlay) builder,
-  ToastLocation location = ToastLocation.topRight,
-  Duration duration = const Duration(seconds: 3),
+  required ToastBuilder builder,
+  ToastLocation? location,
+  Duration? duration,
   double spacing = 8,
+  bool dismissible = true,
+  Curve curve = Curves.easeOutCubic,
+  Duration entryDuration = const Duration(milliseconds: 500),
+  VoidCallback? onClosed,
+  Duration? showDuration,
 }) {
+  final layer = ToastLayer.maybeOf(context);
+  final resolvedLocation =
+      location ?? layer?.defaultLocation ?? ToastLocation.topRight;
   final toastTheme = ComponentTheme.maybeOf<ToastTheme>(context);
-  final resolvedDuration = toastTheme?.duration ?? duration;
+  final resolvedDuration =
+      showDuration ??
+      duration ??
+      toastTheme?.duration ??
+      layer?.defaultShowDuration ??
+      const Duration(seconds: 3);
   final resolvedSpacing = toastTheme?.margin ?? spacing;
   final toastId =
       'toast_${DateTime.now().microsecondsSinceEpoch}_${_toastSequence++}';
 
-  final isTop = switch (location) {
+  final isTop = switch (resolvedLocation) {
     ToastLocation.topLeft ||
     ToastLocation.topCenter ||
     ToastLocation.topRight => true,
     _ => false,
   };
-  final isCenter = switch (location) {
+  final isCenter = switch (resolvedLocation) {
     ToastLocation.topCenter || ToastLocation.bottomCenter => true,
     _ => false,
   };
-  final isLeft = switch (location) {
+  final isLeft = switch (resolvedLocation) {
     ToastLocation.topLeft || ToastLocation.bottomLeft => true,
     _ => false,
   };
@@ -81,6 +106,8 @@ void showToast({
     toastId: toastId,
     duration: resolvedDuration,
     spacing: resolvedSpacing,
+    dismissDirections: dismissible ? null : const <ToastSwipeDirection>{},
+    onDismissed: onClosed,
     top: top,
     right: right,
     bottom: bottom,

@@ -20,7 +20,7 @@ class AccordionState extends State<Accordion> {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final accTheme = ComponentTheme.maybeOf<AccordionTheme>(context);
+    final accTheme = widget.theme ?? ComponentTheme.maybeOf<AccordionTheme>(context);
 
     /// Stores `dividerColor` state/configuration for this implementation.
     final dividerColor = accTheme?.dividerColor ?? theme.colorScheme.muted;

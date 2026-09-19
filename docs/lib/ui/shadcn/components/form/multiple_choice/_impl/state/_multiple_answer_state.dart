@@ -57,7 +57,7 @@ class _MultipleAnswerState<T> extends State<MultipleAnswer<T>>
   }
 
   bool get _allowUnselect {
-    final theme = ComponentTheme.maybeOf<MultipleChoiceTheme>(context);
+    final theme = widget.theme ?? ComponentTheme.maybeOf<MultipleChoiceTheme>(context);
     return widget.allowUnselect ?? theme?.allowUnselect ?? true;
   }
 }

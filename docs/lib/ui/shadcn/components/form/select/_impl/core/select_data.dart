@@ -21,6 +21,9 @@ class SelectData {
   /// Whether the select is enabled for interaction.
   final bool enabled;
 
+  /// The expand icon for the select.
+  final Widget? expandIcon;
+
   /// Creates select data.
   const SelectData({
     required this.autoClose,
@@ -28,6 +31,7 @@ class SelectData {
     required this.onChanged,
     required this.hasSelection,
     required this.enabled,
+    required this.expandIcon,
   });
 
   /// Compares this object with another for value equality.
@@ -39,10 +43,17 @@ class SelectData {
         other.onChanged == onChanged &&
         other.hasSelection == hasSelection &&
         other.autoClose == autoClose &&
-        other.enabled == enabled;
+        other.enabled == enabled &&
+        other.expandIcon == expandIcon;
   }
 
   @override
-  int get hashCode =>
-      Object.hash(isSelected, onChanged, autoClose, hasSelection, enabled);
+  int get hashCode => Object.hash(
+    isSelected,
+    onChanged,
+    autoClose,
+    hasSelection,
+    enabled,
+    expandIcon,
+  );
 }

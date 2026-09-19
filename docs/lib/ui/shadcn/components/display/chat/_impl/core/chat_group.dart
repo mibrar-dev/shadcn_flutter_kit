@@ -17,7 +17,7 @@ part of '../../chat.dart';
 ///   ],
 /// )
 /// ```
-class ChatGroup extends StatelessWidget {
+class ChatGroup extends StatelessWidget implements Styleable<ChatGroupTheme> {
   /// The widget to display before the chat bubbles (e.g., an avatar).
   final Widget? avatarPrefix;
 
@@ -54,6 +54,11 @@ class ChatGroup extends StatelessWidget {
   /// The spacing between the avatar and the chat bubbles.
   final double? avatarSpacing;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChatGroupTheme? theme;
+
+
   /// Creates a [ChatGroup].
   ///
   /// Parameters:
@@ -83,6 +88,7 @@ class ChatGroup extends StatelessWidget {
     this.avatarSuffix,
     this.avatarAlignment,
     this.avatarSpacing,
+    this.theme,
   });
 
   /// Builds the widget tree for chat.
@@ -100,7 +106,7 @@ class ChatGroup extends StatelessWidget {
       themeValue: compTheme?.type,
       defaultValue: ChatBubbleType.tail,
     );
-    final groupTheme = ComponentTheme.maybeOf<ChatGroupTheme>(context);
+    final groupTheme = this.theme ?? ComponentTheme.maybeOf<ChatGroupTheme>(context);
     final avatarAlignment =
         styleValue(
               widgetValue: this.avatarAlignment,

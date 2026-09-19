@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/card_button_theme.dart';
 
 /// CardButton defines a reusable type for this registry module.
-class CardButton extends StatelessWidget {
+class CardButton extends StatelessWidget implements Styleable<CardButtonTheme> {
   /// The primary content displayed within the card button.
   ///
   /// Typically contains text, icons, or complex layouts that represent
@@ -165,6 +167,10 @@ class CardButton extends StatelessWidget {
   ///   child: Text('Add to Favorites'),
   /// )
   /// ```
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CardButtonTheme? theme;
   const CardButton({
     super.key,
     required this.child,
@@ -196,6 +202,7 @@ class CardButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

@@ -6,7 +6,7 @@ part of '../../color_picker.dart';
 ///
 /// Displays inputs for editing colors in RGB, HSL, HSV, or HEX formats
 /// with optional alpha channel and eye dropper tool support.
-class ColorControls extends StatelessWidget {
+class ColorControls extends StatelessWidget implements Styleable<ColorPickerTheme> {
   /// The current color value.
   final ColorDerivative value;
 
@@ -43,6 +43,11 @@ class ColorControls extends StatelessWidget {
   /// Whether to show the color history button.
   final bool showHistoryButton;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ColorPickerTheme? theme;
+
+
   /// Creates color controls.
   const ColorControls({
     super.key,
@@ -58,12 +63,13 @@ class ColorControls extends StatelessWidget {
     this.showHistory = false,
     this.onShowHistoryChanged,
     this.showHistoryButton = true,
+    this.theme,
   });
 
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    final theme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
+    final theme = this.theme ?? ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final locale = ShadcnLocalizations.of(context);
     final enableEyeDropper = styleValue(
       defaultValue: true,

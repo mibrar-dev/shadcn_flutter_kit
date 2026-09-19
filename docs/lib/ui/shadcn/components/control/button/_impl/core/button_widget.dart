@@ -40,6 +40,18 @@ class Button extends StatefulWidget {
   /// Automatically spaced from the [child] with appropriate gaps.
   final Widget? trailing;
 
+  /// Custom gap between [leading] and [child].
+  ///
+  /// When null, defaults to the scaled density gap. Set to override the
+  /// default spacing between the leading widget and the main content.
+  final double? leadingGap;
+
+  /// Custom gap between [child] and [trailing].
+  ///
+  /// When null, defaults to the scaled density gap. Set to override the
+  /// default spacing between the main content and the trailing widget.
+  final double? trailingGap;
+
   /// The primary content displayed in the button.
   ///
   /// Typically contains text, icons, or other widgets that describe the button's
@@ -217,6 +229,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -270,6 +284,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -318,6 +334,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -367,6 +385,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -416,6 +436,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -464,6 +486,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -512,6 +536,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -561,6 +587,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -609,6 +637,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,
@@ -662,6 +692,8 @@ class Button extends StatefulWidget {
     this.statesController,
     this.leading,
     this.trailing,
+    this.leadingGap,
+    this.trailingGap,
     required this.child,
     this.onPressed,
     this.focusNode,

@@ -30,6 +30,10 @@
     "_impl/core/shad_slider_logic.dart",
     "_impl/core/shad_slider_models.dart",
     "_impl/core/shad_slider_renderers.dart",
+    "_impl/core/upstream_controlled_slider.dart",
+    "_impl/core/upstream_slider_controller.dart",
+    "_impl/core/upstream_slider_intents.dart",
+    "_impl/core/upstream_slider_value_indicator.dart",
     "_impl/state/_slider_preview_state.dart",
     "_impl/styles/shad_slider_defaults.dart",
     "_impl/styles/shad_slider_presets.dart",
@@ -47,7 +51,13 @@
     "slider.dart"
   ],
   "api": {
-    "constructors": [],
+    "constructors": [
+      "`Slider.single` / `Slider.range` — registry preset API (retained).",
+      "Upstream-compat (additive): `SliderController`, `ControlledSlider` (wraps registry `Slider`).",
+      "`IncreaseSliderValue` / `DecreaseSliderValue` intents.",
+      "`SliderValueIndicator` + `SliderValueIndicatorBuilder` (mapped to the drag popover).",
+      "`divisions`, `hintValue` (stored), `increaseStep`/`decreaseStep`, `onChangeStart`/`onChangeEnd`."
+    ],
     "callbacks": []
   },
   "version": "1.1.0"

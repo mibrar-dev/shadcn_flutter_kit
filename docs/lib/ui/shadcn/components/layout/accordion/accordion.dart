@@ -18,9 +18,14 @@ part '_impl/state/_accordion_trigger_state.dart';
 part '_impl/state/_accordion_item_state.dart';
 
 /// A container of expandable sections where only one panel may be open at once.
-class Accordion extends StatefulWidget {
+class Accordion extends StatefulWidget implements Styleable<AccordionTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AccordionTheme? theme;
+
   /// Creates an accordion with the provided [items].
-  const Accordion({super.key, required this.items});
+  const Accordion({super.key, required this.items, this.theme});
 
   /// The children that make up the accordion.
   final List<Widget> items;

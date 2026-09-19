@@ -3,7 +3,7 @@
 part of '../../switch.dart';
 
 /// Switch widget for toggling boolean values.
-class Switch extends StatefulWidget {
+class Switch extends StatefulWidget implements Styleable<SwitchTheme> {
   /// Current value stored for `value`.
   final bool value;
 
@@ -37,6 +37,11 @@ class Switch extends StatefulWidget {
   /// Field storing `borderRadius` for this form implementation.
   final BorderRadiusGeometry? borderRadius;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SwitchTheme? theme;
+
+
   /// Constructs `Switch` with the provided parameters.
   const Switch({
     super.key,
@@ -51,6 +56,7 @@ class Switch extends StatefulWidget {
     this.activeThumbColor,
     this.inactiveThumbColor,
     this.borderRadius,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

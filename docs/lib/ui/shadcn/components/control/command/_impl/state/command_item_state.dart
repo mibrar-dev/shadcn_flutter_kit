@@ -30,9 +30,11 @@ class CommandItemState extends State<CommandItem> {
           return Clickable(
             onPressed: widget.onTap,
             onHover: (hovered) {
-              if (hovered) {
-                state.requestFocus();
-              }
+              setState(() {
+                if (hovered) {
+                  state.requestFocus();
+                }
+              });
             },
             child: AnimatedContainer(
               duration: kDefaultDuration,

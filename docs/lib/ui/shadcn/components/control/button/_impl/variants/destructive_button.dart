@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/destructive_button_theme.dart';
 
 /// DestructiveButton defines a reusable type for this registry module.
-class DestructiveButton extends StatelessWidget {
+class DestructiveButton extends StatelessWidget implements Styleable<DestructiveButtonTheme> {
   /// The widget to display as the button's content.
   final Widget child;
 
@@ -98,6 +100,10 @@ class DestructiveButton extends StatelessWidget {
   final GestureLongPressUpCallback? onTertiaryLongPress;
 
   /// Creates a destructive button with the specified properties.
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DestructiveButtonTheme? theme;
   const DestructiveButton({
     super.key,
     required this.child,
@@ -129,6 +135,7 @@ class DestructiveButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

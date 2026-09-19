@@ -3,7 +3,7 @@
 part of '../../calendar.dart';
 
 /// Core class used by the calendar component.
-class DatePickerDialog extends StatefulWidget {
+class DatePickerDialog extends StatefulWidget implements Styleable<CalendarTheme> {
   /// The initial view type to display (date, month, or year grid).
   final CalendarViewType initialViewType;
 
@@ -24,6 +24,11 @@ class DatePickerDialog extends StatefulWidget {
 
   /// Builder function to determine the state of each date.
   final DateStateBuilder? stateBuilder;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CalendarTheme? theme;
+
 
   /// Creates a [DatePickerDialog] with comprehensive date selection options.
   ///
@@ -59,6 +64,7 @@ class DatePickerDialog extends StatefulWidget {
     this.initialValue,
     this.onChanged,
     this.stateBuilder,
+    this.theme,
   });
 
   /// Creates the State object used by this calendar widget.

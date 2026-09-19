@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 part of '../../selectable.dart';
 
@@ -51,7 +51,12 @@ part of '../../selectable.dart';
 /// - [Text] for non-selectable text display
 /// - [TextField] for editable text input
 /// - [SelectableTextTheme] for theming selection appearance
-class SelectableText extends StatelessWidget {
+class SelectableText extends StatelessWidget implements Styleable<SelectableTextTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SelectableTextTheme? theme;
+
   /// Creates selectable text from a plain string.
   ///
   /// The [data] parameter is the text to display. All other parameters
@@ -118,6 +123,7 @@ class SelectableText extends StatelessWidget {
     this.useNativeContextMenu = false,
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.magnifierConfiguration,
+    this.theme,
   }) : assert(maxLines == null || maxLines > 0),
        assert(minLines == null || minLines > 0),
        assert(
@@ -182,6 +188,7 @@ class SelectableText extends StatelessWidget {
     this.useNativeContextMenu = false,
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.magnifierConfiguration,
+    this.theme,
   }) : assert(maxLines == null || maxLines > 0),
        assert(minLines == null || minLines > 0),
        assert(
@@ -334,7 +341,7 @@ class SelectableText extends StatelessWidget {
   /// Builds the widget tree for selectable.
   @override
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<SelectableTextTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<SelectableTextTheme>(context);
     final cursorWidth = compTheme?.cursorWidth ?? this.cursorWidth;
     final cursorHeight = compTheme?.cursorHeight ?? this.cursorHeight;
     final cursorRadius = compTheme?.cursorRadius ?? this.cursorRadius;

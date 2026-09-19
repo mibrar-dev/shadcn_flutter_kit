@@ -26,7 +26,7 @@ part of '../../radio_group.dart';
 ///   activeColor: Colors.blue,
 /// );
 /// ```
-class Radio extends StatelessWidget {
+class Radio extends StatelessWidget implements Styleable<RadioTheme> {
   /// Whether this radio button is selected.
   ///
   /// When true, displays the inner selection indicator.
@@ -63,6 +63,11 @@ class Radio extends StatelessWidget {
   /// backgroundColor from the current [RadioTheme].
   final Color? backgroundColor;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final RadioTheme? theme;
+
+
   /// Creates a [Radio] with the specified selection state and styling.
   ///
   /// The [value] parameter is required and determines whether the radio
@@ -93,13 +98,14 @@ class Radio extends StatelessWidget {
     this.activeColor,
     this.borderColor,
     this.backgroundColor,
+    this.theme,
   });
 
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<RadioTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<RadioTheme>(context);
     final size = styleValue<double>(
       widgetValue: this.size,
       themeValue: compTheme?.size,

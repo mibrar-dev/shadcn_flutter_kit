@@ -39,28 +39,22 @@ class LengthValidator extends Validator<String> {
       if (min != null) {
         return InvalidResult(
           message ??
-              Localizations.of(
-                context,
-                ShadcnLocalizations,
-              ).formLengthGreaterThan(min!),
+              ShadcnLocalizations.of(context).formLengthLessThan(min!),
           state: state,
         );
       }
       return null;
     }
-    ShadcnLocalizations localizations = Localizations.of(
-      context,
-      ShadcnLocalizations,
-    );
+    ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     if (min != null && value.length < min!) {
       return InvalidResult(
-        message ?? localizations.formLengthGreaterThan(min!),
+        message ?? localizations.formLengthLessThan(min!),
         state: state,
       );
     }
     if (max != null && value.length > max!) {
       return InvalidResult(
-        message ?? localizations.formLengthLessThan(max!),
+        message ?? localizations.formLengthGreaterThan(max!),
         state: state,
       );
     }

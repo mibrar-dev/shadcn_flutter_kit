@@ -1,9 +1,9 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 part of '../../breadcrumb.dart';
 
 /// Breadcrumb defines a reusable type for this registry module.
-class Breadcrumb extends StatelessWidget {
+class Breadcrumb extends StatelessWidget implements Styleable<BreadcrumbTheme> {
   /// Arrow separator (>).
   static const Widget arrowSeparator = _ArrowSeparator();
 
@@ -19,18 +19,24 @@ class Breadcrumb extends StatelessWidget {
   /// Padding around the breadcrumb strip.
   final EdgeInsetsGeometry? padding;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final BreadcrumbTheme? theme;
+
+
   /// Creates a breadcrumb navigation row.
   const Breadcrumb({
     super.key,
     required this.children,
     this.separator,
     this.padding,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<BreadcrumbTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<BreadcrumbTheme>(context);
 
     /// Stores `sep` state/configuration for this implementation.
     final sep = separator ?? compTheme?.separator ?? Breadcrumb.arrowSeparator;
@@ -58,7 +64,7 @@ class Breadcrumb extends StatelessWidget {
                     /// Creates a `Row` instance.
                     Row(children: [children[i].medium(), sep]),
             ],
-          ).small(),
+          ).small().muted(),
         ),
       ),
     );

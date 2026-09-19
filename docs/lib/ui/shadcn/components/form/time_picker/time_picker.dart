@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 import 'package:flutter/material.dart' show Icons, TextAlignVertical;
 import 'package:flutter/services.dart';
@@ -32,7 +32,7 @@ part '_impl/core/time_range.dart';
 ///
 /// Provides time selection interface with hours, minutes, and optional
 /// seconds in either popover or dialog mode.
-class TimePicker extends StatelessWidget {
+class TimePicker extends StatelessWidget implements Styleable<TimePickerTheme> {
   /// The currently selected time value.
   final TimeOfDay? value;
 
@@ -66,6 +66,11 @@ class TimePicker extends StatelessWidget {
   /// Whether the time picker is enabled.
   final bool? enabled;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TimePickerTheme? theme;
+
+
   /// Creates a time picker.
   const TimePicker({
     super.key,
@@ -80,13 +85,14 @@ class TimePicker extends StatelessWidget {
     this.showSeconds = false,
     this.dialogTitle,
     this.enabled,
+    this.theme,
   });
 
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
-    final compTheme = ComponentTheme.maybeOf<TimePickerTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TimePickerTheme>(context);
     bool use24HourFormat =
         this.use24HourFormat ??
         compTheme?.use24HourFormat ??

@@ -34,7 +34,7 @@ class URLValidator extends Validator<String> {
       Uri.parse(value);
     } on FormatException {
       return InvalidResult(
-        message ?? Localizations.of(context, ShadcnLocalizations).invalidURL,
+        message ?? ShadcnLocalizations.of(context).invalidURL,
         state: state,
       );
     }

@@ -1,4 +1,4 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 import 'package:flutter/widgets.dart';
 
@@ -22,7 +22,7 @@ part '_impl/core/date_time_range.dart';
 ///
 /// Provides a date selection interface with calendar view in either
 /// popover or dialog mode.
-class DatePicker extends StatelessWidget {
+class DatePicker extends StatelessWidget implements Styleable<DatePickerTheme> {
   /// The currently selected date value.
   final DateTime? value;
 
@@ -59,6 +59,11 @@ class DatePicker extends StatelessWidget {
   /// Whether the date picker is enabled.
   final bool? enabled;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DatePickerTheme? theme;
+
+
   /// Creates a date picker.
   const DatePicker({
     super.key,
@@ -74,13 +79,14 @@ class DatePicker extends StatelessWidget {
     this.initialViewType,
     this.stateBuilder,
     this.enabled,
+    this.theme,
   });
 
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
-    final compTheme = ComponentTheme.maybeOf<DatePickerTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<DatePickerTheme>(context);
     final resolvedMode = styleValue(
       widgetValue: mode,
       themeValue: compTheme?.mode,

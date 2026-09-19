@@ -19,7 +19,7 @@ class _ShadcnLocalizationsDelegate
   @override
   /// Executes `isSupported` behavior for this component/composite.
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      kSupportedLanguages.contains(locale.languageCode);
 
   @override
   /// Executes `shouldReload` behavior for this component/composite.

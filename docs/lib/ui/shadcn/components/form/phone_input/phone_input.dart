@@ -1,20 +1,30 @@
 // ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
+import 'dart:async';
+
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart' hide Theme, TextField;
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:phonecodes/phonecodes.dart';
 
+import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/primitives/form_value_supplier.dart';
 import '../../../shared/primitives/overlay.dart';
 import '../../../shared/primitives/text.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
+import '../form/form.dart'
+    as form
+    show Validator, InvalidResult, ValidationResult, FormValidationMode;
 import '../select/select.dart';
 import '../text_field/text_field.dart';
 
 part '_impl/core/phone_number.dart';
+
+part '_impl/core/phone_number_valid.dart';
+
+part '_impl/utils/_always_prefixed_plus.dart';
 
 part '_impl/state/_phone_input_state.dart';
 part '_impl/themes/base/phone_input_theme.dart';
@@ -42,7 +52,7 @@ part '_impl/themes/base/phone_input_theme.dart';
 ///   searchPlaceholder: Text('Search countries...'),
 /// )
 /// ```
-class PhoneInput extends StatefulWidget {
+class PhoneInput extends StatefulWidget implements Styleable<PhoneInputTheme> {
   /// The default country to display when no initial value is provided.
   ///
   /// If both [initialCountry] and [initialValue] are null, defaults to
@@ -61,8 +71,9 @@ class PhoneInput extends StatefulWidget {
   ///
   /// Called whenever the user changes either the country selection or
   /// the phone number text. The callback receives a [PhoneNumber] object
-  /// containing both the selected country and entered number.
-  final ValueChanged<PhoneNumber>? onChanged;
+  /// containing both the selected country and entered number. The country
+  /// may be `null` when it cannot be detected from the input.
+  final ValueChanged<PhoneNumber?>? onChanged;
 
   /// Optional text editing controller for the number input field.
   ///
@@ -74,18 +85,21 @@ class PhoneInput extends StatefulWidget {
   ///
   /// When true, plus symbols are automatically removed from user input
   /// since the country code already provides the international prefix.
+  @Deprecated('Plus code is now mandatory')
   final bool filterPlusCode;
 
   /// Whether to filter out leading zeros from input.
   ///
   /// When true, leading zeros are automatically removed from the phone number
   /// to normalize the input format according to international standards.
+  @Deprecated('Plus code is now mandatory, leading zero is not a valid format')
   final bool filterZeroCode;
 
   /// Whether to filter out country codes from input.
   ///
   /// When true, prevents users from entering the country code digits manually
   /// since the country selector provides this information automatically.
+  @Deprecated('Country code is now determined from input')
   final bool filterCountryCode;
 
   /// Whether to allow only numeric characters in the input.
@@ -106,6 +120,11 @@ class PhoneInput extends StatefulWidget {
   /// to guide users on how to search for countries.
   final Widget? searchPlaceholder;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final PhoneInputTheme? theme;
+
+
   /// Creates a [PhoneInput] widget.
   ///
   /// The widget can be initialized with a specific country or complete phone
@@ -115,7 +134,7 @@ class PhoneInput extends StatefulWidget {
   /// Parameters:
   /// - [initialCountry] (Country?, optional): Default country when no initial value provided
   /// - [initialValue] (PhoneNumber?, optional): Complete initial phone number with country
-  /// - [onChanged] (`ValueChanged<PhoneNumber>?`, optional): Callback for phone number changes
+  /// - [onChanged] (`ValueChanged<PhoneNumber?>?`, optional): Callback for phone number changes
   /// - [controller] (TextEditingController?, optional): Controller for the number input field
   /// - [filterPlusCode] (bool, default: true): Whether to filter out plus symbols
   /// - [filterZeroCode] (bool, default: true): Whether to filter out leading zeros
@@ -138,12 +157,17 @@ class PhoneInput extends StatefulWidget {
     this.initialValue,
     this.onChanged,
     this.controller,
-    this.filterPlusCode = true,
+    @Deprecated('Plus code is now mandatory') this.filterPlusCode = true,
+    @Deprecated(
+      'Plus code is now mandatory, leading zero is not a valid format',
+    )
     this.filterZeroCode = true,
+    @Deprecated('Country code is now determined from input')
     this.filterCountryCode = true,
     this.onlyNumber = true,
     this.countries,
     this.searchPlaceholder,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

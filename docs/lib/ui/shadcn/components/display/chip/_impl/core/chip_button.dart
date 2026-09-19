@@ -3,8 +3,13 @@
 part of '../../chip.dart';
 
 /// Specialized button for inside chips.
-class ChipButton extends StatelessWidget {
-  const ChipButton({super.key, required this.child, this.onPressed});
+class ChipButton extends StatelessWidget implements Styleable<ChipTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChipTheme? theme;
+
+  const ChipButton({super.key, required this.child, this.onPressed, this.theme});
 
   /// Child content displayed inside the chip widget.
   final Widget child;
@@ -16,7 +21,7 @@ class ChipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<ChipTheme>(context);
+    final componentTheme = this.theme ?? ComponentTheme.maybeOf<ChipTheme>(context);
     final padding = styleValue(
       themeValue: componentTheme?.padding,
       defaultValue: EdgeInsets.zero,

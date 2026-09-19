@@ -40,6 +40,7 @@
     "_impl/core/compare_with.dart",
     "_impl/core/composite_validator.dart",
     "_impl/core/conditional_validator.dart",
+    "_impl/core/dynamic_form_key.dart",
     "_impl/core/email_validator.dart",
     "_impl/core/form_entry.dart",
     "_impl/core/form_entry_interceptor.dart",

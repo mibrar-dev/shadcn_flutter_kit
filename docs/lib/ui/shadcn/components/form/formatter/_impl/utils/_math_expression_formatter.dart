@@ -36,7 +36,7 @@ class _MathExpressionFormatter extends TextInputFormatter {
     }
     return TextEditingValue(
       text: resultText,
-      selection: contraintToNewText(newValue, resultText),
+      selection: constraintToNewText(newValue, resultText),
     );
   }
 }

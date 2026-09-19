@@ -35,8 +35,11 @@
     "_impl/core/chat_bubble_corner_directional.dart",
     "_impl/core/chat_bubble_data.dart",
     "_impl/core/chat_bubble_type.dart",
+    "_impl/core/chat_collapsible.dart",
     "_impl/core/chat_group.dart",
     "_impl/core/chat_group_theme.dart",
+    "_impl/core/chat_reaction.dart",
+    "_impl/core/chat_reaction_container.dart",
     "_impl/core/chat_tail_theme.dart",
     "_impl/core/chat_theme.dart",
     "_impl/core/plain_chat_bubble_type.dart",
@@ -44,6 +47,7 @@
     "_impl/core/sharp_corner_chat_bubble_type.dart",
     "_impl/core/tail_behavior.dart",
     "_impl/core/tail_chat_bubble_type.dart",
+    "_impl/themes/base/chat_reaction_theme.dart",
     "chat.dart"
   ],
   "postInstall": [

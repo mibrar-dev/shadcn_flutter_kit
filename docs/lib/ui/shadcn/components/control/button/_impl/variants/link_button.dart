@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/link_button_theme.dart';
 
 /// LinkButton defines a reusable type for this registry module.
-class LinkButton extends StatelessWidget {
+class LinkButton extends StatelessWidget implements Styleable<LinkButtonTheme> {
   /// The widget to display as the button's content.
   final Widget child;
 
@@ -98,6 +100,10 @@ class LinkButton extends StatelessWidget {
   final GestureLongPressUpCallback? onTertiaryLongPress;
 
   /// Creates a link button with the specified properties.
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final LinkButtonTheme? theme;
   const LinkButton({
     super.key,
     required this.child,
@@ -129,6 +135,7 @@ class LinkButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

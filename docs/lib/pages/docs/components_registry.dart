@@ -2,12 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
+/// Component ids added in the upstream-parity wave, badged as New in docs.
+const Set<String> kNewComponentIds = {
+  'country_flag',
+  'fade_scroll_display',
+  'pinned_sheet',
+  'page_route',
+  'color_field',
+  'form_sortable',
+  'anchor',
+  'backdrop_transform',
+  'drawer_container',
+  'overlay_configuration',
+  'spell_check_suggestions_toolbar',
+};
+
 class RegistryComponent {
   final String id;
   final String name;
   final String description;
   final String category;
   final List<String> tags;
+  final String status;
 
   const RegistryComponent({
     required this.id,
@@ -15,17 +31,20 @@ class RegistryComponent {
     required this.description,
     required this.category,
     required this.tags,
+    this.status = 'Stable',
   });
 
   factory RegistryComponent.fromJson(Map<String, dynamic> json) {
+    final id = json['id'] as String;
     return RegistryComponent(
-      id: json['id'] as String,
+      id: id,
       name: json['name'] as String,
       description: json['description'] as String? ?? '',
       category: json['category'] as String? ?? 'Misc',
       tags: (json['tags'] as List<dynamic>? ?? const [])
           .map((tag) => tag.toString())
           .toList(),
+      status: kNewComponentIds.contains(id) ? 'New' : 'Stable',
     );
   }
 }

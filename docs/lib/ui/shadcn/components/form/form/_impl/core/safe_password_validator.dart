@@ -55,35 +55,25 @@ class SafePasswordValidator extends Validator<String> {
     }
     if (requireDigit && !RegExp(r'\d').hasMatch(value)) {
       return InvalidResult(
-        message ??
-            Localizations.of(context, ShadcnLocalizations).formPasswordDigits,
+        message ?? ShadcnLocalizations.of(context).formPasswordDigits,
         state: state,
       );
     }
     if (requireLowercase && !RegExp(r'[a-z]').hasMatch(value)) {
       return InvalidResult(
-        message ??
-            Localizations.of(
-              context,
-              ShadcnLocalizations,
-            ).formPasswordLowercase,
+        message ?? ShadcnLocalizations.of(context).formPasswordLowercase,
         state: state,
       );
     }
     if (requireUppercase && !RegExp(r'[A-Z]').hasMatch(value)) {
       return InvalidResult(
-        message ??
-            Localizations.of(
-              context,
-              ShadcnLocalizations,
-            ).formPasswordUppercase,
+        message ?? ShadcnLocalizations.of(context).formPasswordUppercase,
         state: state,
       );
     }
     if (requireSpecialChar && !RegExp(r'[\W_]').hasMatch(value)) {
       return InvalidResult(
-        message ??
-            Localizations.of(context, ShadcnLocalizations).formPasswordSpecial,
+        message ?? ShadcnLocalizations.of(context).formPasswordSpecial,
         state: state,
       );
     }

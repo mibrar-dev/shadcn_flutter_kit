@@ -3,7 +3,7 @@
 part of '../../context_menu.dart';
 
 /// ContextMenu defines a reusable type for this registry module.
-class ContextMenu extends StatefulWidget {
+class ContextMenu extends StatefulWidget implements Styleable<ContextMenuTheme> {
   /// The child widget that triggers the context menu.
   final Widget child;
 
@@ -18,6 +18,11 @@ class ContextMenu extends StatefulWidget {
 
   /// Whether the context menu is enabled.
   final bool enabled;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ContextMenuTheme? theme;
+
 
   /// Creates a [ContextMenu].
   ///
@@ -34,6 +39,7 @@ class ContextMenu extends StatefulWidget {
     this.behavior = HitTestBehavior.translucent,
     this.direction = Axis.vertical,
     this.enabled = true,
+    this.theme,
   });
 
   @override

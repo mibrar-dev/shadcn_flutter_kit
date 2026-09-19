@@ -36,6 +36,31 @@ class _NavigationRailState extends State<NavigationRail>
   /// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
+    final key = _keyForIndex(index);
+    if (key != null) widget.onSelectedKey?.call(key);
+  }
+
+  /// Key-based selection notify (upstream parity).
+  void _onSelectedKey(Key? key) {
+    widget.onSelectedKey?.call(key);
+    final index = _indexForKey(key);
+    if (index != null) widget.onSelected?.call(index);
+  }
+
+  /// Resolves a child key for an index (compat bridge).
+  Key? _keyForIndex(int index) {
+    final items = widget.children;
+    if (index < 0 || index >= items.length) return null;
+    return items[index].key;
+  }
+
+  /// Resolves a child index for a key (compat bridge).
+  int? _indexForKey(Key? key) {
+    if (key == null) return null;
+    for (var i = 0; i < widget.children.length; i++) {
+      if (widget.children[i].key == key) return i;
+    }
+    return null;
   }
 
   @override
@@ -63,7 +88,9 @@ class _NavigationRailState extends State<NavigationRail>
           parentPadding: resolvedPadding,
           direction: widget.direction,
           selectedIndex: widget.index,
+          selectedKey: widget.selectedKey,
           onSelected: _onSelected,
+          onSelectedKey: _onSelectedKey,
           expanded: widget.expanded,
           childCount: widget.children.length,
           spacing: widget.spacing ?? (theme.density.baseGap * scaling),
@@ -79,29 +106,93 @@ class _NavigationRailState extends State<NavigationRail>
                   widget.surfaceOpacity ?? 1,
                 )),
             alignment: _alignment,
-            child: SingleChildScrollView(
-              scrollDirection: widget.direction,
-              padding: resolvedPadding,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return _wrapIntrinsic(
-                    /// Creates a `Flex` instance.
-                    Flex(
-                      direction: widget.direction,
-                      crossAxisAlignment: _crossAxisAlignment(
-                        constraints,
-                        widget.direction,
-                      ),
-                      children: wrapChildren(context, widget.children),
-                    ),
-                  );
-                },
-              ),
-            ),
+            child: _buildBody(context, resolvedPadding, scaling),
           ),
         ),
       ),
     );
+  }
+
+  /// Builds the rail body with optional fixed header/footer sections
+  /// (upstream parity). Without header/footer, keeps the legacy single
+  /// scrollable layout.
+  Widget _buildBody(
+    BuildContext context,
+    EdgeInsets resolvedPadding,
+    double scaling,
+  ) {
+    final hasSections =
+        (widget.header?.isNotEmpty ?? false) ||
+        (widget.footer?.isNotEmpty ?? false);
+    Widget scrollable = SingleChildScrollView(
+      scrollDirection: widget.direction,
+      padding: resolvedPadding,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return _wrapIntrinsic(
+            Flex(
+              direction: widget.direction,
+              crossAxisAlignment: _crossAxisAlignment(
+                constraints,
+                widget.direction,
+              ),
+              children: wrapChildren(context, widget.children),
+            ),
+          );
+        },
+      ),
+    );
+    Widget body;
+    if (!hasSections) {
+      body = scrollable;
+    } else {
+      final headerItems = widget.header ?? const <Widget>[];
+      final footerItems = widget.footer ?? const <Widget>[];
+      body = Flex(
+        direction: widget.direction,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (headerItems.isNotEmpty)
+            Flex(
+              direction: widget.direction,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: headerItems,
+            ),
+          Expanded(child: scrollable),
+          if (footerItems.isNotEmpty)
+            Flex(
+              direction: widget.direction,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: footerItems,
+            ),
+        ],
+      );
+    }
+    if (widget.constraints != null) {
+      body = ConstrainedBox(constraints: widget.constraints!, child: body);
+    }
+    if (widget.expandedSize != null || widget.collapsedSize != null) {
+      final targetMinSize = widget.expanded
+          ? (widget.expandedSize ?? 0.0)
+          : (widget.collapsedSize ?? 0.0);
+      final maxSize = widget.expandedSize ?? double.infinity;
+      final direction = widget.direction;
+      body = AnimatedValueBuilder<double>(
+        value: targetMinSize,
+        duration: kDefaultDuration,
+        builder: (context, animatedMinSize, child) {
+          final minSize = animatedMinSize;
+          return ConstrainedBox(
+            constraints: direction == Axis.vertical
+                ? BoxConstraints(minWidth: minSize, maxWidth: maxSize)
+                : BoxConstraints(minHeight: minSize, maxHeight: maxSize),
+            child: child,
+          );
+        },
+        child: body,
+      );
+    }
+    return body;
   }
 
   /// Executes `_crossAxisAlignment` behavior for this component/composite.

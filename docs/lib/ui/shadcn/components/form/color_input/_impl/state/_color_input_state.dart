@@ -30,7 +30,7 @@ class _ColorInputState extends State<ColorInput>
   Widget build(BuildContext context) {
     final locale = ShadcnLocalizations.of(context);
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<ColorInputTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<ColorInputTheme>(context);
     final showAlpha = styleValue(
       defaultValue: true,
       themeValue: componentTheme?.showAlpha,

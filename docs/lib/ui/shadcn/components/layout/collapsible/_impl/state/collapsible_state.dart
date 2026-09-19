@@ -38,7 +38,7 @@ class CollapsibleState extends State<Collapsible> {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<CollapsibleTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<CollapsibleTheme>(context);
 
     return Data.inherit(
       data: CollapsibleStateData(

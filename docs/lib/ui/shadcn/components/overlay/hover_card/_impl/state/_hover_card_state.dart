@@ -7,8 +7,30 @@ class _HoverCardState extends State<HoverCard> {
   /// Stores `_controller` state/configuration for this implementation.
   late PopoverController _controller;
 
+  /// Tracks a mobile adaptive presentation, if one is open.
+  OverlayCompleter? _adaptiveCompleter;
+
   /// Stores `_hoverCount` state/configuration for this implementation.
   int _hoverCount = 0;
+
+  /// Whether to present through the adaptive configuration system.
+  ///
+  /// Matches upstream: only when explicitly opted in via
+  /// [HoverCard.adaptiveOverlay] on a mobile platform. Desktop
+  /// presentation is unchanged.
+  bool _useAdaptive(BuildContext context) {
+    return widget.adaptiveOverlay && isMobile(Theme.of(context).platform);
+  }
+
+  /// Whether any presentation (desktop popover or adaptive) is open.
+  bool get _hasOpenPresentation =>
+      _adaptiveCompleter != null || _controller.hasOpenPopover;
+
+  void _closeAll() {
+    _adaptiveCompleter?.remove();
+    _adaptiveCompleter = null;
+    _controller.close();
+  }
 
   @override
   /// Executes `initState` behavior for this component/composite.
@@ -29,6 +51,7 @@ class _HoverCardState extends State<HoverCard> {
   @override
   /// Executes `dispose` behavior for this component/composite.
   void dispose() {
+    _adaptiveCompleter?.remove();
     _controller.disposePopovers();
     super.dispose();
   }
@@ -36,7 +59,7 @@ class _HoverCardState extends State<HoverCard> {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<HoverCardTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<HoverCardTheme>(context);
     final debounce = styleValue(
       widgetValue: widget.debounce,
       themeValue: compTheme?.debounce,
@@ -77,7 +100,7 @@ class _HoverCardState extends State<HoverCard> {
         /// Creates a `Future.delayed` instance.
         Future.delayed(wait, () {
           if (count == _hoverCount &&
-              !_controller.hasOpenPopover &&
+              !_hasOpenPresentation &&
               context.mounted) {
             /// Creates a `_showPopover` instance.
             _showPopover(
@@ -97,7 +120,7 @@ class _HoverCardState extends State<HoverCard> {
         /// Creates a `Future.delayed` instance.
         Future.delayed(debounce, () {
           if (count == _hoverCount) {
-            _controller.close();
+            _closeAll();
           }
         });
       },
@@ -124,6 +147,41 @@ class _HoverCardState extends State<HoverCard> {
     required Offset offset,
     required Duration debounce,
   }) {
+    if (_useAdaptive(context)) {
+      // Mobile adaptive presentation via the configuration system
+      // (fixed, non-following overlay), matching upstream which presents
+      // hover cards through TooltipConfiguration.
+      _adaptiveCompleter?.remove();
+      _adaptiveCompleter = showOverlay(
+        context,
+        TooltipConfiguration(
+          alignment: alignment,
+          anchorAlignment: anchorAlignment,
+          offset: offset,
+        ),
+        builder: (context) {
+          return MouseRegion(
+            onEnter: (_) {
+              _hoverCount++;
+            },
+            onExit: (_) {
+              /// Stores `count` state/configuration for this implementation.
+              int count = ++_hoverCount;
+
+              /// Creates a `Future.delayed` instance.
+              Future.delayed(debounce, () {
+                if (count == _hoverCount) {
+                  _closeAll();
+                }
+              });
+            },
+            child: widget.hoverBuilder(context),
+          );
+        },
+        adaptive: true,
+      );
+      return;
+    }
     /// Stores `handler` state/configuration for this implementation.
     OverlayHandler? handler = widget.handler;
     if (handler == null) {
@@ -148,7 +206,7 @@ class _HoverCardState extends State<HoverCard> {
             /// Creates a `Future.delayed` instance.
             Future.delayed(debounce, () {
               if (count == _hoverCount) {
-                _controller.close();
+                _closeAll();
               }
             });
           },

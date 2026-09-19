@@ -17,11 +17,19 @@ part '_impl/utils/_to_upper_case_text_formatter.dart';
 ///
 /// Helper function that ensures selection offsets don't exceed the bounds
 /// of the updated text.
-TextSelection contraintToNewText(TextEditingValue newValue, String newText) {
+TextSelection constraintToNewText(TextEditingValue newValue, String newText) {
   return TextSelection(
     baseOffset: newValue.selection.baseOffset.clamp(0, newText.length),
     extentOffset: newValue.selection.extentOffset.clamp(0, newText.length),
   );
+}
+
+/// Misspelled alias of [constraintToNewText], kept for back-compat.
+///
+/// Upstream spells this `constraintToNewText`; prefer that spelling.
+@Deprecated('Use constraintToNewText instead.')
+TextSelection contraintToNewText(TextEditingValue newValue, String newText) {
+  return constraintToNewText(newValue, newText);
 }
 
 /// Provides factory methods for common text input formatters.

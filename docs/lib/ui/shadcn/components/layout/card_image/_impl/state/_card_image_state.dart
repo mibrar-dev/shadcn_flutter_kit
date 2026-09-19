@@ -20,7 +20,7 @@ class _CardImageState extends State<CardImage> {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<CardImageTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<CardImageTheme>(context);
     final style = styleValue(
       widgetValue: widget.style,
       themeValue: compTheme?.style,

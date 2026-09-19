@@ -3,7 +3,7 @@
 part of '../../swiper.dart';
 
 /// Swiper defines a reusable type for this registry module.
-class Swiper extends StatefulWidget {
+class Swiper extends StatefulWidget implements Styleable<SwiperTheme> {
   /// Whether swipe gestures are enabled.
   final bool enabled;
 
@@ -57,6 +57,11 @@ class Swiper extends StatefulWidget {
 
   /// Hit test behavior for gesture detection.
   final HitTestBehavior? behavior;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SwiperTheme? theme;
+
 
   /// Creates a [Swiper].
   ///
@@ -115,6 +120,7 @@ class Swiper extends StatefulWidget {
     this.barrierColor,
     this.behavior,
     required this.child,
+    this.theme,
   });
 
   @override

@@ -51,10 +51,10 @@ class RangeValidator<T extends num> extends Validator<T> {
       if (value < min || value > max) {
         return InvalidResult(
           message ??
-              Localizations.of(
-                context,
-                ShadcnLocalizations,
-              ).formBetweenInclusively(min, max),
+              ShadcnLocalizations.of(context).formBetweenInclusively(
+                _describeValue(min),
+                _describeValue(max),
+              ),
           state: state,
         );
       }
@@ -62,10 +62,10 @@ class RangeValidator<T extends num> extends Validator<T> {
       if (value <= min || value >= max) {
         return InvalidResult(
           message ??
-              Localizations.of(
-                context,
-                ShadcnLocalizations,
-              ).formBetweenExclusively(min, max),
+              ShadcnLocalizations.of(context).formBetweenExclusively(
+                _describeValue(min),
+                _describeValue(max),
+              ),
           state: state,
         );
       }

@@ -33,6 +33,8 @@
       "`initialChips` (`List<T>?`)",
       "`useChips` (`bool?`)",
       "`autoInsertSuggestion` (`bool`)",
+      "`clipboardHandler` (`ClipboardHandler<T>?`) — copy/paste serialization.",
+      "`ChipSpan<T>`, `ClipboardHandler<T>`, `DefaultChipClipboardHandler<T>`, `DecoratedChipClipboardHandler<T>` — upstream-parity clipboard support.",
       "`ChipEditingController<T>` — controller for chip text and values."
     ],
     "callbacks": [

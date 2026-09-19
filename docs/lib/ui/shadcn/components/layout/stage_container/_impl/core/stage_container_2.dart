@@ -3,7 +3,7 @@
 part of '../../stage_container.dart';
 
 /// StageContainer defines a reusable type for this registry module.
-class StageContainer extends StatelessWidget {
+class StageContainer extends StatelessWidget implements Styleable<StageContainerTheme> {
   /// The breakpoint strategy for determining container width.
   ///
   /// Defaults to [StageBreakpoint.defaultBreakpoints].
@@ -19,19 +19,25 @@ class StageContainer extends StatelessWidget {
   /// Defaults to a density-aware horizontal padding when not provided.
   final EdgeInsets? padding;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final StageContainerTheme? theme;
+
+
   /// Creates a [StageContainer].
   const StageContainer({
     super.key,
     this.breakpoint = StageBreakpoint.defaultBreakpoints,
     required this.builder,
     this.padding,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<StageContainerTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<StageContainerTheme>(context);
 
     /// Stores `breakpoint` state/configuration for this implementation.
     final StageBreakpoint breakpoint = compTheme?.breakpoint ?? this.breakpoint;

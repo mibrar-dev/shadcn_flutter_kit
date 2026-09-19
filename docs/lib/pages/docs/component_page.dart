@@ -17,6 +17,9 @@ class ComponentPage extends StatefulWidget {
   final String? category;
   final Map<String, OnThisPage>? onThisPageOverride;
 
+  /// Optional status badge (e.g. New) rendered next to the title.
+  final Widget? statusBadge;
+
   const ComponentPage({
     super.key,
     required this.name,
@@ -26,6 +29,7 @@ class ComponentPage extends StatefulWidget {
     this.component = true,
     this.category,
     this.onThisPageOverride,
+    this.statusBadge,
   });
 
   @override
@@ -89,7 +93,15 @@ class _ComponentPageState extends State<ComponentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SelectableText(widget.displayName).h1(),
+            Row(
+              children: [
+                Expanded(child: SelectableText(widget.displayName).h1()),
+                if (widget.statusBadge != null) ...[
+                  const SizedBox(width: 12),
+                  widget.statusBadge!,
+                ],
+              ],
+            ),
             SelectableText(widget.description).lead(),
             if (widget.category != null) ...[
               const SizedBox(height: 8),
@@ -135,17 +147,25 @@ class _ComponentPageState extends State<ComponentPage> {
           ),
       ],
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SelectableText(widget.displayName).h1(),
-          SelectableText(widget.description).lead(),
-          if (widget.category != null) ...[
-            const SizedBox(height: 8),
-            Text('Category: ${widget.category}').small().muted(),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(child: SelectableText(widget.displayName).h1()),
+                if (widget.statusBadge != null) ...[
+                  const SizedBox(width: 12),
+                  widget.statusBadge!,
+                ],
+              ],
+            ),
+            SelectableText(widget.description).lead(),
+            if (widget.category != null) ...[
+              const SizedBox(height: 8),
+              Text('Category: ${widget.category}').small().muted(),
+            ],
+            const SizedBox(height: 16),
+            ...remappedChildren,
           ],
-          const SizedBox(height: 16),
-          ...remappedChildren,
-        ],
       ),
     );
   }

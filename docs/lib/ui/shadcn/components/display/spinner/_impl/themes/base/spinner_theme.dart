@@ -1,6 +1,9 @@
 // ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
-part of '../../../spinner.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../../../../../shared/theme/theme.dart';
 
 /// Theme data for [Spinner].
 class SpinnerTheme extends ComponentThemeData {

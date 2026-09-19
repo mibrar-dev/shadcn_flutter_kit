@@ -81,7 +81,8 @@ class HoverState extends State<Hover> with SingleTickerProviderStateMixin {
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final platform = Theme.of(context).platform;
-    final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
+    final compTheme =
+        widget.theme ?? ComponentTheme.maybeOf<HoverTheme>(context);
     _waitDur = styleValue(
       widgetValue: widget.waitDuration,
       themeValue: compTheme?.waitDuration,

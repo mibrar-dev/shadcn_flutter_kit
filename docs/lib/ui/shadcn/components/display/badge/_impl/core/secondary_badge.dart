@@ -1,9 +1,9 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 part of '../../badge.dart';
 
 /// A secondary-styled badge for displaying labels, counts, or status indicators.
-class SecondaryBadge extends StatelessWidget {
+class SecondaryBadge extends StatelessWidget implements Styleable<BadgeTheme> {
   /// The main content of the badge.
   final Widget child;
 
@@ -19,6 +19,11 @@ class SecondaryBadge extends StatelessWidget {
   /// Optional custom style override for the badge.
   final AbstractButtonStyle? style;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final BadgeTheme? theme;
+
+
   /// Creates a secondary badge with the specified child content.
   const SecondaryBadge({
     super.key,
@@ -27,12 +32,13 @@ class SecondaryBadge extends StatelessWidget {
     this.leading,
     this.trailing,
     this.style,
+    this.theme,
   });
 
   /// Builds the widget tree for badge.
   @override
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<BadgeTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<BadgeTheme>(context);
     final baseStyle =
         style ??
         compTheme?.secondaryStyle ??

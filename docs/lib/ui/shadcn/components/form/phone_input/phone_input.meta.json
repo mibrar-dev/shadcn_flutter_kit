@@ -23,12 +23,14 @@
       "`PhoneInput`",
       "`initialCountry` (`Country?`)",
       "`initialValue` (`PhoneNumber?`)",
-      "`onChanged` (`ValueChanged<PhoneNumber>?`)",
+      "`onChanged` (`ValueChanged<PhoneNumber?>?`) — country may be null when undetectable.",
       "`controller` (`TextEditingController?`)",
-      "`filterPlusCode`, `filterZeroCode`, `filterCountryCode`, `onlyNumber`",
+      "`filterPlusCode`, `filterZeroCode`, `filterCountryCode` — deprecated no-ops (plus prefix is mandatory, country auto-detected).",
+      "`onlyNumber`",
       "`countries` (`List<Country>?`)",
       "`searchPlaceholder` (`Widget?`)",
-      "`PhoneNumber` — value model."
+      "`PhoneNumber` — value model with nullable `country`, `withCountry`, `fullNumber`, `fullCodeNumber`.",
+      "`PhoneNumberValid` — form validator for `PhoneNumber`."
     ],
     "callbacks": []
   },

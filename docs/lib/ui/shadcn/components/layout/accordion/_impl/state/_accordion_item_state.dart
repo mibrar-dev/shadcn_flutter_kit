@@ -51,7 +51,7 @@ class _AccordionItemState extends State<AccordionItem>
       accordion = newAccordion;
     }
 
-    final theme = ComponentTheme.maybeOf<AccordionTheme>(context);
+    final theme = widget.theme ?? ComponentTheme.maybeOf<AccordionTheme>(context);
     if (_theme != theme) {
       _theme = theme;
       _updateAnimations();

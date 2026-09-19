@@ -42,10 +42,9 @@ class MinValidator<T extends num> extends Validator<T> {
       if (value < min) {
         return InvalidResult(
           message ??
-              Localizations.of(
+              ShadcnLocalizations.of(
                 context,
-                ShadcnLocalizations,
-              ).formGreaterThanOrEqualTo(min),
+              ).formGreaterThanOrEqualTo(_describeValue(min)),
           state: state,
         );
       }
@@ -53,10 +52,9 @@ class MinValidator<T extends num> extends Validator<T> {
       if (value <= min) {
         return InvalidResult(
           message ??
-              Localizations.of(
+              ShadcnLocalizations.of(
                 context,
-                ShadcnLocalizations,
-              ).formGreaterThan(min),
+              ).formGreaterThan(_describeValue(min)),
           state: state,
         );
       }

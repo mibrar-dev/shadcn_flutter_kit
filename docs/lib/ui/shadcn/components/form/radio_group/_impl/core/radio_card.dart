@@ -5,7 +5,7 @@ part of '../../radio_group.dart';
 /// A card-style radio button with custom content.
 ///
 /// Provides a larger, card-like selection area within a [RadioGroup].
-class RadioCard<T> extends StatefulWidget {
+class RadioCard<T> extends StatefulWidget implements Styleable<RadioCardTheme> {
   /// The child widget displayed in the card.
   final Widget child;
 
@@ -18,6 +18,11 @@ class RadioCard<T> extends StatefulWidget {
   /// Focus node for keyboard navigation.
   final FocusNode? focusNode;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final RadioCardTheme? theme;
+
+
   /// Creates a radio card.
   const RadioCard({
     super.key,
@@ -25,6 +30,7 @@ class RadioCard<T> extends StatefulWidget {
     required this.value,
     this.enabled = true,
     this.focusNode,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

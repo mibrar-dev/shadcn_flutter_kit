@@ -7,6 +7,11 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
   /// Controller used to coordinate `_controller` behavior.
   late TextEditingController _controller;
 
+  TextEditingController get controller => _controller;
+
+  _FormattedSelectionCoordinator? get _selectionCoordinator =>
+      widget.data.selectionCoordinator as _FormattedSelectionCoordinator?;
+
   /// Initializes stateful resources for this widget.
   @override
   void initState() {
@@ -19,6 +24,13 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     _controller.addListener(_onTextChanged);
     if (widget.data.controller != null) {
       widget.data.controller!.addListener(_onFormattedInputControllerChange);
+    }
+    widget.data.focusNode?.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    if (widget.data.focusNode?.hasFocus == true) {
+      _selectionCoordinator?.onPartFocused(widget.data.partIndex);
     }
   }
 
@@ -97,6 +109,10 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
         widget.data.controller!.addListener(_onFormattedInputControllerChange);
       }
     }
+    if (oldWidget.data.focusNode != widget.data.focusNode) {
+      oldWidget.data.focusNode?.removeListener(_onFocusChange);
+      widget.data.focusNode?.addListener(_onFocusChange);
+    }
   }
 
   /// Releases resources owned by this state object.
@@ -105,6 +121,7 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     if (widget.data.controller != null) {
       widget.data.controller!.removeListener(_onFormattedInputControllerChange);
     }
+    widget.data.focusNode?.removeListener(_onFocusChange);
     super.dispose();
   }
 

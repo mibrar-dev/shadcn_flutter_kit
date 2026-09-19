@@ -1,11 +1,15 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 import 'package:flutter/widgets.dart';
 
 import '../../../shared/primitives/animated_value_builder.dart';
+import '../../../shared/theme/generated_colors.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/style_value.dart';
 
+part '_impl/core/flipper_character.dart';
+part '_impl/core/flipper_charset.dart';
+part '_impl/core/text_flipper.dart';
 part '_impl/themes/base/number_ticker_theme.dart';
 
 /// Builder signature for custom ticker content.
@@ -16,7 +20,12 @@ typedef NumberTickerBuilder =
 typedef NumberTickerFormatted = String Function(double value);
 
 /// Smooth number animation component with text or custom builder variants.
-class NumberTicker extends StatelessWidget {
+class NumberTicker extends StatelessWidget implements Styleable<NumberTickerTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final NumberTickerTheme? theme;
+
   /// Creates `NumberTicker.builder` for configuring or rendering number ticker.
   const NumberTicker.builder({
     super.key,
@@ -26,6 +35,7 @@ class NumberTicker extends StatelessWidget {
     this.child,
     this.duration,
     this.curve,
+    this.theme,
   }) : formatter = null,
        style = null;
 
@@ -38,6 +48,7 @@ class NumberTicker extends StatelessWidget {
     this.duration,
     this.curve,
     this.style,
+    this.theme,
   }) : builder = null,
        child = null;
 
@@ -68,7 +79,7 @@ class NumberTicker extends StatelessWidget {
   /// Builds the widget tree for number ticker.
   @override
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<NumberTickerTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<NumberTickerTheme>(context);
     final resolvedDuration = styleValue(
       widgetValue: duration,
       themeValue: compTheme?.duration,

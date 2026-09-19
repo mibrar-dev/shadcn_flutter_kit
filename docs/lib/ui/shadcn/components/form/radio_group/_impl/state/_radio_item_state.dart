@@ -60,7 +60,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
           }
         },
         actions: {
-          _NextItemIntent: CallbackAction<_NextItemIntent>(
+          NextItemIntent: CallbackAction<NextItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);
@@ -68,7 +68,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
               return null;
             },
           ),
-          _PreviousItemIntent: CallbackAction<_PreviousItemIntent>(
+          PreviousItemIntent: CallbackAction<PreviousItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);

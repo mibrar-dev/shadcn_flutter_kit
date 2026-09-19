@@ -1,0 +1,50 @@
+{
+  "id": "overlay_configuration",
+  "name": "Overlay Configuration",
+  "description": "Upstream-parity overlay configurations (OverlayConfiguration, Popover/Drawer/Sheet/Dialog/Menu/TooltipConfiguration, showOverlay) plus OverlayController, adapted to the registry PopoverController architecture.",
+  "category": "overlay",
+  "tier": "component",
+  "tags": [
+    "overlay",
+    "popover",
+    "dialog",
+    "menu",
+    "tooltip"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme",
+      "overlay",
+      "platform_utils"
+    ],
+    "components": [
+      "anchor",
+      "drawer"
+    ],
+    "pubspec": {
+      "data_widget": "^0.0.2"
+    }
+  },
+  "files": [
+    "_impl/core/overlay_configuration.dart",
+    "_impl/core/overlay_controller.dart",
+    "overlay_configuration.dart"
+  ],
+  "api": {
+    "constructors": [],
+    "callbacks": [],
+    "types": [
+      "`OverlayConfiguration`",
+      "`showOverlay`",
+      "`DelegatedOverlayCompleter`",
+      "`PopoverConfiguration`",
+      "`DrawerConfiguration`",
+      "`SheetConfiguration`",
+      "`DialogConfiguration`",
+      "`MenuConfiguration`",
+      "`TooltipConfiguration`",
+      "`OverlayController`"
+    ]
+  },
+  "version": "1.0.0"
+}

@@ -8,7 +8,7 @@ class _CodeSnippetState extends State<CodeSnippet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<CodeSnippetTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<CodeSnippetTheme>(context);
     final backgroundColor = styleValue(
       themeValue: compTheme?.backgroundColor,
       defaultValue: theme.colorScheme.card,

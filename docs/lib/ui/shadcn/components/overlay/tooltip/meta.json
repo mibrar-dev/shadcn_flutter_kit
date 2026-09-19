@@ -53,7 +53,9 @@
       "`TooltipContainer`",
       "`TooltipTheme`",
       "`FixedTooltipOverlayHandler`",
-      "`OverlayManagerAsTooltipOverlayHandler`"
+      "`OverlayManagerAsTooltipOverlayHandler`",
+      "`Tooltip.adaptiveOverlay` (`bool`, upstream parity, accepted/stored, default false).",
+      "`InstantTooltip.adaptiveOverlay` (`bool`, upstream parity, accepted/stored, default false)."
     ]
   },
   "version": "1.0.0"

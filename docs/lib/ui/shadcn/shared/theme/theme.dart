@@ -19,6 +19,7 @@ part '_impl/themes/__animated_theme_state.dart';
 part '_impl/themes/animated_theme.dart';
 part '_impl/themes/component_theme.dart';
 part '_impl/themes/component_theme_data.dart';
+part '_impl/themes/styleable.dart';
 part '_impl/themes/icon_theme_properties.dart';
 part '_impl/themes/theme.dart';
 part '_impl/themes/theme_data.dart';

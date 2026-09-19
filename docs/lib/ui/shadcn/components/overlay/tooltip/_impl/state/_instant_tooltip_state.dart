@@ -5,10 +5,27 @@ part of '../../tooltip.dart';
 /// _InstantTooltipState defines a reusable type for this registry module.
 class _InstantTooltipState extends State<InstantTooltip> {
   final PopoverController _controller = PopoverController();
+  OverlayCompleter? _adaptiveCompleter;
+
+  /// Whether to present through the adaptive configuration system.
+  ///
+  /// Matches upstream: only when explicitly opted in via
+  /// [InstantTooltip.adaptiveOverlay] on a mobile platform. Desktop
+  /// presentation is unchanged.
+  bool _useAdaptive(BuildContext context) {
+    return widget.adaptiveOverlay && isMobile(Theme.of(context).platform);
+  }
+
+  void _closeAll() {
+    _adaptiveCompleter?.remove();
+    _adaptiveCompleter = null;
+    _controller.close();
+  }
 
   @override
   /// Executes `dispose` behavior for this component/composite.
   void dispose() {
+    _adaptiveCompleter?.remove();
     _controller.dispose();
     super.dispose();
   }
@@ -20,6 +37,19 @@ class _InstantTooltipState extends State<InstantTooltip> {
     return MouseRegion(
       onEnter: (event) {
         _controller.close(true);
+        if (_useAdaptive(context)) {
+          _adaptiveCompleter?.remove();
+          _adaptiveCompleter = showOverlay(
+            context,
+            TooltipConfiguration(
+              alignment: widget.tooltipAlignment,
+              anchorAlignment: widget.tooltipAnchorAlignment,
+            ),
+            builder: widget.tooltipBuilder,
+            adaptive: true,
+          );
+          return;
+        }
 
         /// Creates a `_controller.show` instance.
         _controller.show(
@@ -38,7 +68,7 @@ class _InstantTooltipState extends State<InstantTooltip> {
         );
       },
       onExit: (event) {
-        _controller.close();
+        _closeAll();
       },
       hitTestBehavior: widget.behavior,
       child: widget.child,

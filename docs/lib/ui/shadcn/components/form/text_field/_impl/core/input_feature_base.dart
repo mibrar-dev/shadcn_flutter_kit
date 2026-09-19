@@ -129,6 +129,50 @@ abstract class InputFeature {
     bool skipFocusTraversal,
   }) = InputSpinnerFeature;
 
+  /// Creates an increment button feature for numeric inputs.
+  ///
+  /// Parameters:
+  /// - [visibility] (`InputFeatureVisibility`, default: always): When to show button.
+  /// - [position] (`InputFeaturePosition`, default: trailing): Where to place button.
+  /// - [step] (`double`, default: 1): Increment step size.
+  /// - [invalidValue] (`double?`, optional): Value to use when input is invalid.
+  /// - [min] (`double?`, optional): Minimum allowed value.
+  /// - [max] (`double?`, optional): Maximum allowed value.
+  /// - [icon] (`Widget?`, optional): Custom icon widget.
+  /// - [skipFocusTraversal] (`bool`, default: false): Skip in focus order.
+  const factory InputFeature.incrementButton({
+    InputFeatureVisibility visibility,
+    InputFeaturePosition position,
+    double step,
+    double? invalidValue,
+    double? min,
+    double? max,
+    Widget? icon,
+    bool skipFocusTraversal,
+  }) = InputStepperButtonFeature;
+
+  /// Creates a decrement button feature for numeric inputs.
+  ///
+  /// Parameters:
+  /// - [visibility] (`InputFeatureVisibility`, default: always): When to show button.
+  /// - [position] (`InputFeaturePosition`, default: trailing): Where to place button.
+  /// - [step] (`double`, default: -1): Decrement step size.
+  /// - [invalidValue] (`double?`, optional): Value to use when input is invalid.
+  /// - [min] (`double?`, optional): Minimum allowed value.
+  /// - [max] (`double?`, optional): Maximum allowed value.
+  /// - [icon] (`Widget?`, optional): Custom icon widget.
+  /// - [skipFocusTraversal] (`bool`, default: false): Skip in focus order.
+  const factory InputFeature.decrementButton({
+    InputFeatureVisibility visibility,
+    InputFeaturePosition position,
+    double step,
+    double? invalidValue,
+    double? min,
+    double? max,
+    Widget? icon,
+    bool skipFocusTraversal,
+  }) = InputStepperButtonFeature.decrement;
+
   /// Creates a copy to clipboard button feature.
   ///
   /// Parameters:
@@ -175,6 +219,30 @@ abstract class InputFeature {
     InputFeatureVisibility visibility,
     bool skipFocusTraversal,
   }) = InputTrailingFeature;
+
+  /// Creates a custom widget feature displayed above the input text.
+  ///
+  /// Parameters:
+  /// - [child] (`Widget?`, optional): Widget displayed above the input.
+  /// - [visibility] (`InputFeatureVisibility`, default: always): When to show widget.
+  /// - [skipFocusTraversal] (`bool`, default: false): Skip in focus order.
+  const factory InputFeature.above(
+    Widget? child, {
+    InputFeatureVisibility visibility,
+    bool skipFocusTraversal,
+  }) = InputAboveBelowFeature.above;
+
+  /// Creates a custom widget feature displayed below the input text.
+  ///
+  /// Parameters:
+  /// - [child] (`Widget?`, optional): Widget displayed below the input text.
+  /// - [visibility] (`InputFeatureVisibility`, default: always): When to show widget.
+  /// - [skipFocusTraversal] (`bool`, default: false): Skip in focus order.
+  const factory InputFeature.below(
+    Widget? child, {
+    InputFeatureVisibility visibility,
+    bool skipFocusTraversal,
+  }) = InputAboveBelowFeature.below;
 
   /// Visibility mode for this input feature.
   final InputFeatureVisibility visibility;

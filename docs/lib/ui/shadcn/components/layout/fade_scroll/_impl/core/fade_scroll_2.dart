@@ -1,9 +1,9 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 part of '../../fade_scroll.dart';
 
 /// FadeScroll defines a reusable type for this registry module.
-class FadeScroll extends StatelessWidget {
+class FadeScroll extends StatelessWidget implements Styleable<FadeScrollTheme> {
   /// The offset from the start where the fade begins.
   final double? startOffset;
 
@@ -25,6 +25,10 @@ class FadeScroll extends StatelessWidget {
   /// The gradient colors for the fade effect.
   final List<Color>? gradient;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final FadeScrollTheme? theme;
+
   /// Creates a fade scroll widget.
   const FadeScroll({
     super.key,
@@ -35,12 +39,13 @@ class FadeScroll extends StatelessWidget {
     this.gradient,
     this.startCrossOffset = 0,
     this.endCrossOffset = 0,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<FadeScrollTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<FadeScrollTheme>(context);
     final startOffset = styleValue(
       widgetValue: this.startOffset,
       themeValue: compTheme?.startOffset,

@@ -3,7 +3,7 @@
 part of '../../keyboard_shortcut.dart';
 
 /// A widget that displays a single keyboard key in a styled format.
-class KeyboardKeyDisplay extends StatelessWidget {
+class KeyboardKeyDisplay extends StatelessWidget implements Styleable<KeyboardShortcutTheme> {
   /// The keyboard key to display.
   final LogicalKeyboardKey keyboardKey;
 
@@ -13,12 +13,18 @@ class KeyboardKeyDisplay extends StatelessWidget {
   /// Box shadows applied to the key display for depth effect.
   final List<BoxShadow>? boxShadow;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final KeyboardShortcutTheme? theme;
+
+
   /// Creates a [KeyboardKeyDisplay] for the specified keyboard key.
   const KeyboardKeyDisplay({
     super.key,
     required this.keyboardKey,
     this.padding,
     this.boxShadow,
+    this.theme,
   });
 
   /// Builds the widget tree for keyboard shortcut.
@@ -27,14 +33,11 @@ class KeyboardKeyDisplay extends StatelessWidget {
     final displayMapper = Data.of<KeyboardShortcutDisplayHandle>(context);
     final theme = Theme.of(context);
     final directionality = Directionality.of(context);
-    final compTheme = ComponentTheme.maybeOf<KeyboardShortcutTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<KeyboardShortcutTheme>(context);
     final resolvedPadding = styleValue(
       widgetValue: padding,
       themeValue: compTheme?.keyPadding,
-      defaultValue: EdgeInsets.symmetric(
-        horizontal: theme.density.baseGap * 0.75,
-        vertical: theme.density.baseGap * 0.5,
-      ),
+      defaultValue: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
     ).resolve(directionality);
     final resolvedShadow = styleValue(
       widgetValue: boxShadow,

@@ -212,7 +212,10 @@ class CommandState extends State<Command> {
                                   /// Creates a `Divider` instance.
                                   const Divider(),
                               padding: EdgeInsets.symmetric(
-                                vertical: theme.scaling * 2,
+                                vertical:
+                                    theme.density.baseGap *
+                                    theme.scaling *
+                                    0.25,
                               ),
                               shrinkWrap: true,
                               itemCount: items.length,
@@ -238,16 +241,17 @@ class CommandState extends State<Command> {
 
                     /// Creates a `Container` instance.
                     Container(
-                      color: theme.colorScheme.muted.scaleAlpha(0.35),
+                      color: theme.colorScheme.card,
                       padding: EdgeInsets.symmetric(
                         horizontal:
-                            theme.density.baseGap * theme.scaling * gapMd,
+                            theme.density.baseContentPadding *
+                            theme.scaling *
+                            0.75,
                         vertical: theme.density.baseGap * theme.scaling * 0.75,
                       ),
                       child: IntrinsicHeight(
                         child: Row(
-                          spacing:
-                              theme.density.baseGap * theme.scaling * gapSm,
+                          spacing: theme.density.baseGap * theme.scaling,
                           children: [
                             /// Creates a `CommandKeyboardDisplay.fromActivator` instance.
                             CommandKeyboardDisplay.fromActivator(

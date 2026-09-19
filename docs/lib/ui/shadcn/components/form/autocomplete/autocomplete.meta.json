@@ -32,6 +32,7 @@
       "`mode` (`AutoCompleteMode?`)",
       "`popoverConstraints`, `popoverWidthConstraint`",
       "`popoverAnchorAlignment`, `popoverAlignment`",
+      "`overlayConfiguration`, `adaptiveOverlay` (`@Deprecated`, stored for upstream parity)",
       "`completer` (`AutoCompleteCompleter`)",
       "`AutoCompleteMode` — `append`, `replaceWord`, `replaceAll`",
       "`AutoCompleteTheme` — popover sizing and alignment defaults"

@@ -52,7 +52,7 @@ part '_impl/themes/base/color_picker_theme.dart';
 ///   enableEyeDropper: true,
 /// )
 /// ```
-class ColorPicker extends StatefulWidget {
+class ColorPicker extends StatefulWidget implements Styleable<ColorPickerTheme> {
   /// The current color value.
   final ColorDerivative value;
 
@@ -95,6 +95,11 @@ class ColorPicker extends StatefulWidget {
   /// Size of the color sliders.
   final double? sliderSize;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ColorPickerTheme? theme;
+
+
   /// Creates a [ColorPicker] widget.
   const ColorPicker({
     super.key,
@@ -112,6 +117,7 @@ class ColorPicker extends StatefulWidget {
     this.sliderSize,
     this.showHistoryButton = true,
     this.initialShowHistory = false,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

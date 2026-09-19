@@ -3,6 +3,7 @@
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -12,6 +13,7 @@ import '../../../../../shared/theme/theme.dart';
 import '../../../../../shared/utils/constants.dart';
 import '../../../../../shared/utils/platform_utils.dart';
 import '../core/clickable_widget.dart';
+import '../core/overflow_decorated_box.dart';
 import 'widget_states_data.dart';
 import 'widget_states_provider.dart';
 
@@ -96,6 +98,25 @@ class ClickableState extends State<Clickable> {
     }
   }
 
+  /// Updates controller state, deferring past build phase.
+  ///
+  /// Avoids notifying listeners during a build by deferring to the next
+  /// frame when the scheduler is in persistent callbacks (matches
+  /// upstream, prevents setState-during-build errors from gesture and
+  /// hover callbacks that fire mid-build).
+  void _updateState(WidgetState state, bool value) {
+    if (!mounted) return;
+    if (SchedulerBinding.instance.schedulerPhase ==
+        SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        _controller.update(state, value);
+      });
+      return;
+    }
+    _controller.update(state, value);
+  }
+
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
@@ -122,8 +143,10 @@ class ClickableState extends State<Clickable> {
 
     /// Stores `borderRadius` state/configuration for this implementation.
     BorderRadiusGeometry borderRadius;
+    BoxShape shape = BoxShape.rectangle;
     if (decoration is BoxDecoration) {
       borderRadius = decoration.borderRadius ?? theme.borderRadiusMd;
+      shape = decoration.shape;
     } else {
       borderRadius = theme.borderRadiusMd;
     }
@@ -134,6 +157,7 @@ class ClickableState extends State<Clickable> {
           /// Creates a `widgetStates.contains` instance.
           widgetStates.contains(WidgetState.focused) &&
           !widget.disableFocusOutline,
+      shape: shape,
       borderRadius: borderRadius,
       child: GestureDetector(
         behavior: widget.behavior,
@@ -156,9 +180,9 @@ class ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, true);
+                  _updateState(WidgetState.hovered, true);
                 }
-                _controller.update(WidgetState.pressed, true);
+                _updateState(WidgetState.pressed, true);
                 widget.onTapDown?.call(details);
               }
             : widget.onTapDown,
@@ -166,9 +190,9 @@ class ClickableState extends State<Clickable> {
             ? (details) {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapUp?.call(details);
               }
             : widget.onTapUp,
@@ -176,9 +200,9 @@ class ClickableState extends State<Clickable> {
             ? () {
                 if (widget.enableFeedback) {
                   // also dispatch hover
-                  _controller.update(WidgetState.hovered, false);
+                  _updateState(WidgetState.hovered, false);
                 }
-                _controller.update(WidgetState.pressed, false);
+                _updateState(WidgetState.pressed, false);
                 widget.onTapCancel?.call();
               }
             : widget.onTapCancel,
@@ -247,15 +271,14 @@ class ClickableState extends State<Clickable> {
             ...?widget.actions,
           },
           onShowHoverHighlight: (value) {
-            /// Creates a `_controller.update` instance.
-            _controller.update(
+            _updateState(
               WidgetState.hovered,
               value && !widget.disableHoverEffect,
             );
             widget.onHover?.call(value);
           },
           onShowFocusHighlight: (value) {
-            _controller.update(WidgetState.focused, value);
+            _updateState(WidgetState.focused, value);
             widget.onFocus?.call(value);
           },
           mouseCursor:
@@ -308,26 +331,72 @@ class ClickableState extends State<Clickable> {
   ) {
     var resolvedMargin = widget.margin?.resolve(widgetStates);
     var resolvedPadding = widget.padding?.resolve(widgetStates);
+    var textDirection = Directionality.of(context);
+    var expands = EdgeInsets.zero;
+    if (resolvedMargin != null) {
+      var margin = resolvedMargin.resolve(textDirection);
+      // Ensure non-negative margins, because negative margins are possible
+      // and used as BoxDecoration overflow paint
+      resolvedMargin = EdgeInsets.only(
+        left: margin.left < 0 ? 0 : margin.left,
+        top: margin.top < 0 ? 0 : margin.top,
+        right: margin.right < 0 ? 0 : margin.right,
+        bottom: margin.bottom < 0 ? 0 : margin.bottom,
+      );
+      expands = -EdgeInsets.only(
+        left: margin.left < 0 ? margin.left : 0,
+        top: margin.top < 0 ? margin.top : 0,
+        right: margin.right < 0 ? margin.right : 0,
+        bottom: margin.bottom < 0 ? margin.bottom : 0,
+      );
+    }
     if (widget.disableTransition) {
       Widget container = Container(
-        clipBehavior: Clip.antiAlias,
         margin: resolvedMargin,
-        decoration: decoration,
-        padding: resolvedPadding,
-        child: widget.child,
+        child: decoration == null
+            ? widget.child
+            : OverflowDecoratedBox(
+                decoration: decoration,
+                expands: expands,
+                child: Padding(
+                  padding: resolvedPadding ?? EdgeInsets.zero,
+                  child: widget.child,
+                ),
+              ),
       );
       if (widget.marginAlignment != null) {
         container = Align(alignment: widget.marginAlignment!, child: container);
       }
       return container;
     }
+    if (decoration is BoxDecoration && decoration.shape == BoxShape.circle) {
+      decoration = decoration.copyWith(borderRadius: null);
+    }
     Widget animatedContainer = AnimatedContainer(
-      clipBehavior: decoration == null ? Clip.none : Clip.antiAlias,
       margin: resolvedMargin,
       duration: kDefaultDuration,
-      decoration: decoration,
-      padding: resolvedPadding,
-      child: widget.child,
+      child: decoration == null
+          ? widget.child
+          : AnimatedValueBuilder<Decoration?>(
+              value: decoration,
+              duration: kDefaultDuration,
+              lerp: _lerpDecoration,
+              builder: (context, value, child) {
+                if (value == null) {
+                  return child!;
+                }
+                return OverflowDecoratedBox(
+                  decoration: value,
+                  expands: expands,
+                  child: child,
+                );
+              },
+              child: AnimatedPadding(
+                duration: kDefaultDuration,
+                padding: resolvedPadding ?? EdgeInsets.zero,
+                child: widget.child,
+              ),
+            ),
     );
     if (widget.marginAlignment != null) {
       animatedContainer = AnimatedAlign(
@@ -338,4 +407,113 @@ class ClickableState extends State<Clickable> {
     }
     return animatedContainer;
   }
+
+  /// Lerps decorations with a premultiplied-alpha fill fix.
+  ///
+  /// `Decoration.lerp` blends fills with `Color.lerp`, which is wrong
+  /// whenever the two states differ in alpha — a hover tint fading in over
+  /// an opaque surface visibly darkens on the way through. The fill is
+  /// redone in premultiplied space (matches upstream).
+  static Decoration? _lerpDecoration(Decoration? a, Decoration? b, double t) {
+    if (t == 0.0) {
+      return a;
+    }
+    if (t == 1.0) {
+      return b;
+    }
+    if (a is BoxDecoration && b is BoxDecoration) {
+      if (a.shape != b.shape &&
+          a.backgroundBlendMode == null &&
+          b.backgroundBlendMode == null) {
+        ShapeBorder shapeA;
+        if (a.shape == BoxShape.circle) {
+          shapeA = const CircleBorder();
+        } else {
+          shapeA = RoundedRectangleBorder(
+            borderRadius: a.borderRadius ?? BorderRadius.zero,
+          );
+        }
+        ShapeBorder shapeB;
+        if (b.shape == BoxShape.circle) {
+          shapeB = const CircleBorder();
+        } else {
+          shapeB = RoundedRectangleBorder(
+            borderRadius: b.borderRadius ?? BorderRadius.zero,
+          );
+        }
+        if (a.border is Border) {
+          shapeA = (shapeA as OutlinedBorder).copyWith(
+            side: (a.border as Border).top,
+          );
+        }
+        if (b.border is Border) {
+          shapeB = (shapeB as OutlinedBorder).copyWith(
+            side: (b.border as Border).top,
+          );
+        }
+        return ShapeDecoration.lerp(
+          ShapeDecoration(
+            color: a.color,
+            image: a.image,
+            shadows: a.boxShadow,
+            gradient: a.gradient,
+            shape: shapeA,
+          ),
+          ShapeDecoration(
+            color: b.color,
+            image: b.image,
+            shadows: b.boxShadow,
+            gradient: b.gradient,
+            shape: shapeB,
+          ),
+          t,
+        );
+      }
+    }
+    var lerped = Decoration.lerp(a, b, t);
+    if (lerped is BoxDecoration && a is BoxDecoration && b is BoxDecoration) {
+      lerped = lerped.copyWith(
+        color: _lerpColorPremultiplied(a.color, b.color, t),
+      );
+    } else if (lerped is ShapeDecoration &&
+        a is ShapeDecoration &&
+        b is ShapeDecoration) {
+      lerped = ShapeDecoration(
+        color: _lerpColorPremultiplied(a.color, b.color, t),
+        image: lerped.image,
+        gradient: lerped.gradient,
+        shadows: lerped.shadows,
+        shape: lerped.shape,
+      );
+    }
+    if (lerped is BoxDecoration &&
+        lerped.shape == BoxShape.circle &&
+        lerped.borderRadius != null) {
+      return lerped.copyWith(borderRadius: null);
+    }
+    return lerped;
+  }
+}
+
+/// Blends two colors in premultiplied space.
+///
+/// A null end is fully transparent, but it has no colour of its own, so it
+/// fades out the other end rather than dragging it towards black
+/// (matches upstream `lerpColorPremultiplied`).
+Color? _lerpColorPremultiplied(Color? a, Color? b, double t) {
+  if (a == null && b == null) return null;
+  final start = a ?? (b!.withValues(alpha: 0));
+  final end = b ?? (a!.withValues(alpha: 0));
+  double mix(double from, double to) => from + (to - from) * t;
+  final alpha = mix(start.a, end.a);
+  if (alpha <= 0) return start.withValues(alpha: 0);
+  double channel(double from, double to) =>
+      mix(from * start.a, to * end.a) / alpha;
+  return Color.from(
+    alpha: alpha,
+    red: channel(start.r, end.r),
+    green: channel(start.g, end.g),
+    blue: channel(start.b, end.b),
+    colorSpace: start.colorSpace,
+  );
 }

@@ -110,7 +110,7 @@ extension OTPCodepointListExtension on OTPCodepointList {
 ///   onSubmitted: (code) => _verifyOTP(code),
 /// );
 /// ```
-class InputOTP extends StatefulWidget {
+class InputOTP extends StatefulWidget implements Styleable<InputOTPTheme> {
   /// The list of children defining input fields, separators, and spaces.
   final List<InputOTPChild> children;
 
@@ -122,6 +122,11 @@ class InputOTP extends StatefulWidget {
 
   /// Called when the user submits the OTP (e.g., presses Enter on last field).
   final ValueChanged<OTPCodepointList>? onSubmitted;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final InputOTPTheme? theme;
+
 
   /// Creates an [InputOTP] widget.
   ///
@@ -136,6 +141,7 @@ class InputOTP extends StatefulWidget {
     this.initialValue,
     this.onChanged,
     this.onSubmitted,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

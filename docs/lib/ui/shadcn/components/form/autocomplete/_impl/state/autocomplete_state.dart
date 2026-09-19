@@ -11,8 +11,21 @@ class _AutoCompleteState extends State<AutoComplete> {
   /// Focus node/reference used by `_isFocused` interactions.
   bool _isFocused = false;
 
+  /// When `true`, the next suggestion sync must not auto-open the popover.
+  ///
+  /// Set right after a suggestion is accepted. Accepting a suggestion changes
+  /// the field text programmatically, which fires the text field's `onChanged`
+  /// and causes the parent to recompute suggestions. Those recomputed
+  /// suggestions usually still match the just-completed word, which would
+  /// otherwise immediately reopen the popover the user just dismissed. The flag
+  /// is consumed on the next [didUpdateWidget] cycle, so subsequent typing
+  /// reopens the popover as normal.
+  ///
+  /// Upstream parity: ported from upstream `_AutoCompleteState._suppressReopen`.
+  bool _suppressReopen = false;
+
   AutoCompleteMode get _mode {
-    final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
     return styleValue(
       widgetValue: widget.mode,
       themeValue: compTheme?.mode,
@@ -24,86 +37,108 @@ class _AutoCompleteState extends State<AutoComplete> {
   @override
   void initState() {
     super.initState();
-    _suggestions.addListener(_onSuggestionsChanged);
     if (widget.suggestions.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) {
           return;
         }
-        _suggestions.value = widget.suggestions;
-        _selectedIndex.value = widget.suggestions.isEmpty ? -1 : 0;
+        _applySuggestions(widget.suggestions, allowOpen: true);
       });
     }
   }
 
-  /// Performs `_onSuggestionsChanged` logic for this form component.
-  void _onSuggestionsChanged() {
-    if ((_suggestions.value.isEmpty && _popoverController.hasOpenPopover) ||
-        !_isFocused) {
-      _popoverController.close();
-    } else if (!_popoverController.hasOpenPopover &&
-        _suggestions.value.isNotEmpty) {
-      final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
-      _selectedIndex.value = -1;
-      _popoverController.show(
-        context: context,
-        handler: const PopoverOverlayHandler(),
-        builder: (context) {
-          final theme = Theme.of(context);
-          final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
-          final popoverConstraints = styleValue<BoxConstraints>(
-            widgetValue: widget.popoverConstraints,
-            themeValue: compTheme?.popoverConstraints,
-            defaultValue: BoxConstraints(maxHeight: 300 * theme.scaling),
-          );
-          return TextFieldTapRegion(
-            child: ConstrainedBox(
-              constraints: popoverConstraints,
-              child: SurfaceCard(
-                padding: EdgeInsets.all(
-                  theme.density.baseGap * theme.scaling * 0.5,
-                ),
-                child: AnimatedBuilder(
-                  animation: Listenable.merge([_suggestions, _selectedIndex]),
-                  builder: (context, child) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _suggestions.value.length,
-                      itemBuilder: (context, index) {
-                        final suggestion = _suggestions.value[index];
-                        return _AutoCompleteItem(
-                          suggestion: suggestion,
-                          selected: index == _selectedIndex.value,
-                          onSelected: () {
-                            _selectedIndex.value = index;
-                            _handleProceed();
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
+  /// Stores a new suggestion list and reconciles the popover visibility.
+  ///
+  /// Upstream parity: ported from upstream
+  /// `_AutoCompleteState._applySuggestions`, adapted to [PopoverController].
+  void _applySuggestions(List<String> suggestions, {required bool allowOpen}) {
+    _suggestions.value = suggestions;
+    _selectedIndex.value = suggestions.isEmpty ? -1 : 0;
+    _syncPopover(allowOpen: allowOpen);
+  }
+
+  /// Opens or closes the popover to match the current suggestions and focus.
+  ///
+  /// Closing always happens when needed, but opening is skipped when
+  /// [allowOpen] is `false` (e.g. right after a suggestion was accepted).
+  ///
+  /// Upstream parity: ported from upstream `_AutoCompleteState._syncPopover`,
+  /// adapted to [PopoverController] (the registry popover architecture).
+  /// The upstream `overlayConfiguration`/`adaptiveOverlay` values are accepted
+  /// and stored for API compatibility but cannot be honored here; the popover
+  /// is always presented via [PopoverController.show] with the `popover*`
+  /// sizing and alignment parameters.
+  void _syncPopover({required bool allowOpen}) {
+    final shouldOpen = _isFocused && _suggestions.value.isNotEmpty;
+    if (!shouldOpen) {
+      if (_popoverController.hasOpenPopover) {
+        _popoverController.close();
+      }
+      return;
+    }
+    if (_popoverController.hasOpenPopover || !allowOpen) {
+      return;
+    }
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+    _selectedIndex.value = -1;
+    _popoverController.show(
+      context: context,
+      handler: const PopoverOverlayHandler(),
+      builder: (context) {
+        final theme = Theme.of(context);
+        final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+        final popoverConstraints = styleValue<BoxConstraints>(
+          widgetValue: widget.popoverConstraints,
+          themeValue: compTheme?.popoverConstraints,
+          defaultValue: BoxConstraints(maxHeight: 300 * theme.scaling),
+        );
+        return TextFieldTapRegion(
+          child: ConstrainedBox(
+            constraints: popoverConstraints,
+            child: SurfaceCard(
+              padding: EdgeInsets.all(
+                theme.density.baseGap * theme.scaling * 0.5,
+              ),
+              child: AnimatedBuilder(
+                animation: Listenable.merge([_suggestions, _selectedIndex]),
+                builder: (context, child) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _suggestions.value.length,
+                    itemBuilder: (context, index) {
+                      final suggestion = _suggestions.value[index];
+                      return _AutoCompleteItem(
+                        suggestion: suggestion,
+                        selected: index == _selectedIndex.value,
+                        onSelected: () {
+                          _selectedIndex.value = index;
+                          _handleProceed();
+                        },
+                      );
+                    },
+                  );
+                },
               ),
             ),
-          );
-        },
-        widthConstraint: styleValue(
-          widgetValue: widget.popoverWidthConstraint,
-          themeValue: compTheme?.popoverWidthConstraint,
-          defaultValue: PopoverConstraint.anchorFixedSize,
-        ),
-        anchorAlignment: styleValue(
-          widgetValue: widget.popoverAnchorAlignment,
-          themeValue: compTheme?.popoverAnchorAlignment,
-          defaultValue: AlignmentDirectional.bottomStart,
-        ),
-        alignment: styleValue(
-          widgetValue: widget.popoverAlignment,
-          themeValue: compTheme?.popoverAlignment,
-          defaultValue: AlignmentDirectional.topStart,
-        ),
-      );
-    }
+          ),
+        );
+      },
+      widthConstraint: styleValue(
+        widgetValue: widget.popoverWidthConstraint,
+        themeValue: compTheme?.popoverWidthConstraint,
+        defaultValue: PopoverConstraint.anchorFixedSize,
+      ),
+      anchorAlignment: styleValue(
+        widgetValue: widget.popoverAnchorAlignment,
+        themeValue: compTheme?.popoverAnchorAlignment,
+        defaultValue: AlignmentDirectional.bottomStart,
+      ),
+      alignment: styleValue(
+        widgetValue: widget.popoverAlignment,
+        themeValue: compTheme?.popoverAlignment,
+        defaultValue: AlignmentDirectional.topStart,
+      ),
+    );
   }
 
   /// Performs `_handleProceed` logic for this form component.
@@ -112,6 +147,10 @@ class _AutoCompleteState extends State<AutoComplete> {
     if (selectedIndex < 0 || selectedIndex >= _suggestions.value.length) {
       return;
     }
+    // Applying the suggestion changes the field text, which fires onChanged and
+    // re-derives suggestions that usually still match. Suppress the reopen it
+    // would trigger so the popover stays closed until the user types again.
+    _suppressReopen = true;
     _popoverController.close();
     var suggestion = _suggestions.value[selectedIndex];
     suggestion = widget.completer(suggestion);
@@ -122,13 +161,17 @@ class _AutoCompleteState extends State<AutoComplete> {
   @override
   void didUpdateWidget(covariant AutoComplete oldWidget) {
     super.didUpdateWidget(oldWidget);
+    // Consume the suppression flag for this update cycle: the change that
+    // arrives right after an accept must not reopen the popover, but the flag
+    // is cleared here so the next user edit reopens it normally.
+    final allowOpen = !_suppressReopen;
+    _suppressReopen = false;
     if (!listEquals(oldWidget.suggestions, widget.suggestions)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) {
           return;
         }
-        _suggestions.value = widget.suggestions;
-        _selectedIndex.value = widget.suggestions.isEmpty ? -1 : 0;
+        _applySuggestions(widget.suggestions, allowOpen: allowOpen);
       });
     }
   }

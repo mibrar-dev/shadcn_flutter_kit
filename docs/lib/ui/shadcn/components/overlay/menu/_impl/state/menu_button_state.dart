@@ -37,7 +37,7 @@ class _MenuButtonState extends State<MenuButton> {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<MenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<MenuTheme>(context);
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
     final isDialogOverlay = DialogOverlayHandler.isDialogOverlay(context);
 

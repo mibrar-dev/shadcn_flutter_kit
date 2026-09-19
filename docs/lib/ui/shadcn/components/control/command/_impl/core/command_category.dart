@@ -28,14 +28,14 @@ class CommandCategory extends StatelessWidget {
         if (title != null)
           title!
               .withPadding(
-                horizontal: theme.density.baseGap * theme.scaling * gapSm,
-                vertical: theme.density.baseGap * theme.scaling * 0.75,
+                horizontal: theme.scaling * 8,
+                vertical: theme.scaling * 6,
               )
               .medium()
               .xSmall()
               .muted(),
         ...children,
       ],
-    ).withPadding(all: theme.density.baseGap * theme.scaling * gapXs);
+    ).withPadding(all: theme.scaling * 4);
   }
 }

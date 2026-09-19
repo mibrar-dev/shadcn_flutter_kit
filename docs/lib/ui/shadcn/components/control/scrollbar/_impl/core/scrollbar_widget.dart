@@ -2,10 +2,12 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../../../../shared/theme/theme.dart';
+import '../themes/base/scrollbar_theme.dart';
 import 'shadcn_scrollbar.dart';
 
 /// A customizable scrollbar widget.
-class Scrollbar extends StatelessWidget {
+class Scrollbar extends StatelessWidget implements Styleable<ScrollbarTheme> {
   /// Creates a `Scrollbar` instance.
   const Scrollbar({
     super.key,
@@ -19,7 +21,12 @@ class Scrollbar extends StatelessWidget {
     this.notificationPredicate,
     this.interactive,
     this.scrollbarOrientation,
+    this.theme,
   });
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ScrollbarTheme? theme;
 
   /// Stores `child` state/configuration for this implementation.
   final Widget child;

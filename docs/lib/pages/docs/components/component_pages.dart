@@ -18,15 +18,19 @@ import 'package:docs/pages/docs/components/chat_page.dart';
 import 'package:docs/pages/docs/components/chip_page.dart';
 import 'package:docs/pages/docs/components/circular_progress_indicator_page.dart';
 import 'package:docs/pages/docs/components/code_snippet_page.dart';
+import 'package:docs/pages/docs/components/country_flag_page.dart';
 import 'package:docs/pages/docs/components/divider_page.dart';
 import 'package:docs/pages/docs/components/dot_indicator_page.dart';
 import 'package:docs/pages/docs/components/empty_state_page.dart';
+import 'package:docs/pages/docs/components/fade_scroll_display_page.dart';
 import 'package:docs/pages/docs/components/feature_carousel_page.dart';
+import 'package:docs/pages/docs/components/file_diff_viewer_page.dart';
 import 'package:docs/pages/docs/components/icon_page.dart';
 import 'package:docs/pages/docs/components/keyboard_shortcut_page.dart';
 import 'package:docs/pages/docs/components/linear_progress_indicator_page.dart';
 import 'package:docs/pages/docs/components/markdown_page.dart';
 import 'package:docs/pages/docs/components/number_ticker_page.dart';
+import 'package:docs/pages/docs/components/pinned_sheet_page.dart';
 import 'package:docs/pages/docs/components/progress_page.dart';
 import 'package:docs/pages/docs/components/selectable_page.dart';
 import 'package:docs/pages/docs/components/skeleton_page.dart';
@@ -39,6 +43,7 @@ import 'package:docs/pages/docs/components/triple_dots_page.dart';
 import 'package:docs/pages/docs/components/autocomplete_page.dart';
 import 'package:docs/pages/docs/components/checkbox_page.dart';
 import 'package:docs/pages/docs/components/chip_input_page.dart';
+import 'package:docs/pages/docs/components/color_field_page.dart';
 import 'package:docs/pages/docs/components/color_input_page.dart';
 import 'package:docs/pages/docs/components/color_picker_page.dart';
 import 'package:docs/pages/docs/components/control_page.dart';
@@ -48,6 +53,7 @@ import 'package:docs/pages/docs/components/file_input_page.dart';
 import 'package:docs/pages/docs/components/file_picker_page.dart';
 import 'package:docs/pages/docs/components/form_page.dart';
 import 'package:docs/pages/docs/components/form_field_page.dart';
+import 'package:docs/pages/docs/components/form_sortable_page.dart';
 import 'package:docs/pages/docs/components/formatted_input_page.dart';
 import 'package:docs/pages/docs/components/formatter_page.dart';
 import 'package:docs/pages/docs/components/history_page.dart';
@@ -96,6 +102,7 @@ import 'package:docs/pages/docs/components/window_page.dart';
 import 'package:docs/pages/docs/components/breadcrumb_page.dart';
 import 'package:docs/pages/docs/components/navigation_bar_page.dart';
 import 'package:docs/pages/docs/components/navigation_menu_page.dart';
+import 'package:docs/pages/docs/components/page_route_page.dart';
 import 'package:docs/pages/docs/components/pagination_page.dart';
 import 'package:docs/pages/docs/components/stepper_page.dart';
 import 'package:docs/pages/docs/components/subfocus_page.dart';
@@ -105,9 +112,12 @@ import 'package:docs/pages/docs/components/tab_list_page.dart';
 import 'package:docs/pages/docs/components/tab_pane_page.dart';
 import 'package:docs/pages/docs/components/tabs_page.dart';
 import 'package:docs/pages/docs/components/alert_dialog_page.dart';
+import 'package:docs/pages/docs/components/anchor_page.dart';
+import 'package:docs/pages/docs/components/backdrop_transform_page.dart';
 import 'package:docs/pages/docs/components/context_menu_page.dart';
 import 'package:docs/pages/docs/components/dialog_page.dart';
 import 'package:docs/pages/docs/components/drawer_page.dart';
+import 'package:docs/pages/docs/components/drawer_container_page.dart';
 import 'package:docs/pages/docs/components/dropdown_menu_page.dart';
 import 'package:docs/pages/docs/components/eye_dropper_page.dart';
 import 'package:docs/pages/docs/components/gooey_toast_page.dart';
@@ -115,9 +125,11 @@ import 'package:docs/pages/docs/components/hover_card_page.dart';
 import 'package:docs/pages/docs/components/menu_page.dart';
 import 'package:docs/pages/docs/components/menubar_page.dart';
 import 'package:docs/pages/docs/components/overlay_page.dart';
+import 'package:docs/pages/docs/components/overlay_configuration_page.dart';
 import 'package:docs/pages/docs/components/popover_page.dart';
 import 'package:docs/pages/docs/components/popup_page.dart';
 import 'package:docs/pages/docs/components/refresh_trigger_page.dart';
+import 'package:docs/pages/docs/components/spell_check_suggestions_toolbar_page.dart';
 import 'package:docs/pages/docs/components/swiper_page.dart';
 import 'package:docs/pages/docs/components/toast_page.dart';
 import 'package:docs/pages/docs/components/tooltip_page.dart';
@@ -153,15 +165,19 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'chip': (context) => const ChipDocsPage(),
   'circular_progress_indicator': (context) => const CircularProgressIndicatorDocsPage(),
   'code_snippet': (context) => const CodeSnippetDocsPage(),
+  'country_flag': (context) => const CountryFlagDocsPage(),
   'divider': (context) => const DividerDocsPage(),
   'dot_indicator': (context) => const DotIndicatorDocsPage(),
   'empty_state': (context) => const EmptyStateDocsPage(),
+  'fade_scroll_display': (context) => const FadeScrollDisplayDocsPage(),
   'feature_carousel': (context) => const FeatureCarouselDocsPage(),
+  'file_diff_viewer': (context) => const FileDiffViewerDocsPage(),
   'icon': (context) => const IconDocsPage(),
   'keyboard_shortcut': (context) => const KeyboardShortcutDocsPage(),
   'linear_progress_indicator': (context) => const LinearProgressIndicatorDocsPage(),
   'markdown': (context) => const MarkdownDocsPage(),
   'number_ticker': (context) => const NumberTickerDocsPage(),
+  'pinned_sheet': (context) => const PinnedSheetDocsPage(),
   'progress': (context) => const ProgressDocsPage(),
   'selectable': (context) => const SelectableDocsPage(),
   'skeleton': (context) => const SkeletonDocsPage(),
@@ -174,6 +190,7 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'autocomplete': (context) => const AutocompleteDocsPage(),
   'checkbox': (context) => const CheckboxDocsPage(),
   'chip_input': (context) => const ChipInputDocsPage(),
+  'color_field': (context) => const ColorFieldDocsPage(),
   'color_input': (context) => const ColorInputDocsPage(),
   'color_picker': (context) => const ColorPickerDocsPage(),
   'control': (context) => const ControlDocsPage(),
@@ -183,6 +200,7 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'file_picker': (context) => const FilePickerDocsPage(),
   'form': (context) => const FormDocsPage(),
   'form_field': (context) => const FormFieldDocsPage(),
+  'form_sortable': (context) => const FormSortableDocsPage(),
   'formatted_input': (context) => const FormattedInputDocsPage(),
   'formatter': (context) => const FormatterDocsPage(),
   'history': (context) => const HistoryDocsPage(),
@@ -231,6 +249,7 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'breadcrumb': (context) => const BreadcrumbDocsPage(),
   'navigation_bar': (context) => const NavigationBarDocsPage(),
   'navigation_menu': (context) => const NavigationMenuDocsPage(),
+  'page_route': (context) => const PageRouteDocsPage(),
   'pagination': (context) => const PaginationDocsPage(),
   'stepper': (context) => const StepperDocsPage(),
   'subfocus': (context) => const SubfocusDocsPage(),
@@ -240,9 +259,12 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'tab_pane': (context) => const TabPaneDocsPage(),
   'tabs': (context) => const TabsDocsPage(),
   'alert_dialog': (context) => const AlertDialogDocsPage(),
+  'anchor': (context) => const AnchorDocsPage(),
+  'backdrop_transform': (context) => const BackdropTransformDocsPage(),
   'context_menu': (context) => const ContextMenuDocsPage(),
   'dialog': (context) => const DialogDocsPage(),
   'drawer': (context) => const DrawerDocsPage(),
+  'drawer_container': (context) => const DrawerContainerDocsPage(),
   'dropdown_menu': (context) => const DropdownMenuDocsPage(),
   'eye_dropper': (context) => const EyeDropperDocsPage(),
   'gooey_toast': (context) => const GooeyToastDocsPage(),
@@ -250,9 +272,11 @@ final Map<String, WidgetBuilder> componentPageBuilders = {
   'menu': (context) => const MenuDocsPage(),
   'menubar': (context) => const MenubarDocsPage(),
   'overlay': (context) => const OverlayDocsPage(),
+  'overlay_configuration': (context) => const OverlayConfigurationDocsPage(),
   'popover': (context) => const PopoverDocsPage(),
   'popup': (context) => const PopupDocsPage(),
   'refresh_trigger': (context) => const RefreshTriggerDocsPage(),
+  'spell_check_suggestions_toolbar': (context) => const SpellCheckSuggestionsToolbarDocsPage(),
   'swiper': (context) => const SwiperDocsPage(),
   'toast': (context) => const ToastDocsPage(),
   'tooltip': (context) => const TooltipDocsPage(),

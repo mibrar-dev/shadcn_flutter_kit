@@ -16,13 +16,19 @@ part '_impl/core/collapsible_trigger.dart';
 part '_impl/state/collapsible_state.dart';
 
 /// Expandable layout that keeps its own open/close state by default.
-class Collapsible extends StatefulWidget {
+class Collapsible extends StatefulWidget implements Styleable<CollapsibleTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CollapsibleTheme? theme;
+
   /// Creates a widget that expands/collapses a set of children.
   const Collapsible({
     super.key,
     required this.children,
     this.isExpanded,
     this.onExpansionChanged,
+    this.theme,
   });
 
   /// Children are usually a trigger followed by one or more content widgets.

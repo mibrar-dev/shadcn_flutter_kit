@@ -28,7 +28,8 @@
       "`RadioItem<T>` — standard radio row.",
       "`RadioCard<T>` — card-style radio option.",
       "`ControlledRadioGroup<T>` — controller-backed group.",
-      "`RadioGroupController<T>` — controller."
+      "`RadioGroupController<T>` — controller.",
+      "`NextItemIntent` / `PreviousItemIntent` — public keyboard-navigation intents (aliases)."
     ],
     "callbacks": [
       "`onChanged`"

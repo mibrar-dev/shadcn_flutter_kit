@@ -78,15 +78,27 @@ class FormEntryState extends State<FormEntry> with FormFieldHandle {
     }
   }
 
+  /// Adapter bridging this entry to shared-primitives form widgets.
+  ///
+  /// Cached so descendant `Data` lookups see a stable instance across builds.
+  SharedFormHandleAdapter? _sharedAdapter;
+
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return Data<FormFieldHandle>.inherit(data: this, child: widget.child);
+    _sharedAdapter ??= SharedFormHandleAdapter(this);
+    return Data<FormFieldHandle>.inherit(
+      data: this,
+      child: Data<shared_form.FormFieldHandle>.inherit(
+        data: _sharedAdapter!,
+        child: widget.child,
+      ),
+    );
   }
 
   @override
   FutureOr<ValidationResult?> reportNewFormValue<T>(T? value) {
-    bool isSameType = widget.key.type == T;
+    bool isSameType = widget.key is DynamicFormKey || widget.key.type == T;
     if (!isSameType) {
       var parentLookup = Data.maybeFind<FormFieldHandle>(context);
       assert(parentLookup != this, 'FormEntry cannot be its own parent');

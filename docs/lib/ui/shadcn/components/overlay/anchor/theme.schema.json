@@ -1,0 +1,16 @@
+{
+  "id": "anchor",
+  "title": "Anchor Theme",
+  "description": "Upstream-parity anchor primitives and overlay anchor registry. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/anchor` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

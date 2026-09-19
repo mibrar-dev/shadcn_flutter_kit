@@ -55,15 +55,24 @@ class NavigationSidebar extends StatefulWidget {
 
   /// Index of the currently selected navigation item.
   ///
-  /// Highlights the corresponding item with selected styling.
-  /// When null, no item appears selected.
+  /// Legacy index-based selection. When [selectedKey] is non-null, key-based
+  /// selection takes precedence (upstream parity).
   final int? index;
+
+  /// Currently selected item key (upstream parity).
+  ///
+  /// When non-null, takes precedence over [index]. Matches `widget.key`
+  /// of the selected child.
+  final Key? selectedKey;
 
   /// Callback invoked when a navigation item is selected.
   ///
   /// Called with the index of the selected item. Use this to update
   /// the selection state and handle navigation actions.
   final ValueChanged<int>? onSelected;
+
+  /// Callback invoked with the key of the selected item (upstream parity).
+  final ValueChanged<Key?>? onSelectedKey;
 
   /// Opacity level for surface background effects.
   ///
@@ -94,6 +103,14 @@ class NavigationSidebar extends StatefulWidget {
   /// Controls height sizing behavior when the sidebar's height
   /// constraints are unconstrained.
   final bool keepMainAxisSize;
+
+  /// Optional fixed header items displayed before the scrollable content
+  /// (upstream parity).
+  final List<Widget>? header;
+
+  /// Optional fixed footer items displayed after the scrollable content
+  /// (upstream parity).
+  final List<Widget>? footer;
 
   /// Creates a [NavigationSidebar] with the specified configuration and items.
   ///
@@ -133,12 +150,16 @@ class NavigationSidebar extends StatefulWidget {
     this.padding,
     this.constraints,
     this.index,
+    this.selectedKey,
     this.onSelected,
+    this.onSelectedKey,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.expanded = true,
     this.keepCrossAxisSize = false,
     this.keepMainAxisSize = false,
+    this.header,
+    this.footer,
     required this.children,
   });
 

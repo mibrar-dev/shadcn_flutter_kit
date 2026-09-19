@@ -3,7 +3,7 @@
 part of '../../popup.dart';
 
 /// MenuPopup defines a reusable type for this registry module.
-class MenuPopup extends StatelessWidget {
+class MenuPopup extends StatelessWidget implements Styleable<MenuPopupTheme> {
   /// Opacity of the surface blur effect.
   final double? surfaceOpacity;
 
@@ -25,6 +25,11 @@ class MenuPopup extends StatelessWidget {
   /// The menu items to display inside the popup.
   final List<Widget> children;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MenuPopupTheme? theme;
+
+
   /// Creates a menu popup container.
   const MenuPopup({
     super.key,
@@ -35,6 +40,7 @@ class MenuPopup extends StatelessWidget {
     this.borderColor,
     this.borderRadius,
     required this.children,
+    this.theme,
   });
 
   /// Executes `_buildIntrinsicContainer` behavior for this component/composite.
@@ -53,7 +59,7 @@ class MenuPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Data.maybeOf<MenuGroupData>(context);
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<MenuPopupTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<MenuPopupTheme>(context);
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
     final isDialogOverlay = DialogOverlayHandler.isDialogOverlay(context);
     final pad = styleValue(

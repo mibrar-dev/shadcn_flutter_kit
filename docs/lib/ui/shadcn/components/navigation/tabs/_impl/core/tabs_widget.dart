@@ -3,7 +3,7 @@
 part of '../../tabs.dart';
 
 /// Tabs defines a reusable type for this registry module.
-class Tabs extends StatelessWidget {
+class Tabs extends StatelessWidget implements Styleable<TabsTheme> {
   /// The index of the currently selected tab (0-indexed).
   ///
   /// Must be between 0 and `children.length - 1` inclusive.
@@ -29,6 +29,11 @@ class Tabs extends StatelessWidget {
   /// uses the padding from [TabsTheme].
   final EdgeInsetsGeometry? padding;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TabsTheme? theme;
+
+
   /// Creates a tabs widget.
   ///
   /// Parameters:
@@ -43,6 +48,7 @@ class Tabs extends StatelessWidget {
     required this.children,
     this.padding,
     this.expand = false,
+    this.theme,
   });
 
   Widget _childBuilder(
@@ -54,7 +60,7 @@ class Tabs extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TabsTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TabsTheme>(context);
     final tabPadding = styleValue(
       defaultValue: EdgeInsets.symmetric(
         horizontal: theme.density.baseContentPadding * scaling,
@@ -99,7 +105,7 @@ class Tabs extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TabsTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TabsTheme>(context);
     final containerPadding = styleValue(
       defaultValue: EdgeInsets.all(theme.density.baseGap * scaling * 0.5),
       themeValue: compTheme?.containerPadding,

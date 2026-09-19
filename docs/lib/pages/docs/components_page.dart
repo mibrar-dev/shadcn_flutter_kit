@@ -5,6 +5,7 @@ import '../docs_page.dart';
 import 'blocks.dart';
 import 'components_registry.dart';
 import 'component_examples.dart';
+import 'component_previews.dart';
 import '../../ui/shadcn/components/control/button/button.dart'
     as shadcn_buttons;
 import '../../ui/shadcn/shared/primitives/text.dart';
@@ -108,18 +109,32 @@ class _ComponentNameLink extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: shadcn_buttons.LinkButton(
-        onPressed: () =>
-            context.go('/components/${_toKebabCase(component.id)}'),
-        alignment: Alignment.centerLeft,
-        size: shadcn_buttons.ButtonSize.small,
-        density: shadcn_buttons.ButtonDensity.dense,
-        child: Text(
-          component.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: shadcn_buttons.LinkButton(
+              onPressed: () =>
+                  context.go('/components/${_toKebabCase(component.id)}'),
+              alignment: Alignment.centerLeft,
+              size: shadcn_buttons.ButtonSize.small,
+              density: shadcn_buttons.ButtonDensity.dense,
+              child: Text(
+                component.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          if (component.status != 'Stable') ...[
+            const SizedBox(width: 8),
+            buildStatusBadge(component.status),
+          ],
+        ],
       ),
     );
   }

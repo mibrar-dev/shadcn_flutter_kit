@@ -5,7 +5,7 @@ part of '../../hover_card.dart';
 /// Displays a popover when the child is hovered or long-pressed.
 
 /// HoverCard defines a reusable type for this registry module.
-class HoverCard extends StatefulWidget {
+class HoverCard extends StatefulWidget implements Styleable<HoverCardTheme> {
   /// Stores `child` state/configuration for this implementation.
   final Widget child;
 
@@ -36,6 +36,18 @@ class HoverCard extends StatefulWidget {
   /// Stores `handler` state/configuration for this implementation.
   final OverlayHandler? handler;
 
+  /// Whether this hover card may adapt to a different presentation on mobile
+  /// platforms (upstream parity). When true on a mobile platform the card
+  /// is presented through the adaptive configuration system (fixed,
+  /// non-following overlay, like `Tooltip`); desktop presentation is
+  /// unchanged. Defaults to `false`.
+  final bool adaptiveOverlay;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final HoverCardTheme? theme;
+
+
   /// Creates a `HoverCard` instance.
   const HoverCard({
     super.key,
@@ -49,6 +61,8 @@ class HoverCard extends StatefulWidget {
     this.behavior,
     this.controller,
     this.handler,
+    this.adaptiveOverlay = false,
+    this.theme,
   });
 
   @override

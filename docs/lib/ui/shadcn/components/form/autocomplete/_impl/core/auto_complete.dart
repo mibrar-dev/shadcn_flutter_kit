@@ -8,7 +8,7 @@ part of '../../autocomplete.dart';
 /// with text input widgets. Supports multiple text replacement modes, keyboard
 /// navigation, and theming customization. The widget wraps a child (typically
 /// a text field) and displays filtered suggestions based on user input.
-class AutoComplete extends StatefulWidget {
+class AutoComplete extends StatefulWidget implements Styleable<AutoCompleteTheme> {
   /// List of suggestions to display in the autocomplete popover.
   final List<String> suggestions;
 
@@ -27,11 +27,40 @@ class AutoComplete extends StatefulWidget {
   /// Alignment point on the popover for anchor attachment.
   final AlignmentDirectional? popoverAlignment;
 
+  /// Overrides the overlay configuration used to present the suggestion
+  /// popover.
+  ///
+  /// Upstream parity: accepted and stored for API compatibility. The registry
+  /// [PopoverController] architecture has no `OverlayConfiguration` concept,
+  /// so this value cannot be honored; presentation is driven by
+  /// [popoverConstraints], [popoverWidthConstraint], [popoverAnchorAlignment]
+  /// and [popoverAlignment].
+  @Deprecated(
+    'Stored for upstream parity only; use popoverWidthConstraint/popoverAlignment instead.',
+  )
+  final Object? overlayConfiguration;
+
+  /// Whether the suggestion popover may adapt to a different presentation on
+  /// mobile platforms.
+  ///
+  /// Upstream parity: accepted and stored for API compatibility. The registry
+  /// [PopoverController] always presents an anchored popover, so this value
+  /// cannot be honored.
+  @Deprecated(
+    'Stored for upstream parity only; the registry popover is never adaptive.',
+  )
+  final bool? adaptiveOverlay;
+
   /// Text replacement strategy when a suggestion is selected.
   final AutoCompleteMode? mode;
 
   /// Function to customize suggestion text before application.
   final AutoCompleteCompleter completer;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AutoCompleteTheme? theme;
+
 
   /// Creates an [AutoComplete] widget.
   const AutoComplete({
@@ -42,8 +71,11 @@ class AutoComplete extends StatefulWidget {
     this.popoverWidthConstraint,
     this.popoverAnchorAlignment,
     this.popoverAlignment,
+    this.overlayConfiguration,
+    this.adaptiveOverlay,
     this.mode,
     this.completer = _defaultCompleter,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

@@ -3,7 +3,12 @@
 part of '../../avatar.dart';
 
 /// Core class used by the avatar component.
-class Avatar extends StatefulWidget implements AvatarWidget {
+class Avatar extends StatefulWidget implements AvatarWidget, Styleable<AvatarTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AvatarTheme? theme;
+
   /// Creates `Avatar` for configuring or rendering avatar.
   const Avatar({
     super.key,
@@ -15,6 +20,7 @@ class Avatar extends StatefulWidget implements AvatarWidget {
     this.badgeAlignment,
     this.badgeGap,
     this.provider,
+    this.theme,
   });
 
   /// Creates `Avatar.network` for configuring or rendering avatar.
@@ -30,6 +36,7 @@ class Avatar extends StatefulWidget implements AvatarWidget {
     int? cacheWidth,
     int? cacheHeight,
     required String photoUrl,
+    this.theme,
   }) : provider = ResizeImage.resizeIfNeeded(
          cacheWidth,
          cacheHeight,
@@ -69,8 +76,11 @@ class Avatar extends StatefulWidget implements AvatarWidget {
   @override
   final double? borderRadius;
 
-  /// Input parameter used by `Avatar` during rendering and behavior handling.
-  final AvatarBadge? badge;
+  /// Badge widget overlaid on the avatar.
+  ///
+  /// Typed as [AvatarWidget] (usually an [AvatarBadge]) to match upstream,
+  /// so custom [AvatarWidget] implementations are accepted.
+  final AvatarWidget? badge;
 
   /// Controls how avatar content is aligned within available space.
   final AlignmentGeometry? badgeAlignment;

@@ -1,0 +1,16 @@
+{
+  "id": "backdrop_transform",
+  "title": "Backdrop Transform Theme",
+  "description": "Upstream-parity backdrop transforms for sheet/drawer zoom-out effects. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/backdrop_transform` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

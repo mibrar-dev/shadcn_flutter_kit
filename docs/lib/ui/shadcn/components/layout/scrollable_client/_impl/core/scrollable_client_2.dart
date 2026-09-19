@@ -1,9 +1,9 @@
-// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
+// ignore_for_file: duplicate_import, unnecessary_import, unused_import, unnecessary_this, unnecessary_null_comparison, dead_code, deprecated_member_use, use_null_aware_elements, sort_child_properties_last
 
 part of '../../scrollable_client.dart';
 
 /// ScrollableClient defines a reusable type for this registry module.
-class ScrollableClient extends StatelessWidget {
+class ScrollableClient extends StatelessWidget implements Styleable<ScrollableClientTheme> {
   /// Whether this is the primary scrollable in the widget tree.
   final bool? primary;
 
@@ -40,6 +40,11 @@ class ScrollableClient extends StatelessWidget {
   /// Whether overscroll effects are enabled.
   final bool? overscroll;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ScrollableClientTheme? theme;
+
+
   /// Creates a [ScrollableClient].
   const ScrollableClient({
     super.key,
@@ -55,6 +60,7 @@ class ScrollableClient extends StatelessWidget {
     this.clipBehavior,
     this.hitTestBehavior,
     this.overscroll,
+    this.theme,
   });
 
   Widget _buildViewport(
@@ -115,7 +121,7 @@ class ScrollableClient extends StatelessWidget {
       'TwoDimensionalScrollView.horizontalDetails are not Axis.horizontal.',
     );
 
-    final compTheme = ComponentTheme.maybeOf<ScrollableClientTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<ScrollableClientTheme>(context);
     final diag =
         diagonalDragBehavior ??
         compTheme?.diagonalDragBehavior ??

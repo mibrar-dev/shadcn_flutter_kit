@@ -25,7 +25,11 @@
     "types": [
       "`ToastController`",
       "`ToastEntry`",
-      "`ToastTheme`"
+      "`ToastTheme`",
+      "`ToastLayer` (upstream compat: bottomRight/5s defaults when present)",
+      "`ExpandMode` (upstream compat)",
+      "`ToastBuilder` (upstream compat)",
+      "`UpstreamToastEntry` (upstream-shaped entry adapter)"
     ]
   },
   "theming": [

@@ -37,7 +37,7 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<SwitchTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<SwitchTheme>(context);
     final gap = styleValue(
       widgetValue: widget.gap,
       themeValue: compTheme?.gap,

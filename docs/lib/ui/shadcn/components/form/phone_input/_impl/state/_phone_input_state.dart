@@ -3,24 +3,83 @@
 part of '../../phone_input.dart';
 
 /// _PhoneInputState stores and manages mutable widget state.
+///
+/// Keeps the dial-code prefix in the text field in sync with the selected
+/// country ([_lastValidCountry]) and auto-detects the country when the user
+/// edits the prefix manually ([_findByCode]).
 class _PhoneInputState extends State<PhoneInput>
     with FormValueSupplier<PhoneNumber, PhoneInput> {
-  late Country _country;
   late TextEditingController _controller;
+  late bool _updatingPhone = false;
+  late Country _lastValidCountry;
 
   /// Initializes stateful resources for this widget.
   @override
   void initState() {
     super.initState();
-    _country =
-        widget.initialCountry ??
-        widget.initialValue?.country ??
-        Country.unitedStates;
     _controller =
         widget.controller ??
         TextEditingController(text: widget.initialValue?.number);
+    _lastValidCountry =
+        widget.initialValue?.country ??
+        widget.initialCountry ??
+        Country.unitedStates;
+    _updateCountry(_lastValidCountry);
     formValue = value;
     _controller.addListener(_dispatchChanged);
+  }
+
+  void _updateCountry(Country country) {
+    if (_updatingPhone) return;
+    _updatingPhone = true;
+    final textValue = _controller.value;
+    var selection = textValue.selection;
+    // get the plain number
+    String number = textValue.text;
+    String expectedDialCode = _lastValidCountry.dialCode;
+    if (number.startsWith(expectedDialCode)) {
+      number = number.substring(expectedDialCode.length);
+      selection = selection.copyWith(
+        baseOffset: selection.baseOffset - expectedDialCode.length,
+        extentOffset: selection.extentOffset - expectedDialCode.length,
+      );
+    } else if (number.startsWith('+')) {
+      // unknown code, but lets remove the + first
+      number = number.substring(1);
+      selection = selection.copyWith(
+        baseOffset: selection.baseOffset - 1,
+        extentOffset: selection.extentOffset - 1,
+      );
+    }
+    String newDialCode = country.dialCode;
+    number = '$newDialCode$number';
+    selection = selection.copyWith(
+      baseOffset: selection.baseOffset + newDialCode.length,
+      extentOffset: selection.extentOffset + newDialCode.length,
+    );
+    _controller.value = TextEditingValue(text: number, selection: selection);
+    _lastValidCountry = country;
+    _updatingPhone = false;
+  }
+
+  Country? _findByCode(String phone) {
+    if (phone.startsWith('+')) {
+      phone = phone.substring(1);
+    }
+    List<Country> sortedCountries = Country.values.toList()
+      ..sort((a, b) => b.dialCode.length.compareTo(a.dialCode.length));
+    // Sort countries by dial code length in descending order to ensure the longest match is found first
+    for (final country in sortedCountries) {
+      var dialCode = country.dialCode;
+      // sanitize
+      if (dialCode.startsWith('+')) {
+        dialCode = dialCode.substring(1);
+      }
+      if (phone.startsWith(dialCode)) {
+        return country;
+      }
+    }
+    return null;
   }
 
   /// Reacts to widget configuration updates from the parent.
@@ -36,23 +95,30 @@ class _PhoneInputState extends State<PhoneInput>
 
   /// Performs `_dispatchChanged` logic for this form component.
   void _dispatchChanged() {
-    widget.onChanged?.call(value);
-    formValue = value;
+    setState(() {
+      Country? detectedCountry = _findByCode(_controller.text);
+      if (detectedCountry != null) {
+        final validCountry = detectedCountry;
+        if (validCountry.dialCode != _lastValidCountry.dialCode) {
+          // some country have same dialCode (e.g. US and Canada),
+          // so we use the preferred country
+          _lastValidCountry = validCountry;
+        } else {
+          detectedCountry = _lastValidCountry;
+        }
+      }
+      widget.onChanged?.call(value?.withCountry(detectedCountry));
+      formValue = value;
+    });
   }
 
-  PhoneNumber get value {
+  PhoneNumber? get value {
     var text = _controller.text;
-    if (widget.filterPlusCode && text.startsWith(_country.dialCode)) {
-      text = text.substring(_country.dialCode.length);
-    } else if (widget.filterPlusCode && text.startsWith('+')) {
-      text = text.substring(1);
-    } else if (widget.filterZeroCode && text.startsWith('0')) {
-      text = text.substring(1);
-    } else if (widget.filterCountryCode &&
-        text.startsWith(_country.dialCode.substring(1))) {
-      text = text.substring(_country.dialCode.length - 1);
+    String dialCode = _lastValidCountry.dialCode;
+    if (text.startsWith(dialCode)) {
+      text = text.substring(dialCode.length);
     }
-    return PhoneNumber(_country, text);
+    return PhoneNumber(_lastValidCountry, text);
   }
 
   /// Performs `_filterCountryCode` logic for this form component.
@@ -66,7 +132,7 @@ class _PhoneInputState extends State<PhoneInput>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<PhoneInputTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<PhoneInputTheme>(context);
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -83,7 +149,8 @@ class _PhoneInputState extends State<PhoneInput>
               ),
               themeValue: componentTheme?.padding,
             ),
-            value: _country,
+            expandIcon: null,
+            value: _lastValidCountry,
             borderRadius: styleValue(
               defaultValue: BorderRadius.only(
                 topLeft: theme.radiusMdRadius,
@@ -98,8 +165,7 @@ class _PhoneInputState extends State<PhoneInput>
               if (value != null) {
                 /// Triggers a rebuild after mutating local state.
                 setState(() {
-                  _country = value;
-                  _dispatchChanged();
+                  _updateCountry(value);
                 });
               }
             },
@@ -210,6 +276,7 @@ class _PhoneInputState extends State<PhoneInput>
               keyboardType: widget.onlyNumber ? TextInputType.phone : null,
               inputFormatters: [
                 if (widget.onlyNumber) FilteringTextInputFormatter.digitsOnly,
+                _AlwaysPrefixedPlus(),
               ],
               borderRadius: styleValue(
                 defaultValue: BorderRadius.only(
@@ -218,6 +285,7 @@ class _PhoneInputState extends State<PhoneInput>
                 ),
                 themeValue: componentTheme?.borderRadius,
               ),
+              initialValue: widget.initialValue?.number,
             ),
           ),
         ],

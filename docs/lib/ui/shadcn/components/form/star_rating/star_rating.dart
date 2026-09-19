@@ -59,7 +59,7 @@ part '_impl/utils/star_rating_controller.dart';
 ///   backgroundColor: Colors.grey[300],
 /// );
 /// ```
-class StarRating extends StatefulWidget {
+class StarRating extends StatefulWidget implements Styleable<StarRatingTheme> {
   /// The current rating value.
   ///
   /// Should be between `0` and [max]. Fractional values are supported.
@@ -146,6 +146,11 @@ class StarRating extends StatefulWidget {
   /// [onChanged] is provided.
   final bool? enabled;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final StarRatingTheme? theme;
+
+
   /// Creates a [StarRating].
   const StarRating({
     super.key,
@@ -165,6 +170,7 @@ class StarRating extends StatefulWidget {
     this.starInnerRadiusRatio,
     this.starRotation,
     this.enabled,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

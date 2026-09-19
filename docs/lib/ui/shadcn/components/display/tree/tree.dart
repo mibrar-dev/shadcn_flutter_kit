@@ -28,6 +28,7 @@ part '_impl/core/selection_position.dart';
 part '_impl/core/tree_item.dart';
 part '_impl/core/tree_item_expand_default_handler.dart';
 part '_impl/core/tree_item_view.dart';
+part '_impl/core/tree_aliases.dart';
 part '_impl/core/tree_node.dart';
 part '_impl/core/tree_node_data.dart';
 part '_impl/core/tree_node_depth.dart';

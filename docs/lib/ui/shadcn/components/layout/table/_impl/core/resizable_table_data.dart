@@ -19,6 +19,10 @@ class _ResizableTableData {
   /// Stores `maxRow` state/configuration for this implementation.
   final int maxRow;
 
+  /// The direction columns run in, resolved from [ResizableTable.textDirection]
+  /// or the ambient [Directionality]. Resize handles mirror it.
+  final TextDirection textDirection;
+
   /// Creates a `_ResizableTableData` instance.
   const _ResizableTableData({
     required this.controller,
@@ -26,6 +30,7 @@ class _ResizableTableData {
     required this.cellHeightResizeMode,
     required this.maxColumn,
     required this.maxRow,
+    required this.textDirection,
   });
 
   @override
@@ -37,7 +42,8 @@ class _ResizableTableData {
         other.cellWidthResizeMode == cellWidthResizeMode &&
         other.cellHeightResizeMode == cellHeightResizeMode &&
         other.maxColumn == maxColumn &&
-        other.maxRow == maxRow;
+        other.maxRow == maxRow &&
+        other.textDirection == textDirection;
   }
 
   @override
@@ -47,6 +53,7 @@ class _ResizableTableData {
       maxColumn,
       maxRow,
       cellHeightResizeMode,
+      textDirection,
     );
   }
 }

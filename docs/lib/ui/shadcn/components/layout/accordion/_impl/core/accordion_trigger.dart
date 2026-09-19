@@ -3,9 +3,14 @@
 part of '../../accordion.dart';
 
 /// Tappable header that controls its parent [AccordionItem].
-class AccordionTrigger extends StatefulWidget {
+class AccordionTrigger extends StatefulWidget implements Styleable<AccordionTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AccordionTheme? theme;
+
   /// Creates a trigger for the accordion section.
-  const AccordionTrigger({super.key, required this.child});
+  const AccordionTrigger({super.key, required this.child, this.theme});
 
   /// Content displayed inside the trigger row.
   final Widget child;

@@ -3,7 +3,7 @@
 part of '../../context_menu.dart';
 
 /// ContextMenuPopup defines a reusable type for this registry module.
-class ContextMenuPopup extends StatelessWidget {
+class ContextMenuPopup extends StatelessWidget implements Styleable<ContextMenuTheme> {
   /// Build context for anchoring the popup.
   final BuildContext anchorContext;
 
@@ -25,6 +25,11 @@ class ContextMenuPopup extends StatelessWidget {
   /// Size of the anchor widget.
   final Size? anchorSize;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ContextMenuTheme? theme;
+
+
   /// Creates a [ContextMenuPopup].
   ///
   /// Parameters:
@@ -44,6 +49,7 @@ class ContextMenuPopup extends StatelessWidget {
     this.direction = Axis.vertical,
     this.onTickFollow,
     this.anchorSize,
+    this.theme,
   });
 
   @override

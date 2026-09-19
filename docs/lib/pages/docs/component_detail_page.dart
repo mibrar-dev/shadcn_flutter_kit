@@ -166,6 +166,9 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
             description: component.description,
             displayName: component.name,
             category: component.category,
+            statusBadge: component.status == 'Stable'
+                ? null
+                : buildStatusBadge(component.status),
             children: [
               if (component.id == 'error_system')
                 OutlinedContainer(
@@ -231,6 +234,9 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
           description: component.description,
           displayName: component.name,
           category: component.category,
+          statusBadge: component.status == 'Stable'
+              ? null
+              : buildStatusBadge(component.status),
           children: [
             _buildPerformanceControls(
               totalExamples: 0,

@@ -49,7 +49,7 @@ class _AccordionTriggerState extends State<AccordionTrigger> {
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final accTheme = ComponentTheme.maybeOf<AccordionTheme>(context);
+    final accTheme = widget.theme ?? ComponentTheme.maybeOf<AccordionTheme>(context);
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;

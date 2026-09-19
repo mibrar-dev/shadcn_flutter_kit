@@ -3,7 +3,7 @@
 part of '../../card_image.dart';
 
 /// CardImage defines a reusable type for this registry module.
-class CardImage extends StatefulWidget {
+class CardImage extends StatefulWidget implements Styleable<CardImageTheme> {
   /// Stores `image` state/configuration for this implementation.
   final Widget image;
 
@@ -46,6 +46,11 @@ class CardImage extends StatefulWidget {
   /// Stores `gap` state/configuration for this implementation.
   final double? gap;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CardImageTheme? theme;
+
+
   /// Creates a `CardImage` instance.
   const CardImage({
     super.key,
@@ -63,6 +68,7 @@ class CardImage extends StatefulWidget {
     this.backgroundColor,
     this.borderColor,
     this.gap,
+    this.theme,
   });
 
   @override

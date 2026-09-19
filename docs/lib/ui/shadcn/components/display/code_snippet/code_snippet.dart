@@ -11,7 +11,7 @@ part '_impl/state/_code_snippet_state.dart';
 part '_impl/themes/base/code_snippet_theme.dart';
 
 /// Syntax highlighted code display with optional actions.
-class CodeSnippet extends StatefulWidget {
+class CodeSnippet extends StatefulWidget implements Styleable<CodeSnippetTheme> {
   /// Constraints applied to the snippet area.
   final BoxConstraints? constraints;
 
@@ -21,12 +21,18 @@ class CodeSnippet extends StatefulWidget {
   /// The widget that renders the code content (typically [Text]).
   final Widget code;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CodeSnippetTheme? theme;
+
+
   /// Creates a code snippet display.
   const CodeSnippet({
     super.key,
     this.constraints,
     this.actions = const [],
     required this.code,
+    this.theme,
   });
 
   /// Creates the State object used by this code snippet widget.

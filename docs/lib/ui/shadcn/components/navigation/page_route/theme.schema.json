@@ -1,0 +1,16 @@
+{
+  "id": "page_route",
+  "title": "Page Route Theme",
+  "description": "Full-screen page route with the shadcn fade-and-slide transition. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `navigation/page_route` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

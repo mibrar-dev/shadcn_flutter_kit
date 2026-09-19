@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import '../../../shared/theme/theme.dart';
 import '../../../shared/utils/resizable_item.dart';
 import '../../../shared/utils/resizer.dart';
+import '../scrollable_client/scrollable_client.dart';
 
 part '_impl/themes/base/table_theme.dart';
 part '_impl/core/constrained_table_size.dart';

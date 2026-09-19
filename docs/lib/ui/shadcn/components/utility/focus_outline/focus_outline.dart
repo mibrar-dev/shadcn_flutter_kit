@@ -10,7 +10,12 @@ import '../../../shared/utils/style_value.dart';
 part '_impl/themes/base/focus_outline_theme.dart';
 
 /// Draws a subtle outline around a focused widget.
-class FocusOutline extends StatelessWidget {
+class FocusOutline extends StatelessWidget implements Styleable<FocusOutlineTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final FocusOutlineTheme? theme;
+
   /// Creates a focus outline.
   const FocusOutline({
     super.key,
@@ -20,6 +25,7 @@ class FocusOutline extends StatelessWidget {
     this.align,
     this.border,
     this.shape,
+    this.theme,
   });
 
   /// The wrapped child.
@@ -61,7 +67,7 @@ class FocusOutline extends StatelessWidget {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<FocusOutlineTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<FocusOutlineTheme>(context);
     final theme = Theme.of(context);
     final effectiveAlign = styleValue(
       defaultValue: 3.0,

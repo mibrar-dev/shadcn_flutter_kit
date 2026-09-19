@@ -3,7 +3,7 @@
 part of '../../media_query.dart';
 
 /// MediaQueryVisibility defines a reusable type for this registry module.
-class MediaQueryVisibility extends StatelessWidget {
+class MediaQueryVisibility extends StatelessWidget implements Styleable<MediaQueryVisibilityTheme> {
   /// Minimum screen width to show [child].
   final double? minWidth;
 
@@ -16,6 +16,11 @@ class MediaQueryVisibility extends StatelessWidget {
   /// Widget to display when width is outside range.
   final Widget? alternateChild;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MediaQueryVisibilityTheme? theme;
+
+
   /// Creates a [MediaQueryVisibility].
   const MediaQueryVisibility({
     super.key,
@@ -23,6 +28,7 @@ class MediaQueryVisibility extends StatelessWidget {
     this.maxWidth,
     required this.child,
     this.alternateChild,
+    this.theme,
   });
 
   @override

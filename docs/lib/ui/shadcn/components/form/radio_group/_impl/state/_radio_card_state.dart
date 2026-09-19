@@ -34,7 +34,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<RadioCardTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<RadioCardTheme>(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
     final group = Data.maybeOf<RadioGroupState<T>>(context);
     assert(
@@ -50,7 +50,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
       child: FocusableActionDetector(
         focusNode: _focusNode,
         actions: {
-          _NextItemIntent: CallbackAction<_NextItemIntent>(
+          NextItemIntent: CallbackAction<NextItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);
@@ -58,7 +58,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
               return null;
             },
           ),
-          _PreviousItemIntent: CallbackAction<_PreviousItemIntent>(
+          PreviousItemIntent: CallbackAction<PreviousItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);

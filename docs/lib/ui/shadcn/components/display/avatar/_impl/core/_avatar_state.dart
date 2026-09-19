@@ -7,7 +7,7 @@ class _AvatarState extends State<Avatar> {
   /// Implements `_build` behavior for avatar.
   Widget _build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<AvatarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AvatarTheme>(context);
     final size = styleValue(
       widgetValue: widget.size,
       themeValue: compTheme?.size,
@@ -44,7 +44,7 @@ class _AvatarState extends State<Avatar> {
   /// Implements `_buildInitials` behavior for avatar.
   Widget _buildInitials(BuildContext context, double borderRadius) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<AvatarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AvatarTheme>(context);
     return Container(
       decoration: BoxDecoration(
         color: styleValue(
@@ -82,7 +82,7 @@ class _AvatarState extends State<Avatar> {
       return _build(context);
     }
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<AvatarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AvatarTheme>(context);
     final size = styleValue(
       widgetValue: widget.size,
       themeValue: compTheme?.size,
@@ -106,7 +106,7 @@ class _AvatarState extends State<Avatar> {
     final gap = styleValue(
       widgetValue: widget.badgeGap,
       themeValue: compTheme?.badgeGap,
-      defaultValue: theme.density.baseGap * theme.scaling * gapXs,
+      defaultValue: theme.scaling * 4,
     );
     return AvatarGroup(
       alignment: alignment,

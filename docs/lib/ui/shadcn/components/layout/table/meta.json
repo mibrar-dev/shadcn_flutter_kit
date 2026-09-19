@@ -16,7 +16,9 @@
       "resizer",
       "component_schema"
     ],
-    "components": [],
+    "components": [
+      "scrollable_client"
+    ],
     "pubspec": {
       "data_widget": "^0.0.2",
       "gap": "^3.0.1"
@@ -64,12 +66,12 @@
   ],
   "api": {
     "constructors": [
-      "`Table` \u2014 main table widget.",
-      "`ResizableTable` \u2014 table with resizable columns.",
-      "`TableHeader` / `TableFooter` \u2014 row types.",
-      "`TableRow` \u2014 row model.",
-      "`TableCell` \u2014 cell model.",
-      "`ResizableTableController` \u2014 column sizing controller."
+      "`Table` — main table widget (`verticalController`, `horizontalController`, `textDirection` supported).",
+      "`ResizableTable` — table with resizable columns (`verticalController`, `horizontalController`, `textDirection` supported).",
+      "`TableHeader` / `TableFooter` — row types.",
+      "`TableRow` — row model.",
+      "`TableCell` — cell model.",
+      "`ResizableTableController` — column sizing controller."
     ],
     "callbacks": []
   },

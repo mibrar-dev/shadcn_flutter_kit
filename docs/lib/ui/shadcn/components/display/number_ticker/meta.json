@@ -23,6 +23,9 @@
     }
   },
   "files": [
+    "_impl/core/flipper_character.dart",
+    "_impl/core/flipper_charset.dart",
+    "_impl/core/text_flipper.dart",
     "_impl/themes/base/number_ticker_theme.dart",
     "_impl/themes/config/number_ticker_theme_config.dart",
     "_impl/themes/config/number_ticker_theme_defaults.dart",

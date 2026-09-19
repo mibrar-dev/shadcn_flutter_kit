@@ -13,7 +13,7 @@ class ShadcnLocalizationsDocsPage extends StatelessWidget {
     return const ComponentPage(
       name: 'shadcn_localizations',
       displayName: 'Shadcn Localizations',
-      description: 'Full localization delegate and base translations.',
+      description: 'Full localization delegate, base translations, and 40 locale bundles (ar-zh, incl. zh_Hant).',
       children: [
         ShadcnLocalizationsPreview(),
       ],

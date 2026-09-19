@@ -1,0 +1,38 @@
+{
+  "id": "spell_check_suggestions_toolbar",
+  "name": "Spell Check Suggestions Toolbar",
+  "description": "Upstream-parity shadcn spell check suggestions toolbar (SpellCheckSuggestionsToolbar + .editableText) rendered through registry menu primitives.",
+  "category": "overlay",
+  "tier": "component",
+  "tags": [
+    "overlay",
+    "menu",
+    "text",
+    "spellcheck"
+  ],
+  "dependencies": {
+    "shared": [
+      "theme"
+    ],
+    "components": [
+      "menu"
+    ],
+    "pubspec": {}
+  },
+  "files": [
+    "_impl/core/spell_check_suggestions_toolbar.dart",
+    "spell_check_suggestions_toolbar.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`SpellCheckSuggestionsToolbar`",
+      "`SpellCheckSuggestionsToolbar.editableText`"
+    ],
+    "callbacks": [],
+    "types": [
+      "`SpellCheckSuggestionsToolbar`",
+      "`kMaxSpellCheckSuggestions`"
+    ]
+  },
+  "version": "1.0.0"
+}

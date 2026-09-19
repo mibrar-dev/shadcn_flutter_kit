@@ -1,0 +1,16 @@
+{
+  "id": "drawer_container",
+  "title": "Drawer Container Theme",
+  "description": "Upstream-parity drawer/sheet chrome for pinned sheets and drawer overlays. Theme tokens and editor schema.",
+  "schemaVersion": 1,
+  "since": "1.0.0",
+  "migrations": {},
+  "groups": [
+    {
+      "title": "Theme",
+      "description": "Generated fields discovered from `overlay/drawer_container` theme classes.",
+      "fields": []
+    }
+  ],
+  "$schema": "../../../manifests/component_theme.schema.json"
+}

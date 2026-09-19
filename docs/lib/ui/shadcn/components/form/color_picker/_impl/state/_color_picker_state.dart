@@ -47,7 +47,7 @@ class _ColorPickerState extends State<ColorPicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final spacing = styleValue(
       defaultValue: 12.0,
       themeValue: componentTheme?.spacing,
@@ -158,7 +158,7 @@ class _ColorPickerState extends State<ColorPicker> {
 
   /// Performs `buildSliders` logic for this form component.
   List<Widget> buildSliders(BuildContext context) {
-    final componentTheme = ComponentTheme.maybeOf<ColorPickerTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<ColorPickerTheme>(context);
     final sliderSize = styleValue(
       defaultValue: 24.0,
       themeValue: componentTheme?.sliderSize,

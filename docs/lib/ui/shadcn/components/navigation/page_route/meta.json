@@ -1,0 +1,33 @@
+{
+  "id": "page_route",
+  "name": "Page Route",
+  "description": "Full-screen page route with the shadcn fade-and-slide transition (ShadcnPageRoute/ShadcnPage).",
+  "category": "navigation",
+  "tier": "component",
+  "tags": [
+    "navigation",
+    "routing",
+    "transition"
+  ],
+  "dependencies": {
+    "shared": [],
+    "components": [],
+    "pubspec": {}
+  },
+  "files": [
+    "_impl/core/page_route.dart",
+    "page_route.dart"
+  ],
+  "api": {
+    "constructors": [
+      "`ShadcnPageRoute<T>`",
+      "`builder` (`WidgetBuilder`, required)",
+      "`maintainState`, `fullscreenDialog`, `transitionDuration`, `barrierLabel`",
+      "`ShadcnPage<T>` — `Page` equivalent for declarative navigation.",
+      "`ShadcnPageTransition` — fade + short vertical slide.",
+      "`kDefaultPageTransitionDuration` — 300ms."
+    ],
+    "callbacks": []
+  },
+  "version": "1.0.0"
+}

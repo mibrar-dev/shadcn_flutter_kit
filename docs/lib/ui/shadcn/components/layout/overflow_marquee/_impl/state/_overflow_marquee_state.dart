@@ -37,7 +37,7 @@ class _OverflowMarqueeState extends State<OverflowMarquee>
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final textDirection = Directionality.of(context);
-    final compTheme = ComponentTheme.maybeOf<OverflowMarqueeTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<OverflowMarqueeTheme>(context);
     final direction = styleValue(
       widgetValue: widget.direction,
       themeValue: compTheme?.direction,

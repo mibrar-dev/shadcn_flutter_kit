@@ -53,6 +53,7 @@
     "_impl/core/auto_complete.dart",
     "_impl/core/auto_complete_mode.dart",
     "_impl/core/auto_complete_widget.dart",
+    "_impl/core/input_above_below_feature.dart",
     "_impl/core/input_auto_complete_feature.dart",
     "_impl/core/input_clear_feature.dart",
     "_impl/core/input_copy_feature.dart",
@@ -68,6 +69,7 @@
     "_impl/core/input_paste_feature.dart",
     "_impl/core/input_revalidate_feature.dart",
     "_impl/core/input_spinner_feature.dart",
+    "_impl/core/input_stepper_button_feature.dart",
     "_impl/core/input_trailing_feature.dart",
     "_impl/core/password_peek_mode.dart",
     "_impl/core/text_field_gestures.dart",
@@ -78,6 +80,7 @@
     "_impl/state/_auto_complete_feature_state.dart",
     "_impl/state/_auto_complete_item_state.dart",
     "_impl/state/_auto_complete_state.dart",
+    "_impl/state/_input_above_below_feature_state.dart",
     "_impl/state/_input_clear_feature_state.dart",
     "_impl/state/_input_copy_feature_state.dart",
     "_impl/state/_input_hint_feature_state.dart",
@@ -86,6 +89,7 @@
     "_impl/state/_input_paste_feature_state.dart",
     "_impl/state/_input_revalidate_feature_state.dart",
     "_impl/state/_input_spinner_feature_state.dart",
+    "_impl/state/_input_stepper_button_feature_state.dart",
     "_impl/state/_input_trailing_feature_state.dart",
     "_impl/state/input_feature_state.dart",
     "_impl/state/text_field_state_part1.dart",
@@ -112,8 +116,9 @@
     "constructors": [
       "`TextField` \u2014 main input widget.",
       "`TextInputStatefulWidget` \u2014 shared base for inputs with features.",
-      "`InputFeature` factories \u2014 `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `revalidate`.",
+      "`InputFeature` factories \u2014 `clear`, `copy`, `paste`, `hint`, `passwordToggle`, `autoComplete`, `spinner`, `incrementButton`, `decrementButton`, `above`, `below`, `revalidate`.",
       "`InputFeatureVisibility` \u2014 `always`, `focused`, `textNotEmpty`, etc.",
+      "`InputFeaturePosition` \u2014 `leading`, `trailing`, `above`, `below`.",
       "`PasswordPeekMode` \u2014 `toggle` or `peek`."
     ],
     "callbacks": []

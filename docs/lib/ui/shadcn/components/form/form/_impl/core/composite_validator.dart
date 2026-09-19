@@ -81,7 +81,7 @@ class CompositeValidator<T> extends Validator<T> {
   /// Compares this object with another for value equality.
   @override
   bool operator ==(Object other) {
-    return other is CompositeValidator &&
+    return other is CompositeValidator<T> &&
         listEquals(other.validators, validators);
   }
 

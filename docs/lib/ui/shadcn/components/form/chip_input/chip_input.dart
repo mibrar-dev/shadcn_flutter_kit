@@ -15,7 +15,9 @@ import '../text_field/text_field.dart' hide AutoCompleteIntent;
 part '_impl/themes/base/chip_input_theme.dart';
 
 part '_impl/utils/_chip_provider.dart';
+part '_impl/utils/chip_span.dart';
 part '_impl/utils/chip_editing_controller.dart';
+part '_impl/utils/chip_clipboard_handler.dart';
 part '_impl/state/chip_input_state.dart';
 part '_impl/utils/chip_submit_intent.dart';
 
@@ -35,7 +37,7 @@ typedef ChipSubmissionCallback<T> = T? Function(String chipText);
 ///
 /// Allows users to create chip tokens within a text field, useful for
 /// tags, email recipients, or any multi-item input scenario.
-class ChipInput<T> extends TextInputStatefulWidget {
+class ChipInput<T> extends TextInputStatefulWidget implements Styleable<ChipInputTheme> {
   /// Checks if a code unit represents a chip character.
   static bool isChipUnicode(int codeUnit) {
     return codeUnit >= ChipEditingController._chipStart &&
@@ -66,6 +68,19 @@ class ChipInput<T> extends TextInputStatefulWidget {
 
   /// Whether to automatically insert autocomplete suggestions as chips.
   final bool autoInsertSuggestion;
+
+  /// Handles serializing copied chips and deserializing pasted content.
+  ///
+  /// Defaults to a [DefaultChipClipboardHandler] that copies each chip using
+  /// its [Object.toString] and pastes clipboard text as plain text.
+  ///
+  /// Upstream parity: ported from `chip_input.dart` upstream.
+  final ClipboardHandler<T>? clipboardHandler;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChipInputTheme? theme;
+
 
   /// Creates a chip input widget.
   const ChipInput({
@@ -147,6 +162,8 @@ class ChipInput<T> extends TextInputStatefulWidget {
     this.onChipsChanged,
     this.useChips,
     this.initialChips,
+    this.clipboardHandler,
+    this.theme,
   });
 
   @override

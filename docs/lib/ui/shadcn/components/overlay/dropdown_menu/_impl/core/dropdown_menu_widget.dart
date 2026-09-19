@@ -3,7 +3,7 @@
 part of '../../dropdown_menu.dart';
 
 /// DropdownMenu defines a reusable type for this registry module.
-class DropdownMenu extends StatefulWidget {
+class DropdownMenu extends StatefulWidget implements Styleable<DropdownMenuTheme> {
   /// Opacity of the surface blur effect.
   ///
   /// If `null`, uses theme default.
@@ -19,6 +19,11 @@ class DropdownMenu extends StatefulWidget {
   /// Each item should be a [MenuItem] or similar menu component.
   final List<MenuItem> children;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final DropdownMenuTheme? theme;
+
+
   /// Creates a dropdown menu.
   ///
   /// Parameters:
@@ -30,6 +35,7 @@ class DropdownMenu extends StatefulWidget {
     this.surfaceOpacity,
     this.surfaceBlur,
     required this.children,
+    this.theme,
   });
 
   @override

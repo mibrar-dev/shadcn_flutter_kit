@@ -46,7 +46,8 @@ class HoverActivityState extends State<HoverActivity>
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<HoverTheme>(context);
+    final compTheme =
+        widget.theme ?? ComponentTheme.maybeOf<HoverTheme>(context);
     final debounceDuration = styleValue(
       widgetValue: widget.debounceDuration,
       themeValue: compTheme?.debounceDuration,

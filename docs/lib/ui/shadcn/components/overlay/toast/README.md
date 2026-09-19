@@ -51,6 +51,38 @@ controller.show(
 - `ToastEntry`
 - `ToastTheme`
 
+### Upstream compat (dual-model)
+
+Upstream `shadcn_flutter` models toasts as `ToastEntry` values shown through
+a `ToastLayer` ancestor (`ToastLayer`, `ExpandMode`, `ToastBuilder`,
+`showToast` defaulting to bottomRight/5s and asserting the layer). The
+registry redesign uses a `ToastController` singleton (`topRight`/3s). Both
+models coexist here — the registry toast is **not** deleted:
+
+- `ToastLayer` — opt into upstream defaults (`bottomRight`/5s) by placing it
+  high in the tree. `showToast` honors those defaults when a layer is
+  present and falls back to the `ToastController` path otherwise.
+- `ExpandMode`, `ToastBuilder` — upstream-parity types (stack expansion is
+  accepted/stored; the registry keeps one toast per position group).
+- `UpstreamToastEntry` — upstream-shaped entry (`builder`/`location`/
+  `dismissible`/`curve`/`duration`/`onClosed`/`showDuration`) with a `.show()`
+  adapter onto `showToast`.
+- `showToast` also accepts `dismissible`, `curve`, `entryDuration`,
+  `onClosed`, and `showDuration` (upstream names); explicit arguments always
+  win in either model.
+
+```dart
+ToastLayer(
+  child: MyAppContent(),
+);
+
+// Upstream-style call site (bottomRight/5s via the layer):
+showToast(
+  context: context,
+  builder: (context, overlay) => const Text('Saved'),
+);
+```
+
 ---
 
 ## Theming

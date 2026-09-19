@@ -3,7 +3,7 @@
 part of '../../timeline.dart';
 
 /// Timeline defines a reusable type for this registry module.
-class Timeline extends StatelessWidget {
+class Timeline extends StatelessWidget implements Styleable<TimelineTheme> {
   /// List of timeline entries to display.
   ///
   /// Each [TimelineData] object represents one row in the timeline with
@@ -17,6 +17,11 @@ class Timeline extends StatelessWidget {
   /// for this specific timeline instance. Controls how much space is allocated
   /// for displaying time information. If null, uses theme or default constraints.
   final BoxConstraints? timeConstraints;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TimelineTheme? theme;
+
 
   /// Creates a [Timeline] widget with the specified data entries.
   ///
@@ -55,6 +60,7 @@ class Timeline extends StatelessWidget {
     //   maxWidth: 120,
     // ),
     this.timeConstraints,
+    this.theme,
   });
 
   @override
@@ -64,7 +70,7 @@ class Timeline extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TimelineTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TimelineTheme>(context);
     final timeConstraints =
         this.timeConstraints ??
         compTheme?.timeConstraints ??

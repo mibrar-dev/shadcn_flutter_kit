@@ -3,7 +3,7 @@
 part of '../../card.dart';
 
 /// A versatile container widget that provides a card-like appearance with styling options.
-class Card extends StatelessWidget {
+class Card extends StatelessWidget implements Styleable<CardTheme> {
   /// The child widget to display within the card.
   final Widget child;
 
@@ -40,6 +40,11 @@ class Card extends StatelessWidget {
   /// Duration for card appearance animations.
   final Duration? duration;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final CardTheme? theme;
+
+
   /// Creates a [Card].
   const Card({
     super.key,
@@ -55,13 +60,14 @@ class Card extends StatelessWidget {
     this.surfaceOpacity,
     this.surfaceBlur,
     this.duration,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<CardTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<CardTheme>(context);
     final scaling = theme.scaling;
     final padding = styleValue(
       widgetValue: this.padding,

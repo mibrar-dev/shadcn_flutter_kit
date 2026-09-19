@@ -9,6 +9,7 @@ class NavigationMenuState extends State<NavigationMenu> {
   // final GlobalKey<PopoverAnchorState> _popoverKey = GlobalKey();
   // final ValueNotifier<bool> _visible = ValueNotifier(false);
   final PopoverController _popoverController = PopoverController();
+  OverlayCompleter? _adaptiveCompleter;
   final ValueNotifier<int> _activeIndex = ValueNotifier(0);
 
   /// Stores `_contentBuilders` state/configuration for this implementation.
@@ -31,7 +32,8 @@ class NavigationMenuState extends State<NavigationMenu> {
   ///
   /// Returns: `bool` — true if the item is active and popover is open
   bool isActive(NavigationMenuItemState item) {
-    return _popoverController.hasOpenPopover &&
+    return (_popoverController.hasOpenPopover ||
+            _adaptiveCompleter != null) &&
         widget.children[_activeIndex.value] == item.widget;
   }
 
@@ -39,21 +41,66 @@ class NavigationMenuState extends State<NavigationMenu> {
   /// Executes `dispose` behavior for this component/composite.
   void dispose() {
     _activeIndex.dispose();
+    _adaptiveCompleter?.remove();
     _popoverController.dispose();
     super.dispose();
   }
 
+  /// Resolved adaptive-overlay flag (upstream parity).
+  ///
+  /// Sourced from [NavigationMenu.adaptiveOverlay] with a
+  /// [NavigationMenuTheme.adaptiveOverlay] fallback (default `true`,
+  /// matching upstream). When true on a mobile platform, [_show] presents
+  /// through the adaptive configuration system (bottom drawer); desktop
+  /// presentation is unchanged.
+  bool get adaptiveOverlay =>
+      widget.adaptiveOverlay ??
+      widget.theme?.adaptiveOverlay ??
+      ComponentTheme.maybeOf<NavigationMenuTheme>(context)?.adaptiveOverlay ??
+      true;
+
   /// Executes `_show` behavior for this component/composite.
   void _show(BuildContext context) {
-    if (_popoverController.hasOpenPopover) {
-      _popoverController.anchorContext = context;
-      return;
-    }
     final theme = Theme.of(context);
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<NavigationMenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<NavigationMenuTheme>(context);
+
+    if (adaptiveOverlay && isMobile(theme.platform)) {
+      // Mobile adaptive presentation via the configuration system, which
+      // converts the popover into a bottom drawer (matches upstream).
+      _adaptiveCompleter?.remove();
+      final margin =
+          requestMargin() ??
+          compTheme?.margin ??
+          (EdgeInsets.all(theme.density.baseGap * scaling));
+      _adaptiveCompleter = showOverlay(
+        context,
+        PopoverConfiguration(
+          alignment: Alignment.topCenter,
+          regionGroupId: this,
+          offset: compTheme?.offset ?? const Offset(0, 4) * scaling,
+          modal: false,
+          margin: margin,
+          allowInvertHorizontal: false,
+          allowInvertVertical: false,
+          onTickFollow: (value) {
+            value.margin =
+                requestMargin() ??
+                compTheme?.margin ??
+                (EdgeInsets.all(theme.density.baseGap * scaling));
+          },
+        ),
+        builder: buildPopover,
+        adaptive: true,
+      );
+      return;
+    }
+    if (_popoverController.hasOpenPopover) {
+      _popoverController.anchorContext = context;
+      return;
+    }
 
     /// Creates a `_popoverController.show` instance.
     _popoverController.show(
@@ -130,6 +177,8 @@ class NavigationMenuState extends State<NavigationMenu> {
 
   /// Closes the currently open popover menu.
   void close() {
+    _adaptiveCompleter?.remove();
+    _adaptiveCompleter = null;
     _popoverController.close();
   }
 
@@ -141,7 +190,7 @@ class NavigationMenuState extends State<NavigationMenu> {
   /// Returns: `Widget` — the popover widget
   Widget buildPopover(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<NavigationMenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<NavigationMenuTheme>(context);
     final surfaceOpacity =
         widget.surfaceOpacity ??
         compTheme?.surfaceOpacity ??

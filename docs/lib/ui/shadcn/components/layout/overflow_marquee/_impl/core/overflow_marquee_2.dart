@@ -3,7 +3,7 @@
 part of '../../overflow_marquee.dart';
 
 /// OverflowMarquee defines a reusable type for this registry module.
-class OverflowMarquee extends StatefulWidget {
+class OverflowMarquee extends StatefulWidget implements Styleable<OverflowMarqueeTheme> {
   /// The child widget to display and potentially scroll.
   final Widget child;
 
@@ -37,6 +37,11 @@ class OverflowMarquee extends StatefulWidget {
   /// If `null`, uses theme default or [Curves.linear].
   final Curve? curve;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final OverflowMarqueeTheme? theme;
+
+
   /// Creates an [OverflowMarquee] widget with customizable scrolling behavior.
   ///
   /// Parameters:
@@ -69,6 +74,7 @@ class OverflowMarquee extends StatefulWidget {
     this.step,
     this.fadePortion,
     this.curve,
+    this.theme,
   });
 
   @override

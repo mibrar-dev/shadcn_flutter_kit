@@ -6,6 +6,7 @@ import 'package:flutter/material.dart'
 import 'package:gap/gap.dart';
 
 import '../../control/button/button.dart';
+import '../../display/tree/tree.dart';
 import '../../layout/hidden/hidden.dart';
 import '../../layout/overflow_marquee/overflow_marquee.dart';
 import '../../overlay/tooltip/tooltip.dart';
@@ -19,6 +20,9 @@ import '../../../shared/utils/platform_utils.dart';
 import '../../../shared/utils/style_value.dart';
 import '../../../shared/utils/util.dart';
 part '_impl/core/navigation_widget.dart';
+part '_impl/core/navigation_collapsible.dart';
+part '_impl/core/navigation_group.dart';
+part '_impl/core/navigation_parity_aliases.dart';
 part '_impl/core/_navigation_label_background_painter.dart';
 part '_impl/utils/_navigation_label_delegate.dart';
 part '_impl/core/_navigation_child_overflow_handle.dart';

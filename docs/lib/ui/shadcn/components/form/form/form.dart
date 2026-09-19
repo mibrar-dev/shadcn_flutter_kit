@@ -11,6 +11,7 @@ import 'package:gap/gap.dart';
 
 import '../../../shared/localizations/shadcn_localizations.dart';
 import '../../../shared/primitives/focus_outline.dart';
+import '../../../shared/primitives/form_value_supplier.dart' as shared_form;
 import '../../../shared/primitives/phone_number.dart';
 import '../../../shared/primitives/slider_value.dart';
 import '../../../shared/primitives/text.dart';
@@ -32,6 +33,7 @@ part '_impl/core/compare_type.dart';
 part '_impl/core/compare_with.dart';
 part '_impl/core/composite_validator.dart';
 part '_impl/core/conditional_validator.dart';
+part '_impl/core/dynamic_form_key.dart';
 part '_impl/core/email_validator.dart';
 part '_impl/utils/form_controller.dart';
 part '_impl/core/form_entry.dart';
@@ -63,6 +65,7 @@ part '_impl/core/range_validator.dart';
 part '_impl/core/regex_validator.dart';
 part '_impl/core/replace_result.dart';
 part '_impl/core/safe_password_validator.dart';
+part '_impl/utils/shared_form_handle_adapter.dart';
 part '_impl/core/submission_result.dart';
 part '_impl/core/submit_button.dart';
 part '_impl/core/url_validator.dart';
@@ -70,6 +73,38 @@ part '_impl/core/validation_mode.dart';
 part '_impl/core/validation_result.dart';
 part '_impl/utils/validator_builder.dart';
 part '_impl/core/waiting_result.dart';
+
+/// Renders a value for a validation message.
+///
+/// Numbers go through [formatDecimal] so a bound of `5` reads `5` rather than
+/// `5.0`, and `1234.5` reads `1,234.5`. Anything else — a `DateTime`, a
+/// `String` — falls back to `toString`.
+String _describeValue(Object? value) =>
+    value is num ? formatDecimal(value) : '$value';
+
+/// Formats a decimal number for display in validation messages.
+///
+/// Integral values read without a trailing `.0` (`5` rather than `5.0`),
+/// and the integer part is grouped with `,` separators (`1234.5` reads
+/// `1,234.5`). Converted from the original `shadcn_flutter` implementation.
+String formatDecimal(num value) {
+  final bool isIntegral =
+      value is int || value == value.truncateToDouble();
+  final String text = isIntegral ? value.truncate().toString() : '$value';
+  final int dot = text.indexOf('.');
+  final String intPart = dot < 0 ? text : text.substring(0, dot);
+  final String fracPart = dot < 0 ? '' : text.substring(dot);
+  final bool negative = intPart.startsWith('-');
+  final String digits = negative ? intPart.substring(1) : intPart;
+  final StringBuffer grouped = StringBuffer();
+  for (int i = 0; i < digits.length; i++) {
+    if (i > 0 && (digits.length - i) % 3 == 0) {
+      grouped.write(',');
+    }
+    grouped.write(digits[i]);
+  }
+  return '${negative ? '-' : ''}$grouped$fracPart';
+}
 
 /// A function type that evaluates a condition on a value and returns a boolean result.
 ///

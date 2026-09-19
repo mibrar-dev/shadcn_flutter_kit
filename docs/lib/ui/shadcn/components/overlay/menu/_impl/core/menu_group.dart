@@ -3,7 +3,7 @@
 part of '../../menu.dart';
 
 /// MenuGroup defines a reusable type for this registry module.
-class MenuGroup extends StatefulWidget {
+class MenuGroup extends StatefulWidget implements Styleable<MenuTheme> {
   /// List of menu item widgets.
   final List<MenuItem> children;
 
@@ -37,6 +37,11 @@ class MenuGroup extends StatefulWidget {
   /// Optional focus node for keyboard navigation.
   final FocusNode? focusNode;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MenuTheme? theme;
+
+
   /// Creates a menu group.
   ///
   /// Parameters:
@@ -64,6 +69,7 @@ class MenuGroup extends StatefulWidget {
     this.itemPadding,
     this.autofocus = true,
     this.focusNode,
+    this.theme,
   });
 
   @override

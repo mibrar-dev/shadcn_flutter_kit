@@ -45,9 +45,10 @@
       "`mode` (`AutoCompleteMode?`)",
       "`popoverConstraints`, `popoverWidthConstraint`",
       "`popoverAnchorAlignment`, `popoverAlignment`",
+      "`overlayConfiguration`, `adaptiveOverlay` (`@Deprecated`, stored for upstream parity)",
       "`completer` (`AutoCompleteCompleter`)",
-      "`AutoCompleteMode` \u2014 `append`, `replaceWord`, `replaceAll`",
-      "`AutoCompleteTheme` \u2014 popover sizing and alignment defaults"
+      "`AutoCompleteMode` — `append`, `replaceWord`, `replaceAll`",
+      "`AutoCompleteTheme` — popover sizing and alignment defaults"
     ],
     "callbacks": []
   },

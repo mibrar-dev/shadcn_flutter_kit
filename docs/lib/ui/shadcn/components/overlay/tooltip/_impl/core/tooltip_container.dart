@@ -3,7 +3,7 @@
 part of '../../tooltip.dart';
 
 /// Styled container widget for tooltip content.
-class TooltipContainer extends StatelessWidget {
+class TooltipContainer extends StatelessWidget implements Styleable<TooltipTheme> {
   /// Stores `child` state/configuration for this implementation.
   final Widget child;
 
@@ -22,6 +22,11 @@ class TooltipContainer extends StatelessWidget {
   /// Stores `borderRadius` state/configuration for this implementation.
   final BorderRadiusGeometry? borderRadius;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TooltipTheme? theme;
+
+
   /// Creates a `TooltipContainer` instance.
   const TooltipContainer({
     super.key,
@@ -31,6 +36,7 @@ class TooltipContainer extends StatelessWidget {
     this.backgroundColor,
     this.borderRadius,
     required this.child,
+    this.theme,
   });
 
   /// Executes `call` behavior for this component/composite.
@@ -45,7 +51,7 @@ class TooltipContainer extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TooltipTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TooltipTheme>(context);
     Color resolvedColor = styleValue(
       widgetValue: backgroundColor,
       themeValue: compTheme?.backgroundColor,

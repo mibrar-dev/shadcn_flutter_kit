@@ -50,7 +50,7 @@ part of '../../tree.dart';
 ///   },
 /// )
 /// ```
-class TreeView<T> extends StatefulWidget {
+class TreeView<T> extends StatefulWidget implements Styleable<TreeTheme> {
   /// Creates a default selection changed handler for tree nodes.
   ///
   /// Returns a handler that manages node selection state changes in a tree view.
@@ -688,6 +688,11 @@ class TreeView<T> extends StatefulWidget {
   /// selection operations recursively affect all descendant nodes.
   final bool? recursiveSelection;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TreeTheme? theme;
+
+
   /// Creates a [TreeView] with hierarchical data display and interaction.
   ///
   /// Configures a tree view widget that displays hierarchical data with support
@@ -737,6 +742,7 @@ class TreeView<T> extends StatefulWidget {
     this.focusNode,
     this.onSelectionChanged,
     this.recursiveSelection,
+    this.theme,
   });
 
   /// Creates the State object used by this tree widget.

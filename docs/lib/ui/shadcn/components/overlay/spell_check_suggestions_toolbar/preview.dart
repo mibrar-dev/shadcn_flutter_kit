@@ -2,8 +2,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import 'spell_check_suggestions_toolbar.dart';
-
 /// SpellCheckSuggestionsToolbarPreview defines a reusable type for this registry module.
 class SpellCheckSuggestionsToolbarPreview extends StatelessWidget {
   const SpellCheckSuggestionsToolbarPreview({super.key});
@@ -11,30 +9,13 @@ class SpellCheckSuggestionsToolbarPreview extends StatelessWidget {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Rendered directly with sample anchors and suggestions, as the
-        // toolbar appears above a misspelled word in an editable field.
-        SpellCheckSuggestionsToolbar(
-          anchors: const TextSelectionToolbarAnchors(
-            primaryAnchor: Offset(120, 48),
-          ),
-          buttonItems: [
-            ContextMenuButtonItem(
-              onPressed: () {},
-              label: 'example',
-            ),
-            ContextMenuButtonItem(
-              onPressed: () {},
-              label: 'samples',
-            ),
-          ],
-        ),
-        const Text(
-          'Wire via SpellCheckConfiguration on an EditableText to get live suggestions.',
-        ),
-      ],
+    // NOTE: SpellCheckSuggestionsToolbar renders MenuButtons, which assert
+    // a MenuGroupData ancestor, so it can only be previewed inside an
+    // editable-text context menu. This placeholder describes the wiring
+    // instead of rendering the toolbar outside its required context.
+    return const Text(
+      'Attach SpellCheckConfiguration to an EditableText; the toolbar '
+      'appears in its context menu with replacement suggestions.',
     );
   }
 }

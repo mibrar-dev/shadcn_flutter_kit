@@ -82,6 +82,16 @@ class FadeScroll extends StatelessWidget implements Styleable<FadeScrollTheme> {
         if (!shouldFadeStart && !shouldFadeEnd) {
           return child!;
         }
+        // Guard against degenerate zero-width fade zones (e.g. default
+        // zero offsets): collapsed gradient stops paint as hard dark
+        // edge lines instead of a fade, so treat them as no fade.
+        final relativeStart = startOffset / size;
+        final relativeEnd = 1 - endOffset / size;
+        shouldFadeStart = shouldFadeStart && relativeStart > 0.001;
+        shouldFadeEnd = shouldFadeEnd && relativeEnd < 0.999;
+        if (!shouldFadeStart && !shouldFadeEnd) {
+          return child!;
+        }
         return ShaderMask(
           shaderCallback: (bounds) {
             Alignment start = direction == Axis.horizontal
@@ -90,8 +100,6 @@ class FadeScroll extends StatelessWidget implements Styleable<FadeScrollTheme> {
             Alignment end = direction == Axis.horizontal
                 ? Alignment.centerRight
                 : Alignment.bottomCenter;
-            double relativeStart = startOffset / size;
-            double relativeEnd = 1 - endOffset / size;
             List<double> stops = shouldFadeStart && shouldFadeEnd
                 ? [
                     for (int i = 0; i < gradient.length; i++)

@@ -35,10 +35,12 @@ class _FadeScrollPreviewState extends State<FadeScrollPreview> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          height: 240,
-          child: FadeScroll(
-            controller: _controller,
+          child: SizedBox(
+            height: 240,
+            child: FadeScroll(
+              controller: _controller,
+              startOffset: 48,
+              endOffset: 48,
             child: ListView.builder(
               controller: _controller,
               itemCount: 30,

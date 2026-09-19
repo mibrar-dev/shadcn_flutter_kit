@@ -24,6 +24,7 @@ class PinnedSheetPreview extends StatelessWidget {
         height: 320,
         child: PinnedSheet(
           stages: [SheetStage.closed(), SheetStage.expanded()],
+          initialStage: SheetStage.expanded(),
           child: DrawerContainer(child: Text('Sheet content')),
         ),
       ),

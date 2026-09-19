@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/text_button_theme.dart';
 
 /// TextButton defines a reusable type for this registry module.
-class TextButton extends StatelessWidget {
+class TextButton extends StatelessWidget implements Styleable<TextButtonTheme> {
   /// The widget to display as the button's content.
   final Widget child;
 
@@ -98,6 +100,10 @@ class TextButton extends StatelessWidget {
   final GestureLongPressUpCallback? onTertiaryLongPress;
 
   /// Creates a text button with the specified properties.
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TextButtonTheme? theme;
   const TextButton({
     super.key,
     required this.child,
@@ -129,6 +135,7 @@ class TextButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

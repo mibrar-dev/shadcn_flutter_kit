@@ -7,9 +7,11 @@ import '../styles/button_shape.dart';
 import '../styles/button_size.dart';
 import '../styles/button_style_class.dart';
 import '../core/button_widget.dart';
+import '../../../../../shared/theme/theme.dart';
+import '../themes/variants/secondary_button_theme.dart';
 
 /// SecondaryButton defines a reusable type for this registry module.
-class SecondaryButton extends StatelessWidget {
+class SecondaryButton extends StatelessWidget implements Styleable<SecondaryButtonTheme> {
   /// The widget to display as the button's content.
   final Widget child;
 
@@ -98,6 +100,10 @@ class SecondaryButton extends StatelessWidget {
   final GestureLongPressUpCallback? onTertiaryLongPress;
 
   /// Creates a secondary button with the specified properties.
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SecondaryButtonTheme? theme;
   const SecondaryButton({
     super.key,
     required this.child,
@@ -129,6 +135,7 @@ class SecondaryButton extends StatelessWidget {
     this.onLongPressEnd,
     this.onSecondaryLongPress,
     this.onTertiaryLongPress,
+    this.theme,
   });
 
   @override

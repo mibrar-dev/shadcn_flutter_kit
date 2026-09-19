@@ -2,7 +2,9 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../../../../shared/theme/theme.dart';
 import '../state/hover_state.dart';
+import '../themes/base/hover_theme.dart';
 
 /// A widget that manages hover state with configurable timing behavior.
 ///
@@ -30,7 +32,7 @@ import '../state/hover_state.dart';
 ///   ),
 /// )
 /// ```
-class Hover extends StatefulWidget {
+class Hover extends StatefulWidget implements Styleable<HoverTheme> {
   /// The widget to track for hover events.
   final Widget child;
 
@@ -55,6 +57,10 @@ class Hover extends StatefulWidget {
   /// Hit test behavior for pointer event handling.
   final HitTestBehavior? hitTestBehavior;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final HoverTheme? theme;
+
   /// Creates a [Hover] widget with timing configuration.
   const Hover({
     super.key,
@@ -64,6 +70,7 @@ class Hover extends StatefulWidget {
     this.minDuration,
     this.showDuration,
     this.hitTestBehavior,
+    this.theme,
   });
 
   @override

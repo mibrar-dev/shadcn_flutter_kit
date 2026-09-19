@@ -15,6 +15,7 @@ import '../../control/clickable/clickable.dart'
 import '../../display/chip/chip.dart';
 import '../../control/command/command.dart';
 import '../../overlay/dialog/dialog.dart';
+import '../../overlay/overlay_configuration/overlay_configuration.dart';
 import '../../control/hover/hover.dart';
 import '../../overlay/menu/menu.dart'
     hide MenuIconStyleExtensions, MenuTextStyleExtensions;
@@ -51,7 +52,6 @@ part '_impl/core/select_item.dart';
 part '_impl/utils/select_item_builder.dart';
 part '_impl/core/select_item_button.dart';
 part '_impl/utils/select_item_delegate.dart';
-part '_impl/utils/select_overlay_configuration.dart';
 part '_impl/core/select_item_list.dart';
 part '_impl/core/select_label.dart';
 part '_impl/core/select_popup.dart';

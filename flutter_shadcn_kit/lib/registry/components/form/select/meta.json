@@ -69,7 +69,6 @@
     "_impl/utils/select_item_builder.dart",
     "_impl/utils/select_item_delegate.dart",
     "_impl/core/select_expand_icon.dart",
-    "_impl/utils/select_overlay_configuration.dart",
     "select.dart"
   ],
   "api": {

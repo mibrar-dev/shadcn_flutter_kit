@@ -3,7 +3,10 @@
 part of '../../radio_group.dart';
 
 /// Intent for navigating to the next item in a radio group.
-class _NextItemIntent extends Intent {
+///
+/// Public, matching upstream `radio_group.dart`. Single source for the
+/// command and select components, which re-export this type.
+class NextItemIntent extends Intent {
   /// Creates a next item intent.
-  const _NextItemIntent();
+  const NextItemIntent();
 }

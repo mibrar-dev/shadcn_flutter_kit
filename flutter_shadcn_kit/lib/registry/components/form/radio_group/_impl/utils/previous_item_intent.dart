@@ -3,7 +3,10 @@
 part of '../../radio_group.dart';
 
 /// Intent for navigating to the previous item in a radio group.
-class _PreviousItemIntent extends Intent {
+///
+/// Public, matching upstream `radio_group.dart`. Single source for the
+/// command and select components, which re-export this type.
+class PreviousItemIntent extends Intent {
   /// Creates a previous item intent.
-  const _PreviousItemIntent();
+  const PreviousItemIntent();
 }

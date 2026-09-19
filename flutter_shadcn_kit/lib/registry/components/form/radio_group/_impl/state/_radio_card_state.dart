@@ -50,7 +50,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
       child: FocusableActionDetector(
         focusNode: _focusNode,
         actions: {
-          _NextItemIntent: CallbackAction<_NextItemIntent>(
+          NextItemIntent: CallbackAction<NextItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);
@@ -58,7 +58,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
               return null;
             },
           ),
-          _PreviousItemIntent: CallbackAction<_PreviousItemIntent>(
+          PreviousItemIntent: CallbackAction<PreviousItemIntent>(
             onInvoke: (intent) {
               if (group != null) {
                 group._setSelected(widget.value);

@@ -16,7 +16,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Must be shorter than 4 characters.'), findsOneWidget);
+    expect(find.text('Must be at least 4 characters.'), findsOneWidget);
   });
 }
 

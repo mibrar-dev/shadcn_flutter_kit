@@ -219,6 +219,7 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 
@@ -348,6 +349,9 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
 
     /// Accessibility label used by semantics.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     return Slider._(
       key: key,
@@ -381,6 +385,7 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 
@@ -495,6 +500,9 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
 
     /// Accessibility label used by semantics.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     final rv = rangeValue.copyWith(minRange: minRange, allowSwap: allowSwap);
     return Slider._(
@@ -529,6 +537,7 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
       dragPopoverOffset: dragPopoverOffset,
       dragPopoverVisibility: dragPopoverVisibility,
       semanticLabel: semanticLabel,
+      theme: theme,
     );
   }
 

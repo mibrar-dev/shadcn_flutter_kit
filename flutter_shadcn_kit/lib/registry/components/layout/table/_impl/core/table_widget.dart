@@ -45,6 +45,7 @@ class Table extends StatefulWidget implements Styleable<TableTheme> {
   ///
   /// Type: `TableTheme?`. Controls borders, colors, and overall styling.
   /// If null, uses the default theme from [ComponentTheme].
+  @override
   final TableTheme? theme;
 
   /// Configuration for frozen cells during scrolling.

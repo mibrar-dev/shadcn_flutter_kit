@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../utility/alpha/alpha.dart';
 import '../../../shared/theme/theme.dart';
+import '../color_field/color_field.dart';
 
 part '_impl/core/hsv_color_slider_type.dart';
 

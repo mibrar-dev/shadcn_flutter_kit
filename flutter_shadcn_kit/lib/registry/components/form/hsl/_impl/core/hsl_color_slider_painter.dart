@@ -2,12 +2,70 @@
 
 part of '../../hsl_color_slider.dart';
 
+/// Axis mapping for HSL slider types.
+///
+/// For the two-channel types the first channel in the name runs down the
+/// field and the second runs across it;
+/// [HSLColorSliderPainter.reverse] swaps them. Single-channel types run
+/// down the field unless reversed. Channels that do not appear in the type
+/// are held constant.
+class _HSLAxes {
+  /// Axis the hue component varies along.
+  final ColorFieldAxis hue;
+
+  /// Axis the saturation component varies along.
+  final ColorFieldAxis saturation;
+
+  /// Axis the lightness component varies along.
+  final ColorFieldAxis lightness;
+
+  /// Axis the alpha component varies along.
+  final ColorFieldAxis alpha;
+
+  /// Creates an axis mapping.
+  const _HSLAxes({
+    this.hue = ColorFieldAxis.none,
+    this.saturation = ColorFieldAxis.none,
+    this.lightness = ColorFieldAxis.none,
+    this.alpha = ColorFieldAxis.none,
+  });
+
+  /// Resolves the axes for [type], swapping first/second when [reverse].
+  factory _HSLAxes.of(HSLColorSliderType type, bool reverse) {
+    final first = reverse ? ColorFieldAxis.horizontal : ColorFieldAxis.vertical;
+    final second = reverse
+        ? ColorFieldAxis.vertical
+        : ColorFieldAxis.horizontal;
+    switch (type) {
+      case HSLColorSliderType.hueSat:
+        return _HSLAxes(hue: first, saturation: second);
+      case HSLColorSliderType.hueLum:
+        return _HSLAxes(hue: first, lightness: second);
+      case HSLColorSliderType.hueAlpha:
+        return _HSLAxes(hue: first, alpha: second);
+      case HSLColorSliderType.satLum:
+        return _HSLAxes(saturation: first, lightness: second);
+      case HSLColorSliderType.satAlpha:
+        return _HSLAxes(saturation: first, alpha: second);
+      case HSLColorSliderType.lumAlpha:
+        return _HSLAxes(lightness: first, alpha: second);
+      case HSLColorSliderType.hue:
+        return _HSLAxes(hue: first);
+      case HSLColorSliderType.sat:
+        return _HSLAxes(saturation: first);
+      case HSLColorSliderType.lum:
+        return _HSLAxes(lightness: first);
+      case HSLColorSliderType.alpha:
+        return _HSLAxes(alpha: first);
+    }
+  }
+}
+
 /// A custom painter for rendering HSL color slider gradients.
 ///
-/// NOTE: for the shared upstream-parity gradient engine, see
-/// `form/color_field` (`ColorFieldAxis`, `paintHSLColorField`). This painter
-/// keeps its legacy per-cell rendering; do not rewrite it to use the shared
-/// engine here (out of scope).
+/// Delegates to the shared upstream-parity gradient engine
+/// ([paintHSLColorField] in `form/color_field`) instead of per-cell
+/// software loops, matching upstream rendering and performance.
 ///
 /// [HSLColorSliderPainter] draws the gradient background for HSL color sliders,
 /// showing the range of possible colors for the selected slider type. The
@@ -32,417 +90,20 @@ class HSLColorSliderPainter extends CustomPainter {
   /// Performs `paint` logic for this form component.
   @override
   void paint(Canvas canvas, Size size) {
-    // disable anti-aliasing
-    var pp = Paint();
-    pp.isAntiAlias = false;
-    pp.style = PaintingStyle.fill;
-    var canvasHeight = size.height;
-    var canvasWidth = size.width;
-    if (sliderType == HSLColorSliderType.hueSat) {
-      // if reverse, then its sat hue
-      if (reverse) {
-        double width = canvasWidth / 360;
-        double height = canvasHeight / 100;
-        // vertical for hue and horizontal for saturation
-        for (var i = 0; i < 360; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              1,
-              i.toDouble(),
-              j / 100,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 360;
-        // horizontal for hue and vertical for saturation
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 360; j++) {
-            final result = HSLColor.fromAHSL(
-              1,
-              j.toDouble(),
-              i / 100,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.hueLum) {
-      // if reverse, then its lum hue
-      if (reverse) {
-        double width = canvasWidth / 360;
-        double height = canvasHeight / 100;
-        // vertical for hue and horizontal for lightness
-        for (var i = 0; i < 360; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              1,
-              i.toDouble(),
-              color.saturation,
-              j / 100.0,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 360;
-        // horizontal for hue and vertical for lightness
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 360; j++) {
-            final result = HSLColor.fromAHSL(
-              1,
-              j.toDouble(),
-              color.saturation,
-              i / 100,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.satLum) {
-      // if reverse, then its lum sat
-      if (reverse) {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for saturation and vertical for lightness
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(1, color.hue, i / 100, j / 100);
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for saturation and vertical for lightness
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(1, color.hue, j / 100, i / 100);
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.hueAlpha) {
-      // if reverse, then its alpha hue
-      if (reverse) {
-        double width = canvasWidth / 360;
-        double height = canvasHeight / 100;
-        // vertical for hue and horizontal for alpha
-        for (var i = 0; i < 360; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              j / 100.0,
-              i.toDouble(),
-              color.saturation,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 360;
-        // horizontal for hue and vertical for alpha
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 360; j++) {
-            final result = HSLColor.fromAHSL(
-              i / 100,
-              j.toDouble(),
-              color.saturation,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.satAlpha) {
-      // if reverse, then its alpha sat
-      if (reverse) {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for saturation and vertical for alpha
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              j / 100,
-              color.hue,
-              i / 100,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for saturation and vertical for alpha
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              i / 100,
-              color.hue,
-              j / 100,
-              color.lightness,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.lumAlpha) {
-      // if reverse, then its alpha lum
-      if (reverse) {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for lightness and vertical for alpha
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              j / 100,
-              color.hue,
-              color.saturation,
-              i / 100,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      } else {
-        double width = canvasWidth / 100;
-        double height = canvasHeight / 100;
-        // horizontal for lightness and vertical for alpha
-        for (var i = 0; i < 100; i++) {
-          for (var j = 0; j < 100; j++) {
-            final result = HSLColor.fromAHSL(
-              i / 100,
-              color.hue,
-              color.saturation,
-              j / 100,
-            );
-            final paint = pp
-              ..color = result.toColor()
-              ..style = PaintingStyle.fill;
-            canvas.drawRect(
-              Rect.fromLTWH(i * width, j * height, width, height),
-              paint,
-            );
-          }
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.hue) {
-      if (reverse) {
-        double width = canvasWidth / 360;
-        for (var i = 0; i < 360; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            i.toDouble(),
-            color.saturation,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(i * width, 0, width, canvasHeight),
-            paint,
-          );
-        }
-      } else {
-        double height = canvasHeight / 360;
-        for (var i = 0; i < 360; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            i.toDouble(),
-            color.saturation,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(0, i * height, canvasWidth, height),
-            paint,
-          );
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.sat) {
-      if (reverse) {
-        double width = canvasWidth / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            color.hue,
-            i / 100,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(i * width, 0, width, canvasHeight),
-            paint,
-          );
-        }
-      } else {
-        double height = canvasHeight / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            color.hue,
-            i / 100,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(0, i * height, canvasWidth, height),
-            paint,
-          );
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.lum) {
-      if (reverse) {
-        double width = canvasWidth / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            color.hue,
-            color.saturation,
-            i / 100,
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(i * width, 0, width, canvasHeight),
-            paint,
-          );
-        }
-      } else {
-        double height = canvasHeight / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            1,
-            color.hue,
-            color.saturation,
-            i / 100,
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(0, i * height, canvasWidth, height),
-            paint,
-          );
-        }
-      }
-    } else if (sliderType == HSLColorSliderType.alpha) {
-      if (reverse) {
-        double width = canvasWidth / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            i / 100,
-            color.hue,
-            color.saturation,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(i * width, 0, width, canvasHeight),
-            paint,
-          );
-        }
-      } else {
-        double height = canvasHeight / 100;
-        for (var i = 0; i < 100; i++) {
-          final result = HSLColor.fromAHSL(
-            i / 100,
-            color.hue,
-            color.saturation,
-            color.lightness.clamp(0, 1),
-          );
-          final paint = pp
-            ..color = result.toColor()
-            ..style = PaintingStyle.fill;
-          canvas.drawRect(
-            Rect.fromLTWH(0, i * height, canvasWidth, height),
-            paint,
-          );
-        }
-      }
-    }
+    final axes = _HSLAxes.of(sliderType, reverse);
+    paintHSLColorField(
+      canvas,
+      size,
+      // Sliders that do not carry the alpha channel show the color at full
+      // opacity, so the transparency of [color] does not wash them out.
+      color: axes.alpha == ColorFieldAxis.none
+          ? HSLColor.fromAHSL(1, color.hue, color.saturation, color.lightness)
+          : color,
+      hueAxis: axes.hue,
+      saturationAxis: axes.saturation,
+      lightnessAxis: axes.lightness,
+      alphaAxis: axes.alpha,
+    );
   }
 
   /// Performs `shouldRepaint` logic for this form component.

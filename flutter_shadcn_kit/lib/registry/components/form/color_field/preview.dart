@@ -13,8 +13,7 @@ class ColorFieldPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Center(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -73,7 +72,6 @@ class ColorFieldPreview extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

@@ -27,25 +27,26 @@ class _FadeScrollPreviewState extends State<FadeScrollPreview> {
   }
 
   /// Builds the widget tree for fade scroll.
+  ///
+  /// SizedBox-bounded (no [Scaffold]) so the preview also renders inside
+  /// unbounded parents such as the docs detail-page column.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            height: 240,
-            child: FadeScroll(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          height: 240,
+          child: FadeScroll(
+            controller: _controller,
+            child: ListView.builder(
               controller: _controller,
-              child: ListView.builder(
-                controller: _controller,
-                itemCount: 30,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Item ${index + 1}'),
-                  );
-                },
-              ),
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text('Item ${index + 1}'),
+                );
+              },
             ),
           ),
         ),

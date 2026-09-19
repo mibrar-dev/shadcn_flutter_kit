@@ -14,16 +14,16 @@ class SortablePreview extends StatelessWidget {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: RawSortableStack(
-          children: [
-            RawSortableItemPositioned(
-              offset: Offset.zero,
-              child: Text('Form sortable (RawSortableStack)'),
-            ),
-          ],
-        ),
+    // No Scaffold: previews also render inside the unbounded docs
+    // detail-page column.
+    return const Center(
+      child: RawSortableStack(
+        children: [
+          RawSortableItemPositioned(
+            offset: Offset.zero,
+            child: Text('Form sortable (RawSortableStack)'),
+          ),
+        ],
       ),
     );
   }

@@ -56,7 +56,7 @@ class RefreshTriggerState extends State<RefreshTrigger>
   /// Executes `_updateThemeValues` behavior for this component/composite.
   void _updateThemeValues() {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<RefreshTriggerTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<RefreshTriggerTheme>(context);
 
     _minExtent = styleValue(
       widgetValue: widget.minExtent,

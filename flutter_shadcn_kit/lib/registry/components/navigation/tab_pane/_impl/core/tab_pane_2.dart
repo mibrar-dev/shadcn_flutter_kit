@@ -3,7 +3,7 @@
 part of '../../tab_pane.dart';
 
 /// TabPane defines a reusable type for this registry module.
-class TabPane<T> extends StatefulWidget {
+class TabPane<T> extends StatefulWidget implements Styleable<TabPaneTheme> {
   /// List of tab data items to display in the tab pane.
   final List<TabPaneData<T>> items;
 
@@ -40,6 +40,11 @@ class TabPane<T> extends StatefulWidget {
   /// Height of the tab bar area in logical pixels.
   final double? barHeight;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TabPaneTheme? theme;
+
+
   /// Creates a [TabPane] with sortable tabs and integrated content display.
   const TabPane({
     super.key,
@@ -55,6 +60,7 @@ class TabPane<T> extends StatefulWidget {
     this.onSort,
     required this.child,
     this.barHeight,
+    this.theme,
   });
 
   @override

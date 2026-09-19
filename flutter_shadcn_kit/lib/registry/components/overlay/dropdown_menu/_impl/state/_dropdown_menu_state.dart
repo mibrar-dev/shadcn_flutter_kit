@@ -9,7 +9,7 @@ class _DropdownMenuState extends State<DropdownMenu> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isSheetOverlay = SheetOverlayHandler.isSheetOverlay(context);
-    final compTheme = ComponentTheme.maybeOf<DropdownMenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<DropdownMenuTheme>(context);
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 192),
       child: MenuGroup(

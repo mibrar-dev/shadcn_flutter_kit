@@ -3,7 +3,7 @@
 part of '../../refresh_trigger.dart';
 
 /// RefreshTrigger defines a reusable type for this registry module.
-class RefreshTrigger extends StatefulWidget {
+class RefreshTrigger extends StatefulWidget implements Styleable<RefreshTriggerTheme> {
   /// Default indicator builder that creates a spinning progress indicator.
   ///
   /// Displays a platform-appropriate circular progress indicator that rotates
@@ -61,6 +61,11 @@ class RefreshTrigger extends StatefulWidget {
   /// Time to display the completion state before hiding the indicator.
   final Duration? completeDuration;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final RefreshTriggerTheme? theme;
+
+
   /// Creates a [RefreshTrigger] with pull-to-refresh functionality.
   ///
   /// Wraps the provided child widget with refresh gesture detection and
@@ -103,6 +108,7 @@ class RefreshTrigger extends StatefulWidget {
     this.curve,
     this.completeDuration,
     required this.child,
+    this.theme,
   });
 
   @override

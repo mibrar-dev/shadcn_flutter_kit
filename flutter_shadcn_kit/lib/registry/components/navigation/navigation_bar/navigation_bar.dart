@@ -6,6 +6,7 @@ import 'package:flutter/material.dart'
 import 'package:gap/gap.dart';
 
 import '../../control/button/button.dart';
+import '../../display/tree/tree.dart';
 import '../../layout/hidden/hidden.dart';
 import '../../layout/overflow_marquee/overflow_marquee.dart';
 import '../../overlay/tooltip/tooltip.dart';

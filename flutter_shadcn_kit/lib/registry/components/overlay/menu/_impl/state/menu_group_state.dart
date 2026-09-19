@@ -79,7 +79,7 @@ class _MenuGroupState extends State<MenuGroup> {
   Widget build(BuildContext context) {
     final parentGroupData = Data.maybeOf<MenuGroupData>(context);
     final menubarData = Data.maybeOf<MenubarState>(context);
-    final compTheme = ComponentTheme.maybeOf<MenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<MenuTheme>(context);
     final itemPadding =
         widget.itemPadding ?? compTheme?.itemPadding ?? EdgeInsets.zero;
 

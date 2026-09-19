@@ -51,6 +51,7 @@ class NavigationMenuState extends State<NavigationMenu> {
   /// rather than an additional branch.
   bool get adaptiveOverlay =>
       widget.adaptiveOverlay ??
+      widget.theme?.adaptiveOverlay ??
       ComponentTheme.maybeOf<NavigationMenuTheme>(context)?.adaptiveOverlay ??
       true;
 
@@ -64,7 +65,7 @@ class NavigationMenuState extends State<NavigationMenu> {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<NavigationMenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<NavigationMenuTheme>(context);
 
     /// Creates a `_popoverController.show` instance.
     _popoverController.show(
@@ -152,7 +153,7 @@ class NavigationMenuState extends State<NavigationMenu> {
   /// Returns: `Widget` — the popover widget
   Widget buildPopover(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<NavigationMenuTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<NavigationMenuTheme>(context);
     final surfaceOpacity =
         widget.surfaceOpacity ??
         compTheme?.surfaceOpacity ??

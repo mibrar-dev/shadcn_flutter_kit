@@ -3,7 +3,7 @@
 part of '../../navigation_bar.dart';
 
 /// NavigationBar defines a reusable type for this registry module.
-class NavigationBar extends StatefulWidget {
+class NavigationBar extends StatefulWidget implements Styleable<NavigationBarTheme> {
   /// Background color of the navigation bar.
   final Color? backgroundColor;
 
@@ -81,6 +81,11 @@ class NavigationBar extends StatefulWidget {
   /// Cross-axis size when the bar is collapsed (upstream parity).
   final double? collapsedSize;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final NavigationBarTheme? theme;
+
+
   /// Creates a [NavigationBar].
   const NavigationBar({
     super.key,
@@ -106,6 +111,7 @@ class NavigationBar extends StatefulWidget {
     this.expandedSize,
     this.collapsedSize,
     required this.children,
+    this.theme,
   });
 
   @override

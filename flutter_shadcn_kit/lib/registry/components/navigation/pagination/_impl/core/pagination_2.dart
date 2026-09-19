@@ -3,7 +3,7 @@
 part of '../../pagination.dart';
 
 /// Pagination defines a reusable type for this registry module.
-class Pagination extends StatelessWidget {
+class Pagination extends StatelessWidget implements Styleable<PaginationTheme> {
   /// Stores `page` state/configuration for this implementation.
   final int page;
 
@@ -34,6 +34,11 @@ class Pagination extends StatelessWidget {
   /// Stores `gap` state/configuration for this implementation.
   final double? gap;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final PaginationTheme? theme;
+
+
   /// Creates a `Pagination` instance.
   const Pagination({
     super.key,
@@ -47,6 +52,7 @@ class Pagination extends StatelessWidget {
     this.hideNextOnLastPage = false,
     this.showLabel,
     this.gap,
+    this.theme,
   });
 
   /// Stores `hasPrevious` state/configuration for this implementation.
@@ -142,7 +148,7 @@ class Pagination extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<PaginationTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<PaginationTheme>(context);
     final gapValue = styleValue(
       widgetValue: gap,
       themeValue: compTheme?.gap,

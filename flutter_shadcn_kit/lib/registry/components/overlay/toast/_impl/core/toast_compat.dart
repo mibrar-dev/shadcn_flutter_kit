@@ -117,7 +117,7 @@ class UpstreamToastEntry {
 ///   child: MyAppContent(),
 /// );
 /// ```
-class ToastLayer extends StatelessWidget {
+class ToastLayer extends StatelessWidget implements Styleable<ToastTheme> {
   /// The child widget to wrap with toast defaults.
   final Widget child;
 
@@ -135,6 +135,11 @@ class ToastLayer extends StatelessWidget {
   /// Maximum stacked entries (accepted for upstream parity; stored).
   final int maxStackedEntries;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ToastTheme? theme;
+
+
   /// Creates a [ToastLayer].
   const ToastLayer({
     super.key,
@@ -143,6 +148,7 @@ class ToastLayer extends StatelessWidget {
     this.defaultShowDuration = const Duration(seconds: 5),
     this.expandMode = ExpandMode.expandOnHover,
     this.maxStackedEntries = 3,
+    this.theme,
   });
 
   /// Returns the nearest ancestor [ToastLayer], or null if none exists.
@@ -151,5 +157,9 @@ class ToastLayer extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => child;
+  Widget build(BuildContext context) {
+    final layerTheme = theme;
+    if (layerTheme == null) return child;
+    return ComponentTheme<ToastTheme>(data: layerTheme, child: child);
+  }
 }

@@ -3,7 +3,7 @@
 part of '../../dialog.dart';
 
 /// ModalBackdrop defines a reusable type for this registry module.
-class ModalBackdrop extends StatelessWidget {
+class ModalBackdrop extends StatelessWidget implements Styleable<ModalBackdropTheme> {
   /// Determines if surface clipping should be enabled based on opacity.
   ///
   /// Returns `true` if [surfaceOpacity] is null or less than 1.0,
@@ -36,6 +36,11 @@ class ModalBackdrop extends StatelessWidget {
   /// Whether to apply surface clipping effects.
   final bool? surfaceClip;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ModalBackdropTheme? theme;
+
+
   /// Creates a [ModalBackdrop].
   ///
   /// The [child] parameter is required and represents the content to display
@@ -67,12 +72,13 @@ class ModalBackdrop extends StatelessWidget {
     this.padding,
     this.fadeAnimation,
     required this.child,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<ModalBackdropTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<ModalBackdropTheme>(context);
     final modal = styleValue(
       widgetValue: this.modal,
       themeValue: compTheme?.modal,

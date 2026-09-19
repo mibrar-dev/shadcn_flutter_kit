@@ -3,7 +3,7 @@
 part of '../../tabs.dart';
 
 /// TabList defines a reusable type for this registry module.
-class TabList extends StatelessWidget {
+class TabList extends StatelessWidget implements Styleable<TabListTheme> {
   /// List of tab child widgets to display in the tab list.
   ///
   /// Type: `List<TabChild>`. Each TabChild represents one selectable tab
@@ -52,11 +52,16 @@ class TabList extends StatelessWidget {
   ///   ],
   /// )
   /// ```
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TabListTheme? theme;
+
   const TabList({
     super.key,
     required this.children,
     required this.index,
     required this.onChanged,
+    this.theme,
   });
 
   Widget _childBuilder(
@@ -65,7 +70,7 @@ class TabList extends StatelessWidget {
     Widget child,
   ) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<TabListTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TabListTheme>(context);
     final indicatorColor = styleValue(
       defaultValue: theme.colorScheme.primary,
       themeValue: compTheme?.indicatorColor,
@@ -104,7 +109,7 @@ class TabList extends StatelessWidget {
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<TabListTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TabListTheme>(context);
     final borderColor = styleValue(
       defaultValue: theme.colorScheme.border,
       themeValue: compTheme?.borderColor,

@@ -8,7 +8,7 @@ class MenubarState extends State<Menubar> {
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<MenubarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<MenubarTheme>(context);
 
     /// Stores `border` state/configuration for this implementation.
     final bool border = compTheme?.border ?? widget.border;

@@ -3,7 +3,7 @@
 part of '../../tab_container.dart';
 
 /// TabContainer defines a reusable type for this registry module.
-class TabContainer extends StatelessWidget {
+class TabContainer extends StatelessWidget implements Styleable<TabContainerTheme> {
   /// Currently selected tab index.
   final int selected;
 
@@ -18,6 +18,11 @@ class TabContainer extends StatelessWidget {
 
   /// Optional custom child widget builder.
   final TabChildBuilder? childBuilder;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TabContainerTheme? theme;
+
 
   /// Creates a [TabContainer].
   ///
@@ -34,12 +39,13 @@ class TabContainer extends StatelessWidget {
     required this.children,
     this.builder,
     this.childBuilder,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<TabContainerTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<TabContainerTheme>(context);
     final tabBuilder =
         builder ??
         compTheme?.builder ??

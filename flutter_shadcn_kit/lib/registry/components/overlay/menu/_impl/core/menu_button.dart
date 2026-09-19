@@ -3,7 +3,7 @@
 part of '../../menu.dart';
 
 /// MenuButton defines a reusable type for this registry module.
-class MenuButton extends StatefulWidget implements MenuItem {
+class MenuButton extends StatefulWidget implements MenuItem, Styleable<MenuTheme> {
   /// Content widget displayed in the button.
   final Widget child;
 
@@ -32,6 +32,11 @@ class MenuButton extends StatefulWidget implements MenuItem {
   /// Stores `popoverController` state/configuration for this implementation.
   final PopoverController? popoverController;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MenuTheme? theme;
+
+
   /// Creates a menu button.
   ///
   /// Parameters:
@@ -55,6 +60,7 @@ class MenuButton extends StatefulWidget implements MenuItem {
     this.focusNode,
     this.autoClose = true,
     this.popoverController,
+    this.theme,
   });
 
   @override

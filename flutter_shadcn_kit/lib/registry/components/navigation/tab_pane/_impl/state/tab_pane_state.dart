@@ -15,7 +15,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
     Widget child,
   ) {
     final theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<TabPaneTheme>(context);
 
     /// Stores `isFocused` state/configuration for this implementation.
     final isFocused = data.index == data.selected;
@@ -74,7 +74,7 @@ class TabPaneState<T> extends State<TabPane<T>> {
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<TabPaneTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<TabPaneTheme>(context);
     final BorderRadiusGeometry borderRadius =
         widget.borderRadius ?? compTheme?.borderRadius ?? theme.borderRadiusLg;
     final BorderRadius resolvedBorderRadius = borderRadius.optionallyResolve(

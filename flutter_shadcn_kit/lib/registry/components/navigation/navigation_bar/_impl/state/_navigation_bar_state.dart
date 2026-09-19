@@ -51,7 +51,7 @@ class _NavigationBarState extends State<NavigationBar>
 
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<NavigationBarTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<NavigationBarTheme>(context);
     final alignment = styleValue(
       widgetValue: widget.alignment,
       themeValue: compTheme?.alignment,

@@ -36,7 +36,7 @@ class _HoverCardState extends State<HoverCard> {
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<HoverCardTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<HoverCardTheme>(context);
     final debounce = styleValue(
       widgetValue: widget.debounce,
       themeValue: compTheme?.debounce,

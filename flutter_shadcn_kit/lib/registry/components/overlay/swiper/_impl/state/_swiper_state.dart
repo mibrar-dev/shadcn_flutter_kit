@@ -117,7 +117,7 @@ class _SwiperState extends State<Swiper> {
   /// Executes `_onDragStart` behavior for this component/composite.
   void _onDragStart(DragStartDetails details) {
     _onDragCancel();
-    final compTheme = ComponentTheme.maybeOf<SwiperTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<SwiperTheme>(context);
     _activeOverlay = widget.handler.openSwiper(
       context: context,
       builder: (context) {
@@ -143,7 +143,7 @@ class _SwiperState extends State<Swiper> {
 
   /// Executes `_buildGesture` behavior for this component/composite.
   Widget _buildGesture({required Widget child, required bool draggable}) {
-    final compTheme = ComponentTheme.maybeOf<SwiperTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<SwiperTheme>(context);
     final behavior =
         widget.behavior ?? compTheme?.behavior ?? HitTestBehavior.translucent;
     if (widget.position == OverlayPosition.top ||

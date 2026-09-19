@@ -3,7 +3,7 @@
 part of '../../navigation_menu.dart';
 
 /// NavigationMenu defines a reusable type for this registry module.
-class NavigationMenu extends StatefulWidget {
+class NavigationMenu extends StatefulWidget implements Styleable<NavigationMenuTheme> {
   /// Opacity level for the popover surface background.
   ///
   /// Controls the transparency of the dropdown content's background.
@@ -31,6 +31,11 @@ class NavigationMenu extends StatefulWidget {
   /// platform-aware, so no additional wiring is needed. Prefer
   /// `NavigationMenuTheme(adaptiveOverlay: ...)` for theme-level control.
   final bool? adaptiveOverlay;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final NavigationMenuTheme? theme;
+
 
   /// Creates a [NavigationMenu] with the specified items and appearance.
   ///
@@ -60,6 +65,7 @@ class NavigationMenu extends StatefulWidget {
     this.surfaceBlur,
     this.adaptiveOverlay,
     required this.children,
+    this.theme,
   });
 
   @override

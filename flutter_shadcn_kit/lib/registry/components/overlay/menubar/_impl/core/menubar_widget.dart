@@ -3,7 +3,7 @@
 part of '../../menubar.dart';
 
 /// Menubar defines a reusable type for this registry module.
-class Menubar extends StatefulWidget {
+class Menubar extends StatefulWidget implements Styleable<MenubarTheme> {
   /// List of menu items to display in the menubar.
   ///
   /// Type: `List<MenuItem>`. Each MenuItem represents a top-level menu that
@@ -23,6 +23,11 @@ class Menubar extends StatefulWidget {
   /// Type: `bool`, default: `true`. When true, the menubar is wrapped with
   /// an outlined container using theme colors and border radius.
   final bool border;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MenubarTheme? theme;
+
 
   /// Creates a [Menubar] with horizontal menu layout.
   ///
@@ -65,6 +70,7 @@ class Menubar extends StatefulWidget {
     this.popoverOffset,
     this.border = true,
     required this.children,
+    this.theme,
   });
 
   @override

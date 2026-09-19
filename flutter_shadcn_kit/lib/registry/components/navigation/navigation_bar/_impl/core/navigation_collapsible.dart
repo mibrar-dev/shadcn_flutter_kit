@@ -32,7 +32,7 @@ part of '../../navigation_bar.dart';
 ///   ],
 /// )
 /// ```
-class NavigationCollapsible extends StatefulWidget {
+class NavigationCollapsible extends StatefulWidget implements Styleable<TreeTheme> {
   /// Optional leading widget for the group header.
   final Widget? leading;
 
@@ -81,6 +81,11 @@ class NavigationCollapsible extends StatefulWidget {
   /// How to handle label overflow.
   final NavigationOverflow overflow;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TreeTheme? theme;
+
+
   /// Creates a [NavigationCollapsible].
   const NavigationCollapsible({
     super.key,
@@ -100,6 +105,7 @@ class NavigationCollapsible extends StatefulWidget {
     this.alignment,
     this.enabled,
     this.overflow = NavigationOverflow.marquee,
+    this.theme,
   });
 
   @override

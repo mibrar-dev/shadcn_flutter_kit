@@ -3,7 +3,7 @@
 part of '../../stepper.dart';
 
 /// Stepper defines a reusable type for this registry module.
-class Stepper extends StatelessWidget {
+class Stepper extends StatelessWidget implements Styleable<StepperTheme> {
   /// Controller for managing stepper state and navigation.
   final StepperController controller;
 
@@ -18,6 +18,11 @@ class Stepper extends StatelessWidget {
 
   /// Visual variant for step presentation.
   final StepVariant? variant;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final StepperTheme? theme;
+
 
   /// Creates a [Stepper].
   ///
@@ -54,12 +59,13 @@ class Stepper extends StatelessWidget {
     this.direction,
     this.size,
     this.variant,
+    this.theme,
   });
 
   @override
   /// Executes `build` behavior for this component/composite.
   Widget build(BuildContext context) {
-    final compTheme = ComponentTheme.maybeOf<StepperTheme>(context);
+    final compTheme = this.theme ?? ComponentTheme.maybeOf<StepperTheme>(context);
 
     /// Stores `dir` state/configuration for this implementation.
     final dir = direction ?? compTheme?.direction ?? Axis.horizontal;

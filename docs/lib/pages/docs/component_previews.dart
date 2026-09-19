@@ -29,6 +29,28 @@ import '../../ui/shadcn/components/layout/accordion/accordion.dart'
 import '../../ui/shadcn/components/layout/card/card.dart' as shadcn_card;
 import '../../ui/shadcn/shared/icons/lucide_icons.dart';
 import '../../ui/shadcn/shared/primitives/text.dart';
+import '../../ui/shadcn/components/display/country_flag/preview.dart'
+    as shadcn_country_flag;
+import '../../ui/shadcn/components/display/fade_scroll/preview.dart'
+    as shadcn_fade_scroll;
+import '../../ui/shadcn/components/display/pinned_sheet/preview.dart'
+    as shadcn_pinned_sheet;
+import '../../ui/shadcn/components/navigation/page_route/preview.dart'
+    as shadcn_page_route;
+import '../../ui/shadcn/components/form/color_field/preview.dart'
+    as shadcn_color_field;
+import '../../ui/shadcn/components/form/sortable/preview.dart'
+    as shadcn_sortable;
+import '../../ui/shadcn/components/overlay/anchor/preview.dart'
+    as shadcn_anchor;
+import '../../ui/shadcn/components/overlay/backdrop_transform/preview.dart'
+    as shadcn_backdrop_transform;
+import '../../ui/shadcn/components/overlay/drawer_container/preview.dart'
+    as shadcn_drawer_container;
+import '../../ui/shadcn/components/overlay/overlay_configuration/preview.dart'
+    as shadcn_overlay_configuration;
+import '../../ui/shadcn/components/overlay/spell_check_suggestions_toolbar/preview.dart'
+    as shadcn_spell_check;
 
 typedef ComponentPreviewBuilder = Widget Function(BuildContext context);
 
@@ -77,6 +99,17 @@ const Map<String, ComponentPreviewBuilder> componentPreviews = {
   'file_diff_viewer': _fileDiffViewerPreview,
   if (enableMarkdownComponent) 'markdown': _markdownPreview,
   if (enableTextAnimateComponent) 'text_animate': _textAnimatePreview,
+  'country_flag': _countryFlagPreview,
+  'fade_scroll_display': _fadeScrollPreview,
+  'pinned_sheet': _pinnedSheetPreview,
+  'page_route': _pageRoutePreview,
+  'color_field': _colorFieldPreview,
+  'form_sortable': _formSortablePreview,
+  'anchor': _anchorPreview,
+  'backdrop_transform': _backdropTransformPreview,
+  'drawer_container': _drawerContainerPreview,
+  'overlay_configuration': _overlayConfigurationPreview,
+  'spell_check_suggestions_toolbar': _spellCheckPreview,
 };
 
 const Map<String, IconData> categoryIcons = {
@@ -92,6 +125,50 @@ const Map<String, IconData> categoryIcons = {
 
 IconData iconForCategory(String category) {
   return categoryIcons[category.toLowerCase()] ?? LucideIcons.box;
+}
+
+Widget _countryFlagPreview(BuildContext context) {
+  return const shadcn_country_flag.CountryFlagPreview();
+}
+
+Widget _fadeScrollPreview(BuildContext context) {
+  return const shadcn_fade_scroll.FadeScrollPreview();
+}
+
+Widget _pinnedSheetPreview(BuildContext context) {
+  return const shadcn_pinned_sheet.PinnedSheetPreview();
+}
+
+Widget _pageRoutePreview(BuildContext context) {
+  return const shadcn_page_route.PageRoutePreview();
+}
+
+Widget _colorFieldPreview(BuildContext context) {
+  return const shadcn_color_field.ColorFieldPreview();
+}
+
+Widget _formSortablePreview(BuildContext context) {
+  return const shadcn_sortable.SortablePreview();
+}
+
+Widget _anchorPreview(BuildContext context) {
+  return const shadcn_anchor.AnchorPreview();
+}
+
+Widget _backdropTransformPreview(BuildContext context) {
+  return const shadcn_backdrop_transform.BackdropTransformPreview();
+}
+
+Widget _drawerContainerPreview(BuildContext context) {
+  return const shadcn_drawer_container.DrawerContainerPreview();
+}
+
+Widget _overlayConfigurationPreview(BuildContext context) {
+  return const shadcn_overlay_configuration.OverlayConfigurationPreview();
+}
+
+Widget _spellCheckPreview(BuildContext context) {
+  return const shadcn_spell_check.SpellCheckSuggestionsToolbarPreview();
 }
 
 Widget buildComponentPreview(

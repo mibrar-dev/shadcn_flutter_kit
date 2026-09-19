@@ -69,8 +69,11 @@ class Avatar extends StatefulWidget implements AvatarWidget {
   @override
   final double? borderRadius;
 
-  /// Input parameter used by `Avatar` during rendering and behavior handling.
-  final AvatarBadge? badge;
+  /// Badge widget overlaid on the avatar.
+  ///
+  /// Typed as [AvatarWidget] (usually an [AvatarBadge]) to match upstream,
+  /// so custom [AvatarWidget] implementations are accepted.
+  final AvatarWidget? badge;
 
   /// Controls how avatar content is aligned within available space.
   final AlignmentGeometry? badgeAlignment;

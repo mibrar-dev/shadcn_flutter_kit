@@ -106,7 +106,7 @@ class _AvatarState extends State<Avatar> {
     final gap = styleValue(
       widgetValue: widget.badgeGap,
       themeValue: compTheme?.badgeGap,
-      defaultValue: theme.density.baseGap * theme.scaling * gapXs,
+      defaultValue: theme.scaling * 4,
     );
     return AvatarGroup(
       alignment: alignment,

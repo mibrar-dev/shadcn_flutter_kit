@@ -99,7 +99,7 @@ class VerticalDivider extends StatelessWidget implements PreferredSizeWidget {
               child!.muted().small().withPadding(
                 padding:
                     padding ??
-                    EdgeInsets.symmetric(vertical: theme.density.baseGap),
+                    const EdgeInsets.symmetric(vertical: 8),
               ),
               if (bottomFlex > 0)
                 Expanded(

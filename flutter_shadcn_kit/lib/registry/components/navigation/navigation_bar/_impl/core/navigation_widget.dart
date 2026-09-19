@@ -46,8 +46,14 @@ class NavigationWidget extends StatelessWidget implements NavigationBarItem {
     /// Stores `index` state/configuration for this implementation.
     var index = childData?.index ?? this.index;
 
+    /// Upstream-parity key-based selection (takes precedence when set).
+    final containerKey = data?.selectedKey;
+    final bool? keySelected = containerKey == null
+        ? null
+        : (key != null && key == containerKey);
+
     /// Stores `isSelected` state/configuration for this implementation.
-    var isSelected = index == data?.selectedIndex;
+    var isSelected = keySelected ?? (index == data?.selectedIndex);
     return child ?? builder!(context, isSelected);
   }
 }

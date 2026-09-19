@@ -34,6 +34,21 @@ class ResizableTable extends StatefulWidget {
   /// Size of the visible viewport.
   final Size? viewportSize;
 
+  /// Optional controller for vertical scrolling owned by this
+  /// [ResizableTable]. See [Table.verticalController].
+  final ScrollController? verticalController;
+
+  /// Optional controller for horizontal scrolling owned by this
+  /// [ResizableTable]. See [Table.horizontalController].
+  final ScrollController? horizontalController;
+
+  /// The direction columns run in. See [Table.textDirection].
+  ///
+  /// The resize handles follow it too: under [TextDirection.rtl] the handle on
+  /// a cell's right edge resizes the column before it, and dragging left
+  /// widens rather than narrows.
+  final TextDirection? textDirection;
+
   /// Creates a [ResizableTable].
   ///
   /// Parameters:
@@ -47,6 +62,10 @@ class ResizableTable extends StatefulWidget {
   /// - [horizontalOffset] (`double?`, optional): Horizontal scroll offset.
   /// - [verticalOffset] (`double?`, optional): Vertical scroll offset.
   /// - [viewportSize] (`Size?`, optional): Viewport size.
+  /// - [verticalController] (`ScrollController?`, optional): Controller-driven vertical scrolling.
+  /// - [horizontalController] (`ScrollController?`, optional): Controller-driven horizontal scrolling.
+  /// - [textDirection] (`TextDirection?`, optional): Direction columns run in;
+  ///   defaults to the ambient [Directionality].
   const ResizableTable({
     super.key,
     required this.rows,
@@ -59,6 +78,9 @@ class ResizableTable extends StatefulWidget {
     this.horizontalOffset,
     this.verticalOffset,
     this.viewportSize,
+    this.verticalController,
+    this.horizontalController,
+    this.textDirection,
   });
 
   @override

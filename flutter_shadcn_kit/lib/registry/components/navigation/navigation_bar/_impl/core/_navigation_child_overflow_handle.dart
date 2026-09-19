@@ -12,6 +12,7 @@ class _NavigationChildOverflowHandle extends StatelessWidget {
 
   /// Creates a `_NavigationChildOverflowHandle` instance.
   const _NavigationChildOverflowHandle({
+    super.key,
     required this.overflow,
     required this.child,
   });

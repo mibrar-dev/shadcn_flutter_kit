@@ -16,6 +16,7 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
   /// - [verticalOffset] (`double?`, optional): Vertical scroll offset.
   /// - [horizontalOffset] (`double?`, optional): Horizontal scroll offset.
   /// - [viewportSize] (`Size?`, optional): Viewport size for scrolling.
+  /// - [textDirection] (`TextDirection`, default `TextDirection.ltr`): Direction columns run in.
   const RawTableLayout({
     super.key,
     super.children,
@@ -27,6 +28,7 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
     this.verticalOffset,
     this.horizontalOffset,
     this.viewportSize,
+    this.textDirection = TextDirection.ltr,
   });
 
   /// Supplier function for column widths.
@@ -53,6 +55,13 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
   /// Size of the visible viewport.
   final Size? viewportSize;
 
+  /// The direction columns run in.
+  ///
+  /// Column indices stay logical whatever this is: column 0 is the first
+  /// column, and under [TextDirection.rtl] it is laid out at the right edge
+  /// with subsequent columns running leftwards.
+  final TextDirection textDirection;
+
   @override
   /// Executes `createRenderObject` behavior for this component/composite.
   RenderTableLayout createRenderObject(BuildContext context) {
@@ -65,6 +74,7 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
       verticalOffset: verticalOffset,
       horizontalOffset: horizontalOffset,
       viewportSize: viewportSize,
+      textDirection: textDirection,
     );
   }
 
@@ -105,6 +115,10 @@ class RawTableLayout extends MultiChildRenderObjectWidget {
     }
     if (renderObject._viewportSize != viewportSize) {
       renderObject._viewportSize = viewportSize;
+      needsRelayout = true;
+    }
+    if (renderObject._textDirection != textDirection) {
+      renderObject._textDirection = textDirection;
       needsRelayout = true;
     }
     if (needsRelayout) {

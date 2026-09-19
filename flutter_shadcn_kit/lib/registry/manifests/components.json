@@ -6995,6 +6995,10 @@
           "destination": "{installPath}/components/form/form/_impl/core/conditional_validator.dart"
         },
         {
+          "source": "registry/components/form/form/_impl/core/dynamic_form_key.dart",
+          "destination": "{installPath}/components/form/form/_impl/core/dynamic_form_key.dart"
+        },
+        {
           "source": "registry/components/form/form/_impl/core/email_validator.dart",
           "destination": "{installPath}/components/form/form/_impl/core/email_validator.dart"
         },
@@ -7187,6 +7191,9 @@
             },
             {
               "source": "registry/components/form/form/_impl/core/conditional_validator.dart"
+            },
+            {
+              "source": "registry/components/form/form/_impl/core/dynamic_form_key.dart"
             },
             {
               "source": "registry/components/form/form/_impl/core/email_validator.dart"
@@ -10873,6 +10880,41 @@
       "tier": "component"
     },
     {
+      "id": "page_route",
+      "name": "Page Route",
+      "description": "Full-screen page route with the shadcn fade-and-slide transition (ShadcnPageRoute/ShadcnPage).",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "routing",
+        "transition"
+      ],
+      "files": [
+        {
+          "source": "registry/components/navigation/page_route/_impl/core/page_route.dart",
+          "destination": "{installPath}/components/navigation/page_route/_impl/core/page_route.dart"
+        },
+        {
+          "source": "registry/components/navigation/page_route/page_route.dart",
+          "destination": "{installPath}/components/navigation/page_route/page_route.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/navigation/page_route/_impl/core/page_route.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
       "id": "tabs",
       "name": "Tabs",
       "description": "Tabbed navigation primitives with lists and panes.",
@@ -11636,7 +11678,9 @@
         "resizer",
         "component_schema"
       ],
-      "dependsOn": [],
+      "dependsOn": [
+        "scrollable_client"
+      ],
       "pubspec": {
         "dependencies": {
           "data_widget": "^0.0.2",
@@ -12310,7 +12354,7 @@
     {
       "id": "shadcn_localizations",
       "name": "Shadcn Localizations",
-      "description": "Full localization delegate and base translations.",
+      "description": "Full localization delegate, base translations, and 40 locale bundles (ar-zh, incl. zh_Hant).",
       "category": "utility",
       "tags": [
         "localization",
@@ -12321,6 +12365,162 @@
         {
           "source": "registry/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart",
           "destination": "{installPath}/components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ar.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ar.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_bg.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_bg.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_bn.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_bn.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_cs.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_cs.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_da.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_da.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_de.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_de.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_el.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_el.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_es.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_es.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fa.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fa.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fi.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fi.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fil.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fil.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fr.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_fr.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_he.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_he.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_hi.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_hi.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_hu.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_hu.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_id.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_id.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_it.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_it.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ja.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ja.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ko.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ko.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_mr.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_mr.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ms.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ms.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_nb.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_nb.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_nl.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_nl.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_pl.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_pl.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ps.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ps.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_pt.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_pt.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ro.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ro.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ru.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ru.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_sk.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_sk.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_sv.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_sv.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ta.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ta.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_te.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_te.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_th.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_th.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_tr.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_tr.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_uk.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_uk.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ur.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_ur.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_vi.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_vi.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_zh.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_zh.dart"
+        },
+        {
+          "source": "registry/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_zh_Hant.dart",
+          "destination": "{installPath}/components/utility/shadcn_localizations/_impl/locale/shadcn_localizations_zh_Hant.dart"
         },
         {
           "source": "registry/components/utility/shadcn_localizations/shadcn_localizations.dart",
@@ -12977,6 +13177,10 @@
           "destination": "{installPath}/components/display/tree/_impl/core/tree_item.dart"
         },
         {
+          "source": "registry/components/display/tree/_impl/core/tree_aliases.dart",
+          "destination": "{installPath}/components/display/tree/_impl/core/tree_aliases.dart"
+        },
+        {
           "source": "registry/components/display/tree/_impl/core/tree_item_expand_default_handler.dart",
           "destination": "{installPath}/components/display/tree/_impl/core/tree_item_expand_default_handler.dart"
         },
@@ -13053,6 +13257,9 @@
             },
             {
               "source": "registry/components/display/tree/_impl/core/tree_item.dart"
+            },
+            {
+              "source": "registry/components/display/tree/_impl/core/tree_aliases.dart"
             },
             {
               "source": "registry/components/display/tree/_impl/core/tree_item_expand_default_handler.dart"

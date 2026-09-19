@@ -60,49 +60,84 @@ class _TableState extends State<Table> {
   Widget build(BuildContext context) {
     TableTheme? tableTheme =
         widget.theme ?? ComponentTheme.maybeOf<TableTheme>(context);
-    return Container(
-      clipBehavior: widget.clipBehavior,
-      decoration: BoxDecoration(
-        border: tableTheme?.border,
-        color: tableTheme?.backgroundColor,
-        borderRadius: tableTheme?.borderRadius,
-      ),
-      child: RawTableLayout(
+    final textDirection =
+        widget.textDirection ??
+        Directionality.maybeOf(context) ??
+        TextDirection.ltr;
+    Widget buildTable(
+      double? horizontalOffset,
+      double? verticalOffset,
+      Size? viewportSize,
+    ) {
+      return Container(
         clipBehavior: widget.clipBehavior,
-        frozenColumn: widget.frozenCells?.testColumn,
-        frozenRow: widget.frozenCells?.testRow,
-        horizontalOffset: widget.horizontalOffset,
-        verticalOffset: widget.verticalOffset,
-        viewportSize: widget.viewportSize,
-        width: (index) {
-          if (widget.columnWidths != null) {
-            return widget.columnWidths![index] ?? widget.defaultColumnWidth;
-          }
-          return widget.defaultColumnWidth;
-        },
-        height: (index) {
-          if (widget.rowHeights != null) {
-            return widget.rowHeights![index] ?? widget.defaultRowHeight;
-          }
-          return widget.defaultRowHeight;
-        },
-        children: _cells.map((cell) {
-          return Data.inherit(
-            data: cell,
-            child: RawCell(
-              column: cell.column,
-              row: cell.row,
-              columnSpan: cell.columnSpan,
-              rowSpan: cell.rowSpan,
-              child: Builder(
-                builder: (context) {
-                  return cell.builder(context);
-                },
+        decoration: BoxDecoration(
+          border: tableTheme?.border,
+          color: tableTheme?.backgroundColor,
+          borderRadius: tableTheme?.borderRadius,
+        ),
+        child: RawTableLayout(
+          clipBehavior: widget.clipBehavior,
+          frozenColumn: widget.frozenCells?.testColumn,
+          frozenRow: widget.frozenCells?.testRow,
+          horizontalOffset: horizontalOffset,
+          verticalOffset: verticalOffset,
+          viewportSize: viewportSize,
+          textDirection: textDirection,
+          width: (index) {
+            if (widget.columnWidths != null) {
+              return widget.columnWidths![index] ?? widget.defaultColumnWidth;
+            }
+            return widget.defaultColumnWidth;
+          },
+          height: (index) {
+            if (widget.rowHeights != null) {
+              return widget.rowHeights![index] ?? widget.defaultRowHeight;
+            }
+            return widget.defaultRowHeight;
+          },
+          children: _cells.map((cell) {
+            return Data.inherit(
+              data: cell,
+              child: RawCell(
+                column: cell.column,
+                row: cell.row,
+                columnSpan: cell.columnSpan,
+                rowSpan: cell.rowSpan,
+                child: Builder(
+                  builder: (context) {
+                    return cell.builder(context);
+                  },
+                ),
               ),
-            ),
-          );
-        }).toList(),
-      ),
+            );
+          }).toList(),
+        ),
+      );
+    }
+
+    if (widget.verticalController != null ||
+        widget.horizontalController != null) {
+      return ScrollableClient(
+        verticalDetails: ScrollableDetails.vertical(
+          controller: widget.verticalController,
+        ),
+        // Reversed under RTL so that offset zero is the first column, which
+        // sits at the right edge, and scrolling proceeds towards the last.
+        horizontalDetails: ScrollableDetails.horizontal(
+          controller: widget.horizontalController,
+          reverse: textDirection == TextDirection.rtl,
+        ),
+        builder: (context, offset, viewportSize, child) {
+          return buildTable(offset.dx, offset.dy, viewportSize);
+        },
+      );
+    }
+
+    return buildTable(
+      widget.horizontalOffset,
+      widget.verticalOffset,
+      widget.viewportSize,
     );
   }
 }

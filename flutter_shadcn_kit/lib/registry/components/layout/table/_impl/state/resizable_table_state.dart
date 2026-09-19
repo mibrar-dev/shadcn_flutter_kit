@@ -106,6 +106,10 @@ class _ResizableTableState extends State<ResizableTable> {
     TableTheme? tableTheme =
         resizableTableTheme?.tableTheme ??
         ComponentTheme.maybeOf<TableTheme>(context);
+    final textDirection =
+        widget.textDirection ??
+        Directionality.maybeOf(context) ??
+        TextDirection.ltr;
     var children = _cells.map((cell) {
       return Data.inherit(
         data: cell,
@@ -122,6 +126,63 @@ class _ResizableTableState extends State<ResizableTable> {
         ),
       );
     }).toList();
+    Widget buildTable(
+      double? horizontalOffset,
+      double? verticalOffset,
+      Size? viewportSize,
+    ) {
+      return Container(
+        clipBehavior: widget.clipBehavior,
+        decoration: BoxDecoration(
+          border: tableTheme?.border,
+          color: tableTheme?.backgroundColor,
+          borderRadius: tableTheme?.borderRadius,
+        ),
+        child: ListenableBuilder(
+          listenable: widget.controller,
+          builder: (context, child) {
+            return RawTableLayout(
+              clipBehavior: widget.clipBehavior,
+              horizontalOffset: horizontalOffset ?? widget.horizontalOffset,
+              verticalOffset: verticalOffset ?? widget.verticalOffset,
+              frozenColumn: widget.frozenCells?.testColumn,
+              frozenRow: widget.frozenCells?.testRow,
+              viewportSize: viewportSize ?? widget.viewportSize,
+              textDirection: textDirection,
+              width: (index) {
+                return _width(index);
+              },
+              height: (index) {
+                return _height(index);
+              },
+              children: children,
+            );
+          },
+        ),
+      );
+    }
+
+    Widget table;
+    if (widget.verticalController != null ||
+        widget.horizontalController != null) {
+      table = ScrollableClient(
+        verticalDetails: ScrollableDetails.vertical(
+          controller: widget.verticalController,
+        ),
+        // Reversed under RTL so that offset zero is the first column, which
+        // sits at the right edge, and scrolling proceeds towards the last.
+        horizontalDetails: ScrollableDetails.horizontal(
+          controller: widget.horizontalController,
+          reverse: textDirection == TextDirection.rtl,
+        ),
+        builder: (context, offset, viewportSize, child) {
+          return buildTable(offset.dx, offset.dy, viewportSize);
+        },
+      );
+    } else {
+      table = buildTable(null, null, null);
+    }
+
     return Data.inherit(
       data: this,
       child: Data.inherit(
@@ -131,35 +192,9 @@ class _ResizableTableState extends State<ResizableTable> {
           cellHeightResizeMode: widget.cellHeightResizeMode,
           maxColumn: _maxColumn,
           maxRow: _maxRow,
+          textDirection: textDirection,
         ),
-        child: Container(
-          clipBehavior: widget.clipBehavior,
-          decoration: BoxDecoration(
-            border: tableTheme?.border,
-            color: tableTheme?.backgroundColor,
-            borderRadius: tableTheme?.borderRadius,
-          ),
-          child: ListenableBuilder(
-            listenable: widget.controller,
-            builder: (context, child) {
-              return RawTableLayout(
-                clipBehavior: widget.clipBehavior,
-                horizontalOffset: widget.horizontalOffset,
-                verticalOffset: widget.verticalOffset,
-                frozenColumn: widget.frozenCells?.testColumn,
-                frozenRow: widget.frozenCells?.testRow,
-                viewportSize: widget.viewportSize,
-                width: (index) {
-                  return _width(index);
-                },
-                height: (index) {
-                  return _height(index);
-                },
-                children: children,
-              );
-            },
-          ),
-        ),
+        child: table,
       ),
     );
   }

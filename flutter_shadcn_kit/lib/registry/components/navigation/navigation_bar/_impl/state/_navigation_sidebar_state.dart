@@ -26,6 +26,31 @@ class _NavigationSidebarState extends State<NavigationSidebar>
   /// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
+    final key = _keyForIndex(index);
+    if (key != null) widget.onSelectedKey?.call(key);
+  }
+
+  /// Key-based selection notify (upstream parity).
+  void _onSelectedKey(Key? key) {
+    widget.onSelectedKey?.call(key);
+    final index = _indexForKey(key);
+    if (index != null) widget.onSelected?.call(index);
+  }
+
+  /// Resolves a child key for an index (compat bridge).
+  Key? _keyForIndex(int index) {
+    final items = widget.children;
+    if (index < 0 || index >= items.length) return null;
+    return items[index].key;
+  }
+
+  /// Resolves a child index for a key (compat bridge).
+  int? _indexForKey(Key? key) {
+    if (key == null) return null;
+    for (var i = 0; i < widget.children.length; i++) {
+      if (widget.children[i].key == key) return i;
+    }
+    return null;
   }
 
   @override
@@ -36,6 +61,8 @@ class _NavigationSidebarState extends State<NavigationSidebar>
     /// Stores `scaling` state/configuration for this implementation.
     final scaling = theme.scaling;
     List<Widget> children = wrapChildren(context, widget.children);
+    final headerChildren = widget.header ?? const <Widget>[];
+    final footerChildren = widget.footer ?? const <Widget>[];
     var parentPadding =
         widget.padding ??
         (EdgeInsets.symmetric(
@@ -56,7 +83,9 @@ class _NavigationSidebarState extends State<NavigationSidebar>
         parentPadding: resolvedPadding,
         direction: direction,
         onSelected: _onSelected,
+        onSelectedKey: _onSelectedKey,
         selectedIndex: widget.index,
+        selectedKey: widget.selectedKey,
         expanded: widget.expanded,
         childCount: children.length,
         spacing: widget.spacing ?? 0,
@@ -77,6 +106,10 @@ class _NavigationSidebarState extends State<NavigationSidebar>
                   shrinkWrap: true,
                   scrollDirection: direction,
                   slivers: [
+                    if (headerChildren.isNotEmpty)
+                      ...headerChildren.map(
+                        (e) => SliverToBoxAdapter(child: e) as Widget,
+                      ),
                     /// Creates a `SliverGap` instance.
                     SliverGap(_startPadding(resolvedPadding, direction)),
                     ...children
@@ -96,6 +129,10 @@ class _NavigationSidebarState extends State<NavigationSidebar>
 
                     /// Creates a `SliverGap` instance.
                     SliverGap(_endPadding(resolvedPadding, direction)),
+                    if (footerChildren.isNotEmpty)
+                      ...footerChildren.map(
+                        (e) => SliverToBoxAdapter(child: e) as Widget,
+                      ),
                   ],
                 ),
               ),

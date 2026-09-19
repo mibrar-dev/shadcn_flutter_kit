@@ -31,6 +31,9 @@ class RenderTableLayout extends RenderBox
   /// Stores `_viewportSize` state/configuration for this implementation.
   Size? _viewportSize;
 
+  /// Stores `_textDirection` state/configuration for this implementation.
+  TextDirection _textDirection;
+
   /// Stores `_layoutResult` state/configuration for this implementation.
   TableLayoutResult? _layoutResult;
 
@@ -62,6 +65,7 @@ class RenderTableLayout extends RenderBox
     double? verticalOffset,
     double? horizontalOffset,
     Size? viewportSize,
+    TextDirection textDirection = TextDirection.ltr,
   }) : _clipBehavior = clipBehavior,
        _width = width,
        _height = height,
@@ -69,6 +73,7 @@ class RenderTableLayout extends RenderBox
        _frozenRow = frozenRow,
        _verticalOffset = verticalOffset,
        _horizontalOffset = horizontalOffset,
+       _textDirection = textDirection,
        _viewportSize = viewportSize {
     addAll(children);
   }
@@ -401,6 +406,13 @@ class RenderTableLayout extends RenderBox
         }
         parentData.frozenRow = frozenRow;
         parentData.frozenColumn = frozenColumn;
+        // Everything above is computed in logical space, where x grows away
+        // from the first column. Mirroring only here means column indices,
+        // spans, frozen columns and the scroll offset all keep their logical
+        // meaning under RTL, and the first column simply lands on the right.
+        if (_textDirection == TextDirection.rtl) {
+          offsetX = size.width - offsetX - width;
+        }
         parentData.offset = Offset(offsetX, offsetY);
       }
       child = childAfter(child);

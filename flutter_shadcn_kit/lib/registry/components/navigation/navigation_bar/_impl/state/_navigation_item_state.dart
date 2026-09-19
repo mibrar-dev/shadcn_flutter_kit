@@ -25,8 +25,16 @@ class _NavigationItemState
     /// Stores `index` state/configuration for this implementation.
     var index = childData?.index ?? widget.index;
 
+    /// Upstream-parity key-based selection: when the container provides a
+    /// non-null [NavigationControlData.selectedKey], it takes precedence
+    /// over index comparison.
+    final containerKey = data?.selectedKey;
+    final bool? keySelected = containerKey == null
+        ? null
+        : (widget.key != null && widget.key == containerKey);
+
     /// Stores `isSelected` state/configuration for this implementation.
-    var isSelected = widget.selected ?? index == data?.selectedIndex;
+    var isSelected = widget.selected ?? keySelected ?? (index == data?.selectedIndex);
 
     /// Stores `parentIndex` state/configuration for this implementation.
     var parentIndex = childData?.index;
@@ -64,10 +72,16 @@ class _NavigationItemState
       child: SelectedButton(
         value: isSelected,
         enabled: widget.enabled,
-        onChanged: parentIndex != null || widget.index != null
+        onChanged: parentIndex != null || widget.index != null || widget.key != null
             ? (value) {
                 widget.onChanged?.call(value);
-                data?.onSelected(parentIndex ?? widget.index!);
+                if (parentIndex != null || widget.index != null) {
+                  data?.onSelected(parentIndex ?? widget.index!);
+                }
+                final itemKey = widget.key;
+                if (value && itemKey != null) {
+                  data?.onSelectedKey?.call(itemKey);
+                }
               }
             : widget.onChanged,
         marginAlignment: widget.marginAlignment,

@@ -38,10 +38,24 @@ class NavigationBar extends StatefulWidget {
   final bool? expands;
 
   /// Currently selected item index.
+  ///
+  /// Legacy index-based selection. Kept for backward compatibility.
+  /// When [selectedKey] is non-null, key-based selection takes precedence
+  /// (upstream parity); [onSelected] is still invoked as a compat notify
+  /// when the key resolves to an index.
   final int? index;
+
+  /// Currently selected item key (upstream parity).
+  ///
+  /// When non-null, takes precedence over [index]. Matches `widget.key`
+  /// of the selected child.
+  final Key? selectedKey;
 
   /// Callback when an item is selected.
   final ValueChanged<int>? onSelected;
+
+  /// Callback when an item is selected by key (upstream parity).
+  final ValueChanged<Key?>? onSelectedKey;
 
   /// Surface opacity for the navigation bar background.
   final double? surfaceOpacity;
@@ -58,6 +72,15 @@ class NavigationBar extends StatefulWidget {
   /// Whether to keep main-axis size when expanding/collapsing.
   final bool? keepMainAxisSize;
 
+  /// Cross-axis size when the bar is expanded (upstream parity).
+  ///
+  /// When set (with [collapsedSize]), the bar animates its cross-axis
+  /// constraint between the two sizes based on [expanded].
+  final double? expandedSize;
+
+  /// Cross-axis size when the bar is collapsed (upstream parity).
+  final double? collapsedSize;
+
   /// Creates a [NavigationBar].
   const NavigationBar({
     super.key,
@@ -72,12 +95,16 @@ class NavigationBar extends StatefulWidget {
     this.constraints,
     this.expands,
     this.index,
+    this.selectedKey,
     this.onSelected,
+    this.onSelectedKey,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.expanded,
     this.keepCrossAxisSize,
     this.keepMainAxisSize,
+    this.expandedSize,
+    this.collapsedSize,
     required this.children,
   });
 

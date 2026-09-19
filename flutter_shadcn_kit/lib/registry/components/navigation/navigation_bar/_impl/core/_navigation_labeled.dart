@@ -33,6 +33,7 @@ class _NavigationLabeled extends StatelessWidget {
 
   /// Creates a `_NavigationLabeled` instance.
   const _NavigationLabeled({
+    super.key,
     required this.child,
     required this.label,
     required this.spacing,

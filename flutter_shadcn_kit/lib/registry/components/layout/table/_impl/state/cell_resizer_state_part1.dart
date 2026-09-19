@@ -51,9 +51,18 @@ class _CellResizerState extends State<_CellResizer> {
   }
 
   /// Executes `_onDragUpdate` behavior for this component/composite.
-  void _onDragUpdate(int start, int end, DragUpdateDetails details) {
+  ///
+  /// Column widths grow away from the first column, so a rightward drag widens
+  /// under LTR and narrows under RTL.
+  double _columnDelta(DragUpdateDetails details, TextDirection textDirection) {
+    final delta = details.primaryDelta!;
+    return textDirection == TextDirection.rtl ? -delta : delta;
+  }
+
+  /// Executes `_onDragUpdate` behavior for this component/composite.
+  void _onDragUpdate(int start, int end, double delta) {
     // _resizer!.resize(start, end, _delta!);
-    _resizer!.dragDivider(end, details.primaryDelta!);
+    _resizer!.dragDivider(end, delta);
     for (int i = 0; i < _resizer!.items.length; i++) {
       // widget.controller.resizeRow(i, _resizer!.items[i].newValue);
       if (_resizeRow!) {
@@ -115,6 +124,7 @@ class _CellResizerState extends State<_CellResizer> {
 
     /// Stores `heightMode` state/configuration for this implementation.
     final heightMode = tableData.cellHeightResizeMode;
+    final textDirection = tableData.textDirection;
     final theme = Theme.of(context);
     return Stack(
       children: [
@@ -140,7 +150,7 @@ class _CellResizerState extends State<_CellResizer> {
                 onVerticalDragStart: _onDragStartRow,
                 onVerticalDragUpdate: (details) {
                   if (heightMode == TableCellResizeMode.reallocate) {
-                    _onDragUpdate(row - 1, row, details);
+                    _onDragUpdate(row - 1, row, details.primaryDelta!);
                   } else {
                     widget.controller.resizeRow(
                       row - 1,
@@ -205,7 +215,11 @@ class _CellResizerState extends State<_CellResizer> {
                 onVerticalDragStart: _onDragStartRow,
                 onVerticalDragUpdate: (details) {
                   if (heightMode == TableCellResizeMode.reallocate) {
-                    _onDragUpdate(row + rowSpan - 1, row + rowSpan, details);
+                    _onDragUpdate(
+                      row + rowSpan - 1,
+                      row + rowSpan,
+                      details.primaryDelta!,
+                    );
                   } else {
                     widget.controller.resizeRow(
                       row + rowSpan - 1,
@@ -245,11 +259,12 @@ class _CellResizerState extends State<_CellResizer> {
               ),
             ),
           ),
-        // left
+        // start of the row: resizes the boundary with the previous column
         if (column > 0 && widthMode != TableCellResizeMode.none)
           /// Creates a `Positioned` instance.
-          Positioned(
-            left: -thickness / 2,
+          Positioned.directional(
+            textDirection: textDirection,
+            start: -thickness / 2,
             top: 0,
             bottom: 0,
             width: thickness,
@@ -266,13 +281,13 @@ class _CellResizerState extends State<_CellResizer> {
                 behavior: HitTestBehavior.translucent,
                 onHorizontalDragStart: _onDragStartColumn,
                 onHorizontalDragUpdate: (details) {
+                  final delta = _columnDelta(details, textDirection);
                   if (widthMode == TableCellResizeMode.reallocate) {
-                    _onDragUpdate(column - 1, column, details);
+                    _onDragUpdate(column - 1, column, delta);
                   } else {
                     widget.controller.resizeColumn(
                       column - 1,
-                      widget.controller.getColumnWidth(column - 1) +
-                          details.primaryDelta!,
+                      widget.controller.getColumnWidth(column - 1) + delta,
                     );
                   }
                 },
@@ -307,13 +322,14 @@ class _CellResizerState extends State<_CellResizer> {
               ),
             ),
           ),
-        // right
+        // end of the row: resizes the boundary with the next column
         if ((column + columnSpan <= tableData.maxColumn ||
                 widthMode == TableCellResizeMode.expand) &&
             widthMode != TableCellResizeMode.none)
           /// Creates a `Positioned` instance.
-          Positioned(
-            right: -thickness / 2,
+          Positioned.directional(
+            textDirection: textDirection,
+            end: -thickness / 2,
             top: 0,
             bottom: 0,
             width: thickness,
@@ -330,12 +346,12 @@ class _CellResizerState extends State<_CellResizer> {
                 behavior: HitTestBehavior.translucent,
                 onHorizontalDragStart: _onDragStartColumn,
                 onHorizontalDragUpdate: (details) {
+                  final delta = _columnDelta(details, textDirection);
                   if (widthMode == TableCellResizeMode.reallocate) {
-                    /// Creates a `_onDragUpdate` instance.
                     _onDragUpdate(
                       column + columnSpan - 1,
                       column + columnSpan,
-                      details,
+                      delta,
                     );
                   } else {
                     widget.controller.resizeColumn(
@@ -343,7 +359,7 @@ class _CellResizerState extends State<_CellResizer> {
                       widget.controller.getColumnWidth(
                             column + columnSpan - 1,
                           ) +
-                          details.primaryDelta!,
+                          delta,
                     );
                   }
                 },

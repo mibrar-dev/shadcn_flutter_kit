@@ -71,15 +71,24 @@ class NavigationRail extends StatefulWidget {
 
   /// Index of the currently selected navigation item.
   ///
-  /// Highlights the corresponding item and affects label display based
-  /// on the [labelType] setting. When null, no item is selected.
+  /// Legacy index-based selection. When [selectedKey] is non-null, key-based
+  /// selection takes precedence (upstream parity).
   final int? index;
+
+  /// Currently selected item key (upstream parity).
+  ///
+  /// When non-null, takes precedence over [index]. Matches `widget.key`
+  /// of the selected child.
+  final Key? selectedKey;
 
   /// Callback invoked when a navigation item is selected.
   ///
   /// Called with the index of the tapped item. Use this to update
   /// the selected index and navigate to the corresponding destination.
   final ValueChanged<int>? onSelected;
+
+  /// Callback invoked with the key of the selected item (upstream parity).
+  final ValueChanged<Key?>? onSelectedKey;
 
   /// Opacity level for surface background effects.
   ///
@@ -110,6 +119,20 @@ class NavigationRail extends StatefulWidget {
   /// Controls how the rail handles sizing when its cross axis dimension
   /// is unconstrained. Useful for preventing unwanted expansion.
   final bool keepCrossAxisSize;
+
+  /// Cross-axis size when the rail is expanded (upstream parity).
+  final double? expandedSize;
+
+  /// Cross-axis size when the rail is collapsed (upstream parity).
+  final double? collapsedSize;
+
+  /// Optional header widgets displayed before the scrollable items
+  /// (upstream parity). Rendered as a fixed leading section.
+  final List<Widget>? header;
+
+  /// Optional footer widgets displayed after the scrollable items
+  /// (upstream parity). Rendered as a fixed trailing section.
+  final List<Widget>? footer;
 
   /// Creates a [NavigationRail] with the specified configuration and items.
   ///
@@ -152,12 +175,18 @@ class NavigationRail extends StatefulWidget {
     this.padding,
     this.constraints,
     this.index,
+    this.selectedKey,
     this.onSelected,
+    this.onSelectedKey,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.expanded = true,
     this.keepMainAxisSize = false,
     this.keepCrossAxisSize = false,
+    this.expandedSize,
+    this.collapsedSize,
+    this.header,
+    this.footer,
     required this.children,
   });
 

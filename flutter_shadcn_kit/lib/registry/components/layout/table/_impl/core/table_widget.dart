@@ -71,6 +71,30 @@ class Table extends StatefulWidget {
   /// visible area of the table. Essential for scrolling behavior.
   final Size? viewportSize;
 
+  /// Optional controller for vertical scrolling owned by this [Table].
+  ///
+  /// When provided, the table wraps itself in a [ScrollableClient] and
+  /// drives [verticalOffset]/[viewportSize] internally from this
+  /// controller instead of requiring the caller to wire up their own
+  /// [ScrollableClient]/[Scrollable] and pass [verticalOffset] manually.
+  /// If both this and [verticalOffset] are provided, [verticalOffset] is
+  /// ignored for the vertical axis.
+  final ScrollController? verticalController;
+
+  /// Optional controller for horizontal scrolling owned by this [Table].
+  ///
+  /// Same semantics as [verticalController], for the horizontal axis.
+  final ScrollController? horizontalController;
+
+  /// The direction columns run in.
+  ///
+  /// Defaults to the ambient [Directionality]. Column indices are always
+  /// logical — [columnWidths] key 0 and [TableRow.cells] position 0 all refer
+  /// to the first column — so under [TextDirection.rtl] that column is laid
+  /// out at the right edge and horizontal scrolling starts there and runs
+  /// leftwards.
+  final TextDirection? textDirection;
+
   /// Creates a [Table] widget.
   ///
   /// The table displays data organized in rows and cells with flexible
@@ -88,6 +112,10 @@ class Table extends StatefulWidget {
   /// - [horizontalOffset] (double?, optional): Horizontal scroll position
   /// - [verticalOffset] (double?, optional): Vertical scroll position
   /// - [viewportSize] (Size?, optional): Viewport size constraints
+  /// - [verticalController] (ScrollController?, optional): Controller-driven vertical scrolling
+  /// - [horizontalController] (ScrollController?, optional): Controller-driven horizontal scrolling
+  /// - [textDirection] (TextDirection?, optional): Direction columns run in;
+  ///   defaults to the ambient [Directionality]
   ///
   /// Example:
   /// ```dart
@@ -112,6 +140,9 @@ class Table extends StatefulWidget {
     this.horizontalOffset,
     this.verticalOffset,
     this.viewportSize,
+    this.verticalController,
+    this.horizontalController,
+    this.textDirection,
   });
 
   @override

@@ -23,13 +23,29 @@ class NavigationControlData {
   final Axis direction;
 
   /// Currently selected item index (null if none selected).
+  ///
+  /// Legacy index-based selection. When [selectedKey] is non-null, key-based
+  /// selection takes precedence (upstream parity); index is ignored for
+  /// highlighting but [onSelected] is still invoked as a compat notify.
   final int? selectedIndex;
+
+  /// Currently selected item key (null if none selected, upstream parity).
+  ///
+  /// When non-null, takes precedence over [selectedIndex]. Matches
+  /// `widget.key` of the selected [NavigationBarItem].
+  final Key? selectedKey;
 
   /// Total number of child items.
   final int childCount;
 
   /// Callback when an item is selected.
   final ValueChanged<int> onSelected;
+
+  /// Callback when an item is selected by key (upstream parity, optional).
+  ///
+  /// Invoked alongside [onSelected] when the selection can be resolved to a
+  /// key/index pair. May be null when only index-based selection is used.
+  final ValueChanged<Key?>? onSelectedKey;
 
   /// Whether the navigation is expanded to fill available space.
   final bool expanded;
@@ -78,6 +94,8 @@ class NavigationControlData {
     required this.direction,
     required this.selectedIndex,
     required this.onSelected,
+    this.selectedKey,
+    this.onSelectedKey,
     required this.expanded,
     required this.childCount,
     required this.spacing,
@@ -96,6 +114,7 @@ class NavigationControlData {
         other.parentPadding == parentPadding &&
         other.direction == direction &&
         other.selectedIndex == selectedIndex &&
+        other.selectedKey == selectedKey &&
         other.onSelected == onSelected &&
         other.parentLabelPosition == parentLabelPosition &&
         other.parentLabelSize == parentLabelSize &&
@@ -114,6 +133,7 @@ class NavigationControlData {
       parentPadding,
       direction,
       selectedIndex,
+      selectedKey,
       onSelected,
       parentLabelPosition,
       parentLabelSize,

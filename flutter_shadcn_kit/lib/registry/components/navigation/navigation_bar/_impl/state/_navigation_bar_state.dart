@@ -8,6 +8,34 @@ class _NavigationBarState extends State<NavigationBar>
   /// Executes `_onSelected` behavior for this component/composite.
   void _onSelected(int index) {
     widget.onSelected?.call(index);
+    final key = _keyForIndex(index);
+    if (key != null) widget.onSelectedKey?.call(key);
+  }
+
+  /// Key-based selection notify (upstream parity).
+  ///
+  /// Forwards to [NavigationBar.onSelectedKey] and, when the key resolves
+  /// to a child index, also invokes [NavigationBar.onSelected] as compat.
+  void _onSelectedKey(Key? key) {
+    widget.onSelectedKey?.call(key);
+    final index = _indexForKey(key);
+    if (index != null) widget.onSelected?.call(index);
+  }
+
+  /// Resolves a child key for an index (compat bridge).
+  Key? _keyForIndex(int index) {
+    final items = widget.children;
+    if (index < 0 || index >= items.length) return null;
+    return items[index].key;
+  }
+
+  /// Resolves a child index for a key (compat bridge).
+  int? _indexForKey(Key? key) {
+    if (key == null) return null;
+    for (var i = 0; i < widget.children.length; i++) {
+      if (widget.children[i].key == key) return i;
+    }
+    return null;
   }
 
   @override
@@ -107,7 +135,7 @@ class _NavigationBarState extends State<NavigationBar>
         }
       }
     }
-    return SurfaceBlur(
+    Widget result = SurfaceBlur(
       surfaceBlur: widget.surfaceBlur,
       child: RepaintBoundary(
         child: Data.inherit(
@@ -118,7 +146,9 @@ class _NavigationBarState extends State<NavigationBar>
             parentPadding: resolvedPadding,
             direction: direction,
             selectedIndex: widget.index,
+            selectedKey: widget.selectedKey,
             onSelected: _onSelected,
+            onSelectedKey: _onSelectedKey,
             parentLabelPosition: labelPosition,
             expanded: expanded,
             childCount: children.length,
@@ -126,7 +156,7 @@ class _NavigationBarState extends State<NavigationBar>
             keepCrossAxisSize: widget.keepCrossAxisSize ?? false,
             keepMainAxisSize: widget.keepMainAxisSize ?? false,
           ),
-          child: Container(
+            child: Container(
             color:
                 backgroundColor ??
                 theme.colorScheme.background.scaleAlpha(
@@ -153,6 +183,27 @@ class _NavigationBarState extends State<NavigationBar>
         ),
       ),
     );
+    if (widget.expandedSize != null || widget.collapsedSize != null) {
+      final targetMinSize = expanded
+          ? (widget.expandedSize ?? 0.0)
+          : (widget.collapsedSize ?? 0.0);
+      final maxSize = widget.expandedSize ?? double.infinity;
+      result = AnimatedValueBuilder<double>(
+        value: targetMinSize,
+        duration: kDefaultDuration,
+        builder: (context, animatedMinSize, child) {
+          final minSize = animatedMinSize;
+          return ConstrainedBox(
+            constraints: direction == Axis.vertical
+                ? BoxConstraints(minWidth: minSize, maxWidth: maxSize)
+                : BoxConstraints(minHeight: minSize, maxHeight: maxSize),
+            child: child,
+          );
+        },
+        child: result,
+      );
+    }
+    return result;
   }
 
   /// Executes `_crossAxisAlignment` behavior for this component/composite.

@@ -40,13 +40,10 @@ class IconContainer extends StatelessWidget implements Styleable<IconContainerTh
 
   /// Theme override for this icon container.
   ///
-  /// Resolved via `ComponentTheme.maybeOf<IconContainerTheme>` when null.
-  final IconContainerTheme? theme;
-
   /// Styling for this widget alone, overriding the ancestor theme.
+  /// Resolved via `ComponentTheme.maybeOf<IconContainerTheme>` when null.
   @override
   final IconContainerTheme? theme;
-
 
   /// Creates an [IconContainer].
   ///
@@ -64,14 +61,13 @@ class IconContainer extends StatelessWidget implements Styleable<IconContainerTh
     this.backgroundColor,
     this.iconColor,
     this.theme,
-    this.theme,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final compTheme =
-        this.theme ?? this.theme ?? ComponentTheme.maybeOf<IconContainerTheme>(context);
+        this.theme ?? ComponentTheme.maybeOf<IconContainerTheme>(context);
     return Container(
       padding: styleValue(
         defaultValue: EdgeInsetsDensity.all(

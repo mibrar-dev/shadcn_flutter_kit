@@ -1,6 +1,6 @@
 {
-  "id": "fade_scroll",
-  "name": "Fade Scroll",
+  "id": "fade_scroll_display",
+  "name": "Fade Scroll (Display)",
   "description": "Edge fade overlays for scrollable content.",
   "category": "display",
   "tier": "component",

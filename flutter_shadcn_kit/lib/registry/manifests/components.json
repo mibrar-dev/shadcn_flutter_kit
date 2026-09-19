@@ -14989,6 +14989,513 @@
       "assets": [],
       "postInstall": [],
       "version": "1.0.0"
+    },
+    {
+      "id": "country_flag",
+      "name": "Country Flag",
+      "description": "Flag display with emoji fallback and customizable artwork builder.",
+      "category": "display",
+      "tags": [
+        "display",
+        "flag",
+        "country"
+      ],
+      "files": [
+        {
+          "source": "registry/components/display/country_flag/_impl/core/country_flag_details.dart",
+          "destination": "{installPath}/components/display/country_flag/_impl/core/country_flag_details.dart"
+        },
+        {
+          "source": "registry/components/display/country_flag/_impl/core/country_flag_widget.dart",
+          "destination": "{installPath}/components/display/country_flag/_impl/core/country_flag_widget.dart"
+        },
+        {
+          "source": "registry/components/display/country_flag/_impl/themes/base/country_flag_theme.dart",
+          "destination": "{installPath}/components/display/country_flag/_impl/themes/base/country_flag_theme.dart"
+        },
+        {
+          "source": "registry/components/display/country_flag/country_flag.dart",
+          "destination": "{installPath}/components/display/country_flag/country_flag.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/display/country_flag/_impl/core/country_flag_details.dart"
+            },
+            {
+              "source": "registry/components/display/country_flag/_impl/core/country_flag_widget.dart"
+            },
+            {
+              "source": "registry/components/display/country_flag/_impl/themes/base/country_flag_theme.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme",
+        "style_value",
+        "component_schema"
+      ],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {
+          "phonecodes": "^0.0.4"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "fade_scroll_display",
+      "name": "Fade Scroll (Display)",
+      "description": "Edge fade overlays for scrollable content.",
+      "category": "display",
+      "tags": [
+        "display",
+        "scroll",
+        "fade"
+      ],
+      "files": [
+        {
+          "source": "registry/components/display/fade_scroll/_impl/core/fade_scroll_widget.dart",
+          "destination": "{installPath}/components/display/fade_scroll/_impl/core/fade_scroll_widget.dart"
+        },
+        {
+          "source": "registry/components/display/fade_scroll/_impl/themes/base/fade_scroll_theme.dart",
+          "destination": "{installPath}/components/display/fade_scroll/_impl/themes/base/fade_scroll_theme.dart"
+        },
+        {
+          "source": "registry/components/display/fade_scroll/fade_scroll.dart",
+          "destination": "{installPath}/components/display/fade_scroll/fade_scroll.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/display/fade_scroll/_impl/core/fade_scroll_widget.dart"
+            },
+            {
+              "source": "registry/components/display/fade_scroll/_impl/themes/base/fade_scroll_theme.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme",
+        "style_value",
+        "generated_colors",
+        "component_schema"
+      ],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {
+          "gap": "^3.0.1"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "pinned_sheet",
+      "name": "Pinned Sheet",
+      "description": "Upstream-parity controller-driven sheet (PinnedSheet + SheetController + SheetStage algebra) that snaps between stages with drag gestures and backdrop transforms.",
+      "category": "display",
+      "tags": [
+        "display",
+        "sheet",
+        "drawer",
+        "gesture"
+      ],
+      "files": [
+        {
+          "source": "registry/components/display/pinned_sheet/_impl/core/pinned_sheet.dart",
+          "destination": "{installPath}/components/display/pinned_sheet/_impl/core/pinned_sheet.dart"
+        },
+        {
+          "source": "registry/components/display/pinned_sheet/_impl/core/pinned_sheet_types.dart",
+          "destination": "{installPath}/components/display/pinned_sheet/_impl/core/pinned_sheet_types.dart"
+        },
+        {
+          "source": "registry/components/display/pinned_sheet/_impl/core/sheet_controller.dart",
+          "destination": "{installPath}/components/display/pinned_sheet/_impl/core/sheet_controller.dart"
+        },
+        {
+          "source": "registry/components/display/pinned_sheet/_impl/state/pinned_sheet_state.dart",
+          "destination": "{installPath}/components/display/pinned_sheet/_impl/state/pinned_sheet_state.dart"
+        },
+        {
+          "source": "registry/components/display/pinned_sheet/pinned_sheet.dart",
+          "destination": "{installPath}/components/display/pinned_sheet/pinned_sheet.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/display/pinned_sheet/_impl/core/pinned_sheet.dart"
+            },
+            {
+              "source": "registry/components/display/pinned_sheet/_impl/core/pinned_sheet_types.dart"
+            },
+            {
+              "source": "registry/components/display/pinned_sheet/_impl/core/sheet_controller.dart"
+            },
+            {
+              "source": "registry/components/display/pinned_sheet/_impl/state/pinned_sheet_state.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme",
+        "color_extensions",
+        "constants"
+      ],
+      "dependsOn": [
+        "drawer",
+        "drawer_container",
+        "backdrop_transform"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "data_widget": "^0.0.2"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "color_field",
+      "name": "Color Field",
+      "description": "Shared gradient engine that paints HSV/HSL color fields along configurable axes.",
+      "category": "form",
+      "tags": [
+        "color",
+        "field",
+        "hsv",
+        "hsl"
+      ],
+      "files": [
+        {
+          "source": "registry/components/form/color_field/_impl/core/color_field.dart",
+          "destination": "{installPath}/components/form/color_field/_impl/core/color_field.dart"
+        },
+        {
+          "source": "registry/components/form/color_field/color_field.dart",
+          "destination": "{installPath}/components/form/color_field/color_field.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/form/color_field/_impl/core/color_field.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [
+        "alpha"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "gap": "^3.0.1"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "form_sortable",
+      "name": "Sortable (Form)",
+      "description": "Upstream-parity port of the form RawSortable primitives (RawSortableList, RawSortableStack, SortableListDelegate, list-change model). Distinct from the layout/sortable drag-and-drop system.",
+      "category": "form",
+      "tags": [
+        "form",
+        "sortable",
+        "reorder",
+        "list"
+      ],
+      "files": [
+        {
+          "source": "registry/components/form/sortable/_impl/core/raw_sortable_list.dart",
+          "destination": "{installPath}/components/form/sortable/_impl/core/raw_sortable_list.dart"
+        },
+        {
+          "source": "registry/components/form/sortable/_impl/core/raw_sortable_stack.dart",
+          "destination": "{installPath}/components/form/sortable/_impl/core/raw_sortable_stack.dart"
+        },
+        {
+          "source": "registry/components/form/sortable/_impl/core/sortable_builders.dart",
+          "destination": "{installPath}/components/form/sortable/_impl/core/sortable_builders.dart"
+        },
+        {
+          "source": "registry/components/form/sortable/_impl/core/sortable_changes.dart",
+          "destination": "{installPath}/components/form/sortable/_impl/core/sortable_changes.dart"
+        },
+        {
+          "source": "registry/components/form/sortable/_impl/core/sortable_list_delegate.dart",
+          "destination": "{installPath}/components/form/sortable/_impl/core/sortable_list_delegate.dart"
+        },
+        {
+          "source": "registry/components/form/sortable/sortable.dart",
+          "destination": "{installPath}/components/form/sortable/sortable.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/form/sortable/_impl/core/raw_sortable_list.dart"
+            },
+            {
+              "source": "registry/components/form/sortable/_impl/core/raw_sortable_stack.dart"
+            },
+            {
+              "source": "registry/components/form/sortable/_impl/core/sortable_builders.dart"
+            },
+            {
+              "source": "registry/components/form/sortable/_impl/core/sortable_changes.dart"
+            },
+            {
+              "source": "registry/components/form/sortable/_impl/core/sortable_list_delegate.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "component_schema"
+      ],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "primitive"
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "description": "Upstream-parity anchor primitives (Anchor, ContextAnchor, LinkedAnchor) and overlay anchor registry/scope for position-tracked overlays.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "anchor",
+        "popover"
+      ],
+      "files": [
+        {
+          "source": "registry/components/overlay/anchor/_impl/core/anchor_api.dart",
+          "destination": "{installPath}/components/overlay/anchor/_impl/core/anchor_api.dart"
+        },
+        {
+          "source": "registry/components/overlay/anchor/_impl/core/overlay_anchor.dart",
+          "destination": "{installPath}/components/overlay/anchor/_impl/core/overlay_anchor.dart"
+        },
+        {
+          "source": "registry/components/overlay/anchor/anchor.dart",
+          "destination": "{installPath}/components/overlay/anchor/anchor.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/anchor/_impl/core/anchor_api.dart"
+            },
+            {
+              "source": "registry/components/overlay/anchor/_impl/core/overlay_anchor.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {
+          "data_widget": "^0.0.2"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "backdrop_transform",
+      "name": "Backdrop Transform",
+      "description": "Upstream-parity backdrop transforms (BackdropTransform, NoBackdropTransform, ScaleBackdropTransform) for sheet/drawer zoom-out effects.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "sheet",
+        "drawer",
+        "backdrop"
+      ],
+      "files": [
+        {
+          "source": "registry/components/overlay/backdrop_transform/_impl/core/backdrop_transform.dart",
+          "destination": "{installPath}/components/overlay/backdrop_transform/_impl/core/backdrop_transform.dart"
+        },
+        {
+          "source": "registry/components/overlay/backdrop_transform/backdrop_transform.dart",
+          "destination": "{installPath}/components/overlay/backdrop_transform/backdrop_transform.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/backdrop_transform/_impl/core/backdrop_transform.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "drawer_container",
+      "name": "Drawer Container",
+      "description": "Upstream-parity drawer/sheet chrome (AxisSize algebra, DrawerRawContainer, SheetRawContainer, DrawerContainerData, DrawerContainer, SheetContainer) for pinned sheets and drawer overlays.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "sheet",
+        "drawer",
+        "container"
+      ],
+      "files": [
+        {
+          "source": "registry/components/overlay/drawer_container/_impl/core/axis_size.dart",
+          "destination": "{installPath}/components/overlay/drawer_container/_impl/core/axis_size.dart"
+        },
+        {
+          "source": "registry/components/overlay/drawer_container/_impl/core/drawer_container.dart",
+          "destination": "{installPath}/components/overlay/drawer_container/_impl/core/drawer_container.dart"
+        },
+        {
+          "source": "registry/components/overlay/drawer_container/drawer_container.dart",
+          "destination": "{installPath}/components/overlay/drawer_container/drawer_container.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/drawer_container/_impl/core/axis_size.dart"
+            },
+            {
+              "source": "registry/components/overlay/drawer_container/_impl/core/drawer_container.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme",
+        "color_extensions",
+        "constants"
+      ],
+      "dependsOn": [
+        "drawer"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "data_widget": "^0.0.2"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "overlay_configuration",
+      "name": "Overlay Configuration",
+      "description": "Upstream-parity overlay configurations (OverlayConfiguration, Popover/Drawer/Sheet/Dialog/Menu/TooltipConfiguration, showOverlay) plus OverlayController, adapted to the registry PopoverController architecture.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "popover",
+        "dialog",
+        "menu",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "source": "registry/components/overlay/overlay_configuration/_impl/core/overlay_configuration.dart",
+          "destination": "{installPath}/components/overlay/overlay_configuration/_impl/core/overlay_configuration.dart"
+        },
+        {
+          "source": "registry/components/overlay/overlay_configuration/_impl/core/overlay_controller.dart",
+          "destination": "{installPath}/components/overlay/overlay_configuration/_impl/core/overlay_controller.dart"
+        },
+        {
+          "source": "registry/components/overlay/overlay_configuration/overlay_configuration.dart",
+          "destination": "{installPath}/components/overlay/overlay_configuration/overlay_configuration.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/overlay_configuration/_impl/core/overlay_configuration.dart"
+            },
+            {
+              "source": "registry/components/overlay/overlay_configuration/_impl/core/overlay_controller.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme",
+        "overlay",
+        "platform_utils"
+      ],
+      "dependsOn": [
+        "anchor",
+        "drawer"
+      ],
+      "pubspec": {
+        "dependencies": {
+          "data_widget": "^0.0.2"
+        }
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
+    },
+    {
+      "id": "spell_check_suggestions_toolbar",
+      "name": "Spell Check Suggestions Toolbar",
+      "description": "Upstream-parity shadcn spell check suggestions toolbar (SpellCheckSuggestionsToolbar + .editableText) rendered through registry menu primitives.",
+      "category": "overlay",
+      "tags": [
+        "overlay",
+        "menu",
+        "text",
+        "spellcheck"
+      ],
+      "files": [
+        {
+          "source": "registry/components/overlay/spell_check_suggestions_toolbar/_impl/core/spell_check_suggestions_toolbar.dart",
+          "destination": "{installPath}/components/overlay/spell_check_suggestions_toolbar/_impl/core/spell_check_suggestions_toolbar.dart"
+        },
+        {
+          "source": "registry/components/overlay/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart",
+          "destination": "{installPath}/components/overlay/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart",
+          "dependsOn": [
+            {
+              "source": "registry/components/overlay/spell_check_suggestions_toolbar/_impl/core/spell_check_suggestions_toolbar.dart"
+            }
+          ]
+        }
+      ],
+      "shared": [
+        "theme"
+      ],
+      "dependsOn": [
+        "menu"
+      ],
+      "pubspec": {
+        "dependencies": {}
+      },
+      "assets": [],
+      "postInstall": [],
+      "version": "1.0.0",
+      "tier": "component"
     }
   ],
   "manifestVersion": 1

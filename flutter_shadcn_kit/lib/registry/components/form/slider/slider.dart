@@ -188,6 +188,9 @@ class Slider extends StatefulWidget implements Styleable<SliderTheme> {
 
     /// Accessibility label override.
     String? semanticLabel,
+
+    /// Styling for this widget alone, overriding the ancestor theme.
+    SliderTheme? theme,
   }) {
     return Slider.single(
       key: key,

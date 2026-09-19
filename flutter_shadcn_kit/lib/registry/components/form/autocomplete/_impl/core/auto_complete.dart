@@ -8,7 +8,7 @@ part of '../../autocomplete.dart';
 /// with text input widgets. Supports multiple text replacement modes, keyboard
 /// navigation, and theming customization. The widget wraps a child (typically
 /// a text field) and displays filtered suggestions based on user input.
-class AutoComplete extends StatefulWidget {
+class AutoComplete extends StatefulWidget implements Styleable<AutoCompleteTheme> {
   /// List of suggestions to display in the autocomplete popover.
   final List<String> suggestions;
 
@@ -57,6 +57,11 @@ class AutoComplete extends StatefulWidget {
   /// Function to customize suggestion text before application.
   final AutoCompleteCompleter completer;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final AutoCompleteTheme? theme;
+
+
   /// Creates an [AutoComplete] widget.
   const AutoComplete({
     super.key,
@@ -70,6 +75,7 @@ class AutoComplete extends StatefulWidget {
     this.adaptiveOverlay,
     this.mode,
     this.completer = _defaultCompleter,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

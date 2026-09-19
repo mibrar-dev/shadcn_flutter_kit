@@ -40,7 +40,12 @@ export '_impl/variants/wave_slider.dart';
 /// [SliderController], [ControlledSlider], [IncreaseSliderValue],
 /// [DecreaseSliderValue], [SliderValueIndicator] and
 /// [SliderValueIndicatorBuilder] (exported from `_impl/core/upstream_*`).
-class Slider extends StatefulWidget {
+class Slider extends StatefulWidget implements Styleable<SliderTheme> {
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SliderTheme? theme;
+
   const Slider._({
     super.key,
     required this.min,
@@ -73,6 +78,7 @@ class Slider extends StatefulWidget {
     required this.dragPopoverOffset,
     required this.dragPopoverVisibility,
     required this.semanticLabel,
+    this.theme,
   });
 
   /// Creates a single-value slider.
@@ -711,7 +717,7 @@ class _SliderState extends State<Slider> {
     assert(widget.max > widget.min);
     final theme = Theme.of(context);
     final baseGap = theme.density.baseGap * theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<SliderTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<SliderTheme>(context);
 
     final resolvedTrackHeight = styleValue(
       widgetValue: widget.trackHeight,

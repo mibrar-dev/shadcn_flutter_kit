@@ -25,7 +25,7 @@ class _AutoCompleteState extends State<AutoComplete> {
   bool _suppressReopen = false;
 
   AutoCompleteMode get _mode {
-    final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
     return styleValue(
       widgetValue: widget.mode,
       themeValue: compTheme?.mode,
@@ -79,14 +79,14 @@ class _AutoCompleteState extends State<AutoComplete> {
     if (_popoverController.hasOpenPopover || !allowOpen) {
       return;
     }
-    final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
     _selectedIndex.value = -1;
     _popoverController.show(
       context: context,
       handler: const PopoverOverlayHandler(),
       builder: (context) {
         final theme = Theme.of(context);
-        final compTheme = ComponentTheme.maybeOf<AutoCompleteTheme>(context);
+        final compTheme = widget.theme ?? ComponentTheme.maybeOf<AutoCompleteTheme>(context);
         final popoverConstraints = styleValue<BoxConstraints>(
           widgetValue: widget.popoverConstraints,
           themeValue: compTheme?.popoverConstraints,

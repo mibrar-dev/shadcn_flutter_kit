@@ -163,7 +163,7 @@ class _InputOTPState extends State<InputOTP>
         );
       }
     }
-    final compTheme = ComponentTheme.maybeOf<InputOTPTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<InputOTPTheme>(context);
     return SizedBox(
       height: compTheme?.height ?? theme.scaling * 36,
       child: IntrinsicWidth(

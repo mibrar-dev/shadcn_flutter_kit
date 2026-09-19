@@ -52,7 +52,7 @@ part '_impl/themes/base/phone_input_theme.dart';
 ///   searchPlaceholder: Text('Search countries...'),
 /// )
 /// ```
-class PhoneInput extends StatefulWidget {
+class PhoneInput extends StatefulWidget implements Styleable<PhoneInputTheme> {
   /// The default country to display when no initial value is provided.
   ///
   /// If both [initialCountry] and [initialValue] are null, defaults to
@@ -120,6 +120,11 @@ class PhoneInput extends StatefulWidget {
   /// to guide users on how to search for countries.
   final Widget? searchPlaceholder;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final PhoneInputTheme? theme;
+
+
   /// Creates a [PhoneInput] widget.
   ///
   /// The widget can be initialized with a specific country or complete phone
@@ -162,6 +167,7 @@ class PhoneInput extends StatefulWidget {
     this.onlyNumber = true,
     this.countries,
     this.searchPlaceholder,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

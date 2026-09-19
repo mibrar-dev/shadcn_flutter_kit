@@ -29,7 +29,7 @@ class SelectState<T> extends State<Select<T>>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _theme = ComponentTheme.maybeOf<SelectTheme>(context);
+    _theme = widget.theme ?? ComponentTheme.maybeOf<SelectTheme>(context);
   }
 
   BoxConstraints? get _popupConstraints => styleValue(

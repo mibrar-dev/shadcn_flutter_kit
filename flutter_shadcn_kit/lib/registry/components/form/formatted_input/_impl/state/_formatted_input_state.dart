@@ -140,7 +140,7 @@ class _FormattedInputState extends State<FormattedInput> {
         }
       }
     }
-    final compTheme = ComponentTheme.maybeOf<FormattedInputTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<FormattedInputTheme>(context);
     return SizedBox(
       height: (compTheme?.height ?? kTextFieldHeight) * theme.scaling, // 32 + 2
       child: TextFieldTapRegion(

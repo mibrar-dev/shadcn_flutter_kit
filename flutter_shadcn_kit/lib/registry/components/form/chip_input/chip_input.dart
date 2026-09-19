@@ -37,7 +37,7 @@ typedef ChipSubmissionCallback<T> = T? Function(String chipText);
 ///
 /// Allows users to create chip tokens within a text field, useful for
 /// tags, email recipients, or any multi-item input scenario.
-class ChipInput<T> extends TextInputStatefulWidget {
+class ChipInput<T> extends TextInputStatefulWidget implements Styleable<ChipInputTheme> {
   /// Checks if a code unit represents a chip character.
   static bool isChipUnicode(int codeUnit) {
     return codeUnit >= ChipEditingController._chipStart &&
@@ -76,6 +76,11 @@ class ChipInput<T> extends TextInputStatefulWidget {
   ///
   /// Upstream parity: ported from `chip_input.dart` upstream.
   final ClipboardHandler<T>? clipboardHandler;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ChipInputTheme? theme;
+
 
   /// Creates a chip input widget.
   const ChipInput({
@@ -158,6 +163,7 @@ class ChipInput<T> extends TextInputStatefulWidget {
     this.useChips,
     this.initialChips,
     this.clipboardHandler,
+    this.theme,
   });
 
   @override

@@ -703,7 +703,7 @@ class TextFieldState extends State<TextField>
     var widget = this.widget;
     super.build(context); // See AutomaticKeepAliveClientMixin.
     final ThemeData theme = Theme.of(context);
-    final compTheme = ComponentTheme.maybeOf<TextFieldTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<TextFieldTheme>(context);
     assert(debugCheckHasDirectionality(context));
     final TextEditingController controller = effectiveController;
 

@@ -132,7 +132,7 @@ class _PhoneInputState extends State<PhoneInput>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<PhoneInputTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<PhoneInputTheme>(context);
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,

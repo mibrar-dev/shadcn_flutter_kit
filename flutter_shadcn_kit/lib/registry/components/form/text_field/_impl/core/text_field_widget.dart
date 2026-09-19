@@ -3,7 +3,7 @@
 part of '../../text_field.dart';
 
 /// TextField represents a form-related type in the registry.
-class TextField extends TextInputStatefulWidget {
+class TextField extends TextInputStatefulWidget implements Styleable<TextFieldTheme> {
   /// Returns a native platform context menu builder.
   ///
   /// Uses the platform's default text selection toolbar.
@@ -86,6 +86,11 @@ class TextField extends TextInputStatefulWidget {
       ContextMenuButtonType.custom => '',
     };
   }
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final TextFieldTheme? theme;
+
 
   /// Creates a text input field widget.
   ///
@@ -182,6 +187,7 @@ class TextField extends TextInputStatefulWidget {
     super.features,
     super.submitFormatters,
     super.skipInputFeatureFocusTraversal,
+    this.theme,
   });
 
   /// Default context menu builder for editable text.

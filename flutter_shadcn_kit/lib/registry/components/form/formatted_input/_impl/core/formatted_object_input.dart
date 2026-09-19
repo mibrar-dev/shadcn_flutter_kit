@@ -21,7 +21,8 @@ part of '../../formatted_input.dart';
 /// )
 /// ```
 class FormattedObjectInput<T> extends StatefulWidget
-    with ControlledComponent<T?> {
+    with ControlledComponent<T?>
+    implements Styleable<FormattedInputTheme> {
   /// The initial value of the input.
   @override
   final T? initialValue;
@@ -82,6 +83,10 @@ class FormattedObjectInput<T> extends StatefulWidget
   /// Icon displayed in the popover trigger.
   final Widget? popoverIcon;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final FormattedInputTheme? theme;
+
   /// Creates a [FormattedObjectInput].
   const FormattedObjectInput({
     super.key,
@@ -99,6 +104,7 @@ class FormattedObjectInput<T> extends StatefulWidget
     this.adaptiveOverlay,
     this.popoverIcon,
     this.onPartsChanged,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

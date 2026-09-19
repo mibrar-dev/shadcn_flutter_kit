@@ -47,7 +47,7 @@ part '_impl/core/controlled_color_input.dart';
 ///   enableEyeDropper: true,
 /// )
 /// ```
-class ColorInput extends StatefulWidget {
+class ColorInput extends StatefulWidget implements Styleable<ColorInputTheme> {
   /// The current color value.
   final ColorDerivative value;
 
@@ -96,6 +96,11 @@ class ColorInput extends StatefulWidget {
   /// Whether to show the color history button.
   final bool showHistory;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final ColorInputTheme? theme;
+
+
   /// Creates a [ColorInput] widget.
   const ColorInput({
     super.key,
@@ -115,6 +120,7 @@ class ColorInput extends StatefulWidget {
     this.orientation,
     this.enabled,
     this.showHistory = true,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

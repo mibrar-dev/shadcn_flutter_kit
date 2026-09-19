@@ -34,7 +34,7 @@ class _StarRatingState extends State<StarRating>
   Widget _buildStar(BuildContext context, [bool focusBorder = false]) {
     final theme = Theme.of(context);
     final scaling = theme.scaling;
-    final compTheme = ComponentTheme.maybeOf<StarRatingTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<StarRatingTheme>(context);
     var starValleyRounding = widget.starValleyRounding ?? 0.0;
     var starSquash = widget.starSquash ?? 0.0;
     var starInnerRadiusRatio = widget.starInnerRadiusRatio ?? 0.4;
@@ -83,7 +83,7 @@ class _StarRatingState extends State<StarRating>
       builder: (context, roundedValue, child) {
         final theme = Theme.of(context);
         final scaling = theme.scaling;
-        final compTheme = ComponentTheme.maybeOf<StarRatingTheme>(context);
+        final compTheme = widget.theme ?? ComponentTheme.maybeOf<StarRatingTheme>(context);
         var starSize = styleValue(
           widgetValue: widget.starSize,
           themeValue: compTheme?.starSize,

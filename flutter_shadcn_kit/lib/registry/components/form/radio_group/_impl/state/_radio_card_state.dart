@@ -34,7 +34,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final componentTheme = ComponentTheme.maybeOf<RadioCardTheme>(context);
+    final componentTheme = widget.theme ?? ComponentTheme.maybeOf<RadioCardTheme>(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
     final group = Data.maybeOf<RadioGroupState<T>>(context);
     assert(

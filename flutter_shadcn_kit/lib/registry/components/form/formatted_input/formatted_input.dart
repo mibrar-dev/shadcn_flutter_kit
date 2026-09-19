@@ -69,7 +69,8 @@ part '_impl/core/widget_part.dart';
 /// );
 /// ```
 class FormattedInput extends StatefulWidget
-    with ControlledComponent<FormattedValue> {
+    with ControlledComponent<FormattedValue>
+    implements Styleable<FormattedInputTheme> {
   @override
   final FormattedValue? initialValue;
   @override
@@ -124,6 +125,10 @@ class FormattedInput extends StatefulWidget
   ///   style: TextStyle(fontSize: 16),
   /// );
   /// ```
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final FormattedInputTheme? theme;
+
   const FormattedInput({
     super.key,
     this.initialValue,
@@ -133,6 +138,7 @@ class FormattedInput extends StatefulWidget
     this.trailing,
     this.enabled = true,
     this.controller,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

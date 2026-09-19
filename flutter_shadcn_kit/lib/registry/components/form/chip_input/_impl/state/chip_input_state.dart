@@ -17,7 +17,7 @@ class ChipInputState<T> extends State<ChipInput<T>>
   }
 
   bool get _useChips {
-    final compTheme = ComponentTheme.maybeOf<ChipInputTheme>(context);
+    final compTheme = widget.theme ?? ComponentTheme.maybeOf<ChipInputTheme>(context);
     return styleValue<bool>(
       widgetValue: widget.useChips,
       themeValue: compTheme?.useChips,

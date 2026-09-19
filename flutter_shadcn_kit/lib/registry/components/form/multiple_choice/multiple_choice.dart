@@ -40,7 +40,7 @@ part '_impl/utils/multiple_choice_controller.dart';
 ///   ),
 /// )
 /// ```
-class MultipleChoice<T> extends StatefulWidget {
+class MultipleChoice<T> extends StatefulWidget implements Styleable<MultipleChoiceTheme> {
   /// The child widget tree containing choice items.
   final Widget child;
 
@@ -55,6 +55,11 @@ class MultipleChoice<T> extends StatefulWidget {
 
   /// Whether the current selection can be unselected.
   final bool? allowUnselect;
+
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final MultipleChoiceTheme? theme;
+
 
   /// Creates a [MultipleChoice].
   ///
@@ -71,6 +76,7 @@ class MultipleChoice<T> extends StatefulWidget {
     this.onChanged,
     this.enabled,
     this.allowUnselect,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

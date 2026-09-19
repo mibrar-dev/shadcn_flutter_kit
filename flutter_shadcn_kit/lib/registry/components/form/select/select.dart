@@ -186,7 +186,7 @@ bool _defaultMultiSelectValueSelectionPredicate<T>(
 ///   ),
 /// );
 /// ```
-class Select<T> extends StatefulWidget with SelectBase<T> {
+class Select<T> extends StatefulWidget with SelectBase<T> implements Styleable<SelectTheme> {
   /// Default maximum height for select popups in logical pixels.
   static const kDefaultSelectMaxHeight = 240.0;
   @override
@@ -295,6 +295,11 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
   @override
   final Widget? expandIcon;
 
+  /// Styling for this widget alone, overriding the ancestor theme.
+  @override
+  final SelectTheme? theme;
+
+
   /// Creates a single-selection dropdown widget.
   ///
   /// The [popup] and [itemBuilder] parameters are required to define the
@@ -354,6 +359,7 @@ class Select<T> extends StatefulWidget with SelectBase<T> {
     required this.popup,
     required this.itemBuilder,
     this.adaptiveOverlay,
+    this.theme,
   });
 
   /// Creates the `State` object for this widget.

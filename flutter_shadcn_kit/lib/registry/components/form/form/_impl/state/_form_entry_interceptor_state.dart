@@ -25,9 +25,18 @@ class _FormEntryInterceptorState<T> extends State<FormEntryInterceptor<T>> {
   /// Builds the widget tree for this component state.
   @override
   Widget build(BuildContext context) {
-    return Data<FormFieldHandle>.inherit(
-      data: _FormEntryHandleInterceptor(_handle, _onValueReported),
+    final handle = _FormEntryHandleInterceptor(_handle, _onValueReported);
+    final inner = Data<FormFieldHandle>.inherit(
+      data: handle,
       child: widget.child,
+    );
+    // Mirror the FormEntry bridge so shared-supplier widgets below an
+    // interceptor also reach the form controller. Guarded: with no parent
+    // handle there is nothing to forward to.
+    if (_handle == null) return inner;
+    return Data<shared_form.FormFieldHandle>.inherit(
+      data: SharedFormHandleAdapter(handle),
+      child: inner,
     );
   }
 }

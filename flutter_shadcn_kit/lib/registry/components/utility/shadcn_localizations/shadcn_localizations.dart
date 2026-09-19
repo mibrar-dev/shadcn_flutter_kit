@@ -8,6 +8,45 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../shadcn_localizations_en/shadcn_localizations_en.dart';
+import '_impl/locale/shadcn_localizations_ar.dart';
+import '_impl/locale/shadcn_localizations_bg.dart';
+import '_impl/locale/shadcn_localizations_bn.dart';
+import '_impl/locale/shadcn_localizations_cs.dart';
+import '_impl/locale/shadcn_localizations_da.dart';
+import '_impl/locale/shadcn_localizations_de.dart';
+import '_impl/locale/shadcn_localizations_el.dart';
+import '_impl/locale/shadcn_localizations_es.dart';
+import '_impl/locale/shadcn_localizations_fa.dart';
+import '_impl/locale/shadcn_localizations_fi.dart';
+import '_impl/locale/shadcn_localizations_fil.dart';
+import '_impl/locale/shadcn_localizations_fr.dart';
+import '_impl/locale/shadcn_localizations_he.dart';
+import '_impl/locale/shadcn_localizations_hi.dart';
+import '_impl/locale/shadcn_localizations_hu.dart';
+import '_impl/locale/shadcn_localizations_id.dart';
+import '_impl/locale/shadcn_localizations_it.dart';
+import '_impl/locale/shadcn_localizations_ja.dart';
+import '_impl/locale/shadcn_localizations_ko.dart';
+import '_impl/locale/shadcn_localizations_mr.dart';
+import '_impl/locale/shadcn_localizations_ms.dart';
+import '_impl/locale/shadcn_localizations_nb.dart';
+import '_impl/locale/shadcn_localizations_nl.dart';
+import '_impl/locale/shadcn_localizations_pl.dart';
+import '_impl/locale/shadcn_localizations_ps.dart';
+import '_impl/locale/shadcn_localizations_pt.dart';
+import '_impl/locale/shadcn_localizations_ro.dart';
+import '_impl/locale/shadcn_localizations_ru.dart';
+import '_impl/locale/shadcn_localizations_sk.dart';
+import '_impl/locale/shadcn_localizations_sv.dart';
+import '_impl/locale/shadcn_localizations_ta.dart';
+import '_impl/locale/shadcn_localizations_te.dart';
+import '_impl/locale/shadcn_localizations_th.dart';
+import '_impl/locale/shadcn_localizations_tr.dart';
+import '_impl/locale/shadcn_localizations_uk.dart';
+import '_impl/locale/shadcn_localizations_ur.dart';
+import '_impl/locale/shadcn_localizations_vi.dart';
+import '_impl/locale/shadcn_localizations_zh.dart';
+import '_impl/locale/shadcn_localizations_zh_Hant.dart';
 
 // ignore_for_file: type=lint
 
@@ -72,6 +111,12 @@ abstract class ShadcnLocalizations {
   /// Stores `localeName` state/configuration for this implementation.
   final String localeName;
 
+  /// The direction text runs in for this locale.
+  ///
+  /// Defaults to [TextDirection.ltr]; RTL locales (ar, fa, he, ps, ur)
+  /// override this with [TextDirection.rtl].
+  TextDirection get textDirection => TextDirection.ltr;
+
   /// Executes `of` behavior for this component/composite.
   static ShadcnLocalizations of(BuildContext context) {
     return Localizations.of<ShadcnLocalizations>(
@@ -103,7 +148,48 @@ abstract class ShadcnLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('bg'),
+    Locale('bn'),
+    Locale('cs'),
+    Locale('da'),
+    Locale('de'),
+    Locale('el'),
+    Locale('en'),
+    Locale('es'),
+    Locale('fa'),
+    Locale('fi'),
+    Locale('fil'),
+    Locale('fr'),
+    Locale('he'),
+    Locale('hi'),
+    Locale('hu'),
+    Locale('id'),
+    Locale('it'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('mr'),
+    Locale('ms'),
+    Locale('nb'),
+    Locale('nl'),
+    Locale('pl'),
+    Locale('ps'),
+    Locale('pt'),
+    Locale('ro'),
+    Locale('ru'),
+    Locale('sk'),
+    Locale('sv'),
+    Locale('ta'),
+    Locale('te'),
+    Locale('th'),
+    Locale('tr'),
+    Locale('uk'),
+    Locale('ur'),
+    Locale('vi'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+    Locale('zh'),
+  ];
 
   /// No description provided for @formNotEmpty.
   ///
@@ -200,6 +286,18 @@ abstract class ShadcnLocalizations {
   /// In en, this message translates to:
   /// **'Must contain at least one special character'**
   String get formPasswordSpecial;
+
+  /// No description provided for @formPhoneNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is invalid'**
+  String get formPhoneNumberInvalid;
+
+  /// No description provided for @formPhoneNumberEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is required'**
+  String get formPhoneNumberEmpty;
 
   /// No description provided for @commandSearch.
   ///
@@ -736,18 +834,108 @@ abstract class ShadcnLocalizations {
   String get durationSecond;
 }
 
-/// Executes `lookupShadcnLocalizations` behavior for this component/composite.
+/// The language codes [ShadcnLocalizations.delegate] accepts.
+const Set<String> kSupportedLanguages = <String>{
+  'ar', 'bg', 'bn', 'cs', 'da', 'de', 'el', 'en', 'es', 'fa', 'fi', 'fil', 'fr', 'he', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'mr', 'ms', 'nb', 'nl', 'pl', 'ps', 'pt', 'ro', 'ru', 'sk', 'sv', 'ta', 'te', 'th', 'tr', 'uk', 'ur', 'vi', 'zh',
+};
+
+/// The implementation for [locale].
+///
+/// Matches the most specific variant available, falling
+/// back through script and region to the bare language.
 ShadcnLocalizations lookupShadcnLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return ShadcnLocalizationsEn();
+    case 'ar':
+      return ShadcnLocalizationsAr();
+    case 'bg':
+      return ShadcnLocalizationsBg();
+    case 'bn':
+      return ShadcnLocalizationsBn();
+    case 'cs':
+      return ShadcnLocalizationsCs();
+    case 'da':
+      return ShadcnLocalizationsDa();
+    case 'de':
+      return ShadcnLocalizationsDe();
+    case 'el':
+      return ShadcnLocalizationsEl();
+    case 'es':
+      return ShadcnLocalizationsEs();
+    case 'fa':
+      return ShadcnLocalizationsFa();
+    case 'fi':
+      return ShadcnLocalizationsFi();
+    case 'fil':
+      return ShadcnLocalizationsFil();
+    case 'fr':
+      return ShadcnLocalizationsFr();
+    case 'he':
+      return ShadcnLocalizationsHe();
+    case 'hi':
+      return ShadcnLocalizationsHi();
+    case 'hu':
+      return ShadcnLocalizationsHu();
+    case 'id':
+      return ShadcnLocalizationsId();
+    case 'it':
+      return ShadcnLocalizationsIt();
+    case 'ja':
+      return ShadcnLocalizationsJa();
+    case 'ko':
+      return ShadcnLocalizationsKo();
+    case 'mr':
+      return ShadcnLocalizationsMr();
+    case 'ms':
+      return ShadcnLocalizationsMs();
+    case 'nb':
+      return ShadcnLocalizationsNb();
+    case 'nl':
+      return ShadcnLocalizationsNl();
+    case 'pl':
+      return ShadcnLocalizationsPl();
+    case 'ps':
+      return ShadcnLocalizationsPs();
+    case 'pt':
+      return ShadcnLocalizationsPt();
+    case 'ro':
+      return ShadcnLocalizationsRo();
+    case 'ru':
+      return ShadcnLocalizationsRu();
+    case 'sk':
+      return ShadcnLocalizationsSk();
+    case 'sv':
+      return ShadcnLocalizationsSv();
+    case 'ta':
+      return ShadcnLocalizationsTa();
+    case 'te':
+      return ShadcnLocalizationsTe();
+    case 'th':
+      return ShadcnLocalizationsTh();
+    case 'tr':
+      return ShadcnLocalizationsTr();
+    case 'uk':
+      return ShadcnLocalizationsUk();
+    case 'ur':
+      return ShadcnLocalizationsUr();
+    case 'vi':
+      return ShadcnLocalizationsVi();
+    case 'zh':
+      if (locale.scriptCode == 'Hant') {
+        return ShadcnLocalizationsZhHant();
+      }
+      // Regions that write in this script.
+      if (locale.scriptCode == null &&
+          (locale.countryCode == 'TW' ||
+              locale.countryCode == 'HK' ||
+              locale.countryCode == 'MO')) {
+        return ShadcnLocalizationsZhHant();
+      }
+      return ShadcnLocalizationsZh();
   }
 
   throw FlutterError(
-    'ShadcnLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'ShadcnLocalizations.delegate failed to load unsupported locale "$locale". '
+    'Supported languages are ${kSupportedLanguages.join(', ')}.',
   );
 }

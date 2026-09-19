@@ -215,11 +215,11 @@ class ShadcnLocalizations {
 
   /// Executes `formLengthLessThan` behavior for this component/composite.
   String formLengthLessThan(int limit) =>
-      'Must be shorter than $limit characters.';
+      'Must be at least $limit characters.';
 
   /// Executes `formLengthGreaterThan` behavior for this component/composite.
   String formLengthGreaterThan(int limit) =>
-      'Must be at least $limit characters.';
+      'Must be at most $limit characters.';
 
   /// Stores `formPasswordDigits` state/configuration for this implementation.
   String get formPasswordDigits => 'Must include at least one digit.';
@@ -235,6 +235,12 @@ class ShadcnLocalizations {
   /// Stores `formPasswordSpecial` state/configuration for this implementation.
   String get formPasswordSpecial =>
       'Must include at least one special character.';
+
+  /// Stores `formPhoneNumberInvalid` state/configuration for this implementation.
+  String get formPhoneNumberInvalid => 'Phone number is invalid.';
+
+  /// Stores `formPhoneNumberEmpty` state/configuration for this implementation.
+  String get formPhoneNumberEmpty => 'Phone number is required.';
 
   /// Stores `invalidValue` state/configuration for this implementation.
   String get invalidValue => 'Invalid value provided.';

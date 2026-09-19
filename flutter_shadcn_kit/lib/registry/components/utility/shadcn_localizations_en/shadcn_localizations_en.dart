@@ -124,6 +124,12 @@ class ShadcnLocalizationsEn extends ShadcnLocalizations {
       'Must contain at least one special character';
 
   @override
+  String get formPhoneNumberInvalid => 'Phone number is invalid';
+
+  @override
+  String get formPhoneNumberEmpty => 'Phone number is required';
+
+  @override
   /// Stores `commandSearch` state/configuration for this implementation.
   String get commandSearch => 'Type a command or search...';
 

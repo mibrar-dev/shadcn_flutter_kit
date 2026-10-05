@@ -28,3 +28,15 @@
     Phase 2 must add a resolver test proving each leg overrides the one below it.
   - `RefColor.resolve` replaced alpha (`withValues(alpha: alpha)`); fixed to multiply (`base.a * alpha`) so
     alpha-bearing tokens (dark border 10%) stay correct.
+
+## P1-B guardrail tooling — deepseek-v4.1-flash
+- ACCEPTED. Orchestrator re-ran: `dart format --set-exit-if-changed` clean, `dart analyze tool/rearch test/rearch`
+  0 issues, `flutter test test/rearch` 27/27, each script ~5.7s on the full registry.
+- Spot-check: InputClearFeature (identical copy), AutoComplete / FormKey (diverged) and ValidationResult all flagged.
+- Baseline: 166 duplicate names (131 public, 35 private; 107 identical copies, 59 diverged); no-part 2,246 directives
+  (1,123 files); no-ignore-for-file 1,964; no-material 205; layer-direction 1; undeclared-dependency 71;
+  file-too-long 92. Full-project `flutter analyze`: 7 pre-existing issues in tool/theme + test/registry.
+- Decisions on its open questions:
+  - preview.dart stays under `no-material` (the gallery must prove Material-free) but is excluded from
+    `undeclared-dependency` (previews may use other components for demos). → small follow-up in Phase 2 tooling.
+  - `tab_list` has no entry file; `form_sortable` / `fade_scroll_display` id≠dir mismatches → resolve in P1-C/Phase 4.

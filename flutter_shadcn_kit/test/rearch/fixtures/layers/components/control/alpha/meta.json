@@ -1,0 +1,10 @@
+{
+  "id": "alpha",
+  "name": "Alpha",
+  "dependencies": {
+    "shared": [
+      "theme"
+    ],
+    "components": []
+  }
+}

@@ -19,6 +19,8 @@ line you produce. Accuracy beats speed. Do not guess: when a fact is not verifie
 5. Dart you write must pass `dart format` and `flutter analyze` with zero issues, without `ignore_for_file`.
 6. Prefer `package:analyzer` (already a dev dependency, ^6.4.1, use `parseString` / unresolved AST) over regex for parsing Dart.
 7. Keep files under ~400 lines. Clear names, short doc comments only where non-obvious.
+8. Large writes get truncated by the tool layer. Write any file longer than ~150 lines in several appended chunks,
+   then verify: `grep -n 'truncated' <file>` returns nothing and the file ends where you intended (`tail -5`).
 
 ## Finish with a report (last thing you print)
 ```

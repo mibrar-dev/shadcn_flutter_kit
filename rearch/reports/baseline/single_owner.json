@@ -1,0 +1,5279 @@
+{
+  "duplicates": [
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/utils/accept_suggestion_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/utils/accept_suggestion_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "AcceptSuggestionIntent",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/core/auto_complete.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/auto_complete.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "AutoComplete",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/autocomplete.dart",
+          "kind": "typedef",
+          "line": 24,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/auto_complete_widget.dart",
+          "kind": "typedef",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "AutoCompleteCompleter",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/utils/auto_complete_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/utils/auto_complete_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "AutoCompleteIntent",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/core/auto_complete_mode.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/auto_complete_mode.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "enum"
+      ],
+      "name": "AutoCompleteMode",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/autocomplete.dart",
+          "kind": "class",
+          "line": 31,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/auto_complete_widget.dart",
+          "kind": "class",
+          "line": 12,
+          "owner": "text_field",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "AutoCompleteTheme",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/basic/_impl/core/basic_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "basic",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/basic.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/basic",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Basic",
+      "ownerUnits": [
+        "basic",
+        "shared/primitives/basic"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/basic/_impl/core/basic_layout.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "basic",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/basic_layout.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "BasicLayout",
+      "ownerUnits": [
+        "UNKNOWN",
+        "basic"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/basic/basic.dart",
+          "kind": "class",
+          "line": 12,
+          "owner": "basic",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/basic_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "BasicTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "basic"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/core/clickable_widget.dart",
+          "kind": "class",
+          "line": 8,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/clickable.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/clickable",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Clickable",
+      "ownerUnits": [
+        "clickable",
+        "shared/primitives/clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/_impl/state/__separated_flex_state.dart",
+          "kind": "extension",
+          "line": 42,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "extension",
+          "line": 206,
+          "owner": "shared/utils/widget_extensions",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "extension"
+      ],
+      "name": "ColumnExtension",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shared/utils/widget_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/control.dart",
+          "kind": "mixin",
+          "line": 11,
+          "owner": "control",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/form_control.dart",
+          "kind": "mixin",
+          "line": 10,
+          "owner": "shared/primitives/form_control",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "ComponentController",
+      "ownerUnits": [
+        "control",
+        "shared/primitives/form_control"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/_impl/utils/component_value_controller.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "control",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/utils/component_value_controller.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ComponentValueController",
+      "ownerUnits": [
+        "UNKNOWN",
+        "control"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/_impl/core/controlled_component.dart",
+          "kind": "mixin",
+          "line": 5,
+          "owner": "control",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/utils/component_value_controller.dart",
+          "kind": "mixin",
+          "line": 15,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "ControlledComponent",
+      "ownerUnits": [
+        "UNKNOWN",
+        "control"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/_impl/utils/controlled_component_adapter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "control",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/controlled_component_adapter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ControlledComponentAdapter",
+      "ownerUnits": [
+        "UNKNOWN",
+        "control"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/_impl/core/controlled_component_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "control",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/controlled_component_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ControlledComponentData",
+      "ownerUnits": [
+        "UNKNOWN",
+        "control"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/fade_scroll/_impl/core/fade_scroll_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "fade_scroll_display",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/fade_scroll/_impl/core/fade_scroll_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "fade_scroll",
+          "public": true,
+          "variant": 1
+        },
+        {
+          "file": "shared/primitives/_impl/core/fade_scroll.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/fade_scroll",
+          "public": true,
+          "variant": 2
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "FadeScroll",
+      "ownerUnits": [
+        "fade_scroll",
+        "fade_scroll_display",
+        "shared/primitives/fade_scroll"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/fade_scroll/preview.dart",
+          "kind": "class",
+          "line": 6,
+          "owner": "fade_scroll_display",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/fade_scroll/preview.dart",
+          "kind": "class",
+          "line": 7,
+          "owner": "fade_scroll",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "FadeScrollPreview",
+      "ownerUnits": [
+        "fade_scroll",
+        "fade_scroll_display"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/fade_scroll/_impl/themes/base/fade_scroll_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "fade_scroll_display",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/fade_scroll/fade_scroll.dart",
+          "kind": "class",
+          "line": 13,
+          "owner": "fade_scroll",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/fade_scroll_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "FadeScrollTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "fade_scroll",
+        "fade_scroll_display"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/_impl/state/__separated_flex_state.dart",
+          "kind": "extension",
+          "line": 92,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "extension",
+          "line": 256,
+          "owner": "shared/utils/widget_extensions",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "extension"
+      ],
+      "name": "FlexExtension",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shared/utils/widget_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/focus_outline/focus_outline.dart",
+          "kind": "class",
+          "line": 12,
+          "owner": "focus_outline",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/focus_outline.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/focus_outline",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "FocusOutline",
+      "ownerUnits": [
+        "focus_outline",
+        "shared/primitives/focus_outline"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/focus_outline/_impl/themes/base/focus_outline_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "focus_outline",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/focus_outline_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "FocusOutlineTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "focus_outline"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/form_field_handle.dart",
+          "kind": "mixin",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/replace_result.dart",
+          "kind": "mixin",
+          "line": 36,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "FormFieldHandle",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/form_key.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/form_key.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "FormKey",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/utils/form_pending_builder.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/_impl/core/form_pending_builder.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "FormPendingBuilder",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/form.dart",
+          "kind": "typedef",
+          "line": 370,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/_impl/core/context_callback_action.dart",
+          "kind": "typedef",
+          "line": 18,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "FormPendingWidgetBuilder",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/form_validation_mode.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/form_value_supplier.dart",
+          "kind": "enum",
+          "line": 14,
+          "owner": "shared/primitives/form_value_supplier",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "enum"
+      ],
+      "name": "FormValidationMode",
+      "ownerUnits": [
+        "form",
+        "shared/primitives/form_value_supplier"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/form_value_supplier.dart",
+          "kind": "mixin",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__form_entry_cached_value.dart",
+          "kind": "mixin",
+          "line": 13,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "FormValueSupplier",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsl_color_slider.dart",
+          "kind": "class",
+          "line": 14,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsl/hsl_color_slider.dart",
+          "kind": "class",
+          "line": 15,
+          "owner": "hsl",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "HSLColorSlider",
+      "ownerUnits": [
+        "color_picker",
+        "hsl"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsl_color_slider_painter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsl/_impl/core/hsl_color_slider_painter.dart",
+          "kind": "class",
+          "line": 64,
+          "owner": "hsl",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "HSLColorSliderPainter",
+      "ownerUnits": [
+        "color_picker",
+        "hsl"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsl_color_slider_type.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsl/_impl/core/hsl_color_slider_type.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "hsl",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "enum"
+      ],
+      "name": "HSLColorSliderType",
+      "ownerUnits": [
+        "color_picker",
+        "hsl"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsv_color_slider.dart",
+          "kind": "class",
+          "line": 14,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsv/hsv_color_slider.dart",
+          "kind": "class",
+          "line": 15,
+          "owner": "hsv",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "HSVColorSlider",
+      "ownerUnits": [
+        "color_picker",
+        "hsv"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsv_color_slider_painter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsv/_impl/core/hsv_color_slider_painter.dart",
+          "kind": "class",
+          "line": 64,
+          "owner": "hsv",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "HSVColorSliderPainter",
+      "ownerUnits": [
+        "color_picker",
+        "hsv"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/core/hsv_color_slider_type.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "color_picker",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsv/_impl/core/hsv_color_slider_type.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "hsv",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "enum"
+      ],
+      "name": "HSVColorSliderType",
+      "ownerUnits": [
+        "color_picker",
+        "hsv"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/hidden/hidden.dart",
+          "kind": "class",
+          "line": 16,
+          "owner": "hidden",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/hidden.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/hidden",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Hidden",
+      "ownerUnits": [
+        "hidden",
+        "shared/primitives/hidden"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/hidden/_impl/themes/base/hidden_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "hidden",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/hidden_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "HiddenTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "hidden"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/hover/_impl/core/hover_widget.dart",
+          "kind": "class",
+          "line": 9,
+          "owner": "hover",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/hover.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/hover",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Hover",
+      "ownerUnits": [
+        "hover",
+        "shared/primitives/hover"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/hover/_impl/core/hover_activity.dart",
+          "kind": "class",
+          "line": 9,
+          "owner": "hover",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/hover_activity.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "HoverActivity",
+      "ownerUnits": [
+        "UNKNOWN",
+        "hover"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/hover/_impl/themes/base/hover_theme.dart",
+          "kind": "class",
+          "line": 7,
+          "owner": "hover",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/hover_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "HoverTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "hover"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_above_below_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_above_below_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputAboveBelowFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_auto_complete_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_auto_complete_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputAutoCompleteFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_clear_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_clear_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputClearFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_copy_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_copy_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputCopyFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/input.dart",
+          "kind": "enum",
+          "line": 45,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_features_basic.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "enum"
+      ],
+      "name": "InputFeaturePosition",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_hint_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_hint_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputHintFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_leading_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_leading_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputLeadingFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_password_toggle_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_password_toggle_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputPasswordToggleFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_paste_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_paste_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputPasteFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_revalidate_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_revalidate_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputRevalidateFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/utils/input_show_hint_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/utils/input_show_hint_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputShowHintIntent",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_spinner_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_spinner_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputSpinnerFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_stepper_button_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_stepper_button_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputStepperButtonFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/input_trailing_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_trailing_feature.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "InputTrailingFeature",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_mapper.dart",
+          "kind": "typedef",
+          "line": 5,
+          "owner": "keyboard_shortcut",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/keyboard_shortcut_utils.dart",
+          "kind": "typedef",
+          "line": 6,
+          "owner": "shared/utils/keyboard_shortcut_utils",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "KeyboardShortcutDisplayBuilder",
+      "ownerUnits": [
+        "keyboard_shortcut",
+        "shared/utils/keyboard_shortcut_utils"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/keyboard_shortcut/_impl/utils/keyboard_shortcut_mapper.dart",
+          "kind": "typedef",
+          "line": 10,
+          "owner": "keyboard_shortcut",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/keyboard_shortcut_utils.dart",
+          "kind": "class",
+          "line": 10,
+          "owner": "shared/utils/keyboard_shortcut_utils",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class",
+        "typedef"
+      ],
+      "name": "KeyboardShortcutDisplayHandle",
+      "ownerUnits": [
+        "keyboard_shortcut",
+        "shared/utils/keyboard_shortcut_utils"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/tab_container.dart",
+          "kind": "mixin",
+          "line": 83,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_container_data.dart",
+          "kind": "mixin",
+          "line": 79,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "KeyedTabChild",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/keyed_tab_child_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/keyed_tab_child_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "KeyedTabChildWidget",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/keyed_tab_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/keyed_tab_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "KeyedTabItem",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/basic/_impl/core/label.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "basic",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/label.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Label",
+      "ownerUnits": [
+        "UNKNOWN",
+        "basic"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/core/menu_group_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/menu_group.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/menu_group",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenuGroupData",
+      "ownerUnits": [
+        "menu",
+        "shared/primitives/menu_group"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/core/menu_popup.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/popup/_impl/core/menu_popup_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "popup",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenuPopup",
+      "ownerUnits": [
+        "menu",
+        "popup"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/variants/menu_popup_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/popup/_impl/themes/base/menu_popup_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "popup",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenuPopupTheme",
+      "ownerUnits": [
+        "menu",
+        "popup"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_defaults.dart",
+          "kind": "class",
+          "line": 21,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/popup/_impl/themes/config/popup_theme_defaults.dart",
+          "kind": "class",
+          "line": 11,
+          "owner": "popup",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenuPopupThemeDefaults",
+      "ownerUnits": [
+        "menu",
+        "popup"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_tokens.dart",
+          "kind": "class",
+          "line": 26,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/popup/_impl/themes/config/popup_theme_tokens.dart",
+          "kind": "class",
+          "line": 10,
+          "owner": "popup",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenuPopupThemeTokens",
+      "ownerUnits": [
+        "menu",
+        "popup"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/core/menubar.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/core/menubar_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menubar",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "Menubar",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/state/menubar_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/state/menubar_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menubar",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenubarState",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/variants/menubar_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/themes/base/menubar_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "menubar",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenubarTheme",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_defaults.dart",
+          "kind": "class",
+          "line": 39,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/themes/config/menubar_theme_defaults.dart",
+          "kind": "class",
+          "line": 11,
+          "owner": "menubar",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenubarThemeDefaults",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_tokens.dart",
+          "kind": "class",
+          "line": 50,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/themes/config/menubar_theme_tokens.dart",
+          "kind": "class",
+          "line": 10,
+          "owner": "menubar",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "MenubarThemeTokens",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/utils/navigate_suggestion_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/utils/navigate_suggestion_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "NavigateSuggestionIntent",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/util.dart",
+          "kind": "typedef",
+          "line": 45,
+          "owner": "shared/utils/util",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "typedef",
+          "line": 301,
+          "owner": "shared/utils/widget_extensions",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "NeverWidgetBuilder",
+      "ownerUnits": [
+        "shared/utils/util",
+        "shared/utils/widget_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/outlined_container/_impl/core/outlined_container_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "outlined_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/outlined_container.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/outlined_container",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "OutlinedContainer",
+      "ownerUnits": [
+        "outlined_container",
+        "shared/primitives/outlined_container"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/outlined_container/_impl/themes/base/outlined_container_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "outlined_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/themes/outlined_container_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "OutlinedContainerTheme",
+      "ownerUnits": [
+        "UNKNOWN",
+        "outlined_container"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/core/password_peek_mode.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/password_peek_mode.dart",
+          "kind": "enum",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "enum"
+      ],
+      "name": "PasswordPeekMode",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/phone_input/_impl/core/phone_number.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "phone_input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/phone_number.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/primitives/phone_number",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "PhoneNumber",
+      "ownerUnits": [
+        "phone_input",
+        "shared/primitives/phone_number"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/_impl/core/render_scrollable_client_viewport.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/_impl/core/render_scrollable_client_viewport.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable_client",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "RenderScrollableClientViewport",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/repeated_animation_builder/repeated_animation_builder.dart",
+          "kind": "typedef",
+          "line": 7,
+          "owner": "repeated_animation_builder",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/_impl/core/repeated_animation_builder.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class",
+        "typedef"
+      ],
+      "name": "RepeatedAnimationBuilder",
+      "ownerUnits": [
+        "UNKNOWN",
+        "repeated_animation_builder"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/replace_result.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/replace_result.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ReplaceResult",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/_impl/state/__separated_flex_state.dart",
+          "kind": "extension",
+          "line": 67,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "extension",
+          "line": 231,
+          "owner": "shared/utils/widget_extensions",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "extension"
+      ],
+      "name": "RowExtension",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shared/utils/widget_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/scrollable.dart",
+          "kind": "typedef",
+          "line": 19,
+          "owner": "scrollable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/scrollable_client.dart",
+          "kind": "typedef",
+          "line": 102,
+          "owner": "scrollable_client",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "ScrollableBuilder",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/_impl/core/scrollable_client.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/_impl/core/scrollable_client_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable_client",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "ScrollableClient",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/_impl/themes/base/scrollable_client_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/scrollable_client.dart",
+          "kind": "class",
+          "line": 15,
+          "owner": "scrollable_client",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ScrollableClientTheme",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/_impl/core/scrollable_client_viewport.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/_impl/core/scrollable_client_viewport.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable_client",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ScrollableClientViewport",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/_impl/core/separated_flex.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "class",
+          "line": 317,
+          "owner": "shared/utils/widget_extensions",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "SeparatedFlex",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shared/utils/widget_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/shadcn_localizations/shadcn_localizations.dart",
+          "kind": "class",
+          "line": 55,
+          "owner": "shadcn_localizations",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/localizations/_impl/core/shadcn_localizations.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shared/localizations/shadcn_localizations",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "ShadcnLocalizations",
+      "ownerUnits": [
+        "shadcn_localizations",
+        "shared/localizations/shadcn_localizations"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/drawer/_impl/utils/sheet_overlay_handler.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "drawer",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/sheet_overlay.dart",
+          "kind": "class",
+          "line": 6,
+          "owner": "shared/primitives/sheet_overlay",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "SheetOverlayHandler",
+      "ownerUnits": [
+        "drawer",
+        "shared/primitives/sheet_overlay"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/sortable/preview.dart",
+          "kind": "class",
+          "line": 6,
+          "owner": "form_sortable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/sortable/preview.dart",
+          "kind": "class",
+          "line": 6,
+          "owner": "sortable",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "SortablePreview",
+      "ownerUnits": [
+        "form_sortable",
+        "sortable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/core/stated_widget.dart",
+          "kind": "class",
+          "line": 9,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/stated_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "StatedWidget",
+      "ownerUnits": [
+        "UNKNOWN",
+        "clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/_impl/core/sub_focus.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/sub_focus.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "SubFocus",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/subfocus.dart",
+          "kind": "typedef",
+          "line": 178,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/state/__sub_focus_scope_state.dart",
+          "kind": "typedef",
+          "line": 233,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "SubFocusBuilder",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/subfocus.dart",
+          "kind": "class",
+          "line": 16,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/sub_focus_scope.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "SubFocusScope",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/subfocus.dart",
+          "kind": "typedef",
+          "line": 9,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/subfocus.dart",
+          "kind": "typedef",
+          "line": 11,
+          "owner": "shared/primitives/subfocus",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "SubFocusScopeBuilder",
+      "ownerUnits": [
+        "shared/primitives/subfocus",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/subfocus.dart",
+          "kind": "mixin",
+          "line": 89,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/sub_focus_scope.dart",
+          "kind": "mixin",
+          "line": 32,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "SubFocusScopeState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/subfocus.dart",
+          "kind": "mixin",
+          "line": 195,
+          "owner": "subfocus",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/sub_focus.dart",
+          "kind": "mixin",
+          "line": 31,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "SubFocusState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/input.dart",
+          "kind": "typedef",
+          "line": 63,
+          "owner": "input",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/input_features_basic.dart",
+          "kind": "typedef",
+          "line": 23,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "SuggestionBuilder",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/outlined_container/outlined_container.dart",
+          "kind": "class",
+          "line": 24,
+          "owner": "outlined_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/surface_blur.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "SurfaceBlur",
+      "ownerUnits": [
+        "UNKNOWN",
+        "outlined_container"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/tab_container.dart",
+          "kind": "typedef",
+          "line": 96,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart",
+          "kind": "typedef",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "TabBuilder",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/tab_container.dart",
+          "kind": "mixin",
+          "line": 63,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_container_data.dart",
+          "kind": "mixin",
+          "line": 67,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "mixin"
+      ],
+      "name": "TabChild",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/tab_container.dart",
+          "kind": "typedef",
+          "line": 128,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/utils/tab_builder_typedefs.dart",
+          "kind": "typedef",
+          "line": 9,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "TabChildBuilder",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/tab_child_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_child_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabChildWidget",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/tab_container_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_container.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabContainer",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/tab_container_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_container_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabContainerData",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/tab_container.dart",
+          "kind": "class",
+          "line": 14,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/themes/variants/tab_container_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabContainerTheme",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_container/_impl/core/tab_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_container",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabItem",
+      "ownerUnits": [
+        "tab_container",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_list/_impl/core/tab_list_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_list",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_list.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabList",
+      "ownerUnits": [
+        "tab_list",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_list/_impl/core/tab_list.dart",
+          "kind": "class",
+          "line": 12,
+          "owner": "tab_list",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/themes/variants/tab_list_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabListTheme",
+      "ownerUnits": [
+        "tab_list",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/core/tab_pane_2.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_pane_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabPane",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/core/tab_pane_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_pane_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabPaneData",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/tab_pane.dart",
+          "kind": "typedef",
+          "line": 95,
+          "owner": "tab_pane",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_pane_typedefs.dart",
+          "kind": "typedef",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "TabPaneItemBuilder",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/state/tab_pane_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/state/tab_pane_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabPaneState",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/tab_pane.dart",
+          "kind": "class",
+          "line": 20,
+          "owner": "tab_pane",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/themes/variants/tab_pane_theme.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TabPaneTheme",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/text.dart",
+          "kind": "extension",
+          "line": 90,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/text_modifier.dart",
+          "kind": "extension",
+          "line": 72,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "extension"
+      ],
+      "name": "TextExtension",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/text_field/_impl/utils/text_field_clear_intent.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/text_input_utils.dart",
+          "kind": "class",
+          "line": 8,
+          "owner": "shared/utils/text_input_utils",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "TextFieldClearIntent",
+      "ownerUnits": [
+        "shared/utils/text_input_utils",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/text.dart",
+          "kind": "class",
+          "line": 17,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/text_modifier.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "TextModifier",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/_impl/core/unordered_list_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/unordered_list_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "UnorderedListData",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/validation_result.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "form",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/validation_result.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "ValidationResult",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/extensions/widget_state_extension.dart",
+          "kind": "extension",
+          "line": 5,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/clickable.dart",
+          "kind": "extension",
+          "line": 25,
+          "owner": "shared/primitives/clickable",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "extension"
+      ],
+      "name": "WidgetStateExtension",
+      "ownerUnits": [
+        "clickable",
+        "shared/primitives/clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/state/widget_states_data.dart",
+          "kind": "class",
+          "line": 6,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/widget_states_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "WidgetStatesData",
+      "ownerUnits": [
+        "UNKNOWN",
+        "clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/state/widget_states_provider.dart",
+          "kind": "class",
+          "line": 8,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/widget_states_provider.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "WidgetStatesProvider",
+      "ownerUnits": [
+        "UNKNOWN",
+        "clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/text.dart",
+          "kind": "typedef",
+          "line": 691,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/text_modifier.dart",
+          "kind": "typedef",
+          "line": 521,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "WidgetTextWrapper",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/_impl/core/wrapped_text.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/wrapped_text.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "WrappedText",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/text.dart",
+          "kind": "typedef",
+          "line": 683,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/text_modifier.dart",
+          "kind": "typedef",
+          "line": 517,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "typedef"
+      ],
+      "name": "WrappedTextDataBuilder",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_auto_complete_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_auto_complete_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_AutoCompleteFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/core/autocomplete_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/core/_auto_complete_item.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_AutoCompleteItem",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/state/_auto_complete_item_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_auto_complete_item_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_AutoCompleteItemState",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/autocomplete/_impl/state/autocomplete_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "autocomplete",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_auto_complete_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_AutoCompleteState",
+      "ownerUnits": [
+        "autocomplete",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/core/_clip_rect_with_adjustment.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/clip_rect_with_adjustment.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_ClipRectWithAdjustment",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/control/_impl/state/_controlled_component_adapter_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "control",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/state/__controlled_component_adapter_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_ControlledComponentAdapterState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "control"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/fade_scroll/preview.dart",
+          "kind": "class",
+          "line": 14,
+          "owner": "fade_scroll_display",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/fade_scroll/_impl/state/_fade_scroll_preview_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "fade_scroll",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_FadeScrollPreviewState",
+      "ownerUnits": [
+        "fade_scroll",
+        "fade_scroll_display"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/form/_impl/core/_form_entry_cached_value.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "form",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__form_entry_cached_value.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_FormEntryCachedValue",
+      "ownerUnits": [
+        "UNKNOWN",
+        "form"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/state/_hsl_color_slider_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "color_picker",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsl/_impl/state/_hsl_color_slider_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "hsl",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_HSLColorSliderState",
+      "ownerUnits": [
+        "color_picker",
+        "hsl"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/color_picker/_impl/state/_hsv_color_slider_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "color_picker",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/hsv/_impl/state/_hsv_color_slider_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "hsv",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_HSVColorSliderState",
+      "ownerUnits": [
+        "color_picker",
+        "hsv"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/hidden/_impl/core/hidden_layout.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "hidden",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__hidden_layout.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_HiddenLayout",
+      "ownerUnits": [
+        "UNKNOWN",
+        "hidden"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_above_below_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_above_below_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputAboveBelowFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_clear_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_clear_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputClearFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_copy_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_copy_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputCopyFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_hint_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_hint_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputHintFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_leading_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_leading_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputLeadingFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_password_toggle_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_password_toggle_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputPasswordToggleFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_paste_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_paste_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputPasteFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_revalidate_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_revalidate_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputRevalidateFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_spinner_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_spinner_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputSpinnerFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_stepper_button_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_stepper_button_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputStepperButtonFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/input/_impl/state/_input_trailing_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "input",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/text_field/_impl/state/_input_trailing_feature_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text_field",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_InputTrailingFeatureState",
+      "ownerUnits": [
+        "input",
+        "text_field"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/outlined_container/_impl/state/_outlined_container_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "outlined_container",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/state/__outlined_container_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_OutlinedContainerState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "outlined_container"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/_impl/core/_rich_text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__rich_text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_RichTextThenWidget",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/fade_scroll/_impl/core/fade_scroll_widget.dart",
+          "kind": "class",
+          "line": 145,
+          "owner": "fade_scroll_display",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/fade_scroll/_impl/core/_scale_gradient.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "fade_scroll",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__scale_gradient.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_ScaleGradient",
+      "ownerUnits": [
+        "UNKNOWN",
+        "fade_scroll",
+        "fade_scroll_display"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/layout/scrollable/_impl/core/scrollable_client_child_vicinity.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/scrollable_client/_impl/core/_scrollable_client_child_vicinity.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "scrollable_client",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_ScrollableClientChildVicinity",
+      "ownerUnits": [
+        "scrollable",
+        "scrollable_client"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/_impl/core/_selectable_text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__selectable_text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_SelectableTextThenWidget",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/_impl/state/__separated_flex_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/widget_extensions.dart",
+          "kind": "class",
+          "line": 369,
+          "owner": "shared/utils/widget_extensions",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_SeparatedFlexState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shared/utils/widget_extensions"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/shadcn_localizations/_impl/utils/shadcn_localizations_delegate.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "shadcn_localizations",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/localizations/_impl/utils/__shadcn_localizations_delegate.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_ShadcnLocalizationsDelegate",
+      "ownerUnits": [
+        "UNKNOWN",
+        "shadcn_localizations"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/_impl/state/_sub_focus_scope_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "subfocus",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/state/__sub_focus_scope_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_SubFocusScopeState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/subfocus/_impl/state/_sub_focus_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "subfocus",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/state/__sub_focus_state.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_SubFocusState",
+      "ownerUnits": [
+        "UNKNOWN",
+        "subfocus"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/core/_tab_ghost_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_ghost_data.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_TabGhostData",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/navigation/tab_pane/_impl/core/_tab_item_painter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tab_pane",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/navigation/tabs/_impl/core/tab_item_painter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "tabs",
+          "public": false,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "class"
+      ],
+      "name": "_TabItemPainter",
+      "ownerUnits": [
+        "tab_pane",
+        "tabs"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/_impl/core/_text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "text",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/__text_then_widget.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "UNKNOWN",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_TextThenWidget",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/formatter/_impl/utils/_time_formatter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "formatter",
+          "public": false,
+          "variant": 0
+        },
+        {
+          "file": "components/form/time_picker/_impl/utils/_time_formatter.dart",
+          "kind": "class",
+          "line": 5,
+          "owner": "time_picker",
+          "public": false,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "class"
+      ],
+      "name": "_TimeFormatter",
+      "ownerUnits": [
+        "formatter",
+        "time_picker"
+      ],
+      "public": false,
+      "severity": "warning"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/form/text_field/text_field.dart",
+          "kind": "function",
+          "line": 108,
+          "owner": "text_field",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/context_menu/_impl/core/mobile_editable_text_context_menu.dart",
+          "kind": "function",
+          "line": 250,
+          "owner": "context_menu",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "function"
+      ],
+      "name": "buildEditableTextContextMenu",
+      "ownerUnits": [
+        "context_menu",
+        "text_field"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/utility/color/color.dart",
+          "kind": "function",
+          "line": 20,
+          "owner": "color",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/color_extensions.dart",
+          "kind": "function",
+          "line": 8,
+          "owner": "shared/utils/color_extensions",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "function"
+      ],
+      "name": "colorToHex",
+      "ownerUnits": [
+        "color",
+        "shared/utils/color_extensions"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/text/text.dart",
+          "kind": "function",
+          "line": 630,
+          "owner": "text",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/unordered_list_data.dart",
+          "kind": "function",
+          "line": 14,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "function"
+      ],
+      "name": "getBullet",
+      "ownerUnits": [
+        "UNKNOWN",
+        "text"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/control/clickable/_impl/state/clickable_state.dart",
+          "kind": "variable",
+          "line": 25,
+          "owner": "clickable",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/primitives/_impl/core/clickable.dart",
+          "kind": "variable",
+          "line": 209,
+          "owner": "shared/primitives/clickable",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "variable"
+      ],
+      "name": "kDoubleTapMinTime",
+      "ownerUnits": [
+        "clickable",
+        "shared/primitives/clickable"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_tokens.dart",
+          "kind": "variable",
+          "line": 48,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/popup/_impl/themes/config/popup_theme_tokens.dart",
+          "kind": "variable",
+          "line": 32,
+          "owner": "popup",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "variable"
+      ],
+      "name": "menuPopupThemeTokens",
+      "ownerUnits": [
+        "menu",
+        "popup"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/overlay/menu/_impl/themes/config/menu_theme_tokens.dart",
+          "kind": "variable",
+          "line": 72,
+          "owner": "menu",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/overlay/menubar/_impl/themes/config/menubar_theme_tokens.dart",
+          "kind": "variable",
+          "line": 32,
+          "owner": "menubar",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "variable"
+      ],
+      "name": "menubarThemeTokens",
+      "ownerUnits": [
+        "menu",
+        "menubar"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/component_theme_global_configs.dart",
+          "kind": "function",
+          "line": 827,
+          "owner": "UNKNOWN",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "components/layout/app/component_theme_global_configs.dart",
+          "kind": "function",
+          "line": 1,
+          "owner": "app",
+          "public": true,
+          "variant": 1
+        }
+      ],
+      "identical": false,
+      "kinds": [
+        "function"
+      ],
+      "name": "registerComponentThemeGlobalConfigs",
+      "ownerUnits": [
+        "UNKNOWN",
+        "app"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "components/display/keyboard_shortcut/_impl/core/keyboard_display.dart",
+          "kind": "function",
+          "line": 66,
+          "owner": "keyboard_shortcut",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/keyboard_shortcut_utils.dart",
+          "kind": "function",
+          "line": 24,
+          "owner": "shared/utils/keyboard_shortcut_utils",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "function"
+      ],
+      "name": "shortcutActivatorToKeySet",
+      "ownerUnits": [
+        "keyboard_shortcut",
+        "shared/utils/keyboard_shortcut_utils"
+      ],
+      "public": true,
+      "severity": "error"
+    },
+    {
+      "declarations": [
+        {
+          "file": "shared/utils/util.dart",
+          "kind": "function",
+          "line": 203,
+          "owner": "shared/utils/util",
+          "public": true,
+          "variant": 0
+        },
+        {
+          "file": "shared/utils/wrap_utils.dart",
+          "kind": "function",
+          "line": 3,
+          "owner": "shared/utils/wrap_utils",
+          "public": true,
+          "variant": 0
+        }
+      ],
+      "identical": true,
+      "kinds": [
+        "function"
+      ],
+      "name": "wrapDouble",
+      "ownerUnits": [
+        "shared/utils/util",
+        "shared/utils/wrap_utils"
+      ],
+      "public": true,
+      "severity": "error"
+    }
+  ],
+  "generatedAt": "2026-10-05T23:41:20.213328Z",
+  "root": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry",
+  "schemaVersion": 1,
+  "skipGenerated": true,
+  "summary": {
+    "declarations": 3060,
+    "divergedDuplicates": 59,
+    "duplicateNames": 166,
+    "errors": 131,
+    "filesScanned": 1969,
+    "filesWithSyntaxErrors": 0,
+    "identicalDuplicates": 107,
+    "privateDuplicates": 35,
+    "publicDuplicates": 131,
+    "sameOwnerRepeats": 5,
+    "topOwnerUnits": [
+      {
+        "duplicateNames": 54,
+        "owner": "UNKNOWN"
+      },
+      {
+        "duplicateNames": 40,
+        "owner": "text_field"
+      },
+      {
+        "duplicateNames": 28,
+        "owner": "input"
+      },
+      {
+        "duplicateNames": 21,
+        "owner": "tabs"
+      },
+      {
+        "duplicateNames": 12,
+        "owner": "menu"
+      },
+      {
+        "duplicateNames": 11,
+        "owner": "tab_container"
+      },
+      {
+        "duplicateNames": 10,
+        "owner": "autocomplete"
+      },
+      {
+        "duplicateNames": 10,
+        "owner": "text"
+      },
+      {
+        "duplicateNames": 9,
+        "owner": "form"
+      },
+      {
+        "duplicateNames": 8,
+        "owner": "color_picker"
+      },
+      {
+        "duplicateNames": 8,
+        "owner": "subfocus"
+      },
+      {
+        "duplicateNames": 8,
+        "owner": "tab_pane"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "clickable"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "control"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "menubar"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "scrollable"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "scrollable_client"
+      },
+      {
+        "duplicateNames": 6,
+        "owner": "shared/utils/widget_extensions"
+      },
+      {
+        "duplicateNames": 5,
+        "owner": "fade_scroll"
+      },
+      {
+        "duplicateNames": 5,
+        "owner": "fade_scroll_display"
+      }
+    ],
+    "warnings": 35
+  },
+  "tool": "check_single_owner"
+}

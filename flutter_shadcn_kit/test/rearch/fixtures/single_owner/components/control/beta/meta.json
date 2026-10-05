@@ -1,0 +1,8 @@
+{
+  "id": "beta",
+  "name": "Beta",
+  "dependencies": {
+    "shared": [],
+    "components": []
+  }
+}

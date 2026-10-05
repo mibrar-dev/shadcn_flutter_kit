@@ -40,3 +40,22 @@
   - preview.dart stays under `no-material` (the gallery must prove Material-free) but is excluded from
     `undeclared-dependency` (previews may use other components for demos). → small follow-up in Phase 2 tooling.
   - `tab_list` has no entry file; `form_sortable` / `fade_scroll_display` id≠dir mismatches → resolve in P1-C/Phase 4.
+
+## P1-C ownership audit — space-bunny-free
+- ACCEPTED WITH CORRECTIONS.
+- Cross-check vs check_single_owner: audit covers 157/166 names; the 9 missing are top-level functions/variables
+  (out of the brief's declaration scope): buildEditableTextContextMenu, colorToHex, getBullet, kDoubleTapMinTime,
+  menuPopupThemeTokens, menubarThemeTokens, registerComponentThemeGlobalConfigs, shortcutActivatorToKeySet,
+  wrapDouble. Orchestrator rule: identical copies → the lowest-layer copy owns it (e.g. wrapDouble →
+  foundation, shortcutActivatorToKeySet → foundation); *ThemeTokens / registerComponentThemeGlobalConfigs are
+  deleted by the theme redesign.
+- Shared map: 142 files = 253 shared − 27 theme − 84 generated preset Dart ✔.
+- Correction: sortable / fade_scroll are NOT duplicate ids — the CLI installs them as `form_sortable` /
+  `fade_scroll_display` vs `sortable` / `fade_scroll` (manifests/components.json). The merges still stand
+  because the flat layout makes the directory names collide. Canonical: the layout versions (`sortable`,
+  `fade_scroll`); the other variants' unique behaviour is merged in.
+- Correction for the pilot: input's proposed `_impl/features/` (15 files) violates the component rules →
+  group features into ≤ 3 files (no `_impl/`), split only by responsibility and the ~400 LOC limit.
+- Notable facts adopted: data_widget spans 80 components / gap 117 → replaced in Phase 2 foundation;
+  72 non-preview files import material.dart; display/text becomes primitives/text; 0 dead declarations,
+  1,272 internal-only prune candidates.

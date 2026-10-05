@@ -23,10 +23,13 @@
 ## 3. Decisions (adopted defaults — correct any)
 - Branch `refactor/rearchitecture` from `chore/upstream-parity-audit`; CLI uncommitted changes reviewed and committed separately first.
 - Flat layout `components/<name>/`, category stored in `meta.json`.
-- Consolidated APIs (e.g. `Button(variant: .ghost)`), old names kept one release as `@Deprecated` one-line aliases; CLI `migrate` command rewrites user code.
+- Consolidated APIs (e.g. `Button(variant: .ghost)`). **Clean break: no deprecated aliases, no `migrate` command** — the kit is pre-marketing (user decision 2026-10-06). Goal: production-ready, minimal, easy to understand.
 - Keep common callbacks only (`onPressed`, `onLongPress`, `onHover`, `onFocusChange`); rare gestures via `GestureDetector`.
 - Replace `gap` and `data_widget` with local code in foundation.
 - "Demo mode" = docs gallery + per-component `preview.dart`.
+
+- **Every real component is installable on its own** (entry file + meta.json, id == directory name). Pieces that only exist to support other components are not components: they live in `foundation/` or `primitives/` and are installed automatically as dependencies. Enforced by the `installable` check.
+- Migration strategy: the new architecture is built in a parallel tree `lib/registry_next/` (foundation/, theme/, primitives/, components/<name>/, themes/); the old `lib/registry/` stays untouched and compiling until a single cutover at the end of Phase 4.
 
 ## 4. Target structure
 ```

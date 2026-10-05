@@ -129,23 +129,22 @@ global theme = 27 Dart files / 9.3k LOC (`preset_themes.dart` alone 4.4k) + 168 
 | Builder A | `opencode-go/deepseek-v4.1-flash` (max reasoning) |
 | Builder B / bug hunter | `opencode-go/space-bunny-free` (max reasoning) |
 | Mechanical (barrels, manifests, analyze runs) | `opencode/fledge-alpha-free` (Zen free tier) |
-| QA reviewer (large context) | Gemini CLI `gemini-3.1-pro` |
-| UI check (vision) | Gemini CLI `gemini-3.8-flash` |
+| QA reviewer | `opencode-go/muse-spark-1.3-contributor` (xhigh) |
+| UI check (vision) | `opencode-go/deepseek-v4-flash-vision-exp` |
 | Orchestrator + final QA gate | Claude (this session) |
-Antigravity `agy` symlink is broken → Gemini models via Gemini CLI 0.58.
-Phase 0 result: all four OpenCode models respond. Gemini CLI OAuth fails with quota exhausted ("Resource has been exhausted") and no API key is set → until it recovers, QA review uses `muse-spark-1.3-contributor` and UI vision checks use `opencode-go/deepseek-v4-flash-vision-exp`. No Claude subagents.
+Gemini / Antigravity skipped by user decision (2026-10-06). Only OpenCode subagents; no Claude subagents.
 
 ## 8. Loop per component
 1. **Plan** (muse-spark): file split, owner decisions for shared symbols, API + migration aliases.
 2. **Build** (deepseek / space-bunny, separate worktrees, waves of 5–8).
 3. **Test**: `flutter analyze` (0 new issues), widget tests, `check_layers`, `check_single_owner`, no material/cupertino import, CLI install into a scratch app compiles together with its dependents.
-4. **QA review** (Gemini Pro + Claude): conventions, exported-symbol diff, theme resolution order.
-5. **UI check** (Gemini Flash vision): preview screenshots light/dark + 3 presets, pixel diff vs baseline.
+4. **QA review** (muse-spark + Claude): conventions, exported-symbol diff, theme resolution order.
+5. **UI check** (deepseek vision): preview screenshots light/dark + 3 presets, pixel diff vs baseline.
 6. **Find bugs** (space-bunny): focus/keyboard, RTL, disabled, dark mode, theme overrides isolated.
 Fail → back to Build with findings; 3 failed rounds → escalate to Claude. One commit per passing component.
 
 ## 9. Phases
-0. **Baseline** — branch; commit CLI changes; record analyzer count, tests, screenshots of every preview, CLI install of all 145; verify Gemini model access.
+0. **Baseline** — branch; commit CLI changes; record analyzer count, tests, screenshots of every preview, CLI install of all 145.
 1. **Audit (read-only)** — dependency graph, the 148 duplicates with owner decisions, dead code, preset shadow bug; draft ARCHITECTURE v2 + CONTRIBUTING. → **user review**
 2. **Foundation + theme + primitives** — layers, token system (6.1), ComponentTheme resolution (6.3), check/gen scripts. Sequential.
 3. **Pilot**: button, input (merged with text_field), dialog — full loop incl. Studio-style rewrite of `button_theme.dart`. → **user review**

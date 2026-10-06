@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-06 01:40 (Europe/London) by the orchestrator (Claude Opus 5.5).
+Last updated: 2026-10-06 02:05 (Europe/London) by the orchestrator (Claude Opus 5.5).
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -52,7 +52,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 |---|---|---|---|---|
 | P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md | running (relaunched 01:09 after a hung first start) |
 | P2-B theme/ | muse-spark-1.3-contributor#xhigh | ses_ef18472acffex09RhUxX5X1vPf | rearch/briefs/P2-B-theme.md + fixes/P2-B-r2.md | ✅ ACCEPTED + committed (c863786) |
-| P2-D presets | space-bunny-free#max | (see `opencode session list`, title rearch:P2-D-presets) | rearch/briefs/P2-D-presets.md | running |
+| P2-D presets | space-bunny-free#max | rearch:P2-D-presets | rearch/briefs/P2-D-presets.md | ✅ ACCEPTED + pushed (22c0f20) |
 | P2-C tooling | fledge-alpha-free | ses_ef1846c81ffenqH8vpcvvVb38i | rearch/briefs/P2-C-tooling.md | ✅ ACCEPTED + committed (8951dda) |
 Uncommitted on disk right now: their outputs (`lib/registry_next/`, `test/registry_next/`, `tool/rearch/*`,
 `test/rearch/*`) — commit only after QA acceptance.
@@ -60,10 +60,10 @@ Uncommitted on disk right now: their outputs (`lib/registry_next/`, `test/regist
 ## Next steps (in order)
 1. QA P2-A, P2-B r2, P2-C: re-run every gate in their brief yourself; read the code; log verdict in QA_LOG.md;
    commit accepted work (`git add` only the accepted paths).
-2. (running) P2-D presets: update `manifests/themes.schema.json` (alpha colours, top-level `fonts`, shadow base atoms +
+2. ✅ DONE P2-D presets: update `manifests/themes.schema.json` (alpha colours, top-level `fonts`, shadow base atoms +
    `shadowsDerived`), migrate the 42 presets into `registry_next/themes/`, write `tool/rearch/gen_app_theme.dart`
    (preset JSON → values-only `app_theme.dart` per THEME_DESIGN §5.2), tests incl. round-trip for all 42.
-3. P2-E primitives/: per ownership.json `shared_map` (layers primitives, primitives/*), incl. form_core, text,
+3. READY (briefs written, launch after P2-A is accepted): P2-E1 `rearch/briefs/P2-E1-primitives-interaction.md` (deepseek) and P2-E2 `rearch/briefs/P2-E2-primitives-form-text-l10n.md` (space-bunny), in parallel. Original note — primitives/: per ownership.json `shared_map` (layers primitives, primitives/*), incl. form_core, text,
    subfocus, animation, localizations, clickable, overlay/popover; must use registry_next foundation + theme.
 4. Phase 3 pilot: button (+ toggle, button_group), input (merged with text_field, features in ≤ 3 files,
    autocomplete separate), dialog. User review checkpoint after the pilot.

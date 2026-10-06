@@ -31,6 +31,10 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
   Studio-editable theme; future CLI theme converter (CSS → JSON → Dart) and Studio theme builder.
 - Build in a parallel tree `flutter_shadcn_kit/lib/registry_next/`; old `lib/registry/` untouched until cutover.
 
+## Backups
+- Kit branches pushed: `origin/refactor/rearchitecture`, `origin/chore/upstream-parity-audit`. Push after every commit.
+- CLI uncommitted WIP snapshot: `origin/backup/installer-wip-2026-10-06` (eae8111); working tree untouched.
+
 ## Done
 - Phase 0: branch; baseline — `flutter analyze lib/registry` 0 issues (masked by ignore_for_file; whole project has
   7 pre-existing issues in tool/theme + test/registry); `flutter test` 37 pass / 1 pre-existing failure

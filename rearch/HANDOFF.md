@@ -27,12 +27,14 @@ Remote: `origin https://github.com/mibrar-dev/shadcn_flutter_kit.git`
 | Branch | Head | Tracks | Notes |
 |---|---|---|---|
 | `main` | f4f48d8 | origin/main | published baseline |
-| `chore/upstream-parity-audit` | ef06f55 | **none — never pushed** | 35 commits ahead of main (docs previews, registry fixes); base of the refactor |
-| `refactor/rearchitecture` ← **work happens here** | see `git log -1` | **none — never pushed** | branched from `chore/upstream-parity-audit` at ef06f55; all re-architecture commits |
+| `chore/upstream-parity-audit` | ef06f55 | origin/chore/upstream-parity-audit (pushed 2026-10-06) | 35 commits ahead of main (docs previews, registry fixes); base of the refactor |
+| `refactor/rearchitecture` ← **work happens here** | see `git log -1` | origin/refactor/rearchitecture (pushed; push after every commit) | branched from `chore/upstream-parity-audit` at ef06f55; all re-architecture commits |
 - Contains: `flutter_shadcn_kit/` (Flutter app hosting the registry; old `lib/registry/`, new `lib/registry_next/`,
   guardrails `tool/rearch/`), `docs/` (Flutter web docs gallery = the "demo mode"; has a mirror of the registry under
   `docs/lib/ui/shadcn/`), `REARCHITECTURE_PLAN.md`, `rearch/` (briefs, reports, logs, handoff, progress).
-- Neither non-main branch is on GitHub. Ask the user before pushing anything (push = outward-facing).
+- **User rule (2026-10-06): commit AND push after every accepted step** so everything is always backed up
+  (`git push` on `refactor/rearchitecture`). Pushing these branches is pre-approved; anything else outward-facing
+  (PRs, merging to main, publishing to pub.dev, force-push) still needs the user's OK.
 - Only one worktree (the main checkout); no stashes.
 
 ### 2. CLI — `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_cli`
@@ -41,6 +43,10 @@ Remote: `origin https://github.com/mibrar-dev/flutter_shadcn_cli.git`. Branch `m
 - **Uncommitted user work on main — do not discard**: 7 files, +918/−101 —
   `lib/src/application/services/installer/{component_manifest_resolver,installer,installer_file_install_part,installer_platform_alias_part}.dart`,
   `test/component_manifest_resolver_test.dart`, `test/installer_test.dart`, `pubspec.lock` (+ untracked `.DS_Store`).
+  Backed up WITHOUT touching the working tree: remote branch `backup/installer-wip-2026-10-06` (eae8111, includes
+  the untracked `test/installer_alias_part_test.dart`; someone is actively editing here). Refresh the backup the same
+  way when the WIP changes: temp `GIT_INDEX_FILE` → `git add -A -- . ':!.DS_Store'` → `git write-tree` →
+  `git commit-tree <tree> -p HEAD` → `git push origin "${SHA}:refs/heads/backup/<name>-<date>"` (braces matter in zsh).
   Phase 5 plan: review these with the user, commit them on a new branch (e.g. `chore/installer-wip`), then branch
   `refactor/rearchitecture-cli` for the CLI changes. READ ONLY until Phase 5.
 - CLI docs worth reading in Phase 5: `PROGRESS.md`, `PLAN.md`, `doc/architecture/*.md`, `README.md`.
@@ -73,7 +79,7 @@ ps -eo pid,etime,args | grep "opencode run"; opencode session list | grep rearch
 - QA every result yourself: re-run all gates in the brief, read the critical code, compare claims to the source.
   Never accept an agent's self-report alone (past catches: truncated files, override-never-applies merge bug,
   alpha replace-vs-multiply, wrong shadow formula, global mutable registry, ignore comments).
-- Record each verdict in QA_LOG.md; commit only accepted paths; end commit messages with
+- Record each verdict in QA_LOG.md; commit only accepted paths, then `git push` immediately; end commit messages with
   `Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>` (or your own attribution line).
 - After each step update `rearch/PROGRESS.md`.
 

@@ -97,3 +97,16 @@
 - Decisions on its open questions: keep `shadowsDerived: "from-legacy"` for the 8 presets without CLI atoms;
   legacy `\` font values are exporter corruption (CLI values used); legacy themes_preset/ + manifests deleted at
   cutover; tool scripts > 400 LOC accepted (not shipped to users); index schema deferred to Phase 5 (CLI serving).
+
+## P2-A foundation — deepseek-v4.1-flash
+- r1 cut off by ECONNRESET: code clean but 4/54 tests failing, no report → r2 (rearch/briefs/fixes/P2-A-r2.md).
+- r2 ACCEPTED. Orchestrator re-ran: format clean, analyze 0, `flutter test test/registry_next` 106/106,
+  check_layers 0 errors, single_owner 0 duplicates, `flutter analyze lib/registry` still clean.
+- Agent verdicts on the 4 failures (all test-side) checked; two of them were faithful ports of OLD BUGS, fixed by the
+  orchestrator (clean break → production-ready, not bug-compatible):
+  - `CachedValueWidget` tested `T is CachedValue` (a Type literal → always false), so `shouldRebuild` was never used.
+    Now checks the values (`value is CachedValue && oldValue is CachedValue`). 0 implementers in the old registry.
+  - `List.swapItem` inserted a missing item at an unclamped index (RangeError). Now clamps to [0, length].
+  Tests updated to assert the fixed behaviour.
+- Accepted deviation: register/unregister moved from DataHolder to DataReceiverRegistry (breaks an import cycle;
+  0 external references).

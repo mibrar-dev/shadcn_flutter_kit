@@ -189,6 +189,9 @@ class ShadcnLocalizationsId extends ShadcnLocalizations {
   String get abbreviatedDecember => 'Des';
 
   @override
+  String get dialogDismiss => 'Tutup';
+
+  @override
   String get buttonCancel => 'Batal';
 
   @override

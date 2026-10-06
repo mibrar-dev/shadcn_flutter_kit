@@ -106,6 +106,8 @@ class ShadcnLocalizations {
 
   String get commandActivate => 'Activate';
 
+  String get dialogDismiss => 'Dismiss';
+
   String get buttonCancel => 'Cancel';
 
   String get buttonSave => 'Save';

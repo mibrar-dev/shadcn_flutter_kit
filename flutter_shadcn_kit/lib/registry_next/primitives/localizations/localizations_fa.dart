@@ -185,6 +185,9 @@ class ShadcnLocalizationsFa extends ShadcnLocalizations {
   String get abbreviatedDecember => 'دسامبر';
 
   @override
+  String get dialogDismiss => 'بستن';
+
+  @override
   String get buttonCancel => 'لغو';
 
   @override

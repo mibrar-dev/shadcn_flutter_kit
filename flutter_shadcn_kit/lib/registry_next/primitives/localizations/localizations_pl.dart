@@ -189,6 +189,9 @@ class ShadcnLocalizationsPl extends ShadcnLocalizations {
   String get abbreviatedDecember => 'gru';
 
   @override
+  String get dialogDismiss => 'Zamknij';
+
+  @override
   String get buttonCancel => 'Anuluj';
 
   @override

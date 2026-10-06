@@ -184,6 +184,9 @@ class ShadcnLocalizationsJa extends ShadcnLocalizations {
   String get abbreviatedDecember => '12月';
 
   @override
+  String get dialogDismiss => '閉じる';
+
+  @override
   String get buttonCancel => 'キャンセル';
 
   @override

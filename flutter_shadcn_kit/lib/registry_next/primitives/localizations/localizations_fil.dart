@@ -188,6 +188,9 @@ class ShadcnLocalizationsFil extends ShadcnLocalizations {
   String get abbreviatedDecember => 'Dis';
 
   @override
+  String get dialogDismiss => 'I-dismiss';
+
+  @override
   String get buttonCancel => 'Kanselahin';
 
   @override

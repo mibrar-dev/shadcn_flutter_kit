@@ -80,6 +80,9 @@ void main() {
       expect(localizations.commandEmpty, 'Keine Ergebnisse gefunden.');
       expect(localizations.monthMarch, 'März');
       expect(localizations.formNotEmpty, 'Dieses Feld darf nicht leer sein');
+      // Flutter's own `modalBarrierDismissLabel` for German, so the dialog
+      // barrier label is translated rather than the English fallback.
+      expect(localizations.dialogDismiss, 'Schließen');
     });
 
     testWidgets('numbers inside messages follow the loaded locale', (

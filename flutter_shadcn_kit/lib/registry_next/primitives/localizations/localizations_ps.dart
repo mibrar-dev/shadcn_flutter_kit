@@ -186,6 +186,9 @@ class ShadcnLocalizationsPs extends ShadcnLocalizations {
   String get abbreviatedDecember => 'دسم';
 
   @override
+  String get dialogDismiss => 'رد کړه';
+
+  @override
   String get buttonCancel => 'لغوه کول';
 
   @override

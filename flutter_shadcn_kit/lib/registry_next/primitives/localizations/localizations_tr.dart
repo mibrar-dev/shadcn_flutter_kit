@@ -188,6 +188,9 @@ class ShadcnLocalizationsTr extends ShadcnLocalizations {
   String get abbreviatedDecember => 'Ara';
 
   @override
+  String get dialogDismiss => 'Kapat';
+
+  @override
   String get buttonCancel => 'İptal';
 
   @override

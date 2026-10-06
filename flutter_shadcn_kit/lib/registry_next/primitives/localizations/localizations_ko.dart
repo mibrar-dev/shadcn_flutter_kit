@@ -183,6 +183,9 @@ class ShadcnLocalizationsKo extends ShadcnLocalizations {
   String get abbreviatedDecember => '12월';
 
   @override
+  String get dialogDismiss => '닫기';
+
+  @override
   String get buttonCancel => '취소';
 
   @override

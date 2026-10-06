@@ -188,6 +188,9 @@ class ShadcnLocalizationsCs extends ShadcnLocalizations {
   String get abbreviatedDecember => 'pro';
 
   @override
+  String get dialogDismiss => 'Zavřít';
+
+  @override
   String get buttonCancel => 'Zrušit';
 
   @override

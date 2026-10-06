@@ -191,6 +191,9 @@ class ShadcnLocalizationsFi extends ShadcnLocalizations {
   String get abbreviatedDecember => 'joulu';
 
   @override
+  String get dialogDismiss => 'Ohita';
+
+  @override
   String get buttonCancel => 'Peruuta';
 
   @override

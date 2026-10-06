@@ -182,6 +182,9 @@ class ShadcnLocalizationsZh extends ShadcnLocalizations {
   String get abbreviatedDecember => '12月';
 
   @override
+  String get dialogDismiss => '关闭';
+
+  @override
   String get buttonCancel => '取消';
 
   @override

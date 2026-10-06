@@ -187,6 +187,9 @@ class ShadcnLocalizationsAr extends ShadcnLocalizations {
   String get abbreviatedDecember => 'ديس';
 
   @override
+  String get dialogDismiss => 'رفض';
+
+  @override
   String get buttonCancel => 'إلغاء';
 
   @override

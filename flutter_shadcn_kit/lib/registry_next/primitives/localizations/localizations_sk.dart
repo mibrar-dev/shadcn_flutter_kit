@@ -186,6 +186,9 @@ class ShadcnLocalizationsSk extends ShadcnLocalizations {
   String get abbreviatedDecember => 'dec';
 
   @override
+  String get dialogDismiss => 'Odmietnuť';
+
+  @override
   String get buttonCancel => 'Zrušiť';
 
   @override

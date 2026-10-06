@@ -188,6 +188,9 @@ class ShadcnLocalizationsMr extends ShadcnLocalizations {
   String get abbreviatedDecember => 'डिसें';
 
   @override
+  String get dialogDismiss => 'डिसमिस करा';
+
+  @override
   String get buttonCancel => 'रद्द करा';
 
   @override

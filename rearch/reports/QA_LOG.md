@@ -146,3 +146,14 @@
   folder-style primitive deps). Orchestrator re-ran: format 0 changed, analyze 0, test/rearch 38/38; registry_next
   undeclared 7 → 1 (remaining one is in the in-flight dialog r2); old tree counts identical to baseline/layers.json
   (205/2246/1964/1/19/92/6).
+
+## P3-C dialog (space-bunny, ses_ef0d6d5f6ffeW0nyBq4eqQF1T4) — ACCEPTED (r2)
+- r1 (after one ECONNRESET resume): 13 tests green; returned for theme frozen at show time (claimed ComponentThemes
+  can't be captured — irrelevant, it sits above the Navigator), unused `anchorPoint`, single padding field,
+  hard-coded barrier label, duplicate `dependencies` block in meta.json.
+- r2: InheritedTheme.capture + resolve in shell/barrier build (test: light→dark switch while open);
+  anchorPoint deleted; `padding` 24 inner (shadcn p-6) + `insetPadding` 16 outer; `dialogDismiss` added to
+  ShadcnLocalizations with values copied from Flutter's material_<locale>.arb `modalBarrierDismissLabel` (39 locales);
+  meta.json single `deps`. Orchestrator re-ran: format 0 changed, analyze 0, dialog+l10n tests 41/41,
+  check_layers 0 errors. Accepted warning: localizations.dart 401/400 lines.
+- Deviation accepted: transitionDuration fixed at push time (framework reads it on install).

@@ -190,6 +190,9 @@ class ShadcnLocalizationsRu extends ShadcnLocalizations {
   String get abbreviatedDecember => 'дек.';
 
   @override
+  String get dialogDismiss => 'Закрыть';
+
+  @override
   String get buttonCancel => 'Отмена';
 
   @override

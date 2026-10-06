@@ -1,0 +1,49 @@
+{
+  "id": "dialog",
+  "name": "Dialog",
+  "category": "overlay",
+  "description": "Modal dialog route and themed card shell.",
+  "tier": "component",
+  "install": "flutter_shadcn add dialog",
+  "import": "import 'package:<your_app>/ui/shadcn/dialog/dialog.dart';",
+  "tags": ["overlay", "modal", "dialog", "route"],
+  "deps": {
+    "foundation": ["captured_wrapper", "constants", "data"],
+    "theme": ["color_tokens", "density", "theme", "tokens"],
+    "primitives": ["localizations"],
+    "components": []
+  },
+  "files": [
+    "dialog.dart",
+    "dialog_style.dart",
+    "dialog_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "functions": ["showShadcnDialog"],
+    "classes": ["ShadcnDialogRoute", "DialogTheme"],
+    "constants": [
+      "dialogDefaults",
+      "dialogThemeOverrides",
+      "kDialogSurfaceKey",
+      "kDialogFallbackBarrierColor"
+    ]
+  },
+  "theme": {
+    "class": "DialogTheme",
+    "userFile": "dialog_theme.dart",
+    "defaults": "dialogDefaults",
+    "fields": {
+      "background": "ThemedColor? - card token",
+      "borderColor": "ThemedColor? - border token",
+      "borderWidth": "double? - 1.0",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusLg",
+      "padding": "EdgeInsetsGeometry? - card padding, padMd x density content padding",
+      "insetPadding": "EdgeInsetsGeometry? - screen edge inset, padSm x density content padding; zero when fullScreen",
+      "barrierColor": "ThemedColor? - black at 50%",
+      "maxWidth": "double? - 480.0",
+      "transitionDuration": "Duration? - 150ms",
+      "shadows": "List<BoxShadow>? - ambient shadowLg"
+    }
+  }
+}

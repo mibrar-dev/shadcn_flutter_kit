@@ -59,3 +59,14 @@
 - Notable facts adopted: data_widget spans 80 components / gap 117 → replaced in Phase 2 foundation;
   72 non-preview files import material.dart; display/text becomes primitives/text; 0 dead declarations,
   1,272 internal-only prune candidates.
+
+## P2-B theme layer — muse-spark-1.3-contributor
+- r1: gates re-run by orchestrator — format clean, analyze 0, 21/21 tests, 0 duplicates, imports only
+  widgets/foundation/dart:ui + sibling theme files. Shadow test is NOT circular (defaultShadowScale is a literal
+  transcription of old ThemeData defaults). REJECTED WITH FIXES (rearch/briefs/fixes/P2-B-r2.md):
+  - F1 bug: ShadowScale.derive used subtractive deltas → negative offsets/blur for real shadcn bases; replace with
+    the tweakcn formula (absolute detail layers 1/2/4/8 px, blur 2/4/6/10, multipliers 0.5 / 1 / 2.5).
+  - F2: static mutable ComponentThemes registry → inherited app-root widget.
+  - F3: resolver merge lambda → `Mergeable<S>` so override-wins cannot be miswired.
+  - F4: two `// ignore` comments (Styleable, deprecated member) — removed with the Styleable interface.
+  - F5: typography.dart 613 lines → prune unused members.

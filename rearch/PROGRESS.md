@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-06 02:05 (Europe/London) by the orchestrator (Claude Opus 5.5).
+Last updated: 2026-10-06 02:20 (Europe/London) by the orchestrator (Claude Opus 5.5).
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -50,7 +50,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 ## In progress (Phase 2)
 | Unit | Model | OpenCode session | Brief | State |
 |---|---|---|---|---|
-| P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md | running (relaunched 01:09 after a hung first start) |
+| P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md + fixes/P2-A-r2.md | r1 cut off by ECONNRESET; code clean (0 analyzer/layer/dup issues) but 4/54 tests fail + no report → r2 running |
 | P2-B theme/ | muse-spark-1.3-contributor#xhigh | ses_ef18472acffex09RhUxX5X1vPf | rearch/briefs/P2-B-theme.md + fixes/P2-B-r2.md | ✅ ACCEPTED + committed (c863786) |
 | P2-D presets | space-bunny-free#max | rearch:P2-D-presets | rearch/briefs/P2-D-presets.md | ✅ ACCEPTED + pushed (22c0f20) |
 | P2-C tooling | fledge-alpha-free | ses_ef1846c81ffenqH8vpcvvVb38i | rearch/briefs/P2-C-tooling.md | ✅ ACCEPTED + committed (8951dda) |

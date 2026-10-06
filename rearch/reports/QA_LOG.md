@@ -86,3 +86,14 @@
   form/sortable and display/fade_scroll id≠dir). undeclared-dependency 71 → 19 after preview exclusion.
 - Probed check_user_theme with a planted bad file: caught non-const decl, resolveWith, closure, function decl.
 - Ops: two hung OpenCode starts (P2-A first launch, P2-D first launch) — launchers now use `--standalone`.
+
+## P2-D presets — space-bunny-free
+- ACCEPTED. Orchestrator re-ran: format clean, analyze 0, `flutter test test/registry_next/themes` 26/26,
+  `test/rearch` 33/33. Round-trip test really runs `dart format` + `dart analyze` on all 42 generated themes.
+- Spot-checks: amber-minimal shadow atoms equal the CLI tweakcn source (blur 8, offsetY 4, opacity 0.1, spread −1);
+  generator converts rem → px (`spacing 0.25` → `spacingBase: 4.0`).
+- Verified its "per-mode radius dropped for 10 presets": every legacy dark radius is 0.5 = old ThemeData default →
+  same copy bug as shadows; a single radius is correct.
+- Decisions on its open questions: keep `shadowsDerived: "from-legacy"` for the 8 presets without CLI atoms;
+  legacy `\` font values are exporter corruption (CLI values used); legacy themes_preset/ + manifests deleted at
+  cutover; tool scripts > 400 LOC accepted (not shipped to users); index schema deferred to Phase 5 (CLI serving).

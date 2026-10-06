@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 2,
+  "count": 42,
+  "themes": [
+    {
+      "id": "amber-minimal",
+      "name": "Amber Minimal",
+      "file": "amber-minimal.json"
+    },
+    {
+      "id": "amethyst-haze",
+      "name": "Amethyst Haze",
+      "file": "amethyst-haze.json"
+    },
+    {
+      "id": "bold-tech",
+      "name": "Bold Tech",
+      "file": "bold-tech.json"
+    },
+    {
+      "id": "bubblegum",
+      "name": "Bubblegum",
+      "file": "bubblegum.json"
+    },
+    {
+      "id": "caffeine",
+      "name": "Caffeine",
+      "file": "caffeine.json"
+    },
+    {
+      "id": "candyland",
+      "name": "Candyland",
+      "file": "candyland.json"
+    },
+    {
+      "id": "catppuccin",
+      "name": "Catppuccin",
+      "file": "catppuccin.json"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "file": "claude.json"
+    },
+    {
+      "id": "claymorphism",
+      "name": "Claymorphism",
+      "file": "claymorphism.json"
+    },
+    {
+      "id": "clean-slate",
+      "name": "Clean Slate",
+      "file": "clean-slate.json"
+    },
+    {
+      "id": "cosmic-night",
+      "name": "Cosmic Night",
+      "file": "cosmic-night.json"
+    },
+    {
+      "id": "cyberpunk",
+      "name": "Cyberpunk",
+      "file": "cyberpunk.json"
+    },
+    {
+      "id": "darkmatter",
+      "name": "Darkmatter",
+      "file": "darkmatter.json"
+    },
+    {
+      "id": "doom-64",
+      "name": "Doom 64",
+      "file": "doom-64.json"
+    },
+    {
+      "id": "elegant-luxury",
+      "name": "Elegant Luxury",
+      "file": "elegant-luxury.json"
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "file": "graphite.json"
+    },
+    {
+      "id": "kodama-grove",
+      "name": "Kodama Grove",
+      "file": "kodama-grove.json"
+    },
+    {
+      "id": "midnight-bloom",
+      "name": "Midnight Bloom",
+      "file": "midnight-bloom.json"
+    },
+    {
+      "id": "mocha-mousse",
+      "name": "Mocha Mousse",
+      "file": "mocha-mousse.json"
+    },
+    {
+      "id": "modern-minimal",
+      "name": "Modern Minimal",
+      "file": "modern-minimal.json"
+    },
+    {
+      "id": "mono",
+      "name": "Mono",
+      "file": "mono.json"
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "file": "nature.json"
+    },
+    {
+      "id": "neo-brutalism",
+      "name": "Neo Brutalism",
+      "file": "neo-brutalism.json"
+    },
+    {
+      "id": "northern-lights",
+      "name": "Northern Lights",
+      "file": "northern-lights.json"
+    },
+    {
+      "id": "notebook",
+      "name": "Notebook",
+      "file": "notebook.json"
+    },
+    {
+      "id": "ocean-breeze",
+      "name": "Ocean Breeze",
+      "file": "ocean-breeze.json"
+    },
+    {
+      "id": "pastel-dreams",
+      "name": "Pastel Dreams",
+      "file": "pastel-dreams.json"
+    },
+    {
+      "id": "perpetuity",
+      "name": "Perpetuity",
+      "file": "perpetuity.json"
+    },
+    {
+      "id": "quantum-rose",
+      "name": "Quantum Rose",
+      "file": "quantum-rose.json"
+    },
+    {
+      "id": "retro-arcade",
+      "name": "Retro Arcade",
+      "file": "retro-arcade.json"
+    },
+    {
+      "id": "sage-garden",
+      "name": "Sage Garden",
+      "file": "sage-garden.json"
+    },
+    {
+      "id": "soft-pop",
+      "name": "Soft Pop",
+      "file": "soft-pop.json"
+    },
+    {
+      "id": "solar-dusk",
+      "name": "Solar Dusk",
+      "file": "solar-dusk.json"
+    },
+    {
+      "id": "starry-night",
+      "name": "Starry Night",
+      "file": "starry-night.json"
+    },
+    {
+      "id": "sunset-horizon",
+      "name": "Sunset Horizon",
+      "file": "sunset-horizon.json"
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "file": "supabase.json"
+    },
+    {
+      "id": "t3-chat",
+      "name": "T3 Chat",
+      "file": "t3-chat.json"
+    },
+    {
+      "id": "tangerine",
+      "name": "Tangerine",
+      "file": "tangerine.json"
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "file": "twitter.json"
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "file": "vercel.json"
+    },
+    {
+      "id": "vintage-paper",
+      "name": "Vintage Paper",
+      "file": "vintage-paper.json"
+    },
+    {
+      "id": "violet-bloom",
+      "name": "Violet Bloom",
+      "file": "violet-bloom.json"
+    }
+  ]
+}

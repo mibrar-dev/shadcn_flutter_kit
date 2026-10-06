@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flutter-shadcn.github.io/registry-directory/registry/themes.schema.v2.json",
+  "title": "shadcn theme preset",
+  "description": "One canonical preset: lib/registry_next/themes/<id>.json. Supersedes the schemaVersion 1 files in lib/registry/themes_preset/. Design rules: (1) key names are the camelCase of the shadcn CSS variable, no renames (REARCHITECTURE_PLAN.md 6.1); (2) all 32 colour tokens are required in BOTH light and dark - nothing is derived; (3) colours carry an optional alpha channel and it is never flattened; (4) fonts are mode-independent, so they live in one top-level block; (5) radius/spacing/tracking are mode-independent because no preset differs between the two modes; (6) only the six base shadow atoms are stored per mode - the eight derived sizes (shadow2xs..shadow2xl) are ALWAYS recomputed at build time by ShadowScale.derive, never stored, because storing them was the bug this schema removes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "schemaVersion",
+    "light",
+    "dark",
+    "radius",
+    "spacing",
+    "tracking",
+    "shadow"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional relative pointer to this schema."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "File name without the .json suffix, e.g. amber-minimal."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human readable preset name, e.g. Amber Minimal."
+    },
+    "schemaVersion": {
+      "const": 2,
+      "description": "Incremented whenever a field changes meaning. 2 = base shadow atoms + mode-independent fonts/radius/spacing/tracking + alpha-bearing colours."
+    },
+    "light": {
+      "$ref": "#/$defs/colorMap",
+      "description": "Colour tokens for Brightness.light."
+    },
+    "dark": {
+      "$ref": "#/$defs/colorMap",
+      "description": "Colour tokens for Brightness.dark."
+    },
+    "fonts": {
+      "$ref": "#/$defs/fonts",
+      "description": "Mode-independent family lists. Omitted entirely when the preset names no family; the bundled default then applies."
+    },
+    "radius": {
+      "type": "number",
+      "minimum": 0,
+      "description": "The shadcn --radius value in rem with the unit stripped (0.625rem -> 0.625). Unitless in Dart: px = radius * {4,8,12,16,20,24}. See THEME_DESIGN 5.4."
+    },
+    "spacing": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "The shadcn --spacing value in rem with the unit stripped (0.25rem -> 0.25). The generator multiplies by 16 to get the Dart SpacingScale base in logical pixels (0.25 -> 4.0)."
+    },
+    "tracking": {
+      "$ref": "#/$defs/tracking",
+      "description": "Letter spacing in em with the unit stripped. The generator multiplies by 16 to get Flutter letterSpacing in logical pixels."
+    },
+    "shadow": {
+      "$ref": "#/$defs/shadowPair",
+      "description": "Base shadow atoms per mode. The eight derived sizes are never stored."
+    },
+    "shadowsDerived": {
+      "enum": ["cli", "from-legacy"],
+      "description": "Provenance of shadow.light/shadow.dark. 'cli' = the tweakcn atoms in shadcn_flutter_cli/lib/registry/shared/theme/preset_theme_data.dart. 'from-legacy' = no atoms existed upstream, so the atoms were recovered from the single legacy shadow entry in lib/registry/themes_preset/<id>.json."
+    }
+  },
+  "$defs": {
+    "colorToken": {
+      "type": "string",
+      "pattern": "^#[0-9A-F]{6}([0-9A-F]{2})?$",
+      "description": "sRGB colour as #RRGGBB (alpha implicitly FF) or #RRGGBBAA. Uppercase hex, leading # required, 0x prefix rejected. Alpha is preserved verbatim - a shadcn dark --border of oklch(1 0 0 / 10%) is #FFFFFF1A, never #FFFFFF."
+    },
+    "colorMap": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "All 32 shadcn colour tokens. Every one is required; there is no derivation step inside a preset file.",
+      "required": [
+        "background",
+        "foreground",
+        "card",
+        "cardForeground",
+        "popover",
+        "popoverForeground",
+        "primary",
+        "primaryForeground",
+        "secondary",
+        "secondaryForeground",
+        "muted",
+        "mutedForeground",
+        "accent",
+        "accentForeground",
+        "destructive",
+        "destructiveForeground",
+        "border",
+        "input",
+        "ring",
+        "chart1",
+        "chart2",
+        "chart3",
+        "chart4",
+        "chart5",
+        "sidebar",
+        "sidebarForeground",
+        "sidebarPrimary",
+        "sidebarPrimaryForeground",
+        "sidebarAccent",
+        "sidebarAccentForeground",
+        "sidebarBorder",
+        "sidebarRing"
+      ],
+      "properties": {
+        "background": { "$ref": "#/$defs/colorToken" },
+        "foreground": { "$ref": "#/$defs/colorToken" },
+        "card": { "$ref": "#/$defs/colorToken" },
+        "cardForeground": { "$ref": "#/$defs/colorToken" },
+        "popover": { "$ref": "#/$defs/colorToken" },
+        "popoverForeground": { "$ref": "#/$defs/colorToken" },
+        "primary": { "$ref": "#/$defs/colorToken" },
+        "primaryForeground": { "$ref": "#/$defs/colorToken" },
+        "secondary": { "$ref": "#/$defs/colorToken" },
+        "secondaryForeground": { "$ref": "#/$defs/colorToken" },
+        "muted": { "$ref": "#/$defs/colorToken" },
+        "mutedForeground": { "$ref": "#/$defs/colorToken" },
+        "accent": { "$ref": "#/$defs/colorToken" },
+        "accentForeground": { "$ref": "#/$defs/colorToken" },
+        "destructive": { "$ref": "#/$defs/colorToken" },
+        "destructiveForeground": { "$ref": "#/$defs/colorToken" },
+        "border": { "$ref": "#/$defs/colorToken" },
+        "input": { "$ref": "#/$defs/colorToken" },
+        "ring": { "$ref": "#/$defs/colorToken" },
+        "chart1": { "$ref": "#/$defs/colorToken" },
+        "chart2": { "$ref": "#/$defs/colorToken" },
+        "chart3": { "$ref": "#/$defs/colorToken" },
+        "chart4": { "$ref": "#/$defs/colorToken" },
+        "chart5": { "$ref": "#/$defs/colorToken" },
+        "sidebar": { "$ref": "#/$defs/colorToken" },
+        "sidebarForeground": { "$ref": "#/$defs/colorToken" },
+        "sidebarPrimary": { "$ref": "#/$defs/colorToken" },
+        "sidebarPrimaryForeground": { "$ref": "#/$defs/colorToken" },
+        "sidebarAccent": { "$ref": "#/$defs/colorToken" },
+        "sidebarAccentForeground": { "$ref": "#/$defs/colorToken" },
+        "sidebarBorder": { "$ref": "#/$defs/colorToken" },
+        "sidebarRing": { "$ref": "#/$defs/colorToken" }
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "description": "CSS font-family lists. The first family becomes TextStyle.fontFamily, the remainder fontFamilyFallback.",
+      "properties": {
+        "sans": { "type": "string", "minLength": 1, "description": "--font-sans, e.g. \"Inter, sans-serif\"." },
+        "serif": { "type": "string", "minLength": 1, "description": "--font-serif." },
+        "mono": { "type": "string", "minLength": 1, "description": "--font-mono." }
+      }
+    },
+    "tracking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["normal"],
+      "description": "--tracking-normal plus the optional tight/wide steps. No preset sets tight or wide yet.",
+      "properties": {
+        "normal": { "type": "number", "description": "em with the unit stripped (0.025em -> 0.025)." },
+        "tight": { "type": "number" },
+        "wide": { "type": "number" }
+      }
+    },
+    "shadowAtoms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color", "opacity", "blur", "spread", "offsetX", "offsetY"],
+      "description": "The six tweakcn/shadcn v4 base atoms. ShadowScale.derive multiplies color alpha by opacity, then applies per-size multipliers, so a colour that already carries alpha stays correct.",
+      "properties": {
+        "color": { "$ref": "#/$defs/colorToken" },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1, "description": "Base alpha in 0..1. Multiplied with the colour's own alpha." },
+        "blur": { "type": "number", "minimum": 0, "description": "px" },
+        "spread": { "type": "number", "description": "px, usually negative" },
+        "offsetX": { "type": "number", "description": "px" },
+        "offsetY": { "type": "number", "description": "px" }
+      }
+    },
+    "shadowPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["light", "dark"],
+      "properties": {
+        "light": { "$ref": "#/$defs/shadowAtoms" },
+        "dark": { "$ref": "#/$defs/shadowAtoms" }
+      }
+    }
+  }
+}

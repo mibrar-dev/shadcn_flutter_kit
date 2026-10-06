@@ -10,7 +10,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 0 Baseline | ✅ done |
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
-| 3 Pilot (button, input, dialog) | 🔄 design ✅ (rearch/reports/P3_PILOT_DESIGN.md) — 13 decisions user-APPROVED 2026-10-06; build after primitives |
+| 3 Pilot (button, input, dialog) | ✅ built + QA-accepted (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
 | 4 Migrate remaining components + cutover | ⏳ not started |
 | 5 CLI | ⏳ not started |
 | 6 Docs gallery, final QA, PR | ⏳ not started |

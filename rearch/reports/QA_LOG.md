@@ -167,3 +167,14 @@
   FormValueSupplier. Focus ring keyboard-only via Clickable (tested).
 - Accepted: button_test.dart 518 lines (tests not held to the 400 guideline); Toggle state-specific style beats
   generic theme. Phase 4 notes: Button.fixed (2 old users), SelectedButton (4) recorded in P3B_BUTTON.md.
+
+## P3-D input + primitives/text_editing + primitives/input_features (deepseek, ses_ef0aa6d48ffeX0l9s1Ui8gixEt) — ACCEPTED (r2)
+- r1: 301 tests green, 102 old files / 7.4k LOC → 5 files, but input.dart 831 + input_features.dart 919 lines
+  (breaks ≤400 + flat component layout). Returned: move reusable machinery down into primitives.
+- r2: components/input = input.dart 379, input_style 352, input_theme, preview; new primitives/text_editing/
+  (4 files) and primitives/input_features/ (6 files), all ≤ 369 lines. Orchestrator re-ran: format 0 changed,
+  analyze 0, test/registry_next 301/301, check_layers 0 errors (no new file-too-long), single_owner 0,
+  check_user_theme --strict 0, no ignore/material/cupertino, autocomplete never imported. Tests cover
+  double-tap/long-press selection, context menu (read-only drops Cut/Paste), copy/paste via clipboard, spinner clamp.
+- Accepted: validator gets raw text ('' when empty); hint popover alignment ported (visual pass later);
+  T1 OWNERSHIP.md one-line correction applied.

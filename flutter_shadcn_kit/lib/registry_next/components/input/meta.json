@@ -1,0 +1,78 @@
+{
+  "id": "input",
+  "name": "Input",
+  "category": "form",
+  "description": "Widgets-only text field wrapping EditableText, with a pluggable feature system, form participation and a widgets-only selection menu.",
+  "tier": "component",
+  "install": "flutter_shadcn add input",
+  "import": "import 'package:<your_app>/ui/shadcn/input/input.dart';",
+  "tags": ["form", "input", "text", "password", "spinner"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["form_core", "input_features", "text_editing"],
+    "components": []
+  },
+  "dependencies": {
+    "components": []
+  },
+  "files": ["input.dart", "input_style.dart", "input_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["Input", "InputTheme"],
+    "constants": ["inputDefaults", "inputThemeOverrides"],
+    "providedByPrimitives": {
+      "text_editing": [
+        "ShadcnSelectionControls",
+        "ShadcnTextSelectionToolbar",
+        "defaultShadcnContextMenuBuilder",
+        "EditableTextHost",
+        "EditableTextShell",
+        "EditableTextFieldRow",
+        "EditableTextValidation"
+      ],
+      "input_features": [
+        "InputFeature",
+        "InputFeatureCondition",
+        "InputFeatureState",
+        "InputFeatureSlots",
+        "InputFeatureIconButton",
+        "InputIconFeature",
+        "InputLeadingFeature",
+        "InputTrailingFeature",
+        "InputAboveBelowFeature",
+        "InputClearFeature",
+        "InputCopyFeature",
+        "InputPasteFeature",
+        "InputHintFeature",
+        "InputPasswordToggleFeature",
+        "InputRevalidateFeature",
+        "InputSpinnerFeature",
+        "InputStepperButtonFeature",
+        "InputAutoCompleteFeature",
+        "InputClearIntent",
+        "InputAppendTextIntent",
+        "InputSelectAllAndCopyIntent",
+        "InputShowHintIntent",
+        "buildInputActions"
+      ]
+    },
+    "enums": ["InputFeaturePosition", "InputFeatureVisibility", "PasswordPeekMode"],
+    "typedefs": ["SuggestionBuilder"]
+  },
+  "theme": {
+    "class": "InputTheme",
+    "userFile": "input_theme.dart",
+    "defaults": "inputDefaults",
+    "fields": {
+      "background": "StateValue<ThemedColor>? - per-state fill, input@0.3 rest / 0.5 hovered / 0 disabled",
+      "borderColor": "StateValue<ThemedColor>? - input token; destructive while errorText is set",
+      "borderWidth": "double? - 1.0",
+      "borderRadius": "BorderRadiusGeometry? - null resolves radiusMd",
+      "padding": "EdgeInsetsGeometry? - defaults to 12 x 8",
+      "textStyle": "TextStyle? - its color wins over the foreground token",
+      "hintStyle": "TextStyle? - defaults to mutedForeground",
+      "cursorColor": "ThemedColor? - defaults to primary",
+      "height": "double? - minimum field height, 36"
+    }
+  }
+}

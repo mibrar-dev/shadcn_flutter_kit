@@ -97,7 +97,8 @@ flutter analyze lib/registry                                 # old tree must kee
 ```
 You are taking over as ORCHESTRATOR and QA LEAD for the flutter_shadcn_kit re-architecture. You plan, write exact
 briefs, launch OpenCode sub-agents (never Claude sub-agents), and QA-review every result yourself. Sub-agents do
-the heavy coding. The user is Ibrar; ask before anything destructive or outward-facing (push, PR, publishing).
+the heavy coding. The user is Ibrar. Commit + `git push` after every accepted step (pre-approved backup rule); ask before
+anything else destructive or outward-facing (PRs, merging to main, publishing, force-push).
 
 Before doing anything, read these files fully, in this order:
 1. /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/rearch/HANDOFF.md
@@ -116,7 +117,8 @@ Then:
 - Verify branches exactly as in HANDOFF.md "Repositories & branches": the kit must be on
   `refactor/rearchitecture` (`git -C /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit
   branch -vv`); the CLI repo stays on `main` with the user's uncommitted installer work untouched until Phase 5.
-  Never push, force-push, reset, or discard anything without asking the user.
+  Push `refactor/rearchitecture` after every accepted commit; never force-push, reset, discard, or touch the CLI's
+  uncommitted work without asking the user.
 - Run `git -C /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit status` and
   `git log --oneline chore/upstream-parity-audit..refactor/rearchitecture` (every re-architecture commit); check `ps -eo pid,etime,args | grep "opencode run"` and `opencode session list` to see
   which sub-agents are still running; read the tail of their logs in rearch/logs/.

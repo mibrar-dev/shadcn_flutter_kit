@@ -1,0 +1,62 @@
+{
+  "id": "button",
+  "name": "Button",
+  "category": "control",
+  "description": "Pressable action control with seven variants and five fixed sizes, plus a connected ButtonGroup.",
+  "tier": "component",
+  "install": "flutter_shadcn add button",
+  "import": "import 'package:<your_app>/ui/shadcn/button/button.dart';",
+  "tags": ["control", "button", "action", "group"],
+  "deps": {
+    "foundation": ["data", "gap"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["clickable"],
+    "components": []
+  },
+  "dependencies": {
+    "components": []
+  },
+  "files": [
+    "button.dart",
+    "button_style.dart",
+    "button_theme.dart",
+    "button_group.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Button",
+      "ButtonGroup",
+      "ButtonGroupData",
+      "ButtonTheme",
+      "ButtonVariantStyle"
+    ],
+    "enums": ["ButtonVariant", "ButtonSize"],
+    "constants": [
+      "buttonDefaultTextStyle",
+      "buttonDefaults",
+      "buttonThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ButtonTheme",
+    "userFile": "button_theme.dart",
+    "defaults": "buttonDefaults",
+    "fields": {
+      "primary": "ButtonVariantStyle? - filled high-emphasis row",
+      "secondary": "ButtonVariantStyle? - filled lower-emphasis row",
+      "outline": "ButtonVariantStyle? - 1px input border row",
+      "ghost": "ButtonVariantStyle? - hover-fill-only row",
+      "link": "ButtonVariantStyle? - underlined-on-hover row",
+      "text": "ButtonVariantStyle? - muted label row",
+      "destructive": "ButtonVariantStyle? - danger row",
+      "background": "StateValue<ThemedColor>? - per-state fill",
+      "foreground": "StateValue<ThemedColor>? - per-state label/icon colour",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "borderWidth": "double? - used when borderColor resolves",
+      "decoration": "StateValue<TextDecoration>? - link underline",
+      "padding": "EdgeInsetsGeometry? - null = size table, density-scaled",
+      "textStyle": "TextStyle? - null = size table"
+    }
+  }
+}

@@ -157,3 +157,13 @@
   meta.json single `deps`. Orchestrator re-ran: format 0 changed, analyze 0, dialog+l10n tests 41/41,
   check_layers 0 errors. Accepted warning: localizations.dart 401/400 lines.
 - Deviation accepted: transitionDuration fixed at push time (framework reads it on install).
+
+## P3-B button + button_group + toggle (deepseek, ses_ef0d6f5ebffe5cH0TdA68nY0hE) — ACCEPTED (r1)
+- One ECONNRESET at start, resumed in the same session. Orchestrator re-ran: format 0 changed, analyze 0,
+  test/registry_next 265/265, check_layers 0 errors, single_owner 0, check_user_theme --strict 0.
+- Read: ButtonVariantStyle/ButtonTheme merge is receiver-wins per field (TextStyle merged fallback-under-receiver);
+  disabled = whole control Opacity 0.5, no disabled colour rows; hover /90 primary+destructive, /80 secondary;
+  destructive label uses destructiveForeground. Toggle owns ToggleStyle (no cross-component import), integrates
+  FormValueSupplier. Focus ring keyboard-only via Clickable (tested).
+- Accepted: button_test.dart 518 lines (tests not held to the 400 guideline); Toggle state-specific style beats
+  generic theme. Phase 4 notes: Button.fixed (2 old users), SelectedButton (4) recorded in P3B_BUTTON.md.

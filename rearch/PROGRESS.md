@@ -10,7 +10,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 0 Baseline | ✅ done |
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | 🔄 foundation, theme, presets, tooling ✅ accepted; primitives (P2-E1, P2-E2) not started |
-| 3 Pilot (button, input, dialog) | 🔄 design ✅ (rearch/reports/P3_PILOT_DESIGN.md) — 13 decisions await user approval; build after primitives |
+| 3 Pilot (button, input, dialog) | 🔄 design ✅ (rearch/reports/P3_PILOT_DESIGN.md) — 13 decisions user-APPROVED 2026-10-06; build after primitives |
 | 4 Migrate remaining components + cutover | ⏳ not started |
 | 5 CLI | ⏳ not started |
 | 6 Docs gallery, final QA, PR | ⏳ not started |
@@ -77,4 +77,5 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
 - OpenCode launches now use `--standalone` (two hung starts on the shared service). Still start agents a few seconds apart; if a log stays 0 bytes for > 2 minutes the agent is hung —
   kill the `opencode run` process and relaunch.
 - Rename Theme/ThemeData/ColorScheme → ShadcnTheme/ShadcnThemeData/ShadcnColors (approved).
+- Phase 3 pilot decisions B1–B4, I1–I3, D1–D4, T1–T2 approved (see P3_PILOT_DESIGN.md §5).
 - Behaviour changes approved: per-field theme merge; destructive button text uses destructiveForeground.

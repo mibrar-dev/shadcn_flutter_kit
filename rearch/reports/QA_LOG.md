@@ -120,3 +120,4 @@
   label; destructive rest a0.5). Now disabled = rest at opacity 0.5, hover /90 (primary, destructive), /80 secondary.
 - Note: D1 rationale is slightly off (widgets has no `showDialog`; rename still avoids clashing with Material apps).
 - 13 decisions (B1–B4, I1–I3, D1–D4, T1–T2) await user approval before Phase 3 build.
+- 2026-10-06: user (Ibrar) approved ALL 13 decisions (B1–B4, I1–I3, D1–D4, T1–T2) as recommended.

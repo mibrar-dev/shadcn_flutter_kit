@@ -110,3 +110,13 @@
   Tests updated to assert the fixed behaviour.
 - Accepted deviation: register/unregister moved from DataHolder to DataReceiverRegistry (breaks an import cycle;
   0 external references).
+
+## P3-A pilot design (muse-spark, ses_ef114babeffeIXcJ7ljUsKecJH) — ACCEPTED after r2 + orchestrator fix
+- r1 rejected: input depended on autocomplete component (breaks install-alone); stock EditableText would drop
+  selection/handles/copy-paste; dialog barrier 0.8 (shadcn is bg-black/50).
+- r2: dependency inverted (autocomplete → input), widgets-only `primitives/text_editing.dart` specified with tests,
+  barrier 0.5, recommendation per approval item. Verified by grep.
+- Orchestrator fix: button variant table ported an old bug (primary disabled bg = fg = mutedForeground → invisible
+  label; destructive rest a0.5). Now disabled = rest at opacity 0.5, hover /90 (primary, destructive), /80 secondary.
+- Note: D1 rationale is slightly off (widgets has no `showDialog`; rename still avoids clashing with Material apps).
+- 13 decisions (B1–B4, I1–I3, D1–D4, T1–T2) await user approval before Phase 3 build.

@@ -9,7 +9,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 |---|---|
 | 0 Baseline | ✅ done |
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
-| 2 Foundation + theme + primitives + presets | 🔄 foundation, theme, presets, tooling ✅ accepted; primitives (P2-E1, P2-E2) not started |
+| 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
 | 3 Pilot (button, input, dialog) | 🔄 design ✅ (rearch/reports/P3_PILOT_DESIGN.md) — 13 decisions user-APPROVED 2026-10-06; build after primitives |
 | 4 Migrate remaining components + cutover | ⏳ not started |
 | 5 CLI | ⏳ not started |
@@ -51,7 +51,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | Unit | Model | OpenCode session | Brief | State |
 |---|---|---|---|---|
 | P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md + fixes/P2-A-r2.md | ✅ ACCEPTED + pushed (14fa1fc) |
-| P2-E1 primitives (interaction/overlay/animation/layout) | deepseek-v4.1-flash#max | — | rearch/briefs/P2-E1-primitives-interaction.md | 🔄 RUNNING (fresh session, log rearch/logs/P2-E1-primitives.log) |
+| P2-E1 primitives (interaction/overlay/animation/layout) | deepseek-v4.1-flash#max | — | rearch/briefs/P2-E1-primitives-interaction.md | ✅ ACCEPTED r2 + pushed (ses_ef1179393ffemfjo5UQLFYBbr9) |
 | P2-E2 primitives (form_core/text/localizations) | space-bunny-free#max | — | rearch/briefs/P2-E2-primitives-form-text-l10n.md | ✅ ACCEPTED r2 + pushed (ses_ef1177469ffe45Lj1CqOsRpl3u) |
 | P2-B theme/ | muse-spark-1.3-contributor#xhigh | ses_ef18472acffex09RhUxX5X1vPf | rearch/briefs/P2-B-theme.md + fixes/P2-B-r2.md | ✅ ACCEPTED + committed (c863786) |
 | P2-D presets | space-bunny-free#max | rearch:P2-D-presets | rearch/briefs/P2-D-presets.md | ✅ ACCEPTED + pushed (22c0f20) |

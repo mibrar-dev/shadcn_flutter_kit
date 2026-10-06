@@ -131,3 +131,12 @@
   `SelectableText` then() dropped (Material-only, 0 call sites). text/ = 3 files (ok).
 - Carry to Phase 4: form component must own FormController-aware pending fan-out (FormPendingBuilder is
   controller-free in L2). OWNERSHIP T1-style edits listed in rearch/reports/P2E2_PRIMITIVES.md.
+
+## P2-E1 primitives interaction/overlay/animation/layout (deepseek, ses_ef1179393ffemfjo5UQLFYBbr9) — ACCEPTED (r2)
+- r1: gates green (230 tests); exit=1 at the end (printed P2-A's report instead of its own; own report existed).
+  Returned for 3 ported old bugs: global mutable `OverlayManager._current` (register/unregister), FadeScroll
+  remounting its child when the mask toggles (scroll offset lost), SubFocus letting disabled items become current.
+  Stray draft at `$KIT/lib/registry_next/primitives/layout.dart` (outside the app) moved to orchestrator scratchpad.
+- r2: all 3 fixed with tests. Orchestrator re-ran: format 0 changed, analyze 0, 233/233, check_layers 0 errors,
+  single_owner 0 duplicates, no ignore/material/part. Read overlay_manager (no static state), fade_scroll
+  (ShaderMask always present), subfocus_scope.requestFocus (guards isEnabled). color_extensions alpha multiplies.

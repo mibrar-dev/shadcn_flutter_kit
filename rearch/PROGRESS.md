@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-06 02:55 (Europe/London) by the orchestrator (Claude Opus 5.5).
+Last updated: 2026-10-06 (new orchestrator session) (Europe/London) by the orchestrator (Claude Opus 5.5).
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -51,8 +51,8 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | Unit | Model | OpenCode session | Brief | State |
 |---|---|---|---|---|
 | P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md + fixes/P2-A-r2.md | ✅ ACCEPTED + pushed (14fa1fc) |
-| P2-E1 primitives (interaction/overlay/animation/layout) | deepseek-v4.1-flash#max | — | rearch/briefs/P2-E1-primitives-interaction.md | ⏸ NOT STARTED — brief ready (a launch was stopped by user request within minutes; no files written; start a FRESH session) |
-| P2-E2 primitives (form_core/text/localizations) | space-bunny-free#max | — | rearch/briefs/P2-E2-primitives-form-text-l10n.md | ⏸ NOT STARTED — brief ready (same as above) |
+| P2-E1 primitives (interaction/overlay/animation/layout) | deepseek-v4.1-flash#max | — | rearch/briefs/P2-E1-primitives-interaction.md | 🔄 RUNNING (fresh session, log rearch/logs/P2-E1-primitives.log) |
+| P2-E2 primitives (form_core/text/localizations) | space-bunny-free#max | — | rearch/briefs/P2-E2-primitives-form-text-l10n.md | 🔄 RUNNING (fresh session, log rearch/logs/P2-E2-primitives.log) |
 | P2-B theme/ | muse-spark-1.3-contributor#xhigh | ses_ef18472acffex09RhUxX5X1vPf | rearch/briefs/P2-B-theme.md + fixes/P2-B-r2.md | ✅ ACCEPTED + committed (c863786) |
 | P2-D presets | space-bunny-free#max | rearch:P2-D-presets | rearch/briefs/P2-D-presets.md | ✅ ACCEPTED + pushed (22c0f20) |
 | P2-C tooling | fledge-alpha-free | ses_ef1846c81ffenqH8vpcvvVb38i | rearch/briefs/P2-C-tooling.md | ✅ ACCEPTED + committed (8951dda) |

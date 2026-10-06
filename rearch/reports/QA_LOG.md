@@ -140,3 +140,9 @@
 - r2: all 3 fixed with tests. Orchestrator re-ran: format 0 changed, analyze 0, 233/233, check_layers 0 errors,
   single_owner 0 duplicates, no ignore/material/part. Read overlay_manager (no static state), fade_scroll
   (ShaderMask always present), subfocus_scope.requestFocus (guards isEnabled). color_extensions alpha multiplies.
+
+## P3-T check_layers registry_next deps mode (fledge) — ACCEPTED (r1)
+- Components whose meta.json has a `deps` object are checked against it (undeclared = error, unused = warning,
+  folder-style primitive deps). Orchestrator re-ran: format 0 changed, analyze 0, test/rearch 38/38; registry_next
+  undeclared 7 → 1 (remaining one is in the in-flight dialog r2); old tree counts identical to baseline/layers.json
+  (205/2246/1964/1/19/92/6).

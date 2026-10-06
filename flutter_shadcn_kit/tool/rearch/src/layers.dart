@@ -7,8 +7,22 @@
 //   layer-direction         error  - imports that point at a higher layer.
 //   undeclared-dependency   error  - imports missing from meta.json deps.
 //   file-too-long           warning - more than 400 physical lines.
+//   unused-dependency       warning - declared deps never imported (deps
+//                                      format only).
 //
 // The per-file rule logic lives in layer_checks.dart.
+//
+// Dependency checking has two modes, picked per component by the presence
+// of a `deps` object in its meta.json:
+//   * registry_next mode (`deps: {"foundation": [...], "theme": [...],
+//     "primitives": [...], "components": [...]}`): every entry is a file
+//     stem relative to that layer (`"data"` = `foundation/data.dart`) or a
+//     folder name (`"form_core"` = `primitives/form_core/`). An import not
+//     covered by a declared entry is an `undeclared-dependency` error, and
+//     a declared entry never imported by the component is an
+//     `unused-dependency` warning.
+//   * legacy mode (`dependencies.components` / `dependencies.shared`):
+//     unchanged behaviour driven by the shared manifests.
 
 import 'dart_parse.dart';
 import 'dir_checks.dart';
@@ -23,6 +37,7 @@ const List<String> layerRuleIds = <String>[
   'layer-direction',
   'undeclared-dependency',
   'file-too-long',
+  'unused-dependency',
   'installable',
   'no-impl-dir',
 ];
@@ -167,6 +182,9 @@ LayersReport runLayersCheck({
   }
   if (enabled.contains('undeclared-dependency')) {
     dependencies.flush(findings);
+  }
+  if (enabled.contains('unused-dependency')) {
+    dependencies.flushUnused(findings, scan);
   }
   if (enabled.contains('installable')) {
     findings.addAll(installableFindings(scan, newLayout: isNewLayout));

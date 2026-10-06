@@ -1,0 +1,11 @@
+{
+  "id": "ok",
+  "deps": {
+    "foundation": ["data", "gap"],
+    "theme": ["tokens"],
+    "primitives": ["clickable", "form_core"],
+    "components": []
+  },
+  "dependencies": {"components": []},
+  "files": ["ok.dart"]
+}

@@ -11,6 +11,13 @@ import 'registry_scan.dart';
 class DependencyCollector {
   final Map<String, List<_DependencySite>> _sites = {};
   final Map<String, DependencyMeta> _meta = {};
+  final Map<ComponentInfo, Set<String>> _importsByComponent = {};
+
+  /// Records that [owner] imports [targetRelPath] (used by the
+  /// `unused-dependency` rule).
+  void recordImport(ComponentInfo owner, String targetRelPath) {
+    (_importsByComponent[owner] ??= <String>{}).add(targetRelPath);
+  }
 
   void add({
     required String file,
@@ -55,6 +62,54 @@ class DependencyCollector {
       );
     }
   }
+
+  /// Appends one `unused-dependency` (warning) finding per declared dep
+  /// entry in `meta.json` `deps` that no file of the component imports.
+  void flushUnused(List<LayerFinding> findings, RegistryScan scan) {
+    for (final component in scan.components) {
+      final deps = component.meta['deps'];
+      if (deps is! Map) {
+        continue;
+      }
+      final imported = _importsByComponent[component] ?? const <String>{};
+      for (final layer in const <String>[
+        'foundation',
+        'theme',
+        'primitives',
+        'components',
+      ]) {
+        final declared = deps[layer];
+        if (declared is! List) {
+          continue;
+        }
+        for (final entry in declared.whereType<String>()) {
+          final used = imported.any((target) {
+            if (layer == 'components') {
+              return target.startsWith('components/$entry/');
+            }
+            return depEntryCovers(layer, entry, target);
+          });
+          if (!used) {
+            findings.add(
+              LayerFinding(
+                rule: 'unused-dependency',
+                file: '${component.relDir}/meta.json',
+                line: 0,
+                message:
+                    "declared dependency '$entry' in deps.$layer "
+                    'is never imported',
+                details: <String, Object?>{
+                  'component': component.id,
+                  'layer': layer,
+                  'dependency': entry,
+                },
+              ),
+            );
+          }
+        }
+      }
+    }
+  }
 }
 
 /// A single rule violation.
@@ -97,7 +152,10 @@ class LayerFinding {
 }
 
 /// Rules reported as warnings; everything else is an error.
-const Set<String> layerWarningRules = <String>{'file-too-long'};
+const Set<String> layerWarningRules = <String>{
+  'file-too-long',
+  'unused-dependency',
+};
 
 /// Maximum file length before `file-too-long` fires.
 const int maxFileLines = 400;
@@ -220,6 +278,12 @@ void checkLayerFile({
     if (enabled.contains('undeclared-dependency') &&
         owner.kind == 'component' &&
         baseName(parsed.relPath) != 'preview.dart') {
+      _recordImport(
+        scan: scan,
+        owner: owner,
+        targetRelPath: targetRelPath,
+        dependencies: dependencies,
+      );
       _checkDependency(
         scan: scan,
         owner: owner,
@@ -229,9 +293,40 @@ void checkLayerFile({
         targetRelPath: targetRelPath,
         dependencies: dependencies,
       );
+    } else if (enabled.contains('unused-dependency') &&
+        owner.kind == 'component' &&
+        baseName(parsed.relPath) != 'preview.dart') {
+      _recordImport(
+        scan: scan,
+        owner: owner,
+        targetRelPath: targetRelPath,
+        dependencies: dependencies,
+      );
     }
   }
 }
+
+/// Records the import target so the `unused-dependency` rule can later
+/// decide whether a declared dep entry is actually imported.
+void _recordImport({
+  required RegistryScan scan,
+  required OwnerUnit owner,
+  required String targetRelPath,
+  required DependencyCollector dependencies,
+}) {
+  final self = owner.component!;
+  final targetOwner = scan.ownerOf(joinPath(scan.root, targetRelPath));
+  if (targetOwner.kind == 'component' && targetOwner.component!.id == self.id) {
+    return;
+  }
+  dependencies.recordImport(self, targetRelPath);
+}
+
+/// Whether [entry] (a file stem or folder name) in [layer] covers the
+/// import target [targetRelPath].
+bool depEntryCovers(String layer, String entry, String targetRelPath) =>
+    targetRelPath == '$layer/$entry.dart' ||
+    targetRelPath.startsWith('$layer/$entry/');
 
 void _checkDependency({
   required RegistryScan scan,
@@ -243,6 +338,20 @@ void _checkDependency({
   required DependencyCollector dependencies,
 }) {
   final self = owner.component!;
+  final deps = self.meta['deps'];
+  if (deps is Map) {
+    _checkNextDeps(
+      scan: scan,
+      self: self,
+      deps: deps,
+      parsed: parsed,
+      uri: uri,
+      line: line,
+      targetRelPath: targetRelPath,
+      dependencies: dependencies,
+    );
+    return;
+  }
   final targetOwner = scan.ownerOf(joinPath(scan.root, targetRelPath));
   if (targetOwner.kind == 'component') {
     final targetId = targetOwner.component!.id;
@@ -300,6 +409,79 @@ void _checkDependency({
       );
     }
   }
+}
+
+/// New-format (`deps` in meta.json) dependency check.
+void _checkNextDeps({
+  required RegistryScan scan,
+  required ComponentInfo self,
+  required Map deps,
+  required ParsedDartFile parsed,
+  required String uri,
+  required int line,
+  required String targetRelPath,
+  required DependencyCollector dependencies,
+}) {
+  final segments = targetRelPath.split('/');
+  if (segments.first == 'components') {
+    final targetOwner = scan.ownerOf(joinPath(scan.root, targetRelPath));
+    if (targetOwner.kind != 'component') {
+      return;
+    }
+    final targetId = targetOwner.component!.id;
+    if (targetId == self.id) {
+      return;
+    }
+    final declared = deps['components'];
+    final list = declared is List
+        ? declared.whereType<String>().toList()
+        : const <String>[];
+    if (list.contains(targetId)) {
+      return;
+    }
+    dependencies.add(
+      file: parsed.relPath,
+      key: 'component:$targetId',
+      meta: DependencyMeta(
+        kind: 'component',
+        dependency: targetId,
+        message:
+            "missing component dependency '$targetId' in "
+            'meta.json deps.components',
+      ),
+      uri: uri,
+      target: targetRelPath,
+      line: line,
+    );
+    return;
+  }
+  const layers = <String>{'foundation', 'theme', 'primitives'};
+  if (!layers.contains(segments.first)) {
+    return;
+  }
+  final layer = segments.first;
+  final declared = deps[layer];
+  final list = declared is List
+      ? declared.whereType<String>().toList()
+      : const <String>[];
+  if (list.any((entry) => depEntryCovers(layer, entry, targetRelPath))) {
+    return;
+  }
+  final underLayer = targetRelPath.substring(layer.length + 1);
+  dependencies.add(
+    file: parsed.relPath,
+    key: '$layer:$underLayer',
+    meta: DependencyMeta(
+      kind: layer,
+      dependency: underLayer.endsWith('.dart')
+          ? underLayer.substring(0, underLayer.length - '.dart'.length)
+          : underLayer,
+      message: "missing dependency '$underLayer' in meta.json deps.$layer",
+    ),
+    uri: uri,
+    target: targetRelPath,
+    line: line,
+  );
 }
 
 class DependencyMeta {

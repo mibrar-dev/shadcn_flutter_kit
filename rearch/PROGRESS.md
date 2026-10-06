@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-06 01:30 (Europe/London) by the orchestrator (Claude Opus 5.5).
+Last updated: 2026-10-06 01:40 (Europe/London) by the orchestrator (Claude Opus 5.5).
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -49,7 +49,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | P2-A foundation/ | deepseek-v4.1-flash#max | ses_ef174b744ffeu19TNyEvVDPmcC | rearch/briefs/P2-A-foundation.md | running (relaunched 01:09 after a hung first start) |
 | P2-B theme/ | muse-spark-1.3-contributor#xhigh | ses_ef18472acffex09RhUxX5X1vPf | rearch/briefs/P2-B-theme.md + fixes/P2-B-r2.md | ✅ ACCEPTED + committed (c863786) |
 | P2-D presets | space-bunny-free#max | (see `opencode session list`, title rearch:P2-D-presets) | rearch/briefs/P2-D-presets.md | running |
-| P2-C tooling | fledge-alpha-free | ses_ef1846c81ffenqH8vpcvvVb38i | rearch/briefs/P2-C-tooling.md | running |
+| P2-C tooling | fledge-alpha-free | ses_ef1846c81ffenqH8vpcvvVb38i | rearch/briefs/P2-C-tooling.md | ✅ ACCEPTED + committed (8951dda) |
 Uncommitted on disk right now: their outputs (`lib/registry_next/`, `test/registry_next/`, `tool/rearch/*`,
 `test/rearch/*`) — commit only after QA acceptance.
 
@@ -68,7 +68,7 @@ Uncommitted on disk right now: their outputs (`lib/registry_next/`, `test/regist
 
 ## Open items / known issues
 - `flutter_shadcn_kit/.tmp/` appeared (untracked, created by an agent) — inspect before committing; do not commit.
-- OpenCode launches: start agents a few seconds apart; if a log stays 0 bytes for > 2 minutes the agent is hung —
+- OpenCode launches now use `--standalone` (two hung starts on the shared service). Still start agents a few seconds apart; if a log stays 0 bytes for > 2 minutes the agent is hung —
   kill the `opencode run` process and relaunch.
 - Rename Theme/ThemeData/ColorScheme → ShadcnTheme/ShadcnThemeData/ShadcnColors (approved).
 - Behaviour changes approved: per-field theme merge; destructive button text uses destructiveForeground.

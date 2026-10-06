@@ -178,3 +178,9 @@
   double-tap/long-press selection, context menu (read-only drops Cut/Paste), copy/paste via clipboard, spinner clamp.
 - Accepted: validator gets raw text ('' when empty); hint popover alignment ported (visual pass later);
   T1 OWNERSHIP.md one-line correction applied.
+
+## P4-PRIM-A scroll_metrics, date_math, color_math, menu_nav (deepseek-v4.1-flash) — ACCEPTED (r1)
+- Orchestrator re-ran on its 8 files (other batches in flight): format 0 changed, analyze 0, 56/56 tests; imports
+  downward only; no static mutable state; contrastRatio = WCAG (luminance + 0.05). Old hex-parse crash fixed (returns
+  null, regression test). Q1 scrollbar overscroll shrink stays in the component; Q2 typeahead reset = ctor param;
+  Q3 nullable year bounds kept — all as recommended.

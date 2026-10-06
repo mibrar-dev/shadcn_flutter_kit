@@ -1,0 +1,3 @@
+class BadTheme {
+  const BadTheme();
+}

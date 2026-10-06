@@ -1,0 +1,3 @@
+class ImplDir {
+  const ImplDir();
+}

@@ -196,6 +196,11 @@ class RegistryScan {
   /// `_impl/` are attributed to the shared group's owning entry file when one
   /// can be determined (same stem at the group root, or an entry file that
   /// exports the `_impl` file), otherwise `UNKNOWN`.
+  ///
+  /// In the new tree there is no `shared/` directory: the L0-L2 code lives in
+  /// `foundation/`, `theme/` and `primitives/` at the root. Those files are
+  /// attributed the same way as `shared/<group>/<stem>` files so the
+  /// `undeclared-dependency` check keeps working on both trees.
   OwnerUnit ownerOf(String absPath) {
     final component = componentFor(absPath);
     if (component != null) {
@@ -203,27 +208,38 @@ class RegistryScan {
     }
     final relPath = relPathOf(absPath);
     if (relPath.startsWith('shared/')) {
-      final segments = relPath.split('/');
-      if (segments.length >= 3) {
-        final group = segments[1];
-        final stem = stemOf(relPath);
-        if (segments.contains('_impl')) {
-          final entryRelPath = 'shared/$group/$stem.dart';
-          if (fileExists(entryRelPath)) {
-            return OwnerUnit('shared/$group/$stem', 'shared');
-          }
+      return _sharedOwner(relPath, prefix: 'shared');
+    }
+    for (final layer in const <String>['foundation', 'theme', 'primitives']) {
+      if (relPath.startsWith('$layer/')) {
+        return _sharedOwner(relPath, prefix: layer);
+      }
+    }
+    return const OwnerUnit('UNKNOWN', 'unknown');
+  }
+
+  OwnerUnit _sharedOwner(String relPath, {required String prefix}) {
+    final segments = relPath.split('/');
+    if (segments.length >= 3) {
+      final group = segments[1];
+      final stem = stemOf(relPath);
+      if (segments.contains('_impl')) {
+        final entryRelPath = '$prefix/$group/$stem.dart';
+        if (fileExists(entryRelPath)) {
+          return OwnerUnit('$prefix/$group/$stem', 'shared');
+        }
+        if (prefix == 'shared') {
           final exportOwners = _entryOwnersForGroup(group);
           final owner = exportOwners[relPath];
           if (owner != null) {
             return OwnerUnit(owner, 'shared');
           }
-          return const OwnerUnit('UNKNOWN', 'unknown');
         }
-        return OwnerUnit('shared/$group/$stem', 'shared');
+        return const OwnerUnit('UNKNOWN', 'unknown');
       }
-      return OwnerUnit('shared/${stemOf(relPath)}', 'shared');
+      return OwnerUnit('$prefix/$group/$stem', 'shared');
     }
-    return const OwnerUnit('UNKNOWN', 'unknown');
+    return OwnerUnit('$prefix/${stemOf(relPath)}', 'shared');
   }
 
   /// Shared ids that cover [relPath] (relative to the root).

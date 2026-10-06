@@ -1,0 +1,3 @@
+class Tokens {
+  const Tokens();
+}

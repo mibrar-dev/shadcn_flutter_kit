@@ -1,0 +1,3 @@
+class Clickable {
+  const Clickable();
+}

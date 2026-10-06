@@ -11,6 +11,7 @@
 // The per-file rule logic lives in layer_checks.dart.
 
 import 'dart_parse.dart';
+import 'dir_checks.dart';
 import 'layer_checks.dart';
 import 'registry_scan.dart';
 
@@ -22,6 +23,8 @@ const List<String> layerRuleIds = <String>[
   'layer-direction',
   'undeclared-dependency',
   'file-too-long',
+  'installable',
+  'no-impl-dir',
 ];
 
 /// Result of a layer/hygiene scan.
@@ -124,6 +127,7 @@ LayersReport runLayersCheck({
   required String root,
   bool skipGenerated = true,
   Set<String>? rules,
+  bool? newLayout,
 }) {
   final enabled = rules == null
       ? layerRuleIds.toSet()
@@ -138,6 +142,9 @@ LayersReport runLayersCheck({
   final orderedRules = layerRuleIds
       .where(enabled.contains)
       .toList(growable: false);
+
+  // `--new-layout` on the CLI; inferred for roots ending in `registry_next`.
+  final isNewLayout = newLayout ?? root.endsWith('registry_next');
 
   final scan = RegistryScan.load(root, skipGenerated: skipGenerated);
   final findings = <LayerFinding>[];
@@ -160,6 +167,12 @@ LayersReport runLayersCheck({
   }
   if (enabled.contains('undeclared-dependency')) {
     dependencies.flush(findings);
+  }
+  if (enabled.contains('installable')) {
+    findings.addAll(installableFindings(scan, newLayout: isNewLayout));
+  }
+  if (enabled.contains('no-impl-dir') && isNewLayout) {
+    findings.addAll(noImplDirFindings(scan));
   }
 
   findings.sort((a, b) {

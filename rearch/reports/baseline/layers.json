@@ -31592,101 +31592,6 @@
     },
     {
       "details": {
-        "dependency": "card",
-        "examples": [
-          {
-            "line": 10,
-            "target": "components/layout/card/card.dart",
-            "uri": "../../layout/card/card.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/calendar/preview.dart",
-      "line": 10,
-      "message": "missing component dependency 'card' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/carousel/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "avatar",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/display/avatar/avatar.dart",
-            "uri": "../avatar/avatar.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/chat/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'avatar' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "scaffold",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/layout/scaffold/scaffold.dart",
-            "uri": "../../layout/scaffold/scaffold.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/empty_state/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'scaffold' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "app",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/layout/app/app.dart",
-            "uri": "../../layout/app/app.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/file_diff_viewer/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'app' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
         "dependency": "style_value",
         "examples": [
           {
@@ -31701,87 +31606,6 @@
       "file": "components/display/icon/_impl/core/icon_container.dart",
       "line": 6,
       "message": "missing shared dependency 'style_value' in meta.json dependencies.shared",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/linear_progress_indicator/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "axis",
-        "examples": [
-          {
-            "line": 10,
-            "target": "shared/utils/axis.dart",
-            "uri": "../../../shared/utils/axis.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "shared"
-      },
-      "file": "components/display/markdown/preview.dart",
-      "line": 10,
-      "message": "missing shared dependency 'axis' in meta.json dependencies.shared",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "chat",
-        "examples": [
-          {
-            "line": 11,
-            "target": "components/display/chat/chat.dart",
-            "uri": "../chat/chat.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/markdown/preview.dart",
-      "line": 11,
-      "message": "missing component dependency 'chat' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "text_animate",
-        "examples": [
-          {
-            "line": 13,
-            "target": "components/display/text_animate/text_animate.dart",
-            "uri": "../text_animate/text_animate.dart"
-          },
-          {
-            "line": 14,
-            "target": "components/display/text_animate/_impl/extensions/markdown_streaming_extension.dart",
-            "uri": "../text_animate/_impl/extensions/markdown_streaming_extension.dart"
-          }
-        ],
-        "importSites": 2,
-        "kind": "component"
-      },
-      "file": "components/display/markdown/preview.dart",
-      "line": 13,
-      "message": "missing component dependency 'text_animate' in meta.json dependencies.components",
       "rule": "undeclared-dependency",
       "severity": "error"
     },
@@ -31806,44 +31630,6 @@
     },
     {
       "details": {
-        "dependency": "text_field",
-        "examples": [
-          {
-            "line": 10,
-            "target": "components/form/text_field/text_field.dart",
-            "uri": "../../form/text_field/text_field.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/number_ticker/preview.dart",
-      "line": 10,
-      "message": "missing component dependency 'text_field' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/progress/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
         "dependency": "linear_progress_indicator",
         "examples": [
           {
@@ -31858,196 +31644,6 @@
       "file": "components/display/progress/progress.dart",
       "line": 7,
       "message": "missing component dependency 'linear_progress_indicator' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "basic_layout",
-        "examples": [
-          {
-            "line": 6,
-            "target": "shared/primitives/basic.dart",
-            "uri": "../../../shared/primitives/basic.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "shared"
-      },
-      "file": "components/display/skeleton/preview.dart",
-      "line": 6,
-      "message": "missing shared dependency 'basic_layout' in meta.json dependencies.shared",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "flex",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/layout/flex/flex.dart",
-            "uri": "../../layout/flex/flex.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/display/text_animate/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'flex' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "text_field",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/form/text_field/text_field.dart",
-            "uri": "../text_field/text_field.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/autocomplete/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'text_field' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "alert_dialog",
-        "examples": [
-          {
-            "line": 4,
-            "target": "components/overlay/alert_dialog/alert_dialog.dart",
-            "uri": "../../overlay/alert_dialog/alert_dialog.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/color_picker/preview.dart",
-      "line": 4,
-      "message": "missing component dependency 'alert_dialog' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "card",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/layout/card/card.dart",
-            "uri": "../../layout/card/card.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/color_picker/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'card' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "popover",
-        "examples": [
-          {
-            "line": 10,
-            "target": "components/overlay/popover/popover.dart",
-            "uri": "../../overlay/popover/popover.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/color_picker/preview.dart",
-      "line": 10,
-      "message": "missing component dependency 'popover' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "scaffold",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/layout/scaffold/scaffold.dart",
-            "uri": "../../layout/scaffold/scaffold.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/dropzone/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'scaffold' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "border_loading",
-        "examples": [
-          {
-            "line": 4,
-            "target": "components/display/border_loading/border_loading.dart",
-            "uri": "../../display/border_loading/border_loading.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/file_picker/preview.dart",
-      "line": 4,
-      "message": "missing component dependency 'border_loading' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "text",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/display/text/text.dart",
-            "uri": "../../display/text/text.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/file_picker/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'text' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "lucide_icons",
-        "examples": [
-          {
-            "line": 6,
-            "target": "shared/icons/lucide_icons.dart",
-            "uri": "../../../shared/icons/lucide_icons.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "shared"
-      },
-      "file": "components/form/file_picker/preview.dart",
-      "line": 6,
-      "message": "missing shared dependency 'lucide_icons' in meta.json dependencies.shared",
       "rule": "undeclared-dependency",
       "severity": "error"
     },
@@ -32167,253 +31763,6 @@
     },
     {
       "details": {
-        "dependency": "text_field",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/form/text_field/text_field.dart",
-            "uri": "../text_field/text_field.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/form/validated/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'text_field' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "shadcn_localizations",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/utility/shadcn_localizations/shadcn_localizations.dart",
-            "uri": "../../utility/shadcn_localizations/shadcn_localizations.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/app/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'shadcn_localizations' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "scaffold",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/layout/scaffold/scaffold.dart",
-            "uri": "../scaffold/scaffold.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/app/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'scaffold' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/card/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "text",
-        "examples": [
-          {
-            "line": 7,
-            "target": "components/display/text/text.dart",
-            "uri": "../../display/text/text.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/card/preview.dart",
-      "line": 7,
-      "message": "missing component dependency 'text' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "text_field",
-        "examples": [
-          {
-            "line": 8,
-            "target": "components/form/text_field/text_field.dart",
-            "uri": "../../form/text_field/text_field.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/card/preview.dart",
-      "line": 8,
-      "message": "missing component dependency 'text_field' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "alert_dialog",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/overlay/alert_dialog/alert_dialog.dart",
-            "uri": "../../overlay/alert_dialog/alert_dialog.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/card_image/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'alert_dialog' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "outlined_container",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/layout/outlined_container/outlined_container.dart",
-            "uri": "../outlined_container/outlined_container.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/collapsible/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'outlined_container' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "outlined_container",
-        "examples": [
-          {
-            "line": 10,
-            "target": "components/layout/outlined_container/outlined_container.dart",
-            "uri": "../outlined_container/outlined_container.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/filter_bar/preview.dart",
-      "line": 10,
-      "message": "missing component dependency 'outlined_container' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "outlined_container",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/layout/outlined_container/outlined_container.dart",
-            "uri": "../outlined_container/outlined_container.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/flex/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'outlined_container' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "outlined_container",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/layout/outlined_container/outlined_container.dart",
-            "uri": "../outlined_container/outlined_container.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/layout/scrollable/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'outlined_container' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/breadcrumb/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "triple_dots",
-        "examples": [
-          {
-            "line": 7,
-            "target": "components/display/triple_dots/triple_dots.dart",
-            "uri": "../../display/triple_dots/triple_dots.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/breadcrumb/preview.dart",
-      "line": 7,
-      "message": "missing component dependency 'triple_dots' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
         "dependency": "tree",
         "examples": [
           {
@@ -32428,120 +31777,6 @@
       "file": "components/navigation/navigation_bar/navigation_bar.dart",
       "line": 9,
       "message": "missing component dependency 'tree' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "card",
-        "examples": [
-          {
-            "line": 13,
-            "target": "components/layout/card/card.dart",
-            "uri": "../../layout/card/card.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 13,
-      "message": "missing component dependency 'card' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "checkbox",
-        "examples": [
-          {
-            "line": 14,
-            "target": "components/form/checkbox/checkbox.dart",
-            "uri": "../../form/checkbox/checkbox.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 14,
-      "message": "missing component dependency 'checkbox' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "divider",
-        "examples": [
-          {
-            "line": 15,
-            "target": "components/display/divider/divider.dart",
-            "uri": "../../display/divider/divider.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 15,
-      "message": "missing component dependency 'divider' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "popover",
-        "examples": [
-          {
-            "line": 17,
-            "target": "components/overlay/popover/popover.dart",
-            "uri": "../../overlay/popover/popover.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 17,
-      "message": "missing component dependency 'popover' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "scaffold",
-        "examples": [
-          {
-            "line": 18,
-            "target": "components/layout/scaffold/scaffold.dart",
-            "uri": "../../layout/scaffold/scaffold.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 18,
-      "message": "missing component dependency 'scaffold' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "select",
-        "examples": [
-          {
-            "line": 19,
-            "target": "components/form/select/select.dart",
-            "uri": "../../form/select/select.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/navigation_bar/preview.dart",
-      "line": 19,
-      "message": "missing component dependency 'select' in meta.json dependencies.components",
       "rule": "undeclared-dependency",
       "severity": "error"
     },
@@ -32585,101 +31820,6 @@
     },
     {
       "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/navigation/stepper/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/alert_dialog/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/dialog/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/drawer/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/dropdown_menu/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
         "dependency": "platform_utils",
         "examples": [
           {
@@ -32718,101 +31858,6 @@
     },
     {
       "details": {
-        "dependency": "basic",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/layout/basic/basic.dart",
-            "uri": "../../layout/basic/basic.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/hover_card/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'basic' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/hover_card/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "card",
-        "examples": [
-          {
-            "line": 7,
-            "target": "components/layout/card/card.dart",
-            "uri": "../../layout/card/card.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/hover_card/preview.dart",
-      "line": 7,
-      "message": "missing component dependency 'card' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/popover/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "button",
-        "examples": [
-          {
-            "line": 5,
-            "target": "components/control/button/button.dart",
-            "uri": "../../control/button/button.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/overlay/toast/preview.dart",
-      "line": 5,
-      "message": "missing component dependency 'button' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
         "dependency": "platform_utils",
         "examples": [
           {
@@ -32846,44 +31891,6 @@
       "file": "components/overlay/tooltip/tooltip.dart",
       "line": 16,
       "message": "missing component dependency 'overlay_configuration' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "scaffold",
-        "examples": [
-          {
-            "line": 9,
-            "target": "components/layout/scaffold/scaffold.dart",
-            "uri": "../../layout/scaffold/scaffold.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/utility/error_system/preview.dart",
-      "line": 9,
-      "message": "missing component dependency 'scaffold' in meta.json dependencies.components",
-      "rule": "undeclared-dependency",
-      "severity": "error"
-    },
-    {
-      "details": {
-        "dependency": "shadcn_localizations_en",
-        "examples": [
-          {
-            "line": 6,
-            "target": "components/utility/shadcn_localizations_en/shadcn_localizations_en.dart",
-            "uri": "../shadcn_localizations_en/shadcn_localizations_en.dart"
-          }
-        ],
-        "importSites": 1,
-        "kind": "component"
-      },
-      "file": "components/utility/shadcn_localizations_extensions/preview.dart",
-      "line": 6,
-      "message": "missing component dependency 'shadcn_localizations_en' in meta.json dependencies.components",
       "rule": "undeclared-dependency",
       "severity": "error"
     },
@@ -33530,14 +32537,56 @@
       "message": "413 lines (limit 400)",
       "rule": "file-too-long",
       "severity": "warning"
+    },
+    {
+      "file": "components/display/fade_scroll/meta.json",
+      "line": 0,
+      "message": "id 'fade_scroll_display' does not match directory name 'fade_scroll'",
+      "rule": "installable",
+      "severity": "error"
+    },
+    {
+      "file": "components/form/hsl",
+      "line": 0,
+      "message": "missing entry file 'hsl.dart'",
+      "rule": "installable",
+      "severity": "error"
+    },
+    {
+      "file": "components/form/hsv",
+      "line": 0,
+      "message": "missing entry file 'hsv.dart'",
+      "rule": "installable",
+      "severity": "error"
+    },
+    {
+      "file": "components/form/sortable/meta.json",
+      "line": 0,
+      "message": "id 'form_sortable' does not match directory name 'sortable'",
+      "rule": "installable",
+      "severity": "error"
+    },
+    {
+      "file": "components/layout/group",
+      "line": 0,
+      "message": "missing entry file 'group.dart'",
+      "rule": "installable",
+      "severity": "error"
+    },
+    {
+      "file": "components/navigation/tab_list",
+      "line": 0,
+      "message": "missing entry file 'tab_list.dart'",
+      "rule": "installable",
+      "severity": "error"
     }
   ],
-  "generatedAt": "2026-10-05T23:40:30.539220Z",
+  "generatedAt": "2026-10-06T00:13:24.295654Z",
   "root": "/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry",
   "schemaVersion": 1,
   "skipGenerated": true,
   "summary": {
-    "errors": 4487,
+    "errors": 4441,
     "filesScanned": 1969,
     "filesWithSyntaxErrors": 0,
     "rules": {
@@ -33624,6 +32673,36 @@
           {
             "count": 1,
             "file": "components/display/markdown/_impl/utils/markdown_parser_blocks.dart"
+          }
+        ]
+      },
+      "installable": {
+        "count": 6,
+        "severity": "error",
+        "topFiles": [
+          {
+            "count": 1,
+            "file": "components/display/fade_scroll/meta.json"
+          },
+          {
+            "count": 1,
+            "file": "components/form/hsl"
+          },
+          {
+            "count": 1,
+            "file": "components/form/hsv"
+          },
+          {
+            "count": 1,
+            "file": "components/form/sortable/meta.json"
+          },
+          {
+            "count": 1,
+            "file": "components/layout/group"
+          },
+          {
+            "count": 1,
+            "file": "components/navigation/tab_list"
           }
         ]
       },
@@ -33722,6 +32801,11 @@
             "file": "components/control/button/_impl/styles/button_shape.dart"
           }
         ]
+      },
+      "no-impl-dir": {
+        "count": 0,
+        "severity": "error",
+        "topFiles": []
       },
       "no-material": {
         "count": 205,
@@ -33896,44 +32980,12 @@
         ]
       },
       "undeclared-dependency": {
-        "count": 71,
+        "count": 19,
         "severity": "error",
         "topFiles": [
           {
-            "count": 6,
-            "file": "components/navigation/navigation_bar/preview.dart"
-          },
-          {
-            "count": 3,
-            "file": "components/display/markdown/preview.dart"
-          },
-          {
-            "count": 3,
-            "file": "components/form/color_picker/preview.dart"
-          },
-          {
-            "count": 3,
-            "file": "components/form/file_picker/preview.dart"
-          },
-          {
-            "count": 3,
-            "file": "components/layout/card/preview.dart"
-          },
-          {
-            "count": 3,
-            "file": "components/overlay/hover_card/preview.dart"
-          },
-          {
             "count": 2,
             "file": "components/form/select/select.dart"
-          },
-          {
-            "count": 2,
-            "file": "components/layout/app/preview.dart"
-          },
-          {
-            "count": 2,
-            "file": "components/navigation/breadcrumb/preview.dart"
           },
           {
             "count": 2,
@@ -33961,23 +33013,35 @@
           },
           {
             "count": 1,
-            "file": "components/display/calendar/preview.dart"
+            "file": "components/display/icon/_impl/core/icon_container.dart"
           },
           {
             "count": 1,
-            "file": "components/display/carousel/preview.dart"
+            "file": "components/display/number_ticker/number_ticker.dart"
           },
           {
             "count": 1,
-            "file": "components/display/chat/preview.dart"
+            "file": "components/display/progress/progress.dart"
           },
           {
             "count": 1,
-            "file": "components/display/empty_state/preview.dart"
+            "file": "components/form/form/form.dart"
           },
           {
             "count": 1,
-            "file": "components/display/file_diff_viewer/preview.dart"
+            "file": "components/form/hsl/hsl_color_slider.dart"
+          },
+          {
+            "count": 1,
+            "file": "components/form/hsv/hsv_color_slider.dart"
+          },
+          {
+            "count": 1,
+            "file": "components/form/phone_input/phone_input.dart"
+          },
+          {
+            "count": 1,
+            "file": "components/navigation/navigation_bar/navigation_bar.dart"
           }
         ]
       }

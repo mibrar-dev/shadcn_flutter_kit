@@ -79,3 +79,10 @@
     added test/registry_next/theme/fallback_colors_test.dart.
   - Accepted: typography.dart 613 lines (all 38 members have consumers); fontSerif stored but unwired;
     tracking.normal not auto-applied (same as old runtime).
+
+## P2-C tooling updates — fledge-alpha-free
+- ACCEPTED. Orchestrator re-ran: format clean, analyze 0, `flutter test test/rearch` 33/33.
+- `installable` on the old tree: 6 failures (tab_list, layout/group, form/hsl, form/hsv missing entry files;
+  form/sortable and display/fade_scroll id≠dir). undeclared-dependency 71 → 19 after preview exclusion.
+- Probed check_user_theme with a planted bad file: caught non-const decl, resolveWith, closure, function decl.
+- Ops: two hung OpenCode starts (P2-A first launch, P2-D first launch) — launchers now use `--standalone`.

@@ -218,7 +218,8 @@ void checkLayerFile({
       }
     }
     if (enabled.contains('undeclared-dependency') &&
-        owner.kind == 'component') {
+        owner.kind == 'component' &&
+        baseName(parsed.relPath) != 'preview.dart') {
       _checkDependency(
         scan: scan,
         owner: owner,
@@ -341,9 +342,13 @@ bool _isMaterialUri(String uri) =>
 
 /// Layer of a file, by its first path segment.
 ///
-/// `foundation` = 0, `theme` = 1, `primitives` = 2, `components` = 3, and the
-/// legacy `shared/**` tree is the special `shared` layer. Files without a
-/// layer segment (manifests, tools, previews outside the tree) return null.
+/// Both registry trees are supported:
+///   * legacy tree — `shared/**` is the special `shared` layer and
+///     `components/<category>/<name>` files are `components` (layer 3);
+///   * new tree (`registry_next`) — `foundation`=0, `theme`=1,
+///     `primitives`=2 at the root, `components/<name>`=3.
+/// Files without a layer segment (manifests, tools, previews outside the
+/// tree) return null.
 _Layer? _layerOfRelPath(String relPath) {
   final segments = relPath.split('/');
   if (segments.isEmpty) {

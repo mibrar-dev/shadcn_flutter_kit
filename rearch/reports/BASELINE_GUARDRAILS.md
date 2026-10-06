@@ -11,7 +11,37 @@ Guardrail scripts written in this task:
 | `tool/rearch/api_snapshot.dart` | public API per component + `--diff` | `rearch/reports/baseline/api.json` |
 
 All three scripts share helpers under `tool/rearch/src/` and are covered by
-fixture tests in `test/rearch/` (27 tests).
+fixture tests in `test/rearch/` (33 tests).
+
+## P2-C updates (guardrail tooling)
+
+New/changed rules and checks since the P1-B baseline:
+
+| Rule / tool | Behavior |
+|---|---|
+| `undeclared-dependency` | `preview.dart` files are now excluded (previews are not CLI-installed). Count moved from 71 to **19** with identical logic otherwise. |
+| `installable` (new, error) | Every component directory (`components/<name>` in the new tree, `components/<category>/<name>` in the old tree): has `meta.json`, `meta.id` == directory name, entry file `<dir>.dart` exists, and every file listed in `meta.files` exists. |
+| `no-impl-dir` (new, error) | New tree only (`--new-layout`, inferred when the root ends with `registry_next`): no `_impl/` directory under `components/`. |
+| layer detection | Both trees supported: legacy `shared/**` is the shared layer; new tree maps root-level `foundation/` (L0), `theme/` (L1), `primitives/` (L2) and `components/` (L3). New-tree `foundation|theme|primitives` files are attributed to owner units exactly like `shared/<group>/<stem>` so `undeclared-dependency` applies there too. |
+| `tool/rearch/check_user_theme.dart` (new) | Validates user-owned `components/<name>/<name>_theme.dart`: imports limited to `package:flutter/widgets.dart`, `<name>_style.dart`, `../../theme/*.dart`; only top-level `const` variable declarations; no function declarations, no closures, no `resolveWith`, no non-const constructor calls. `--json`, `--strict`. |
+
+### OLD tree (`lib/registry`) baseline re-run with the new rules
+
+`installable`: **6 findings** (all error) —
+
+| Component | Problem |
+|---|---|
+| `components/navigation/tab_list` | missing entry file `tab_list.dart` |
+| `components/layout/group` | missing entry file `group.dart` |
+| `components/form/hsl` | missing entry file `hsl.dart` |
+| `components/form/hsv` | missing entry file `hsv.dart` |
+| `components/form/sortable` | meta id `form_sortable` != directory `sortable` |
+| `components/display/fade_scroll` | meta id `fade_scroll_display` != directory `fade_scroll` |
+
+`no-impl-dir`: 0 finding on the OLD tree (rule is new-layout only; legacy
+`shared/**/_impl` stays allowed until cutover).
+`undeclared-dependency`: 19 (was 71 — the 52 findings in `preview.dart`
+files are now excluded). `layers.json` in this directory has been regenerated.
 
 ## How to reproduce
 
@@ -131,17 +161,20 @@ methodology, not disagreement:
 
 ```
 files scanned:  1969, files with syntax errors: 0
-errors: 4487, warnings: 92
+errors: 4441, warnings: 92  (post-P2-C recount; undeclared-dependency
+previews excluded (-52), installable added (+6))
 ```
 
-| Rule | Count | Severity | Notes |
+| Rule | Count (P1-B → P2-C) | Severity | Notes |
 |---|---|---|---|
 | `no-material` | 205 | error | 203× `package:flutter/material.dart`, 2× `package:flutter/cupertino.dart`; 203 distinct files |
 | `no-part` | 2246 | error | 1123 `part of` + 1123 `part` directives |
 | `no-ignore-for-file` | 1964 | error | every file except 5 has a blanket ignore comment |
 | `layer-direction` | 1 | error | see below |
-| `undeclared-dependency` | 71 | error | aggregated per (file, missing dependency) |
+| `undeclared-dependency` | 71 → **19** | error | aggregated per (file, missing dependency); `preview.dart` now excluded |
 | `file-too-long` | 92 | warning | >400 physical lines |
+| `installable` | **6** | error | see "P2-C updates" |
+| `no-impl-dir` | 0 | error | new layout only |
 
 ### Top offending components (all rules combined)
 

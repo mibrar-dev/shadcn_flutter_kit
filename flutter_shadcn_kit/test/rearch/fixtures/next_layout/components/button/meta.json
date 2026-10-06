@@ -1,0 +1,14 @@
+{
+  "id": "button",
+  "name": "Button",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  },
+  "files": [
+    "button.dart",
+    "button_style.dart",
+    "button_theme.dart",
+    "preview.dart"
+  ]
+}

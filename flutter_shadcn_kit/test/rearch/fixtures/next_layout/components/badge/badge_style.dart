@@ -1,0 +1,3 @@
+class BadgeTheme {
+  const BadgeTheme();
+}

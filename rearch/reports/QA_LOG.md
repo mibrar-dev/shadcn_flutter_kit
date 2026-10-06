@@ -70,3 +70,12 @@
   - F3: resolver merge lambda → `Mergeable<S>` so override-wins cannot be miswired.
   - F4: two `// ignore` comments (Styleable, deprecated member) — removed with the Styleable interface.
   - F5: typography.dart 613 lines → prune unused members.
+- r2 ACCEPTED. Orchestrator re-ran gates: format clean, analyze 0, tests 22/22 → 23/23 with orchestrator test.
+  Verified in code: tweakcn derive with absolute detail layers (1/2, 2/4, 4/6, 8/10) and 0.5/1/2.5 multipliers;
+  resolver constrained to `S extends Mergeable<S>` with `slice.merge(acc)`; ComponentThemes is an inherited
+  widget (no static state); no `// ignore`, no Styleable.
+  - Orchestrator fix: fallback `destructiveForeground` was 0x00000000 (transparent) in lightFallback/darkFallback
+    → destructive buttons would have invisible text without a preset. Set to white (shadcn v4 + old Colors.white);
+    added test/registry_next/theme/fallback_colors_test.dart.
+  - Accepted: typography.dart 613 lines (all 38 members have consumers); fontSerif stored but unwired;
+    tracking.normal not auto-applied (same as old runtime).

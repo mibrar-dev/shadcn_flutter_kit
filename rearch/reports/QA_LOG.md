@@ -121,3 +121,13 @@
 - Note: D1 rationale is slightly off (widgets has no `showDialog`; rename still avoids clashing with Material apps).
 - 13 decisions (B1–B4, I1–I3, D1–D4, T1–T2) await user approval before Phase 3 build.
 - 2026-10-06: user (Ibrar) approved ALL 13 decisions (B1–B4, I1–I3, D1–D4, T1–T2) as recommended.
+
+## P2-E2 primitives form_core/text/localizations (space-bunny, ses_ef1177469ffe45Lj1CqOsRpl3u) — ACCEPTED (r2)
+- r1: gates green (63 tests); returned for: controller→null reset value; DatePart/TimePart/DurationPart left in
+  layer 3; only en+de locales ported.
+- r2: controller→null keeps value (tested); enums moved to primitives/localizations/locale_parts.dart; all locales
+  ported (43 files). Orchestrator re-ran: format 0 changed, analyze 0 ×3 folders, 75/75 tests, no ignore/material.
+- Decisions: dropped DatePart.getter/computeValueRange + ~20 private calendar helpers (0 readers) — YES.
+  `SelectableText` then() dropped (Material-only, 0 call sites). text/ = 3 files (ok).
+- Carry to Phase 4: form component must own FormController-aware pending fan-out (FormPendingBuilder is
+  controller-free in L2). OWNERSHIP T1-style edits listed in rearch/reports/P2E2_PRIMITIVES.md.

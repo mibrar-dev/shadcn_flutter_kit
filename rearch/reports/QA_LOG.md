@@ -184,3 +184,11 @@
   downward only; no static mutable state; contrastRatio = WCAG (luminance + 0.05). Old hex-parse crash fixed (returns
   null, regression test). Q1 scrollbar overscroll shrink stays in the component; Q2 typeahead reset = ctor param;
   Q3 nullable year bounds kept — all as recommended.
+
+## P4-PRIM-B drag_sort, file_value/, toast_queue/ (space-bunny-free, ses_eef9aaff2ffeAtbMhe5cMMQqXh) — ACCEPTED (r2)
+- r1: 93 tests, 14 old bugs fixed (incl. toast globals `_defaultToastController`/`_toastSequence` removed, centred
+  toast had no dismiss direction, refreshed toast kept old timer, file size rounding); returned for file_value 462 /
+  toast_queue 496 lines.
+- r2: split into primitives/file_value/ and primitives/toast_queue/ folders (max 356 lines). Orchestrator re-ran its
+  6 test files: 94/94, format 0 changed, analyze 0. Decisions: color_input stale consumer; B22 row = FileUploadRow;
+  toast auto-dismiss policy documented once in ToastQueue (B09 toast + B18 gooey_toast must follow it).

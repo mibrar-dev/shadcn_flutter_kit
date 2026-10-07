@@ -78,5 +78,5 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
   kill the `opencode run` process and relaunch.
 - Rename Theme/ThemeData/ColorScheme → ShadcnTheme/ShadcnThemeData/ShadcnColors (approved).
 - Phase 3 pilot decisions B1–B4, I1–I3, D1–D4, T1–T2 approved (see P3_PILOT_DESIGN.md §5).
-- Models (user, 2026-10-06): prefer cheap/free high-limit models — opencode-go/deepseek-v4.1-flash, MiMo for vision: opencode/mimo-v2.6-flash-free (Zen, free) or opencode-go/mimo-v2.6-flash (Go), opencode-go/muse-spark-1.3-contributor, opencode/longcat-2.5-preview-free, opencode/space-bunny-free, opencode/fledge-alpha-free. Do NOT use deepseek-v4-flash-vision-exp.
+- Models (user, 2026-10-07; highest variant each offers): Zen opencode/space-bunny-free#max, opencode/fledge-alpha-free#max, opencode/exo-free#high (endpoint down 10-07); Go opencode-go/deepseek-v4.1-flash#max + opencode-go/muse-spark-1.3-contributor#xhigh (BLOCKED until user changes OpenCode workspace Privacy settings: Global regions / allow training endpoints), opencode-go/mimo-v2.6-flash (no variants), opencode-go/longcat-2.5-preview-free (no variants). Never opencode-go/space-bunny*, deepseek-v4 non-4.1, vision-exp.
 - Behaviour changes approved: per-field theme merge; destructive button text uses destructiveForeground.

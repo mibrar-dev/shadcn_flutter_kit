@@ -1,0 +1,47 @@
+{
+  "id": "alert_dialog",
+  "name": "AlertDialog",
+  "category": "overlay",
+  "description": "Shadcn alert dialog: icon, title, description and an action footer on top of the dialog route.",
+  "tier": "component",
+  "install": "flutter_shadcn add alert_dialog",
+  "import": "import 'package:<your_app>/ui/shadcn/alert_dialog/alert_dialog.dart';",
+  "tags": ["overlay", "dialog", "alert", "modal", "confirm"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": ["dialog"]
+  },
+  "files": [
+    "alert_dialog.dart",
+    "alert_dialog_style.dart",
+    "alert_dialog_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "functions": ["showAlertDialog"],
+    "classes": ["AlertDialog", "AlertDialogTheme"],
+    "constants": [
+      "alertDialogDefaults",
+      "alertDialogThemeOverrides",
+      "alertDialogDefaultTitleStyle",
+      "alertDialogDefaultDescriptionStyle"
+    ]
+  },
+  "theme": {
+    "class": "AlertDialogTheme",
+    "userFile": "alert_dialog_theme.dart",
+    "defaults": "alertDialogDefaults",
+    "fields": {
+      "iconColor": "ThemedColor? - header icon colour, mutedForeground token",
+      "titleStyle": "TextStyle? - 16px w600; colour falls back to foreground",
+      "descriptionStyle": "TextStyle? - 14px; colour falls back to mutedForeground",
+      "iconGap": "double? - 16",
+      "headerGap": "double? - 8, between title and description",
+      "footerGap": "double? - 24, between header and footer",
+      "actionGap": "double? - 8, between footer actions",
+      "footerAlignment": "MainAxisAlignment? - end"
+    }
+  }
+}

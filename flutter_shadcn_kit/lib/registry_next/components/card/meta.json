@@ -1,0 +1,43 @@
+{
+  "id": "card",
+  "name": "Card",
+  "category": "layout",
+  "description": "Rounded bordered surface with the shadcn header, title, description, content and footer slots.",
+  "tier": "component",
+  "install": "flutter_shadcn add card",
+  "import": "import 'package:<your_app>/ui/shadcn/card/card.dart';",
+  "tags": ["layout", "card", "surface", "panel"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme", "tokens"],
+    "primitives": ["sheet_overlay"],
+    "components": []
+  },
+  "files": ["card.dart", "card_style.dart", "card_theme.dart", "preview.dart"],
+  "api": {
+    "classes": [
+      "Card",
+      "CardHeader",
+      "CardTitle",
+      "CardDescription",
+      "CardContent",
+      "CardFooter",
+      "CardTheme"
+    ],
+    "constants": ["cardDefaults", "cardDefaultPadding", "cardThemeOverrides"]
+  },
+  "theme": {
+    "class": "CardTheme",
+    "userFile": "card_theme.dart",
+    "defaults": "cardDefaults",
+    "fields": {
+      "background": "ThemedColor? - card token",
+      "foreground": "ThemedColor? - cardForeground token",
+      "borderColor": "ThemedColor? - border token",
+      "borderWidth": "double? - 1.0",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusXl",
+      "padding": "EdgeInsetsGeometry? - 24",
+      "shadows": "List<BoxShadow>? - ambient shadowSm; const [] removes them"
+    }
+  }
+}

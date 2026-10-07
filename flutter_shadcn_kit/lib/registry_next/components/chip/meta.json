@@ -1,0 +1,65 @@
+{
+  "id": "chip",
+  "name": "Chip",
+  "category": "display",
+  "description": "Compact deletable-token control plus the borderless control embedded inside a chip.",
+  "tier": "component",
+  "install": "flutter_shadcn add chip",
+  "import": "import 'package:<your_app>/ui/shadcn/chip/chip.dart';",
+  "tags": [
+    "display",
+    "chip",
+    "token",
+    "filter",
+    "input"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "clickable"
+    ],
+    "components": [
+      "button"
+    ]
+  },
+  "files": [
+    "chip.dart",
+    "chip_style.dart",
+    "chip_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Chip",
+      "ChipButton",
+      "ChipTheme"
+    ],
+    "constants": [
+      "chipDefaults",
+      "chipDefaultPadding",
+      "chipDefaultTextStyle",
+      "chipButtonDefaultPadding",
+      "chipButtonDefaultIconSize",
+      "chipThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ChipTheme",
+    "userFile": "chip_theme.dart",
+    "defaults": "chipDefaults",
+    "fields": {
+      "variant": "ButtonVariant? - secondary; selects the button style row",
+      "padding": "EdgeInsetsGeometry? - 8 x 2",
+      "textStyle": "TextStyle? - 12px w500; colour comes from the button style",
+      "style": "ButtonVariantStyle? - extra per-state rows merged over the variant row",
+      "buttonPadding": "EdgeInsetsGeometry? - zero, used by ChipButton",
+      "buttonIconSize": "double? - 12, used by ChipButton"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": "checkbox",
+  "name": "Checkbox",
+  "category": "form",
+  "description": "Tri-state form checkbox with controlled and controller-driven modes, keyboard activation and form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add checkbox",
+  "import": "import 'package:<your_app>/ui/shadcn/checkbox/checkbox.dart';",
+  "tags": [
+    "form",
+    "checkbox",
+    "input",
+    "tri-state",
+    "validation"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons/lucide_icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "form_core"
+    ],
+    "components": []
+  },
+  "files": [
+    "checkbox.dart",
+    "checkbox_style.dart",
+    "checkbox_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Checkbox",
+      "CheckboxController",
+      "CheckboxTheme",
+      "CheckboxStyle"
+    ],
+    "enums": [
+      "CheckboxValue"
+    ],
+    "constants": [
+      "checkboxDefaults",
+      "checkboxDefaultSize",
+      "checkboxDefaultGap",
+      "checkboxDefaultPadding",
+      "checkboxDefaultLabelStyle",
+      "checkboxThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "CheckboxTheme",
+    "userFile": "checkbox_theme.dart",
+    "defaults": "checkboxDefaults",
+    "fields": {
+      "checked": "CheckboxStyle? - primary fill row",
+      "unchecked": "CheckboxStyle? - transparent fill, input border row",
+      "indeterminate": "CheckboxStyle? - primary fill, dash indicator",
+      "labelStyle": "TextStyle? - shared by every value, 14px",
+      "background": "StateValue<ThemedColor>? - per-state box fill",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "indicatorColor": "ThemedColor? - check/dash colour; null hides it",
+      "size": "double? - 16",
+      "indicatorSize": "double? - defaults to size * 0.75",
+      "borderWidth": "double? - 1",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusSm",
+      "gap": "double? - 8, between box and label",
+      "padding": "EdgeInsetsGeometry? - 2, keeps the focus ring un-clipped",
+      "labelStyle(row)": "TextStyle? - colour falls back to foreground"
+    }
+  }
+}

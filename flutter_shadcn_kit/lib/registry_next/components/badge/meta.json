@@ -1,0 +1,46 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "category": "display",
+  "description": "Small rounded label or status dot with four variants, optionally pressable.",
+  "tier": "component",
+  "install": "flutter_shadcn add badge",
+  "import": "import 'package:<your_app>/ui/shadcn/badge/badge.dart';",
+  "tags": ["display", "badge", "label", "status", "chip"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["clickable"],
+    "components": []
+  },
+  "files": ["badge.dart", "badge_style.dart", "badge_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["Badge", "BadgeTheme", "BadgeStyle"],
+    "enums": ["BadgeVariant"],
+    "constants": [
+      "badgeDefaults",
+      "badgeDefaultPadding",
+      "badgeDefaultTextStyle",
+      "badgeDotSize",
+      "badgeThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "BadgeTheme",
+    "userFile": "badge_theme.dart",
+    "defaults": "badgeDefaults",
+    "fields": {
+      "primary": "BadgeStyle? - filled high-emphasis row",
+      "secondary": "BadgeStyle? - filled lower-emphasis row",
+      "outline": "BadgeStyle? - 1px border row",
+      "destructive": "BadgeStyle? - danger row",
+      "textStyle": "TextStyle? - shared by every variant, 12px",
+      "background": "StateValue<ThemedColor>? - per-state fill",
+      "foreground": "StateValue<ThemedColor>? - per-state label/icon colour",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "borderWidth": "double? - used when borderColor resolves",
+      "padding": "EdgeInsetsGeometry? - 8 x 2",
+      "iconSize": "double? - 12 logical pixels"
+    }
+  }
+}

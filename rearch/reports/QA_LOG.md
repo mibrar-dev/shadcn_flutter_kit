@@ -192,3 +192,13 @@
 - r2: split into primitives/file_value/ and primitives/toast_queue/ folders (max 356 lines). Orchestrator re-ran its
   6 test files: 94/94, format 0 changed, analyze 0. Decisions: color_input stale consumer; B22 row = FileUploadRow;
   toast auto-dismiss policy documented once in ToastQueue (B09 toast + B18 gooey_toast must follow it).
+
+## P4-B01 alert_dialog, badge, card, checkbox, chip, divider, switch (space-bunny-free#max) — ACCEPTED (r1)
+- First launch failed instantly (network "Unable to connect"); relaunched 2026-10-08.
+- Orchestrator re-ran on its 7 folders + tests (others in flight): format 0 changed, analyze 0, 151/151 tests, no
+  banned imports; layout = name/style/theme/preview/meta/README only, max 357 lines; component deps declared
+  (alert_dialog→dialog, chip→button); remaining check_layers findings belong to in-flight slider.
+- Notable: SurfaceCard deleted (consumers switch to Card), CheckboxState → CheckboxValue, chip_utils not ported
+  (B13 owns if needed). Private default-row names prefixed to keep single-owner 0.
+- FOLLOW-UP (pilot): button_test hover assertion passes for the wrong reason (FocusableActionDetector needs
+  highlightStrategy alwaysTraditional; hovered == pressed alpha) — fix in the pilot follow-up round.

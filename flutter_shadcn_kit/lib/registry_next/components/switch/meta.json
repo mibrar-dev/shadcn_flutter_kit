@@ -1,0 +1,53 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "category": "form",
+  "description": "Boolean form switch with controlled and controller-driven modes, sliding thumb, keyboard activation and form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add switch",
+  "import": "import 'package:<your_app>/ui/shadcn/switch/switch.dart';",
+  "tags": ["form", "switch", "toggle", "input", "boolean"],
+  "deps": {
+    "foundation": ["data", "gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["clickable", "form_core", "widget_states"],
+    "components": []
+  },
+  "files": [
+    "switch.dart",
+    "switch_style.dart",
+    "switch_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Switch", "SwitchController", "SwitchTheme", "SwitchStyle"],
+    "constants": [
+      "switchDefaults",
+      "switchDefaultTrackSize",
+      "switchDefaultThumbSize",
+      "switchDefaultDuration",
+      "switchDefaultLabelStyle",
+      "switchHitPadding",
+      "switchThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "SwitchTheme",
+    "userFile": "switch_theme.dart",
+    "defaults": "switchDefaults",
+    "fields": {
+      "on": "SwitchStyle? - primary track, background thumb",
+      "off": "SwitchStyle? - input track, foreground thumb",
+      "labelStyle": "TextStyle? - shared by both values, 14px",
+      "trackColor": "StateValue<ThemedColor>? - per-state track fill",
+      "thumbColor": "StateValue<ThemedColor>? - per-state thumb fill",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "borderWidth": "double? - 0 by default (shadcn draws a transparent one)",
+      "trackSize": "Size? - 28 x 20",
+      "thumbSize": "double? - 16",
+      "travel": "double? - derived from track and thumb at build",
+      "gap": "double? - 8, between switch and label",
+      "labelStyle(row)": "TextStyle? - colour falls back to foreground"
+    }
+  }
+}

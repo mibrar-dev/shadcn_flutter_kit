@@ -225,3 +225,9 @@
   Flutter's Image.
 - r2: `ShadcnImage`; no other public name clashes. Orchestrator re-ran: format 0 changed, analyze 0, 129/129, layout
   clean, max 398 lines. Forwarded to B12: overlay_configuration must document the OverlayAnchorScope requirement.
+
+## P4-B05 scrollbar, scrollview, scrollable, scrollable_client, outlined_container, collapsible, accordion (deepseek-v4.1-flash#max) — ACCEPTED (r1)
+- qa_batch.sh: layout clean (max 372), format 0 changed, analyze 0, 56/56 tests, banned none, layers clean for B05,
+  theme 0. fade_scroll stayed a primitive. 19 old bugs fixed (incl. scrollable_client updateRenderObject).
+  Decisions: notification-driven fade viewport stays in scrollable; Dashed*Properties not restored (Studio can add
+  later); scrollview needs no theme file.

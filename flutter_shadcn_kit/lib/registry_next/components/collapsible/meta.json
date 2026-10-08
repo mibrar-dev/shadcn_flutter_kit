@@ -1,0 +1,49 @@
+{
+  "id": "collapsible",
+  "name": "Collapsible",
+  "category": "layout",
+  "description": "Expandable section with a trigger, hidden content panes and controlled or uncontrolled expansion.",
+  "tier": "component",
+  "install": "flutter_shadcn add collapsible",
+  "import": "import 'package:<your_app>/ui/shadcn/collapsible/collapsible.dart';",
+  "tags": ["layout", "collapsible", "expand", "section"],
+  "deps": {
+    "foundation": ["data", "gap", "icons/lucide_icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["text"],
+    "components": ["button"]
+  },
+  "files": [
+    "collapsible.dart",
+    "collapsible_style.dart",
+    "collapsible_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Collapsible",
+      "CollapsibleState",
+      "CollapsibleTrigger",
+      "CollapsibleContent",
+      "CollapsibleTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "collapsibleDefaults",
+      "collapsibleThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "CollapsibleTheme",
+    "userFile": "collapsible_theme.dart",
+    "defaults": "collapsibleDefaults",
+    "fields": {
+      "padding": "double? - content density, horizontal trigger padding",
+      "iconExpanded": "IconData? - Lucide chevrons-down-up",
+      "iconCollapsed": "IconData? - Lucide chevrons-up-down",
+      "crossAxisAlignment": "CrossAxisAlignment? - stretch",
+      "mainAxisAlignment": "MainAxisAlignment? - start",
+      "iconGap": "double? - 16 times ambient scaling"
+    }
+  }
+}

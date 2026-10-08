@@ -1,0 +1,52 @@
+{
+  "id": "outlined_container",
+  "name": "Outlined Container",
+  "category": "layout",
+  "description": "Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.",
+  "tier": "component",
+  "install": "flutter_shadcn add outlined_container",
+  "import": "import 'package:<your_app>/ui/shadcn/outlined_container/outlined_container.dart';",
+  "tags": ["layout", "container", "outline", "surface", "blur"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "outlined_container.dart",
+    "outlined_container_style.dart",
+    "outlined_container_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "OutlinedContainer",
+      "OutlinedContainerTheme",
+      "SurfaceBlur",
+      "DashedContainer",
+      "DashedLine"
+    ],
+    "enums": [],
+    "constants": [
+      "outlinedContainerDefaults",
+      "outlinedContainerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "OutlinedContainerTheme",
+    "userFile": "outlined_container_theme.dart",
+    "defaults": "outlinedContainerDefaults",
+    "fields": {
+      "backgroundColor": "ThemedColor? - background token",
+      "borderColor": "ThemedColor? - muted token",
+      "borderRadius": "BorderRadiusGeometry? - ambient borderRadiusXl",
+      "borderStyle": "BorderStyle? - solid",
+      "borderWidth": "double? - 1 times ambient scaling",
+      "boxShadow": "List<BoxShadow>? - none",
+      "padding": "EdgeInsetsGeometry? - zero",
+      "surfaceOpacity": "double? - multiplies the fill alpha",
+      "surfaceBlur": "double? - backdrop blur sigma; null draws none"
+    }
+  }
+}

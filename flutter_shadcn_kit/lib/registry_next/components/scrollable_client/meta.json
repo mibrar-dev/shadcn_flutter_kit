@@ -1,0 +1,48 @@
+{
+  "id": "scrollable_client",
+  "name": "Scrollable Client",
+  "category": "layout",
+  "description": "Two-dimensional scroll surface with a builder that receives the current offset and viewport size.",
+  "tier": "component",
+  "install": "flutter_shadcn add scrollable_client",
+  "import": "import 'package:<your_app>/ui/shadcn/scrollable_client/scrollable_client.dart';",
+  "tags": ["layout", "scroll", "two-dimensional", "viewport"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["scroll_metrics"],
+    "components": []
+  },
+  "files": [
+    "scrollable_client.dart",
+    "scrollable_client_style.dart",
+    "scrollable_client_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ScrollableClient",
+      "ScrollableClientViewport",
+      "RenderScrollableClientViewport",
+      "ScrollableClientTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "scrollableClientDefaults",
+      "scrollableClientThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ScrollableClientTheme",
+    "userFile": "scrollable_client_theme.dart",
+    "defaults": "scrollableClientDefaults",
+    "fields": {
+      "diagonalDragBehavior": "DiagonalDragBehavior? - none",
+      "dragStartBehavior": "DragStartBehavior? - start",
+      "keyboardDismissBehavior": "ScrollViewKeyboardDismissBehavior? - manual",
+      "clipBehavior": "Clip? - hardEdge",
+      "hitTestBehavior": "HitTestBehavior? - opaque",
+      "overscroll": "bool? - false"
+    }
+  }
+}

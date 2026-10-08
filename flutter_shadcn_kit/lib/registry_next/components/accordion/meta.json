@@ -1,0 +1,49 @@
+{
+  "id": "accordion",
+  "name": "Accordion",
+  "category": "layout",
+  "description": "Single-expansion accordion with animated items, themed dividers and a keyboard-accessible trigger.",
+  "tier": "component",
+  "install": "flutter_shadcn add accordion",
+  "import": "import 'package:<your_app>/ui/shadcn/accordion/accordion.dart';",
+  "tags": ["layout", "accordion", "collapsible", "sections"],
+  "deps": {
+    "foundation": ["constants", "data", "gap", "icons/lucide_icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["clickable", "text"],
+    "components": []
+  },
+  "files": [
+    "accordion.dart",
+    "accordion_style.dart",
+    "accordion_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Accordion",
+      "AccordionState",
+      "AccordionItem",
+      "AccordionTrigger",
+      "AccordionTheme"
+    ],
+    "enums": [],
+    "constants": ["accordionDefaults", "accordionThemeOverrides"]
+  },
+  "theme": {
+    "class": "AccordionTheme",
+    "userFile": "accordion_theme.dart",
+    "defaults": "accordionDefaults",
+    "fields": {
+      "duration": "Duration? - 200 ms",
+      "curve": "Curve? - easeIn",
+      "reverseCurve": "Curve? - easeOut",
+      "padding": "double? - content density, vertical trigger/content padding",
+      "iconGap": "double? - 18 times ambient scaling",
+      "dividerHeight": "double? - 1 times ambient scaling",
+      "dividerColor": "ThemedColor? - muted token",
+      "arrowIcon": "IconData? - Lucide chevronUp",
+      "arrowIconColor": "ThemedColor? - mutedForeground token"
+    }
+  }
+}

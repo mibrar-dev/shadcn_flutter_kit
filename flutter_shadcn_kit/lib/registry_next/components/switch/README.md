@@ -58,7 +58,7 @@ Switch(controller: controller, label: const Text('Notifications'));
 | `off` | `input` track, `foreground` thumb, hover+press `@0.8` |
 | `trackSize` | 28 x 20 (shadcn `h-5 w-7`) |
 | `thumbSize` | 16 (shadcn `size-4`) |
-| `travel` | derived from the track and thumb sizes at build |
+| `travel` | track width − thumb − 2 at build (shadcn `translate-x-[calc(100%-2px)]`, 14 by default) |
 | `borderColor` / `borderWidth` | null / 0 (shadcn draws a transparent border) |
 | `gap` | 8 |
 | `labelStyle` | 14px; colour falls back to `foreground` |

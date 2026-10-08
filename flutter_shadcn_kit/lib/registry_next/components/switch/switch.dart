@@ -8,6 +8,8 @@
 // widget, two modes) and interaction moved to the `Clickable` primitive, which
 // also propagates the hover/press/focus states the old table could not reach.
 
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
@@ -219,8 +221,10 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
     final Size track = resolved.trackSize ?? switchDefaultTrackSize;
     final double thumb = resolved.thumbSize ?? switchDefaultThumbSize;
     final double borderWidth = resolved.borderWidth ?? 0;
+    // shadcn `translate-x-[calc(100%-2px)]`: the checked thumb stops 2px
+    // short of the far edge (track width - thumb - 2 = 14 by default).
     final double travel =
-        resolved.travel ?? (track.width - thumb - borderWidth * 2);
+        resolved.travel ?? max(0.0, track.width - thumb - borderWidth * 2 - 2);
     final double gap = resolved.gap ?? 8;
     final TextStyle labelStyle =
         (resolved.labelStyle ?? container.labelStyle ?? switchDefaultLabelStyle)

@@ -8,6 +8,8 @@
 // recomputed straight from the JSON, so JSON -> Dart -> runtime is checked
 // end to end for both brightnesses.
 
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -100,9 +102,18 @@ void main() {
         );
         expect(data.colors.brightness, brightness);
 
-        // 2. Radius is the unitless rem factor.
+        // 2. Radius is the unitless rem factor; steps follow shadcn v4
+        // (lg = rem px, sm/md step down 4/2, xl steps up 4, floored at 0).
         expect(data.tokens.radius, radius, reason: '$id $mode radius');
-        expect(data.radiusMd, radius * 12);
+        final double lg = radius * 16;
+        expect(data.radiusLg, lg, reason: '$id $mode radiusLg');
+        expect(data.radiusSm, max(0.0, lg - 4), reason: '$id $mode radiusSm');
+        expect(data.radiusMd, max(0.0, lg - 2), reason: '$id $mode radiusMd');
+        expect(
+          data.radiusXl,
+          lg <= 0 ? 0 : lg + 4,
+          reason: '$id $mode radiusXl',
+        );
         expect(data.tokens.spacingBase, (preset['spacing']! as num) * 16);
 
         // 3. shadowSm is the derived two layer stack, not eight copies.

@@ -62,7 +62,8 @@ class SwitchStyle implements Mergeable<SwitchStyle> {
   final double? thumbSize;
 
   /// Thumb travel between the off and on positions; null derives it from the
-  /// track and thumb sizes at build.
+  /// track and thumb sizes at build (track width - thumb - 2, the shadcn
+  /// `translate-x-[calc(100%-2px)]` slack, minus any border).
   final double? travel;
 
   /// Space between the switch and [Switch.label]; null resolves 8.

@@ -80,6 +80,8 @@ double radiusXxl(double radius) => radius * 24;
 `claude.json` has `radius: 0.5` both modes, so `radiusMd = 6.0`.
 `BorderRadius.circular(radiusMd)` etc. stay as getters on the theme data.
 
+NOTE (P4-M2): radius steps now follow shadcn v4 `globals.css` — `lg = radius * 16` px, `sm = max(0, lg - 4)`, `md = max(0, lg - 2)`, `xl = lg + 4` (only `lg` matched before); `xs`/`xxl` stay on the old linear steps.
+
 ### 1.4 Fonts, tracking, spacing
 
 - `fontSans` (body), `fontSerif` (serif option), `fontMono` (code):

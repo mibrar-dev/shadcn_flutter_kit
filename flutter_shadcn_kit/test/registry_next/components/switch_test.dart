@@ -139,9 +139,10 @@ void main() {
       );
       expect(_track(tester).color, colors.primary);
       expect(_thumb(tester).color, colors.background);
+      // shadcn `translate-x-[calc(100%-2px)]`: 32 - 16 - 2 = 14.
       expect(
         _thumbLeft(tester),
-        switchDefaultTrackSize.width - switchDefaultThumbSize,
+        switchDefaultTrackSize.width - switchDefaultThumbSize - 2,
       );
     });
 

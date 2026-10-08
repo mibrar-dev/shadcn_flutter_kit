@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -73,13 +74,20 @@ class ShadcnThemeData {
   /// Current brightness, from the color tokens.
   Brightness get brightness => colors.brightness;
 
-  /// Base radius factor (px = radius * step).
+  /// Base radius factor: the preset `radius` rem number (e.g. 0.625).
+  ///
+  /// Derived steps follow shadcn `globals.css`: `lg` is the rem value in
+  /// px (`radius * 16`); `sm`/`md` step down 4/2 px and `xl` steps up
+  /// 4 px, clamped at zero so small radii (and 0) never go negative.
+  /// `xl` additionally collapses to 0 when `lg` is 0, so square-corner
+  /// presets (`radius: 0`) stay square on `rounded-xl` surfaces too.
+  /// `xs`/`xxl` are kit extensions that keep the old linear steps.
   double get radius => tokens.radius;
   double get radiusXs => radius * 4;
-  double get radiusSm => radius * 8;
-  double get radiusMd => radius * 12;
+  double get radiusSm => max(0.0, radiusLg - 4);
+  double get radiusMd => max(0.0, radiusLg - 2);
   double get radiusLg => radius * 16;
-  double get radiusXl => radius * 20;
+  double get radiusXl => radiusLg <= 0 ? 0 : radiusLg + 4;
   double get radiusXxl => radius * 24;
 
   BorderRadius get borderRadiusXs => BorderRadius.circular(radiusXs);

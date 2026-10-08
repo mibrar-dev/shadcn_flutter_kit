@@ -134,16 +134,15 @@ void main() {
     );
   });
 
-  testWidgets(
-    'header cells are medium muted-foreground, footer has no border',
-    (tester) async {
-      final ShadcnColors colors = ShadcnColors.lightFallback;
-      await tester.pumpWidget(_frame(child: _table()));
-      expect(_cellTextStyle(tester, 'Name').fontWeight, FontWeight.w500);
-      expect(_cellTextStyle(tester, 'Name').color, colors.mutedForeground);
-      expect(_cellDecoration(tester, 'Total').border, isNull);
-    },
-  );
+  testWidgets('header cells are medium foreground, footer has no border', (
+    tester,
+  ) async {
+    final ShadcnColors colors = ShadcnColors.lightFallback;
+    await tester.pumpWidget(_frame(child: _table()));
+    expect(_cellTextStyle(tester, 'Name').fontWeight, FontWeight.w500);
+    expect(_cellTextStyle(tester, 'Name').color, colors.foreground);
+    expect(_cellDecoration(tester, 'Total').border, isNull);
+  });
 
   testWidgets('fixed column widths are respected', (tester) async {
     await tester.pumpWidget(

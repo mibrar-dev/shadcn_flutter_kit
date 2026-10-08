@@ -82,7 +82,8 @@ void main() {
     expect(_hex(border.top.color), _hex(ShadcnColors.lightFallback.muted));
     expect(border.top.width, 1);
     final BorderRadius radius = decoration.borderRadius! as BorderRadius;
-    expect(radius.topLeft.x, 10);
+    // Default radius 0.5: xl = 0.5 * 16 + 4 = 12 (shadcn v4 scale).
+    expect(radius.topLeft.x, 12);
     expect(_surface(tester).padding, EdgeInsets.zero);
   });
 

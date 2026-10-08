@@ -292,3 +292,10 @@
 - RULE BREACH: the agent committed calendar itself (69aa43f, not pushed, scoped to calendar + date_math + its test).
   Kept after review (content correct, scoped). An agent also pruned local remote-tracking refs (remote untouched).
   Orchestrator renamed private `_cell` → `_calendarCell` (single-owner clash with markdown_parser/media).
+
+## P4-M2 radius tokens + size product calls (muse-spark-1.3-contributor#xhigh, ses_ee685fa5effeMDe2Zip6UnA28e) — ACCEPTED (r2)
+- Theme bug fixed: radiusSm/Md/Xl now shadcn v4 (lg−4 / lg−2 / lg+4, clamped ≥ 0; xl = 0 when lg = 0) instead of
+  radius×8/12/20. Default 0.625 → 6/8/10/14 (was 5/7.5/10/12.5). radius_tokens_test for 0/0.5/0.625/1.0.
+- Table header text → foreground (shadcn v4); switch travel 14; card uses radiusXl (14). r1 exited before the suite
+  finished; r2 fixed the 2 tests that encoded old radii. Orchestrator ran theme/themes/outlined_container/card/
+  table/switch/size_audit/visual: 184/184, analyze clean. Preset screenshots regenerated.

@@ -374,7 +374,9 @@ class ShadcnTokens {
     this.shadows = defaultShadowScale,
   });
 
-  /// Unitless radius factor; px = radius * step (radiusLg = radius * 16).
+  /// Unitless radius factor: the preset `radius` rem number (e.g. 0.625).
+  /// `radiusLg` is its px value (`radius * 16`); `sm`/`md` step down
+  /// 4/2 px and `xl` steps up 4 px from `lg` (shadcn v4), clamped at 0.
   final double radius;
 
   /// Base spacing unit (preset `spacing.base`).

@@ -292,14 +292,14 @@ const TableCellTheme tableCellDefaults = TableCellTheme(
   padding: tableCellPadding,
 );
 
-/// Default header-cell styling: shadcn `TableHead` (`h-10 px-2`, medium
-/// muted-foreground text).
+/// Default header-cell styling: shadcn v4 `TableHead` (`h-10 px-2`, medium
+/// `foreground` text).
 const TableCellTheme tableHeaderCellDefaults = TableCellTheme(
   background: StateValue<ThemedColor>(
     hovered: ThemedColor.ref(ColorRef.muted, alpha: 0.5),
   ),
   foreground: StateValue<ThemedColor>(
-    rest: ThemedColor.ref(ColorRef.mutedForeground),
+    rest: ThemedColor.ref(ColorRef.foreground),
   ),
   borderColor: StateValue<ThemedColor>(rest: ThemedColor.ref(ColorRef.border)),
   borderWidth: 1,

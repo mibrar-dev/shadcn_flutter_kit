@@ -98,8 +98,8 @@ ShadcnTable(
 Per cell, `TableTheme.cellTheme` merges over the row default
 (`ShadcnTableHeader` / `ShadcnTableFooter` / body). The row defaults follow
 shadcn: body cells are `p-2` with a bottom border and a `muted/50` row-hover
-fill; header cells are `h-10 px-2` with medium `muted-foreground` text;
-footer cells are muted with no border.
+fill; header cells are `h-10 px-2` with medium `foreground` text (shadcn v4
+`TableHead`); footer cells are muted with no border.
 
 ## Differences from the old `layout/table`
 

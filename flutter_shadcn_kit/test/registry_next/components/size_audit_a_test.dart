@@ -94,6 +94,17 @@ void main() {
         const Size.square(16),
       );
     });
+
+    testWidgets('checked thumb stops 2px short (travel 14)', (tester) async {
+      // shadcn `translate-x-[calc(100%-2px)]`: 32 - 16 - 2 = 14.
+      await tester.pumpWidget(
+        _frame(child: Switch(value: true, onChanged: (_) {})),
+      );
+      final AnimatedPositioned thumb = tester.widget<AnimatedPositioned>(
+        find.byType(AnimatedPositioned),
+      );
+      expect(thumb.left, 14);
+    });
   });
 
   group('avatar (size-8 = 32)', () {
@@ -133,6 +144,8 @@ void main() {
       );
       final BoxDecoration decoration = box.decoration as BoxDecoration;
       expect(decoration.borderRadius, const ShadcnThemeData().borderRadiusXl);
+      // Default radius 0.5: xl = 0.5 * 16 + 4 = 12 (shadcn v4 scale).
+      expect(decoration.borderRadius, BorderRadius.circular(12));
     });
 
     testWidgets('title 16 semibold, description 14 muted', (tester) async {

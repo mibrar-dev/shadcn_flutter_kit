@@ -315,3 +315,9 @@
   gooey_toast (ToastEntry.isExiting two-phase, shared ToastExitTransition, disableAnimations instant), pill width
   measured with the painted style, six tone colours are GooeyToastTheme fields. qa_batch: 103/103, layers clean,
   theme 0. Known: 8 px settle when the newest toast is dismissed (minor).
+
+## P4-B14 formatted_input, tree, stepper (+ primitives text_editing/segmented_*, tree_selection/) (space-bunny-free#max) — ACCEPTED (r2)
+- r1: 64 tests; returned because tree dropped Shift-click range / Ctrl-click multi-select instead of fixing the
+  stuck-flag bug. r2: Ctrl/Cmd toggle, Shift range from anchor, Shift+Arrow extend, Ctrl/Cmd+A, read from
+  HardwareKeyboard at event time (no stored flags, regression test for focus change while Shift held).
+  qa_batch: layout clean (max 399), 84/84, layers clean, theme 0; primitives analyze clean (logic tested via components).

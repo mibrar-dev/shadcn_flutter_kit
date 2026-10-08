@@ -250,3 +250,13 @@
   output, asset/file sources, editing bar/controller/live preview, isolate/chunked render.
 - qa_batch.sh: layout clean (max 390), format 0 changed, 59/59 tests, layers clean, theme 0. (Owner hit is calendar's
   CalendarValueLookup — B07 in flight.) B25 text_animate must adapt to the new API (see report).
+
+## P3-F pilot follow-up (muse-spark-1.3-contributor#xhigh) — ACCEPTED (r1), input font → r2
+- Replaced the screenshot agent (MiMo, 3 network-failed runs, no report) with widget metrics tests.
+- Real bugs fixed: Button md 52 → 36 (Clickable padding stacked on minHeight; lg 44/px-5 → 40/px-6, text 14/w500);
+  Toggle same stacking (52 → 36) + ToggleSize sm/md/lg 32/36/40, px-2; Dialog maxWidth 480 → 512; hover tests now
+  truly drive hover (were passing because hover == pressed alpha). Dark-dialog light page = harness bug (fixed);
+  dialog re-resolves theme live (new test). Input already 36.
+- qa_batch.sh button toggle input dialog: format 0 changed, 51/51, layers clean, theme 0; pilot_metrics + visual green.
+- r2: input text renders without the theme font (EditableText style lacks fontFamily) — real bug, fix in primitive.
+- Follow-up for all batches: audit every component's sizes for the same padding-on-minHeight stacking.

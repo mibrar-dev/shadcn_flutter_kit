@@ -193,6 +193,7 @@ const DialogTheme dialogDefaults = DialogTheme(
   padding: EdgeInsetsDensity.all(padMd),
   insetPadding: EdgeInsetsDensity.all(padSm),
   barrierColor: ThemedColor.value(Color(0x80000000)),
-  maxWidth: 480.0,
+  // shadcn `sm:max-w-lg` = 512.
+  maxWidth: 512.0,
   transitionDuration: kDefaultDuration,
 );

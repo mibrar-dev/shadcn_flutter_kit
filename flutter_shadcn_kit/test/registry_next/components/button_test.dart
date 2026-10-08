@@ -190,10 +190,7 @@ void main() {
     expect(probe.decoration(rest)!.color, colors.primary);
     expect(probe.text(rest)!.color, colors.primaryForeground);
     expect(probe.icon(rest)!.color, colors.primaryForeground);
-    expect(
-      probe.padding(),
-      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    );
+    expect(probe.padding(), const EdgeInsets.symmetric(horizontal: 16));
 
     await _pump(
       tester,
@@ -220,7 +217,7 @@ void main() {
     expect(probe.text(rest)!.color, dark.primaryForeground);
   });
 
-  testWidgets('hover and press keep an explicit decoration target', (
+  testWidgets('hover drives the hovered fill, press the pressed fill', (
     tester,
   ) async {
     FocusManager.instance.highlightStrategy =
@@ -229,7 +226,25 @@ void main() {
       () => FocusManager.instance.highlightStrategy =
           FocusHighlightStrategy.automatic,
     );
-    await _pump(tester, Button(onPressed: () {}, child: const Text('Go')));
+    // Distinct rest/hovered/pressed fills: the old defaults shared hovered
+    // and pressed (both alpha 0.9), so the assertion passed for the wrong
+    // reason when a press delivered the same colour as a hover.
+    var hovered = false;
+    await _pump(
+      tester,
+      Button(
+        onPressed: () {},
+        onHover: (value) => hovered = value,
+        theme: const ButtonVariantStyle(
+          background: StateValue(
+            rest: ThemedColor.value(_yellow),
+            hovered: ThemedColor.value(_green),
+            pressed: ThemedColor.value(_red),
+          ),
+        ),
+        child: const Text('Go'),
+      ),
+    );
     final Finder animated = find.descendant(
       of: find.byType(Button),
       matching: find.byType(AnimatedContainer),
@@ -237,20 +252,21 @@ void main() {
     BoxDecoration current() =>
         tester.widget<AnimatedContainer>(animated).decoration! as BoxDecoration;
 
-    expect(current().color, colors.primary);
+    expect(current().color, _yellow);
     final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
     await gesture.addPointer(location: Offset.zero);
     addTearDown(gesture.removePointer);
     await tester.pump();
     await gesture.moveTo(tester.getCenter(find.byType(Button)));
     await tester.pump();
-    expect(current().color, _alpha(colors.primary, 0.9));
+    expect(hovered, isTrue, reason: 'mouse move must deliver hover');
+    expect(current().color, _green);
 
     final press = await tester.startGesture(
       tester.getCenter(find.byType(Button)),
     );
     await tester.pump();
-    expect(current().color, _alpha(colors.primary, 0.9));
+    expect(current().color, _red);
     await press.up();
     await tester.pump();
   });
@@ -375,10 +391,7 @@ void main() {
     expect(probe.decoration(rest)!.color, _yellow);
     expect(probe.text(rest)!.color, _blue);
     expect(probe.decoration(hovered)!.color, _green);
-    expect(
-      probe.padding(),
-      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    );
+    expect(probe.padding(), const EdgeInsets.symmetric(horizontal: 16));
 
     await _pump(
       tester,

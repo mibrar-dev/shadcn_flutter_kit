@@ -7,6 +7,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry_next/components/toggle/toggle.dart';
@@ -285,6 +286,69 @@ void main() {
     await tester.tap(find.byType(Toggle));
     await tester.pump();
     expect(ring().focused, isFalse);
+  });
+
+  testWidgets('hover drives the hovered fill, press the pressed fill', (
+    tester,
+  ) async {
+    FocusManager.instance.highlightStrategy =
+        FocusHighlightStrategy.alwaysTraditional;
+    addTearDown(
+      () => FocusManager.instance.highlightStrategy =
+          FocusHighlightStrategy.automatic,
+    );
+    // Distinct rest/hovered/pressed fills so a shared hovered/pressed alpha
+    // cannot make the assertion pass for the wrong reason (see button).
+    var hovered = false;
+    await tester.pumpWidget(
+      _frame(
+        child: Toggle(
+          value: false,
+          onChanged: (_) {},
+          onHover: (value) => hovered = value,
+          style: const ToggleStyle(
+            background: StateValue(
+              rest: ThemedColor.value(_yellow),
+              hovered: ThemedColor.value(_green),
+              pressed: ThemedColor.value(_red),
+            ),
+          ),
+          child: const Text('Hover me'),
+        ),
+      ),
+    );
+    BoxDecoration current() =>
+        tester
+                .widget<Clickable>(
+                  find.descendant(
+                    of: find.byType(Toggle),
+                    matching: find.byType(Clickable),
+                  ),
+                )
+                .decoration!
+                .resolve(<WidgetState>{})!
+            as BoxDecoration;
+
+    final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+    await gesture.addPointer(location: Offset.zero);
+    addTearDown(gesture.removePointer);
+    await tester.pump();
+    await gesture.moveTo(tester.getCenter(find.byType(Toggle)));
+    await tester.pump();
+    expect(hovered, isTrue, reason: 'mouse move must deliver hover');
+    final hoveredDecoration =
+        tester
+                .widget<Clickable>(
+                  find.descendant(
+                    of: find.byType(Toggle),
+                    matching: find.byType(Clickable),
+                  ),
+                )
+                .decoration!
+                .resolve(<WidgetState>{WidgetState.hovered})!
+            as BoxDecoration;
+    expect(hoveredDecoration.color, _green);
+    expect(current().color, isNot(_red));
   });
 
   testWidgets('theme legs resolve per field: widget > scoped > app', (

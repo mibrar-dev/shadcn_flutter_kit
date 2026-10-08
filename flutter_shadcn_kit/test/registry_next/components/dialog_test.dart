@@ -187,8 +187,8 @@ void main() {
     expect((decoration.border! as Border).top.width, 1.0);
     expect(decoration.boxShadow, isNotNull);
     expect(decoration.boxShadow, isNotEmpty);
-    // maxWidth default of 480 wins over the 1000 wide content.
-    expect(tester.getSize(find.byKey(kDialogSurfaceKey)).width, 480.0);
+    // maxWidth default of 512 wins over the 1000 wide content.
+    expect(tester.getSize(find.byKey(kDialogSurfaceKey)).width, 512.0);
   });
 
   testWidgets('default barrier is black at 50% and honours overrides', (
@@ -434,7 +434,7 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    // defaults (480) < app (300) < scoped (320)
+    // defaults (512) < app (300) < scoped (320)
     await pumpWithLegs(null);
     expect(tester.getSize(find.byKey(kDialogSurfaceKey)).width, 320.0);
 

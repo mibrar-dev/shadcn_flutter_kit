@@ -45,6 +45,7 @@ class Toggle extends StatefulWidget {
     this.value,
     this.controller,
     required this.child,
+    this.size = ToggleSize.md,
     this.onChanged,
     this.enabled,
     this.style,
@@ -71,6 +72,9 @@ class Toggle extends StatefulWidget {
 
   /// Toggle content, usually a `Text` or an icon.
   final Widget child;
+
+  /// Fixed size row. Defaults to [ToggleSize.md] (h-9 = 36).
+  final ToggleSize size;
 
   /// Called with the next value in controlled mode.
   final ValueChanged<bool>? onChanged;
@@ -204,6 +208,24 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
           defaults: toggleDefaults.forValue(isOn)!,
         );
     final EdgeInsetsGeometry padding = resolved.padding ?? toggleDefaultPadding;
+    // Border-box totals (shadcn h-8/h-9/h-10 with px-2): the `Clickable`
+    // padding wraps the `ConstrainedBox`, so the inner minima subtract the
+    // resolved padding to keep totals exact (e.g. 16px icon + 16px padding
+    // still measures 36x36, not 52x36).
+    final double minSide = switch (widget.size) {
+      ToggleSize.sm => 32,
+      ToggleSize.md => 36,
+      ToggleSize.lg => 40,
+    };
+    final EdgeInsets resolvedPad = padding.resolve(Directionality.of(context));
+    final double innerMinWidth =
+        (minSide - resolvedPad.left - resolvedPad.right)
+            .clamp(0, double.infinity)
+            .toDouble();
+    final double innerMinHeight =
+        (minSide - resolvedPad.top - resolvedPad.bottom)
+            .clamp(0, double.infinity)
+            .toDouble();
 
     Color? colorFor(StateValue<ThemedColor>? value, Set<WidgetState> states) {
       return value?.resolve(states)?.resolve(theme.colors);
@@ -255,7 +277,10 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
           textStyle: WidgetStateProperty.resolveWith(textStyleFor),
           iconTheme: WidgetStateProperty.resolveWith(iconThemeFor),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 36),
+            constraints: BoxConstraints(
+              minWidth: innerMinWidth,
+              minHeight: innerMinHeight,
+            ),
             child: Center(widthFactor: 1, heightFactor: 1, child: widget.child),
           ),
         ),

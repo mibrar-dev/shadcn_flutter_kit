@@ -200,10 +200,15 @@ class ToggleTheme extends ComponentThemeData implements Mergeable<ToggleTheme> {
       Object.hash(themeDensity, themeSpacing, themeShadows, on, off);
 }
 
-/// Default toggle padding before any override.
+/// Fixed toggle sizes (shadcn `toggleVariants` sizes, new-york default
+/// density): h-8/h-9/h-10 = 32/36/40. Horizontal padding is px-2 (8);
+/// vertical padding is zero so height comes from `minHeight` + centering
+/// (vertical padding would stack on top of it, as with `Button`).
+enum ToggleSize { sm, md, lg }
+
+/// Default toggle padding before any override (shadcn px-2, border-box).
 const EdgeInsetsGeometry toggleDefaultPadding = EdgeInsets.symmetric(
-  horizontal: 16,
-  vertical: 8,
+  horizontal: 8,
 );
 
 /// Default toggle text style before any override.

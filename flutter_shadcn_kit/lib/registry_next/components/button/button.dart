@@ -211,8 +211,8 @@ class _ButtonState extends State<Button> {
     }
     content = ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: metrics.minWidth,
-        minHeight: metrics.minHeight,
+        minWidth: _innerMin(metrics.minWidth, padding, context, true),
+        minHeight: _innerMin(metrics.minHeight, padding, context, false),
       ),
       child: Center(widthFactor: 1, heightFactor: 1, child: content),
     );
@@ -265,40 +265,58 @@ class _ButtonSizeMetrics {
   final TextStyle? textStyle;
 }
 
-/// Design §1.3 size table; `Density.baseContentPadding` scales the padding.
+/// Border-box helper: `metrics` minima are totals, but the `Clickable`
+/// padding wraps the `ConstrainedBox`, so the inner minimum subtracts the
+/// resolved padding (e.g. an icon button with 36px total and zero padding
+/// keeps a 36px inner minimum; a themed vertical padding does not stack).
+double _innerMin(
+  double total,
+  EdgeInsetsGeometry padding,
+  BuildContext context,
+  bool horizontal,
+) {
+  final EdgeInsets resolved = padding.resolve(Directionality.of(context));
+  final double used = horizontal
+      ? resolved.left + resolved.right
+      : resolved.top + resolved.bottom;
+  return (total - used).clamp(0, double.infinity).toDouble();
+}
+
+/// Design §1.3 size table, corrected to shadcn/ui (new-york, default
+/// density): heights are border-box totals (h-7/h-8/h-9/h-10 = 28/32/36/40),
+/// horizontal padding is px-2/px-3/px-4/px-6 (8/12/16/24). Vertical padding
+/// is zero: the `Clickable` padding wraps the `ConstrainedBox`, so any
+/// vertical padding would stack on top of `minHeight` (52 instead of 36 for
+/// md). Height comes from `minHeight` + centering; all sizes use 14px w500.
 _ButtonSizeMetrics _buttonMetricsFor(ButtonSize size, Density density) {
   final double scale =
       density.baseContentPadding / Density.defaultDensity.baseContentPadding;
-  EdgeInsetsGeometry pad(double horizontal, double vertical) {
-    return EdgeInsets.symmetric(
-      horizontal: horizontal * scale,
-      vertical: vertical * scale,
-    );
+  EdgeInsetsGeometry pad(double horizontal) {
+    return EdgeInsets.symmetric(horizontal: horizontal * scale);
   }
 
-  TextStyle text(double fontSize) =>
-      buttonDefaultTextStyle.copyWith(fontSize: fontSize);
+  const TextStyle text = buttonDefaultTextStyle;
 
   return switch (size) {
     ButtonSize.xs => _ButtonSizeMetrics(
-      padding: pad(8, 4),
+      padding: pad(8),
       minHeight: 28,
-      textStyle: text(12),
+      textStyle: text,
     ),
     ButtonSize.sm => _ButtonSizeMetrics(
-      padding: pad(12, 6),
+      padding: pad(12),
       minHeight: 32,
-      textStyle: text(13),
+      textStyle: text,
     ),
     ButtonSize.md => _ButtonSizeMetrics(
-      padding: pad(16, 8),
+      padding: pad(16),
       minHeight: 36,
-      textStyle: text(14),
+      textStyle: text,
     ),
     ButtonSize.lg => _ButtonSizeMetrics(
-      padding: pad(20, 10),
-      minHeight: 44,
-      textStyle: text(15),
+      padding: pad(24),
+      minHeight: 40,
+      textStyle: text,
     ),
     ButtonSize.icon => const _ButtonSizeMetrics(
       padding: EdgeInsets.zero,

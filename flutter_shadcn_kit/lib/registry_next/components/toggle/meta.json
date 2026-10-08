@@ -19,6 +19,7 @@
   "files": ["toggle.dart", "toggle_style.dart", "toggle_theme.dart", "preview.dart"],
   "api": {
     "classes": ["Toggle", "ToggleController", "ToggleTheme", "ToggleStyle"],
+    "enums": ["ToggleSize"],
     "constants": [
       "toggleDefaultPadding",
       "toggleDefaultTextStyle",
@@ -38,7 +39,7 @@
       "borderColor": "StateValue<ThemedColor>? - null draws no border",
       "borderWidth": "double? - used when borderColor resolves",
       "decoration": "StateValue<TextDecoration>? - optional underline",
-      "padding": "EdgeInsetsGeometry? - defaults to 16 x 8",
+      "padding": "EdgeInsetsGeometry? - defaults to px-2 (h8), zero vertical",
       "textStyle": "TextStyle? - defaults to 14 / w500"
     }
   }

@@ -242,7 +242,7 @@ class _DialogBody extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 16),
         Text(message, style: TextStyle(color: colors.mutedForeground)),
         const SizedBox(height: 16),
         Row(

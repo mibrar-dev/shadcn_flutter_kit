@@ -41,6 +41,10 @@ live theme via InheritedTheme.capture), `input/` (state wiring on top of primiti
 `$APP/test/registry_next/components/<name>_test.dart` per component: renders with tokens (light + dark), each
 variant/size, interaction states (hover/press/focus/disabled), keyboard behaviour, controlled + uncontrolled value
 flow where applicable, theme precedence (all 4 legs), and a regression test for every old bug you fixed.
+SIZES: assert real logical sizes with `tester.getSize` against shadcn/ui (new-york) values — e.g. controls h-9 = 36,
+sm 32, lg 40; px/py from the shadcn source; text-sm 14. Known pitfall (found in the pilot): padding applied OUTSIDE
+a ConstrainedBox/minHeight stacks on top of it (button measured 52 instead of 36) — put vertical padding inside the
+min-size box or zero it. Text in editable fields must use the theme font (see primitives/text_editing).
 
 ## Outputs (only these)
 `$APP/lib/registry_next/components/<name>/**` for your batch's components, any primitive files named in your batch

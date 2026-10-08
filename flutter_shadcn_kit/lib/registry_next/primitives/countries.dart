@@ -14,7 +14,13 @@ import 'phone_number.dart';
 /// ISO 4217 currency code for a country.
 class CountryInfo {
   /// Creates a country info row.
-  const CountryInfo(this.code, this.dialCode, this.currencyCode, this.name);
+  const CountryInfo(
+    this.code,
+    this.dialCode,
+    this.currencyCode,
+    this.name, {
+    this.primary = false,
+  });
 
   /// ISO 3166-1 alpha-2 code, e.g. `US`.
   final String code;
@@ -28,6 +34,13 @@ class CountryInfo {
   /// English display name, e.g. `United States`.
   final String name;
 
+  /// Whether this row is the primary country of a shared dial code.
+  ///
+  /// Typed-prefix detection uses it as the tie-break between rows that share
+  /// a dial code (`+1` → `US`, `+44` → `GB`, `+590` → `GP`, ...); a current
+  /// selection sharing the code still wins.
+  final bool primary;
+
   /// This row as the minimal [Country] value type.
   Country get country => Country(dialCode: dialCode, code: code);
 
@@ -37,11 +50,12 @@ class CountryInfo {
         other.code == code &&
         other.dialCode == dialCode &&
         other.currencyCode == currencyCode &&
-        other.name == name;
+        other.name == name &&
+        other.primary == primary;
   }
 
   @override
-  int get hashCode => Object.hash(code, dialCode, currencyCode, name);
+  int get hashCode => Object.hash(code, dialCode, currencyCode, name, primary);
 
   @override
   String toString() => name;
@@ -60,7 +74,7 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('AR', '+54', 'ARS', 'Argentina'),
   CountryInfo('AM', '+374', 'AMD', 'Armenia'),
   CountryInfo('AW', '+297', 'AWG', 'Aruba'),
-  CountryInfo('AU', '+61', 'AUD', 'Australia'),
+  CountryInfo('AU', '+61', 'AUD', 'Australia', primary: true),
   CountryInfo('AT', '+43', 'EUR', 'Austria'),
   CountryInfo('AZ', '+994', 'AZN', 'Azerbaijan'),
   CountryInfo('BS', '+1242', 'BSD', 'Bahamas'),
@@ -120,7 +134,7 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('FK', '+500', 'FKP', 'Falkland Islands'),
   CountryInfo('FO', '+298', 'DKK', 'Faroe Islands'),
   CountryInfo('FJ', '+679', 'FJD', 'Fiji'),
-  CountryInfo('FI', '+358', 'EUR', 'Finland'),
+  CountryInfo('FI', '+358', 'EUR', 'Finland', primary: true),
   CountryInfo('FR', '+33', 'EUR', 'France'),
   CountryInfo('GF', '+594', 'EUR', 'French Guiana'),
   CountryInfo('PF', '+689', 'XPF', 'French Polynesia'),
@@ -133,7 +147,7 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('GR', '+30', 'EUR', 'Greece'),
   CountryInfo('GL', '+299', 'DKK', 'Greenland'),
   CountryInfo('GD', '+1473', 'XCD', 'Grenada'),
-  CountryInfo('GP', '+590', 'EUR', 'Guadeloupe'),
+  CountryInfo('GP', '+590', 'EUR', 'Guadeloupe', primary: true),
   CountryInfo('GU', '+1671', 'USD', 'Guam'),
   CountryInfo('GT', '+502', 'GTQ', 'Guatemala'),
   CountryInfo('GG', '+44', 'GGP', 'Guernsey'),
@@ -199,7 +213,7 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('NP', '+977', 'NPR', 'Nepal'),
   CountryInfo('NL', '+31', 'EUR', 'Netherlands'),
   CountryInfo('NC', '+687', 'XPF', 'New Caledonia'),
-  CountryInfo('NZ', '+64', 'NZD', 'New Zealand'),
+  CountryInfo('NZ', '+64', 'NZD', 'New Zealand', primary: true),
   CountryInfo('NI', '+505', 'NIO', 'Nicaragua'),
   CountryInfo('NE', '+227', 'XOF', 'Niger'),
   CountryInfo('NG', '+234', 'NGN', 'Nigeria'),
@@ -207,7 +221,7 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('NF', '+672', 'AUD', 'Norfolk Island'),
   CountryInfo('KP', '+850', 'KPW', 'North Korea'),
   CountryInfo('MP', '+1670', 'USD', 'Northern Mariana Islands'),
-  CountryInfo('NO', '+47', 'NOK', 'Norway'),
+  CountryInfo('NO', '+47', 'NOK', 'Norway', primary: true),
   CountryInfo('OM', '+968', 'OMR', 'Oman'),
   CountryInfo('PK', '+92', 'PKR', 'Pakistan'),
   CountryInfo('PW', '+680', 'USD', 'Palau'),
@@ -224,9 +238,9 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('PR', '+1939', 'USD', 'Puerto Rico'),
   CountryInfo('QA', '+974', 'QAR', 'Qatar'),
   CountryInfo('CG', '+242', 'XAF', 'Republic of the Congo'),
-  CountryInfo('RE', '+262', 'EUR', 'Réunion'),
+  CountryInfo('RE', '+262', 'EUR', 'Réunion', primary: true),
   CountryInfo('RO', '+40', 'RON', 'Romania'),
-  CountryInfo('RU', '+7', 'RUB', 'Russia'),
+  CountryInfo('RU', '+7', 'RUB', 'Russia', primary: true),
   CountryInfo('RW', '+250', 'RWF', 'Rwanda'),
   CountryInfo('BL', '+590', 'EUR', 'Saint Barthélemy'),
   CountryInfo('SH', '+290', 'SHP', 'Saint Helena'),
@@ -285,8 +299,8 @@ const List<CountryInfo> countryTable = <CountryInfo>[
   CountryInfo('UG', '+256', 'UGX', 'Uganda'),
   CountryInfo('UA', '+380', 'UAH', 'Ukraine'),
   CountryInfo('AE', '+971', 'AED', 'United Arab Emirates'),
-  CountryInfo('GB', '+44', 'GBP', 'United Kingdom'),
-  CountryInfo('US', '+1', 'USD', 'United States'),
+  CountryInfo('GB', '+44', 'GBP', 'United Kingdom', primary: true),
+  CountryInfo('US', '+1', 'USD', 'United States', primary: true),
   CountryInfo('UY', '+598', 'UYU', 'Uruguay'),
   CountryInfo('UZ', '+998', 'UZS', 'Uzbekistan'),
   CountryInfo('VU', '+678', 'VUV', 'Vanuatu'),

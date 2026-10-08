@@ -96,4 +96,39 @@ mixin ShadcnLocalizationsMisc {
   /// No Flutter ARB equivalent exists, so this is the English fallback only.
   String get emptyStateErrorDescription =>
       'We couldn\u2019t load this data. Try again in a moment.';
+
+  /// Placeholder and semantics label of a `filter_bar` search field.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get filterSearch => 'Search';
+
+  /// Placeholder of a `filter_bar` sort control.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get filterSort => 'Sort';
+
+  /// Placeholder of a `filter_bar` date-range control.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get filterDateRange => 'Date range';
+
+  /// Label of a `filter_bar` clear action.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get filterClearAll => 'Clear all';
+
+  /// Trigger label and sheet title of a `filter_bar`.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get filterFilters => 'Filters';
+
+  /// Counter text of a `filter_bar` with [count] active filters.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String filterActiveCount(int count) => '$count active filters';
+
+  /// Counter text of a `filter_bar` showing [count] results.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String filterResultsCount(int count) => '$count results';
 }

@@ -409,3 +409,10 @@
 - Orchestrator review of rearch/cutover.sh: dry-run default, refuses --apply on blockers/dirty tree/wrong branch, only
   git mv/git rm (recoverable). Not sufficient alone: step 4 import rewrites are manual and step 5 manifest tools still
   read the old layout → execute the cutover as an agent task following P4_CUTOVER.md, after USER APPROVAL.
+
+## P4-B24 color_picker, phone_input, filter_bar (+ primitives/filter_core/) (deepseek-v4.1-flash#max) — ACCEPTED (r3)
+- r1: 50 tests, 9+ old filter bugs fixed (debounce resurrect, stale sheet, breakpoint 720≠768, half-null ranges,
+  controller-overrides-state, greaterThan/lessThan runtime-type crash). r2: filter grouping, phone typed-prefix
+  detection + custom `countries`, date control 36, setState → setValue. r3: shared dial codes resolve to the primary
+  country (+1 US, +7 RU, +44 GB …), current selection wins on ties. qa_batch: 69/69, layers clean, theme 0.
+- Accepted: filter_core primitive, color_picker sub-API, 0–100 alpha in every mode, filter labels via l10n.

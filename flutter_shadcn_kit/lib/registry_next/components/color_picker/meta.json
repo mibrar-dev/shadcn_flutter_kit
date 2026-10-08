@@ -1,0 +1,53 @@
+{
+  "id": "color_picker",
+  "name": "ColorPicker",
+  "category": "form",
+  "description": "Full colour picker: HSV/HSL pad, hue/alpha bars, RGB/HSL/HSV/HEX fields, optional alpha, colour history and screen sampling.",
+  "tier": "component",
+  "install": "flutter_shadcn add color_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/color_picker/color_picker.dart';",
+  "tags": ["form", "color", "picker", "hsv", "hsl", "hex"],
+  "deps": {
+    "foundation": ["data", "gap", "icons"],
+    "theme": ["color_tokens", "color_utils", "theme"],
+    "primitives": ["localizations"],
+    "components": [
+      "button",
+      "color",
+      "eye_dropper",
+      "formatter",
+      "history",
+      "hsl",
+      "hsv",
+      "input",
+      "select"
+    ]
+  },
+  "files": [
+    "color_picker.dart",
+    "color_picker_style.dart",
+    "color_picker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ColorPicker",
+      "ColorPickerControls",
+      "ColorPickerTheme"
+    ],
+    "enums": ["ColorPickerMode"],
+    "constants": ["colorPickerDefaults", "colorPickerThemeOverrides"]
+  },
+  "theme": {
+    "class": "ColorPickerTheme",
+    "userFile": "color_picker_theme.dart",
+    "defaults": "colorPickerDefaults",
+    "fields": {
+      "spacing": "double? - gap between major sections, 12 by default",
+      "controlSpacing": "double? - gap between sliders/fields/buttons, 8 by default",
+      "orientation": "Axis? - vertical (pad above fields) by default",
+      "enableEyeDropper": "bool? - show the eye-dropper button, true by default",
+      "sliderSize": "double? - hue/alpha bar thickness, 24 by default"
+    }
+  }
+}

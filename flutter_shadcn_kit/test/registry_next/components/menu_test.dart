@@ -136,7 +136,7 @@ void main() {
       expect(pressed, isFalse);
     });
 
-    testWidgets('a row is at least 32 high (shadcn h-8)', (tester) async {
+    testWidgets('a row measures 32 (shadcn h-8)', (tester) async {
       await tester.pumpWidget(
         _frame(
           _group(<MenuItem>[
@@ -145,11 +145,10 @@ void main() {
         ),
       );
       await tester.pump();
-      final Finder row = find.ancestor(
-        of: find.text('Cut'),
-        matching: find.byType(ConstrainedBox),
-      );
-      expect(tester.getSize(row).height, greaterThanOrEqualTo(32));
+      // The 32px minimum is a border-box total: the row's padding is
+      // reserved inside it (B20/F1). The old inner ConstrainedBox was
+      // 32 tall *plus* 12 padding = 44.
+      expect(tester.getSize(find.byType(RovingRow).first).height, 32);
     });
 
     testWidgets('separator paints a 1px border rule', (tester) async {
@@ -266,7 +265,10 @@ void main() {
       final TestGesture gesture = await _hover(tester, find.text('Share'));
       await tester.pump();
       expect(find.text('Email'), findsOneWidget);
-      await gesture.moveTo(tester.getCenter(find.text('Cut')));
+      // The overlay entry fills the test window, so the 192-wide submenu
+      // inverts over the *left* half of the stretched row; hover Cut's right
+      // side so the pointer stays on the row (not on the submenu).
+      await gesture.moveTo(Offset(600, tester.getCenter(find.text('Cut')).dy));
       await tester.pumpAndSettle();
       expect(find.text('Email'), findsNothing);
     });
@@ -561,10 +563,26 @@ void main() {
         ),
       );
       await tester.pump();
+      BoxDecoration? rowDecoration() {
+        final AnimatedContainer container = tester.widget<AnimatedContainer>(
+          find
+              .descendant(
+                of: find.byType(RovingRow).first,
+                matching: find.byType(AnimatedContainer),
+              )
+              .first,
+        );
+        return container.decoration as BoxDecoration?;
+      }
+
       final TestGesture gesture = await _hover(tester, find.text('Cut'));
       await tester.pump();
-      // Hover focuses the row; the focused state resolves the accent fill.
-      expect(find.text('Cut'), findsOneWidget);
+      // Hover focuses the row; the focused state resolves the accent fill and
+      // its label colour (shadcn focus:bg-accent focus:text-accent-foreground).
+      final ShadcnColors colors = const ShadcnThemeData().colors;
+      expect(rowDecoration()!.color, colors.accent);
+      final Text label = tester.widget<Text>(find.text('Cut'));
+      expect(label.style, isNull); // colour comes from the row's TextTheme.
       await gesture.moveTo(const Offset(5000, 5000));
       await tester.pump();
     });

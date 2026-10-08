@@ -1,0 +1,63 @@
+{
+  "id": "dropdown_menu",
+  "name": "DropdownMenu",
+  "category": "overlay",
+  "description": "A menu surface anchored below the widget that opened it, plus the showShadcnDropdown helper. Rows, traversal and the popup surface come from the menu component.",
+  "tier": "component",
+  "install": "flutter_shadcn add dropdown_menu",
+  "import": "import 'package:<your_app>/ui/shadcn/dropdown_menu/dropdown_menu.dart';",
+  "tags": [
+    "overlay",
+    "dropdown",
+    "menu",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "overlay",
+      "popover",
+      "sheet_overlay"
+    ],
+    "components": [
+      "menu"
+    ]
+  },
+  "files": [
+    "dropdown_menu.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "DropdownMenu"
+    ],
+    "functions": [
+      "showShadcnDropdown"
+    ]
+  },
+  "theme": {
+    "class": "MenuPopupTheme",
+    "owner": "menu",
+    "userFile": "menu/menu_theme.dart",
+    "defaults": "menuPopupDefaults",
+    "note": "DropdownMenu takes a MenuPopupTheme as its widget-leg surface override; it declares no theme of its own."
+  },
+  "accessibility": {
+    "keyboard": "menu traversal (ArrowUp/Down, Home/End, ArrowRight/Left for submenus, Escape, typeahead); outside taps close the menu",
+    "semantics": "rows are menu buttons; disabled rows dim to 50% opacity"
+  },
+  "sizes": {
+    "surface": "MenuPopup defaults: min-width 192 (12rem), padding 4, 1px border, radius md",
+    "row": "menu row metrics (min-height 32)"
+  },
+  "notes": [
+    "DropdownMenuTheme (surfaceOpacity/surfaceBlur only) is deleted: the surface* fields were dropped with the dialog pilot and MenuPopup owns the surface tokens.",
+    "DropdownMenuData (regionGroupId plumbing) is deleted; one popover per menu no longer needs region grouping.",
+    "The drawer dependency is gone: the sheet-overlay marker comes from primitives/sheet_overlay.dart, not the drawer component.",
+    "showShadcnDropdown returns a Future<T?> instead of the old OverlayCompleter; showShadcnMenu remains the row-menu helper for submenus inside menus."
+  ]
+}

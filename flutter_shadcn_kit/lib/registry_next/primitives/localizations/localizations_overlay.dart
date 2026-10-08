@@ -40,4 +40,11 @@ mixin ShadcnLocalizationsOverlay {
   String get menuRedo => 'Redo';
 
   String get menuDelete => 'Delete';
+
+  /// Shown by the spell check suggestions toolbar when the misspelled word
+  /// has no replacement suggestion.
+  ///
+  /// English fallback: Flutter's material/cupertino ARB tables carry no
+  /// equivalent string, so no translations are copied.
+  String get spellCheckNoSuggestions => 'No suggestions';
 }

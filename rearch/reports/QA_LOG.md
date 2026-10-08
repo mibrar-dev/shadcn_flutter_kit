@@ -391,3 +391,12 @@
   unused route-scrub API removed. stage_container: infinite-inset crash, const-assert, step guard, density fixed.
 - Combined qa_batch (tabs pinned_sheet object_input sortable swiper stage_container drawer + 4 primitives): 102/102,
   layers clean, owner 0, theme 0.
+
+## P4-B20 menubar, context_menu, dropdown_menu, spell_check_suggestions_toolbar, select, multi_select, popup (+ menu/menu_rows fixes, primitives roving_row, select_popup) (deepseek-v4.1-flash#max) — ACCEPTED (r2)
+- r1: 69 tests; popup Escape fixed, select trigger border no longer inflates 36. Returned for: shared RovingRow padding
+  stacking (44 instead of 32) + no hover/focus fill in the ACCEPTED menu rows; dropped select multi/canUnselect/
+  autoClose/constraints; empty spell-check row.
+- r2: menu rows 32 tall with accent hover/focus fill (fixed in primitives/menu_rows.dart; 2 menu test expectations
+  updated with reason), consumer workarounds removed; select canUnselect/autoClose/popupConstraints restored, popup body
+  in primitives/select_popup.dart; new installable `multi_select` component (chips + MenuCheckboxItem rows) — accepted;
+  spellCheckNoSuggestions key (English fallback). qa_batch: 115/115, layers clean, owner 0, theme 0.

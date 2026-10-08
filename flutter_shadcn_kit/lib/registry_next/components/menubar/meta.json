@@ -1,0 +1,71 @@
+{
+  "id": "menubar",
+  "name": "Menubar",
+  "category": "overlay",
+  "description": "A horizontal bar of menu triggers whose submenus open below the bar. Rows, keyboard traversal and popup surfaces are the menu component's; MenubarTheme is owned by menu and resolved here.",
+  "tier": "component",
+  "install": "flutter_shadcn add menubar",
+  "import": "import 'package:<your_app>/ui/shadcn/menubar/menubar.dart';",
+  "tags": [
+    "overlay",
+    "menubar",
+    "menu",
+    "navigation",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "menu"
+    ]
+  },
+  "files": [
+    "menubar.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Menubar"
+    ],
+    "reExportedFromComponents": {
+      "menu": [
+        "MenubarTheme",
+        "menubarDefaults"
+      ]
+    }
+  },
+  "theme": {
+    "class": "MenubarTheme",
+    "owner": "menu",
+    "userFile": "menu/menu_theme.dart",
+    "defaults": "menubarDefaults",
+    "fields": {
+      "border": "bool? - whether the bar draws its border; null = true",
+      "background": "ThemedColor? - bar fill; null = background",
+      "borderColor": "ThemedColor? - null = border",
+      "borderWidth": "double? - null = 1.0",
+      "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
+      "padding": "EdgeInsetsGeometry? - null = all 4",
+      "subMenuOffset": "Offset? - null = Offset(-4, 8)"
+    }
+  },
+  "accessibility": {
+    "keyboard": "one roving tab stop for the bar: ArrowUp/Down move and wrap between triggers, Home/End jump, ArrowRight opens the focused trigger's submenu, ArrowLeft closes the open submenu, Escape closes a level, typing selects a trigger by prefix",
+    "semantics": "triggers are menu buttons through the menu rows; disabled rows dim to 50% opacity"
+  },
+  "sizes": {
+    "bar": "padding 4 (p-1), radius md, 1px border",
+    "row": "menu row metrics (min-height 32)"
+  },
+  "notes": [
+    "MenubarState (the old public state class that drifted from the menu copy) is deleted; Menubar is a stateless container and RovingGroup owns traversal.",
+    "The bar lays the top-level group out in a stretched Row while keeping Axis.vertical as the group direction, so popups opened from the bar lay out as columns.",
+    "ArrowUp/Down traverse the bar and ArrowRight opens a submenu: the accepted menu traversal engine is used unchanged (no menubar-specific key handling).",
+    "The old menu/menubar-specific button rows are gone; bar triggers look like menu rows."
+  ]
+}

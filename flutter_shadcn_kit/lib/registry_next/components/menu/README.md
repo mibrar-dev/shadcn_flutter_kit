@@ -95,6 +95,10 @@ popover surface, 1px border, radius md, padding 4, min-width 192.
 `MenuPopupSurface`, `showMenuPopover`, `MenuLabel`, `MenuShortcut`,
 `MenuSeparator`, `columnMenuBuilder`) live in primitives and are
 re-exported here; every row resolves its four theme legs in `menu.dart`.
+B20/F1: rows measure the shadcn h-8 = 32 (padding is reserved inside the
+minimum) and paint `focus:bg-accent focus:text-accent-foreground`;
+`RovingRow` lives in `primitives/roving_row.dart`, re-exported by
+`menu_rows.dart`.
 Arrow keys reach the engine because the row surface rebinds them to an
 unbound intent — the `Clickable` framework traversal would otherwise
 swallow them (no wrap, no disabled-skip, no submenu keys).

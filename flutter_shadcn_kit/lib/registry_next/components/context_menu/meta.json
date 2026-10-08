@@ -1,0 +1,65 @@
+{
+  "id": "context_menu",
+  "name": "ContextMenu",
+  "category": "overlay",
+  "description": "A menu shown at the pointer on right-click (long-press on touch platforms), plus the showShadcnContextMenu helper. Rows, traversal and the popup surface come from the menu component.",
+  "tier": "component",
+  "install": "flutter_shadcn add context_menu",
+  "import": "import 'package:<your_app>/ui/shadcn/context_menu/context_menu.dart';",
+  "tags": [
+    "overlay",
+    "context-menu",
+    "menu",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "overlay",
+      "popover",
+      "sheet_overlay"
+    ],
+    "components": [
+      "menu"
+    ]
+  },
+  "files": [
+    "context_menu.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ContextMenu"
+    ],
+    "functions": [
+      "showShadcnContextMenu"
+    ]
+  },
+  "theme": {
+    "class": "MenuTheme",
+    "owner": "menu",
+    "userFile": "menu/menu_theme.dart",
+    "defaults": "menuDefaults",
+    "note": "ContextMenu and showShadcnContextMenu take MenuTheme/MenuPopupTheme as widget-leg overrides; no theme of their own."
+  },
+  "accessibility": {
+    "keyboard": "menu traversal (ArrowUp/Down, Home/End, ArrowRight/Left for submenus, Escape, typeahead); Escape or an outside tap closes the menu",
+    "semantics": "rows are menu buttons; disabled rows dim to 50% opacity"
+  },
+  "sizes": {
+    "surface": "MenuPopup defaults: min-width 192 (12rem), padding 4, 1px border, radius md",
+    "row": "menu row metrics (min-height 32)",
+    "offset": "menu opens 8 right of the pointer"
+  },
+  "notes": [
+    "ContextMenuTheme (surfaceOpacity/surfaceBlur only) is deleted with the surface* fields; MenuPopupTheme covers the surface.",
+    "The old desktop/mobile editable-text context menus (DesktopEditableTextContextMenu, MobileEditableTextContextMenu, buildEditableTextContextMenu) are not ported: the widgets-only editable text menu lives in primitives/text_editing (defaultShadcnContextMenuBuilder), so context_menu stays a pointer-positioned row menu.",
+    "The drawer dependency is gone; sheet-overlay detection uses primitives/sheet_overlay.dart.",
+    "The old module imported material.dart for TargetPlatform and platform heuristics; widgets' TargetPlatform and ShadcnThemeData.platform replace it.",
+    "The old ValueNotifier children dance (post-frame item updates) is gone: a stateless wrapper reads the current items at tap time."
+  ]
+}

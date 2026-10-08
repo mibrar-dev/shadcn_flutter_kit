@@ -1,13 +1,13 @@
-// The `menu` component: rows, submenus, [showShadcnMenu] and [MenuPopup].
-// Traversal and row surfaces live in primitives; rows resolve legs here.
+// The `menu` component: rows, submenus, [showShadcnMenu] and [MenuPopup];
+// traversal and row surfaces live in primitives, rows resolve legs here.
 
 import 'package:flutter/widgets.dart';
-
 import '../../foundation/data.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/menu_nav.dart';
 import '../../primitives/menu_rows.dart';
 import '../../primitives/popover_controller.dart';
+import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'menu_style.dart';
 
@@ -24,7 +24,6 @@ typedef MenuChangedCallback<T> = void Function(BuildContext context, T value);
 /// One row inside a [MenuGroup].
 abstract class MenuItem extends Widget {
   const MenuItem({super.key});
-
   bool get hasLeading;
   bool get enabled;
 }
@@ -38,8 +37,8 @@ MenuTheme _menuThemeOf(BuildContext context, MenuTheme? widget) =>
       defaults: menuDefaults,
     );
 
-/// A keyboard-navigable list of rows over [RovingGroup]. Non-[MenuItem]
-/// children (headers, separators) render without taking focus.
+/// A keyboard-navigable list of rows over [RovingGroup] (headers and
+/// separators render without taking focus).
 class MenuGroup extends RovingGroup {
   MenuGroup({
     super.key,
@@ -54,9 +53,8 @@ class MenuGroup extends RovingGroup {
   }) : super(hasLeading: children.any((c) => c is MenuItem && c.hasLeading));
 }
 
-/// An actionable menu row, optionally owning a submenu. Hover focuses the
-/// row and opens its submenu; press activates [onPressed] and, when
-/// [autoClose] is set, dismisses the menu.
+/// An actionable menu row, optionally owning a submenu; hover focuses and
+/// opens it, press activates [onPressed] and (with [autoClose]) dismisses.
 class MenuButton extends StatefulWidget implements MenuItem {
   const MenuButton({
     super.key,
@@ -183,9 +181,13 @@ RovingRow _plainRow(
   final MenuGroupData? group = Data.maybeOf<MenuGroupData>(context);
   final ShadcnThemeData app = ShadcnTheme.of(context);
   final MenuTheme style = _menuThemeOf(context, theme);
-  final Set<WidgetState> states = <WidgetState>{
-    if (!enabled) WidgetState.disabled,
-  };
+  Color? resolvedColor(
+    StateValue<ThemedColor>? value,
+    Set<WidgetState> states,
+  ) => value?.resolve(states)?.resolve(app.colors);
+  // Hover/focus paint uses the theme's hovered row; disabled rows keep the
+  // rest colours and dim through the row's opacity.
+  const Set<WidgetState> hovered = <WidgetState>{WidgetState.hovered};
   return RovingRow(
     enabled: enabled,
     focusNode: focusNode,
@@ -194,8 +196,10 @@ RovingRow _plainRow(
       if (autoClose) group?.closeAll();
     },
     onHover: onHover,
-    fill: style.background?.resolve(states)?.resolve(app.colors),
-    foreground: style.foreground?.resolve(states)?.resolve(app.colors),
+    fill: resolvedColor(style.background, const <WidgetState>{}),
+    highlightFill: resolvedColor(style.background, hovered),
+    foreground: resolvedColor(style.foreground, const <WidgetState>{}),
+    highlightForeground: resolvedColor(style.foreground, hovered),
     radius: (style.borderRadius ?? app.borderRadiusSm).resolve(
       Directionality.of(context),
     ),
@@ -231,8 +235,7 @@ class MenuRadioGroup<T> extends StatelessWidget {
       Data<MenuRadioGroup<T>>.inherit(data: this, child: child);
 }
 
-/// A checkable row; the menu stays open so several options toggle in a row.
-/// Toggles on press and on Enter/Space while focused.
+/// A checkable row: toggles on press and on Enter/Space; stays open.
 class MenuCheckboxItem extends StatelessWidget implements MenuItem {
   const MenuCheckboxItem({
     super.key,
@@ -271,8 +274,7 @@ class MenuCheckboxItem extends StatelessWidget implements MenuItem {
   }
 }
 
-/// A radio row; exactly one per group is selected. Selects on press and on
-/// Enter/Space while focused.
+/// A radio row: exactly one per group is selected on press/Enter/Space.
 class MenuRadioItem<T> extends StatelessWidget implements MenuItem {
   const MenuRadioItem({
     super.key,
@@ -311,8 +313,8 @@ class MenuRadioItem<T> extends StatelessWidget implements MenuItem {
   }
 }
 
-/// A submenu: [trigger] opens [children] on hover or ArrowRight; ArrowLeft
-/// closes the level. Traversal and theming match [MenuButton].
+/// A submenu: [trigger] opens [children] on hover or ArrowRight, ArrowLeft
+/// closes; traversal and theming match [MenuButton].
 class MenuSub extends StatelessWidget implements MenuItem {
   const MenuSub({
     super.key,
@@ -367,8 +369,7 @@ class MenuPopup extends StatelessWidget {
   }
 }
 
-/// Shows [children] as a root-level menu popover; completes when it closes.
-/// Escape closes through the root group's `onDismissed`.
+/// Shows [children] as a root menu popover; Escape closes the root group.
 Future<T?> showShadcnMenu<T>({
   required BuildContext context,
   required List<Widget> children,

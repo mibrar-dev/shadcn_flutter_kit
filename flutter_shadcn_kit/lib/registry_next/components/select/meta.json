@@ -1,0 +1,94 @@
+{
+  "id": "select",
+  "name": "Select",
+  "category": "form",
+  "description": "A single-selection dropdown picker. The trigger reuses the button variant table and the popover primitive; the popup is the menu component's surface and rows; the search field is the input component.",
+  "tier": "component",
+  "install": "flutter_shadcn add select",
+  "import": "import 'package:<your_app>/ui/shadcn/select/select.dart';",
+  "tags": [
+    "form",
+    "select",
+    "dropdown",
+    "combobox",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "geometry",
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "form_core",
+      "overlay",
+      "popover_controller",
+      "select_popup"
+    ],
+    "components": [
+      "button",
+      "input",
+      "menu"
+    ]
+  },
+  "files": [
+    "select.dart",
+    "select_style.dart",
+    "select_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Select",
+      "SelectItem",
+      "SelectTheme"
+    ],
+    "typedefs": [
+      "SelectValueBuilder",
+      "SelectItemsBuilder"
+    ],
+    "constants": [
+      "selectDefaults",
+      "selectDefaultTriggerPadding",
+      "selectDefaultItemPadding",
+      "selectThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "SelectTheme",
+    "userFile": "select_theme.dart",
+    "defaults": "selectDefaults",
+    "fields": {
+      "variant": "ButtonVariant? - trigger row; null = outline",
+      "trigger": "ButtonVariantStyle? - per-state trigger rows merged over the variant",
+      "popup": "MenuPopupTheme? - surface override (menu-owned class)",
+      "itemPadding": "EdgeInsetsGeometry? - option row padding; null = px-2 py-1.5",
+      "constraints": "BoxConstraints? - popup size; null = 192-320 wide, 240 high (always trigger-wide)"
+    }
+  },
+  "accessibility": {
+    "keyboard": "trigger: Tab/Enter/Space opens. Popup: the menu engine's traversal (ArrowUp/Down move and wrap, Home/End jump, Enter/Space activates, Escape closes one level, typeahead selects by prefix); the search field takes focus when it is shown",
+    "semantics": "the trigger is a button; option rows are menu buttons; disabled triggers and rows dim to 50% opacity"
+  },
+  "sizes": {
+    "trigger": "min-height 36 (h-9), px-3 (12), 14px label, 16px expand icon",
+    "popup": "min-width 192 (12rem), max-width 320, max-height 240 before scrolling, p-1 (4) surface",
+    "row": "menu row metrics: px-2 py-1.5, min-height 32, 14px type"
+  },
+  "notes": [
+    "The popup family collapsed: SelectPopup/SelectItemList/SelectItemBuilder/SelectItemButton/SelectGroup/SelectLabel/EmptySelectItem/SelectPopupHandle are gone; rows are SelectItems and the popup body (search field, async rows, constraints) lives in primitives/select_popup.dart with the surface and search field injected so it stays layer-clean.",
+    "SelectExpandIcon collapsed into the default expandIcon icon; filled, the trigger constraints, alignment/widthConstraint and overlayConfiguration/adaptiveOverlay are gone.",
+    "The Material-only SelectItemButton mouse cursor override and the scroll chevron affordances are not ported.",
+    "Fixed: the old trigger resolved its disabled state from onChanged == null only, so enabled: true with no callback opened a dead popup; _enabled is now the single source of truth.",
+    "Fixed (B20/F1): menu_rows.RovingRow reserves its padding inside the 32px minimum and paints the hover/focus accent; SelectRow and the popup constraints rely on it.",
+    "The popup search field has no leading search icon (dropped with the two-file budget; not shadcn).",
+    "Multi selection is the sibling multi_select component (MultiSelect/MultiSelectItem/MultiSelectChip), built on Select's valueSelectionHandler/valueSelectionPredicate hooks and the menu component's MenuCheckboxItem; it lives in its own folder because the popup rows need menu/chip (layer 3) and the two-file select budget cannot hold the family.",
+    "canUnselect (click the selected item to clear), autoClose (default true) and themeable popup constraints (SelectTheme.constraints / popupConstraints) are restored; the default popup band is 192-320 wide and 240 high, always trigger-wide."
+  ]
+}

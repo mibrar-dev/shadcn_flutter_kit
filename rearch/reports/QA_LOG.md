@@ -209,3 +209,11 @@
   colour crash, IconTheme merge precedence, wholesale theme resolution). Ratified: linear_progress_indicator →
   progress, circular_progress_indicator → spinner (determinate circular dropped: 0 consumers);
   IconContainerTheme name (avoids shadowing Flutter IconTheme); avatar badge uses shadcn ring, not notch clipper.
+
+## P4-B02 slider + primitives/slider/ (fledge-alpha-free#max, ses_ee76947dfffely66q1yHgKP5VJ) — ACCEPTED (r3)
+- First launch failed (network); r1 on fledge: widgets-only rewrite (~4.4k → ~1.5k LOC, 19 tests) but 3 extra files in
+  the component folder. r2: logic/painter/controller moved to generic primitives/slider/ (B04 colour sliders reuse
+  it), SliderValue.roundToDivisions deleted (dead), tests for precedence/dark/disabled/keyboard/range/snap/form.
+  r3: unused `gap` dep removed, slider.dart 419 → 405.
+- Orchestrator re-ran: format 0 changed, analyze 0, slider + all primitives tests 333/333, no slider layer findings
+  except slider.dart 405 lines (accepted within ~400 tolerance).

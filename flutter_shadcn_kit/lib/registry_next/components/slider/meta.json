@@ -1,0 +1,76 @@
+{
+  "id": "slider",
+  "name": "Slider",
+  "category": "form",
+  "description": "Single- and range-value sliders with snap strategies, four visual variants, and keyboard/form support. Built on widgets gestures and CustomPaint \u2014 no Material Slider.",
+  "tier": "component",
+  "install": "flutter_shadcn add slider",
+  "import": "import 'package:<your_app>/ui/shadcn/slider/slider.dart';",
+  "tags": [
+    "form",
+    "slider",
+    "range",
+    "input"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "form_core",
+      "slider_value",
+      "slider"
+    ],
+    "components": []
+  },
+  "dependencies": {
+    "components": []
+  },
+  "files": [
+    "slider.dart",
+    "slider_style.dart",
+    "slider_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Slider",
+      "SliderTheme",
+      "SliderStyle",
+      "SliderLogic",
+      "SliderView",
+      "SliderThumb",
+      "SliderMark"
+    ],
+    "enums": [
+      "SliderVariant",
+      "SliderThumbShape"
+    ],
+    "constants": [
+      "sliderDefaults",
+      "sliderThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "SliderTheme",
+    "userFile": "slider_theme.dart",
+    "defaults": "sliderDefaults",
+    "fields": {
+      "standard": "SliderStyle? - pill track, bar thumb",
+      "soft": "SliderStyle? - thicker track, circle thumb",
+      "dots": "SliderStyle? - step dots overlay",
+      "wave": "SliderStyle? - waveform bars overlay",
+      "track": "StateValue<ThemedColor>? - remaining track",
+      "fill": "StateValue<ThemedColor>? - active fill",
+      "thumb": "StateValue<ThemedColor>? - thumb fill",
+      "thumbBorder": "StateValue<ThemedColor>? - circle thumb border",
+      "mark": "StateValue<ThemedColor>? - unfilled marks",
+      "trackHeight": "double?",
+      "trackRadius": "double?",
+      "thumbSize": "Size?",
+      "thumbShape": "SliderThumbShape?"
+    }
+  }
+}

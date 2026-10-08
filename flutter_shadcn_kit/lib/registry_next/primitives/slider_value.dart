@@ -43,17 +43,6 @@ class SliderValue {
     return null;
   }
 
-  /// Rounds both bounds to [divisions] steps.
-  SliderValue roundToDivisions(int divisions) {
-    if (!isRanged) {
-      return SliderValue.single((_end * divisions).round() / divisions);
-    }
-    return SliderValue.ranged(
-      (_start! * divisions).round() / divisions,
-      (_end * divisions).round() / divisions,
-    );
-  }
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;

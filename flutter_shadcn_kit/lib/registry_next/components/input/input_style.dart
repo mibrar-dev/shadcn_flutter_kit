@@ -10,6 +10,7 @@ import 'dart:ui' show lerpDouble;
 
 import 'package:flutter/widgets.dart';
 
+import '../../primitives/text_editing/editable_text_style.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';
@@ -319,14 +320,18 @@ InputSurface resolveInputSurface(
         borderRadius: radius,
       );
 
-  final TextStyle baseTextStyle = theme.typography.small
-      .merge(resolved.textStyle)
-      .merge(style);
-  final TextStyle textStyle = baseTextStyle.copyWith(
-    color: baseTextStyle.color ?? colors.foreground,
+  final TextStyle textStyle = resolveEditableTextStyle(
+    context,
+    base: theme.typography.small,
+    overrides: <TextStyle?>[resolved.textStyle, style],
+    color: colors.foreground,
   );
-  final TextStyle hintStyle = (resolved.hintStyle ?? theme.typography.small)
-      .copyWith(color: resolved.hintStyle?.color ?? colors.mutedForeground);
+  final TextStyle hintStyle = resolveEditableTextStyle(
+    context,
+    base: theme.typography.small,
+    overrides: <TextStyle?>[resolved.hintStyle],
+    color: colors.mutedForeground,
+  );
 
   return InputSurface(
     decoration: surface,

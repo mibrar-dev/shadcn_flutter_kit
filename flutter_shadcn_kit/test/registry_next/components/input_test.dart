@@ -467,4 +467,44 @@ void main() {
     expect(_surface(tester).color, _alpha(dark.colors.input, 0.3));
     expect(_surface(tester).border, Border.all(color: dark.colors.input));
   });
+
+  testWidgets('editable text uses the theme font family', (tester) async {
+    await tester.pumpWidget(
+      _frame(
+        child: const Input(hintText: 'Email', initialValue: 'typed'),
+      ),
+    );
+    final editable = _editable(tester);
+    expect(
+      editable.style.fontFamily,
+      const ShadcnThemeData().typography.sans.fontFamily,
+      reason: 'typed text must render in the theme font, not the default',
+    );
+    expect(editable.style.fontSize, 14);
+    expect(editable.style.color, colors.foreground);
+  });
+
+  testWidgets('placeholder uses mutedForeground', (tester) async {
+    await tester.pumpWidget(_frame(child: const Input(hintText: 'Email')));
+    final hint = tester.widget<Text>(find.text('Email'));
+    expect(hint.style?.color, colors.mutedForeground);
+  });
+
+  testWidgets('explicit style override wins over the theme font', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _frame(
+        child: const Input(
+          initialValue: 'typed',
+          theme: InputTheme(
+            textStyle: TextStyle(fontFamily: 'Custom', fontSize: 20),
+          ),
+        ),
+      ),
+    );
+    final editable = _editable(tester);
+    expect(editable.style.fontFamily, 'Custom');
+    expect(editable.style.fontSize, 20);
+  });
 }

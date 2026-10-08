@@ -106,3 +106,44 @@ explicitly. `_DialogCard` gaps corrected to 16/16 (was 8/24) per §1.
 - `test/registry_next/visual/pilot_screenshots_test.dart` — themed dialog
   page background; card gaps 16/16.
 - `rearch/screenshots/pilot/*.png` — regenerated (24 files).
+
+## Round 2: editable-text theme font (real bug, not harness)
+
+Bug: `EditableText` ignores the ambient `DefaultTextStyle`, and
+`resolveInputSurface` built its style from `theme.typography.small` (size 14
+only, no family). `Text` widgets inherited the theme font (Geist) from the
+gallery/app `DefaultTextStyle`; typed text fell back to the platform default
+(in tests: Ahem tofu bars in every filled field of `input_*.png`).
+
+Fix (in `primitives/text_editing/`, so all consumers benefit): new
+`primitives/text_editing/editable_text_style.dart` with
+`resolveEditableTextStyle(context, {base, overrides, color})`. It keeps the
+existing merge order (text-sm base < theme-leg < widget-leg, colour
+foreground / mutedForeground fallbacks — no behaviour change there) and
+fills only what was missing: `fontFamily`/`fontFamilyFallback` from the
+ambient style when set, else from `theme.typography.sans` (bare apps with no
+ambient style still get the theme font), plus ambient `height` when the
+merged style has none. `resolveInputSurface` now routes both the typed style
+and the hint style through it. This fixes `input` and `text_area` (reuses
+`resolveInputSurface`); `input_otp` needs no change (visible digits are
+`Text` widgets, its `EditableText` is an invisible `Opacity(0)` field);
+`selectable` keeps its own style (out of scope, colour assertion still
+green). Behaviour nuance: a hint override without its own size now keeps the
+text-sm 14 instead of dropping the base (more correct; no test depended on
+the old drop).
+
+Tests: `input_test.dart` gains "editable text uses the theme font family"
+(`fontFamily == typography.sans.fontFamily`, size 14, foreground),
+"placeholder uses mutedForeground" and "explicit style override wins over
+the theme font"; `text_editing_test.dart` gains a `resolveEditableTextStyle`
+group (sans fallback, ambient-beats-sans, override-beats-all).
+`text_area`/`selectable`/`pilot_metrics` suites re-run green (no regressions;
+input height stays 36).
+
+Screenshots: regenerated — `input_light/dark.png`, `preset_input_*` and
+`preview_input_*` now show real glyphs, so the Round 1 verdict for those
+files flips from ISSUE to OK. `input_menu_light/dark.png` (stale since
+2026-10-06, no generator) now have one: an `input_menu` scene reusing the
+`input_context_menu` build + interact was added to
+`pilot_screenshots_test.dart` (no files deleted), and both PNGs regenerated
+with real glyphs and the Cut/Copy/Select-all toolbar visible.

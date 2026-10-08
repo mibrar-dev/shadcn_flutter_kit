@@ -5,6 +5,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_shadcn_kit/registry_next/primitives/text_editing/editable_text_style.dart';
 import 'package:flutter_shadcn_kit/registry_next/primitives/text_editing/text_editing.dart';
 import 'package:flutter_shadcn_kit/registry_next/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -271,5 +272,75 @@ void main() {
     expect(find.text('Cut'), findsNothing);
     expect(find.text('Copy'), findsNothing);
     expect(find.text('Select all'), findsOneWidget);
+  });
+
+  group('resolveEditableTextStyle', () {
+    Future<TextStyle> resolve(
+      WidgetTester tester, {
+      TextStyle? base,
+      List<TextStyle?> overrides = const <TextStyle?>[],
+      required Color color,
+      TextStyle ambient = const TextStyle(),
+    }) async {
+      late TextStyle resolved;
+      await tester.pumpWidget(
+        ShadcnTheme(
+          data: const ShadcnThemeData(),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: DefaultTextStyle(
+              style: ambient,
+              child: Builder(
+                builder: (context) {
+                  resolved = resolveEditableTextStyle(
+                    context,
+                    base: base,
+                    overrides: overrides,
+                    color: color,
+                  );
+                  return const SizedBox();
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+      return resolved;
+    }
+
+    testWidgets('falls back to the theme sans family', (tester) async {
+      final style = await resolve(
+        tester,
+        base: const TextStyle(fontSize: 14),
+        color: const Color(0xFF111111),
+      );
+      expect(
+        style.fontFamily,
+        const ShadcnThemeData().typography.sans.fontFamily,
+      );
+      expect(style.fontSize, 14);
+      expect(style.color, const Color(0xFF111111));
+    });
+
+    testWidgets('ambient family wins over theme sans, override wins all', (
+      tester,
+    ) async {
+      final ambient = await resolve(
+        tester,
+        base: const TextStyle(fontSize: 14),
+        ambient: const TextStyle(fontFamily: 'Ambient'),
+        color: const Color(0xFF111111),
+      );
+      expect(ambient.fontFamily, 'Ambient');
+
+      final explicit = await resolve(
+        tester,
+        base: const TextStyle(fontSize: 14),
+        overrides: const <TextStyle?>[TextStyle(fontFamily: 'Custom')],
+        ambient: const TextStyle(fontFamily: 'Ambient'),
+        color: const Color(0xFF111111),
+      );
+      expect(explicit.fontFamily, 'Custom');
+    });
   });
 }

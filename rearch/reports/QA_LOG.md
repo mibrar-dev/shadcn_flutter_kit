@@ -260,3 +260,4 @@
 - qa_batch.sh button toggle input dialog: format 0 changed, 51/51, layers clean, theme 0; pilot_metrics + visual green.
 - r2: input text renders without the theme font (EditableText style lacks fontFamily) — real bug, fix in primitive.
 - Follow-up for all batches: audit every component's sizes for the same padding-on-minHeight stacking.
+- P3-F r2 ACCEPTED: resolveEditableTextStyle in primitives/text_editing — typed text + placeholder use the theme sans family (ambient → theme), size 14, mutedForeground hint; fixes input + text_area; input screenshots now show glyphs; input_menu PNGs have a generator. qa_batch input/text_editing clean (30 tests); text_area/selectable/pilot_metrics 63 green; visual 26 green. Orchestrator removed empty legacy `dependencies` blocks from button/input/slider/toggle meta.json (deps is the single source). Open: selectable builds its own EditableText style — fold into the helper in its next touch.

@@ -121,6 +121,14 @@ void main() {
       build: () => const _InputContextMenuScene(),
       interact: _openContextMenu,
     );
+    // Legacy name for the same capture: `input_menu_*.png` predate the
+    // `input_context_menu` rename and would otherwise go stale again.
+    _scene(
+      name: 'input_menu',
+      size: const Size(460, 320),
+      build: () => const _InputContextMenuScene(),
+      interact: _openContextMenu,
+    );
   });
 
   group('dialog', () {

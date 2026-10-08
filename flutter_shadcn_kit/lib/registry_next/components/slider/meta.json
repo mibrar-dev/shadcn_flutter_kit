@@ -2,7 +2,7 @@
   "id": "slider",
   "name": "Slider",
   "category": "form",
-  "description": "Single- and range-value sliders with snap strategies, four visual variants, and keyboard/form support. Built on widgets gestures and CustomPaint \u2014 no Material Slider.",
+  "description": "Single- and range-value sliders with snap strategies, four visual variants, and keyboard/form support. Built on widgets gestures and CustomPaint — no Material Slider.",
   "tier": "component",
   "install": "flutter_shadcn add slider",
   "import": "import 'package:<your_app>/ui/shadcn/slider/slider.dart';",
@@ -23,9 +23,6 @@
       "slider_value",
       "slider"
     ],
-    "components": []
-  },
-  "dependencies": {
     "components": []
   },
   "files": [

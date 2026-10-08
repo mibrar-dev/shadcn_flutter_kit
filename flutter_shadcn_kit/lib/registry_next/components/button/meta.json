@@ -6,14 +6,25 @@
   "tier": "component",
   "install": "flutter_shadcn add button",
   "import": "import 'package:<your_app>/ui/shadcn/button/button.dart';",
-  "tags": ["control", "button", "action", "group"],
+  "tags": [
+    "control",
+    "button",
+    "action",
+    "group"
+  ],
   "deps": {
-    "foundation": ["data", "gap"],
-    "theme": ["color_tokens", "density", "theme"],
-    "primitives": ["clickable"],
-    "components": []
-  },
-  "dependencies": {
+    "foundation": [
+      "data",
+      "gap"
+    ],
+    "theme": [
+      "color_tokens",
+      "density",
+      "theme"
+    ],
+    "primitives": [
+      "clickable"
+    ],
     "components": []
   },
   "files": [
@@ -31,7 +42,10 @@
       "ButtonTheme",
       "ButtonVariantStyle"
     ],
-    "enums": ["ButtonVariant", "ButtonSize"],
+    "enums": [
+      "ButtonVariant",
+      "ButtonSize"
+    ],
     "constants": [
       "buttonDefaultTextStyle",
       "buttonDefaults",

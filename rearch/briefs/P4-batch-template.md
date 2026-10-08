@@ -27,7 +27,10 @@ live theme via InheritedTheme.capture), `input/` (state wiring on top of primiti
 - Strings come from `primitives/localizations` (add keys with real translations copied from Flutter's
   `flutter_localizations` ARB files when an equivalent exists; otherwise English fallback — never invent).
 - FIX old bugs listed in batch data (and any you find — list them); never port them "faithfully".
-- New public names follow shadcn naming; old named constructors/aliases are dropped (clean break).
+- New public names follow shadcn naming; old named constructors/aliases are dropped (clean break). A public name
+  that clashes with `package:flutter/widgets.dart` (Form, FormField, Table, Image, Icon, Text, Container, Overlay,
+  Tooltip, Scrollbar, Navigator, Actions, ...) gets the `Shadcn` prefix (ShadcnForm, ShadcnTable, ShadcnImage) —
+  never ask users to `hide` names.
 
 ## Name map (plan names → what exists now)
 `text` → `primitives/text/`; `basic`, `hidden` → `primitives/layout.dart` (+ `basic_layout.dart`, `hidden.dart`);

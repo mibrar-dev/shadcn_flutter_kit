@@ -241,3 +241,12 @@
 - r3: theme classes moved back from the primitive into components/table/table_style.dart.
 - qa_batch.sh: layout clean (max 352), format 0 changed, 34/34 tests, layers clean, owner 0, theme 0.
 - Note: localizations.dart now 410 lines — split scheduled as a mechanical task once parallel batches settle.
+
+## P4-B16 markdown (+ primitives/markdown_parser/) (muse-spark-1.3-contributor#xhigh, ses_ee712a305ffe2DpbrzIgjhzzrg) — ACCEPTED (r2)
+- r1: 9,028 → ~2.7k LOC, 45 tests, 10 old bugs fixed, but dropped too much (images → alt text, reference links,
+  footnotes, nested quotes > 2, details). r2 restored: network images (widgets-only Image.network + imageBuilder +
+  alt-text loading/error fallback), CommonMark reference links/definitions, GFM footnotes, unlimited quote depth,
+  <details> via the collapsible component, task lists (read-only visuals). Still dropped (documented): math, raw HTML
+  output, asset/file sources, editing bar/controller/live preview, isolate/chunked render.
+- qa_batch.sh: layout clean (max 390), format 0 changed, 59/59 tests, layers clean, theme 0. (Owner hit is calendar's
+  CalendarValueLookup — B07 in flight.) B25 text_animate must adapt to the new API (see report).

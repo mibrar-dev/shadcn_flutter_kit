@@ -180,9 +180,9 @@ class AlertDialogTheme extends ComponentThemeData
   );
 }
 
-/// Default alert dialog title: 16px, semibold.
+/// Default alert dialog title: shadcn `text-lg` (18px), semibold.
 const TextStyle alertDialogDefaultTitleStyle = TextStyle(
-  fontSize: 16,
+  fontSize: 18,
   fontWeight: FontWeight.w600,
 );
 

@@ -286,8 +286,10 @@ const double checkboxDefaultSize = 16;
 /// Default gap between the box and its label: shadcn `gap-2`.
 const double checkboxDefaultGap = 8;
 
-/// Padding around the whole control so the focus ring never clips.
-const EdgeInsetsGeometry checkboxDefaultPadding = EdgeInsets.all(2);
+/// No padding around the control by default: shadcn `size-4` is exactly the
+/// 16px box. The focus ring draws in an overflow stack outside the layout
+/// (see `FocusOutline`), so it never clips and needs no inset here.
+const EdgeInsetsGeometry checkboxDefaultPadding = EdgeInsets.zero;
 
 const _checkedBg = StateValue(
   rest: ThemedColor.ref(ColorRef.primary),

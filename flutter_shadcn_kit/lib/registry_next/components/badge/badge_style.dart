@@ -18,7 +18,11 @@ import '../../theme/theme.dart';
 enum BadgeVariant { primary, secondary, outline, destructive }
 
 /// Fallback text style before the [BadgeTheme.textStyle] row narrows it.
-const TextStyle badgeDefaultTextStyle = TextStyle(fontSize: 12);
+///
+/// shadcn `text-xs`: 12px on a 16px (`1rem`) line, i.e. height 4/3, so the
+/// badge measures 16 + py-0.5 (4) = 20 borderless, 22 with the 1px border
+/// (shadcn `h` ≈ 22 border-box).
+const TextStyle badgeDefaultTextStyle = TextStyle(fontSize: 12, height: 4 / 3);
 
 /// One variant's state-aware styling slice.
 ///

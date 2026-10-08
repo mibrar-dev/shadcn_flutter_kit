@@ -321,6 +321,13 @@ class _SwitchTrack extends StatelessWidget {
     Color? colorFor(StateValue<ThemedColor>? value) =>
         value?.resolve(states)?.resolve(colors);
     final Color? border = colorFor(borderColor);
+    // The thumb keeps its own height and centers vertically: pinning top and
+    // bottom to 0 would stretch a 16px thumb to the full 18.4px track.
+    // Clamped at zero so an oversized themed thumb overflows instead of
+    // inverting the insets.
+    final double verticalInset = ((size.height - thumbSize) / 2)
+        .clamp(0, size.height / 2)
+        .toDouble();
     return AnimatedContainer(
       key: kSwitchTrackKey,
       duration: switchDefaultDuration,
@@ -339,8 +346,8 @@ class _SwitchTrack extends StatelessWidget {
             duration: switchDefaultDuration,
             curve: _switchTravelCurve,
             left: isOn ? travel : 0,
-            top: 0,
-            bottom: 0,
+            top: verticalInset,
+            bottom: verticalInset,
             width: thumbSize,
             child: DecoratedBox(
               key: kSwitchThumbKey,

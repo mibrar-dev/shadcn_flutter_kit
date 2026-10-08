@@ -18,8 +18,8 @@ import 'badge_style.dart';
 export 'badge_style.dart';
 
 /// Diameter of the dot drawn when [Badge.showAsDot] is true (shadcn
-/// `size-2.5 rounded-full`).
-const double badgeDotSize = 6;
+/// `size-2.5 rounded-full` = 10).
+const double badgeDotSize = 10;
 
 /// Cursor of a pressable badge.
 const MouseCursor _badgeMouseCursor = SystemMouseCursors.click;
@@ -169,9 +169,18 @@ class Badge extends StatelessWidget {
     }
 
     if (!isInteractive) {
+      // The static badge still sets the variant text/icon style: without
+      // this the label would inherit whatever ambient size surrounds it
+      // instead of shadcn `text-xs` (same wrap the chip builds).
       return DecoratedBox(
         decoration: decorationFor(const <WidgetState>{}),
-        child: content,
+        child: DefaultTextStyle.merge(
+          style: labelStyleFor(const <WidgetState>{}),
+          child: IconTheme.merge(
+            data: iconThemeFor(const <WidgetState>{}),
+            child: content,
+          ),
+        ),
       );
     }
 

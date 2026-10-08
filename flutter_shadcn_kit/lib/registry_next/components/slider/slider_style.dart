@@ -286,8 +286,9 @@ const _standardRow = SliderStyle(
   fill: StateValue(rest: ThemedColor.ref(ColorRef.primary)),
   thumb: StateValue(rest: ThemedColor.ref(ColorRef.primary)),
   mark: StateValue(rest: ThemedColor.ref(ColorRef.mutedForeground)),
+  // shadcn track `h-1.5` = 6, thumb `size-4` = 16.
   trackHeight: 6,
-  thumbSize: Size(20, 20),
+  thumbSize: Size(16, 16),
   thumbShape: SliderThumbShape.bar,
 );
 

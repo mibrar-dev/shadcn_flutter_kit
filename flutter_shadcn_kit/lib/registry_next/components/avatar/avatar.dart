@@ -49,7 +49,8 @@ class Avatar extends StatelessWidget {
   /// Optional photo. When it fails to decode, [initials] are shown.
   final ImageProvider? image;
 
-  /// Diameter override; null uses [AvatarTheme.size] then `40 * scaling`.
+  /// Diameter override; null uses [AvatarTheme.size] then `32 * scaling`
+  /// (shadcn `size-8`).
   final double? size;
 
   /// Corner radius override; null uses [AvatarTheme.borderRadius] then a
@@ -111,7 +112,7 @@ class Avatar extends StatelessWidget {
       defaults: avatarDefaults,
     );
     final double effectiveSize =
-        size ?? resolved.size ?? 40 * shadcnTheme.scaling;
+        size ?? resolved.size ?? 32 * shadcnTheme.scaling;
     final BorderRadiusGeometry radius =
         borderRadius ??
         resolved.borderRadius ??
@@ -220,7 +221,7 @@ class AvatarBadge extends StatelessWidget {
   final Widget? child;
 
   /// Diameter override; null uses [AvatarTheme.badgeSize] then
-  /// `12 * scaling`.
+  /// `10 * scaling` (shadcn `size-2.5` on the default avatar).
   final double? size;
 
   /// Corner radius override; null is a full circle.
@@ -247,7 +248,7 @@ class AvatarBadge extends StatelessWidget {
       defaults: avatarDefaults,
     );
     final double badgeSize =
-        size ?? resolved.badgeSize ?? 12 * shadcnTheme.scaling;
+        size ?? resolved.badgeSize ?? 10 * shadcnTheme.scaling;
     final BorderRadiusGeometry radius =
         borderRadius ??
         resolved.badgeBorderRadius ??
@@ -297,8 +298,9 @@ class AvatarGroup extends StatelessWidget {
   /// Tiles to overlap, first in front; usually [Avatar]s.
   final List<Widget> children;
 
-  /// Tile diameter; null resolves `40 * scaling`. Children are laid out at
-  /// this size, so an inner [Avatar.size] is ignored.
+  /// Tile diameter; null resolves `32 * scaling` (shadcn `size-8`).
+  /// Children are laid out at this size; an inner [Avatar.size] has no
+  /// effect.
   final double? size;
 
   /// How far each tile overlaps its predecessor; null resolves
@@ -317,7 +319,7 @@ class AvatarGroup extends StatelessWidget {
     if (children.isEmpty) {
       return const SizedBox.shrink();
     }
-    final double tileSize = size ?? 40 * theme.scaling;
+    final double tileSize = size ?? 32 * theme.scaling;
     final double effectiveOverlap = (overlap ?? tileSize * 0.3).clamp(
       0.0,
       tileSize + ringWidth * 2,

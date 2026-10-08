@@ -1,8 +1,7 @@
 // The `selectable` component: read-only selectable text built on the
 // widgets-layer [EditableText].
 //
-// Ported from `components/display/selectable/**` (old tree). The old
-// component delegated to Material's `SelectableText`; this one reuses
+// Ported from `components/display/selectable/**` (old tree): it reuses
 // `primitives/text_editing` selection controls and context menu so the
 // selection experience matches `Input`, and resolves its theme per field.
 
@@ -11,6 +10,7 @@ import 'dart:ui' show BoxHeightStyle, BoxWidthStyle;
 import 'package:flutter/gestures.dart' show TapDragUpDetails;
 import 'package:flutter/widgets.dart';
 
+import '../../primitives/text_editing/editable_text_style.dart';
 import '../../primitives/text_editing/text_editing.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
@@ -307,12 +307,12 @@ class _SelectableTextState extends State<SelectableText>
         resolved.enableInteractiveSelection ??
         true;
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveStyle = defaultTextStyle.style
-        .merge(resolved.textStyle)
-        .merge(widget.textSpan?.style)
-        .merge(widget.style);
-    effectiveStyle = effectiveStyle.copyWith(
-      color: effectiveStyle.color ?? colors.foreground,
+    // EditableText ignores ambient inheritance: resolve the theme font.
+    final TextStyle effectiveStyle = resolveEditableTextStyle(
+      context,
+      base: defaultTextStyle.style,
+      overrides: [resolved.textStyle, widget.textSpan?.style, widget.style],
+      color: colors.foreground,
     );
     final Color cursorColor =
         widget.cursorColor ??

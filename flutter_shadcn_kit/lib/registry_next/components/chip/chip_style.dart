@@ -16,9 +16,13 @@ import '../../theme/theme.dart';
 import '../button/button.dart';
 
 /// Chip label text style: shadcn chip `text-xs`, medium weight.
+///
+/// The 16px (`1rem`) line matches Tailwind's `text-xs` line height, so the
+/// chip measures 16 + `py-0.5` (4) = 20 like the badge.
 const TextStyle chipDefaultTextStyle = TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.w500,
+  height: 4 / 3,
 );
 
 /// Padding of a chip: shadcn `px-2 py-0.5`.

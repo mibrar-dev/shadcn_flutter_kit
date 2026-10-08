@@ -274,3 +274,12 @@
   locale_utils RangeError). Returned for Form/FormField clashing with Flutter and missing CommandShortcut.
 - r2: ShadcnForm/ShadcnFormField; CommandShortcut (text-xs, tracking-widest, mutedForeground). qa_batch: format 0
   changed, 79/79, layers clean, theme 0. Later batches must use ShadcnForm/ShadcnFormField.
+
+## P4-M1 size audit of 22 accepted components (muse-spark-1.3-contributor#xhigh) — ACCEPTED (r1)
+- 9 size drifts fixed: switch track 28×20 → 32×18.4 + centred 16 thumb; avatar 40 → 32 (badge 12 → 10); badge dot
+  6 → 10 + badge/chip text height; checkbox outer 22 → 18 (indicator 12 → 14); slider thumb 20 → 16; alert title
+  16 → 18; accordion chevron 20 → 16 + gap 16; dot_indicator pitch 28 → 20; selectable uses resolveEditableTextStyle.
+- Verified unchanged: card p-6, alert max 512/p-6, table h-10/px-2/p-2, progress 8, divider 1, spinner 24, others.
+- qa_batch on changed components: format clean, 207 tests pass, banned none, theme clean.
+- Found a THEME TOKEN BUG: radius sm/md/xl derived as radius×8/12/20 (5/7.5/12.5) instead of shadcn v4 lg−4/lg−2/lg+4
+  (6/8/14) → P4-M2. Decisions: card radiusXl, table header foreground, switch travel 14, badge rounded-md, markdown density kept.

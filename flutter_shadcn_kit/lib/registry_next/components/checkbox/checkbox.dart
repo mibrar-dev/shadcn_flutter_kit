@@ -255,7 +255,8 @@ class _CheckboxState extends State<Checkbox>
     final double gap = widget.gap ?? resolved.gap ?? checkboxDefaultGap;
     final EdgeInsetsGeometry padding =
         widget.padding ?? resolved.padding ?? checkboxDefaultPadding;
-    final double indicatorSize = resolved.indicatorSize ?? size * 0.75;
+    // shadcn check icon `size-3.5` = 14 inside the `size-4` (16) box.
+    final double indicatorSize = resolved.indicatorSize ?? size * 0.875;
     final double borderWidth = resolved.borderWidth ?? 1;
     final BorderRadiusGeometry radius =
         resolved.borderRadius ?? theme.borderRadiusSm;

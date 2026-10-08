@@ -175,7 +175,8 @@ void main() {
     );
     final decoration = container.decoration! as BoxDecoration;
     expect(decoration.color, colors.primary);
-    expect(container.constraints?.maxWidth ?? 12, 12);
+    // shadcn `size-2.5` = 10 on the default avatar (was 12 before P4-M1).
+    expect(container.constraints?.maxWidth ?? 10, 10);
     final badgeRect = tester.getRect(find.byType(AvatarBadge));
     final avatarRect = tester.getRect(find.byType(Avatar));
     expect(avatarRect.contains(badgeRect.center), isTrue);

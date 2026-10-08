@@ -102,14 +102,19 @@ class DotIndicator extends StatelessWidget {
       for (int i = 0; i < length; i++)
         _dot(context, appTheme, resolved, i, gap),
     ];
+    // An interactive dot already carries `gap / 2` of `Clickable` padding on
+    // each side, which forms the full visual gap by itself; keeping the
+    // spacer as well would double it (2 * gap). Read-only dots have no
+    // padding, so they keep the spacer.
+    final double separator = onChanged == null ? gap : 0;
     final Widget run = direction == Axis.horizontal
         ? Row(
             mainAxisSize: MainAxisSize.min,
-            children: _spaced(dots, SizedBox(width: gap)),
+            children: _spaced(dots, SizedBox(width: separator)),
           )
         : Column(
             mainAxisSize: MainAxisSize.min,
-            children: _spaced(dots, SizedBox(height: gap)),
+            children: _spaced(dots, SizedBox(height: separator)),
           );
     return Padding(padding: outer, child: run);
   }

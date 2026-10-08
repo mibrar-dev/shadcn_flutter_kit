@@ -373,3 +373,5 @@
   overflow): menu checkbox/radio/label/shortcut/separator/sub rows + showShadcnMenu, DateRangePicker, 12h time format
   fixed, MenuGroupData single owner, popover zombie-OverlayEntry crash root-caused (ShadcnSelectionControls identity
   equality) and fixed in text_editing. Combined qa_batch: 182/182, layers clean, owner 0, theme 0.
+
+## P4-B13b chip_input (+ text_editing token_* primitives) — ACCEPTED (r3: space-bunny ended early twice, finished on MiMo). qa_batch chip_input/input/text_editing: 75/75, layout clean (max 399), layers clean, owner 0, theme 0.

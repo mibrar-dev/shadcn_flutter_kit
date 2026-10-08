@@ -11,7 +11,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
 | 3 Pilot (button, input, dialog) | ✅ built + QA-accepted + user-approved (sizes fixed in P3-F) (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
-| 4 Migrate remaining components + cutover | 🔄 accepted: all primitives + B01–B19, B22, B23 (+M1, M2, P3-F). OPEN: chip_input (B13b, uncommitted, MiMo session ses_ee4b476beffeK6b3G0aeOppBoR adding tests — QA then commit); NOT STARTED: localizations.dart split (619 lines) + l10n pass, B20, B21, B24, B25; then full-tree qa_gate + cutover |
+| 4 Migrate remaining components + cutover | 🔄 accepted: all primitives + B01–B19, B22, B23, chip_input (+M1, M2, P3-F). NOT STARTED: localizations.dart split (619 lines) + l10n pass, B20, B21, B24, B25; then full-tree qa_gate + cutover |
 | 5 CLI | ⏳ not started |
 | 6 Docs gallery, final QA, PR | ⏳ not started |
 

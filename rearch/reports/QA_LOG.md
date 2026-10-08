@@ -231,3 +231,13 @@
   theme 0. fade_scroll stayed a primitive. 19 old bugs fixed (incl. scrollable_client updateRenderObject).
   Decisions: notification-driven fade viewport stays in scrollable; Dashed*Properties not restored (Studio can add
   later); scrollview needs no theme file.
+
+## P4-B11 table, group (+ primitives/table_layout/; flex deleted) (longcat-2.5-preview-free, ses_ee6fc66a1ffeowdIxtOFPFvKMX) — ACCEPTED (r3)
+- r1 (longcat's first batch): 28 tests, 11 table bugs fixed, ResizableTable folded into Table; returned for extra
+  table_controller.dart, Table/TableRow/TableCell clashing with Flutter, zero-consumer flex, invented 16/8 padding,
+  no resize a11y label, thin tests.
+- r2: ShadcnTable/ShadcnTableRow/ShadcnTableCell, flex + paint_order deleted, shadcn defaults (p-2, head h-10 px-2
+  mutedForeground, row border, hover muted/50), tableResizeColumn/Row keys (English fallback), table_layout tests.
+- r3: theme classes moved back from the primitive into components/table/table_style.dart.
+- qa_batch.sh: layout clean (max 352), format 0 changed, 34/34 tests, layers clean, owner 0, theme 0.
+- Note: localizations.dart now 410 lines — split scheduled as a mechanical task once parallel batches settle.

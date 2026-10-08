@@ -1,0 +1,89 @@
+{
+  "id": "table",
+  "name": "Table",
+  "category": "layout",
+  "description": "Themed data grid with span-aware cells, frozen rows/columns, scrolling and optional column/row resizing.",
+  "tier": "component",
+  "install": "flutter_shadcn add table",
+  "import": "import 'package:<your_app>/ui/shadcn/table/table.dart';",
+  "tags": ["table", "layout", "data", "grid", "resizable"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["table_layout"],
+    "components": ["scrollable_client"]
+  },
+  "files": [
+    "table.dart",
+    "table_style.dart",
+    "table_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ShadcnTable",
+      "ShadcnTableState",
+      "ShadcnTableRow",
+      "ShadcnTableHeader",
+      "ShadcnTableFooter",
+      "ShadcnTableCell",
+      "TableTheme",
+      "TableCellTheme",
+      "ResizableTableController",
+      "FrozenTableData",
+      "TableRef",
+      "TableSize",
+      "FlexTableSize",
+      "FixedTableSize",
+      "IntrinsicTableSize",
+      "FractionalTableSize",
+      "ConstrainedTableSize",
+      "TableCellRange",
+      "TableCellPosition",
+      "FlatTableCell",
+      "TableCellLike",
+      "TableRowLike",
+      "TableResizeLine",
+      "CellResizer",
+      "TableCellView",
+      "TableRawCell",
+      "RawCell",
+      "RawTableLayout",
+      "RenderTableLayout"
+    ],
+    "enums": ["TableCellResizeMode"],
+    "constants": [
+      "tableDefaults",
+      "tableCellDefaults",
+      "tableHeaderCellDefaults",
+      "tableFooterCellDefaults",
+      "tableCellPadding",
+      "tableHeadCellPadding",
+      "tableThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "TableTheme",
+    "userFile": "table_theme.dart",
+    "defaults": "tableDefaults",
+    "fields": {
+      "background": "ThemedColor? - card token",
+      "borderColor": "ThemedColor? - no outer border",
+      "borderWidth": "double? - 0",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusMd",
+      "padding": "EdgeInsetsGeometry? - none",
+      "cellTheme": "TableCellTheme? - merged under row/cell themes",
+      "resizerThickness": "double? - 4",
+      "resizerColor": "ThemedColor? - primary token"
+    },
+    "cellFields": {
+      "background": "StateValue<ThemedColor>? - hovered muted/50",
+      "foreground": "StateValue<ThemedColor>? - foreground / mutedForeground",
+      "borderColor": "StateValue<ThemedColor>? - border token (bottom)",
+      "borderWidth": "double? - 1 (body/header), 0 (footer)",
+      "textStyle": "TextStyle? - header w500",
+      "padding": "EdgeInsetsGeometry? - p-2 (8)",
+      "minHeight": "double? - header h-10 (40)"
+    }
+  }
+}

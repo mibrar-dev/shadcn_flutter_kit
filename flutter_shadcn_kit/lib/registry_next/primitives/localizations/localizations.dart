@@ -397,4 +397,14 @@ class ShadcnLocalizations {
         throw ArgumentError.value(month, 'month');
     }
   }
+
+  /// Semantics label for a column resize handle.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get tableResizeColumn => 'Resize column';
+
+  /// Semantics label for a row resize handle.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get tableResizeRow => 'Resize row';
 }

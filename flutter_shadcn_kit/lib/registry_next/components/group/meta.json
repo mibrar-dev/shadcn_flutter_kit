@@ -1,0 +1,22 @@
+{
+  "id": "group",
+  "name": "Group",
+  "category": "layout",
+  "description": "Absolute-position layout surface that places children at explicit offsets and sizes.",
+  "tier": "component",
+  "install": "flutter_shadcn add group",
+  "import": "import 'package:<your_app>/ui/shadcn/group/group.dart';",
+  "tags": ["layout", "positioning", "render"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["group.dart", "preview.dart"],
+  "api": {
+    "classes": ["Group", "GroupPositioned", "GroupParentData", "RenderGroup"],
+    "enums": [],
+    "constants": []
+  }
+}

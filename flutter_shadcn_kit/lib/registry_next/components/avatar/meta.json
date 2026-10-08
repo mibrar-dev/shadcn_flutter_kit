@@ -1,0 +1,50 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "category": "display",
+  "description": "Image or initials tile with an optional badge and overlapping group.",
+  "tier": "component",
+  "install": "flutter_shadcn add avatar",
+  "import": "import 'package:<your_app>/ui/shadcn/avatar/avatar.dart';",
+  "tags": ["display", "avatar", "profile", "user", "image"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["text"],
+    "components": []
+  },
+  "files": [
+    "avatar.dart",
+    "avatar_style.dart",
+    "avatar_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Avatar", "AvatarBadge", "AvatarGroup", "AvatarTheme"],
+    "constructors": [
+      "Avatar({initials, image, size, borderRadius, backgroundColor, foregroundColor, textStyle, fit, badge, badgeAlignment, badgeGap, theme})",
+      "AvatarBadge({child, size, borderRadius, color, foregroundColor, theme})",
+      "AvatarGroup({children, size, overlap, ringWidth, clipBehavior})"
+    ],
+    "statics": ["Avatar.getInitials(String name) -> String"],
+    "constants": ["avatarDefaults", "avatarThemeOverrides"]
+  },
+  "theme": {
+    "class": "AvatarTheme",
+    "userFile": "avatar_theme.dart",
+    "defaults": "avatarDefaults",
+    "fields": {
+      "size": "double? - tile diameter; null = 40 * scaling",
+      "borderRadius": "BorderRadiusGeometry? - null = full circle",
+      "backgroundColor": "ThemedColor? - muted token",
+      "foregroundColor": "ThemedColor? - foreground token",
+      "textStyle": "TextStyle? - w600, colour from foregroundColor",
+      "badgeSize": "double? - null = 12 * scaling",
+      "badgeBorderRadius": "BorderRadiusGeometry? - null = full circle",
+      "badgeColor": "ThemedColor? - primary token",
+      "badgeForeground": "ThemedColor? - primaryForeground token",
+      "badgeAlignment": "AlignmentGeometry? - bottom end",
+      "badgeGap": "double? - inset of the badge, 0"
+    }
+  }
+}

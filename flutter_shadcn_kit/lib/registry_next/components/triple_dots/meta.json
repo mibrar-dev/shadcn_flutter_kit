@@ -1,0 +1,39 @@
+{
+  "id": "triple_dots",
+  "name": "TripleDots",
+  "category": "display",
+  "description": "Row or column of small round dots, used as an ellipsis.",
+  "tier": "component",
+  "install": "flutter_shadcn add triple_dots",
+  "import": "import 'package:<your_app>/ui/shadcn/triple_dots/triple_dots.dart';",
+  "tags": ["display", "dots", "ellipsis", "pagination"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "triple_dots.dart",
+    "triple_dots_style.dart",
+    "triple_dots_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["TripleDots", "TripleDotsTheme"],
+    "constructors": [
+      "TripleDots({count, direction, size, spacing, color, padding, theme})"
+    ],
+    "constants": ["tripleDotsDefaults", "tripleDotsThemeOverrides"]
+  },
+  "theme": {
+    "class": "TripleDotsTheme",
+    "userFile": "triple_dots_theme.dart",
+    "defaults": "tripleDotsDefaults",
+    "fields": {
+      "color": "ThemedColor? - mutedForeground token",
+      "size": "double? - dot diameter, null = 4 * scaling",
+      "spacing": "double? - gap between dots, 2"
+    }
+  }
+}

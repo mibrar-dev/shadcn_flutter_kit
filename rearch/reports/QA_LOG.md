@@ -202,3 +202,10 @@
   (B13 owns if needed). Private default-row names prefixed to keep single-owner 0.
 - FOLLOW-UP (pilot): button_test hover assertion passes for the wrong reason (FocusableActionDetector needs
   highlightStrategy alwaysTraditional; hovered == pressed alpha) — fix in the pilot follow-up round.
+
+## P4-B03 avatar, spinner(+circular), progress(+linear), triple_dots, icon, selectable (deepseek-v4.1-flash#max) — ACCEPTED (r1)
+- Orchestrator re-ran on its 6 folders: format 0 changed, analyze 0, 64/64 tests, no banned imports, layout clean,
+  max 399 lines, no component deps. 16 old bugs fixed (4 Material imports, debug-crash assert, triple_dots null
+  colour crash, IconTheme merge precedence, wholesale theme resolution). Ratified: linear_progress_indicator →
+  progress, circular_progress_indicator → spinner (determinate circular dropped: 0 consumers);
+  IconContainerTheme name (avoids shadowing Flutter IconTheme); avatar badge uses shadcn ring, not notch clipper.

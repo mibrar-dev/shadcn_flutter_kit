@@ -1,0 +1,57 @@
+{
+  "id": "overflow_marquee",
+  "name": "Overflow Marquee",
+  "category": "layout",
+  "description": "Auto-scrolls content that overflows its container, horizontally or vertically, with soft edge fades and reduced-motion support.",
+  "tier": "component",
+  "install": "flutter_shadcn add overflow_marquee",
+  "import": "import 'package:<your_app>/ui/shadcn/overflow_marquee/overflow_marquee.dart';",
+  "tags": [
+    "layout",
+    "marquee",
+    "ticker",
+    "scroll",
+    "animation"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "animation"
+    ],
+    "components": []
+  },
+  "files": [
+    "overflow_marquee.dart",
+    "overflow_marquee_style.dart",
+    "overflow_marquee_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "OverflowMarquee",
+      "OverflowMarqueeTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "overflowMarqueeDefaults",
+      "overflowMarqueeThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "OverflowMarqueeTheme",
+    "userFile": "overflow_marquee_theme.dart",
+    "defaults": "overflowMarqueeDefaults",
+    "fields": {
+      "direction": "Axis? - horizontal | vertical",
+      "duration": "Duration? - time of one `step` run",
+      "delayDuration": "Duration? - pause at each end",
+      "step": "double? - pixels covered per `duration`",
+      "fadePortion": "double? - edge fade fraction of the visible extent, clamped 0..0.5",
+      "curve": "Curve? - easing of each run"
+    }
+  }
+}

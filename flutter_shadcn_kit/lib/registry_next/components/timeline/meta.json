@@ -1,0 +1,40 @@
+{
+  "id": "timeline",
+  "name": "Timeline",
+  "category": "layout",
+  "description": "Vertical three-column event timeline: time label, indicator dot with connector, title and content.",
+  "tier": "component",
+  "install": "flutter_shadcn add timeline",
+  "import": "import 'package:<your_app>/ui/shadcn/timeline/timeline.dart';",
+  "tags": ["layout", "timeline", "events", "history"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["text"],
+    "components": []
+  },
+  "files": [
+    "timeline.dart",
+    "timeline_style.dart",
+    "timeline_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Timeline", "TimelineData", "TimelineTheme"],
+    "enums": [],
+    "constants": ["timelineDefaults", "timelineThemeOverrides"]
+  },
+  "theme": {
+    "class": "TimelineTheme",
+    "userFile": "timeline_theme.dart",
+    "defaults": "timelineDefaults",
+    "fields": {
+      "timeConstraints": "BoxConstraints? - null = 120 * scaling",
+      "spacing": "double? - null = density base content padding * scaling",
+      "dotSize": "double? - null = 12 * scaling",
+      "connectorThickness": "double? - null = 2 * scaling",
+      "color": "ThemedColor? - indicator/connector, default primary token",
+      "rowGap": "double? - null = 16 * scaling"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "file_diff_viewer",
+  "name": "File Diff Viewer",
+  "category": "display",
+  "description": "Renders unified or split file diffs with line gutters, coloured additions/deletions, collapsible unchanged hunks and a copy-patch action.",
+  "tier": "component",
+  "install": "flutter_shadcn add file_diff_viewer",
+  "import": "import 'package:<your_app>/ui/shadcn/file_diff_viewer/file_diff_viewer.dart';",
+  "tags": ["display", "diff", "code", "review", "git"],
+  "deps": {
+    "foundation": ["icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["localizations", "text_editing"],
+    "components": ["button"]
+  },
+  "files": [
+    "file_diff_viewer.dart",
+    "file_diff_viewer_style.dart",
+    "file_diff_viewer_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "FileDiffViewer",
+      "FileDiff",
+      "FileDiffHunk",
+      "FileDiffLine",
+      "FileDiffViewerTheme",
+      "FileDiffSurface"
+    ],
+    "enums": ["FileDiffLayout", "FileDiffLineType"],
+    "constants": ["fileDiffViewerDefaults", "fileDiffViewerThemeOverrides"]
+  },
+  "theme": {
+    "class": "FileDiffViewerTheme",
+    "userFile": "file_diff_viewer_theme.dart",
+    "defaults": "fileDiffViewerDefaults",
+    "fields": {
+      "background": "ThemedColor? - card token",
+      "borderColor": "ThemedColor? - border token (frame, gutter, split divider)",
+      "hunkBackground": "ThemedColor? - accent token",
+      "additionColor": "ThemedColor? - chart2 token",
+      "deletionColor": "ThemedColor? - destructive token",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusLg",
+      "linePadding": "EdgeInsetsGeometry? - density-based inset"
+    }
+  }
+}

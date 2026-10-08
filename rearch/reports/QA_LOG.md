@@ -344,3 +344,11 @@
   attribution). qa_batch: layout clean (max 398), 80/80, layers clean, owner 0, theme 0.
 - Decision: number_ticker takes a formatter callback (intl-free; NumberFormat shown in README) — accepted over Q2.
 - Note: agent killed 2 stray flutter_tester processes; other batches re-verified by their own gates.
+
+## P4-B17 chat, file_diff_viewer, border_loading, timeline, timeline_animation, overflow_marquee (+ primitives fractional_align_box, overlap_layout) (mimo-v2.6-flash) — ACCEPTED (r2)
+- r1 (MiMo's first build): 67 tests, sizes vs shadcn, reduced-motion honoured, many old bugs fixed. Returned for
+  dropped chat reactions and bubbles failing intrinsic-size queries. r2 (one network resume): reactions row via
+  primitives/overlap_layout.dart, FractionalAlignBox primitive for intrinsic sizing. qa_batch: layout clean (max 399),
+  83/83, layers clean, theme 0. Accepted: file_diff_viewer 8 theme fields, marquee fadePortion 0..0.5 fraction,
+  SelectableRegion Overlay requirement documented, reaction insets as widget args + 5 ChatTheme chip fields.
+- Single-owner hits at QA time belong to in-flight B13 (MenuGroupData, _resolve) and B23 (_Swatch).

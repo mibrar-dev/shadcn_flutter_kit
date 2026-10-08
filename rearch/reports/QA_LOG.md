@@ -283,3 +283,12 @@
 - qa_batch on changed components: format clean, 207 tests pass, banned none, theme clean.
 - Found a THEME TOKEN BUG: radius sm/md/xl derived as radius×8/12/20 (5/7.5/12.5) instead of shadcn v4 lg−4/lg−2/lg+4
   (6/8/14) → P4-M2. Decisions: card radiusXl, table header foreground, switch travel 14, badge rounded-md, markdown density kept.
+
+## P4-B07 calendar, skeleton, carousel, tooltip, input_otp, text_area (space-bunny-free#max, ses_ee712cadbffe9rzlVbviRf2TFf) — ACCEPTED (r2)
+- r1 (after one network resume): 215 tests, 12 bugs caught in fresh code; returned for missing calendar keyboard nav.
+- r2: roving-tabindex day grid (arrows ±1/±7, Home/End, PageUp/Down ±month, Shift ±year, Enter/Space), disabled
+  days skipped, full-date semantics (no double announcement), 32×32 cells; 4 bugs found by new tests. qa_batch:
+  layout clean (max 399), 241/241, layers clean, theme 0. CalendarTheme lost dead copyWith/lerp.
+- RULE BREACH: the agent committed calendar itself (69aa43f, not pushed, scoped to calendar + date_math + its test).
+  Kept after review (content correct, scoped). An agent also pruned local remote-tracking refs (remote untouched).
+  Orchestrator renamed private `_cell` → `_calendarCell` (single-owner clash with markdown_parser/media).

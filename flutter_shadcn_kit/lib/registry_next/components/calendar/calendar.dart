@@ -333,7 +333,11 @@ Widget _grid({
                     padding: EdgeInsets.only(
                       right: column == columns - 1 ? 0 : gap,
                     ),
-                    child: _cell(context, slots[row * columns + column], style),
+                    child: _calendarCell(
+                      context,
+                      slots[row * columns + column],
+                      style,
+                    ),
                   ),
             ],
           ),
@@ -345,7 +349,7 @@ Widget _grid({
 /// One painted cell, wrapped in the focus ring of the focused day. A
 /// `Clickable` owns a traversable focus node per cell, so the focus lives on
 /// the grid and the ring is drawn here.
-Widget _cell(BuildContext context, _Slot slot, CalendarTheme style) {
+Widget _calendarCell(BuildContext context, _Slot slot, CalendarTheme style) {
   final ShadcnThemeData theme = ShadcnTheme.of(context);
   final ({Color fill, Color foreground}) colors = calendarCellColors(
     lookup: slot.lookup,

@@ -1,0 +1,52 @@
+{
+  "id": "input_otp",
+  "name": "InputOtp",
+  "category": "form",
+  "description": "One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add input_otp",
+  "import": "import 'package:<your_app>/ui/shadcn/input_otp/input_otp.dart';",
+  "tags": ["form", "otp", "verification", "code", "pin"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["focus_outline", "form_core", "text_editing"],
+    "components": []
+  },
+  "files": [
+    "input_otp.dart",
+    "input_otp_style.dart",
+    "input_otp_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["InputOtp", "InputOtpTheme"],
+    "constants": ["inputOtpDefaults", "inputOtpThemeOverrides"]
+  },
+  "theme": {
+    "class": "InputOtpTheme",
+    "userFile": "input_otp_theme.dart",
+    "defaults": "inputOtpDefaults",
+    "fields": {
+      "background": "StateValue<ThemedColor>? - per-state slot fill; null = input@0.3 rest / 0.5 hovered",
+      "borderColor": "StateValue<ThemedColor>? - per-state slot border; null = input",
+      "borderWidth": "double? - used when borderColor resolves; null = 1",
+      "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
+      "padding": "EdgeInsetsGeometry? - null = 6 x 0",
+      "textStyle": "TextStyle? - its colour is ignored (taken from foreground)",
+      "boxSize": "double? - slot size; null = 36",
+      "spacing": "double? - gap between slots; null = the density base gap",
+      "separatorTextStyle": "TextStyle? - style of the optional separator",
+      "cursorColor": "ThemedColor? - caret of the focused slot; null = ring"
+    }
+  },
+  "notes": [
+    "One hidden `EditableText` replaces the old per-slot `TextField` + `FocusNode` + `GlobalKey` design, so typing, paste, undo and the caret are the framework's.",
+    "`InputOTPChild`, `CharacterInputOTPChild`, `WidgetInputOTPChild`, `InputOTPChildData`, `OTPSeparator`, `CodepointPredicate`, `CodepointUnaryOperator` and `OTPCodepointList` are deleted: the whole factory DSL existed only to configure skeleton-style per-slot fields.",
+    "The value is a `String`, not `List<int?>` of UTF-16 code units: a surrogate pair (an emoji) used to occupy two slots.",
+    "The batch data lists `input` and `input_features` as dependencies; neither is imported, so `deps.components` is empty and `deps.primitives` has no `input_features` (an unimported dep would raise an `unused-dependency` finding).",
+    "`onChanged` is driven by the host's controller listener alone. Wiring both that and `EditableText.onChanged` reported every edit twice.",
+    "Filtering runs before truncating in `_clampCode`; the reverse order cut the code at the last *unfiltered* character and threw the valid ones behind it away.",
+    "The controller listener also fires for a selection-only change (focus selects offset 0), so the reported text is compared against the last one; otherwise `onChanged` fired with an empty code right after mounting."
+  ]
+}

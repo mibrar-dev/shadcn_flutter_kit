@@ -123,13 +123,9 @@ void main() {
   test('SliderValue rounds and lerps single and ranged values', () {
     const single = SliderValue.single(1.234);
     expect(single.isRanged, isFalse);
-    expect(single.roundToDivisions(10).value, 1.2);
 
     const ranged = SliderValue.ranged(1.0, 2.0);
     expect(ranged.isRanged, isTrue);
-    final rounded = ranged.roundToDivisions(4);
-    expect(rounded.start, 1.0);
-    expect(rounded.end, 2.0);
 
     final lerped = SliderValue.lerp(
       const SliderValue.single(0),

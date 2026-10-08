@@ -267,3 +267,10 @@
   Material/data_widget/gap imports + layer-stack globals + SheetOverlayHandler coupling; toast global controller/
   sequence; pagination negative List.generate crash; steps Material VerticalDivider + trailing connector. Toast
   implements the ToastQueue auto-dismiss policy. Orchestrator stripped legacy `dependencies` blocks from meta.json.
+
+## P4-B10 form, command, multiple_choice, star_rating, locale_utils (+ form_core files, subfocus_list_item) (deepseek-v4.1-flash#max) — ACCEPTED (r2, after one network resume)
+- r1: 78 tests, 20+ old bugs fixed (form detach leak, dead submitted-mode revalidation, command stale-stream leak +
+  Navigator crash, multiple_choice could not change selection, star_rating double onChanged + Material import,
+  locale_utils RangeError). Returned for Form/FormField clashing with Flutter and missing CommandShortcut.
+- r2: ShadcnForm/ShadcnFormField; CommandShortcut (text-xs, tracking-widest, mutedForeground). qa_batch: format 0
+  changed, 79/79, layers clean, theme 0. Later batches must use ShadcnForm/ShadcnFormField.

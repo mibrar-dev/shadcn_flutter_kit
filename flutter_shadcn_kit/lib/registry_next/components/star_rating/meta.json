@@ -1,0 +1,65 @@
+{
+  "id": "star_rating",
+  "name": "Star Rating",
+  "category": "form",
+  "description": "Interactive star rating with half-star snapping, keyboard stepping, drag preview and form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add star_rating",
+  "import": "import 'package:<your_app>/ui/shadcn/star_rating/star_rating.dart';",
+  "tags": [
+    "form",
+    "rating",
+    "input",
+    "stars"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "form_core"
+    ],
+    "components": []
+  },
+  "files": [
+    "star_rating.dart",
+    "star_rating_style.dart",
+    "star_rating_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "StarRating",
+      "StarRatingController",
+      "StarRatingTheme",
+      "StarRatingStyle"
+    ],
+    "constants": [
+      "starRatingDefaults",
+      "starRatingThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "StarRatingTheme",
+    "userFile": "star_rating_theme.dart",
+    "defaults": "starRatingDefaults",
+    "fields": {
+      "style": "StarRatingStyle? - the star row slice",
+      "activeColor": "ThemedColor? - filled part, default primary",
+      "inactiveColor": "ThemedColor? - unfilled part, default muted",
+      "size": "double? - star side, default 24",
+      "spacing": "double? - gap between stars, default 5",
+      "points": "double? - star points, default 5",
+      "pointRounding": "double? - 0..1 fraction, default 0",
+      "valleyRounding": "double? - 0..1 fraction, default 0",
+      "squash": "double? - 0..1 compression, default 0",
+      "innerRadiusRatio": "double? - valley depth, default 0.4",
+      "rotation": "double? - degrees, default 0"
+    }
+  }
+}

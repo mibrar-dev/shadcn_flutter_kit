@@ -37,7 +37,7 @@ live theme via InheritedTheme.capture), `input/` (state wiring on top of primiti
 `hover` → `primitives/hover.dart`; `popover` → `primitives/popover*.dart`; `fade_scroll` → `primitives/fade_scroll.dart`;
 `linear_progress_indicator` → component `progress`; `circular_progress_indicator` → component `spinner`;
 `text_field` → component `input` (+ `primitives/text_editing/`, `primitives/input_features/`); `debug` → deleted;
-`Image` → `ShadcnImage`; `SurfaceCard` → `Card`; `CheckboxState` → `CheckboxValue`. Check the real API in
+`Image` → `ShadcnImage`; `SurfaceCard` → `Card`; `CheckboxState` → `CheckboxValue`; `Form`/`FormField` → `ShadcnForm`/`ShadcnFormField`; `Table*` → `ShadcnTable*`. Check the real API in
 `lib/registry_next/` before using anything — never assume a name from the old tree.
 
 ## Tests

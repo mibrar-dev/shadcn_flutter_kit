@@ -1,0 +1,29 @@
+{
+  "id": "locale_utils",
+  "name": "Locale Utils",
+  "category": "utility",
+  "description": "Byte-size formatting against a configurable unit table (decimal, binary or custom).",
+  "tier": "component",
+  "install": "flutter_shadcn add locale_utils",
+  "import": "import 'package:<your_app>/ui/shadcn/locale_utils/locale_utils.dart';",
+  "tags": ["utility", "locale", "formatting", "file", "size"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["locale_utils.dart", "preview.dart"],
+  "api": {
+    "classes": ["SizeUnitLocale"],
+    "constants": ["SizeUnitLocale.fileBytes", "SizeUnitLocale.binaryBytes"],
+    "methods": ["SizeUnitLocale.format"]
+  },
+  "theme": null,
+  "notes": [
+    "No <name>_style.dart / <name>_theme.dart: pure formatter, no token-derived property to theme.",
+    "The old top-level `formatFileSize` is not re-declared: `primitives/file_value` owns that name. The locale-configurable formatter is `SizeUnitLocale.format`.",
+    "DatePart / TimePart / DurationPart and their helpers are not here: they live in primitives/localizations/locale_parts.dart.",
+    "`fileBits` was renamed `binaryBytes`; its units are binary bytes and now include a plain `B`."
+  ]
+}

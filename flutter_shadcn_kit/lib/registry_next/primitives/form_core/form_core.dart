@@ -170,7 +170,7 @@ typedef FormPendingWidgetBuilder =
 /// Renders [builder] with the form validations that are still in flight.
 ///
 /// This primitive has no knowledge of any form controller: it always reports an
-/// empty pending map. A `Form` that knows its own controller should drive
+/// empty pending map. A `ShadcnForm` that knows its own controller should drive
 /// pending feedback from that controller directly.
 class FormPendingBuilder extends StatelessWidget {
   /// Creates a pending builder that invokes [builder] with the pending map.

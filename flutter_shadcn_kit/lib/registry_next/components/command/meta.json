@@ -1,0 +1,84 @@
+{
+  "id": "command",
+  "name": "Command",
+  "category": "control",
+  "description": "Command palette with a debounced async result stream, keyboard navigation and a dialog entry point.",
+  "tier": "component",
+  "install": "flutter_shadcn add command",
+  "import": "import 'package:<your_app>/ui/shadcn/command/command.dart';",
+  "tags": [
+    "control",
+    "command",
+    "palette",
+    "search",
+    "keyboard"
+  ],
+  "deps": {
+    "foundation": [
+      "icons/lucide_icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "input_features",
+      "localizations",
+      "subfocus_item",
+      "subfocus_scope",
+      "text"
+    ],
+    "components": [
+      "button",
+      "dialog",
+      "divider",
+      "input"
+    ]
+  },
+  "files": [
+    "command.dart",
+    "command_style.dart",
+    "command_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Command",
+      "CommandEmpty",
+      "CommandTheme",
+      "CommandShortcut"
+    ],
+    "types": [
+      "CommandBuilder",
+      "CommandErrorBuilder"
+    ],
+    "functions": [
+      "showCommandDialog"
+    ],
+    "constants": [
+      "commandDefaults",
+      "commandDefaultItemPadding",
+      "commandThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "CommandTheme",
+    "userFile": "command_theme.dart",
+    "defaults": "commandDefaults",
+    "fields": {
+      "background": "ThemedColor? - palette surface, default popover",
+      "foreground": "ThemedColor? - item title colour",
+      "mutedForeground": "ThemedColor? - secondary text",
+      "borderColor": "ThemedColor? - surface border",
+      "borderWidth": "double? - null draws no border at 0",
+      "borderRadius": "BorderRadiusGeometry? - null = radiusLg",
+      "padding": "EdgeInsetsGeometry? - content padding, default 4",
+      "itemHighlight": "ThemedColor? - focused row fill, default accent",
+      "itemHighlightForeground": "ThemedColor? - focused row content",
+      "itemPadding": "EdgeInsetsGeometry? - row padding, default 8/6",
+      "shadows": "List<BoxShadow>? - surface shadows; empty draws none",
+      "maxWidth": "double? - dialog width, default 510",
+      "maxHeight": "double? - dialog height, default 349"
+    }
+  }
+}

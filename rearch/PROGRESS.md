@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-06 (new orchestrator session) (Europe/London) by the orchestrator (Claude Opus 5.5).
+Last updated: 2026-10-08 (orchestrator, Phase 4 in progress)
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -10,8 +10,8 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 0 Baseline | ✅ done |
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
-| 3 Pilot (button, input, dialog) | ✅ built + QA-accepted (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
-| 4 Migrate remaining components + cutover | ⏳ not started |
+| 3 Pilot (button, input, dialog) | ✅ built + QA-accepted + user-approved (sizes fixed in P3-F) (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
+| 4 Migrate remaining components + cutover | 🔄 primitives P4-PRIM-A/B ✅; batches ✅ B01 B02 B03 B04 B05 B06 B07 B09 B10 B11 B12 B14 B15 B16 B18 B19 (+ size audit M1, radius fix M2, pilot follow-up P3-F); running B08 (minus color_field), B13 (minus chip_input), B17 r2, B23 (+color_field); waiting B20 B21 B22 B24 B25 + chip_input; then l10n split/pass, full-tree QA, cutover |
 | 5 CLI | ⏳ not started |
 | 6 Docs gallery, final QA, PR | ⏳ not started |
 
@@ -80,3 +80,10 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
 - Phase 3 pilot decisions B1–B4, I1–I3, D1–D4, T1–T2 approved (see P3_PILOT_DESIGN.md §5).
 - Models (user, 2026-10-07; highest variant each offers): Zen opencode/space-bunny-free#max, opencode/fledge-alpha-free#max, opencode/exo-free#high (endpoint down 10-07); Go opencode-go/deepseek-v4.1-flash#max + opencode-go/muse-spark-1.3-contributor#xhigh (enabled by user 2026-10-08), opencode-go/mimo-v2.6-flash (no variants), opencode-go/longcat-2.5-preview-free (no variants). Never opencode-go/space-bunny*, deepseek-v4 non-4.1, vision-exp.
 - Behaviour changes approved: per-field theme merge; destructive button text uses destructiveForeground.
+
+## Phase 4 working notes (2026-10-08)
+- Per-batch QA: `rearch/qa_batch.sh <components…>`; readiness: `rearch/ready_batches.py <running ids>`;
+  briefs: `rearch/gen_batch_brief.py <id>` from `rearch/briefs/P4-batch-template.md` (+ name map, size + name-clash rules).
+- Watch list for the orchestrator monitor: `rearch/logs/.watch` (one log name per line; exit line must be LAST line).
+- Open follow-ups: split `primitives/localizations/localizations.dart` (416 lines) + l10n pass (error_system strings);
+  re-run full `rearch/qa_gate.sh` once all batches are in; cutover checklist in `rearch/reports/P4_PLAN.md`.

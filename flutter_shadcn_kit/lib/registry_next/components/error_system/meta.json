@@ -1,0 +1,82 @@
+{
+  "id": "error_system",
+  "name": "Error System",
+  "category": "utility",
+  "description": "Structured error models, rule-based mapping, app/screen error channels and the matching UI surfaces.",
+  "tier": "component",
+  "install": "flutter_shadcn add error_system",
+  "import": "import 'package:<your_app>/ui/shadcn/error_system/error_system.dart';",
+  "tags": ["utility", "error", "handling", "repository", "ui"],
+  "deps": {
+    "foundation": ["gap", "icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["error_handling"],
+    "components": ["alert_dialog", "button", "card", "divider", "toast"]
+  },
+  "files": [
+    "error_system.dart",
+    "error_system_style.dart",
+    "error_system_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "AppError",
+      "ErrorAction",
+      "ErrorRule",
+      "RuleBasedErrorMapper",
+      "ErrorRegistry",
+      "ErrorHandledRepository",
+      "RetryStrategy",
+      "AppErrorHub",
+      "HubAppScope",
+      "HubScreenScope",
+      "ScreenErrorScope",
+      "ErrorSystemTheme",
+      "ErrorState",
+      "InlineError",
+      "AppErrorBanner",
+      "AppErrorGate",
+      "ErrorSlot"
+    ],
+    "enums": ["AppErrorCode", "ErrorActionType", "ErrorScopeType"],
+    "typedefs": ["ErrorMatch", "ErrorBuild"],
+    "functions": [
+      "rule",
+      "guard",
+      "guardSync",
+      "apiRules",
+      "authRules",
+      "validationRules",
+      "platformRules",
+      "networkRules",
+      "fingerprintFor",
+      "fallbackRule",
+      "showErrorDialog",
+      "showErrorSnackbar",
+      "errorActionButton"
+    ],
+    "constants": ["errorSystemDefaults", "errorSystemThemeOverrides"]
+  },
+  "theme": {
+    "class": "ErrorSystemTheme",
+    "userFile": "error_system_theme.dart",
+    "defaults": "errorSystemDefaults",
+    "fields": {
+      "iconColor": "ThemedColor? - destructive token",
+      "iconSize": "double? - 36",
+      "titleStyle": "TextStyle? - 16/w600; colour falls back to foreground",
+      "messageStyle": "TextStyle? - 14; colour falls back to mutedForeground",
+      "cardPadding": "EdgeInsetsGeometry? - 24",
+      "bannerBackground": "ThemedColor? - card token",
+      "bannerBorder": "ThemedColor? - destructive token",
+      "bannerPadding": "EdgeInsetsGeometry? - 16/12"
+    }
+  },
+  "notes": [
+    "The non-visual machinery lives in `primitives/error_handling/` (models, rules/matching, registry, repository, retry backoff, scopes, recovery) and is re-exported by `error_system.dart`.",
+    "`components/error_system/` keeps only the visual widgets, the theme and the style.",
+    "`showErrorSnackbar` uses the `toast` component's `showToast` (the old code inserted raw `OverlayEntry`s and kept a static entry list).",
+    "`ErrorSnackbar`'s static entry list and the old `ErrorDialog.show` / `ErrorSnackbar.show` statics are gone (clean break); use `showErrorDialog` / `showErrorSnackbar`."
+  ]
+}

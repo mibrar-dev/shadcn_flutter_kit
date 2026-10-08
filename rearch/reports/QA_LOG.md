@@ -329,3 +329,11 @@
   edits (hsl/hsv/alpha), HSL≠HSV-twin equality, unclamped RGB setters, history dedupe never matched (toARGB32 now),
   formatter signed clamp + decimalDigits stripping. hsl/hsv reuse primitives/slider. B08 color_field must reuse
   primitives/color_field_paint.dart; B24 color_picker must not re-declare HSL/HSVColorSliderType.
+
+## P4-B19 error_system, feature_carousel, card_image, tracker (+ primitives/error_handling/) (longcat-2.5-preview-free) — ACCEPTED (r2)
+- r1: 70 tests; 10+ old bugs fixed (Material imports ×5, dark-only literal themes, empty-list clamp crash,
+  alpha-replacement hovers, deprecated LogicalKeySet, leaked WidgetStatesController, double tooltip, raw
+  OverlayEntry snackbars). Returned because error_system dropped rules/repository/retry to fit the folder rule.
+- r2: machinery restored in primitives/error_handling/ (models, rules, registry, retry/backoff, scopes) with unit +
+  widget tests; tracker fine/warning colours are TrackerTheme fields. qa_batch: 95/95, layers clean, owner 0, theme 0.
+- Follow-up: move error_system English fallback strings into primitives/localizations (l10n pass).

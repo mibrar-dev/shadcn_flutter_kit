@@ -1,0 +1,69 @@
+{
+  "id": "feature_carousel",
+  "name": "Feature Carousel",
+  "category": "display",
+  "description": "Animated feature-card carousel with autoplay, swipe, keyboard navigation, nav arrows and a call to action.",
+  "tier": "component",
+  "install": "flutter_shadcn add feature_carousel",
+  "import": "import 'package:<your_app>/ui/shadcn/feature_carousel/feature_carousel.dart';",
+  "tags": ["display", "carousel", "feature", "cards", "autoplay"],
+  "deps": {
+    "foundation": ["gap", "icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animation", "clickable"],
+    "components": []
+  },
+  "files": [
+    "feature_carousel.dart",
+    "feature_carousel_style.dart",
+    "feature_carousel_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "FeatureCarousel",
+      "FeatureCarouselController",
+      "FeatureCarouselTheme",
+      "FeatureCarouselItem",
+      "FeatureCarouselCenterCard",
+      "FeatureCarouselGhostCard"
+    ],
+    "enums": ["FeatureCarouselAnimationStyle"],
+    "typedefs": ["FeatureCarouselCardBuilder", "FeatureCarouselIconBuilder"],
+    "constants": [
+      "featureCarouselDefaults",
+      "featureCarouselTransitionCurve",
+      "featureCarouselTransitionStyle",
+      "featureCarouselDefaultWidth",
+      "featureCarouselDefaultHeight",
+      "featureCarouselDefaultCardWidth",
+      "featureCarouselDefaultCardHeight",
+      "featureCarouselDefaultArrowSize",
+      "featureCarouselDefaultCtaHeight",
+      "featureCarouselDefaultCtaMinWidth",
+      "featureCarouselDefaultFontSize",
+      "featureCarouselThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "FeatureCarouselTheme",
+    "userFile": "feature_carousel_theme.dart",
+    "defaults": "featureCarouselDefaults",
+    "fields": {
+      "cardFill": "ThemedColor? - card token",
+      "cardBorder": "ThemedColor? - border token",
+      "ghostFill": "ThemedColor? - muted token",
+      "controlBackground": "ThemedColor? - muted at 35% alpha",
+      "controlForeground": "ThemedColor? - mutedForeground token",
+      "accentColor": "ThemedColor? - primary token",
+      "radius": "double? - 12",
+      "transitionDuration": "Duration? - 260 ms"
+    }
+  },
+  "notes": [
+    "The nine per-style transition trees moved to `primitives/animation.dart` (`AnimatedStyleTransition` + `AnimatedTransitionStyle`), a primitive named in the batch data.",
+    "`clickable` is added to `deps.primitives` (the batch listed only `animation`): the old raw `GestureDetector` arrows/CTA had no keyboard or focus; they are `Clickable` now.",
+    "The `titleBuilder`/`descriptionBuilder`/`backgroundBuilder`/`ctaBuilder` hooks are dropped (clean break): a custom card covers all of them.",
+    "The painters live in `feature_carousel_style.dart` (public, because Dart privacy is per-library) so both files stay under 400 lines. `FeatureCarouselCenterCard` / `FeatureCarouselGhostCard` are framework-internal: they exist only to share rendering between the two files and are not intended as user API."
+  ]
+}

@@ -51,10 +51,21 @@ Flutter non-Material libraries. No third-party packages (except `intl` /
 - `toast_queue/toast_placement.dart`, `toast_queue/toast_entry.dart`,
   `toast_queue/toast_queue.dart` — the single toast stack:
   `ToastSwipeDirection`/`ToastPlacement`/`ToastSlot` (anchor metadata),
-  `ToastEntry` (countdown, pause/resume) and `ToastQueue` (ids, slots,
-  newest-first order, dismissal, and **the auto-dismiss policy both `toast` and
-  `gooey_toast` must follow**). The overlay mechanism stays with
-  `OverlayManager`.
+  `ToastEntry` (countdown, pause/resume, the `isExiting` phase) and
+  `ToastQueue` (ids, slots, newest-first order, dismissal, and **the
+  auto-dismiss policy both `toast` and `gooey_toast` must follow**). The
+  overlay mechanism stays with `OverlayManager`.
+- `toast_queue/toast_exit.dart` — `ToastExitTransition`: the shared exit
+  animation (fade + slide + optional collapse, `easeIn`, 200 ms) both toast
+  components wrap their cards in. It removes the entry through
+  `ToastQueue.remove` when the animation ends, so the queue stays the single
+  source of truth; `MediaQuery.disableAnimations` removes after one frame.
+- `gooey/` — the metaball notification surface used by the `gooey_toast`
+  component: `gooey_shape` (silhouette geometry, painting, backdrop clip),
+  `gooey_frame` (per-frame composition), `gooey_surface` (expand/autopilot/
+  morph state machine), `gooey_content` (pill, body, measure, state icon,
+  action chip), `gooey_swipe` (directional swipe-to-dismiss) and `gooey_stack`
+  (anchored stack over a `ToastQueue`, including the slot pause policy).
 
 ## Component themes
 

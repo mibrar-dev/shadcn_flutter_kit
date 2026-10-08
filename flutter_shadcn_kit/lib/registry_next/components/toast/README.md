@@ -94,8 +94,10 @@ with receiver-wins `Mergeable.merge`.
 - The upstream compat shims (`ToastLayer` upstream shape, `ExpandMode`,
   `UpstreamToastEntry`, `ToastStackScope`/`ToastStackContext`) are dropped.
 - `OverlayEntry` insertion is replaced by a `Stack` inside `ToastLayer`.
-- Exit animation is not animated (the queue removes entries immediately); the
-  entry animation is a fade. Swipe/close are instant. Flagged as an open item.
+- Dismissal animates out (fade + slide + collapse, 200 ms `easeIn`) through the
+  shared `ToastExitTransition` before the queue removes the entry; remaining
+  toasts animate into their new positions. `MediaQuery.disableAnimations`
+  removes instantly.
 
 ## Getting started
 

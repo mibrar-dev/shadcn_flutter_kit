@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/toast_queue/toast_controller.dart';
 import '../../primitives/toast_queue/toast_entry.dart';
+import '../../primitives/toast_queue/toast_exit.dart';
 import '../../primitives/toast_queue/toast_placement.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
@@ -114,7 +115,10 @@ class _ToastLayerState extends State<ToastLayer> {
   void _reconcileSlots() {
     for (final ToastPlacement placement in ToastPlacement.values) {
       final ToastSlot slot = ToastSlot(placement);
-      final List<ToastEntry<ToastBuilder>> live = _controller.entriesIn(slot);
+      final List<ToastEntry<ToastBuilder>> live = _controller
+          .entriesIn(slot)
+          .where((ToastEntry<ToastBuilder> entry) => !entry.isExiting)
+          .toList(growable: false);
       final int previous = _slotCounts[slot] ?? 0;
       _slotCounts[slot] = live.length;
       if (live.length > 1) {
@@ -182,23 +186,6 @@ class _ToastLayerState extends State<ToastLayer> {
     ToastTheme theme,
     EdgeInsets media,
   ) {
-    final ordered = placement.isTop
-        ? entries
-        : entries.reversed.toList(growable: false);
-    final cards = <Widget>[];
-    for (var i = 0; i < ordered.length; i++) {
-      cards.add(
-        _ToastCard(
-          key: ValueKey<String>(ordered[i].id),
-          controller: _controller,
-          entry: ordered[i],
-          theme: theme,
-        ),
-      );
-      if (i < ordered.length - 1) {
-        cards.add(SizedBox(height: theme.gap ?? 8));
-      }
-    }
     final inset = (theme.offset ?? const EdgeInsets.all(24)).resolve(
       Directionality.of(context),
     );
@@ -213,15 +200,14 @@ class _ToastLayerState extends State<ToastLayer> {
       right: placement.isCenter
           ? 0
           : (onRight ? inset.right + media.right : null),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: placement.isTop
-            ? MainAxisAlignment.start
-            : MainAxisAlignment.end,
-        crossAxisAlignment: placement.isCenter
-            ? CrossAxisAlignment.center
-            : (leading ? CrossAxisAlignment.start : CrossAxisAlignment.end),
-        children: cards,
+      child: ToastSlotColumn<ToastBuilder>(
+        queue: _controller,
+        entries: entries,
+        placement: placement,
+        gap: theme.gap ?? 8,
+        collapse: true,
+        cardBuilder: (BuildContext context, ToastEntry<ToastBuilder> entry) =>
+            _ToastCard(controller: _controller, entry: entry, theme: theme),
       ),
     );
   }
@@ -229,7 +215,6 @@ class _ToastLayerState extends State<ToastLayer> {
 
 class _ToastCard extends StatefulWidget {
   const _ToastCard({
-    super.key,
     required this.controller,
     required this.entry,
     required this.theme,

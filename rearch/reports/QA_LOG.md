@@ -308,3 +308,10 @@
   `resizableHandle` semantics key; sortable settle animation (200ms easeOut, disableAnimations → instant).
   qa_batch: layout clean (max 399), 34/34, layers clean, theme 0; 4 primitives analyze clean, all ≤ 278 lines.
 - localizations.dart now 416 lines → mechanical split task queued.
+
+## P4-B18 gooey_toast (+ primitives/gooey/, SileoSpringCurve, toast exit) (deepseek-v4.1-flash#max) — ACCEPTED (r2)
+- r1: 41 tests, 12 old bugs fixed (Material sweep, frozen show-time theme, touch double-toggle, small-viewport clamp
+  crash, global-pointer swipe, covered-toast expiry); shared toast_queue only. r2: animated exit for BOTH toast and
+  gooey_toast (ToastEntry.isExiting two-phase, shared ToastExitTransition, disableAnimations instant), pill width
+  measured with the painted style, six tone colours are GooeyToastTheme fields. qa_batch: 103/103, layers clean,
+  theme 0. Known: 8 px settle when the newest toast is dismissed (minor).

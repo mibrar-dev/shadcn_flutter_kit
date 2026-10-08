@@ -106,9 +106,15 @@ void main() {
         autoDismiss: false,
         onDismissed: dismissed.add,
       );
-      expect(queue.contains(first.id), isFalse);
+      // The replaced toast starts its exit phase and stays listed until the
+      // component confirms the removal.
+      expect(first.isExiting, isTrue);
+      expect(queue.contains(first.id), isTrue);
       expect(queue.contains(second.id), isTrue);
-      expect(queue.activeIds, <String>[second.id]);
+      expect(replaced, isEmpty);
+      expect(dismissed, isEmpty);
+      queue.remove(first.id);
+      expect(queue.contains(first.id), isFalse);
       expect(replaced, <String>[first.id]);
       expect(dismissed, isEmpty);
     });
@@ -215,6 +221,8 @@ void main() {
       expect(queue.contains('toast_0'), isTrue);
 
       await tester.pump(const Duration(milliseconds: 1600));
+      expect(queue.entryOf('toast_0')!.isExiting, isTrue);
+      queue.remove('toast_0');
       expect(queue.contains('toast_0'), isFalse);
     });
 
@@ -239,7 +247,9 @@ void main() {
   });
 
   group('auto dismiss', () {
-    testWidgets('a countdown removes the toast', (tester) async {
+    testWidgets('a countdown starts the exit phase, the fallback removes', (
+      tester,
+    ) async {
       final queue = ToastQueue<String>(
         defaultDuration: const Duration(seconds: 2),
       );
@@ -250,9 +260,16 @@ void main() {
         data: 'a',
         onDismissed: dismissed.add,
       );
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(milliseconds: 1900));
       expect(queue.activeIds, hasLength(1));
-      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(milliseconds: 200));
+      // The countdown only starts the exit phase; the entry stays listed so a
+      // component can animate it out.
+      expect(queue.activeIds, <String>['toast_0']);
+      expect(queue.entryOf('toast_0')!.isExiting, isTrue);
+      expect(dismissed, isEmpty);
+      // Nothing confirms the removal, so the queue's fallback removes it.
+      await tester.pump(queue.exitDuration + kToastExitGrace);
       expect(queue.activeIds, isEmpty);
       expect(dismissed, <String>['toast_0']);
     });
@@ -292,6 +309,8 @@ void main() {
 
       queue.setInteracting(entry.id, false);
       await tester.pump(const Duration(seconds: 3));
+      expect(entry.isExiting, isTrue);
+      queue.remove(entry.id);
       expect(queue.contains(entry.id), isFalse);
     });
 
@@ -311,6 +330,8 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
       queue.setInteracting(entry.id, false);
       await tester.pump(const Duration(seconds: 3));
+      expect(entry.isExiting, isTrue);
+      queue.remove(entry.id);
       expect(queue.contains(entry.id), isFalse);
     });
 
@@ -338,6 +359,8 @@ void main() {
       expect(queue.contains(entry.id), isTrue);
       queue.resumeSlot(entry.slot);
       await tester.pump(const Duration(seconds: 3));
+      expect(entry.isExiting, isTrue);
+      queue.remove(entry.id);
       expect(queue.contains(entry.id), isFalse);
     });
 
@@ -388,12 +411,14 @@ void main() {
 
       queue.resumeSlot(older.slot);
       await tester.pump(const Duration(seconds: 3));
+      expect(older.isExiting, isTrue);
+      queue.remove(older.id);
       expect(queue.contains(older.id), isFalse);
     });
   });
 
-  group('dismiss', () {
-    test('removes one toast and fires its callback once', () {
+  group('dismiss and remove', () {
+    test('dismiss starts the exit phase and remove finishes it', () {
       final queue = ToastQueue<String>();
       addTearDown(queue.dispose);
       final dismissed = <String>[];
@@ -405,12 +430,18 @@ void main() {
         onDismissed: dismissed.add,
       );
       expect(queue.dismiss('one'), isTrue);
-      expect(dismissed, <String>['one']);
+      expect(queue.entryOf('one')!.isExiting, isTrue);
+      expect(queue.contains('one'), isTrue);
+      expect(dismissed, isEmpty);
       expect(queue.dismiss('one'), isFalse);
+      expect(queue.remove('one'), isTrue);
+      expect(dismissed, <String>['one']);
+      expect(queue.contains('one'), isFalse);
+      expect(queue.remove('one'), isFalse);
       expect(dismissed, <String>['one']);
     });
 
-    test('dismissSlot clears the slot and frees it', () {
+    test('dismissSlot starts the exit phase and remove frees the slot', () {
       final queue = ToastQueue<String>(singlePerSlot: false);
       addTearDown(queue.dispose);
       final entry = queue.show(
@@ -419,11 +450,15 @@ void main() {
         autoDismiss: false,
       );
       expect(queue.dismissSlot(entry.slot), 1);
-      expect(queue.slotOccupied(entry.slot), isFalse);
+      expect(entry.isExiting, isTrue);
+      // The slot stays occupied while the toast is still on screen.
+      expect(queue.slotOccupied(entry.slot), isTrue);
       expect(queue.dismissSlot(entry.slot), 0);
+      queue.remove(entry.id);
+      expect(queue.slotOccupied(entry.slot), isFalse);
     });
 
-    test('dismissAll empties the queue', () {
+    test('dismissAll starts the exit phase of every toast', () {
       final queue = ToastQueue<String>();
       addTearDown(queue.dispose);
       final dismissed = <String>[];
@@ -437,8 +472,52 @@ void main() {
       }
       expect(queue.entries, hasLength(ToastPlacement.values.length));
       expect(queue.dismissAll(), ToastPlacement.values.length);
+      expect(queue.entries.every((entry) => entry.isExiting), isTrue);
+      expect(dismissed, isEmpty);
+      for (final entry in queue.entries.toList()) {
+        queue.remove(entry.id);
+      }
       expect(queue.entries, isEmpty);
       expect(dismissed, hasLength(ToastPlacement.values.length));
+    });
+
+    testWidgets('re-showing an exiting id revives it', (tester) async {
+      final queue = ToastQueue<String>();
+      addTearDown(queue.dispose);
+      queue.show(
+        placement: ToastPlacement.topTrailing,
+        data: 'first',
+        autoDismiss: false,
+        id: 'job',
+      );
+      expect(queue.dismiss('job'), isTrue);
+      final ToastEntry<String> revived = queue.show(
+        placement: ToastPlacement.topTrailing,
+        data: 'second',
+        autoDismiss: false,
+        id: 'job',
+      );
+      expect(revived.isExiting, isFalse);
+      expect(queue.entryOf('job')!.data, 'second');
+      // The old fallback timer must not remove the revived toast.
+      await tester.pump(
+        queue.exitDuration + kToastExitGrace + const Duration(milliseconds: 1),
+      );
+      expect(queue.contains('job'), isTrue);
+    });
+
+    test('update ignores an exiting entry', () {
+      final queue = ToastQueue<String>();
+      addTearDown(queue.dispose);
+      queue.show(
+        placement: ToastPlacement.topTrailing,
+        data: 'a',
+        autoDismiss: false,
+        id: 'one',
+      );
+      queue.dismiss('one');
+      expect(queue.update('one', data: 'b'), isFalse);
+      expect(queue.entryOf('one')!.data, 'a');
     });
 
     testWidgets('dispose cancels every countdown', (tester) async {
@@ -502,6 +581,26 @@ void main() {
       entry.resume();
       entry.resume();
       expect(entry.isPaused, isFalse);
+    });
+
+    test('beginExit stops the countdown and freezes interaction', () {
+      final queue = ToastQueue<String>(
+        defaultDuration: const Duration(seconds: 5),
+      );
+      addTearDown(queue.dispose);
+      final entry = queue.show(
+        placement: ToastPlacement.topTrailing,
+        data: 'a',
+      );
+      entry.setInteracting(true);
+      entry.beginExit();
+      expect(entry.isExiting, isTrue);
+      expect(entry.isPaused, isFalse);
+      expect(entry.remaining, isNull);
+      entry.setInteracting(true);
+      expect(entry.isPaused, isFalse);
+      entry.update(data: 'b');
+      expect(entry.data, 'a');
     });
 
     test('update keeps the payload when none is given', () {

@@ -90,6 +90,10 @@ enum ToastPlacement {
       ToastSwipeDirection.right,
     },
   };
+
+  /// The direction a dismissing toast leaves towards: away from its edge.
+  ToastSwipeDirection get exitDirection =>
+      isTop ? ToastSwipeDirection.up : ToastSwipeDirection.down;
 }
 
 /// The identity of a toast slot.

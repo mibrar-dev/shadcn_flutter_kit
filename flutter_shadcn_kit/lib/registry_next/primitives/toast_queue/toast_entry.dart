@@ -52,6 +52,25 @@ class ToastEntry<T> {
   Duration? _remaining;
   DateTime? _startedAt;
   bool _interacting = false;
+  bool _exiting = false;
+
+  /// Whether the toast is playing its exit animation before removal.
+  ///
+  /// Set by [ToastQueue.dismiss]; the component animates the toast out and
+  /// then calls [ToastQueue.remove], so the queue stays the single source of
+  /// truth for what is on screen.
+  bool get isExiting => _exiting;
+
+  /// Starts the exit phase: stops the countdown and freezes interaction.
+  void beginExit() {
+    if (_exiting) {
+      return;
+    }
+    _exiting = true;
+    _interacting = false;
+    cancelTimer();
+    _remaining = null;
+  }
 
   /// Whether the auto-dismiss countdown is currently paused.
   bool get isPaused => _interacting;
@@ -69,6 +88,9 @@ class ToastEntry<T> {
   /// `refreshSignal` and left the original timer running, so an updated toast
   /// could vanish before the new content had been on screen at all.
   void update({T? data, Duration? duration, bool? autoDismiss}) {
+    if (_exiting) {
+      return;
+    }
     if (data != null) {
       this.data = data;
     }
@@ -91,7 +113,7 @@ class ToastEntry<T> {
 
   /// Pauses or resumes the auto-dismiss countdown, keeping the remaining time.
   void setInteracting(bool value) {
-    if (_interacting == value) {
+    if (_exiting || _interacting == value) {
       return;
     }
     _interacting = value;

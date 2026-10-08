@@ -150,6 +150,138 @@ void main() {
     expect(animation.value, 10);
     expect(animation.status, AnimationStatus.completed);
   });
+
+  group('pingPongProgress', () {
+    const Duration run = Duration(seconds: 3);
+    const Duration rest = Duration(seconds: 1);
+
+    test('holds the start during the leading rest', () {
+      expect(
+        pingPongProgress(
+          elapsed: Duration.zero,
+          run: run,
+          rest: rest,
+          curve: Curves.linear,
+        ),
+        0,
+      );
+      expect(
+        pingPongProgress(
+          elapsed: const Duration(milliseconds: 999),
+          run: run,
+          rest: rest,
+          curve: Curves.linear,
+        ),
+        0,
+      );
+    });
+
+    test('runs forward, rests at 1, then runs back', () {
+      double at(int ms) => pingPongProgress(
+        elapsed: Duration(milliseconds: ms),
+        run: run,
+        rest: rest,
+        curve: Curves.linear,
+      );
+      expect(at(1000), closeTo(0, 1e-6)); // end of the leading rest
+      expect(at(2500), closeTo(0.5, 1e-6)); // a quarter into the run
+      expect(at(4000), 1); // run finished (1s rest + 3s run)
+      expect(at(5000), 1); // trailing rest
+      expect(at(5500), closeTo(1 - 1 / 6, 1e-6)); // mirrored way back
+      expect(at(8000), 0); // full cycle = 2 * (rest + run)
+    });
+
+    test('applies the curve to each run', () {
+      final double eased = pingPongProgress(
+        elapsed: const Duration(milliseconds: 2500),
+        run: run,
+        rest: rest,
+        curve: Curves.easeIn,
+      );
+      expect(eased, greaterThan(0));
+      expect(eased, lessThan(0.5));
+    });
+
+    test('a zero-length run never moves', () {
+      expect(
+        pingPongProgress(
+          elapsed: const Duration(seconds: 5),
+          run: Duration.zero,
+          rest: rest,
+          curve: Curves.linear,
+        ),
+        0,
+      );
+    });
+  });
+
+  group('AnimatedStyleTransition', () {
+    testWidgets('a zero style installs only the fade', (tester) async {
+      final controller = AnimationController(
+        vsync: tester,
+        duration: const Duration(milliseconds: 100),
+      )..value = 1;
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        _wrap(
+          AnimatedStyleTransition(
+            animation: controller,
+            child: const SizedBox(width: 10, height: 10),
+          ),
+        ),
+      );
+      expect(find.byType(FadeTransition), findsOneWidget);
+      expect(find.byType(Transform), findsNothing);
+      expect(find.byType(ImageFiltered), findsNothing);
+    });
+
+    testWidgets('a transform style installs the layers and settles', (
+      tester,
+    ) async {
+      final controller = AnimationController(
+        vsync: tester,
+        duration: const Duration(milliseconds: 100),
+      )..value = 0;
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        _wrap(
+          AnimatedStyleTransition(
+            animation: controller,
+            style: const AnimatedTransitionStyle(
+              beginScale: 0.5,
+              beginOffset: Offset(20, 0),
+              beginRotation: 0.1,
+            ),
+            child: const SizedBox(width: 10, height: 10),
+          ),
+        ),
+      );
+      // At progress 0 every layer is present.
+      expect(find.byType(Transform), findsNWidgets(3));
+      controller.value = 1;
+      await tester.pump();
+      // At rest the transforms collapse to identity but stay mounted.
+      expect(find.byType(Transform), findsNWidgets(3));
+    });
+
+    testWidgets('a blur style wraps in ImageFiltered', (tester) async {
+      final controller = AnimationController(
+        vsync: tester,
+        duration: const Duration(milliseconds: 100),
+      )..value = 0;
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        _wrap(
+          AnimatedStyleTransition(
+            animation: controller,
+            style: const AnimatedTransitionStyle(beginBlur: 4),
+            child: const SizedBox(width: 10, height: 10),
+          ),
+        ),
+      );
+      expect(find.byType(ImageFiltered), findsOneWidget);
+    });
+  });
 }
 
 class _Pair {

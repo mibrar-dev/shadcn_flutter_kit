@@ -49,9 +49,12 @@ Color? _cardColor(WidgetTester tester) {
   return (box.decoration as BoxDecoration).color;
 }
 
-/// Cancels any pending auto-dismiss timers before the test ends.
+/// Clears the queue (exit phase + removal) before the test ends.
 Future<void> _clear(WidgetTester tester, ToastController controller) async {
   controller.dismissAll();
+  for (final entry in controller.entries.toList()) {
+    controller.remove(entry.id);
+  }
   await tester.pump();
 }
 
@@ -262,5 +265,83 @@ void main() {
     expect(_cardColor(tester), dark.colors.popover);
     expect(_cardColor(tester), isNot(colors.popover));
     await _clear(tester, controller);
+  });
+
+  testWidgets('a dismissed toast animates out before removal', (tester) async {
+    final controller = ToastController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(_frame(controller));
+    final String id = controller.showToast(
+      builder: (context) => const Text('Leaving'),
+    );
+    await tester.pump();
+    controller.dismiss(id);
+    await tester.pump();
+    // Still mounted, in its exit phase; the queue has not removed it.
+    expect(find.text('Leaving'), findsOneWidget);
+    expect(controller.entryOf(id)!.isExiting, isTrue);
+    expect(controller.contains(id), isTrue);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(
+      find.byWidgetPredicate(
+        (Widget widget) =>
+            widget is FadeTransition && widget.opacity.value < 1.0,
+      ),
+      findsWidgets,
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Leaving'), findsNothing);
+    expect(controller.contains(id), isFalse);
+  });
+
+  testWidgets('remaining toasts animate into their new positions', (
+    tester,
+  ) async {
+    final controller = ToastController(singlePerSlot: false);
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(_frame(controller));
+    controller.showToast(
+      placement: ToastPlacement.topLeading,
+      builder: (context) => const Text('Older'),
+    );
+    final String newer = controller.showToast(
+      placement: ToastPlacement.topLeading,
+      builder: (context) => const Text('Newer'),
+    );
+    await tester.pump();
+    final double before = tester.getTopLeft(find.text('Older')).dy;
+    controller.dismiss(newer);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    final double mid = tester.getTopLeft(find.text('Older')).dy;
+    await tester.pumpAndSettle();
+    final double after = tester.getTopLeft(find.text('Older')).dy;
+    // The newer card collapses and pulls the older one towards the edge.
+    expect(mid, lessThan(before));
+    expect(mid, greaterThan(after));
+    expect(after, lessThan(before));
+    await _clear(tester, controller);
+  });
+
+  testWidgets('disableAnimations removes the toast without animating', (
+    tester,
+  ) async {
+    final controller = ToastController();
+    addTearDown(controller.dispose);
+    await tester.pumpWidget(
+      MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: _frame(controller),
+      ),
+    );
+    final String id = controller.showToast(
+      builder: (context) => const Text('Gone'),
+    );
+    await tester.pump();
+    controller.dismiss(id);
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('Gone'), findsNothing);
+    expect(controller.contains(id), isFalse);
   });
 }

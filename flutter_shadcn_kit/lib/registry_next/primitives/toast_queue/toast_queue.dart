@@ -7,12 +7,19 @@
 //
 // The queue holds no overlay entries and no widgets: it decides *what* is in the
 // stack and *when* a toast goes away. The route/overlay mechanism stays with
-// `OverlayManager` and the components.
+// `OverlayManager` and the components; the exit animation itself lives in
+// `toast_exit.dart`.
+
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
 import 'toast_entry.dart';
 import 'toast_placement.dart';
+
+/// Extra time after [ToastQueue.exitDuration] before the queue removes an
+/// exiting toast that no component confirmed.
+const Duration kToastExitGrace = Duration(milliseconds: 300);
 
 /// The toast stack: which toasts are live, in which slot, and when they expire.
 ///
@@ -44,6 +51,15 @@ import 'toast_placement.dart';
 /// `pauseAutoDismissWhenMultiple` flag was read from inside the gooey controller
 /// and had no counterpart in `ToastController`, so the two components disagreed;
 /// the rule now lives here.
+///
+/// ## Exit phase
+///
+/// [dismiss] does not remove a toast: it marks the entry
+/// ([ToastEntry.isExiting]) and notifies, so the component can play the shared
+/// exit animation (`toast_exit.dart`) and then call [remove]. Exiting entries
+/// stay in [entries] until [remove], which keeps the queue the single source of
+/// truth — there is no second "leaving" list. If nothing confirms the removal,
+/// the queue removes the toast itself after [exitDuration] + [kToastExitGrace].
 class ToastQueue<T> extends ChangeNotifier {
   /// Creates a queue.
   ///
@@ -52,6 +68,7 @@ class ToastQueue<T> extends ChangeNotifier {
   ToastQueue({
     this.defaultDuration = const Duration(seconds: 3),
     this.singlePerSlot = true,
+    this.exitDuration = const Duration(milliseconds: 200),
     DateTime Function()? clock,
   }) : _clock = clock ?? DateTime.now;
 
@@ -61,12 +78,17 @@ class ToastQueue<T> extends ChangeNotifier {
   /// Whether a new toast replaces the toast already in its slot.
   final bool singlePerSlot;
 
+  /// How long the component's exit animation runs; the queue's fallback
+  /// removal fires [kToastExitGrace] later.
+  final Duration exitDuration;
+
   final DateTime Function() _clock;
   final Map<String, ToastEntry<T>> _entries = <String, ToastEntry<T>>{};
   final Map<ToastSlot, String> _slotActive = <ToastSlot, String>{};
+  final Map<String, Timer> _exitTimers = <String, Timer>{};
   int _nonce = 0;
 
-  /// The live toasts, newest first.
+  /// The live toasts, newest first; exiting toasts stay listed until [remove].
   List<ToastEntry<T>> get entries {
     final list = _entries.values.toList()
       ..sort((a, b) => b.shownAt.compareTo(a.shownAt));
@@ -83,7 +105,7 @@ class ToastQueue<T> extends ChangeNotifier {
   /// The entry for [id], or null.
   ToastEntry<T>? entryOf(String id) => _entries[id];
 
-  /// The live toasts in [slot], newest first.
+  /// The live toasts in [slot], newest first; exiting ones stay listed.
   List<ToastEntry<T>> entriesIn(ToastSlot slot) =>
       entries.where((entry) => entry.slot == slot).toList(growable: false);
 
@@ -110,6 +132,13 @@ class ToastQueue<T> extends ChangeNotifier {
     final slot = ToastSlot(placement);
     final resolvedId = id ?? nextId();
     final resolvedDuration = duration ?? defaultDuration;
+
+    final ToastEntry<T>? previous = _entries[resolvedId];
+    if (previous != null && previous.isExiting) {
+      // Re-showing an id that is playing its exit animation revives it as a
+      // fresh toast instead of letting the pending removal kill it.
+      remove(resolvedId);
+    }
 
     final existing = _entries[resolvedId];
     if (existing != null) {
@@ -152,10 +181,11 @@ class ToastQueue<T> extends ChangeNotifier {
     return entry;
   }
 
-  /// Updates a live toast in place; returns false when [id] is unknown.
+  /// Updates a live toast in place; returns false when [id] is unknown or
+  /// already exiting.
   bool update(String id, {T? data, Duration? duration, bool? autoDismiss}) {
     final entry = _entries[id];
-    if (entry == null) {
+    if (entry == null || entry.isExiting) {
       return false;
     }
     entry
@@ -195,12 +225,32 @@ class ToastQueue<T> extends ChangeNotifier {
     _entries[id]?.setInteracting(interacting);
   }
 
-  /// Removes the toast with [id]; returns whether it was live.
+  /// Starts the exit phase of the toast with [id].
+  ///
+  /// The entry stays in [entries] with [ToastEntry.isExiting] set so the
+  /// component can animate it out (see `toast_exit.dart`) and then call
+  /// [remove]. If no component confirms, the queue removes the toast itself
+  /// after [exitDuration] + [kToastExitGrace]. Returns whether the toast
+  /// started exiting; a second [dismiss] on the same id returns false.
   bool dismiss(String id) {
+    final entry = _entries[id];
+    if (entry == null || entry.isExiting) {
+      return false;
+    }
+    entry.beginExit();
+    _exitTimers[id]?.cancel();
+    _exitTimers[id] = Timer(exitDuration + kToastExitGrace, () => remove(id));
+    notifyListeners();
+    return true;
+  }
+
+  /// Removes the toast with [id] now; returns whether it was live.
+  bool remove(String id) {
     final entry = _entries.remove(id);
     if (entry == null) {
       return false;
     }
+    _exitTimers.remove(id)?.cancel();
     entry.cancelTimer();
     final activeForSlot = _slotActive[entry.slot];
     if (activeForSlot == id) {
@@ -211,10 +261,10 @@ class ToastQueue<T> extends ChangeNotifier {
     return true;
   }
 
-  /// Removes every toast in [slot]; returns how many went away.
+  /// Starts the exit phase of every toast in [slot]; returns how many started.
   int dismissSlot(ToastSlot slot) => _dismissSlot(slot);
 
-  /// Removes every toast; returns how many went away.
+  /// Starts the exit phase of every toast; returns how many started.
   int dismissAll() {
     final ids = _entries.keys.toList(growable: false);
     var removed = 0;
@@ -245,8 +295,12 @@ class ToastQueue<T> extends ChangeNotifier {
     for (final entry in _entries.values) {
       entry.cancelTimer();
     }
+    for (final timer in _exitTimers.values) {
+      timer.cancel();
+    }
     _entries.clear();
     _slotActive.clear();
+    _exitTimers.clear();
     super.dispose();
   }
 }

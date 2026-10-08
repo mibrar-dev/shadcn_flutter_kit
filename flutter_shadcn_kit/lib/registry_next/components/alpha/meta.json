@@ -1,0 +1,31 @@
+{
+  "id": "alpha",
+  "name": "Alpha",
+  "category": "utility",
+  "description": "Checkerboard painter for transparency indicators.",
+  "tier": "component",
+  "install": "flutter_shadcn add alpha",
+  "import": "import 'package:<your_app>/ui/shadcn/alpha/alpha.dart';",
+  "tags": [
+    "color",
+    "picker",
+    "utility"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "alpha.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "AlphaPainter"
+    ],
+    "enums": [],
+    "constants": []
+  }
+}

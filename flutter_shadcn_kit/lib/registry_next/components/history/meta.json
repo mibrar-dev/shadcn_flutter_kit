@@ -1,0 +1,61 @@
+{
+  "id": "history",
+  "name": "Color History",
+  "category": "form",
+  "description": "Recent-colour storage plus the swatch grid that reuses them.",
+  "tier": "component",
+  "install": "flutter_shadcn add history",
+  "import": "import 'package:<your_app>/ui/shadcn/history/history.dart';",
+  "tags": [
+    "color",
+    "history",
+    "picker"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "gap"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alpha",
+      "button"
+    ]
+  },
+  "files": [
+    "history.dart",
+    "history_style.dart",
+    "history_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ColorHistoryStorage",
+      "RecentColorsScope",
+      "RecentColorsScopeState",
+      "ColorHistoryGrid",
+      "HistoryTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "historyDefaults",
+      "historyThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "HistoryTheme",
+    "userFile": "history_theme.dart",
+    "defaults": "historyDefaults",
+    "fields": {
+      "selectedBorder": "ThemedColor? - selection ring colour",
+      "selectedBorderWidth": "double? - ring width, default 2",
+      "borderRadius": "BorderRadiusGeometry? - null resolves radiusMd",
+      "spacing": "double? - gap between swatches",
+      "tileSize": "double? - swatch edge length"
+    }
+  }
+}

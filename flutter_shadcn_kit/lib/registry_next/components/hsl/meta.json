@@ -1,0 +1,61 @@
+{
+  "id": "hsl",
+  "name": "HSL Color Slider",
+  "category": "form",
+  "description": "Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.",
+  "tier": "component",
+  "install": "flutter_shadcn add hsl",
+  "import": "import 'package:<your_app>/ui/shadcn/hsl/hsl.dart';",
+  "tags": [
+    "color",
+    "slider",
+    "hsl"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "color_field_paint",
+      "form_core",
+      "slider"
+    ],
+    "components": [
+      "alpha"
+    ]
+  },
+  "files": [
+    "hsl.dart",
+    "hsl_style.dart",
+    "hsl_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "HSLColorSlider",
+      "HSLColorSliderPainter",
+      "HSLSliderTheme",
+      "HSLSliderStyle"
+    ],
+    "enums": [
+      "HSLColorSliderType"
+    ],
+    "constants": [
+      "hslSliderDefaults",
+      "hslSliderThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "HSLSliderTheme",
+    "userFile": "hsl_theme.dart",
+    "defaults": "hslSliderDefaults",
+    "fields": {
+      "slider": "HSLSliderStyle? - cursor styling",
+      "cursorColor": "ThemedColor? - cursor ring colour (default white)",
+      "cursorSize": "double? - cursor diameter",
+      "cursorWidth": "double? - ring width"
+    }
+  }
+}

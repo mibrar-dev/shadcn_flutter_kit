@@ -1,0 +1,38 @@
+{
+  "id": "formatter",
+  "name": "Formatter",
+  "category": "form",
+  "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, time) plus selection clipping helpers.",
+  "tier": "component",
+  "install": "flutter_shadcn add formatter",
+  "import": "import 'package:<your_app>/ui/shadcn/formatter/formatter.dart';",
+  "tags": [
+    "input",
+    "format",
+    "text"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "formatter.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "TextInputFormatters",
+      "TimeFormatter",
+      "HexTextFormatter",
+      "NumberTextFormatter",
+      "IntegerTextFormatter",
+      "MathExpressionFormatter",
+      "ToUpperCaseTextFormatter",
+      "ToLowerCaseTextFormatter"
+    ],
+    "enums": [],
+    "constants": []
+  }
+}

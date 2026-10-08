@@ -1,0 +1,61 @@
+{
+  "id": "hsv",
+  "name": "HSV Color Slider",
+  "category": "form",
+  "description": "Gradient slider that controls hue, saturation, value, or alpha for HSV colours.",
+  "tier": "component",
+  "install": "flutter_shadcn add hsv",
+  "import": "import 'package:<your_app>/ui/shadcn/hsv/hsv.dart';",
+  "tags": [
+    "color",
+    "slider",
+    "hsv"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "color_field_paint",
+      "form_core",
+      "slider"
+    ],
+    "components": [
+      "alpha"
+    ]
+  },
+  "files": [
+    "hsv.dart",
+    "hsv_style.dart",
+    "hsv_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "HSVColorSlider",
+      "HSVColorSliderPainter",
+      "HSVSliderTheme",
+      "HSVSliderStyle"
+    ],
+    "enums": [
+      "HSVColorSliderType"
+    ],
+    "constants": [
+      "hsvSliderDefaults",
+      "hsvSliderThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "HSVSliderTheme",
+    "userFile": "hsv_theme.dart",
+    "defaults": "hsvSliderDefaults",
+    "fields": {
+      "slider": "HSVSliderStyle? - cursor styling",
+      "cursorColor": "ThemedColor? - cursor ring colour (default white)",
+      "cursorSize": "double? - cursor diameter",
+      "cursorWidth": "double? - ring width"
+    }
+  }
+}

@@ -321,3 +321,11 @@
   stuck-flag bug. r2: Ctrl/Cmd toggle, Shift range from anchor, Shift+Arrow extend, Ctrl/Cmd+A, read from
   HardwareKeyboard at event time (no stored flags, regression test for focus change while Shift held).
   qa_batch: layout clean (max 399), 84/84, layers clean, theme 0; primitives analyze clean (logic tested via components).
+
+## P4-B04 alpha, color, formatter, history, hsl, hsv (+ primitives color_field_paint, slider/color_field_slider) (fledge → deepseek after rate limit) — ACCEPTED (r1)
+- First launch hung (0-byte log ~3h, relaunched); fledge rate-limited mid-run; resumed same session on deepseek.
+- qa_batch: layout clean (max 367), 61/61, owner 0, theme 0 (color_tokens warning = substring match, pre-existing).
+  Old bugs fixed: hsl/hsv tap+pan recognizer conflict (drags never reached onPanUpdate), shouldRepaint missing channel
+  edits (hsl/hsv/alpha), HSL≠HSV-twin equality, unclamped RGB setters, history dedupe never matched (toARGB32 now),
+  formatter signed clamp + decimalDigits stripping. hsl/hsv reuse primitives/slider. B08 color_field must reuse
+  primitives/color_field_paint.dart; B24 color_picker must not re-declare HSL/HSVColorSliderType.

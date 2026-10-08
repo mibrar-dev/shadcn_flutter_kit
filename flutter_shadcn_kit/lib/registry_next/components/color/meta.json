@@ -1,0 +1,33 @@
+{
+  "id": "color",
+  "name": "Color",
+  "category": "utility",
+  "description": "The ColorDerivative colour model shared by the colour components: space-preserving RGB/HSV/HSL edits and hex parsing.",
+  "tier": "component",
+  "install": "flutter_shadcn add color",
+  "import": "import 'package:<your_app>/ui/shadcn/color/color.dart';",
+  "tags": [
+    "color",
+    "model",
+    "utility"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [
+      "color_math"
+    ],
+    "components": []
+  },
+  "files": [
+    "color.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ColorDerivative"
+    ],
+    "enums": [],
+    "constants": []
+  }
+}

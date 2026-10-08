@@ -416,3 +416,7 @@
   detection + custom `countries`, date control 36, setState → setValue. r3: shared dial codes resolve to the primary
   country (+1 US, +7 RU, +44 GB …), current selection wins on ties. qa_batch: 69/69, layers clean, theme 0.
 - Accepted: filter_core primitive, color_picker sub-API, 0–100 alpha in every mode, filter labels via l10n.
+
+## P4-B25a text_animate (+ primitives/streaming_text/) (muse-spark-1.3-contributor#xhigh) — ACCEPTED (r1)
+- 2,337 old LOC rebuilt on the accepted markdown + markdown_parser; reduced motion respected. qa_batch: layout clean
+  (max 394), 29 component + 20 primitive tests pass, layers clean, owner 0, theme 0.

@@ -1,0 +1,37 @@
+{
+  "id": "number_ticker",
+  "name": "NumberTicker",
+  "category": "display",
+  "description": "Animated number with a formatter or custom builder, plus flip-clock character rollers.",
+  "tier": "component",
+  "install": "flutter_shadcn add number_ticker",
+  "import": "import 'package:<your_app>/ui/shadcn/number_ticker/number_ticker.dart';",
+  "tags": ["display", "number", "ticker", "animation", "counter"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animated_value_builder"],
+    "components": []
+  },
+  "files": [
+    "number_ticker.dart",
+    "number_ticker_style.dart",
+    "number_ticker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["NumberTicker", "FlipperCharset", "FlipperCharacter", "TextFlipper", "NumberTickerTheme"],
+    "typedefs": ["NumberTickerBuilder", "NumberTickerFormatted"],
+    "constants": ["numberTickerDefaults", "numberTickerThemeOverrides"]
+  },
+  "theme": {
+    "class": "NumberTickerTheme",
+    "userFile": "number_ticker_theme.dart",
+    "defaults": "numberTickerDefaults",
+    "fields": {
+      "duration": "Duration? - animation duration, 500ms",
+      "curve": "Curve? - animation curve, easeInOut",
+      "style": "TextStyle? - text style, ambient"
+    }
+  }
+}

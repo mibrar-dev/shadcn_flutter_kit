@@ -1,0 +1,39 @@
+{
+  "id": "navigation_menu",
+  "name": "NavigationMenu",
+  "category": "navigation",
+  "description": "Horizontal navigation bar whose entries open themed popover content on hover or press.",
+  "tier": "component",
+  "install": "flutter_shadcn add navigation_menu",
+  "import": "import 'package:<your_app>/ui/shadcn/navigation_menu/navigation_menu.dart';",
+  "tags": ["navigation", "menu", "popover", "navbar", "dropdown"],
+  "deps": {
+    "foundation": ["data", "icons"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["layout", "overlay", "popover_controller", "text"],
+    "components": ["button", "outlined_container"]
+  },
+  "files": [
+    "navigation_menu.dart",
+    "navigation_menu_style.dart",
+    "navigation_menu_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["NavigationMenu", "NavigationMenuState", "NavigationMenuItem", "NavigationMenuItemState", "NavigationMenuContent", "NavigationMenuContentList", "NavigationMenuTheme"],
+    "constants": ["navigationMenuDefaults", "navigationMenuThemeOverrides"]
+  },
+  "theme": {
+    "class": "NavigationMenuTheme",
+    "userFile": "navigation_menu_theme.dart",
+    "defaults": "navigationMenuDefaults",
+    "fields": {
+      "surfaceOpacity": "double? - popover surface opacity, ambient or 1",
+      "surfaceBlur": "double? - popover backdrop blur, ambient or 0",
+      "margin": "EdgeInsetsGeometry? - margin around the popover, density gap",
+      "offset": "Offset? - popover offset from the trigger, (0, 4)",
+      "padding": "EdgeInsetsGeometry? - padding inside the popover, density",
+      "maxWidth": "double? - maximum popover width, unconstrained"
+    }
+  }
+}

@@ -337,3 +337,10 @@
 - r2: machinery restored in primitives/error_handling/ (models, rules, registry, retry/backoff, scopes) with unit +
   widget tests; tracker fine/warning colours are TrackerTheme fields. qa_batch: 95/95, layers clean, owner 0, theme 0.
 - Follow-up: move error_system English fallback strings into primitives/localizations (l10n pass).
+
+## P4-B15 scaffold, item_picker, refresh_trigger, number_ticker, code_snippet, country_flag, navigation_menu (+ primitives/countries.dart) (muse-spark-1.3-contributor#xhigh) — ACCEPTED (r1)
+- 6,389 → 4,306 LOC, 80 tests, 20+ old bugs fixed (Material imports, DrawerOverlay global state, NaN minExtent, fake
+  null-onRefresh cycle, ignored app theme leg, phonecodes package dependency → local 244-row ISO table with BSD
+  attribution). qa_batch: layout clean (max 398), 80/80, layers clean, owner 0, theme 0.
+- Decision: number_ticker takes a formatter callback (intl-free; NumberFormat shown in README) — accepted over Q2.
+- Note: agent killed 2 stray flutter_tester processes; other batches re-verified by their own gates.

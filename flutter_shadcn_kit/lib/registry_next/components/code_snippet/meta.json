@@ -1,0 +1,38 @@
+{
+  "id": "code_snippet",
+  "name": "CodeSnippet",
+  "category": "display",
+  "description": "Scrollable code block with optional top-right action buttons.",
+  "tier": "component",
+  "install": "flutter_shadcn add code_snippet",
+  "import": "import 'package:<your_app>/ui/shadcn/code_snippet/code_snippet.dart';",
+  "tags": ["display", "code", "snippet", "pre"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["text"],
+    "components": []
+  },
+  "files": [
+    "code_snippet.dart",
+    "code_snippet_style.dart",
+    "code_snippet_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["CodeSnippet", "CodeSnippetTheme"],
+    "constants": ["codeSnippetDefaults", "codeSnippetThemeOverrides"]
+  },
+  "theme": {
+    "class": "CodeSnippetTheme",
+    "userFile": "code_snippet_theme.dart",
+    "defaults": "codeSnippetDefaults",
+    "fields": {
+      "background": "ThemedColor? - container fill, card token",
+      "borderColor": "ThemedColor? - border color, border token",
+      "borderWidth": "double? - scaled border width, 1",
+      "borderRadius": "BorderRadiusGeometry? - null = ambient radiusLg",
+      "padding": "EdgeInsetsGeometry? - density padding, wider on the right"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "item_picker",
+  "name": "ItemPicker",
+  "category": "form",
+  "description": "Field that edits a value by picking one item from a grid or list, in a dialog or popover.",
+  "tier": "component",
+  "install": "flutter_shadcn add item_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/item_picker/item_picker.dart';",
+  "tags": ["form", "picker", "dialog", "popover", "select"],
+  "deps": {
+    "foundation": ["data"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["form_core", "layout", "overlay", "popover", "text"],
+    "components": ["button", "card", "dialog"]
+  },
+  "files": [
+    "item_picker.dart",
+    "item_picker_style.dart",
+    "item_picker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "functions": ["showItemPicker", "showItemPickerDialog"],
+    "classes": ["ItemPicker", "ItemPickerDialog", "ItemPickerOption", "ItemChildDelegate", "ItemList", "ItemPickerLayout", "GridItemPickerLayout", "ListItemPickerLayout", "ItemPickerData", "ItemPickerTheme"],
+    "typedefs": ["ItemPickerBuilder"],
+    "constants": ["itemPickerDefaults", "itemPickerThemeOverrides"]
+  },
+  "theme": {
+    "class": "ItemPickerTheme",
+    "userFile": "item_picker_theme.dart",
+    "defaults": "itemPickerDefaults",
+    "fields": {
+      "constraints": "BoxConstraints? - bounds of the items box, 320x320 max",
+      "padding": "EdgeInsetsGeometry? - padding around the items, 8",
+      "spacing": "double? - gap between grid cells, 4"
+    }
+  }
+}

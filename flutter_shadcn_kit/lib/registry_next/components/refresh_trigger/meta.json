@@ -1,0 +1,39 @@
+{
+  "id": "refresh_trigger",
+  "name": "RefreshTrigger",
+  "category": "overlay",
+  "description": "Pull-to-refresh wrapper for any scrollable, with a themed indicator pill and programmatic refresh.",
+  "tier": "component",
+  "install": "flutter_shadcn add refresh_trigger",
+  "import": "import 'package:<your_app>/ui/shadcn/refresh_trigger/refresh_trigger.dart';",
+  "tags": ["overlay", "refresh", "pull", "scroll", "loading"],
+  "deps": {
+    "foundation": ["constants", "gap", "icons"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animated_value_builder", "localizations"],
+    "components": ["card"]
+  },
+  "files": [
+    "refresh_trigger.dart",
+    "refresh_trigger_style.dart",
+    "refresh_trigger_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["RefreshTrigger", "RefreshTriggerState", "RefreshTriggerStage", "TriggerStage", "DefaultRefreshIndicator", "RefreshTriggerTheme"],
+    "typedefs": ["RefreshIndicatorBuilder"],
+    "constants": ["refreshTriggerDefaults", "refreshTriggerThemeOverrides"]
+  },
+  "theme": {
+    "class": "RefreshTriggerTheme",
+    "userFile": "refresh_trigger_theme.dart",
+    "defaults": "refreshTriggerDefaults",
+    "fields": {
+      "minExtent": "double? - pull distance arming the refresh, 75",
+      "maxExtent": "double? - maximum pull distance, 150",
+      "indicatorBuilder": "RefreshIndicatorBuilder? - custom indicator, default pill",
+      "curve": "Curve? - extent animation curve, easeOutSine",
+      "completeDuration": "Duration? - completion display time, 500ms"
+    }
+  }
+}

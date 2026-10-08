@@ -1,0 +1,38 @@
+{
+  "id": "country_flag",
+  "name": "CountryFlag",
+  "category": "display",
+  "description": "Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.",
+  "tier": "component",
+  "install": "flutter_shadcn add country_flag",
+  "import": "import 'package:<your_app>/ui/shadcn/country_flag/country_flag.dart';",
+  "tags": ["display", "flag", "country", "phone"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["countries", "phone_number"],
+    "components": []
+  },
+  "files": [
+    "country_flag.dart",
+    "country_flag_style.dart",
+    "country_flag_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["CountryFlag", "CountryFlagDetails", "CountryFlagTheme"],
+    "typedefs": ["CountryFlagBuilder"],
+    "constants": ["countryFlagDefaults", "countryFlagThemeOverrides"]
+  },
+  "theme": {
+    "class": "CountryFlagTheme",
+    "userFile": "country_flag_theme.dart",
+    "defaults": "countryFlagDefaults",
+    "fields": {
+      "builder": "CountryFlagBuilder? - artwork provider, emoji fallback",
+      "width": "double? - default flag width, 24 scaled",
+      "height": "double? - default flag height, 18 scaled",
+      "shape": "ShapeBorder? - default clip shape, unclipped"
+    }
+  }
+}

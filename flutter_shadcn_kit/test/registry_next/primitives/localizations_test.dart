@@ -267,26 +267,53 @@ void main() {
 
       expect(english.formatTimeOfDay(time), '09:05');
       expect(english.formatTimeOfDay(time, showSeconds: true), '09:05:07');
-      expect(english.formatTimeOfDay(time, use24HourFormat: false), '09:05 AM');
+      expect(english.formatTimeOfDay(time, use24HourFormat: false), '9:05 AM');
       expect(
         english.formatTimeOfDay(
           time,
           use24HourFormat: false,
           showSeconds: true,
         ),
-        '09:05:07 AM',
+        '9:05:07 AM',
       );
     });
 
-    test('formatTimeOfDay marks afternoon in 12-hour format', () {
-      const evening = TimeOfDay(hour: 18, minute: 45);
+    test('formatTimeOfDay converts to 12-hour clock', () {
       expect(
-        english.formatTimeOfDay(evening, use24HourFormat: false),
-        '18:45 PM',
-        reason:
-            'the hour is only reduced above 12; 18 stays 18 (old behaviour)',
+        english.formatTimeOfDay(
+          const TimeOfDay(hour: 18, minute: 45),
+          use24HourFormat: false,
+        ),
+        '6:45 PM',
       );
-      expect(english.formatTimeOfDay(evening), '18:45');
+      expect(
+        english.formatTimeOfDay(
+          const TimeOfDay(hour: 0, minute: 0),
+          use24HourFormat: false,
+        ),
+        '12:00 AM',
+        reason: 'midnight is 12:00 AM',
+      );
+      expect(
+        english.formatTimeOfDay(
+          const TimeOfDay(hour: 12, minute: 0),
+          use24HourFormat: false,
+        ),
+        '12:00 PM',
+        reason: 'noon is 12:00 PM',
+      );
+      expect(
+        english.formatTimeOfDay(
+          const TimeOfDay(hour: 12, minute: 0),
+          use24HourFormat: false,
+          showSeconds: true,
+        ),
+        '12:00:00 PM',
+      );
+      expect(
+        english.formatTimeOfDay(const TimeOfDay(hour: 18, minute: 45)),
+        '18:45',
+      );
     });
 
     test('formatDuration joins the non-zero components', () {

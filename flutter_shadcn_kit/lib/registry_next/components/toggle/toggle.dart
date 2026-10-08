@@ -5,6 +5,9 @@
 // participation are different behaviour (PLAN §4 rule 2); it also replaces
 // the old `SelectedButton` through [Toggle.activeStyle].
 
+import 'dart:math' as math;
+
+import '../../foundation/geometry.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/clickable.dart';
@@ -211,19 +214,31 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
     // Border-box totals (shadcn h-8/h-9/h-10 with px-2): the `Clickable`
     // padding wraps the `ConstrainedBox`, so the inner minima subtract the
     // resolved padding to keep totals exact (e.g. 16px icon + 16px padding
-    // still measures 36x36, not 52x36).
+    // still measures 36x36, not 52x36). A painted border adds layout as
+    // decoration padding, so the minima reserve `max(padding, border)` and the
+    // Clickable padding is inset by the border width (F1).
     final double minSide = switch (widget.size) {
       ToggleSize.sm => 32,
       ToggleSize.md => 36,
       ToggleSize.lg => 40,
     };
+    final double borderWidth = resolved.borderWidth ?? 0;
+    final bool hasBorder = resolved.borderColor != null && borderWidth > 0;
     final EdgeInsets resolvedPad = padding.resolve(Directionality.of(context));
+    final EdgeInsets contentPadding = hasBorder
+        ? insetBorder(resolvedPad, borderWidth)
+        : resolvedPad;
+    final double reservedBorder = hasBorder ? borderWidth : 0;
     final double innerMinWidth =
-        (minSide - resolvedPad.left - resolvedPad.right)
+        (minSide -
+                math.max(resolvedPad.left, reservedBorder) -
+                math.max(resolvedPad.right, reservedBorder))
             .clamp(0, double.infinity)
             .toDouble();
     final double innerMinHeight =
-        (minSide - resolvedPad.top - resolvedPad.bottom)
+        (minSide -
+                math.max(resolvedPad.top, reservedBorder) -
+                math.max(resolvedPad.bottom, reservedBorder))
             .clamp(0, double.infinity)
             .toDouble();
 
@@ -236,11 +251,15 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
     Decoration? decorationFor(Set<WidgetState> states) {
       final Color? background = colorFor(resolved.background, states);
       final Color? borderColor = colorFor(resolved.borderColor, states);
-      final double width = resolved.borderWidth ?? 0;
       return BoxDecoration(
         color: background,
-        border: borderColor != null && width > 0
-            ? Border.all(color: borderColor, width: width)
+        // A declared border always occupies its width (transparent where a
+        // state has no colour), so the control size never depends on state.
+        border: hasBorder
+            ? Border.all(
+                color: borderColor ?? const Color(0x00000000),
+                width: borderWidth,
+              )
             : null,
         borderRadius: theme.borderRadiusMd,
       );
@@ -273,7 +292,7 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
           focusNode: _focusNode,
           decoration: WidgetStateProperty.resolveWith(decorationFor),
           mouseCursor: _toggleMouseCursor,
-          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(padding),
+          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(contentPadding),
           textStyle: WidgetStateProperty.resolveWith(textStyleFor),
           iconTheme: WidgetStateProperty.resolveWith(iconThemeFor),
           child: ConstrainedBox(

@@ -39,6 +39,23 @@ class ShadcnSelectionControls extends TextSelectionControls
   /// Handle diameter in logical pixels.
   final double handleSize;
 
+  /// Value equality: `EditableText` disposes and recreates its selection
+  /// overlay whenever `selectionControls !=`, so two default-constructed
+  /// controls must compare equal. Without this, every rebuild of a field
+  /// (e.g. a popover re-invoking its builder, which creates fresh widgets)
+  /// churns the overlay entries — removing and disposing them mid-build and
+  /// crashing the overlay with a zombie entry (`_TypeError` in
+  /// `_OverlayEntryWidgetState.initState`).
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ShadcnSelectionControls &&
+          other.color == color &&
+          other.handleSize == handleSize;
+
+  @override
+  int get hashCode => Object.hash(color, handleSize);
+
   @override
   Size getHandleSize(double textLineHeight) => Size.square(handleSize);
 

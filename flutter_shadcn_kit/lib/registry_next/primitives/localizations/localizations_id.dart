@@ -192,6 +192,9 @@ class ShadcnLocalizationsId extends ShadcnLocalizations {
   String get dialogDismiss => 'Tutup';
 
   @override
+  String get chipInputRemoveChip => 'Hapus';
+
+  @override
   String get buttonCancel => 'Batal';
 
   @override

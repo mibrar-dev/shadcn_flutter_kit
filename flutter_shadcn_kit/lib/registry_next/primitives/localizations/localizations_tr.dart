@@ -191,6 +191,9 @@ class ShadcnLocalizationsTr extends ShadcnLocalizations {
   String get dialogDismiss => 'Kapat';
 
   @override
+  String get chipInputRemoveChip => 'Sil';
+
+  @override
   String get buttonCancel => 'İptal';
 
   @override

@@ -194,6 +194,9 @@ class ShadcnLocalizationsDe extends ShadcnLocalizations {
   String get dialogDismiss => 'Schließen';
 
   @override
+  String get chipInputRemoveChip => 'Löschen';
+
+  @override
   String get buttonCancel => 'Abbrechen';
 
   @override

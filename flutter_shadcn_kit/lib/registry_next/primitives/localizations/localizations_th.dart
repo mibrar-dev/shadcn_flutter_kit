@@ -187,6 +187,9 @@ class ShadcnLocalizationsTh extends ShadcnLocalizations {
   String get dialogDismiss => 'ปิด';
 
   @override
+  String get chipInputRemoveChip => 'ลบ';
+
+  @override
   String get buttonCancel => 'ยกเลิก';
 
   @override

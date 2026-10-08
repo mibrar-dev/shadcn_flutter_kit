@@ -194,6 +194,9 @@ class ShadcnLocalizationsFi extends ShadcnLocalizations {
   String get dialogDismiss => 'Ohita';
 
   @override
+  String get chipInputRemoveChip => 'Poista';
+
+  @override
   String get buttonCancel => 'Peruuta';
 
   @override

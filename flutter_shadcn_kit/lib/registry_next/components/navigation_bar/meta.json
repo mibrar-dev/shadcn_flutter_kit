@@ -1,0 +1,91 @@
+{
+  "id": "navigation_bar",
+  "name": "Navigation Bar",
+  "category": "navigation",
+  "description": "Navigation container for bars, rails and sidebars: selectable items with labels, groups, collapsibles, dividers, slots and arrow-key roving.",
+  "tier": "component",
+  "install": "flutter_shadcn add navigation_bar",
+  "import": "import 'package:<your_app>/ui/shadcn/navigation_bar/navigation_bar.dart';",
+  "tags": [
+    "navigation",
+    "bar",
+    "rail",
+    "sidebar",
+    "menu",
+    "tabs"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "platform"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "navigation",
+      "roving_group"
+    ],
+    "components": [
+      "overflow_marquee",
+      "tooltip"
+    ]
+  },
+  "files": [
+    "navigation_bar.dart",
+    "navigation_bar_style.dart",
+    "navigation_bar_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "NavigationBar",
+      "NavigationItem",
+      "NavigationCollapsible",
+      "NavigationGroup",
+      "NavigationLabel",
+      "NavigationDivider",
+      "NavigationGap",
+      "NavigationSlot",
+      "NavigationItemRow",
+      "NavigationBarTheme",
+      "NavigationItemStyle"
+    ],
+    "enums": [
+      "NavigationContainerType",
+      "NavigationLabelType",
+      "NavigationLabelPosition",
+      "NavigationLabelSize",
+      "NavigationOverflow"
+    ],
+    "constants": [
+      "navigationBarDefaults",
+      "navigationItemDefaults",
+      "navigationActiveItemDefaults",
+      "navigationBarThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "NavigationBarTheme",
+    "userFile": "navigation_bar_theme.dart",
+    "defaults": "navigationBarDefaults",
+    "fields": {
+      "backgroundColor": "ThemedColor? - container fill; bar/rail default to background",
+      "alignment": "MainAxisAlignment? - bar distribution",
+      "direction": "Axis? - null resolves from the container type",
+      "spacing": "double? - space between items, 8",
+      "labelType": "NavigationLabelType? - sidebar defaults to expanded",
+      "labelPosition": "NavigationLabelPosition? - bottom",
+      "labelSize": "NavigationLabelSize? - small",
+      "padding": "EdgeInsetsGeometry? - 12x8",
+      "itemStyle": "NavigationItemStyle? - unselected item slice",
+      "activeItemStyle": "NavigationItemStyle? - selected item slice"
+    }
+  },
+  "notes": [
+    "`NavigationRail` and `NavigationSidebar` are `NavigationBar(container: ...)`; `NavigationButton` is `NavigationItem(onPressed:)`.",
+    "`NavigationWidget`, the key-based selection API, surface blur and the size-keeping flags are dropped (clean break); `NavigationGap` and `NavigationSlot` are kept.",
+    "Arrow-key roving uses `primitives/roving_group.dart`; the styled row, item widgets and their theme slice live in `primitives/navigation`."
+  ]
+}

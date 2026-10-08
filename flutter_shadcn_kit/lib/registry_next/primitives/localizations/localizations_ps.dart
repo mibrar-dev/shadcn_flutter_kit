@@ -189,6 +189,9 @@ class ShadcnLocalizationsPs extends ShadcnLocalizations {
   String get dialogDismiss => 'رد کړه';
 
   @override
+  String get chipInputRemoveChip => '';
+
+  @override
   String get buttonCancel => 'لغوه کول';
 
   @override

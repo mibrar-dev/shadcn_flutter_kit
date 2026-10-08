@@ -189,6 +189,9 @@ class ShadcnLocalizationsUr extends ShadcnLocalizations {
   String get dialogDismiss => 'برخاست کریں';
 
   @override
+  String get chipInputRemoveChip => 'حذف کریں';
+
+  @override
   String get buttonCancel => 'منسوخ کریں';
 
   @override

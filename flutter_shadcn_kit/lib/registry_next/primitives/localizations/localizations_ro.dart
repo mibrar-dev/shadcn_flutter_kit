@@ -195,6 +195,9 @@ class ShadcnLocalizationsRo extends ShadcnLocalizations {
   String get dialogDismiss => 'Închideți';
 
   @override
+  String get chipInputRemoveChip => 'Ștergeți';
+
+  @override
   String get buttonCancel => 'Anulare';
 
   @override

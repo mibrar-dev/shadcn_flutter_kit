@@ -190,6 +190,9 @@ class ShadcnLocalizationsAr extends ShadcnLocalizations {
   String get dialogDismiss => 'رفض';
 
   @override
+  String get chipInputRemoveChip => 'حذف';
+
+  @override
   String get buttonCancel => 'إلغاء';
 
   @override

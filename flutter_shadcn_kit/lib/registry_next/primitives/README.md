@@ -32,7 +32,8 @@ Flutter non-Material libraries. No third-party packages (except `intl` /
   `Label` + `BasicTheme`.
 - `hidden.dart` — animated hide/collapse.
 - `fade_scroll.dart` — scroll-edge fade.
-- `menu_group.dart`, `slider_value.dart`, `phone_number.dart` — value types.
+- `menu_nav.dart`, `slider_value.dart`, `phone_number.dart` — value types
+  and menu traversal (`MenuGroupData` lives in `menu_nav.dart`).
 - `extensions.dart` — icon/widget/flex extensions, `SeparatedFlex`.
 - `form_core/`, `text/`, `localizations/` — sibling primitives (P2-E2).
 

@@ -1,6 +1,6 @@
 # Re-architecture progress
 
-Last updated: 2026-10-08 (orchestrator, Phase 4 in progress)
+Last updated: 2026-10-08 (orchestrator stopped at usage limit)
 Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit`
 (branched from `chore/upstream-parity-audit`).
 
@@ -11,7 +11,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
 | 3 Pilot (button, input, dialog) | ✅ built + QA-accepted + user-approved (sizes fixed in P3-F) (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
-| 4 Migrate remaining components + cutover | 🔄 primitives P4-PRIM-A/B ✅; batches ✅ B01 B02 B03 B04 B05 B06 B07 B09 B10 B11 B12 B14 B15 B16 B18 B19 (+ size audit M1, radius fix M2, pilot follow-up P3-F); running B08 (minus color_field), B13 (minus chip_input), B17 r2, B23 (+color_field); waiting B20 B21 B22 B24 B25 + chip_input; then l10n split/pass, full-tree QA, cutover |
+| 4 Migrate remaining components + cutover | 🔄 accepted: all primitives + B01–B19, B22, B23 (+M1, M2, P3-F). OPEN: chip_input (B13b, uncommitted, MiMo session ses_ee4b476beffeK6b3G0aeOppBoR adding tests — QA then commit); NOT STARTED: localizations.dart split (619 lines) + l10n pass, B20, B21, B24, B25; then full-tree qa_gate + cutover |
 | 5 CLI | ⏳ not started |
 | 6 Docs gallery, final QA, PR | ⏳ not started |
 

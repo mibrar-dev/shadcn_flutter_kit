@@ -1,0 +1,54 @@
+{
+  "id": "time_picker",
+  "name": "TimePicker",
+  "category": "form",
+  "description": "Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.",
+  "tier": "component",
+  "install": "flutter_shadcn add time_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/time_picker/time_picker.dart';",
+  "tags": ["form", "time", "duration", "clock", "picker"],
+  "deps": {
+    "foundation": ["gap", "icons", "time_of_day"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["date_math", "form_core", "localizations"],
+    "components": ["button", "formatter", "input"]
+  },
+  "files": [
+    "time_picker.dart",
+    "time_picker_style.dart",
+    "time_picker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "TimePicker",
+      "TimePickerDialog",
+      "DurationPicker",
+      "DurationPickerDialog",
+      "TimePickerTheme"
+    ],
+    "constants": ["timePickerDefaults", "timePickerThemeOverrides"]
+  },
+  "theme": {
+    "class": "TimePickerTheme",
+    "userFile": "time_picker_theme.dart",
+    "defaults": "timePickerDefaults",
+    "fields": {
+      "mode": "PromptMode? - dialog or popover presentation; null = dialog",
+      "use24HourFormat": "bool? - 12/24-hour clock; null = ambient convention",
+      "showSeconds": "bool? - seconds field; null = false",
+      "popoverAlignment": "AlignmentGeometry? - card placement; null = top-left",
+      "popoverAnchorAlignment": "AlignmentGeometry? - anchor edge; null = bottom-left",
+      "popoverPadding": "EdgeInsetsGeometry? - null = the primitive default",
+      "dialogTitle": "Widget? - title of the dialog prompt; null = none"
+    }
+  },
+  "notes": [
+    "The formatter component dep (TimeFormatter, single owner) is imported, not re-declared, per the batch bug note.",
+    "The form component dep from the batch plan is consumed as the form_core primitive (ObjectFormField/PromptMode, single owner); no form-component import was needed.",
+    "The text dep from the batch plan was not needed: captions are plain widgets Text.",
+    "Material TimeOfDay/Icons/TextField are the foundation value, lucide icons and the input component (validator gets raw text per the input pilot).",
+    "The zero-reader TimeRange is deleted; the AM/PM Toggle is two Buttons (toggle is not a listed dep).",
+    "Digit fields clamp into range on every edit (hour 0-23, minute/second 0-59, days 0-9999) via date_math ranges."
+  ]
+}

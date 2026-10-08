@@ -149,6 +149,9 @@ class _InputState extends State<Input>
   String _lastText = '';
   bool? _obscureOverride;
 
+  /// Whether the features already heard about this focus; reset on blur.
+  bool _focusAnnounced = false;
+
   TextEditingController get _controller => _host.controller;
   FocusNode get _focusNode => _host.focusNode;
   WidgetStatesController get _states => _host.states;
@@ -258,6 +261,17 @@ class _InputState extends State<Input>
     }
   }
 
+  /// Features that read the current text need to know about focus too: a field
+  /// that starts out with text, or is focused without typing, never fires
+  /// `onTextChanged`.
+  void _notifyFocusGained() {
+    if (!_focusNode.hasFocus || _focusAnnounced) return;
+    _focusAnnounced = true;
+    for (final feature in widget.features) {
+      feature.onFocusGained(this);
+    }
+  }
+
   @override
   void didReplaceFormValue(String value) {
     _controller.text = value;
@@ -268,6 +282,11 @@ class _InputState extends State<Input>
   Widget build(BuildContext context) {
     final bool enabled = widget.enabled;
     final bool focused = _focusNode.hasFocus;
+    if (focused) {
+      _notifyFocusGained();
+    } else {
+      _focusAnnounced = false;
+    }
     final String? errorText = _validation.errorText;
     final InputSurface surface = resolveInputSurface(
       context,

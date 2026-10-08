@@ -26,6 +26,31 @@ Widget _frame({required Widget child}) {
 }
 
 void main() {
+  test('selection controls compare by value, not identity', () {
+    // EditableText disposes and recreates its selection overlay whenever
+    // selectionControls !=. Fields build a fresh ShadcnSelectionControls per
+    // build, so equal configs must compare equal — otherwise every rebuild
+    // churns the overlay entries and a popover rebuild can dispose them
+    // mid-build (zombie OverlayEntry crash on field tap).
+    expect(ShadcnSelectionControls(), ShadcnSelectionControls());
+    expect(
+      ShadcnSelectionControls(color: _ring, handleSize: 18),
+      ShadcnSelectionControls(color: _ring, handleSize: 18),
+    );
+    expect(
+      ShadcnSelectionControls(color: _ring),
+      isNot(ShadcnSelectionControls()),
+    );
+    expect(
+      ShadcnSelectionControls(handleSize: 18),
+      isNot(ShadcnSelectionControls(handleSize: 20)),
+    );
+    expect(
+      ShadcnSelectionControls().hashCode,
+      ShadcnSelectionControls().hashCode,
+    );
+  });
+
   test('handle size and anchor stay off the text line', () {
     final controls = ShadcnSelectionControls(handleSize: 20);
     expect(controls.getHandleSize(14), const Size(20, 20));

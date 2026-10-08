@@ -187,6 +187,9 @@ class ShadcnLocalizationsVi extends ShadcnLocalizations {
   String get dialogDismiss => 'Bỏ qua';
 
   @override
+  String get chipInputRemoveChip => 'Xóa';
+
+  @override
   String get buttonCancel => 'Hủy';
 
   @override

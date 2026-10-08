@@ -189,6 +189,9 @@ class ShadcnLocalizationsHe extends ShadcnLocalizations {
   String get dialogDismiss => 'סגירה';
 
   @override
+  String get chipInputRemoveChip => 'מחיקה';
+
+  @override
   String get buttonCancel => 'ביטול';
 
   @override

@@ -188,6 +188,9 @@ class ShadcnLocalizationsBn extends ShadcnLocalizations {
   String get dialogDismiss => 'খারিজ করুন';
 
   @override
+  String get chipInputRemoveChip => 'মুছে দিন';
+
+  @override
   String get buttonCancel => 'বাতিল';
 
   @override

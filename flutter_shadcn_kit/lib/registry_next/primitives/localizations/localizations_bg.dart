@@ -192,6 +192,9 @@ class ShadcnLocalizationsBg extends ShadcnLocalizations {
   String get dialogDismiss => 'Отхвърляне';
 
   @override
+  String get chipInputRemoveChip => 'Изтриване';
+
+  @override
   String get buttonCancel => 'Отказ';
 
   @override

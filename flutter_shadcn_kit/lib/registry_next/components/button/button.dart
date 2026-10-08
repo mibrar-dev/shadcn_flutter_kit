@@ -5,6 +5,9 @@
 // One constructor plus `variant`/`size` enums replaces the old per-variant
 // wrapper classes and named constructors (clean break, no aliases).
 
+import 'dart:math' as math;
+
+import '../../foundation/geometry.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
@@ -158,6 +161,14 @@ class _ButtonState extends State<Button> {
     final _ButtonSizeMetrics metrics = _buttonMetricsFor(widget.size, density);
     final EdgeInsetsGeometry padding = resolved.padding ?? metrics.padding;
     final BorderRadius radius = _borderRadius(context, theme);
+    final double borderWidth = resolved.borderWidth ?? 0;
+    final bool hasBorder = resolved.borderColor != null && borderWidth > 0;
+    final EdgeInsets resolvedPadding = padding.resolve(
+      Directionality.of(context),
+    );
+    // The border is decoration padding and adds layout; inset the Clickable
+    // padding by its width so bordered variants keep their size-table height.
+    final EdgeInsets contentPadding = insetBorder(resolvedPadding, borderWidth);
 
     Color? colorFor(StateValue<ThemedColor>? value, Set<WidgetState> states) {
       return value?.resolve(states)?.resolve(theme.colors);
@@ -168,11 +179,15 @@ class _ButtonState extends State<Button> {
     Decoration? decorationFor(Set<WidgetState> states) {
       final Color? background = colorFor(resolved.background, states);
       final Color? borderColor = colorFor(resolved.borderColor, states);
-      final double width = resolved.borderWidth ?? 0;
       return BoxDecoration(
         color: background,
-        border: borderColor != null && width > 0
-            ? Border.all(color: borderColor, width: width)
+        // A declared border always occupies its width (transparent where a
+        // state has no colour), so the control size never depends on state.
+        border: hasBorder
+            ? Border.all(
+                color: borderColor ?? const Color(0x00000000),
+                width: borderWidth,
+              )
             : null,
         borderRadius: radius,
       );
@@ -211,8 +226,18 @@ class _ButtonState extends State<Button> {
     }
     content = ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: _innerMin(metrics.minWidth, padding, context, true),
-        minHeight: _innerMin(metrics.minHeight, padding, context, false),
+        minWidth: _innerMin(
+          metrics.minWidth,
+          resolvedPadding,
+          hasBorder ? borderWidth : 0,
+          true,
+        ),
+        minHeight: _innerMin(
+          metrics.minHeight,
+          resolvedPadding,
+          hasBorder ? borderWidth : 0,
+          false,
+        ),
       ),
       child: Center(widthFactor: 1, heightFactor: 1, child: content),
     );
@@ -231,7 +256,7 @@ class _ButtonState extends State<Button> {
           focusNode: _focusNode,
           decoration: WidgetStateProperty.resolveWith(decorationFor),
           mouseCursor: _buttonMouseCursor,
-          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(padding),
+          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(contentPadding),
           textStyle: WidgetStateProperty.resolveWith(textStyleFor),
           iconTheme: WidgetStateProperty.resolveWith(iconThemeFor),
           child: content,
@@ -269,16 +294,19 @@ class _ButtonSizeMetrics {
 /// padding wraps the `ConstrainedBox`, so the inner minimum subtracts the
 /// resolved padding (e.g. an icon button with 36px total and zero padding
 /// keeps a 36px inner minimum; a themed vertical padding does not stack).
+///
+/// A painted border is `BoxDecoration` padding and adds layout too, so the
+/// minimum reserves `max(padding, border)` per side; the Clickable padding is
+/// inset by the border width in exchange (F1: outline md measured 38, not 36).
 double _innerMin(
   double total,
-  EdgeInsetsGeometry padding,
-  BuildContext context,
+  EdgeInsets padding,
+  double border,
   bool horizontal,
 ) {
-  final EdgeInsets resolved = padding.resolve(Directionality.of(context));
   final double used = horizontal
-      ? resolved.left + resolved.right
-      : resolved.top + resolved.bottom;
+      ? math.max(padding.left, border) + math.max(padding.right, border)
+      : math.max(padding.top, border) + math.max(padding.bottom, border);
   return (total - used).clamp(0, double.infinity).toDouble();
 }
 

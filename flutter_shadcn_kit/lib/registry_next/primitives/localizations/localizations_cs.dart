@@ -191,6 +191,9 @@ class ShadcnLocalizationsCs extends ShadcnLocalizations {
   String get dialogDismiss => 'Zavřít';
 
   @override
+  String get chipInputRemoveChip => 'Smazat';
+
+  @override
   String get buttonCancel => 'Zrušit';
 
   @override

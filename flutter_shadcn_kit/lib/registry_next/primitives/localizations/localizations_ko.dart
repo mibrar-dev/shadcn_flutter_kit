@@ -186,6 +186,9 @@ class ShadcnLocalizationsKo extends ShadcnLocalizations {
   String get dialogDismiss => '닫기';
 
   @override
+  String get chipInputRemoveChip => '삭제';
+
+  @override
   String get buttonCancel => '취소';
 
   @override

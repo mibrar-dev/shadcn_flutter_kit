@@ -185,6 +185,9 @@ class ShadcnLocalizationsZh extends ShadcnLocalizations {
   String get dialogDismiss => '关闭';
 
   @override
+  String get chipInputRemoveChip => '删除';
+
+  @override
   String get buttonCancel => '取消';
 
   @override

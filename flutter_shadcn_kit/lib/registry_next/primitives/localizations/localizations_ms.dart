@@ -195,6 +195,9 @@ class ShadcnLocalizationsMs extends ShadcnLocalizations {
   String get dialogDismiss => 'Tolak';
 
   @override
+  String get chipInputRemoveChip => 'Padam';
+
+  @override
   String get buttonCancel => 'Batal';
 
   @override

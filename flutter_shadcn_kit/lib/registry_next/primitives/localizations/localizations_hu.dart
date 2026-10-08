@@ -194,6 +194,9 @@ class ShadcnLocalizationsHu extends ShadcnLocalizations {
   String get dialogDismiss => 'Elvetés';
 
   @override
+  String get chipInputRemoveChip => 'Törlés';
+
+  @override
   String get buttonCancel => 'Mégse';
 
   @override

@@ -228,3 +228,20 @@ extension EdgeInsetsGeometryExtension on EdgeInsetsGeometry {
     return resolve(Directionality.of(context));
   }
 }
+
+/// Removes [border] from each side of [padding], never going below zero.
+///
+/// Bordered controls paint their border as decoration padding, which adds
+/// layout; insetting the padding by the border width keeps the control at its
+/// size-table total (F1: outline md measured 38, not 36).
+EdgeInsets insetBorder(EdgeInsets padding, double border) {
+  if (border <= 0) {
+    return padding;
+  }
+  return EdgeInsets.fromLTRB(
+    max(0, padding.left - border),
+    max(0, padding.top - border),
+    max(0, padding.right - border),
+    max(0, padding.bottom - border),
+  );
+}

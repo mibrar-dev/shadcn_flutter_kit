@@ -192,6 +192,9 @@ class ShadcnLocalizationsNl extends ShadcnLocalizations {
   String get dialogDismiss => 'Sluiten';
 
   @override
+  String get chipInputRemoveChip => 'Verwijderen';
+
+  @override
   String get buttonCancel => 'Annuleren';
 
   @override

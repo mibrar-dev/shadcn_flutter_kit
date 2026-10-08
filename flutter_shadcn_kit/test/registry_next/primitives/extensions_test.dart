@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_shadcn_kit/registry_next/primitives/extensions.dart';
-import 'package:flutter_shadcn_kit/registry_next/primitives/menu_group.dart';
+import 'package:flutter_shadcn_kit/registry_next/primitives/menu_nav.dart';
 import 'package:flutter_shadcn_kit/registry_next/primitives/slider_value.dart';
 import 'package:flutter_shadcn_kit/registry_next/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry_next/theme/theme.dart';
@@ -144,7 +144,7 @@ void main() {
   });
 
   test('MenuGroupData carries the axis', () {
-    const data = MenuGroupData(direction: Axis.horizontal);
+    final data = MenuGroupData(direction: Axis.horizontal);
     expect(data.direction, Axis.horizontal);
   });
 }

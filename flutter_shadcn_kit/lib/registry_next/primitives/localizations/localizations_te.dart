@@ -189,6 +189,9 @@ class ShadcnLocalizationsTe extends ShadcnLocalizations {
   String get dialogDismiss => 'విస్మరించు';
 
   @override
+  String get chipInputRemoveChip => 'తొలగించండి';
+
+  @override
   String get buttonCancel => 'రద్దు చేయి';
 
   @override

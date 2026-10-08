@@ -135,13 +135,9 @@ extension ShadcnLocalizationsExtensions on ShadcnLocalizations {
       }
       return result;
     }
-    var hour = time.hour;
-    if (hour > 12) {
-      hour -= 12;
-      result = showSeconds ? '$hh:$mm:$ss $timePM' : '$hh:$mm $timePM';
-    } else {
-      result = showSeconds ? '$hh:$mm:$ss $timeAM' : '$hh:$mm $timeAM';
-    }
+    final int hour12 = time.hour % 12 == 0 ? 12 : time.hour % 12;
+    final String period = time.hour < 12 ? timeAM : timePM;
+    result = showSeconds ? '$hour12:$mm:$ss $period' : '$hour12:$mm $period';
     return result;
   }
 

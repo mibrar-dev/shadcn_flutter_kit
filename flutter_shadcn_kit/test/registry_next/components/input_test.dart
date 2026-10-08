@@ -137,6 +137,24 @@ class _FakeFormHandle with FormFieldHandle {
   FutureOr<ValidationResult?> revalidate() => null;
 }
 
+/// Records the focus/text callbacks a feature receives, so a test can prove
+/// which one fired. `onTextChanged` never runs for a field that starts out
+/// with text, or for one that is focused without typing.
+class _FocusRecordingFeature extends InputFeature {
+  int focusGained = 0;
+  final List<String> texts = <String>[];
+  String textAtFocus = '';
+
+  @override
+  void onFocusGained(InputFeatureState state) {
+    focusGained++;
+    textAtFocus = state.text;
+  }
+
+  @override
+  void onTextChanged(InputFeatureState state, String text) => texts.add(text);
+}
+
 void main() {
   const ShadcnColors colors = ShadcnColors.lightFallback;
 
@@ -506,5 +524,56 @@ void main() {
     final editable = _editable(tester);
     expect(editable.style.fontFamily, 'Custom');
     expect(editable.style.fontSize, 20);
+  });
+
+  testWidgets('a feature gets onFocusGained for a pre-filled field', (
+    tester,
+  ) async {
+    final _FocusRecordingFeature feature = _FocusRecordingFeature();
+    await tester.pumpWidget(
+      _frame(
+        child: Input(
+          initialValue: 'already filled',
+          features: <InputFeature>[feature],
+        ),
+      ),
+    );
+    // Nothing has been typed, so `onTextChanged` has not run at all.
+    expect(feature.focusGained, 0);
+    expect(feature.texts, isEmpty);
+
+    await tester.tap(find.byType(EditableText));
+    await tester.pump();
+    expect(feature.focusGained, 1);
+    expect(feature.textAtFocus, 'already filled');
+    expect(feature.texts, isEmpty);
+
+    // A rebuild inside the same focus session must not announce it twice.
+    await tester.pump();
+    expect(feature.focusGained, 1);
+  });
+
+  testWidgets('a feature gets onFocusGained for focus without typing', (
+    tester,
+  ) async {
+    final _FocusRecordingFeature feature = _FocusRecordingFeature();
+    await tester.pumpWidget(
+      _frame(
+        child: Input(hintText: 'Type', features: <InputFeature>[feature]),
+      ),
+    );
+    await tester.tap(find.byType(EditableText));
+    await tester.pump();
+    expect(feature.focusGained, 1);
+    expect(feature.texts, isEmpty, reason: 'no keystroke, no text callback');
+    expect(feature.textAtFocus, '');
+
+    // Regaining focus announces again: the guard resets on blur.
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump();
+    expect(feature.focusGained, 1);
+    await tester.tap(find.byType(EditableText));
+    await tester.pump();
+    expect(feature.focusGained, 2);
   });
 }

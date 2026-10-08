@@ -445,4 +445,37 @@ void main() {
     await tester.pump();
     expect(handle.reported.last, isTrue);
   });
+
+  group('size table with a border (F1)', () {
+    testWidgets('a bordered toggle keeps its shadcn height at every size', (
+      tester,
+    ) async {
+      const Map<ToggleSize, double> heights = <ToggleSize, double>{
+        ToggleSize.sm: 32,
+        ToggleSize.md: 36,
+        ToggleSize.lg: 40,
+      };
+      for (final MapEntry<ToggleSize, double> entry in heights.entries) {
+        await tester.pumpWidget(
+          _frame(
+            child: Toggle(
+              value: true,
+              onChanged: (_) {},
+              size: entry.key,
+              style: const ToggleStyle(
+                borderColor: StateValue(rest: ThemedColor.value(_red)),
+                borderWidth: 1,
+              ),
+              child: const Text('On'),
+            ),
+          ),
+        );
+        expect(
+          tester.getSize(find.byType(Toggle)).height,
+          entry.value,
+          reason: entry.key.name,
+        );
+      }
+    });
+  });
 }

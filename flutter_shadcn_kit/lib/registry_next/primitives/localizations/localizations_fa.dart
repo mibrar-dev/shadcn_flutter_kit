@@ -188,6 +188,9 @@ class ShadcnLocalizationsFa extends ShadcnLocalizations {
   String get dialogDismiss => 'بستن';
 
   @override
+  String get chipInputRemoveChip => 'حذف';
+
+  @override
   String get buttonCancel => 'لغو';
 
   @override

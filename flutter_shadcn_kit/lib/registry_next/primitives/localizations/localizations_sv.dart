@@ -190,6 +190,9 @@ class ShadcnLocalizationsSv extends ShadcnLocalizations {
   String get dialogDismiss => 'Stäng';
 
   @override
+  String get chipInputRemoveChip => 'Radera';
+
+  @override
   String get buttonCancel => 'Avbryt';
 
   @override

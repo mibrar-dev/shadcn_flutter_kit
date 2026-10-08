@@ -189,6 +189,9 @@ class ShadcnLocalizationsSk extends ShadcnLocalizations {
   String get dialogDismiss => 'Odmietnuť';
 
   @override
+  String get chipInputRemoveChip => 'Odstrániť';
+
+  @override
   String get buttonCancel => 'Zrušiť';
 
   @override

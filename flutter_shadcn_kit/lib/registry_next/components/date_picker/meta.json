@@ -1,0 +1,72 @@
+{
+  "id": "date_picker",
+  "name": "DatePicker",
+  "category": "form",
+  "description": "Single-date and date-span fields opening a calendar sheet (DatePickerDialog with month/year stepper) in a dialog or a popover, wired into the form system.",
+  "tier": "component",
+  "install": "flutter_shadcn add date_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/date_picker/date_picker.dart';",
+  "tags": [
+    "form",
+    "date",
+    "calendar",
+    "picker"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "date_math",
+      "form_core",
+      "localizations"
+    ],
+    "components": [
+      "calendar"
+    ]
+  },
+  "files": [
+    "date_picker.dart",
+    "date_picker_style.dart",
+    "date_picker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "DatePicker",
+      "DateRangePicker",
+      "DatePickerDialog",
+      "DateTimeRange",
+      "DatePickerTheme"
+    ],
+    "constants": [
+      "datePickerDefaults",
+      "datePickerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "DatePickerTheme",
+    "userFile": "date_picker_theme.dart",
+    "defaults": "datePickerDefaults",
+    "fields": {
+      "mode": "PromptMode? - dialog or popover presentation; null = dialog",
+      "initialView": "CalendarView? - month the calendar opens on; null = value/current month",
+      "initialViewType": "CalendarViewType? - grid shown first; null = date",
+      "popoverAlignment": "AlignmentGeometry? - card placement; null = top-left",
+      "popoverAnchorAlignment": "AlignmentGeometry? - anchor edge; null = bottom-left",
+      "popoverPadding": "EdgeInsetsGeometry? - null = the primitive default"
+    }
+  },
+  "notes": [
+    "The form component dep from the batch plan is consumed as the form_core primitive (ObjectFormField/PromptMode, single owner); no form-component import was needed.",
+    "The old dual-pane range layout (two grids side by side above 500px) is deleted; one grid selects a range.",
+    "Tapping a month drills into its days and tapping a year into its months (single mode); the header title cycles date/month/year.",
+    "DateTimeRange carries no copyWith/toString (file budget); construct directly."
+  ]
+}

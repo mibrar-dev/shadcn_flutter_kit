@@ -366,3 +366,10 @@
   Border.all(null), every keyboard_shortcut cap, themed RadioCard negative padding, themed compact empty_state).
   input_features gained onFocusGained + slotOf (bugs caught by tests); 13 English-fallback l10n getters (no invented
   translations). keyboard_shortcut reuses foundation/keyboard.dart typedefs.
+
+## P4-B22 file_picker, navigation_bar (+ button border fix) and P4-B13 menu, hover_card, date_picker, time_picker — ACCEPTED (r2)
+- B22 r2: grid/grouping/iconBuilder restored, NavigationGap/NavigationSlot restored; bordered button variants now 36
+  (insetBorder in foundation/geometry.dart shared by button/toggle/navigation row). B13 r2 (fresh session after context
+  overflow): menu checkbox/radio/label/shortcut/separator/sub rows + showShadcnMenu, DateRangePicker, 12h time format
+  fixed, MenuGroupData single owner, popover zombie-OverlayEntry crash root-caused (ShadcnSelectionControls identity
+  equality) and fixed in text_editing. Combined qa_batch: 182/182, layers clean, owner 0, theme 0.

@@ -13,7 +13,9 @@
     "form"
   ],
   "deps": {
-    "foundation": [],
+    "foundation": [
+      "geometry"
+    ],
     "theme": [
       "color_tokens",
       "theme"

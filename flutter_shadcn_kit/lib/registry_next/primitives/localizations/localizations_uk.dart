@@ -192,6 +192,9 @@ class ShadcnLocalizationsUk extends ShadcnLocalizations {
   String get dialogDismiss => 'Закрити';
 
   @override
+  String get chipInputRemoveChip => 'Видалити';
+
+  @override
   String get buttonCancel => 'Скасувати';
 
   @override

@@ -528,4 +528,109 @@ void main() {
     expect(ButtonTheme.lerp(a, b, 0.25).primary!.borderWidth, 2.5);
     expect(ButtonTheme.lerp(a, b, 0.75).primary!.borderWidth, 3.5);
   });
+
+  group('size table (F1: a border never adds height)', () {
+    testWidgets('outline, secondary and ghost measure their shadcn height', (
+      tester,
+    ) async {
+      const Map<ButtonSize, double> heights = <ButtonSize, double>{
+        ButtonSize.xs: 28,
+        ButtonSize.sm: 32,
+        ButtonSize.md: 36,
+        ButtonSize.lg: 40,
+        ButtonSize.icon: 36,
+      };
+      for (final ButtonVariant variant in <ButtonVariant>[
+        ButtonVariant.outline,
+        ButtonVariant.secondary,
+        ButtonVariant.ghost,
+      ]) {
+        for (final MapEntry<ButtonSize, double> entry in heights.entries) {
+          await _pump(
+            tester,
+            Button(
+              variant: variant,
+              size: entry.key,
+              onPressed: () {},
+              child: const Text('Save'),
+            ),
+          );
+          // The variant/size swap animates padding/decoration; settle first.
+          await tester.pumpAndSettle();
+          expect(
+            tester.getSize(find.byType(Button)).height,
+            entry.value,
+            reason: '${variant.name} ${entry.key.name}',
+          );
+        }
+      }
+      await _pump(
+        tester,
+        Button(
+          variant: ButtonVariant.outline,
+          size: ButtonSize.icon,
+          onPressed: () {},
+          child: const Text('+'),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.getSize(find.byType(Button)), const Size(36, 36));
+    });
+
+    testWidgets('the outline border keeps its size across hover and press', (
+      tester,
+    ) async {
+      await _pump(
+        tester,
+        Button(
+          variant: ButtonVariant.outline,
+          onPressed: () {},
+          child: const Text('Save'),
+        ),
+      );
+      expect(tester.getSize(find.byType(Button)).height, 36);
+      final TestGesture gesture = await tester.createGesture(
+        kind: PointerDeviceKind.mouse,
+      );
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await tester.pump();
+      await gesture.moveTo(tester.getCenter(find.byType(Button)));
+      await tester.pump();
+      expect(tester.getSize(find.byType(Button)).height, 36, reason: 'hovered');
+      final TestGesture press = await tester.startGesture(
+        tester.getCenter(find.byType(Button)),
+      );
+      await tester.pump();
+      expect(tester.getSize(find.byType(Button)).height, 36, reason: 'pressed');
+      await press.up();
+      await tester.pump();
+    });
+
+    testWidgets('a hover-only border colour reserves its width at rest', (
+      tester,
+    ) async {
+      await _pump(
+        tester,
+        Button(
+          onPressed: () {},
+          theme: const ButtonVariantStyle(
+            borderColor: StateValue(hovered: ThemedColor.value(_red)),
+            borderWidth: 2,
+          ),
+          child: const Text('Save'),
+        ),
+      );
+      expect(tester.getSize(find.byType(Button)).height, 36);
+      final TestGesture gesture = await tester.createGesture(
+        kind: PointerDeviceKind.mouse,
+      );
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await tester.pump();
+      await gesture.moveTo(tester.getCenter(find.byType(Button)));
+      await tester.pump();
+      expect(tester.getSize(find.byType(Button)).height, 36, reason: 'hovered');
+    });
+  });
 }

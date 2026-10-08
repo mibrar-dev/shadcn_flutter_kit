@@ -15,7 +15,8 @@
   "deps": {
     "foundation": [
       "data",
-      "gap"
+      "gap",
+      "geometry"
     ],
     "theme": [
       "color_tokens",

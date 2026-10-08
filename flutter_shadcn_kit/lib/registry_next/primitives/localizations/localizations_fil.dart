@@ -191,6 +191,9 @@ class ShadcnLocalizationsFil extends ShadcnLocalizations {
   String get dialogDismiss => 'I-dismiss';
 
   @override
+  String get chipInputRemoveChip => 'I-delete';
+
+  @override
   String get buttonCancel => 'Kanselahin';
 
   @override

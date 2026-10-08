@@ -360,3 +360,9 @@
   de_AT/zh_TW/zh_CN/unknown → en; no delegate warning); window snap-bar presets restored via primitives/window_snap.dart.
   qa_batch: 122/122, layout clean, layers only localizations.dart 557 lines (concurrent B08/B13 keys) → split next.
 - Ratified: ColorField API, EyeDropperResult → ScreenSample, controller-required Window, 4 window/eye-dropper primitives.
+
+## P4-B08 autocomplete, radio_group, empty_state, keyboard_shortcut, dropzone (+ primitives roving_group, selectable_radio/) (space-bunny-free#max) — ACCEPTED (r1, after one network resume; color_field moved to B23)
+- qa_batch: layout clean (max 388), 156/156, layers clean, theme 0. 36 old bugs fixed (4 runtime crashes: idle dropzone
+  Border.all(null), every keyboard_shortcut cap, themed RadioCard negative padding, themed compact empty_state).
+  input_features gained onFocusGained + slotOf (bugs caught by tests); 13 English-fallback l10n getters (no invented
+  translations). keyboard_shortcut reuses foundation/keyboard.dart typedefs.

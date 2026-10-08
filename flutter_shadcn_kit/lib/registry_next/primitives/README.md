@@ -67,6 +67,37 @@ Flutter non-Material libraries. No third-party packages (except `intl` /
   action chip), `gooey_swipe` (directional swipe-to-dismiss) and `gooey_stack`
   (anchored stack over a `ToastQueue`, including the slot pause policy).
 
+- `fractional_align_box.dart` (P4-B17) — `FractionalAlignBox`: lays its child
+  out at most `factor` of the incoming width and aligns it, forwarding
+  intrinsic queries (the `LayoutBuilder` + `Align` + `ConstrainedBox` pattern
+  cannot, which breaks `IntrinsicHeight`/`IntrinsicWidth`). Used by `chat`
+  bubbles for `widthFactor`.
+- `overlap_layout.dart` (P4-B17) — `OverlapLayout` (+ `OverlapCorner`,
+  `OverlapParentData`): hangs an overlap (a badge, a row of chips) over one
+  corner of a primary child, widens the primary child when the overlap is
+  wider (`extraWidth`) and aligns the union to a side of the incoming width,
+  with working intrinsics and hit tests. Used by `chat` reactions.
+- `roving_group.dart` (P4-B08) — the arrow-key roving-focus bookkeeping a
+  single-select or tabbed container needs: `RovingItem` (one member's
+  registration), `RovingGroupRegistry` (ordered members, `move(delta)` that
+  skips disabled ones and wraps, and the `shortcuts`/`actions` maps) and
+  `RovingGroupScope`. The traversal **maps live on the registry, not on a
+  `Shortcuts` above the members**: `Clickable` binds the arrow keys to
+  directional focus and the nearest `Shortcuts` wins, so a group-level
+  `Shortcuts` is unreachable. Used by `radio_group`; `select`, `menu` and
+  `tabs` need the same.
+- `selectable_radio/selectable_radio.dart` (P4-B08) — the selectable row shared
+  by the single-select components: `RadioItem<T>`, `RadioIndicator` (the circle),
+  the `SelectableData`/`SelectableDataScope` selection scope, and the lookup keys
+  `kRadioIndicatorKey` and `kRadioIndicatorDotKey`.
+  `selectable_radio/selectable_radio_theme.dart` owns the matching
+  `ComponentThemeData` classes (`SelectableRadioTheme`, the `RadioIndicatorStyle`
+  slice) and their token-derived defaults.
+  Created for `radio_group`; `select`, `menu` and `tabs` need the same rows. The
+  **card** item shape is deliberately *not* here: a card is a component-layer
+  surface, so a layer 2 file may not import `Card`. `radio_group` owns
+  `RadioCard` and `SelectableCardTheme`.
+
 ## Component themes
 
 Each primitive with theming exposes a `ComponentThemeData` subclass

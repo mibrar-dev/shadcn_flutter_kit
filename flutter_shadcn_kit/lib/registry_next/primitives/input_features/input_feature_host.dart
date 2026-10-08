@@ -58,4 +58,7 @@ mixin InputFeatureHostState<T extends StatefulWidget> on State<T>
   @override
   T2 slot<T2 extends Object>(InputFeature feature, T2 Function() create) =>
       featureSlots.slot(feature, create);
+
+  @override
+  Object? featureSlotOf(InputFeature feature) => featureSlots.slotOf(feature);
 }

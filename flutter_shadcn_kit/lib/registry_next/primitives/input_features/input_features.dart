@@ -161,6 +161,11 @@ abstract class InputFeatureState {
 
   /// Per-feature mutable slot, created on first use, disposed with the input.
   T slot<T extends Object>(InputFeature feature, T Function() create);
+
+  /// The slot [feature] already owns, or null. Features that hold a
+  /// [dispose]-time resource (a controller, a notifier) read it here so they
+  /// can release it when the field tears the slot down.
+  Object? featureSlotOf(InputFeature feature);
 }
 
 /// One piece of input behaviour or decoration.
@@ -194,6 +199,14 @@ abstract class InputFeature {
 
   /// Called after the field text changes.
   void onTextChanged(InputFeatureState state, String text) {}
+
+  /// Called the first time the field takes focus after a rebuild, and again
+  /// whenever it regains focus.
+  ///
+  /// A feature whose content depends on the current text (a suggestion list,
+  /// a validation preview) needs this: `onTextChanged` never fires for a field
+  /// that starts out with text, nor for one the user focuses without typing.
+  void onFocusGained(InputFeatureState state) {}
 
   /// Keyboard shortcuts contributed by this feature.
   Iterable<MapEntry<ShortcutActivator, Intent>> buildShortcuts(
@@ -323,6 +336,9 @@ class InputFeatureIconButton extends StatelessWidget {
 /// index when [InputFeature.canUpdate] holds, and disposes the rest.
 class InputFeatureSlots {
   final Map<InputFeature, Object> _slots = <InputFeature, Object>{};
+
+  /// The slot [feature] already owns, or null.
+  Object? slotOf(InputFeature feature) => _slots[feature];
 
   /// The slot of [feature], created by [create] on first use.
   T slot<T extends Object>(InputFeature feature, T Function() create) {

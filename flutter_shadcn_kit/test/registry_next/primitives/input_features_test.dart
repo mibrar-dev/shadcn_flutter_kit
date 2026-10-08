@@ -75,6 +75,9 @@ class _FakeFeatureState implements InputFeatureState {
   BuildContext get featureContext => throw UnimplementedError();
 
   @override
+  Object? featureSlotOf(InputFeature feature) => null;
+
+  @override
   TextEditingController get controller => TextEditingController();
 
   @override

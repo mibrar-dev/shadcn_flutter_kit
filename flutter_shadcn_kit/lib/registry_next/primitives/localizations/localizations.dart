@@ -407,4 +407,9 @@ class ShadcnLocalizations {
   ///
   /// No Flutter ARB equivalent exists, so this is the English fallback only.
   String get tableResizeRow => 'Resize row';
+
+  /// Semantics label for a resizable pane divider handle.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get resizableHandle => 'Resize handle';
 }

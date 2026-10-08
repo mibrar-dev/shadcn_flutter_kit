@@ -1,0 +1,53 @@
+{
+  "id": "overlay_configuration",
+  "name": "Overlay Configuration",
+  "category": "overlay",
+  "description": "Describe what overlay to show and how (popover, drawer, sheet, dialog, tooltip) behind one configuration object, plus showOverlay and OverlayController.",
+  "tier": "component",
+  "install": "flutter_shadcn add overlay_configuration",
+  "import": "import 'package:<your_app>/ui/shadcn/overlay_configuration/overlay_configuration.dart';",
+  "tags": [
+    "overlay",
+    "popover",
+    "drawer",
+    "sheet",
+    "dialog",
+    "tooltip"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "platform"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "overlay",
+      "popover"
+    ],
+    "components": [
+      "anchor",
+      "drawer"
+    ]
+  },
+  "files": [
+    "overlay_configuration.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "OverlayConfiguration",
+      "PopoverConfiguration",
+      "TooltipConfiguration",
+      "DrawerConfiguration",
+      "SheetConfiguration",
+      "DialogConfiguration",
+      "OverlayController"
+    ],
+    "functions": [
+      "showOverlay"
+    ],
+    "constants": []
+  }
+}

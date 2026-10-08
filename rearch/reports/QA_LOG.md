@@ -299,3 +299,12 @@
 - Table header text → foreground (shadcn v4); switch travel 14; card uses radiusXl (14). r1 exited before the suite
   finished; r2 fixed the 2 tests that encoded old radii. Orchestrator ran theme/themes/outlined_container/card/
   table/switch/size_audit/visual: 184/184, analyze clean. Preset screenshots regenerated.
+
+## P4-B12 resizable, sortable, overlay_configuration, drawer_container (+ primitives axis_size, resizable_pane, resizable_handle, sortable_layer) (longcat-2.5-preview-free, ses_ee6940379ffe7UnE8UX0kB83x9) — ACCEPTED (r2)
+- r1: 29 tests, big LOC cuts (overlay_configuration 1037 → 566, drawer_container 893 → 658), OverlayAnchorScope
+  requirement documented, real drawer routes instead of deprecated popover shims. Returned for dropped
+  ResizableHandle and sortable drop animation.
+- r2: ResizableHandle(withHandle) restored (primitive, re-exported by resizable), arrow/Home/End keyboard,
+  `resizableHandle` semantics key; sortable settle animation (200ms easeOut, disableAnimations → instant).
+  qa_batch: layout clean (max 399), 34/34, layers clean, theme 0; 4 primitives analyze clean, all ≤ 278 lines.
+- localizations.dart now 416 lines → mechanical split task queued.

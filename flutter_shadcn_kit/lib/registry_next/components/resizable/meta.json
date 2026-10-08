@@ -1,0 +1,68 @@
+{
+  "id": "resizable",
+  "name": "Resizable",
+  "category": "layout",
+  "description": "Split panes with draggable dividers, absolute or flexible sizing, min/max constraints, collapse and external controllers.",
+  "tier": "component",
+  "install": "flutter_shadcn add resizable",
+  "import": "import 'package:<your_app>/ui/shadcn/resizable/resizable.dart';",
+  "tags": [
+    "layout",
+    "resizable",
+    "panes",
+    "split",
+    "divider"
+  ],
+  "deps": {
+    "foundation": [
+      "resizable_item",
+      "resizer"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "localizations",
+      "resizable_handle",
+      "resizable_pane"
+    ],
+    "components": []
+  },
+  "files": [
+    "resizable.dart",
+    "resizable_style.dart",
+    "resizable_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ResizablePanelGroup",
+      "ResizablePanel",
+      "ResizableHandle",
+      "ResizableHandleView",
+      "ResizablePaneController",
+      "ResizablePaneHandle",
+      "ResizableEntryItem",
+      "ResizablePaneLayout",
+      "ResizableTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "resizableDefaults",
+      "resizableThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ResizableTheme",
+    "userFile": "resizable_theme.dart",
+    "defaults": "resizableDefaults",
+    "fields": {
+      "handleColor": "StateValue<ThemedColor>? - border / ring on hover+press",
+      "handleThickness": "double? - divider line thickness (1)",
+      "hitThickness": "double? - gesture hit area (10)",
+      "gripColor": "ThemedColor? - grip colour (border)",
+      "gripSize": "Size? - grip size for a horizontal group (4x16)"
+    }
+  }
+}

@@ -400,3 +400,12 @@
   updated with reason), consumer workarounds removed; select canUnselect/autoClose/popupConstraints restored, popup body
   in primitives/select_popup.dart; new installable `multi_select` component (chips + MenuCheckboxItem rows) — accepted;
   spellCheckNoSuggestions key (English fallback). qa_batch: 115/115, layers clean, owner 0, theme 0.
+
+## P4-X cutover plan (muse-spark) — ACCEPTED as plan (not executed)
+- 145/145 old dirs mapped (126 batch + 4 pilot + 14 primitive + tab_list); 5 blockers = B24/B25; post-cutover 118
+  components (p4_batches.json "120" stale). No playground/example dirs (docs/lib/ui/shadcn is the live mirror);
+  8 pubspec deps become removable (data_widget, gap, phonecodes, country_flags, cross_file, web, skeletonizer,
+  animation_kit, email_validator).
+- Orchestrator review of rearch/cutover.sh: dry-run default, refuses --apply on blockers/dirty tree/wrong branch, only
+  git mv/git rm (recoverable). Not sufficient alone: step 4 import rewrites are manual and step 5 manifest tools still
+  read the old layout → execute the cutover as an agent task following P4_CUTOVER.md, after USER APPROVAL.

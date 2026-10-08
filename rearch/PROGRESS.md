@@ -16,6 +16,11 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 6 Docs gallery, final QA, PR | ⏳ not started |
 
 ## User decisions (binding)
+- 2026-10-09: Ibrar APPROVED (complete approval): Phase 4 cutover (replace lib/registry with registry_next, delete old tree,
+  rewrite imports, regenerate manifests, drop the ~8 unused packages); Phase 5 CLI rewrite for the new component install
+  (CLI repo branch `refactor/rearchitecture`, his installer WIP preserved as commit de35dd2; main untouched); Phase 6 docs:
+  design a modern, motion-rich docs website with the Open Design CLI (`opendesign`, daemon :7456, project
+  shadcn-flutter-kit-docs), then rebuild the whole docs app in Flutter with the new registry components. Parallel OpenCode agents.
 - Agents: **OpenCode only** (no Claude subagents, Gemini/Antigravity dropped). The orchestrator plans, briefs, and
   QA-reviews; sub-agents do the heavy work. Loop per unit: plan → build → test → QA review → UI check → bug hunt.
 - Models: muse-spark-1.3-contributor#xhigh (architect / QA reviewer), deepseek-v4.1-flash#max (builder A),

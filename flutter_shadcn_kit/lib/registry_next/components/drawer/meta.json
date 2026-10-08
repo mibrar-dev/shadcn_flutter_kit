@@ -1,0 +1,75 @@
+{
+  "id": "drawer",
+  "name": "Drawer",
+  "category": "overlay",
+  "description": "Modal panel that slides in from a screen edge, plus an expanding sheet variant.",
+  "tier": "component",
+  "install": "flutter_shadcn add drawer",
+  "import": "import 'package:<your_app>/ui/shadcn/drawer/drawer.dart';",
+  "tags": [
+    "overlay",
+    "drawer",
+    "sheet",
+    "panel"
+  ],
+  "deps": {
+    "foundation": [
+      "data"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "drawer_route"
+    ],
+    "components": []
+  },
+  "files": [
+    "drawer.dart",
+    "drawer_style.dart",
+    "drawer_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "DrawerTheme",
+      "DrawerOverlayCompleter"
+    ],
+    "enums": [
+      "OverlayPosition"
+    ],
+    "functions": [
+      "openDrawer",
+      "openDrawerOverlay",
+      "openSheet",
+      "openSheetOverlay",
+      "closeDrawer",
+      "closeSheet"
+    ],
+    "constants": [
+      "drawerDefaults",
+      "drawerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "DrawerTheme",
+    "userFile": "drawer_theme.dart",
+    "defaults": "drawerDefaults",
+    "fields": {
+      "background": "ThemedColor? - panel fill (background)",
+      "foreground": "ThemedColor? - panel content colour (foreground)",
+      "borderColor": "ThemedColor? - inner-edge border (border)",
+      "borderWidth": "double? - 0 hides the border",
+      "borderRadius": "BorderRadius? - inner-corner radius; null = ambient radiusLg",
+      "padding": "EdgeInsetsGeometry? - panel padding",
+      "barrierColor": "ThemedColor? - barrier colour (black at 50%)",
+      "maxSize": "double? - panel extent along the slide axis",
+      "showDragHandle": "bool? - draw the drag handle",
+      "dragHandleSize": "Size? - drag handle size",
+      "dragHandleColor": "ThemedColor? - drag handle colour",
+      "transitionDuration": "Duration? - open/close transition",
+      "shadows": "List<BoxShadow>? - null = ambient shadowLg, [] removes"
+    }
+  }
+}

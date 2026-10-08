@@ -1,0 +1,55 @@
+{
+  "id": "breadcrumb",
+  "name": "Breadcrumb",
+  "category": "navigation",
+  "description": "Horizontal trail of crumbs with a chevron or slash separator.",
+  "tier": "component",
+  "install": "flutter_shadcn add breadcrumb",
+  "import": "import 'package:<your_app>/ui/shadcn/breadcrumb/breadcrumb.dart';",
+  "tags": [
+    "navigation",
+    "breadcrumb",
+    "trail"
+  ],
+  "deps": {
+    "foundation": [
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "text"
+    ],
+    "components": []
+  },
+  "files": [
+    "breadcrumb.dart",
+    "breadcrumb_style.dart",
+    "breadcrumb_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Breadcrumb",
+      "BreadcrumbTheme"
+    ],
+    "constants": [
+      "breadcrumbDefaults",
+      "breadcrumbThemeOverrides",
+      "Breadcrumb.arrowSeparator",
+      "Breadcrumb.slashSeparator"
+    ]
+  },
+  "theme": {
+    "class": "BreadcrumbTheme",
+    "userFile": "breadcrumb_theme.dart",
+    "defaults": "breadcrumbDefaults",
+    "fields": {
+      "separator": "Widget? - widget between crumbs, null = chevron",
+      "padding": "EdgeInsetsGeometry? - strip padding",
+      "spacing": "double? - gap on each side of the separator"
+    }
+  }
+}

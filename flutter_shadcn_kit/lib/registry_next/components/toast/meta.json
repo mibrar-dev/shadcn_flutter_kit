@@ -1,0 +1,75 @@
+{
+  "id": "toast",
+  "name": "Toast",
+  "category": "overlay",
+  "description": "Transient, non-blocking notifications anchored to a screen edge.",
+  "tier": "component",
+  "install": "flutter_shadcn add toast",
+  "import": "import 'package:<your_app>/ui/shadcn/toast/toast.dart';",
+  "tags": [
+    "overlay",
+    "notification",
+    "toast"
+  ],
+  "deps": {
+    "foundation": [
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "toast_queue"
+    ],
+    "components": []
+  },
+  "files": [
+    "toast.dart",
+    "toast_style.dart",
+    "toast_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ToastController",
+      "ToastLayer",
+      "ToastTheme"
+    ],
+    "typedefs": [
+      "ToastBuilder"
+    ],
+    "functions": [
+      "showToast"
+    ],
+    "constants": [
+      "toastDefaults",
+      "toastThemeOverrides"
+    ],
+    "enums": [
+      "ToastPlacement",
+      "ToastSwipeDirection"
+    ]
+  },
+  "theme": {
+    "class": "ToastTheme",
+    "userFile": "toast_theme.dart",
+    "defaults": "toastDefaults",
+    "fields": {
+      "background": "ThemedColor? - card fill (popover)",
+      "foreground": "ThemedColor? - content colour (popoverForeground)",
+      "borderColor": "ThemedColor? - card border (border)",
+      "borderWidth": "double? - 0 hides the border",
+      "borderRadius": "BorderRadiusGeometry? - null = ambient radiusMd",
+      "padding": "EdgeInsetsGeometry? - inner padding",
+      "maxWidth": "double? - maximum card width",
+      "shadows": "List<BoxShadow>? - null = ambient shadowLg, [] removes",
+      "duration": "Duration? - default auto-dismiss",
+      "animationDuration": "Duration? - entry animation",
+      "pauseOnHover": "bool? - pause the countdown on hover/press",
+      "showCloseButton": "bool? - per-card close affordance",
+      "gap": "double? - gap between stacked toasts",
+      "offset": "EdgeInsetsGeometry? - stack inset from the screen edges"
+    }
+  }
+}

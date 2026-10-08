@@ -261,3 +261,9 @@
 - r2: input text renders without the theme font (EditableText style lacks fontFamily) — real bug, fix in primitive.
 - Follow-up for all batches: audit every component's sizes for the same padding-on-minHeight stacking.
 - P3-F r2 ACCEPTED: resolveEditableTextStyle in primitives/text_editing — typed text + placeholder use the theme sans family (ambient → theme), size 14, mutedForeground hint; fixes input + text_area; input screenshots now show glyphs; input_menu PNGs have a generator. qa_batch input/text_editing clean (30 tests); text_area/selectable/pilot_metrics 63 green; visual 26 green. Orchestrator removed empty legacy `dependencies` blocks from button/input/slider/toggle meta.json (deps is the single source). Open: selectable builds its own EditableText style — fold into the helper in its next touch.
+
+## P4-B09 drawer, toast, pagination, breadcrumb, steps (+ primitives/drawer_route/, toast_queue/toast_controller) (longcat-2.5-preview-free) — ACCEPTED (r1, after one network resume)
+- qa_batch.sh: layout clean (max 397), format 0 changed, 76/76 tests, layers clean, theme 0. Old bugs fixed: drawer
+  Material/data_widget/gap imports + layer-stack globals + SheetOverlayHandler coupling; toast global controller/
+  sequence; pagination negative List.generate crash; steps Material VerticalDivider + trailing connector. Toast
+  implements the ToastQueue auto-dismiss policy. Orchestrator stripped legacy `dependencies` blocks from meta.json.

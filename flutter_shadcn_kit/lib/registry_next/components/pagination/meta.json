@@ -1,0 +1,55 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "category": "navigation",
+  "description": "Previous/next controls with a clamped window of page buttons.",
+  "tier": "component",
+  "install": "flutter_shadcn add pagination",
+  "import": "import 'package:<your_app>/ui/shadcn/pagination/pagination.dart';",
+  "tags": [
+    "navigation",
+    "pagination",
+    "pages"
+  ],
+  "deps": {
+    "foundation": [
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "localizations"
+    ],
+    "components": [
+      "button",
+      "triple_dots"
+    ]
+  },
+  "files": [
+    "pagination.dart",
+    "pagination_style.dart",
+    "pagination_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Pagination",
+      "PaginationTheme"
+    ],
+    "constants": [
+      "paginationDefaults",
+      "paginationThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "PaginationTheme",
+    "userFile": "pagination_theme.dart",
+    "defaults": "paginationDefaults",
+    "fields": {
+      "gap": "double? - gap between controls (× scaling)",
+      "showLabel": "bool? - whether previous/next show a text label"
+    }
+  }
+}

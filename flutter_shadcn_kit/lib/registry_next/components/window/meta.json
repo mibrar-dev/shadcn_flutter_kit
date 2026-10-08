@@ -1,0 +1,36 @@
+{
+  "id": "window",
+  "name": "Window",
+  "category": "layout",
+  "description": "Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.",
+  "tier": "component",
+  "install": "flutter_shadcn add window",
+  "import": "import 'package:<your_app>/ui/shadcn/window/window.dart';",
+  "tags": ["layout", "window", "desktop", "draggable", "resizable"],
+  "deps": {
+    "foundation": ["constants", "data", "gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animated_value_builder", "text", "window_host", "window_manager", "window_snap"],
+    "components": ["card", "outlined_container", "patch"]
+  },
+  "files": ["window.dart", "window_style.dart", "window_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["Window", "WindowNavigator", "WindowActions", "WindowController", "WindowState", "WindowHandle", "WindowViewport", "WindowTheme", "WindowSnapStrategy", "WindowDragController", "ManagedWindow", "WindowHost", "WindowSnapBar"],
+    "enums": ["WindowResizeEdge"],
+    "constants": ["windowDefaults", "windowThemeOverrides", "kDefaultWindowConstraints", "windowSnapPresets", "windowMaximizeSnapStrategy"]
+  },
+  "theme": {
+    "class": "WindowTheme",
+    "userFile": "window_theme.dart",
+    "defaults": "windowDefaults",
+    "fields": {
+      "titleBarHeight": "double? - 32 by default (scaled)",
+      "resizeThickness": "double? - edge grab thickness, 8 by default",
+      "titleBarPadding": "EdgeInsetsGeometry? - 8 horizontal by default",
+      "titleColor": "ThemedColor? - title colour, foreground by default",
+      "snapOverlayColor": "ThemedColor? - snap preview fill, card by default",
+      "snapOverlayOpacity": "double? - 0.8 by default",
+      "snapOverlayBlur": "double? - preview backdrop blur, 8 by default"
+    }
+  }
+}

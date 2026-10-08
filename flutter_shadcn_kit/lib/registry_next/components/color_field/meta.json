@@ -1,0 +1,33 @@
+{
+  "id": "color_field",
+  "name": "Color Field",
+  "category": "form",
+  "description": "Custom-painted HSV/HSL gradient area with an optional transparency checkerboard and a themed ring.",
+  "tier": "component",
+  "install": "flutter_shadcn add color_field",
+  "import": "import 'package:<your_app>/ui/shadcn/color_field/color_field.dart';",
+  "tags": ["form", "color", "field", "hsv", "hsl"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["color_field_paint"],
+    "components": ["alpha"]
+  },
+  "files": ["color_field.dart", "color_field_style.dart", "color_field_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["ColorField", "ColorFieldTheme"],
+    "enums": ["ColorFieldMode", "ColorFieldAxis"],
+    "constants": ["colorFieldDefaults", "colorFieldThemeOverrides", "paintHSVColorField", "paintHSLColorField"]
+  },
+  "theme": {
+    "class": "ColorFieldTheme",
+    "userFile": "color_field_theme.dart",
+    "defaults": "colorFieldDefaults",
+    "fields": {
+      "borderColor": "ThemedColor? - ring colour, border token by default",
+      "borderWidth": "double? - 1 by default, 0 hides the ring",
+      "borderRadius": "BorderRadiusGeometry? - null = ambient radiusMd",
+      "checkerboard": "bool? - transparency checkerboard, true by default"
+    }
+  }
+}

@@ -352,3 +352,11 @@
   83/83, layers clean, theme 0. Accepted: file_diff_viewer 8 theme fields, marquee fadePortion 0..0.5 fraction,
   SelectableRegion Overlay requirement documented, reaction insets as widget args + 5 ChatTheme chip fields.
 - Single-owner hits at QA time belong to in-flight B13 (MenuGroupData, _resolve) and B23 (_Swatch).
+
+## P4-B23 window, eye_dropper, alert, app, color_field (wrapper deleted) (+ primitives screen_capture, window_host, window_manager, window_snap) (deepseek-v4.1-flash#max) — ACCEPTED (r2, after one network resume)
+- r1: 83 tests; old bugs fixed (window dual maximized paths, detached WindowActions throwing, ghost navigator entries,
+  0×0 viewport flash, color_field shouldRepaint). FOUND a real localisation bug: en_US resolved to zh_Hant.
+- r2: ShadcnLocalizations.resolveLocale — Locale('en') first, language match before script/country (tests en_US/en_GB/
+  de_AT/zh_TW/zh_CN/unknown → en; no delegate warning); window snap-bar presets restored via primitives/window_snap.dart.
+  qa_batch: 122/122, layout clean, layers only localizations.dart 557 lines (concurrent B08/B13 keys) → split next.
+- Ratified: ColorField API, EyeDropperResult → ScreenSample, controller-required Window, 4 window/eye-dropper primitives.

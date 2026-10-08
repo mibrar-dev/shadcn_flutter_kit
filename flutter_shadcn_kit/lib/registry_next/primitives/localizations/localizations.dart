@@ -52,9 +52,12 @@ class ShadcnLocalizations {
 
   /// Locales this delegate can load; must match the app's `supportedLocales`.
   ///
-  /// One entry per translated table. Text direction is *not* handled here:
-  /// Flutter resolves it from [WidgetsLocalizations] and [Directionality].
+  /// One entry per translated table, with [Locale('en')] first: English is the
+  /// base fallback, so an unknown device locale resolves to English instead of
+  /// the first translated table. Text direction is *not* handled here: Flutter
+  /// resolves it from [WidgetsLocalizations] and [Directionality].
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
     Locale('ar'),
     Locale('bg'),
@@ -95,6 +98,76 @@ class ShadcnLocalizations {
     Locale('vi'),
     Locale('zh'),
   ];
+
+  /// Resolves a device [locale] against [supported] (a `supportedLocales`
+  /// list), matching by **language code first**, then refining by
+  /// script/country:
+  ///
+  /// * `en_US`, `en_GB` → the `en` entry;
+  /// * `de_AT` → the `de` entry;
+  /// * `zh_Hant*` and `zh_TW`/`zh_HK`/`zh_MO` → the `zh_Hant` entry;
+  /// * other `zh` regions (`zh_CN`, `zh_SG`, …) → the plain `zh` entry;
+  /// * an unknown language (`sw`) → the first fallback entry (`en`).
+  ///
+  /// Use it as a `localeResolutionCallback` (the `app` component does) so a
+  /// locale whose language is supported never loses to an earlier script or
+  /// country entry.
+  static Locale resolveLocale(Locale locale, Iterable<Locale> supported) {
+    final List<Locale> candidates = supported.toList(growable: false);
+    if (candidates.isEmpty) {
+      return locale;
+    }
+    Locale? pick(bool Function(Locale) test) {
+      for (final Locale candidate in candidates) {
+        if (test(candidate)) {
+          return candidate;
+        }
+      }
+      return null;
+    }
+
+    final Locale? exact = pick(
+      (Locale candidate) =>
+          candidate.languageCode == locale.languageCode &&
+          candidate.scriptCode == locale.scriptCode &&
+          candidate.countryCode == locale.countryCode,
+    );
+    if (exact != null) {
+      return exact;
+    }
+    if (locale.scriptCode != null) {
+      final Locale? script = pick(
+        (Locale candidate) =>
+            candidate.languageCode == locale.languageCode &&
+            candidate.scriptCode == locale.scriptCode,
+      );
+      if (script != null) {
+        return script;
+      }
+    }
+    if (locale.languageCode == 'zh') {
+      final bool traditional =
+          locale.scriptCode == 'Hant' ||
+          (locale.scriptCode == null &&
+              (locale.countryCode == 'TW' ||
+                  locale.countryCode == 'HK' ||
+                  locale.countryCode == 'MO'));
+      final Locale? chinese = pick(
+        (Locale candidate) =>
+            candidate.languageCode == 'zh' &&
+            (traditional
+                ? candidate.scriptCode == 'Hant'
+                : candidate.scriptCode == null),
+      );
+      if (chinese != null) {
+        return chinese;
+      }
+    }
+    final Locale? language = pick(
+      (Locale candidate) => candidate.languageCode == locale.languageCode,
+    );
+    return language ?? candidates.first;
+  }
 
   String get commandEmpty => 'No results found';
 
@@ -412,4 +485,72 @@ class ShadcnLocalizations {
   ///
   /// No Flutter ARB equivalent exists, so this is the English fallback only.
   String get resizableHandle => 'Resize handle';
+
+  /// Default title of an `empty_state` with no content yet.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateEmptyTitle => 'Nothing here yet';
+
+  /// Default description of an `empty_state` with no content yet.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateEmptyDescription =>
+      'Create your first item to get started.';
+
+  /// Default title of an `empty_state` after a search returned nothing.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateNoResultsTitle => 'No results found';
+
+  /// Default description of an `empty_state` after a search returned nothing.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateNoResultsDescription =>
+      'Try adjusting your filters or search terms.';
+
+  /// Default title of an `empty_state` standing in for a failed load.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateErrorTitle => 'Something went wrong';
+
+  /// Default description of an `empty_state` standing in for a failed load.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get emptyStateErrorDescription =>
+      'We couldn\u2019t load this data. Try again in a moment.';
+
+  /// `dropzone` status line while nothing is happening.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneIdle => 'Browse to upload files';
+
+  /// `dropzone` status line while a drag hovers over the surface.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneDragging => 'Drop files to upload';
+
+  /// `dropzone` status line while the files are being written.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneUploading => 'Uploading files...';
+
+  /// `dropzone` status line after a successful upload.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneSuccess => 'Files ready';
+
+  /// `dropzone` status line after a failed upload.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneError => 'Fix errors to continue';
+
+  /// `dropzone` status line while the surface is disabled.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneDisabled => 'File uploads disabled';
+
+  /// Default `dropzone` browse action label.
+  ///
+  /// No Flutter ARB equivalent exists, so this is the English fallback only.
+  String get dropzoneBrowse => 'Browse files';
 }

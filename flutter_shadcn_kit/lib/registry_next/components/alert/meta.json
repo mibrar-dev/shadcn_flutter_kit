@@ -1,0 +1,41 @@
+{
+  "id": "alert",
+  "name": "Alert",
+  "category": "layout",
+  "description": "Bordered callout banner with base and destructive variants, a leading slot, title, content and trailing slot.",
+  "tier": "component",
+  "install": "flutter_shadcn add alert",
+  "import": "import 'package:<your_app>/ui/shadcn/alert/alert.dart';",
+  "tags": ["layout", "feedback", "banner", "status"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["basic_layout"],
+    "components": []
+  },
+  "files": ["alert.dart", "alert_style.dart", "alert_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["Alert", "AlertTheme", "AlertStyle"],
+    "enums": ["AlertVariant"],
+    "constants": ["alertDefaults", "alertThemeOverrides", "alertDefaultTitleStyle", "alertDefaultContentStyle"]
+  },
+  "theme": {
+    "class": "AlertTheme",
+    "userFile": "alert_theme.dart",
+    "defaults": "alertDefaults",
+    "fields": {
+      "base": "AlertStyle? - card-surface banner row",
+      "destructive": "AlertStyle? - destructive-foreground row",
+      "background": "ThemedColor? - surface fill",
+      "borderColor": "ThemedColor? - 1px border",
+      "borderRadius": "BorderRadiusGeometry? - null = ambient radiusLg",
+      "padding": "EdgeInsetsGeometry? - 16/12 by default",
+      "titleStyle": "TextStyle? - 14 w500 by default",
+      "contentStyle": "TextStyle? - 14 by default",
+      "titleColor": "ThemedColor? - title foreground",
+      "contentColor": "ThemedColor? - content foreground",
+      "iconColor": "ThemedColor? - leading icon colour",
+      "gap": "double? - icon-to-text gap, 12 by default"
+    }
+  }
+}

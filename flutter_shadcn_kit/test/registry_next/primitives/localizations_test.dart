@@ -102,8 +102,8 @@ void main() {
       const delegate = ShadcnLocalizations.delegate;
       expect(
         ShadcnLocalizations.supportedLocales.length,
-        39,
-        reason: 'one table per shipped locale',
+        40,
+        reason: 'one table per shipped locale, plus the English fallback',
       );
 
       final seen = <String>{};
@@ -375,6 +375,67 @@ void main() {
       for (final part in DurationPart.values) {
         expect(english.getDurationPartAbbreviation(part), isNotEmpty);
       }
+    });
+  });
+
+  group('resolveLocale', () {
+    Locale resolve(String language, [String? country, String? script]) {
+      return ShadcnLocalizations.resolveLocale(
+        Locale.fromSubtags(
+          languageCode: language,
+          countryCode: country,
+          scriptCode: script,
+        ),
+        ShadcnLocalizations.supportedLocales,
+      );
+    }
+
+    test('en is the first entry and a supported fallback', () {
+      expect(ShadcnLocalizations.supportedLocales.first, const Locale('en'));
+      expect(
+        ShadcnLocalizations.delegate.isSupported(const Locale('en')),
+        isTrue,
+      );
+    });
+
+    test('en_US and en_GB resolve to the English entry', () {
+      expect(resolve('en', 'US'), const Locale('en'));
+      expect(resolve('en', 'GB'), const Locale('en'));
+    });
+
+    test('de_AT resolves by language code', () {
+      expect(resolve('de', 'AT'), const Locale('de'));
+    });
+
+    test('zh_TW / zh_HK / zh_MO / zh_Hant resolve to the Hant entry', () {
+      const Locale hant = Locale.fromSubtags(
+        languageCode: 'zh',
+        scriptCode: 'Hant',
+      );
+      expect(resolve('zh', 'TW'), hant);
+      expect(resolve('zh', 'HK'), hant);
+      expect(resolve('zh', 'MO'), hant);
+      expect(resolve('zh', null, 'Hant'), hant);
+    });
+
+    test('zh_CN and zh_SG resolve to simplified zh', () {
+      expect(resolve('zh', 'CN'), const Locale('zh'));
+      expect(resolve('zh', 'SG'), const Locale('zh'));
+    });
+
+    test('an unknown language falls back to the first entry (en)', () {
+      expect(resolve('sw'), const Locale('en'));
+    });
+
+    test('lookup picks the table from the resolved locale', () {
+      expect(
+        lookupShadcnLocalizations(resolve('zh', 'TW')),
+        isA<ShadcnLocalizationsZhHant>(),
+      );
+      expect(
+        lookupShadcnLocalizations(resolve('zh', 'CN')),
+        isA<ShadcnLocalizationsZh>(),
+      );
     });
   });
 }

@@ -13,7 +13,8 @@ line you produce. Accuracy beats speed. Do not guess: when a fact is not verifie
 
 ## Hard rules
 1. Only create or modify the files listed under "Outputs" in your brief. Everything else is read-only.
-2. Never run git commands that change state (no commit, checkout, switch, stash, reset, add, branch). `git log/diff/show` are fine.
+2. NEVER run git commands that change state or refs: no commit, push, fetch, pull, prune, remote, config, checkout,
+   switch, stash, reset, add, rm, branch, tag. Only `git log/diff/show/status` are allowed. The orchestrator commits.
 3. Never delete files. Never run `flutter pub upgrade` or edit pubspec.yaml unless your brief says so.
 4. No Material or Cupertino imports in any Dart you write (`package:flutter/material.dart`, `cupertino.dart`).
 5. Dart you write must pass `dart format` and `flutter analyze` with zero issues, without `ignore_for_file`.

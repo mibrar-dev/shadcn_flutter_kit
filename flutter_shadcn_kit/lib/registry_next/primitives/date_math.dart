@@ -1,5 +1,6 @@
 // Calendar math shared by calendar, date_picker, time_picker and
-// object_input.
+// object_input: month grids, leap years, value ranges, the navigation view and
+// the selection value types.
 //
 // P2-E2 removed the `getter` / `computeValueRange` fields from
 // `primitives/localizations/locale_parts.dart` because nothing read them; the
@@ -7,6 +8,8 @@
 // callers, while the enums themselves stay in localizations.
 
 import 'dart:math' as math;
+
+import 'package:flutter/foundation.dart' show immutable, listEquals;
 
 import '../foundation/time_of_day.dart';
 import 'localizations/locale_parts.dart';
@@ -121,6 +124,201 @@ DateTime addMonths(DateTime date, int months) {
   );
 }
 
+/// Where a queried date, month or year sits relative to a [CalendarValue].
+enum CalendarValueLookup {
+  /// Not part of the value.
+  none,
+
+  /// Directly selected.
+  selected,
+
+  /// First day of a range.
+  start,
+
+  /// Last day of a range.
+  end,
+
+  /// Inside a range, but not an endpoint.
+  inRange,
+}
+
+/// The month a calendar is showing: only *where the grid looks*. Which dates
+/// are selected is a separate [CalendarValue]. Midnight-anchored throughout, so
+/// a DST transition cannot shift a cell.
+class CalendarView {
+  const CalendarView(this.year, this.month)
+    : assert(month >= 1 && month <= 12, 'month must be between 1 and 12');
+  factory CalendarView.fromDateTime(DateTime date) =>
+      CalendarView(date.year, date.month);
+
+  final int year;
+  final int month;
+
+  /// The next month, rolling into January.
+  CalendarView get next =>
+      month == 12 ? CalendarView(year + 1, 1) : CalendarView(year, month + 1);
+
+  /// The previous month, rolling into December.
+  CalendarView get previous =>
+      month == 1 ? CalendarView(year - 1, 12) : CalendarView(year, month - 1);
+
+  static DateTime monthStart(DateTime date) => DateTime(date.year, date.month);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CalendarView && other.year == year && other.month == month;
+
+  @override
+  int get hashCode => Object.hash(year, month);
+}
+
+/// A selection in a calendar: one date, a start/end pair, or a list. The three
+/// `lookup` methods answer the same question at three granularities, so all
+/// three grids share one paint path. Sealed, so nobody invents a fourth shape.
+@immutable
+sealed class CalendarValue {
+  const CalendarValue();
+
+  /// One selected date.
+  const factory CalendarValue.single(DateTime date) = SingleCalendarValue;
+
+  /// A range; [end] is normalised to be on or after [start].
+  factory CalendarValue.range(DateTime start, DateTime end) =
+      RangeCalendarValue;
+
+  /// Any number of selected dates.
+  const factory CalendarValue.multi(List<DateTime> dates) = MultiCalendarValue;
+
+  /// How [date], the month ([year], [month]) or [year] relates to this value.
+  CalendarValueLookup lookupDate(DateTime date);
+  CalendarValueLookup lookupMonth(int year, int month);
+  CalendarValueLookup lookupYear(int year);
+}
+
+/// One selected date; the time of day is ignored.
+final class SingleCalendarValue extends CalendarValue {
+  /// Selects [date].
+  const SingleCalendarValue(this.date);
+  final DateTime date;
+
+  @override
+  CalendarValueLookup lookupDate(DateTime other) =>
+      other == date ? CalendarValueLookup.selected : CalendarValueLookup.none;
+
+  @override
+  CalendarValueLookup lookupMonth(int year, int month) =>
+      _selected(year == date.year && month == date.month);
+
+  @override
+  CalendarValueLookup lookupYear(int year) => _selected(year == date.year);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SingleCalendarValue && other.date == date;
+
+  @override
+  int get hashCode => date.hashCode;
+}
+
+/// A start/end pair; the constructor orders the two dates.
+final class RangeCalendarValue extends CalendarValue {
+  /// Selects the span between [start] and [end], in either order.
+  RangeCalendarValue(DateTime start, DateTime end)
+    : start = start.isBefore(end) ? start : end,
+      end = start.isBefore(end) ? end : start;
+
+  /// First day of the span; never after [end].
+  final DateTime start;
+
+  /// Last day of the span; never before [start].
+  final DateTime end;
+
+  @override
+  CalendarValueLookup lookupDate(DateTime date) {
+    if (date.isBefore(start) || date.isAfter(end)) {
+      return CalendarValueLookup.none;
+    }
+
+    if (start == end || date == start) return CalendarValueLookup.start;
+    return date == end ? CalendarValueLookup.end : CalendarValueLookup.inRange;
+  }
+
+  @override
+  CalendarValueLookup lookupMonth(int year, int month) => _span(
+    first: DateTime(year, month),
+    last: DateTime(year, month + 1, 0),
+    startBlock: CalendarView.monthStart(start),
+    endBlock: CalendarView.monthStart(end),
+  );
+
+  @override
+  CalendarValueLookup lookupYear(int year) => _span(
+    first: DateTime(year),
+    last: DateTime(year, 12, 31),
+    startBlock: DateTime(start.year),
+    endBlock: DateTime(end.year),
+  );
+
+  /// The lookup of block [first]..[last] of a range whose endpoints fall in
+  /// blocks [startBlock] and [endBlock].
+  CalendarValueLookup _span({
+    required DateTime first,
+    required DateTime last,
+    required DateTime startBlock,
+    required DateTime endBlock,
+  }) {
+    if (last.isBefore(start) || first.isAfter(end)) {
+      return CalendarValueLookup.none;
+    }
+
+    if (first == startBlock) return CalendarValueLookup.start;
+    return first == endBlock
+        ? CalendarValueLookup.end
+        : CalendarValueLookup.inRange;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RangeCalendarValue && other.start == start && other.end == end;
+
+  @override
+  int get hashCode => Object.hash(start, end);
+}
+
+/// Any number of selected dates.
+final class MultiCalendarValue extends CalendarValue {
+  /// Selects [dates].
+  const MultiCalendarValue(this.dates);
+  final List<DateTime> dates;
+
+  @override
+  CalendarValueLookup lookupDate(DateTime date) =>
+      _selected(dates.contains(date));
+
+  @override
+  CalendarValueLookup lookupMonth(int year, int month) =>
+      _selected(dates.any((DateTime d) => d.year == year && d.month == month));
+
+  @override
+  CalendarValueLookup lookupYear(int year) =>
+      _selected(dates.any((DateTime d) => d.year == year));
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MultiCalendarValue && listEquals(other.dates, dates);
+
+  @override
+  int get hashCode => Object.hashAll(dates);
+}
+
+/// `selected` when [hit], `none` otherwise.
+CalendarValueLookup _selected(bool hit) =>
+    hit ? CalendarValueLookup.selected : CalendarValueLookup.none;
+
 /// Clamps [date] into the inclusive range `[min, max]`.
 DateTime clampDate(
   DateTime date, {
@@ -132,16 +330,13 @@ DateTime clampDate(
   return date;
 }
 
-/// Inclusive range of days for a date whose [year] and [month] may still be
-/// unset: 1-31 while either is unknown, otherwise 1-`daysInMonth`.
+/// Inclusive day range for a date whose [year] and [month] may be unset.
 (int, int) dayValueRange({int? year, int? month}) {
   if (year == null || month == null) return (1, 31);
   return (1, daysInMonth(year, month));
 }
 
-/// Inclusive range each date part may take, given the parts already entered.
-///
-/// `year` is unbounded, hence the nullable bounds.
+/// Inclusive range of each date part; `year` is unbounded, hence nullable.
 (int? min, int? max) datePartValueRange(
   DatePart part, {
   int? year,
@@ -154,7 +349,7 @@ DateTime clampDate(
   };
 }
 
-/// Inclusive range each clock-time part may take.
+/// Inclusive range of each clock-time part.
 (int, int) timePartValueRange(TimePart part) {
   return switch (part) {
     TimePart.hour => (0, 23),
@@ -163,7 +358,7 @@ DateTime clampDate(
   };
 }
 
-/// Inclusive range each duration part may take; whole days are unbounded.
+/// Inclusive range of each duration part; whole days are unbounded.
 (int, int?) durationPartValueRange(DurationPart part) {
   return switch (part) {
     DurationPart.day => (0, null),
@@ -173,7 +368,7 @@ DateTime clampDate(
   };
 }
 
-/// Reads one component of [date] (the old `DatePart.getter`).
+/// One component of [date] (the old `DatePart.getter`).
 int datePartValue(DateTime date, DatePart part) {
   return switch (part) {
     DatePart.year => date.year,
@@ -182,7 +377,7 @@ int datePartValue(DateTime date, DatePart part) {
   };
 }
 
-/// Reads one component of [time] (the old `TimePart.getter`).
+/// One component of [time] (the old `TimePart.getter`).
 int timePartValue(TimeOfDay time, TimePart part) {
   return switch (part) {
     TimePart.hour => time.hour,
@@ -191,7 +386,7 @@ int timePartValue(TimeOfDay time, TimePart part) {
   };
 }
 
-/// Reads one component of [duration] (the old `DurationPart.getter`).
+/// One component of [duration] (the old `DurationPart.getter`).
 int durationPartValue(Duration duration, DurationPart part) {
   return switch (part) {
     DurationPart.day => duration.inDays,

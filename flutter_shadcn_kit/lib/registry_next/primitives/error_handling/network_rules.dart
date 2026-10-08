@@ -10,15 +10,20 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart' show VoidCallback;
 
+import '../localizations/localizations.dart';
 import 'error_models.dart';
 import 'error_rules.dart';
 
 /// Rules mapping `SocketException` / `TimeoutException` / `HandshakeException`
 /// to [AppError].
+///
+/// [strings] localizes the built-in titles, messages and action labels; it
+/// defaults to the English table.
 List<ErrorRule> networkRules({
   required VoidCallback onRetry,
   required VoidCallback onReport,
   required VoidCallback onSettings,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   ErrorRule ioRule(
     String typeName, {
@@ -38,12 +43,12 @@ List<ErrorRule> networkRules({
       priority: 10,
       build: (Object e) => AppError(
         code: AppErrorCode.network,
-        title: 'Connection failed',
-        message: 'Check your internet connection and try again.',
+        title: strings.errorConnectionFailed,
+        message: strings.errorConnectionFailedMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.settings(onSettings),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.settings(onSettings, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e' : null,
         metadata: <String, Object?>{'error': '$e'},
@@ -53,11 +58,11 @@ List<ErrorRule> networkRules({
       priority: 9,
       build: (TimeoutException e, StackTrace? st) => AppError(
         code: AppErrorCode.timeout,
-        title: 'Request timed out',
-        message: 'The server is taking too long to respond.',
+        title: strings.errorRequestTimedOut,
+        message: strings.errorRequestTimedOutMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
       ),
@@ -67,11 +72,11 @@ List<ErrorRule> networkRules({
       priority: 8,
       build: (Object e) => AppError(
         code: AppErrorCode.sslError,
-        title: 'Secure connection failed',
-        message: 'We could not establish a secure connection.',
+        title: strings.errorSecureConnectionFailed,
+        message: strings.errorSecureConnectionMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e' : null,
       ),

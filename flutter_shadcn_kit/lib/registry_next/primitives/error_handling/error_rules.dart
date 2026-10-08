@@ -10,6 +10,7 @@ import 'dart:async';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:flutter/widgets.dart' show VoidCallback;
 
+import '../localizations/localizations.dart';
 import 'error_models.dart';
 
 /// Predicate deciding whether a rule handles an error.
@@ -103,22 +104,26 @@ class ErrorRegistry {
 }
 
 /// Rules mapping `ApiException` and `TimeoutException` to [AppError].
+///
+/// [strings] localizes the built-in titles, messages and action labels;
+/// it defaults to the English table.
 List<ErrorRule> apiRules({
   required VoidCallback onRetry,
   required VoidCallback onReport,
   required VoidCallback onBack,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   return <ErrorRule>[
     rule<ApiException>(
       priority: 5,
       build: (ApiException e, StackTrace? st) => AppError(
         code: _mapStatusToCode(e.statusCode),
-        title: _titleForStatus(e.statusCode),
-        message: e.message ?? _messageForStatus(e.statusCode),
+        title: _titleForStatus(strings, e.statusCode),
+        message: e.message ?? _messageForStatus(strings, e.statusCode),
         actions: <ErrorAction>[
-          if (e.statusCode >= 500) ErrorAction.retry(onRetry),
-          ErrorAction.back(onBack),
-          ErrorAction.report(onReport),
+          if (e.statusCode >= 500) ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.back(onBack, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
         metadata: <String, Object?>{'statusCode': e.statusCode},
@@ -128,11 +133,11 @@ List<ErrorRule> apiRules({
       priority: 4,
       build: (TimeoutException e, StackTrace? st) => AppError(
         code: AppErrorCode.timeout,
-        title: 'Request timed out',
-        message: 'The server is taking too long to respond.',
+        title: strings.errorRequestTimedOut,
+        message: strings.errorRequestTimedOutMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
       ),
@@ -141,22 +146,26 @@ List<ErrorRule> apiRules({
 }
 
 /// Rules mapping `AuthException` to [AppError].
+///
+/// [strings] localizes the built-in title, message and action labels; it
+/// defaults to the English table.
 List<ErrorRule> authRules({
   required VoidCallback onLogin,
   required VoidCallback onRetry,
   required VoidCallback onReport,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   return <ErrorRule>[
     rule<AuthException>(
       priority: 8,
       build: (AuthException e, StackTrace? st) => AppError(
         code: AppErrorCode.unauthorized,
-        title: 'Authentication required',
-        message: e.message ?? 'Please log in to continue.',
+        title: strings.errorAuthenticationRequired,
+        message: e.message ?? strings.errorLoginRequiredMessage,
         actions: <ErrorAction>[
-          ErrorAction.login(onLogin),
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.login(onLogin, strings: strings),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
       ),
@@ -165,20 +174,24 @@ List<ErrorRule> authRules({
 }
 
 /// Rules mapping `ValidationException` to [AppError].
+///
+/// [strings] localizes the built-in title, message and action labels; it
+/// defaults to the English table.
 List<ErrorRule> validationRules({
   required VoidCallback onRetry,
   required VoidCallback onReport,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   return <ErrorRule>[
     rule<ValidationException>(
       priority: 6,
       build: (ValidationException e, StackTrace? st) => AppError(
         code: AppErrorCode.validation,
-        title: 'Invalid input',
-        message: e.message ?? 'Please review the highlighted fields.',
+        title: strings.errorInvalidInput,
+        message: e.message ?? strings.errorReviewFieldsMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
         metadata: <String, Object?>{'fields': e.fieldErrors},
@@ -188,20 +201,24 @@ List<ErrorRule> validationRules({
 }
 
 /// Rules mapping `PlatformException` to [AppError].
+///
+/// [strings] localizes the built-in title, message and action labels; it
+/// defaults to the English table.
 List<ErrorRule> platformRules({
   required VoidCallback onRetry,
   required VoidCallback onReport,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   return <ErrorRule>[
     rule<PlatformException>(
       priority: 3,
       build: (PlatformException e, StackTrace? st) => AppError(
         code: AppErrorCode.platformError,
-        title: 'Platform error',
-        message: e.message ?? 'Something went wrong on this device.',
+        title: strings.errorPlatformError,
+        message: e.message ?? strings.errorDeviceErrorMessage,
         actions: <ErrorAction>[
-          ErrorAction.retry(onRetry),
-          ErrorAction.report(onReport),
+          ErrorAction.retry(onRetry, strings: strings),
+          ErrorAction.report(onReport, strings: strings),
         ],
         technicalDetails: Env.showTechnicalDetails ? '$e\n$st' : null,
         metadata: <String, Object?>{'code': e.code},
@@ -222,24 +239,26 @@ AppErrorCode _mapStatusToCode(int statusCode) {
   return AppErrorCode.unknown;
 }
 
-String _titleForStatus(int statusCode) => switch (statusCode) {
-  400 => 'Bad request',
-  401 => 'Unauthorized',
-  403 => 'Access denied',
-  404 => 'Not found',
-  409 => 'Conflict',
-  422 => 'Invalid data',
-  429 => 'Too many requests',
-  _ => 'Server error',
-};
+String _titleForStatus(ShadcnLocalizations s, int statusCode) =>
+    switch (statusCode) {
+      400 => s.errorBadRequest,
+      401 => s.errorUnauthorized,
+      403 => s.errorAccessDenied,
+      404 => s.errorNotFound,
+      409 => s.errorConflict,
+      422 => s.errorInvalidData,
+      429 => s.errorTooManyRequests,
+      _ => s.errorServerError,
+    };
 
-String _messageForStatus(int statusCode) => switch (statusCode) {
-  400 => 'The request was invalid. Please review and try again.',
-  401 => 'Please log in to continue.',
-  403 => 'You do not have permission to perform this action.',
-  404 => 'We couldn’t find what you were looking for.',
-  409 => 'This action conflicts with existing data.',
-  422 => 'Some fields need your attention.',
-  429 => 'Please wait a moment and try again.',
-  _ => 'The server encountered a problem. Please try again.',
-};
+String _messageForStatus(ShadcnLocalizations s, int statusCode) =>
+    switch (statusCode) {
+      400 => s.errorBadRequestMessage,
+      401 => s.errorLoginRequiredMessage,
+      403 => s.errorAccessDeniedMessage,
+      404 => s.errorNotFoundMessage,
+      409 => s.errorConflictMessage,
+      422 => s.errorInvalidDataMessage,
+      429 => s.errorTooManyRequestsMessage,
+      _ => s.errorServerErrorMessage,
+    };

@@ -10,7 +10,7 @@
   "deps": {
     "foundation": ["gap", "icons"],
     "theme": ["color_tokens", "theme"],
-    "primitives": ["error_handling"],
+    "primitives": ["error_handling", "localizations"],
     "components": ["alert_dialog", "button", "card", "divider", "toast"]
   },
   "files": [
@@ -77,6 +77,7 @@
     "The non-visual machinery lives in `primitives/error_handling/` (models, rules/matching, registry, repository, retry backoff, scopes, recovery) and is re-exported by `error_system.dart`.",
     "`components/error_system/` keeps only the visual widgets, the theme and the style.",
     "`showErrorSnackbar` uses the `toast` component's `showToast` (the old code inserted raw `OverlayEntry`s and kept a static entry list).",
-    "`ErrorSnackbar`'s static entry list and the old `ErrorDialog.show` / `ErrorSnackbar.show` statics are gone (clean break); use `showErrorDialog` / `showErrorSnackbar`."
+    "`ErrorSnackbar`'s static entry list and the old `ErrorDialog.show` / `ErrorSnackbar.show` statics are gone (clean break); use `showErrorDialog` / `showErrorSnackbar`.",
+    "User-facing strings come from `primitives/localizations` (new error getters, English fallback only; only the dismiss label reuses Flutter's translated `modalBarrierDismissLabel` via `dialogDismiss`). `ErrorAction` factories and the built-in rule builders accept an optional `ShadcnLocalizations` table and default to English."
   ]
 }

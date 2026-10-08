@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/error_handling/error_handling.dart';
+import '../../primitives/localizations/localizations.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../alert_dialog/alert_dialog.dart';
@@ -225,7 +226,7 @@ Future<T?> showErrorDialog<T>({
             variant: ButtonVariant.outline,
             size: ButtonSize.sm,
             onPressed: () => Navigator.of(context).maybePop(),
-            child: const Text('Dismiss'),
+            child: Text(ShadcnLocalizations.of(context).dialogDismiss),
           ),
         ]
       : <Widget>[
@@ -346,14 +347,12 @@ class ErrorSlot extends StatelessWidget {
   }
 }
 
-Widget errorActionButton(ErrorAction action) {
-  return Button(
-    variant: action.primary ? ButtonVariant.primary : ButtonVariant.outline,
-    size: ButtonSize.sm,
-    onPressed: action.onPressed,
-    child: Text(action.label),
-  );
-}
+Widget errorActionButton(ErrorAction action) => Button(
+  variant: action.primary ? ButtonVariant.primary : ButtonVariant.outline,
+  size: ButtonSize.sm,
+  onPressed: action.onPressed,
+  child: Text(action.label),
+);
 
 Future<T?> _showDialog<T>(
   BuildContext context,

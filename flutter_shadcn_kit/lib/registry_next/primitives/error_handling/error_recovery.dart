@@ -10,6 +10,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
+import '../localizations/localizations.dart';
 import 'error_models.dart';
 import 'error_rules.dart';
 import 'error_scopes.dart';
@@ -17,12 +18,14 @@ import 'error_scopes.dart';
 /// Runs [fn], publishing any error to [scope] (or [channel]).
 ///
 /// Returns null when the operation failed; the error is on the channel.
+/// [strings] localizes the fallback error built when no [mapper] maps it.
 Future<T?> guard<T>(
   Future<T> Function() fn, {
   ErrorScope? scope,
   ValueNotifier<AppError?>? channel,
   bool clearBeforeRun = true,
   ErrorMapper? mapper,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) async {
   final ValueNotifier<AppError?> notifier = _resolveScope(scope, channel);
   if (clearBeforeRun) {
@@ -35,7 +38,8 @@ Future<T?> guard<T>(
     return null;
   } catch (error, stackTrace) {
     notifier.value =
-        mapper?.map(error, stackTrace) ?? _unexpected(error, stackTrace);
+        mapper?.map(error, stackTrace) ??
+        _unexpected(error, stackTrace, strings);
     return null;
   }
 }
@@ -47,6 +51,7 @@ T? guardSync<T>(
   ValueNotifier<AppError?>? channel,
   bool clearBeforeRun = true,
   ErrorMapper? mapper,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
 }) {
   final ValueNotifier<AppError?> notifier = _resolveScope(scope, channel);
   if (clearBeforeRun) {
@@ -59,7 +64,8 @@ T? guardSync<T>(
     return null;
   } catch (error, stackTrace) {
     notifier.value =
-        mapper?.map(error, stackTrace) ?? _unexpected(error, stackTrace);
+        mapper?.map(error, stackTrace) ??
+        _unexpected(error, stackTrace, strings);
     return null;
   }
 }
@@ -75,10 +81,14 @@ ValueNotifier<AppError?> _resolveScope(
   return notifier;
 }
 
-AppError _unexpected(Object error, StackTrace? stackTrace) => AppError(
+AppError _unexpected(
+  Object error,
+  StackTrace? stackTrace,
+  ShadcnLocalizations strings,
+) => AppError(
   code: AppErrorCode.unknown,
-  title: 'Something went wrong',
-  message: 'Please try again or contact support if the issue persists.',
+  title: strings.errorSomethingWentWrong,
+  message: strings.errorUnexpectedMessage,
   technicalDetails: stackTrace == null ? '$error' : '$error\n$stackTrace',
 );
 
@@ -196,21 +206,28 @@ String fingerprintFor(AppError error) {
 }
 
 /// The default mapping when no [ErrorRule] matches.
-AppError fallbackRule(Object error, [StackTrace? stackTrace]) {
+///
+/// [strings] localizes the fallback title and message; it defaults to the
+/// English table.
+AppError fallbackRule(
+  Object error, [
+  StackTrace? stackTrace,
+  ShadcnLocalizations strings = ShadcnLocalizations.english,
+]) {
   final String? details = Env.showTechnicalDetails
       ? '$error\n$stackTrace'
       : null;
   final String fingerprint = fingerprintFor(
     AppError(
       code: AppErrorCode.unknown,
-      title: 'Something went wrong',
-      message: 'Please try again or contact support if the issue persists.',
+      title: strings.errorSomethingWentWrong,
+      message: strings.errorUnexpectedMessage,
     ),
   );
   return AppError(
     code: AppErrorCode.unknown,
-    title: 'Something went wrong',
-    message: 'Please try again or contact support if the issue persists.',
+    title: strings.errorSomethingWentWrong,
+    message: strings.errorUnexpectedMessage,
     technicalDetails: details,
     metadata: <String, Object?>{'fingerprint': fingerprint},
     fingerprint: fingerprint,

@@ -9,6 +9,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/icons/lucide_icons.dart';
+import '../localizations/localizations.dart';
 
 /// Compile-time flags for the error handling primitive.
 class Env {
@@ -61,8 +62,11 @@ class ErrorAction {
   });
 
   /// Retry the failed operation.
-  factory ErrorAction.retry(VoidCallback onRetry) => ErrorAction(
-    label: 'Retry',
+  factory ErrorAction.retry(
+    VoidCallback onRetry, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionRetry,
     onPressed: onRetry,
     primary: true,
     icon: LucideIcons.refreshCw,
@@ -70,24 +74,33 @@ class ErrorAction {
   );
 
   /// Report the error.
-  factory ErrorAction.report(VoidCallback onReport) => ErrorAction(
-    label: 'Report',
+  factory ErrorAction.report(
+    VoidCallback onReport, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionReport,
     onPressed: onReport,
     icon: LucideIcons.messageCircleQuestion,
     type: ErrorActionType.report,
   );
 
   /// Navigate back.
-  factory ErrorAction.back(VoidCallback onBack) => ErrorAction(
-    label: 'Go Back',
+  factory ErrorAction.back(
+    VoidCallback onBack, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionBack,
     onPressed: onBack,
     icon: LucideIcons.arrowLeft,
     type: ErrorActionType.navigate,
   );
 
   /// Log in again.
-  factory ErrorAction.login(VoidCallback onLogin) => ErrorAction(
-    label: 'Log In',
+  factory ErrorAction.login(
+    VoidCallback onLogin, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionLogin,
     onPressed: onLogin,
     primary: true,
     icon: LucideIcons.logIn,
@@ -95,24 +108,35 @@ class ErrorAction {
   );
 
   /// Open settings.
-  factory ErrorAction.settings(VoidCallback onSettings) => ErrorAction(
-    label: 'Settings',
+  factory ErrorAction.settings(
+    VoidCallback onSettings, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionSettings,
     onPressed: onSettings,
     icon: LucideIcons.settings,
     type: ErrorActionType.navigate,
   );
 
   /// Contact support.
-  factory ErrorAction.contactSupport(VoidCallback onContact) => ErrorAction(
-    label: 'Contact Support',
+  factory ErrorAction.contactSupport(
+    VoidCallback onContact, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(
+    label: strings.errorActionContactSupport,
     onPressed: onContact,
     icon: LucideIcons.messageCircle,
     type: ErrorActionType.navigate,
   );
 
   /// Dismiss the error.
-  factory ErrorAction.dismiss(VoidCallback onDismiss) =>
-      ErrorAction(label: 'Dismiss', onPressed: onDismiss);
+  ///
+  /// The label is [ShadcnLocalizations.dialogDismiss] - Flutter's translated
+  /// `modalBarrierDismissLabel` - because the two share the English string.
+  factory ErrorAction.dismiss(
+    VoidCallback onDismiss, {
+    ShadcnLocalizations strings = ShadcnLocalizations.english,
+  }) => ErrorAction(label: strings.dialogDismiss, onPressed: onDismiss);
 
   /// Button label.
   final String label;

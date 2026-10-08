@@ -1,0 +1,57 @@
+{
+  "id": "object_input",
+  "name": "Object Input",
+  "category": "form",
+  "description": "Typed date, time and duration fields: locale-ordered numeric segments with a calendar dialog behind the date field.",
+  "tier": "component",
+  "install": "flutter_shadcn add object_input",
+  "import": "import 'package:<your_app>/ui/shadcn/object_input/object_input.dart';",
+  "tags": [
+    "form",
+    "date",
+    "time",
+    "duration",
+    "segments"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons",
+      "time_of_day"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "date_math",
+      "form_core",
+      "localizations",
+      "object_segments"
+    ],
+    "components": [
+      "calendar",
+      "date_picker",
+      "dialog",
+      "formatted_input"
+    ]
+  },
+  "files": [
+    "object_input.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "DateInput",
+      "TimeInput",
+      "DurationInput"
+    ],
+    "typedefs": [],
+    "constants": []
+  },
+  "notes": [
+    "The batch plan listed card, form and locale_utils component deps; none is imported. Card chrome was old popover dressing, form integration comes from FormattedInput via the form_core primitive, and locale data comes from the localizations primitive.",
+    "The dialog dep is the pilot dialog (showShadcnDialog); theme capture across the route is handled there.",
+    "The calendar prompt resolves PromptMode.popover on desktop widths (>= 768 logical pixels) and dialog below; popover presentation needs an OverlayManager ancestor and reports selections live without closing.",
+    "No own theme file: visual styling is FormattedInputTheme, forwarded per widget via the theme arg."
+  ]
+}

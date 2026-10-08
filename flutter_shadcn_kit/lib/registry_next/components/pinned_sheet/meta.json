@@ -1,0 +1,56 @@
+{
+  "id": "pinned_sheet",
+  "name": "Pinned Sheet",
+  "category": "display",
+  "description": "In-tree sheet that slides in from an edge, drags, and snaps between snap stages.",
+  "tier": "component",
+  "install": "flutter_shadcn add pinned_sheet",
+  "import": "import 'package:<your_app>/ui/shadcn/pinned_sheet/pinned_sheet.dart';",
+  "tags": [
+    "display",
+    "sheet",
+    "drawer",
+    "snap",
+    "drag"
+  ],
+  "deps": {
+    "foundation": [
+      "constants",
+      "data"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "sheet_stage"
+    ],
+    "components": [
+      "backdrop_transform",
+      "drawer",
+      "drawer_container"
+    ]
+  },
+  "files": [
+    "pinned_sheet.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "PinnedSheet",
+      "SheetController",
+      "SheetStage",
+      "SheetStageResolution",
+      "ClosedSheetStage",
+      "ExpandedSheetStage",
+      "FixedSheetStage",
+      "FractionSheetStage",
+      "PeekDragHandleSheetStage",
+      "AdditiveSheetStage",
+      "SubtractedSheetStage",
+      "MultipliedSheetStage",
+      "DividedSheetStage"
+    ],
+    "constants": []
+  }
+}

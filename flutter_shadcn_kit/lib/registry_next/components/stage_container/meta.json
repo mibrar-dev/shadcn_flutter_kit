@@ -1,0 +1,55 @@
+{
+  "id": "stage_container",
+  "name": "Stage Container",
+  "category": "layout",
+  "description": "Responsive container that snaps content to breakpoint widths.",
+  "tier": "component",
+  "install": "flutter_shadcn add stage_container",
+  "import": "import 'package:<your_app>/ui/shadcn/stage_container/stage_container.dart';",
+  "tags": [
+    "layout",
+    "responsive",
+    "container"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "density",
+      "theme"
+    ],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "stage_container.dart",
+    "stage_container_style.dart",
+    "stage_container_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "StageContainer",
+      "StageContainerTheme",
+      "StageBreakpoint",
+      "ConstantBreakpoint",
+      "StagedBreakpoint"
+    ],
+    "typedefs": [
+      "StageContainerBuilder"
+    ],
+    "constants": [
+      "stageContainerDefaults",
+      "stageContainerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "StageContainerTheme",
+    "userFile": "stage_container_theme.dart",
+    "defaults": "stageContainerDefaults",
+    "fields": {
+      "breakpoint": "StageBreakpoint? - width strategy; null = defaultBreakpoints",
+      "padding": "EdgeInsetsGeometry? - base outer padding; a density-aware value scales with the preset"
+    }
+  }
+}

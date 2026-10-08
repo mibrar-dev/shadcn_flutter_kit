@@ -106,6 +106,10 @@ class Sortable<T> extends StatefulWidget {
 
 class _SortableState<T> extends State<Sortable<T>> {
   SortableSession? _session;
+
+  /// Layer owning [_session]; kept so dispose can end the session without a
+  /// `BuildContext` (unmounted by then, and `Data.maybeFind` asserts on it).
+  SortableLayerState? _layerRef;
   _SortableState<T>? _target;
   DragDropEdge? _edge;
   final ValueNotifier<bool> _candidate = ValueNotifier<bool>(false);
@@ -113,8 +117,17 @@ class _SortableState<T> extends State<Sortable<T>> {
   @override
   void dispose() {
     final SortableSession? session = _session;
+    final SortableLayerState? layer = _layerRef;
+    _session = null;
+    _layerRef = null;
+    _clearTarget();
     if (session != null) {
-      Data.maybeFind<SortableLayerState>(context)?.removeSession(session);
+      // Never touches `context` here: the element is already unmounted
+      // (`Data.maybeFind` asserts on that) while `State.mounted` is still
+      // true, so neither check is reliable — the stored layer reference is.
+      // `removeSession` guards its own `mounted` for setState, covering
+      // both teardown and rebuild-remount with an active drag.
+      layer?.removeSession(session);
     }
     _candidate.dispose();
     super.dispose();
@@ -142,6 +155,7 @@ class _SortableState<T> extends State<Sortable<T>> {
       offset: ValueNotifier<Offset>(Offset.zero),
     );
     _session = session;
+    _layerRef = layer;
     layer.pushSession(session);
     setState(() {});
     widget.onDragStart?.call();
@@ -274,6 +288,7 @@ class _SortableState<T> extends State<Sortable<T>> {
 
   void _endSession(SortableSession session, Offset landing) {
     _clearTarget();
+    _layerRef = null;
     setState(() => _session = null);
     _layer()?.settle(session, landing, animate: true);
   }

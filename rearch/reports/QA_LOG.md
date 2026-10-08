@@ -382,3 +382,12 @@
   Deviation accepted: ShadcnLocalizations stays concrete (tests construct it; locale subclasses unchanged).
 - FULL qa_gate.sh: format 0 changed (747 files), analyze 0, test/registry_next 2333/2333, rearch 38/38, layers only
   8 known file-too-long warnings, owner 0, theme 0, banned none, stray none.
+
+## P4-B21 tabs, pinned_sheet, object_input (B21a, muse-spark) + swiper, stage_container (B21b, longcat) — ACCEPTED
+- Original B21 session overflowed mid-batch; split into two fresh sessions.
+- B21a r2: shadcn v4 tab sizes (list h-9 p-[3px], trigger px-2), object_input popover + dialog modes, sortable dispose
+  crash (Data.maybeFind on unmounted context mid-drag) fixed with regression test. B21b r2/r3: swiper in-tree panel
+  follows the finger + SwiperController; drawer slide-by-panel-extent bug fixed (panel appeared only in last ~40%);
+  unused route-scrub API removed. stage_container: infinite-inset crash, const-assert, step guard, density fixed.
+- Combined qa_batch (tabs pinned_sheet object_input sortable swiper stage_container drawer + 4 primitives): 102/102,
+  layers clean, owner 0, theme 0.

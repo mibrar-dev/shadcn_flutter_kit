@@ -1,0 +1,69 @@
+{
+  "id": "swiper",
+  "name": "Swiper",
+  "category": "overlay",
+  "description": "Swipe-to-open wrapper that reveals a drawer or sheet panel.",
+  "tier": "component",
+  "install": "flutter_shadcn add swiper",
+  "import": "import 'package:<your_app>/ui/shadcn/swiper/swiper.dart';",
+  "tags": [
+    "overlay",
+    "drawer",
+    "sheet",
+    "gesture"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "drawer_route"
+    ],
+    "components": [
+      "drawer"
+    ]
+  },
+  "files": [
+    "swiper.dart",
+    "swiper_style.dart",
+    "swiper_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Swiper",
+      "SwiperController",
+      "SwiperTheme"
+    ],
+    "enums": [
+      "SwiperVariant"
+    ],
+    "functions": [
+      "swiperDefaults"
+    ],
+    "constants": [
+      "kSwiperOpenVelocity",
+      "kSwiperFallbackBarrier",
+      "swiperThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "SwiperTheme",
+    "userFile": "swiper_theme.dart",
+    "defaults": "swiperDefaults",
+    "fields": {
+      "expands": "bool? - panel fills its slide axis (drawer: false, sheet: true)",
+      "draggable": "bool? - the open panel can be dragged away",
+      "barrierDismissible": "bool? - barrier tap dismisses the panel",
+      "useSafeArea": "bool? - panel respects the device safe area",
+      "showDragHandle": "bool? - draw the panel drag handle; null keeps DrawerTheme",
+      "borderRadius": "BorderRadius? - panel inner-corner radius; null keeps DrawerTheme",
+      "maxSize": "double? - panel extent along its slide axis; null keeps DrawerTheme",
+      "barrierColor": "ThemedColor? - barrier colour; null is black at 50%",
+      "behavior": "HitTestBehavior? - hit test behaviour of the swipe gesture",
+      "threshold": "double? - fraction (0..1) of the panel a release must pass to open"
+    }
+  }
+}

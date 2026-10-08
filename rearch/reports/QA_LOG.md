@@ -217,3 +217,11 @@
   r3: unused `gap` dep removed, slider.dart 419 → 405.
 - Orchestrator re-ran: format 0 changed, analyze 0, slider + all primitives tests 333/333, no slider layer findings
   except slider.dart 405 lines (accepted within ~400 tolerance).
+
+## P4-B06 async, image, media_query, page_route, patch, switcher, dot_indicator, anchor, backdrop_transform (space-bunny-free#max, ses_ee733d598ffei2ROUiw1CnqbRQ) — ACCEPTED (r2)
+- r1: 127 tests, real old bugs fixed (page route suppressed exit transition under dialogs, switcher unclamped index
+  RangeError + setState misuse, DotItem animation had 0 readers + hard-coded greys, patch double-click had no spatial
+  check, media_query 2/4 theme legs); `debug` deleted (helper-only, Q4 decision). Returned for `Image` clashing with
+  Flutter's Image.
+- r2: `ShadcnImage`; no other public name clashes. Orchestrator re-ran: format 0 changed, analyze 0, 129/129, layout
+  clean, max 398 lines. Forwarded to B12: overlay_configuration must document the OverlayAnchorScope requirement.

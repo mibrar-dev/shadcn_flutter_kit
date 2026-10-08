@@ -1,0 +1,30 @@
+{
+  "id": "patch",
+  "name": "ClickDetector",
+  "category": "control",
+  "description": "Counts consecutive taps inside a time and distance window for double/triple-click gestures.",
+  "tier": "component",
+  "install": "flutter_shadcn add patch",
+  "import": "import 'package:<your_app>/ui/shadcn/patch/patch.dart';",
+  "tags": ["control", "click", "gesture", "double-click", "tap"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["patch.dart", "preview.dart"],
+  "api": {
+    "classes": ["ClickDetector", "ClickDetails"],
+    "typedefs": ["ClickCallback<T>"],
+    "statics": []
+  },
+  "theme": null,
+  "notes": [
+    "No <name>_style.dart / <name>_theme.dart: the component paints nothing.",
+    "`ClickDetectorState` was public with public mutable `count`/`lastClick` fields; the new state class is private.",
+    "Timing uses a Stopwatch (the VM's monotonic clock) instead of DateTime.now() (wall clock).",
+    "A tap further than kDoubleTapSlop from the previous one restarts the sequence.",
+    "preview.dart imports the `button` component; preview files are excluded from dependency checking."
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "dot_indicator",
+  "name": "DotIndicator",
+  "category": "display",
+  "description": "Animated row or column of dots showing the active index of a carousel, stepper or pager.",
+  "tier": "component",
+  "install": "flutter_shadcn add dot_indicator",
+  "import": "import 'package:<your_app>/ui/shadcn/dot_indicator/dot_indicator.dart';",
+  "tags": ["display", "dots", "carousel", "pager", "indicator"],
+  "deps": {
+    "foundation": ["constants"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["clickable"],
+    "components": []
+  },
+  "files": [
+    "dot_indicator.dart",
+    "dot_indicator_style.dart",
+    "dot_indicator_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["DotIndicator", "DotIndicatorTheme", "DotStyle", "DotIndicatorDefaults"],
+    "typedefs": ["DotBuilder"],
+    "constants": ["dotIndicatorDefaults", "dotIndicatorThemeOverrides"]
+  },
+  "theme": {
+    "class": "DotIndicatorTheme",
+    "userFile": "dot_indicator_theme.dart",
+    "defaults": "dotIndicatorDefaults",
+    "fields": {
+      "active": "DotStyle? - the dot at the active index",
+      "inactive": "DotStyle? - every other dot",
+      "spacing": "double? - gap between dots; null = 8 * scaling",
+      "padding": "EdgeInsetsGeometry? - padding around the run; null = density base gap",
+      "duration": "Duration? - morph duration; null = 150ms"
+    },
+    "row": {
+      "background": "StateValue<ThemedColor>? - per-state fill (tokens, never literals)",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "borderWidth": "double? - used when borderColor resolves",
+      "size": "double? - diameter; null = 12 * scaling",
+      "borderRadius": "BorderRadiusGeometry? - null = full circle"
+    }
+  },
+  "notes": [
+    "`DotItem`, `ActiveDotItem` and `InactiveDotItem` are deleted: the only animated dot widget had zero readers and the two public classes re-declared the same five parameters.",
+    "Defaults are token-derived (`primary` active, `muted` inactive); the old hard-coded 0xFF171717 / 0xFFF5F5F5 literals are gone.",
+    "`DotIndicatorDefaults` exposes the default rows for callers that paint their own dots."
+  ]
+}

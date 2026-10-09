@@ -92,6 +92,16 @@ class _Builder {
     for (final id in components.keys.toList()..sort()) {
       componentJson[id] = _componentJson(components[id]!, hashes);
     }
+    // Theme presets are hashed too: `themes/<id>.json` is the input the CLI
+    // renders into `<installRoot>/theme/app_theme.dart`, so a consumer that
+    // caches or diffs the generated file needs the preset digest to tell "the
+    // preset changed" from "only the theme selection changed".
+    final themesJson = _themesJson();
+    for (final preset in themesJson.values) {
+      hashes[(preset as Map<String, Object?>)['file']! as String] = _sha256(
+        (preset['file']! as String),
+      );
+    }
     for (final file in <String>[
       ...foundation.allFiles,
       ...theme.allFiles,
@@ -120,7 +130,7 @@ class _Builder {
       'theme': _unitsJson(theme),
       'primitives': _primitivesJson(primitives, deps),
       'components': componentJson,
-      'themes': _themesJson(),
+      'themes': themesJson,
       'fileHashes': hashes,
     };
   }

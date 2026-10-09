@@ -466,3 +466,9 @@
   Whole package: expected intermediate break (249 analyzer errors / 24 failing suites in installer+commands owned by
   B4/B5). Decisions for B5: delete schema_source.dart if still unreferenced; v2 validation exception lives with the
   validator (lib/src/registry/manifest/). Reverted 2 format-only edits to old installer tests (B4 rewrites them).
+
+## P5-B4 CLI installer core (longcat) — ACCEPTED (r1)
+- manifest_closure (cycle-tolerant DFS), installer + file-install/remove/lock parts, dry_run_plan, pub_package_resolver
+  (injectable runner); 19 v1 installer files + 4 old tests deleted; fixture registry_v2 now has real Dart sources;
+  golden install asserts tree + shadcn.lock byte-for-byte. 49/49 tests, analyze 0, files ≤ 383 lines.
+  Follow-ups → B5: relax B1 _checkPrimitiveCycles; remap v1 Installer callers; HTTP registry reader; drift-driven update.

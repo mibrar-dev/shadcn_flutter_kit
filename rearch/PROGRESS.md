@@ -100,3 +100,4 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
 - All paddings/margins/gaps are theme-dependent (spacing + density); no stretch/compact; icon gaps exact (audit P6-D9b).
 - Staggered (masonry) grid for block showcases (P6-D8). Syntax colours in all code blocks (done P4-T5/T5b).
 - Theme Studio like shadcn /create, applied site-wide (P6-D7). Sub-agents on FREE models (Step 5 preview for these fixes).
+- Code blocks (code_snippet, markdown, docs code/View Code/Get Code) must be SELECTABLE + copyable with syntax colours; every component must follow the active theme live (e.g. calendar selection = primary, not black) — audit P6-D9c.

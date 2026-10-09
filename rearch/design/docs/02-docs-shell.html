@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introduction — shadcn_flutter_kit docs</title>
+<meta name="description" content="Docs shell: sidebar, content column, on-this-page TOC, prev-next pager.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+  --code-bg:#0c0c0e; --code-fg:#e5e5e5; --code-dim:#8b8b93; --code-kw:#7dd3fc; --code-str:#bef264;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1440px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none;white-space:nowrap}
+.badge{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-foreground);background:var(--muted)}
+.top-links{display:flex;gap:2px}
+.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.top-links a[aria-current="page"]{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.btn-sm{display:inline-flex;align-items:center;font-size:13px;font-weight:550;padding:6px 12px;border-radius:var(--radius);background:var(--primary);color:var(--primary-foreground);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.preset-pick{font:inherit;font-size:13px;background:var(--muted);color:var(--foreground);border:1px solid var(--border);border-radius:6px;padding:5px 8px;cursor:pointer}
+/* docs layout */
+.docs{display:grid;grid-template-columns:270px minmax(0,1fr) 230px;gap:40px;max-width:1440px;margin:0 auto;padding:0 24px;align-items:start}
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 8px 40px 0}
+.side-search{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted-foreground);border:1px solid var(--border);border-radius:8px;background:var(--muted);padding:8px 12px;width:100%;cursor:pointer;margin-bottom:20px;font-family:var(--font-sans)}
+.side-search:hover{border-color:var(--ring)}
+.side-search kbd{margin-left:auto}
+kbd{font-family:var(--font-mono);font-size:11px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--card);color:var(--muted-foreground)}
+.side-sec{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:20px 0 6px;padding:0 12px}
+.side-link{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted-foreground);text-decoration:none;padding:6px 12px;border-radius:6px;border-left:2px solid transparent}
+.side-link:hover{color:var(--foreground);background:var(--muted)}
+.side-link[aria-current="page"]{color:var(--foreground);background:var(--accent);border-left-color:var(--ring)}
+.side-link .ct{margin-left:auto;font-family:var(--font-mono);font-size:10.5px;color:var(--muted-foreground)}
+.content{padding:32px 0 80px;min-width:0;max-width:768px}
+.crumb{font-size:13px;color:var(--muted-foreground);margin-bottom:12px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--foreground)}
+.content h1{font-size:34px;letter-spacing:-.025em;margin:0 0 8px;font-weight:700}
+.lede{font-size:17px;color:var(--muted-foreground);margin:0 0 28px}
+.content h2{font-size:22px;letter-spacing:-.02em;margin:36px 0 10px;padding-top:12px}
+.content h3{font-size:17px;margin:26px 0 8px}
+.content p{margin:0 0 14px}
+.content code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.codeblock{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:13px;line-height:1.7;overflow-x:auto;color:var(--code-fg);margin:0 0 16px}
+.codeblock .c{color:var(--code-dim)}.codeblock .k{color:var(--code-kw)}.codeblock .s{color:var(--code-str)}
+.callout{border:1px solid var(--border);background:var(--muted);border-radius:8px;padding:12px 16px;font-size:14px;margin:0 0 16px;display:flex;gap:10px}
+.callout svg{flex:none;margin-top:3px;color:var(--ring)}
+.toc{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:32px 0 40px 8px;font-size:13.5px}
+.toc h5{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:0 0 10px}
+.toc a{display:block;color:var(--muted-foreground);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid var(--border)}
+.toc a:hover{color:var(--foreground)}
+.toc a.spy{color:var(--foreground);border-left-color:var(--ring)}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.page-card{border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-decoration:none;background:var(--card)}
+.page-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.page-card span{font-size:12.5px;color:var(--muted-foreground)}
+.page-card b{display:block;font-size:14.5px;margin-top:2px}
+.page-card.next{text-align:right}
+.drawer-btn{display:none}
+.scrim{display:none}
+@media(max-width:1100px){.docs{grid-template-columns:270px minmax(0,1fr)}.toc{display:none}}
+@media(max-width:760px){
+  .docs{grid-template-columns:minmax(0,1fr)}
+  .top-links{display:none}
+  .drawer-btn{display:inline-flex}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:300px;z-index:80;background:var(--popover);border-right:1px solid var(--border);padding:20px 16px 40px;transform:translateX(-105%);transition:transform var(--d200) var(--ease);height:100vh}
+  body.drawer-open .sidebar{transform:none}
+  body.drawer-open .scrim{display:block;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.5)}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:var(--d150) !important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <button class="icon-btn drawer-btn" id="drawerBtn" aria-label="Open navigation menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <span class="badge">v0.1.0</span>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html" aria-current="page">Docs</a><a href="05-components-index.html">Components</a><a href="06-themes.html">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right">
+    <select class="preset-pick" aria-label="Preset picker"><option>modern-minimal</option><option>zinc</option><option>bubblegum</option><option>claude</option><option>tangerine</option></select>
+    <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <a class="icon-btn" href="#" aria-label="GitHub repository"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.35 1.08 2.92.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+  </div>
+</div></header>
+<div class="scrim" id="scrim"></div>
+<div class="docs">
+<aside class="sidebar" aria-label="Docs navigation">
+  <button class="side-search" id="cmdkBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Search…<kbd>⌘K</kbd></button>
+  <div id="sideNav">
+  <p class="side-sec">Getting started</p>
+  <a class="side-link" href="02-docs-shell.html" aria-current="page">Introduction</a>
+  <a class="side-link" href="07-getting-started.html">Installation</a>
+  <a class="side-link" href="06-themes.html">Theming</a>
+  <a class="side-link" href="08-cli-reference.html">CLI reference</a>
+  <p class="side-sec">Components · Form</p>
+  <a class="side-link" href="03-component-button.html">Button</a>
+  <a class="side-link" href="#">Input <span class="ct">3 files</span></a>
+  <a class="side-link" href="#">Checkbox</a>
+  <a class="side-link" href="#">Select</a>
+  <p class="side-sec">Components · Overlay</p>
+  <a class="side-link" href="04-component-dialog.html">Dialog <span class="ct">2 files</span></a>
+  <a class="side-link" href="#">Drawer</a>
+  <a class="side-link" href="#">Popover</a>
+  <a class="side-link" href="#">Tooltip</a>
+  <p class="side-sec">Components · Data</p>
+  <a class="side-link" href="#">Table</a>
+  <a class="side-link" href="#">Calendar</a>
+  <a class="side-link" href="#">Chart</a>
+  <p class="side-sec">CLI</p>
+  <a class="side-link" href="08-cli-reference.html">add · init · theme</a>
+  </div>
+</aside>
+<main class="content">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="01-landing.html">Home</a> / <a href="02-docs-shell.html">Docs</a> / Introduction</nav>
+  <section data-od-id="intro" id="sec-intro"><h1>Introduction</h1>
+  <p class="lede">shadcn_flutter_kit is a shadcn/ui-style design system for Flutter, shipped as copy-paste source you own.</p>
+  <p>Every component is <code>installable alone</code>: one directory, one <code>meta.json</code> manifest, and a deterministic dependency list. The CLI copies real Dart into <code>lib/ui/shadcn/</code> — there is no versioned package to fight.</p>
+  <div class="callout"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg><span><b>Widgets only.</b> The kit builds on <code>package:flutter/widgets.dart</code>. If you see a Material import, that is a bug — please report it.</span></div></section>
+  <section data-od-id="how-it-fits" id="sec-fit"><h2>How it fits your app</h2>
+  <p>Global tokens (<code>background</code>, <code>primary</code>, <code>chart-1…5</code>, <code>radius</code>) mirror shadcn CSS variables 1:1. Each component reads tokens through its own theme class, so a preset switch re-skins the whole app with a 300ms colour morph and zero layout shift.</p>
+  <h3>What you own</h3>
+  <p>After <code>flutter_shadcn add button</code> you own <code>button.dart</code> (widget), <code>button_style.dart</code> (token defaults, replaced on update), and <code>button_theme.dart</code> (your overrides, never overwritten).</p></section>
+  <section data-od-id="next-steps" id="sec-next"><h2>Next steps</h2>
+  <p>Install the CLI and add your first component, or browse the 118-component index.</p>
+  <div class="codeblock"><span class="c">$</span> dart pub global activate flutter_shadcn<br><span class="c">$</span> flutter_shadcn init <span class="k">--preset</span> <span class="s">modern-minimal</span><br><span class="c">$</span> flutter_shadcn add <span class="s">button</span></div></section>
+  <nav class="pager" aria-label="Pagination"><a class="page-card" href="01-landing.html"><span>← Previous</span><b>Home</b></a><a class="page-card next" href="07-getting-started.html"><span>Next →</span><b>Installation</b></a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><h5>On this page</h5>
+  <a href="#sec-intro" class="spy">Introduction</a><a href="#sec-fit">How it fits your app</a><a href="#sec-next">Next steps</a>
+</aside>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');});
+  document.getElementById('drawerBtn').addEventListener('click',function(){document.body.classList.add('drawer-open');});
+  document.getElementById('scrim').addEventListener('click',function(){document.body.classList.remove('drawer-open');});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('drawer-open');});
+  var links=document.querySelectorAll('.toc a');
+  var secs=[document.getElementById('sec-intro'),document.getElementById('sec-fit'),document.getElementById('sec-next')];
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(l){l.classList.toggle('spy',l.getAttribute('href')==='#'+en.target.id);});}});},{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(function(s){io.observe(s);});
+  document.getElementById('cmdkBtn').addEventListener('click',function(){window.location.href='09-command-palette.html';});
+  document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();window.location.href='09-command-palette.html';}});
+})();
+</script>
+</body>
+</html>

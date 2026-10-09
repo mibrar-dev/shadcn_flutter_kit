@@ -425,3 +425,13 @@
 - r1: 29 tests; returned for a FittedBox.scaleDown workaround. r2: color_picker controls wrap (no overflow at 280,
   unchanged ≥ 480), history grid scrolls horizontally when narrow, FittedBox removed; colorPickerControlsWidth helper
   accepted. qa_batch color_input + color_picker: 51/51, layers clean, owner 0, theme 0.
+
+## P6-A docs design (muse-spark, Open Design project shadcn-flutter-kit-docs) — ACCEPTED (r1)
+- 10 HTML mockups (landing, docs shell, Button + Dialog component pages, components index, themes (+ light/tangerine),
+  getting started, CLI reference, ⌘K palette, mobile) — all `opendesign lint` P0/P1/P2 clean; artifacts created in the
+  OD project; PNGs captured with agent-browser (OD image export needs the desktop runtime). Modern-minimal direction on
+  shadcn tokens, dark-first + light, motion spec in rearch/reports/P6_DOCS_DESIGN.md.
+- Orchestrator review: strong visual quality. Notes for the Flutter build: sticky header mid-page in screenshots is a
+  full-page-capture artefact; mockup copy has placeholder facts (heightMd 40 vs real 36, labelStyle w600 vs w500,
+  "2 files per component" vs 3 Dart files) — the build must GENERATE API tables / deps / stats from the real
+  registry (meta.json, manifest, source), never from the mockups; preset gallery (12/42) + marquee from full data.

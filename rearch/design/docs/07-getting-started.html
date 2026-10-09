@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Getting started — shadcn_flutter_kit docs</title>
+<meta name="description" content="Install the CLI, init your app, add components, pick a theme.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+  --code-bg:#0c0c0e; --code-fg:#e5e5e5; --code-dim:#8b8b93; --code-kw:#7dd3fc; --code-str:#bef264;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1440px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none}
+.top-links{display:flex;gap:2px}.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.top-links a[aria-current="page"]{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.docs{display:grid;grid-template-columns:270px minmax(0,1fr) 230px;gap:40px;max-width:1440px;margin:0 auto;padding:0 24px;align-items:start}
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 8px 40px 0}
+.side-link{display:block;font-size:14px;color:var(--muted-foreground);text-decoration:none;padding:6px 12px;border-radius:6px}
+.side-link:hover{color:var(--foreground);background:var(--muted)}
+.side-link[aria-current="page"]{color:var(--foreground);background:var(--accent)}
+.side-sec{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:20px 0 6px;padding:0 12px}
+.content{padding:32px 0 80px;min-width:0;max-width:768px}
+.crumb{font-size:13px;color:var(--muted-foreground);margin-bottom:12px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--foreground)}
+.content h1{font-size:34px;letter-spacing:-.025em;margin:0 0 8px;font-weight:700}
+.lede{font-size:17px;color:var(--muted-foreground);margin:0 0 28px}
+.content h2{font-size:21px;letter-spacing:-.02em;margin:30px 0 10px}
+.content p{margin:0 0 14px}.content code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.codeblock{position:relative;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:13px;line-height:1.7;overflow-x:auto;color:var(--code-fg);margin:0 0 16px}
+.codeblock .c{color:var(--code-dim)}.codeblock .k{color:var(--code-kw)}.codeblock .s{color:var(--code-str)}
+.copy-btn{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:12px;font-weight:550;border:1px solid var(--border);background:var(--z-800);color:var(--z-100);border-radius:6px;padding:5px 10px;cursor:pointer;min-width:82px;justify-content:center}
+/* timeline: numbered rail, 40ms stagger reveals */
+.timeline{list-style:none;margin:8px 0 0;padding:0}
+.timeline li{position:relative;padding:0 0 34px 56px}
+.timeline li::before{content:attr(data-n);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--primary);color:var(--primary-foreground);font-family:var(--font-mono);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.timeline li::after{content:"";position:absolute;left:17.5px;top:42px;bottom:2px;width:1px;background:var(--border)}
+.timeline li:last-child::after{display:none}
+.timeline h2{margin:2px 0 6px !important;padding:0 !important}
+.timeline .time{font-size:12.5px;color:var(--muted-foreground);font-family:var(--font-mono)}
+.rv{opacity:0;transform:translateY(12px);transition:opacity var(--d300) var(--ease),transform var(--d300) var(--ease)}
+.rv.in{opacity:1;transform:none}
+.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:8px;background:var(--card);padding:10px 14px;font-size:13.5px;margin:0 0 8px}
+.check svg{flex:none;margin-top:3px;color:var(--primary)}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px}
+.page-card{border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-decoration:none;background:var(--card)}
+.page-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.page-card span{font-size:12.5px;color:var(--muted-foreground)}
+.page-card b{display:block;font-size:14.5px;margin-top:2px}
+.page-card.next{text-align:right}
+.toc{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:32px 0 40px 8px;font-size:13.5px}
+.toc h5{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:0 0 10px}
+.toc a{display:block;color:var(--muted-foreground);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid var(--border)}
+.toc a.spy{color:var(--foreground);border-left-color:var(--ring)}
+@media(max-width:1100px){.docs{grid-template-columns:270px minmax(0,1fr)}.toc{display:none}}
+@media(max-width:760px){.docs{grid-template-columns:minmax(0,1fr)}.sidebar{display:none}.top-links{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:var(--d150) !important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html" aria-current="page">Docs</a><a href="05-components-index.html">Components</a><a href="06-themes.html">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right"><button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</div></header>
+<div class="docs">
+<aside class="sidebar" aria-label="Docs navigation">
+  <p class="side-sec">Getting started</p>
+  <a class="side-link" href="02-docs-shell.html">Introduction</a>
+  <a class="side-link" href="07-getting-started.html" aria-current="page">Installation</a>
+  <a class="side-link" href="06-themes.html">Theming</a>
+  <a class="side-link" href="08-cli-reference.html">CLI reference</a>
+</aside>
+<main class="content">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="01-landing.html">Home</a> / <a href="02-docs-shell.html">Docs</a> / Installation</nav>
+  <section data-od-id="gs-header" id="sec-top"><h1>Getting started</h1>
+  <p class="lede">Four steps, about two minutes. You will end with a themed button running in your own app — source included.</p></section>
+  <ol class="timeline">
+    <li data-n="01" data-od-id="gs-step-1" id="sec-cli" class="rv"><h2>Install the CLI</h2><span class="time">~20s</span>
+      <p>One global activate. Requires Dart 3.4+; no Flutter version lock.</p>
+      <div class="codeblock"><button class="copy-btn" data-copy="dart pub global activate flutter_shadcn">Copy</button><span class="c">$</span> dart pub global activate flutter_shadcn</div></li>
+    <li data-n="02" data-od-id="gs-step-2" id="sec-init" class="rv"><h2>Init your app</h2><span class="time">~15s</span>
+      <p>Run inside your Flutter project. Scaffolds <code>lib/ui/shadcn/</code>, the token host, and one <code>app_theme.dart</code> for your preset.</p>
+      <div class="codeblock"><button class="copy-btn" data-copy="flutter_shadcn init --preset modern-minimal">Copy</button><span class="c">$</span> flutter_shadcn init <span class="k">--preset</span> <span class="s">modern-minimal</span></div></li>
+    <li data-n="03" data-od-id="gs-step-3" id="sec-add" class="rv"><h2>Add components</h2><span class="time">~10s each</span>
+      <p>Name what you need. Shared code and the owning component resolve automatically — <code>dialog</code> pulls the overlay primitive, never a duplicate.</p>
+      <div class="codeblock"><button class="copy-btn" data-copy="flutter_shadcn add button dialog calendar">Copy</button><span class="c">$</span> flutter_shadcn add <span class="s">button dialog calendar</span></div></li>
+    <li data-n="04" data-od-id="gs-step-4" id="sec-theme" class="rv"><h2>Theme it</h2><span class="time">ongoing</span>
+      <p>Use it, then make it yours. Widget props win; then scoped <code>ComponentTheme</code>; then your <code>button_theme.dart</code>; then token defaults.</p>
+      <div class="codeblock"><span class="k">import</span> <span class="s">'package:myapp/ui/shadcn/button.dart'</span>;<br><br><span class="k">Button</span>(variant: ButtonVariant.secondary,<br>&nbsp;&nbsp;onPressed: _save,<br>&nbsp;&nbsp;child: <span class="k">Text</span>(<span class="s">'Save changes'</span>),<br>)</div></li>
+  </ol>
+  <section data-od-id="gs-verify" id="sec-verify" class="rv"><h2>Verify</h2>
+    <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span><code>flutter analyze</code> reports zero new issues.</span></div>
+    <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span>No <code>material.dart</code> import under <code>lib/ui/shadcn/</code>.</span></div>
+    <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg><span>Toggle OS dark mode — the button follows via tokens.</span></div>
+  </section>
+  <nav class="pager" aria-label="Pagination"><a class="page-card" href="02-docs-shell.html"><span>← Previous</span><b>Introduction</b></a><a class="page-card next" href="06-themes.html"><span>Next →</span><b>Theming</b></a></nav>
+</main>
+<aside class="toc" aria-label="On this page"><h5>On this page</h5>
+  <a href="#sec-top" class="spy">Getting started</a><a href="#sec-cli">1 · Install CLI</a><a href="#sec-init">2 · Init</a><a href="#sec-add">3 · Add</a><a href="#sec-theme">4 · Theme</a><a href="#sec-verify">Verify</a>
+</aside>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');});
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    if(navigator.clipboard){navigator.clipboard.writeText(b.getAttribute('data-copy')).catch(function(){});}
+    var old=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=old;},1500);});});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i*40)+'ms';io.observe(el);});
+  var links=document.querySelectorAll('.toc a');
+  var spy=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(l){l.classList.toggle('spy',l.getAttribute('href')==='#'+en.target.id);});}});},{rootMargin:'-30% 0px -60% 0px'});
+  ['sec-top','sec-cli','sec-init','sec-add','sec-theme','sec-verify'].forEach(function(id){spy.observe(document.getElementById(id));});
+})();
+</script>
+</body>
+</html>

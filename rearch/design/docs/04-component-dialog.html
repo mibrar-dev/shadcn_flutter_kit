@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dialog — shadcn_flutter_kit docs</title>
+<meta name="description" content="Dialog component: live modal preview, install, examples, API, theme, accessibility.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --ease-in:cubic-bezier(0.4,0,1,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+  --code-bg:#0c0c0e; --code-fg:#e5e5e5; --code-dim:#8b8b93; --code-kw:#7dd3fc; --code-str:#bef264;
+  --p-tang:#ea580c; --p-tang-acc:#431407; --p-tang-fg:#fed7aa;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+html[data-preset="tangerine"]{ --primary:var(--p-tang); --primary-foreground:var(--white); --ring:var(--p-tang); --accent:var(--p-tang-acc); --accent-foreground:var(--p-tang-fg); }
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1440px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none}
+.top-links{display:flex;gap:2px}.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.docs{display:grid;grid-template-columns:270px minmax(0,1fr) 230px;gap:40px;max-width:1440px;margin:0 auto;padding:0 24px;align-items:start}
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 8px 40px 0}
+.side-link{display:block;font-size:14px;color:var(--muted-foreground);text-decoration:none;padding:6px 12px;border-radius:6px}
+.side-link:hover{color:var(--foreground);background:var(--muted)}
+.side-link[aria-current="page"]{color:var(--foreground);background:var(--accent)}
+.side-sec{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:20px 0 6px;padding:0 12px}
+.content{padding:32px 0 80px;min-width:0;max-width:768px}
+.crumb{font-size:13px;color:var(--muted-foreground);margin-bottom:12px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--foreground)}
+.title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.content h1{font-size:34px;letter-spacing:-.025em;margin:0;font-weight:700}
+.badge{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-foreground);background:var(--muted)}
+.lede{font-size:17px;color:var(--muted-foreground);margin:10px 0 24px}
+.content h2{font-size:21px;letter-spacing:-.02em;margin:38px 0 10px;padding-top:10px}
+.content p{margin:0 0 14px}.content code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.tabs{display:flex;gap:2px;background:var(--muted);border:1px solid var(--border);border-radius:8px;padding:3px;width:max-content}
+.tabs button{font:inherit;font-size:13.5px;font-weight:550;border:0;background:transparent;color:var(--muted-foreground);padding:6px 16px;border-radius:6px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.panel{border:1px solid var(--border);border-radius:0 12px 12px 12px;background:var(--card);padding:20px;margin-top:-1px}
+.codeblock{position:relative;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:13px;line-height:1.7;overflow-x:auto;color:var(--code-fg);margin:0}
+.codeblock .c{color:var(--code-dim)}.codeblock .k{color:var(--code-kw)}.codeblock .s{color:var(--code-str)}
+.copy-btn{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:12px;font-weight:550;border:1px solid var(--border);background:var(--z-800);color:var(--z-100);border-radius:6px;padding:5px 10px;cursor:pointer;min-width:82px;justify-content:center}
+.preview-card{border:1px solid var(--border);border-radius:12px;background:var(--card);overflow:hidden}
+.preview-stage{display:flex;align-items:center;justify-content:center;min-height:230px;padding:36px 20px;background:var(--background);border-bottom:1px solid var(--border)}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 16px;padding:18px 20px}
+.ctl label{display:block;font-size:12px;font-weight:600;color:var(--muted-foreground);margin-bottom:6px}
+.ctl select{font:inherit;font-size:13.5px;width:100%;background:var(--muted);color:var(--foreground);border:1px solid var(--border);border-radius:6px;padding:7px 10px;cursor:pointer}
+.seg{display:flex;background:var(--muted);border:1px solid var(--border);border-radius:7px;padding:2px;gap:2px}
+.seg button{flex:1;font:inherit;font-size:12.5px;border:0;background:transparent;color:var(--muted-foreground);padding:6px 4px;border-radius:5px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.check-row{display:flex;align-items:center;gap:10px;font-size:13.5px;padding-top:22px}
+.sw{position:relative;width:40px;height:22px;border-radius:999px;background:var(--muted);border:1px solid var(--border);cursor:pointer;flex:none;padding:0}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted-foreground);transition:left var(--d150) var(--ease)}
+.sw[aria-pressed="true"]{background:var(--primary)}
+.sw[aria-pressed="true"]::after{left:20px;background:var(--primary-foreground)}
+.demo-btn{font:inherit;font-size:14px;font-weight:550;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;padding:9px 18px;background:var(--primary);color:var(--primary-foreground)}
+.demo-btn.ghost{background:var(--secondary);color:var(--secondary-foreground)}
+.demo-btn.outline{background:transparent;border-color:var(--border);color:var(--foreground)}
+/* overlay: fade 150ms in, ease-in 150ms out; dialog scale .96→1 + fade 200ms */
+.scrim{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity var(--d150) var(--ease)}
+.scrim.open{opacity:1;pointer-events:auto}
+.scrim.closing{transition-timing-function:var(--ease-in)}
+.dialog{width:min(480px,100%);background:var(--popover);color:var(--popover-foreground);border:1px solid var(--border);border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,.4);padding:24px;transform:scale(.96) translateY(8px);opacity:0;transition:transform var(--d200) var(--ease),opacity var(--d200) var(--ease)}
+.scrim.open .dialog{transform:none;opacity:1}
+.dialog h3{margin:0 0 6px;font-size:18px;letter-spacing:-.01em}
+.dialog .desc{font-size:14px;color:var(--muted-foreground);margin:0 0 18px}
+.dialog .field{margin-bottom:12px}
+.dialog .field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px}
+.dialog .field input{font:inherit;font-size:14px;width:100%;background:var(--background);border:1px solid var(--input);border-radius:var(--radius);padding:8px 12px;color:var(--foreground)}
+.dialog .field input:focus{border-color:var(--ring);box-shadow:0 0 0 2px var(--ring);outline:none}
+.dialog .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.dialog .x{position:absolute}
+.dlg-close{float:right}
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.ex-grid{grid-template-columns:1fr}}
+.ex{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+.ex h3{margin:0 0 4px;font-size:14.5px}.ex p{font-size:13px;color:var(--muted-foreground);margin:0 0 12px}
+.ex .stage{display:flex;gap:8px;align-items:center;background:var(--background);border:1px solid var(--border);border-radius:8px;padding:16px}
+table.api{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 8px}
+table.api th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-foreground);padding:8px 10px;border-bottom:1px solid var(--border)}
+table.api td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+table.api td:first-child{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.dep-chips{display:flex;gap:8px;flex-wrap:wrap}
+.dep{font-family:var(--font-mono);font-size:12.5px;border:1px solid var(--border);background:var(--muted);border-radius:999px;padding:4px 13px;text-decoration:none}
+.dep:hover{border-color:var(--ring)}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.rel-grid{grid-template-columns:1fr}}
+.rel{border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;background:var(--card)}
+.rel:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.rel b{display:block;font-size:14px}.rel span{font-size:12.5px;color:var(--muted-foreground)}
+.toc{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:32px 0 40px 8px;font-size:13.5px}
+.toc h5{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:0 0 10px}
+.toc a{display:block;color:var(--muted-foreground);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid var(--border)}
+.toc a.spy{color:var(--foreground);border-left-color:var(--ring)}
+@media(max-width:1100px){.docs{grid-template-columns:270px minmax(0,1fr)}.toc{display:none}}
+@media(max-width:760px){.docs{grid-template-columns:minmax(0,1fr)}.sidebar{display:none}.top-links{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:var(--d150) !important}.dialog{transform:none}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html">Docs</a><a href="05-components-index.html">Components</a><a href="06-themes.html">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right"><button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</div></header>
+<div class="docs">
+<aside class="sidebar" aria-label="Component navigation">
+  <p class="side-sec">Components · Form</p>
+  <a class="side-link" href="03-component-button.html">Button</a><a class="side-link" href="#">Input</a>
+  <p class="side-sec">Components · Overlay</p>
+  <a class="side-link" href="04-component-dialog.html" aria-current="page">Dialog</a><a class="side-link" href="#">Drawer</a><a class="side-link" href="#">Alert dialog</a>
+</aside>
+<main class="content">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="01-landing.html">Home</a> / <a href="05-components-index.html">Components</a> / Dialog</nav>
+  <section data-od-id="dialog-header" id="sec-top">
+  <div class="title-row"><h1>Dialog</h1><span class="badge">2 files</span><span class="badge">stable</span></div>
+  <p class="lede">Modal overlay with focus trap, scrim dismissal, and enter/exit motion. Built on the overlay primitive — drawer and popover share the same dismissal contract.</p>
+  <div class="tabs" role="tablist" aria-label="Install method">
+    <button role="tab" aria-selected="true" data-tab="cli">CLI</button>
+    <button role="tab" aria-selected="false" data-tab="manual">Manual copy</button>
+  </div>
+  <div class="panel" id="panel-cli"><div class="codeblock"><button class="copy-btn" data-copy="flutter_shadcn add dialog">Copy</button><span class="c">$</span> flutter_shadcn add <span class="s">dialog</span></div></div>
+  <div class="panel" id="panel-manual" hidden><div class="codeblock"><button class="copy-btn" data-copy="cp registry/components/dialog/dialog.dart lib/ui/shadcn/">Copy</button><span class="c"># pulls primitives/overlay automatically</span><br>dialog/dialog.dart <span class="c">← widget + motion</span><br>dialog/dialog_theme.dart <span class="c">← your overrides (keep)</span></div></div>
+  </section>
+  <section data-od-id="dialog-preview" id="sec-preview"><h2>Preview</h2>
+  <div class="preview-card">
+    <div class="preview-stage"><button class="demo-btn" id="openDlg">Open dialog</button></div>
+    <div class="controls">
+      <div class="ctl"><label>Mode</label><div class="seg" id="ctlMode"><button aria-pressed="false">light</button><button aria-pressed="true">dark</button></div></div>
+      <div class="ctl"><label for="ctlPreset">Preset</label><select id="ctlPreset"><option>modern-minimal</option><option>tangerine</option></select></div>
+      <div class="ctl"><div class="check-row"><button class="sw" id="ctlScrim" aria-pressed="true" aria-label="Dismiss on scrim tap"></button><span>Dismiss on scrim tap</span></div></div>
+    </div>
+  </div></section>
+  <section data-od-id="dialog-examples" id="sec-examples"><h2>Examples</h2>
+  <div class="ex-grid">
+    <div class="ex"><h3>Form dialog</h3><p>Inputs keep focus inside until dismissed.</p><div class="stage"><button class="demo-btn outline" data-demo="form">Edit profile</button></div></div>
+    <div class="ex"><h3>Destructive confirm</h3><p>Alert variant pairs with the destructive button.</p><div class="stage"><button class="demo-btn" data-demo="confirm" style="background:var(--destructive);color:var(--destructive-foreground)">Delete</button></div></div>
+  </div></section>
+  <section data-od-id="dialog-api" id="sec-api"><h2>API</h2>
+  <table class="api"><thead><tr><th>Param</th><th>Type</th><th>Default</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>title</td><td>Widget</td><td>—</td><td>announced on open</td></tr>
+    <tr><td>barrierDismissible</td><td>bool</td><td>true</td><td>scrim tap dismisses</td></tr>
+    <tr><td>onClose</td><td>ValueChanged?</td><td>null</td><td>result or null</td></tr>
+    <tr><td>width</td><td>double?</td><td>480</td><td>clamped to viewport − 40</td></tr>
+  </tbody></table>
+  <h2>Theme fields <span class="badge">dialog_theme.dart · user-owned</span></h2>
+  <table class="api"><thead><tr><th>Field</th><th>Type</th><th>Default</th></tr></thead><tbody>
+    <tr><td>scrimOpacity</td><td>double?</td><td>0.55</td></tr>
+    <tr><td>enterMs</td><td>int?</td><td>200</td></tr>
+    <tr><td>radius</td><td>double?</td><td>ThemeRef.radius + 4</td></tr>
+  </tbody></table></section>
+  <section data-od-id="dialog-a11y" id="sec-a11y"><h2>Keyboard &amp; accessibility</h2>
+  <table class="api"><thead><tr><th>Key</th><th>Behaviour</th></tr></thead><tbody>
+    <tr><td>Esc</td><td>Dismisses (150ms ease-in exit), restores focus to trigger</td></tr>
+    <tr><td>Tab</td><td>Trapped inside while open; scrim is inert</td></tr>
+    <tr><td>Screen reader</td><td>Role dialog, labelled by title; background hidden</td></tr>
+  </tbody></table></section>
+  <section data-od-id="dialog-deps" id="sec-deps"><h2>Dependencies</h2>
+  <div class="dep-chips"><a class="dep" href="#">primitives/overlay</a><a class="dep" href="#">primitives/focus</a><a class="dep" href="#">button</a></div>
+  <h2>Related</h2>
+  <div class="rel-grid"><a class="rel" href="#"><b>Alert dialog</b><span>blocking confirm</span></a><a class="rel" href="#"><b>Drawer</b><span>same dismissal contract</span></a><a class="rel" href="03-component-button.html"><b>Button</b><span>action row</span></a></div></section>
+</main>
+<aside class="toc" aria-label="On this page"><h5>On this page</h5>
+  <a href="#sec-top" class="spy">Install</a><a href="#sec-preview">Preview</a><a href="#sec-examples">Examples</a><a href="#sec-api">API</a><a href="#sec-a11y">Accessibility</a><a href="#sec-deps">Dependencies</a>
+</aside>
+</div>
+<div class="scrim" id="scrim" role="presentation">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" id="dlg">
+    <h3 id="dlgTitle">Edit profile</h3>
+    <p class="desc" id="dlgDesc">Changes are saved to your local theme file, never to the registry.</p>
+    <div class="field"><label for="dlgName">Display name</label><input id="dlgName" value="Ada Lovelace"></div>
+    <div class="actions"><button class="demo-btn ghost" id="dlgCancel">Cancel</button><button class="demo-btn" id="dlgSave">Save changes</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');syncMode();});
+  var tabs=document.querySelectorAll('[data-tab]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected',x===t?'true':'false');});
+    document.getElementById('panel-cli').hidden=t.getAttribute('data-tab')!=='cli';
+    document.getElementById('panel-manual').hidden=t.getAttribute('data-tab')!=='manual';});});
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    if(navigator.clipboard){navigator.clipboard.writeText(b.getAttribute('data-copy')).catch(function(){});}
+    var old=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=old;},1500);});});
+  var scrim=document.getElementById('scrim'),dlg=document.getElementById('dlg'),lastFocus=null;
+  var scrimOn=true,title=document.getElementById('dlgTitle'),desc=document.getElementById('dlgDesc');
+  function open(kind,btn){lastFocus=btn;
+    if(kind==='confirm'){title.textContent='Delete account?';desc.textContent='This is irreversible. Type DELETE to confirm.';}
+    else if(kind==='form'){title.textContent='Edit profile';desc.textContent='Changes are saved to your local theme file, never to the registry.';}
+    else{title.textContent='Share project';desc.textContent='Anyone with the link can view this preset.';}
+    scrim.classList.remove('closing');scrim.classList.add('open');
+    setTimeout(function(){document.getElementById('dlgName').focus();},210);}
+  function close(){scrim.classList.add('closing');
+    setTimeout(function(){scrim.classList.remove('open','closing');if(lastFocus)lastFocus.focus();},150);}
+  document.getElementById('openDlg').addEventListener('click',function(){open('share',this);});
+  document.querySelectorAll('[data-demo]').forEach(function(b){b.addEventListener('click',function(){open(b.getAttribute('data-demo'),b);});});
+  document.getElementById('dlgCancel').addEventListener('click',close);
+  document.getElementById('dlgSave').addEventListener('click',close);
+  scrim.addEventListener('click',function(e){if(e.target===scrim&&scrimOn)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&scrim.classList.contains('open'))close();});
+  var modeBtns=document.querySelectorAll('#ctlMode button');
+  function syncMode(){var light=root.getAttribute('data-theme')==='light';modeBtns[0].setAttribute('aria-pressed',light?'true':'false');modeBtns[1].setAttribute('aria-pressed',light?'false':'true');}
+  modeBtns[0].addEventListener('click',function(){root.setAttribute('data-theme','light');syncMode();});
+  modeBtns[1].addEventListener('click',function(){root.setAttribute('data-theme','dark');syncMode();});
+  var sw=document.getElementById('ctlScrim');
+  sw.addEventListener('click',function(){scrimOn=sw.getAttribute('aria-pressed')!=='true';sw.setAttribute('aria-pressed',scrimOn?'true':'false');});
+  document.getElementById('ctlPreset').addEventListener('change',function(e){root.setAttribute('data-preset',e.target.value);});
+  var links=document.querySelectorAll('.toc a');
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(l){l.classList.toggle('spy',l.getAttribute('href')==='#'+en.target.id);});}});},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s);});
+})();
+</script>
+</body>
+</html>

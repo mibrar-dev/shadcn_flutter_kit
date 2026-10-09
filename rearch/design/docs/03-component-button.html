@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Button — shadcn_flutter_kit docs</title>
+<meta name="description" content="Button component: live preview, install, examples, API, theme, accessibility.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+  --code-bg:#0c0c0e; --code-fg:#e5e5e5; --code-dim:#8b8b93; --code-kw:#7dd3fc; --code-str:#bef264;
+  --p-tang:#ea580c; --p-tang-acc:#431407; --p-tang-fg:#fed7aa;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+html[data-preset="tangerine"]{ --primary:var(--p-tang); --primary-foreground:var(--white); --ring:var(--p-tang); --accent:var(--p-tang-acc); --accent-foreground:var(--p-tang-fg); }
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1440px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none}
+.top-links{display:flex;gap:2px}.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.docs{display:grid;grid-template-columns:270px minmax(0,1fr) 230px;gap:40px;max-width:1440px;margin:0 auto;padding:0 24px;align-items:start}
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 8px 40px 0}
+.side-link{display:block;font-size:14px;color:var(--muted-foreground);text-decoration:none;padding:6px 12px;border-radius:6px}
+.side-link:hover{color:var(--foreground);background:var(--muted)}
+.side-link[aria-current="page"]{color:var(--foreground);background:var(--accent)}
+.side-sec{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:20px 0 6px;padding:0 12px}
+.content{padding:32px 0 80px;min-width:0;max-width:768px}
+.crumb{font-size:13px;color:var(--muted-foreground);margin-bottom:12px}
+.crumb a{text-decoration:none}.crumb a:hover{color:var(--foreground)}
+.title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.content h1{font-size:34px;letter-spacing:-.025em;margin:0;font-weight:700}
+.badge{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-foreground);background:var(--muted)}
+.lede{font-size:17px;color:var(--muted-foreground);margin:10px 0 24px}
+.content h2{font-size:21px;letter-spacing:-.02em;margin:38px 0 10px;padding-top:10px}
+.content p{margin:0 0 14px}.content code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.tabs{display:flex;gap:2px;background:var(--muted);border:1px solid var(--border);border-radius:8px;padding:3px;width:max-content;margin-bottom:0}
+.tabs button{font:inherit;font-size:13.5px;font-weight:550;border:0;background:transparent;color:var(--muted-foreground);padding:6px 16px;border-radius:6px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.panel{border:1px solid var(--border);border-radius:0 12px 12px 12px;background:var(--card);padding:20px;margin-top:-1px}
+.codeblock{position:relative;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:13px;line-height:1.7;overflow-x:auto;color:var(--code-fg);margin:0}
+.codeblock .c{color:var(--code-dim)}.codeblock .k{color:var(--code-kw)}.codeblock .s{color:var(--code-str)}
+.copy-btn{position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-sans);font-size:12px;font-weight:550;border:1px solid var(--border);background:var(--z-800);color:var(--z-100);border-radius:6px;padding:5px 10px;cursor:pointer;min-width:82px;justify-content:center}
+.copy-btn:hover{border-color:var(--ring)}
+.preview-card{border:1px solid var(--border);border-radius:12px;background:var(--card);overflow:hidden}
+.preview-stage{display:flex;align-items:center;justify-content:center;gap:12px;min-height:190px;padding:36px 20px;background:var(--background);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 16px;padding:18px 20px}
+.ctl label{display:block;font-size:12px;font-weight:600;color:var(--muted-foreground);margin-bottom:6px;letter-spacing:.02em}
+.ctl select{font:inherit;font-size:13.5px;width:100%;background:var(--muted);color:var(--foreground);border:1px solid var(--border);border-radius:6px;padding:7px 10px;cursor:pointer}
+.seg{display:flex;background:var(--muted);border:1px solid var(--border);border-radius:7px;padding:2px;gap:2px}
+.seg button{flex:1;font:inherit;font-size:12.5px;border:0;background:transparent;color:var(--muted-foreground);padding:6px 4px;border-radius:5px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.check-row{display:flex;align-items:center;gap:10px;font-size:13.5px;padding-top:22px}
+.sw{position:relative;width:40px;height:22px;border-radius:999px;background:var(--muted);border:1px solid var(--border);cursor:pointer;flex:none;padding:0}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted-foreground);transition:left var(--d150) var(--ease),background var(--d150) var(--ease)}
+.sw[aria-pressed="true"]{background:var(--primary)}
+.sw[aria-pressed="true"]::after{left:20px;background:var(--primary-foreground)}
+/* live demo button (mirrors registry Button) */
+.demo-btn{font:inherit;font-weight:550;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.demo-btn.v-primary{background:var(--primary);color:var(--primary-foreground)}
+.demo-btn.v-secondary{background:var(--secondary);color:var(--secondary-foreground)}
+.demo-btn.v-outline{border-color:var(--border);background:transparent;color:var(--foreground)}
+.demo-btn.v-ghost{background:transparent;color:var(--foreground)}
+.demo-btn.v-ghost:hover{background:var(--muted)}
+.demo-btn.v-destructive{background:var(--destructive);color:var(--destructive-foreground)}
+.demo-btn.s-sm{font-size:12.5px;padding:6px 12px}.demo-btn.s-md{font-size:14px;padding:9px 18px}.demo-btn.s-lg{font-size:15px;padding:11px 24px}
+.demo-btn.s-icon{padding:9px;font-size:15px}
+.demo-btn:disabled{opacity:.45;cursor:not-allowed}
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.ex-grid{grid-template-columns:1fr}}
+.ex{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+.ex h3{margin:0 0 4px;font-size:14.5px}.ex p{font-size:13px;color:var(--muted-foreground);margin:0 0 12px}
+.ex .stage{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--background);border:1px solid var(--border);border-radius:8px;padding:16px}
+table.api{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 8px}
+table.api th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-foreground);padding:8px 10px;border-bottom:1px solid var(--border)}
+table.api td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+table.api td:first-child{font-family:var(--font-mono);font-size:12.5px;white-space:nowrap}
+.dep-chips{display:flex;gap:8px;flex-wrap:wrap}
+.dep{font-family:var(--font-mono);font-size:12.5px;border:1px solid var(--border);background:var(--muted);border-radius:999px;padding:4px 13px;text-decoration:none}
+.dep:hover{border-color:var(--ring);color:var(--foreground)}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.rel-grid{grid-template-columns:1fr}}
+.rel{border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;background:var(--card)}
+.rel:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.10)}
+.rel b{display:block;font-size:14px}.rel span{font-size:12.5px;color:var(--muted-foreground)}
+.toc{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:32px 0 40px 8px;font-size:13.5px}
+.toc h5{font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:0 0 10px}
+.toc a{display:block;color:var(--muted-foreground);text-decoration:none;padding:4px 0 4px 12px;border-left:2px solid var(--border)}
+.toc a.spy{color:var(--foreground);border-left-color:var(--ring)}
+@media(max-width:1100px){.docs{grid-template-columns:270px minmax(0,1fr)}.toc{display:none}}
+@media(max-width:760px){.docs{grid-template-columns:minmax(0,1fr)}.sidebar{display:none}.top-links{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:var(--d150) !important}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html">Docs</a><a href="05-components-index.html">Components</a><a href="06-themes.html">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right"><button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</div></header>
+<div class="docs">
+<aside class="sidebar" aria-label="Component navigation">
+  <p class="side-sec">Components · Form</p>
+  <a class="side-link" href="03-component-button.html" aria-current="page">Button</a>
+  <a class="side-link" href="#">Input</a><a class="side-link" href="#">Checkbox</a><a class="side-link" href="#">Select</a>
+  <p class="side-sec">Components · Overlay</p>
+  <a class="side-link" href="04-component-dialog.html">Dialog</a><a class="side-link" href="#">Drawer</a><a class="side-link" href="#">Popover</a>
+</aside>
+<main class="content">
+  <nav class="crumb" aria-label="Breadcrumb"><a href="01-landing.html">Home</a> / <a href="05-components-index.html">Components</a> / Button</nav>
+  <section data-od-id="button-header" id="sec-top">
+  <div class="title-row"><h1>Button</h1><span class="badge">1 file</span><span class="badge">stable</span></div>
+  <p class="lede">One consolidated widget with a variant table — no class-per-variant. Clickable primitive owns hover, focus, press, keyboard, and semantics.</p>
+  <div class="tabs" role="tablist" aria-label="Install method">
+    <button role="tab" aria-selected="true" data-tab="cli">CLI</button>
+    <button role="tab" aria-selected="false" data-tab="manual">Manual copy</button>
+  </div>
+  <div class="panel" id="panel-cli"><div class="codeblock"><button class="copy-btn" data-copy="flutter_shadcn add button">Copy</button><span class="c">$</span> flutter_shadcn add <span class="s">button</span></div></div>
+  <div class="panel" id="panel-manual" hidden><div class="codeblock"><button class="copy-btn" data-copy="cp registry/components/button/button.dart lib/ui/shadcn/">Copy</button><span class="c"># copy these into lib/ui/shadcn/</span><br>button/button.dart <span class="c">← widget + variants</span><br>button/button_style.dart <span class="c">← registry-owned defaults</span><br>button/button_theme.dart <span class="c">← your overrides (keep)</span></div></div>
+  </section>
+  <section data-od-id="button-preview" id="sec-preview"><h2>Preview</h2>
+  <div class="preview-card">
+    <div class="preview-stage"><button class="demo-btn v-primary s-md" id="demoBtn">Get started</button></div>
+    <div class="controls">
+      <div class="ctl"><label for="ctlVariant">Variant</label><select id="ctlVariant"><option value="v-primary">primary</option><option value="v-secondary">secondary</option><option value="v-outline">outline</option><option value="v-ghost">ghost</option><option value="v-destructive">destructive</option></select></div>
+      <div class="ctl"><label for="ctlSize">Size</label><select id="ctlSize"><option value="s-sm">sm</option><option value="s-md" selected>default</option><option value="s-lg">lg</option><option value="s-icon">icon</option></select></div>
+      <div class="ctl"><label>Mode</label><div class="seg" id="ctlMode"><button aria-pressed="false">light</button><button aria-pressed="true">dark</button></div></div>
+      <div class="ctl"><label for="ctlPreset">Preset</label><select id="ctlPreset"><option>modern-minimal</option><option>tangerine</option></select></div>
+      <div class="ctl"><div class="check-row"><button class="sw" id="ctlDisabled" aria-pressed="false" aria-label="Disabled state"></button><span>Disabled</span></div></div>
+    </div>
+  </div></section>
+  <section data-od-id="button-examples" id="sec-examples"><h2>Examples</h2>
+  <div class="ex-grid">
+    <div class="ex"><h3>With icon</h3><p>Leading icon keeps 8px gap at every size.</p><div class="stage"><button class="demo-btn v-primary s-md">＋ New project</button><button class="demo-btn v-outline s-md">Export →</button></div></div>
+    <div class="ex"><h3>Loading</h3><p>Spinner swaps in; width is preserved to avoid jumps.</p><div class="stage"><button class="demo-btn v-secondary s-md" disabled>Saving…</button></div></div>
+    <div class="ex"><h3>As link</h3><p>Ghost variant inside navigation and menus.</p><div class="stage"><button class="demo-btn v-ghost s-md">Documentation</button></div></div>
+    <div class="ex"><h3>Destructive</h3><p>Reserved for irreversible actions; always paired with a confirm dialog.</p><div class="stage"><button class="demo-btn v-destructive s-md">Delete account</button></div></div>
+  </div></section>
+  <section data-od-id="button-api" id="sec-api"><h2>API</h2>
+  <table class="api"><thead><tr><th>Param</th><th>Type</th><th>Default</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>variant</td><td>ButtonVariant</td><td>.primary</td><td>primary · secondary · outline · ghost · destructive</td></tr>
+    <tr><td>size</td><td>ButtonSize</td><td>.md</td><td>sm · md · lg · icon</td></tr>
+    <tr><td>onPressed</td><td>VoidCallback?</td><td>null</td><td>null renders the disabled state</td></tr>
+    <tr><td>child</td><td>Widget</td><td>—</td><td>label, icon, or row</td></tr>
+    <tr><td>loading</td><td>bool</td><td>false</td><td>preserves width while busy</td></tr>
+  </tbody></table>
+  <h2>Theme fields <span class="badge">button_theme.dart · user-owned</span></h2>
+  <table class="api"><thead><tr><th>Field</th><th>Type</th><th>Default</th></tr></thead><tbody>
+    <tr><td>primary</td><td>Color?</td><td>ThemeRef.primary</td></tr>
+    <tr><td>radius</td><td>double?</td><td>ThemeRef.radius</td></tr>
+    <tr><td>heightMd</td><td>double?</td><td>40</td></tr>
+    <tr><td>labelStyle</td><td>TextStyle?</td><td>w600 · 14sp</td></tr>
+  </tbody></table></section>
+  <section data-od-id="button-a11y" id="sec-a11y"><h2>Keyboard &amp; accessibility</h2>
+  <table class="api"><thead><tr><th>Key</th><th>Behaviour</th></tr></thead><tbody>
+    <tr><td>Tab / Shift+Tab</td><td>Moves focus; visible ring from the <code>ring</code> token</td></tr>
+    <tr><td>Enter / Space</td><td>Activates; Space fires on key-up</td></tr>
+    <tr><td>Disabled</td><td>Removed from tab order, announced dimmed</td></tr>
+  </tbody></table></section>
+  <section data-od-id="button-deps" id="sec-deps"><h2>Dependencies</h2>
+  <div class="dep-chips"><a class="dep" href="#">primitives/clickable</a><a class="dep" href="#">theme/tokens</a><a class="dep" href="#">primitives/focus</a></div>
+  <h2>Related</h2>
+  <div class="rel-grid"><a class="rel" href="#"><b>Toggle</b><span>two-state button</span></a><a class="rel" href="#"><b>Button group</b><span>joined actions</span></a><a class="rel" href="04-component-dialog.html"><b>Dialog</b><span>confirm pattern</span></a></div></section>
+</main>
+<aside class="toc" aria-label="On this page"><h5>On this page</h5>
+  <a href="#sec-top" class="spy">Install</a><a href="#sec-preview">Preview</a><a href="#sec-examples">Examples</a><a href="#sec-api">API</a><a href="#sec-a11y">Accessibility</a><a href="#sec-deps">Dependencies</a>
+</aside>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');syncMode();});
+  var tabs=document.querySelectorAll('[data-tab]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected',x===t?'true':'false');});
+    document.getElementById('panel-cli').hidden=t.getAttribute('data-tab')!=='cli';
+    document.getElementById('panel-manual').hidden=t.getAttribute('data-tab')!=='manual';});});
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    if(navigator.clipboard){navigator.clipboard.writeText(b.getAttribute('data-copy')).catch(function(){});}
+    var old=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=old;},1500);});});
+  var demo=document.getElementById('demoBtn');
+  document.getElementById('ctlVariant').addEventListener('change',function(e){demo.className=demo.className.replace(/v-\w+/,'');demo.classList.add(e.target.value);});
+  document.getElementById('ctlSize').addEventListener('change',function(e){demo.className=demo.className.replace(/s-\w+/,'');demo.classList.add(e.target.value);if(e.target.value==='s-icon'){demo.textContent='＋';}else{demo.textContent='Get started';}});
+  var dis=document.getElementById('ctlDisabled');
+  dis.addEventListener('click',function(){var on=dis.getAttribute('aria-pressed')==='true';dis.setAttribute('aria-pressed',on?'false':'true');demo.disabled=!on;});
+  var modeBtns=document.querySelectorAll('#ctlMode button');
+  function syncMode(){var light=root.getAttribute('data-theme')==='light';modeBtns[0].setAttribute('aria-pressed',light?'true':'false');modeBtns[1].setAttribute('aria-pressed',light?'false':'true');}
+  modeBtns[0].addEventListener('click',function(){root.setAttribute('data-theme','light');syncMode();});
+  modeBtns[1].addEventListener('click',function(){root.setAttribute('data-theme','dark');syncMode();});
+  document.getElementById('ctlPreset').addEventListener('change',function(e){root.setAttribute('data-preset',e.target.value);});
+  var links=document.querySelectorAll('.toc a');
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(l){l.classList.toggle('spy',l.getAttribute('href')==='#'+en.target.id);});}});},{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s);});
+})();
+</script>
+</body>
+</html>

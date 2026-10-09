@@ -155,6 +155,70 @@ class ComponentApiSection extends StatelessWidget {
   }
 }
 
+/// The Members section: the declared static methods, factories, constants and
+/// functions of a static/factory-first component.
+///
+/// The rows come from the generated `table.members` list (the codegen reads the
+/// manifest's `api.methods` / `api.constants` / `api.functions` entries), so
+/// components like `formatter`, `anchor`, `overlay_configuration` and `color`
+/// show their real entry points instead of an empty parameter table.
+class ComponentMembersSection extends StatelessWidget {
+  /// Creates the section for [componentId].
+  const ComponentMembersSection({super.key, required this.componentId});
+
+  /// The registry component id.
+  final String componentId;
+
+  @override
+  Widget build(BuildContext context) {
+    final DocsApiTable table = kApiTables[componentId]!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const HeadingAnchor(id: 'members', title: 'Members'),
+        TypesetParagraph(
+          '${table.members.length} declared '
+          '${table.members.length == 1 ? 'entry point' : 'entry points'} on '
+          '${table.symbol}.',
+        ),
+        const Gap(16),
+        TypesetTable(
+          headers: const <String>[
+            'Member',
+            'Kind',
+            'Parameters',
+            'Description',
+          ],
+          rows: <TypesetRow>[
+            for (final DocsApiMember member in table.members)
+              TypesetRow(<TypesetCell>[
+                TypesetCell(text: member.name, mono: true),
+                TypesetCell(text: _kindLabel(member)),
+                TypesetCell(
+                  text: member.params.isEmpty
+                      ? '—'
+                      : member.params
+                            .map(
+                              (DocsApiParam param) =>
+                                  '${param.name}${param.isRequired ? '' : '?'}',
+                            )
+                            .join(', '),
+                  mono: true,
+                ),
+                TypesetCell(text: member.doc ?? ''),
+              ]),
+          ],
+        ),
+      ],
+    );
+  }
+
+  static String _kindLabel(DocsApiMember member) {
+    final String kind = member.kind;
+    return member.isStatic && kind != 'constructor' ? 'static $kind' : kind;
+  }
+}
+
 /// The Theme section: theme fields as a typeset table.
 class ComponentThemeSection extends StatelessWidget {
   /// Creates the section for [componentId].

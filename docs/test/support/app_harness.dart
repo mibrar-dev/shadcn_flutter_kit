@@ -3,7 +3,6 @@
 // Pumps the real `DocsApp` with in-memory storage and a deterministic
 // viewport; exposes helpers to navigate and open the palette.
 
-import 'package:docs/generated/app_theme.dart';
 import 'package:docs/main.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/state/docs_state.dart';
@@ -36,6 +35,7 @@ Future<DocsRouterDelegate> pumpDocsApp(
   double height = 900,
   Brightness platformBrightness = Brightness.dark,
   Map<String, String>? storage,
+  DocsStorage? docsStorage,
 }) async {
   tester.view.physicalSize = Size(width, height);
   tester.view.devicePixelRatio = 1;
@@ -44,8 +44,7 @@ Future<DocsRouterDelegate> pumpDocsApp(
   addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
 
   docsState = DocsState(
-    resolveTheme: buildDocsTheme,
-    storage: MemoryDocsStorage(storage),
+    storage: docsStorage ?? MemoryDocsStorage(storage),
     systemBrightness: platformBrightness,
   );
   addTearDown(docsState.dispose);

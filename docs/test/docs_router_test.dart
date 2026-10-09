@@ -1,6 +1,5 @@
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/state/docs_state.dart';
-import 'package:docs/ui/shadcn/theme/theme.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -154,10 +153,7 @@ Future<DocsRouterDelegate> _pumpRouter(
   FocusNode? trigger,
 }) async {
   final DocsRouterDelegate delegate = DocsRouterDelegate(
-    state: DocsState(
-      resolveTheme: (String preset, Brightness brightness) =>
-          const ShadcnThemeData(),
-    ),
+    state: DocsState(storage: const DocsStorage()),
     pageBuilder: (BuildContext context, DocsRouteConfiguration config) =>
         Text(config.title, textDirection: TextDirection.ltr),
     paletteBuilder: (BuildContext context, VoidCallback close) => Focus(

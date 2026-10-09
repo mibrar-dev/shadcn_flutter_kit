@@ -97,6 +97,8 @@ class _ComponentPageState extends State<ComponentPage> {
           ComponentInstallBlock(componentId: widget.componentId),
           ComponentUsageSection(componentId: widget.componentId),
           ComponentApiSection(componentId: widget.componentId),
+          if (_hasMembers(widget.componentId))
+            ComponentMembersSection(componentId: widget.componentId),
           if (_hasThemeTable(widget.componentId))
             ComponentThemeSection(componentId: widget.componentId),
           if (_hasKeyboardRows(widget.componentId))
@@ -104,6 +106,10 @@ class _ComponentPageState extends State<ComponentPage> {
         ],
       ),
     );
+  }
+
+  static bool _hasMembers(String id) {
+    return kApiTables[id]!.members.isNotEmpty;
   }
 
   static bool _hasThemeTable(String id) {
@@ -141,6 +147,7 @@ class _PreviewCard extends StatelessWidget {
             CodeTeaser(
               code: _SnippetCode(snippet: snippets.first),
               copyText: component.install,
+              language: snippets.first.language,
             ),
         ],
       ),

@@ -13,7 +13,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import 'generated/app_theme.dart';
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
 import 'pages/cli_reference.dart';
@@ -39,7 +38,7 @@ import 'widgets/palette.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final DocsState state = DocsState(
-    resolveTheme: buildDocsTheme,
+    storage: const DocsStorage(),
     systemBrightness:
         WidgetsBinding.instance.platformDispatcher.platformBrightness,
   )..restore();

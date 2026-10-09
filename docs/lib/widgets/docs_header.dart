@@ -21,6 +21,7 @@ import '../ui/shadcn/theme/color_tokens.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../web_bridge.dart';
 import 'docs_footer.dart' show kDocsRepoUrl;
+import 'get_code_dialog.dart';
 import 'docs_tokens.dart';
 
 /// The site header.
@@ -149,12 +150,23 @@ class DocsHeader extends StatelessWidget {
           ),
           if (showCta) ...<Widget>[
             const Gap(8),
-            Button(
-              variant: ButtonVariant.primary,
-              size: ButtonSize.sm,
-              onPressed: () => delegate.go(context, '/docs/installation'),
-              child: const Text('Get Started'),
-            ),
+            if (currentLocation == '/themes')
+              // Spec §2.7: on `/create`/`/themes` the header swaps the primary
+              // CTA for `Get Code`, which opens the export dialog.
+              Button(
+                key: const ValueKey<String>('docs-header-get-code'),
+                variant: ButtonVariant.primary,
+                size: ButtonSize.sm,
+                onPressed: () => showGetCodeDialog(context, state.themeModel),
+                child: const Text('Get Code'),
+              )
+            else
+              Button(
+                variant: ButtonVariant.primary,
+                size: ButtonSize.sm,
+                onPressed: () => delegate.go(context, '/docs/installation'),
+                child: const Text('Get Started'),
+              ),
           ],
         ],
       ),

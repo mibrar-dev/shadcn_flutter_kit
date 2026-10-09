@@ -1,7 +1,12 @@
-// The collapsed code teaser inside a component preview card (spec §2.4):
-// a 3-line source preview (109 px) with a bottom gradient and a centred
-// "View Code" button; expanding shows up to 289 px with a copy button at the
-// top-right. D4 passes the highlighted snippet widget as [code].
+// The collapsed code teaser inside a component preview card (spec §2.4).
+//
+// Collapsed: a 109 px peek of the source with a bottom gradient and a centred
+// outline `View Code` button. Expanded: the full 289 px pane (`max-h-72` plus
+// the 1 px top border), a copy button at the top-right and a registry
+// `FadeScroll` fade on both scroll edges.
+//
+// The highlighted spans come from the caller so every preview can pass its own
+// language (`dart`, `bash`, `json`) to the registry `syntax_highlight`.
 
 import 'package:flutter/widgets.dart';
 
@@ -18,6 +23,7 @@ class CodeTeaser extends StatefulWidget {
     super.key,
     required this.code,
     this.copyText,
+    this.language,
     this.collapsedHeight = DocsMetrics.codeTeaserHeight,
     this.expandedHeight = 289,
   });
@@ -27,6 +33,10 @@ class CodeTeaser extends StatefulWidget {
 
   /// When non-null, a copy button appears once expanded.
   final String? copyText;
+
+  /// The language label of the pane (`dart`, `bash`, `json`); shown next to
+  /// the copy button once expanded.
+  final String? language;
 
   /// Collapsed pane height (spec: 109 px).
   final double collapsedHeight;
@@ -85,6 +95,7 @@ class _CodeTeaserState extends State<CodeTeaser> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Button(
+                    key: const ValueKey<String>('code-teaser-view-code'),
                     variant: ButtonVariant.outline,
                     size: ButtonSize.sm,
                     theme: ButtonVariantStyle(
@@ -101,12 +112,29 @@ class _CodeTeaserState extends State<CodeTeaser> {
             ),
           if (_expanded && widget.copyText != null)
             Positioned(
-              top: 12,
+              top: 8,
               right: 16,
-              child: CopyButton(
-                text: widget.copyText!,
-                variant: ButtonVariant.ghost,
-                size: ButtonSize.sm,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  if (widget.language case final String language)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Text(
+                        language,
+                        style: docsText(
+                          context,
+                          size: 11,
+                          color: site.codeNumber,
+                        ),
+                      ),
+                    ),
+                  CopyButton(
+                    text: widget.copyText!,
+                    variant: ButtonVariant.ghost,
+                    size: ButtonSize.sm,
+                  ),
+                ],
               ),
             ),
         ],
@@ -115,7 +143,7 @@ class _CodeTeaserState extends State<CodeTeaser> {
   }
 }
 
-/// A hairline above expanded code panes (thin helper for D4's cards).
+/// A hairline above expanded code panes (thin helper for the cards).
 class CodePaneDivider extends StatelessWidget {
   /// Creates the divider.
   const CodePaneDivider({super.key});

@@ -1,4 +1,3 @@
-import 'package:docs/generated/app_theme.dart';
 import 'package:docs/main.dart';
 import 'package:docs/motion/ease.dart';
 import 'package:docs/routing/docs_router.dart';
@@ -25,7 +24,6 @@ Future<DocsState> _pumpApp(WidgetTester tester) async {
   tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
   addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
   final DocsState state = DocsState(
-    resolveTheme: buildDocsTheme,
     storage: _MemoryStorage(),
     systemBrightness: Brightness.dark,
   );

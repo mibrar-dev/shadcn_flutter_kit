@@ -546,3 +546,6 @@
 - 100 captures of our site (88 matrix + 12 states), 74 montages (rearch/design/ours/), P1 deltas fixed (incl. a shadowed
   `language` field that broke dart2js, stale state captures), rearch/reports/P6_UI_CHECK.md per-route table; docs 88 tests,
   analyze 0, release build OK.
+
+## P4-T5b syntax polish (step-5 free) — ACCEPTED (r2): scanners split (all ≤ 400), per-language goldens (c_like/markup/script) + fuzz over every registry .dart; r2 FIXED 2 bugs it had locked in goldens (YAML adjacent raw literals missing '|' → quoted values coloured; Dart ALL_CAPS → constant before type). theme.dart stays ~470 (moving more contradicts plan §6.5 — accepted). Gates: kit 2756 + 42, analyze 0, layers back to 8 known warnings.
+## P6-D7 Theme Studio (space-bunny free) — CHECKPOINT (interrupted by inactivity during captures; no report yet): docs 123 tests, analyze 0; continuing for captures + report.

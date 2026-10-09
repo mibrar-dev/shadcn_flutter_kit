@@ -489,4 +489,130 @@ void main() {
       // (button, input, select) and is covered there.
     });
   });
+
+  group('responsive controls', () {
+    Future<void> pumpAt(
+      WidgetTester tester,
+      double width, {
+      bool showAlpha = true,
+      VoidCallback? onEyeDropperRequested,
+      ValueChanged<ColorPickerMode>? onModeChanged,
+    }) async {
+      // Wide pickers are as tall as they are wide (the square pad); give the
+      // responsive tests room so only horizontal overflow can fail.
+      tester.view.physicalSize = const Size(900, 1000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      final Widget picker = RecentColorsScope(
+        initialRecentColors: const <Color>[_green],
+        child: ColorPicker(
+          value: ColorDerivative.fromColor(_red),
+          showAlpha: showAlpha,
+          onChanged: (_) {},
+          onModeChanged: onModeChanged,
+          onEyeDropperRequested: onEyeDropperRequested,
+        ),
+      );
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pumpWidget(_frame(SizedBox(width: width, child: picker)));
+      await tester.pump();
+    }
+
+    testWidgets('the one-line width is unchanged (popover intrinsic)', (
+      tester,
+    ) async {
+      final double withAlpha = colorPickerControlsWidth(
+        mode: ColorPickerMode.rgb,
+        showAlpha: true,
+        leadingButtons: 2,
+        controlSpacing: 8,
+      );
+      final double withoutAlpha = colorPickerControlsWidth(
+        mode: ColorPickerMode.rgb,
+        showAlpha: false,
+        leadingButtons: 2,
+        controlSpacing: 8,
+      );
+      expect(withAlpha, 464, reason: 'the accepted popover width');
+      expect(withoutAlpha, 392);
+      expect(
+        colorPickerControlsWidth(
+          mode: ColorPickerMode.hex,
+          showAlpha: true,
+          leadingButtons: 2,
+          controlSpacing: 8,
+        ),
+        344,
+        reason: 'hex field 88 + alpha field 64',
+      );
+
+      await _pump(tester, showAlpha: true);
+      expect(tester.getSize(find.byType(ColorPicker)).width, withAlpha);
+      await _pump(tester);
+      expect(tester.getSize(find.byType(ColorPicker)).width, withoutAlpha);
+    });
+
+    testWidgets('one run at the one-line width, extra runs below it', (
+      tester,
+    ) async {
+      final double oneLine = colorPickerControlsWidth(
+        mode: ColorPickerMode.rgb,
+        showAlpha: true,
+        leadingButtons: 2,
+        controlSpacing: 8,
+      );
+      await pumpAt(tester, oneLine);
+      final double selectDy = tester
+          .getCenter(find.byType(Select<ColorPickerMode>))
+          .dy;
+      for (int i = 0; i < 4; i++) {
+        expect(
+          tester.getCenter(find.byType(Input).at(i)).dy,
+          selectDy,
+          reason: 'field $i stays on the single run at $oneLine px',
+        );
+      }
+      expect(tester.getCenter(find.byIcon(LucideIcons.pipette)).dy, selectDy);
+      expect(tester.getCenter(find.byIcon(LucideIcons.history)).dy, selectDy);
+
+      await pumpAt(tester, oneLine - 1);
+      expect(
+        tester.getCenter(find.byType(Input).at(3)).dy,
+        greaterThan(selectDy),
+        reason: 'the last field wraps below the select',
+      );
+    });
+
+    testWidgets('no overflow and every control is hittable at 280/360/480', (
+      tester,
+    ) async {
+      WidgetController.hitTestWarningShouldBeFatal = true;
+      addTearDown(() => WidgetController.hitTestWarningShouldBeFatal = false);
+      for (final double width in <double>[280, 360, 480]) {
+        await pumpAt(
+          tester,
+          width,
+          onEyeDropperRequested: () {},
+          onModeChanged: (_) {},
+        );
+        expect(tester.takeException(), isNull, reason: 'overflow at $width');
+
+        for (int i = 0; i < 4; i++) {
+          await tester.tap(find.byType(Input).at(i));
+          await tester.pump();
+          expect(tester.takeException(), isNull, reason: 'field $i at $width');
+        }
+        await tester.tap(find.byIcon(LucideIcons.pipette));
+        await tester.pump();
+        await tester.tap(find.byIcon(LucideIcons.history));
+        await tester.pump();
+        await tester.tap(find.byIcon(LucideIcons.history));
+        await tester.pump();
+        // The mode dropdown opens and selects (same field count: RGB <-> HSV).
+        await _openModeMenu(tester, 'HSV');
+        await _openModeMenu(tester, 'RGB');
+        expect(tester.takeException(), isNull, reason: 'controls at $width');
+      }
+    });
+  });
 }

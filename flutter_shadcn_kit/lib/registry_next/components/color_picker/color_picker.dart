@@ -2,10 +2,9 @@
 // fields, an optional alpha channel, colour history and screen sampling.
 //
 // Widgets-only. The pad and channel bars are the accepted `hsv`/`hsl`
-// sliders (painters/types stay owned there); the controls row reuses `Select`,
-// `Input`, `history` and `eye_dropper`; channel-field machinery lives in
-// `color_picker_style.dart`. See README for the fixed old bugs (pad followed
-// `initialMode`, history needed a scope, HEX reset alpha, mixed alpha scales).
+// sliders; the controls row reuses `Select`, `Input`, `history` and
+// `eye_dropper` and reflows on narrow widths (`color_picker_style.dart`).
+// See README for the fixed old bugs.
 
 import 'package:flutter/widgets.dart';
 
@@ -27,14 +26,6 @@ export 'color_picker_style.dart';
 
 /// A full colour picker: a pad plus hue/alpha bars, a mode dropdown, live
 /// numeric fields, optional colour history and an eye-dropper button.
-///
-/// ```dart
-/// ColorPicker(
-///   value: ColorDerivative.fromColor(const Color(0xFF0080FF)),
-///   showAlpha: true,
-///   onChanged: (value) => setState(() => _color = value),
-/// )
-/// ```
 class ColorPicker extends StatefulWidget {
   const ColorPicker({
     super.key,
@@ -154,12 +145,16 @@ class _ColorPickerState extends State<ColorPicker> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           if (showGrid)
-            ColorHistoryGrid(
-              storage: history,
-              onColorPicked: _pickHistoryColor,
-              selectedColor: value.toColor(),
-              crossAxisCount: orientation == Axis.vertical ? 10 : 2,
-              maxTotalColors: orientation == Axis.vertical ? null : 14,
+            // Narrow pickers scroll the fixed-width grid instead of overflowing.
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: ColorHistoryGrid(
+                storage: history,
+                onColorPicked: _pickHistoryColor,
+                selectedColor: value.toColor(),
+                crossAxisCount: orientation == Axis.vertical ? 10 : 2,
+                maxTotalColors: orientation == Axis.vertical ? null : 14,
+              ),
             )
           else ...<Widget>[
             if (orientation == Axis.horizontal) Flexible(child: pad) else pad,
@@ -261,7 +256,10 @@ class _ColorPickerState extends State<ColorPicker> {
 }
 
 /// The controls row of a `ColorPicker`: eye-dropper and history buttons, the
-/// mode `Select` and the live channel fields (the old `ColorControls`).
+/// 96 px mode `Select` and the live channel fields (the old `ColorControls`).
+///
+/// A [Wrap] sized to its one-line width ([colorPickerControlsWidth]) keeps the
+/// popover look unchanged; narrower widths wrap onto extra runs.
 class ColorPickerControls extends StatelessWidget {
   const ColorPickerControls({
     super.key,
@@ -317,9 +315,7 @@ class ColorPickerControls extends StatelessWidget {
 
   Future<void> _pickColor(BuildContext context) async {
     final Color? picked = await pickColorFromScreen(context, history);
-    if (picked != null) {
-      onChanged(value.changeToColor(picked));
-    }
+    if (picked != null) onChanged(value.changeToColor(picked));
   }
 
   @override
@@ -333,54 +329,62 @@ class ColorPickerControls extends StatelessWidget {
       showAlpha: showAlpha,
       onChanged: onChanged,
     );
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        if (enableEyeDropper || historyToggle) ...<Widget>[
-          ButtonGroup.horizontal(
-            children: <Widget>[
-              if (enableEyeDropper)
-                Button(
-                  variant: ButtonVariant.outline,
-                  size: ButtonSize.icon,
-                  onPressed: onEyeDropperRequested ?? () => _pickColor(context),
-                  child: const Icon(LucideIcons.pipette),
-                ),
-              if (historyToggle)
-                Button(
-                  variant: showHistory
-                      ? ButtonVariant.primary
-                      : ButtonVariant.outline,
-                  size: ButtonSize.icon,
-                  onPressed: onToggleHistory,
-                  child: const Icon(LucideIcons.history),
-                ),
-            ],
+    final int leadingButtons =
+        (enableEyeDropper ? 1 : 0) + (historyToggle ? 1 : 0);
+    return SizedBox(
+      width: colorPickerControlsWidth(
+        mode: mode,
+        showAlpha: showAlpha,
+        leadingButtons: leadingButtons,
+        controlSpacing: controlSpacing,
+      ),
+      child: Wrap(
+        spacing: controlSpacing,
+        runSpacing: controlSpacing,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: <Widget>[
+          if (leadingButtons > 0)
+            ButtonGroup.horizontal(
+              children: <Widget>[
+                if (enableEyeDropper)
+                  Button(
+                    variant: ButtonVariant.outline,
+                    size: ButtonSize.icon,
+                    onPressed:
+                        onEyeDropperRequested ?? () => _pickColor(context),
+                    child: const Icon(LucideIcons.pipette),
+                  ),
+                if (historyToggle)
+                  Button(
+                    variant: showHistory
+                        ? ButtonVariant.primary
+                        : ButtonVariant.outline,
+                    size: ButtonSize.icon,
+                    onPressed: onToggleHistory,
+                    child: const Icon(LucideIcons.history),
+                  ),
+              ],
+            ),
+          SizedBox(
+            width: 96,
+            child: Select<ColorPickerMode>(
+              value: mode,
+              onChanged: (next) {
+                if (next != null) onModeChanged?.call(next);
+              },
+              itemBuilder: (context, value) => Text(_modeLabel(l10n, value)),
+              items: <Widget>[
+                for (final ColorPickerMode item in ColorPickerMode.values)
+                  SelectItem<ColorPickerMode>(
+                    value: item,
+                    child: Text(_modeLabel(l10n, item)),
+                  ),
+              ],
+            ),
           ),
-          Gap(controlSpacing),
+          ...fields,
         ],
-        SizedBox(
-          width: 96,
-          child: Select<ColorPickerMode>(
-            value: mode,
-            onChanged: (next) {
-              if (next != null) onModeChanged?.call(next);
-            },
-            itemBuilder: (context, value) => Text(_modeLabel(l10n, value)),
-            items: <Widget>[
-              for (final ColorPickerMode item in ColorPickerMode.values)
-                SelectItem<ColorPickerMode>(
-                  value: item,
-                  child: Text(_modeLabel(l10n, item)),
-                ),
-            ],
-          ),
-        ),
-        for (final Widget field in fields) ...<Widget>[
-          Gap(controlSpacing),
-          field,
-        ],
-      ],
+      ),
     );
   }
 }

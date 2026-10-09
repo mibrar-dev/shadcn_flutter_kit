@@ -36,7 +36,8 @@
       "ColorPickerTheme"
     ],
     "enums": ["ColorPickerMode"],
-    "constants": ["colorPickerDefaults", "colorPickerThemeOverrides"]
+    "constants": ["colorPickerDefaults", "colorPickerThemeOverrides"],
+    "functions": ["colorPickerControlsWidth", "colorPickerFields"]
   },
   "theme": {
     "class": "ColorPickerTheme",

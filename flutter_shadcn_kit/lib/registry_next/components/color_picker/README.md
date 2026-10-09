@@ -71,6 +71,10 @@ EyeDropperLayer(
   the other modes drive the HSV pad.
 - `ColorPickerControls` — the registry-owned controls row (buttons, mode
   select, channel fields); public for composition, normally not used directly.
+  It reflows: one run at its one-line width
+  (`colorPickerControlsWidth`, the picker's popover/intrinsic width) and extra
+  runs below on narrower widths (narrow dialogs, phones), so it never
+  overflows.
 - `ColorPickerTheme` — per-component style; `colorPickerDefaults`,
   `colorPickerThemeOverrides`.
 

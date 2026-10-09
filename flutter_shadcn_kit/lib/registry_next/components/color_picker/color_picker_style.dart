@@ -112,6 +112,45 @@ const ColorPickerTheme colorPickerDefaults = ColorPickerTheme(
   sliderSize: 24,
 );
 
+/// Width of one numeric channel field (R/G/B or H/S/V, and alpha).
+const double _numberFieldWidth = 64;
+
+/// Width of the hex channel field.
+const double _hexFieldWidth = 88;
+
+/// Width of the mode dropdown in the controls row.
+const double _modeWidth = 96;
+
+/// Width of one icon button in the controls row (`ButtonSize.icon`).
+const double _buttonWidth = 36;
+
+/// One-line width of the controls row for [mode] with [showAlpha] and
+/// [leadingButtons] optional leading icon buttons, given [controlSpacing].
+///
+/// The controls row is a [Wrap] inside a box of this width: on one line when
+/// there is room (the popover's intrinsic width, so its look is unchanged) and
+/// wrapped onto extra runs below it when the available width is smaller (a
+/// narrow dialog or phone). Keep the constants above in sync with the widgets
+/// in `color_picker.dart` — the responsive tests pin this value to the real
+/// layout.
+double colorPickerControlsWidth({
+  required ColorPickerMode mode,
+  required bool showAlpha,
+  required int leadingButtons,
+  required double controlSpacing,
+}) {
+  final bool hex = mode == ColorPickerMode.hex;
+  final int numericFields = (hex ? 0 : 3) + (showAlpha ? 1 : 0);
+  final int hexFields = hex ? 1 : 0;
+  final double buttons = leadingButtons == 0
+      ? 0
+      : leadingButtons * _buttonWidth + controlSpacing;
+  return _modeWidth +
+      buttons +
+      numericFields * (controlSpacing + _numberFieldWidth) +
+      hexFields * (controlSpacing + _hexFieldWidth);
+}
+
 /// Builds the live channel fields for [mode]: RGB or HSL/HSV triplets, or a
 /// hex field, plus the alpha field when [showAlpha] is set.
 ///
@@ -130,7 +169,7 @@ List<Widget> colorPickerFields(
       _ColorChannelField(
         value: colorToHex(value.toColor()),
         placeholder: Text(l10n.colorPickerTabHEX),
-        width: 88,
+        width: _hexFieldWidth,
         onChanged: (String next) {
           final ColorDerivative? parsed = ColorDerivative.fromHex(next);
           if (parsed != null) {
@@ -246,7 +285,7 @@ class _ColorChannelField extends StatefulWidget {
     required this.placeholder,
     this.min,
     this.max,
-    this.width = 64,
+    this.width = _numberFieldWidth,
   });
 
   final String value;

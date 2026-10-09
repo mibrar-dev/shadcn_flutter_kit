@@ -420,3 +420,8 @@
 ## P4-B25a text_animate (+ primitives/streaming_text/) (muse-spark-1.3-contributor#xhigh) — ACCEPTED (r1)
 - 2,337 old LOC rebuilt on the accepted markdown + markdown_parser; reduced motion respected. qa_batch: layout clean
   (max 394), 29 component + 20 primitive tests pass, layers clean, owner 0, theme 0.
+
+## P4-B25b color_input (+ color_picker responsive controls) (deepseek-v4.1-flash#max) — ACCEPTED (r2) — LAST COMPONENT
+- r1: 29 tests; returned for a FittedBox.scaleDown workaround. r2: color_picker controls wrap (no overflow at 280,
+  unchanged ≥ 480), history grid scrolls horizontally when narrow, FittedBox removed; colorPickerControlsWidth helper
+  accepted. qa_batch color_input + color_picker: 51/51, layers clean, owner 0, theme 0.

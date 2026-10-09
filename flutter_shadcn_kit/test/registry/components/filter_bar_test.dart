@@ -6,8 +6,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
 import 'package:flutter_shadcn_kit/registry/components/filter_bar/filter_bar.dart';
-import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
-import 'package:flutter_shadcn_kit/registry/components/select/select.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';

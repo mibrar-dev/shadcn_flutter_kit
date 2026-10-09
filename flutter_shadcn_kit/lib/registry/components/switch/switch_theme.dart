@@ -13,8 +13,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'switch_style.dart';
 
 /// On/off overrides applied app-wide through `ComponentThemes`.

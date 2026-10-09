@@ -11,8 +11,6 @@
 //     thickness: 2,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'divider_style.dart';
 
 /// Rule overrides applied app-wide through `ComponentThemes`.

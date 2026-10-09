@@ -16,7 +16,6 @@
 // scenes reuse the same widgets with the `violet-bloom` preset tokens/fonts.
 
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/gestures.dart';
@@ -37,7 +36,6 @@ import 'package:flutter_shadcn_kit/registry/primitives/form_core/form_core.dart'
 import 'package:flutter_shadcn_kit/registry/primitives/input_features/adornment_features.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/input_features/input_features.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/input_features/numeric_features.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/focus_outline.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';

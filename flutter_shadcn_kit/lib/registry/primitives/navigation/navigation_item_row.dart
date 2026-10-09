@@ -12,8 +12,6 @@
 // or tooltip presentation (`wrapLabel`), and provides the roving registry
 // through `RovingGroupScope`.
 
-import 'dart:math' as math;
-
 import '../../foundation/geometry.dart';
 import 'package:flutter/widgets.dart';
 

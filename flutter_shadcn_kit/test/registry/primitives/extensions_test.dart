@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/extensions.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/menu_nav.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/slider_value.dart';
-import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 
 Widget _wrap(Widget child) {

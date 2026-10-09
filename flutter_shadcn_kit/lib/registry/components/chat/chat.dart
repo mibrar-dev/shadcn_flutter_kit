@@ -284,11 +284,11 @@ class ChatReaction extends StatelessWidget {
       alignment: side,
       gap: gap ?? 8,
       extraWidth: extraWidth ?? 8,
+      overlap: Row(mainAxisSize: MainAxisSize.min, spacing: 4, children: chips),
       child: ComponentTheme<ChatTheme>(
         data: const ChatTheme(widthFactor: 1.0),
         child: child,
       ),
-      overlap: Row(mainAxisSize: MainAxisSize.min, spacing: 4, children: chips),
     );
   }
 }

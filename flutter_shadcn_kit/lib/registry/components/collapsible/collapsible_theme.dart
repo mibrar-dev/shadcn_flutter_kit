@@ -11,8 +11,6 @@
 //     iconExpanded: IconData(0xe5d7, fontFamily: 'LucideIcons'),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'collapsible_style.dart';
 
 /// Collapsible overrides applied app-wide through `ComponentThemes`.

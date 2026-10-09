@@ -7,8 +7,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/constants.dart';
 import '../../foundation/gap.dart';
-import '../../foundation/icons/lucide_icons.dart';
-import '../../primitives/clickable.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';

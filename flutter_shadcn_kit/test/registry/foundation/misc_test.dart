@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/constants.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/data.dart';

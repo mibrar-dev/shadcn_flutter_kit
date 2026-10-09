@@ -6,7 +6,6 @@
 // hardcoded link blue, `GeistMono`, the throwing `%` slug, the static
 // failed-image cache and every Material import.
 
-import 'package:flutter/semantics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/markdown/markdown.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
@@ -104,7 +103,8 @@ void main() {
       expect(
         tester
             .getSemantics(find.text('Title', findRichText: true))
-            .hasFlag(SemanticsFlag.isHeader),
+            .flagsCollection
+            .isHeader,
         isTrue,
       );
       expect(find.text('Tiny', findRichText: true), findsOneWidget);

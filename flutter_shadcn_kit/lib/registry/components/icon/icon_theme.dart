@@ -11,8 +11,6 @@
 //     iconColor: ThemedColor.ref(ColorRef.secondaryForeground),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'icon_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

@@ -3,7 +3,6 @@
 // search, controller swap/dispose regression, form validation, theme
 // precedence and the bounded country list.
 
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/country_flag/country_flag.dart';
 import 'package:flutter_shadcn_kit/registry/components/form/form.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
 import 'package:flutter_shadcn_kit/registry/components/phone_input/phone_input.dart';
 import 'package:flutter_shadcn_kit/registry/components/select/select.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/countries.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/form_core/form_core.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';

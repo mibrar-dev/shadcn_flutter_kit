@@ -41,19 +41,30 @@ List<TopLevelDecl> collectTopLevelDeclarations(ParsedDartFile file) {
   final declarations = <TopLevelDecl>[];
   for (final member in file.unit.declarations) {
     if (member is ClassDeclaration) {
-      _add(declarations, member.name.lexeme, 'class', file, member);
+      _add(
+        declarations,
+        member.namePart.typeName.lexeme,
+        'class',
+        file,
+        member,
+      );
     } else if (member is MixinDeclaration) {
       _add(declarations, member.name.lexeme, 'mixin', file, member);
     } else if (member is EnumDeclaration) {
-      _add(declarations, member.name.lexeme, 'enum', file, member);
+      _add(declarations, member.namePart.typeName.lexeme, 'enum', file, member);
     } else if (member is ExtensionDeclaration) {
       final name = member.name?.lexeme;
       if (name != null) {
         _add(declarations, name, 'extension', file, member);
       }
-    } else if (member is NamedCompilationUnitMember &&
-        _isExtensionType(member)) {
-      _add(declarations, member.name.lexeme, 'extensionType', file, member);
+    } else if (member is ExtensionTypeDeclaration) {
+      _add(
+        declarations,
+        member.namePart.typeName.lexeme,
+        'extensionType',
+        file,
+        member,
+      );
     } else if (member is TypeAlias) {
       _add(declarations, member.name.lexeme, 'typedef', file, member);
     } else if (member is FunctionDeclaration) {
@@ -65,12 +76,6 @@ List<TopLevelDecl> collectTopLevelDeclarations(ParsedDartFile file) {
     }
   }
   return declarations;
-}
-
-// Analyzer 6.4.1 marks extension type AST nodes experimental; the type test
-// lives here so the reference stays in one place.
-bool _isExtensionType(CompilationUnitMember member) {
-  return member is ExtensionTypeDeclaration; // ignore: experimental_member_use
 }
 
 void _add(

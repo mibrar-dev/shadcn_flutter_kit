@@ -13,7 +13,6 @@ import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/gooey/gooey_content.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/gooey/gooey_shape.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/gooey/gooey_surface.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/toast_queue/toast_entry.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/toast_queue/toast_placement.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';

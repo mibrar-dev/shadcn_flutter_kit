@@ -10,8 +10,6 @@
 //     curve: Curves.easeOutCubic,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'switcher_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

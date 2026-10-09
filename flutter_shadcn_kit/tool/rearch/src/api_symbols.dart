@@ -14,9 +14,12 @@ List<ApiSymbol> extractPublicSymbols(ParsedDartFile file) {
         symbols,
         file,
         'class',
-        member.name.lexeme,
+        member.namePart.typeName.lexeme,
         extra: _classExtra(member),
-        members: _classMembers(member.members, member.name.lexeme),
+        members: _classMembers(
+          member.body.members,
+          member.namePart.typeName.lexeme,
+        ),
       );
     } else if (member is MixinDeclaration) {
       _addSymbol(
@@ -24,18 +27,21 @@ List<ApiSymbol> extractPublicSymbols(ParsedDartFile file) {
         file,
         'mixin',
         member.name.lexeme,
-        members: _classMembers(member.members, member.name.lexeme),
+        members: _classMembers(member.body.members, member.name.lexeme),
       );
     } else if (member is EnumDeclaration) {
       _addSymbol(
         symbols,
         file,
         'enum',
-        member.name.lexeme,
+        member.namePart.typeName.lexeme,
         members: <ApiMember>[
-          for (final constant in member.constants)
+          for (final constant in member.body.constants)
             ApiMember(kind: 'enumConstant', name: constant.name.lexeme),
-          ..._classMembers(member.members, member.name.lexeme),
+          ..._classMembers(
+            member.body.members,
+            member.namePart.typeName.lexeme,
+          ),
         ],
       );
     } else if (member is ExtensionDeclaration) {
@@ -46,14 +52,18 @@ List<ApiSymbol> extractPublicSymbols(ParsedDartFile file) {
           file,
           'extension',
           name,
-          members: _classMembers(member.members, name),
+          members: _classMembers(member.body.members, name),
         );
       }
-    } else if (member is NamedCompilationUnitMember &&
-        _isExtensionType(member)) {
-      // Members of extension types are not extracted: analyzer 6.4.1 exposes
-      // their AST node as experimental and the registry does not use them.
-      _addSymbol(symbols, file, 'extensionType', member.name.lexeme);
+    } else if (member is ExtensionTypeDeclaration) {
+      // Members of extension types are not extracted; the registry does not
+      // use them.
+      _addSymbol(
+        symbols,
+        file,
+        'extensionType',
+        member.namePart.typeName.lexeme,
+      );
     } else if (member is TypeAlias) {
       _addSymbol(
         symbols,
@@ -168,7 +178,7 @@ List<ApiMember> _classMembers(List<ClassMember> members, String className) {
           name: member.name.lexeme,
           extra: <String, Object?>{
             if (member.isStatic) 'static': true,
-            if (member.isAbstract) 'abstract': true,
+            if (member.body is EmptyFunctionBody) 'abstract': true,
             if (member.isOperator) 'operator': true,
             'type': _typeText(member.returnType),
             if (!member.isGetter) 'parameters': _parameters(member.parameters),
@@ -221,19 +231,12 @@ Map<String, Object?> _parameter(FormalParameter parameter) {
 }
 
 (String, String?) _nameAndType(FormalParameter parameter) {
-  final unwrapped = parameter is DefaultFormalParameter
-      ? parameter.parameter
-      : parameter;
-  final name = unwrapped.name?.lexeme ?? '';
-  String? type;
-  if (unwrapped is SimpleFormalParameter) {
-    type = _typeText(unwrapped.type);
-  } else if (unwrapped is FieldFormalParameter) {
-    type = _typeText(unwrapped.type);
-  } else if (unwrapped is SuperFormalParameter) {
-    type = _typeText(unwrapped.type);
-  } else if (unwrapped is FunctionTypedFormalParameter) {
-    type = normalizeWhitespace(unwrapped.toSource());
+  final name = parameter.name?.lexeme ?? '';
+  final String? type;
+  if (parameter.functionTypedSuffix != null) {
+    type = normalizeWhitespace(parameter.toSource());
+  } else {
+    type = _typeText(parameter.type);
   }
   return (name, type);
 }
@@ -244,10 +247,4 @@ String? _typeText(TypeAnnotation? type) {
   }
   final text = normalizeWhitespace(type.toSource());
   return text.isEmpty ? null : text;
-}
-
-// Analyzer 6.4.1 marks extension type AST nodes experimental; the type test
-// lives here so the reference stays in one place.
-bool _isExtensionType(CompilationUnitMember member) {
-  return member is ExtensionTypeDeclaration; // ignore: experimental_member_use
 }

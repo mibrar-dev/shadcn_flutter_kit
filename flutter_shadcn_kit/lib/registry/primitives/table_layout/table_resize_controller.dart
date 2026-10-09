@@ -1,3 +1,4 @@
+// @dart=3.13
 // Column/row sizing controller for the `table` component.
 //
 // Ported from the old `resizable_table_controller.dart`. Extracted into its own
@@ -13,22 +14,15 @@ import 'table_layout.dart';
 class ResizableTableController extends ChangeNotifier {
   /// Creates a controller.
   ResizableTableController({
-    Map<int, double>? columnWidths,
-    required double defaultColumnWidth,
-    Map<int, double>? rowHeights,
-    required double defaultRowHeight,
-    ConstrainedTableSize? defaultWidthConstraint,
-    ConstrainedTableSize? defaultHeightConstraint,
-    Map<int, ConstrainedTableSize>? widthConstraints,
-    Map<int, ConstrainedTableSize>? heightConstraints,
-  }) : _columnWidths = columnWidths,
-       _rowHeights = rowHeights,
-       _defaultColumnWidth = defaultColumnWidth,
-       _defaultRowHeight = defaultRowHeight,
-       _widthConstraints = widthConstraints,
-       _heightConstraints = heightConstraints,
-       _defaultWidthConstraint = defaultWidthConstraint,
-       _defaultHeightConstraint = defaultHeightConstraint;
+    this._columnWidths,
+    required this._defaultColumnWidth,
+    this._rowHeights,
+    required this._defaultRowHeight,
+    this._defaultWidthConstraint,
+    this._defaultHeightConstraint,
+    this._widthConstraints,
+    this._heightConstraints,
+  });
 
   Map<int, double>? _columnWidths;
   Map<int, double>? _rowHeights;

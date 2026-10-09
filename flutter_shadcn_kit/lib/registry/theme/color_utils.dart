@@ -222,8 +222,10 @@ class ColorShades implements Color, ColorSwatch {
   double computeLuminance() => _primary.computeLuminance();
   @override
   int toARGB32() => _primary.toARGB32();
+
+  /// Deprecated on [Color]; kept so this subclass stays substitutable.
   @override
-  int get value => _primary.value;
+  int get value => _primary.toARGB32();
   @override
   Color operator [](dynamic index) {
     final color = _colors[index];

@@ -1,7 +1,5 @@
 // Widget-leg validation glue for EditableText wrappers.
 
-import 'package:flutter/widgets.dart';
-
 import '../form_core/form_core.dart';
 
 /// Runs a widget-leg validator against a text getter, honouring

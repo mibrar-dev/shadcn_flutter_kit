@@ -5,8 +5,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../primitives/file_value/file_upload_controller.dart';
-import '../../primitives/file_value/file_value.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'file_picker.dart';

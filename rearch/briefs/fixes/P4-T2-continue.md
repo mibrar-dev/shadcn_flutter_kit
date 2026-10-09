@@ -1,0 +1,1 @@
+Your previous run stopped before finishing. Continue P4-T2 from where you are (do not start over): finish the lint fixes, steps 2-3 (manifest, docs mirror + data, CLI nested analysis_options removal) and ALL gates, then the report and the RESULT block. Note: .github/workflows/docs-deploy.yml is modified in the tree — if you did not change it, leave it alone and say so.

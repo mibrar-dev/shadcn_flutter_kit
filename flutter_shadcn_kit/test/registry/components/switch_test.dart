@@ -8,7 +8,7 @@
 // was never read.
 
 import 'dart:async';
-import 'dart:ui' show CheckedState;
+import 'dart:ui' show CheckedState, Tristate;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -85,8 +85,8 @@ double _thumbLeft(WidgetTester tester) =>
       .getSemantics(find.byType(Semantics).last)
       .getSemanticsData();
   return (
-    toggled: data.hasFlag(SemanticsFlag.isToggled),
-    enabled: data.hasFlag(SemanticsFlag.isEnabled),
+    toggled: data.flagsCollection.isToggled == Tristate.isTrue,
+    enabled: data.flagsCollection.isEnabled == Tristate.isTrue,
   );
 }
 

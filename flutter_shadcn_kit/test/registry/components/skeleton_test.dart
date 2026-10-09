@@ -165,11 +165,11 @@ void main() {
       await tester.pumpWidget(
         _frame(
           const Skeleton(
-            child: _content,
             theme: SkeletonTheme(
               fromColor: ThemedColor.value(_green),
               duration: Duration(milliseconds: 900),
             ),
+            child: _content,
           ),
           app: const <ComponentThemeData>[
             SkeletonTheme(
@@ -226,8 +226,8 @@ void main() {
       await tester.pumpWidget(
         _frame(
           const Skeleton(
-            child: _content,
             borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: _content,
           ),
           scoped: const SkeletonTheme(
             borderRadius: BorderRadius.all(Radius.circular(4)),

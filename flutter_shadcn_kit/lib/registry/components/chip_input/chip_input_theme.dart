@@ -12,8 +12,6 @@
 //     chipTheme: ChipTheme(variant: ButtonVariant.outline),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'chip_input_style.dart';
 
 /// Chip-input overrides applied app-wide through `ComponentThemes`.

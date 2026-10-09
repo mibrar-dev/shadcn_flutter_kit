@@ -24,8 +24,6 @@
 //     },
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'empty_state_style.dart';
 
 /// Empty-state overrides applied app-wide through `ComponentThemes`.

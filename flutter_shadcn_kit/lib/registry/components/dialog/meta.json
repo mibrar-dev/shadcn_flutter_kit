@@ -8,7 +8,7 @@
   "import": "import 'package:<your_app>/ui/shadcn/components/dialog/dialog.dart';",
   "tags": ["overlay", "modal", "dialog", "route"],
   "deps": {
-    "foundation": ["captured_wrapper", "constants", "data"],
+    "foundation": ["constants", "data"],
     "theme": ["color_tokens", "density", "theme", "tokens"],
     "primitives": ["localizations"],
     "components": []

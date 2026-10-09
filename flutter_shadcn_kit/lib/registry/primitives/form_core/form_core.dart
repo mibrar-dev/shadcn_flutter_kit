@@ -1,3 +1,4 @@
+// @dart=3.13
 import 'dart:async';
 
 import 'package:flutter/foundation.dart' show ValueListenable;
@@ -108,12 +109,12 @@ class ReplaceResult<T> extends ValidationResult {
   /// Creates an unattached replacement of [value].
   const ReplaceResult(this.value, {required super.state}) : _key = null;
 
-  /// Creates a replacement of [value] already bound to [key].
+  /// Creates a replacement of [value] already bound to [_key].
   const ReplaceResult.attached(
     this.value, {
-    required FormKey key,
+    required FormKey this._key,
     required super.state,
-  }) : _key = key;
+  });
 
   /// The replacement value.
   final T value;
@@ -160,12 +161,11 @@ mixin FormFieldHandle {
 ///
 /// [pending] maps a field key to the future its validation will complete with;
 /// an empty map means nothing is pending.
-typedef FormPendingWidgetBuilder =
-    Widget Function(
-      BuildContext context,
-      Map<FormKey, Future<ValidationResult?>> pending,
-      Widget? child,
-    );
+typedef FormPendingWidgetBuilder = Widget Function(
+  BuildContext context,
+  Map<FormKey, Future<ValidationResult?>> pending,
+  Widget? child,
+);
 
 /// Renders [builder] with the form validations that are still in flight.
 ///

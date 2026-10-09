@@ -1,3 +1,4 @@
+// @dart=3.13
 // `OverlapLayout`: hangs a secondary child (a badge, a row of chips) over
 // one corner of a primary child, keeps the pair tight around their union and
 // aligns that union to a side of the incoming width.
@@ -100,14 +101,11 @@ class OverlapLayoutRender extends RenderBox
         > {
   /// Creates the overlap render box.
   OverlapLayoutRender({
-    required OverlapCorner corner,
-    required Alignment alignment,
-    required double gap,
-    required double extraWidth,
-  }) : _corner = corner,
-       _alignment = alignment,
-       _gap = gap,
-       _extraWidth = extraWidth;
+    required this._corner,
+    required this._alignment,
+    required this._gap,
+    required this._extraWidth,
+  });
 
   OverlapCorner _corner;
   Alignment _alignment;

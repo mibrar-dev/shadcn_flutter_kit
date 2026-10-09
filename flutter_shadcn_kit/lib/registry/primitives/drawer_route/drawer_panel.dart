@@ -4,7 +4,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/captured_wrapper.dart';
 import '../../foundation/data.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';

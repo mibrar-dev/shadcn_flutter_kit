@@ -11,8 +11,6 @@
 //     iconGap: 12,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'alert_dialog_style.dart';
 
 /// Header/footer overrides applied app-wide through `ComponentThemes`.

@@ -222,11 +222,11 @@ void main() {
             children: <Widget>[
               _group(<MenuItem>[
                 MenuButton(
-                  child: const Text('Share'),
                   subMenu: <MenuItem>[
                     MenuButton(child: const Text('Email'), onPressed: (_) {}),
                   ],
                   onPressed: (_) {},
+                  child: const Text('Share'),
                 ),
               ]),
             ],
@@ -249,11 +249,11 @@ void main() {
             children: <Widget>[
               _group(<MenuItem>[
                 MenuButton(
-                  child: const Text('Share'),
                   subMenu: <MenuItem>[
                     MenuButton(child: const Text('Email'), onPressed: (_) {}),
                   ],
                   onPressed: (_) {},
+                  child: const Text('Share'),
                 ),
                 MenuButton(child: const Text('Cut'), onPressed: (_) {}),
               ]),
@@ -775,12 +775,12 @@ void main() {
             children: <Widget>[
               _group(<MenuItem>[
                 MenuButton(
-                  child: const Text('Share'),
                   subMenu: const <Widget>[
                     MenuLabel(child: Text('Send to')),
                     MenuSeparator(),
                   ],
                   onPressed: (_) {},
+                  child: const Text('Share'),
                 ),
               ]),
             ],

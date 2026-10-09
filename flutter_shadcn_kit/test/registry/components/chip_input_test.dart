@@ -16,7 +16,6 @@ import 'package:flutter_shadcn_kit/registry/components/card/card.dart'
 import 'package:flutter_shadcn_kit/registry/components/chip/chip.dart';
 import 'package:flutter_shadcn_kit/registry/components/chip_input/chip_input.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/input_features/input_features.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/text_editing/token_editing.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';

@@ -246,7 +246,7 @@ class _AccordionItemState extends State<AccordionItem>
               resolved.curve ?? Curves.easeIn,
               resolved.reverseCurve ?? Curves.easeOut,
             ),
-            axisAlignment: -1,
+            alignment: const Alignment(-1.0, -1.0),
             child: Padding(
               padding: EdgeInsets.only(bottom: padding),
               child: widget.content.small.normal,

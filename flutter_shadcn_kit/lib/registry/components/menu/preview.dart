@@ -63,14 +63,14 @@ class _Rows extends StatelessWidget {
         MenuButton(child: Text('Paste'), onPressed: (_) {}),
         MenuSeparator(),
         MenuButton(
-          child: Text('Share'),
           subMenu: <Widget>[
             MenuButton(child: Text('Email'), onPressed: (_) {}),
             MenuButton(child: Text('Link'), onPressed: (_) {}),
           ],
           onPressed: (_) {},
+          child: Text('Share'),
         ),
-        MenuButton(enabled: false, child: Text('Delete'), onPressed: null),
+        MenuButton(enabled: false, onPressed: null, child: Text('Delete')),
       ],
     );
   }

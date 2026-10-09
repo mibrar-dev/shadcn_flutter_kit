@@ -24,21 +24,21 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
 
   List<NavigationBarItem> get _items => <NavigationBarItem>[
     NavigationItem(
-      child: const Icon(RadixIcons.home),
       label: const Text('Home'),
+      child: const Icon(RadixIcons.home),
     ),
     NavigationItem(
-      child: const Icon(RadixIcons.magnifyingGlass),
       label: const Text('Search'),
+      child: const Icon(RadixIcons.magnifyingGlass),
     ),
     NavigationItem(
-      child: const Icon(RadixIcons.gear),
       label: const Text('Settings'),
+      child: const Icon(RadixIcons.gear),
     ),
     NavigationItem(
-      child: const Icon(RadixIcons.person),
       label: const Text('Disabled'),
       enabled: false,
+      child: const Icon(RadixIcons.person),
     ),
   ];
 
@@ -102,13 +102,13 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                               children: <Widget>[
                                 NavigationItem(
                                   index: 4,
-                                  child: const Icon(RadixIcons.idCard),
                                   label: const Text('Details'),
+                                  child: const Icon(RadixIcons.idCard),
                                 ),
                                 NavigationItem(
                                   index: 5,
-                                  child: const Icon(RadixIcons.lockClosed),
                                   label: const Text('Security'),
+                                  child: const Icon(RadixIcons.lockClosed),
                                 ),
                               ],
                             ),

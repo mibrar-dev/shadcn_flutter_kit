@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/command/command.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/subfocus_list_item.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/subfocus_scope.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';

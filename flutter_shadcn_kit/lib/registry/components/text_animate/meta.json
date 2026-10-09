@@ -19,7 +19,6 @@
       "theme"
     ],
     "primitives": [
-      "markdown_parser",
       "streaming_text"
     ],
     "components": [

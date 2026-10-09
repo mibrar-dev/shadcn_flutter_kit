@@ -7,8 +7,6 @@
 // open/close (cancelled-animation regression) and the `SheetStage` algebra.
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/drawer/drawer.dart'
-    show OverlayPosition;
 import 'package:flutter_shadcn_kit/registry/components/drawer_container/drawer_container.dart';
 import 'package:flutter_shadcn_kit/registry/components/pinned_sheet/pinned_sheet.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/data.dart';

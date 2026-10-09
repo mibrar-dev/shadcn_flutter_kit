@@ -3,7 +3,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
 import 'package:flutter_shadcn_kit/registry/components/form/form.dart';

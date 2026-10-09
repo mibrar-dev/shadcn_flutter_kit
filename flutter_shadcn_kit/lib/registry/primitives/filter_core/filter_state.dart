@@ -8,8 +8,6 @@
 
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter/foundation.dart';
-
 /// Immutable value of every filter a `filter_bar` carries.
 ///
 /// `copyWith` uses a sentinel for the nullable fields so `null` can be stored

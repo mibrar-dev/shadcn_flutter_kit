@@ -10,11 +10,7 @@
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../primitives/filter_core/filter_controller.dart';
-import '../../primitives/filter_core/filter_theme.dart';
-import '../../primitives/filter_core/filter_matching.dart';
 import '../../primitives/filter_core/filter_state.dart';
 import '../../primitives/form_core/object_form_field.dart';
 import '../../primitives/input_features/adornment_features.dart';

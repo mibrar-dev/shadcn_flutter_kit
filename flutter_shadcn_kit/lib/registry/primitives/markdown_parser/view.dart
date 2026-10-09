@@ -147,7 +147,7 @@ Widget wrapMarkdownBlock({
   return GestureDetector(
     behavior: HitTestBehavior.translucent,
     onTap: () {
-      if (tapsHeading && headingSlug != null) {
+      if (tapsHeading) {
         callbacks.onTapHeading!.call(
           MarkdownHeadingTapDetails(
             text: block.text,

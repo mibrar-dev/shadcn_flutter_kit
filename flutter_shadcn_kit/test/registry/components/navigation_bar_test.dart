@@ -11,7 +11,6 @@ import 'package:flutter_shadcn_kit/registry/components/overflow_marquee/overflow
 import 'package:flutter_shadcn_kit/registry/components/tooltip/tooltip.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/radix_icons.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/hidden.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/navigation/navigation_item_row.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/roving_group.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
@@ -46,8 +45,8 @@ NavigationItem _item(String label, {int? index, bool? enabled}) {
   return NavigationItem(
     index: index,
     enabled: enabled,
-    child: Icon(RadixIcons.dot),
     label: Text(label),
+    child: Icon(RadixIcons.dot),
   );
 }
 
@@ -206,9 +205,9 @@ void main() {
             labelType: NavigationLabelType.all,
             children: <NavigationBarItem>[
               NavigationItem(
-                child: Icon(RadixIcons.dot),
                 label: const Text('A very long label'),
                 overflow: NavigationOverflow.marquee,
+                child: Icon(RadixIcons.dot),
               ),
             ],
           ),
@@ -244,9 +243,9 @@ void main() {
             children: <NavigationBarItem>[
               _item('Home'),
               NavigationItem(
-                child: Icon(RadixIcons.dot),
                 label: const Text('Pinned'),
                 selected: true,
+                child: Icon(RadixIcons.dot),
               ),
             ],
           ),
@@ -266,9 +265,9 @@ void main() {
             children: <NavigationBarItem>[
               _item('Home'),
               NavigationItem(
-                child: Icon(RadixIcons.exit),
                 label: const Text('Log out'),
                 onPressed: () => actions += 1,
+                child: Icon(RadixIcons.exit),
               ),
             ],
           ),

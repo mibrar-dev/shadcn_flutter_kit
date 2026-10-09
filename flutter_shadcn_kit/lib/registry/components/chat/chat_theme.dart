@@ -13,8 +13,6 @@
 //     widthFactor: 0.7,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'chat_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

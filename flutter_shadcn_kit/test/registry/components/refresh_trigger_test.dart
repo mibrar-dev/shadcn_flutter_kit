@@ -6,12 +6,9 @@
 // Material progress/arrow widgets, no fake refresh cycle without a callback
 // and no division by zero for a zero arming extent.
 
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/card/card.dart';
 import 'package:flutter_shadcn_kit/registry/components/refresh_trigger/refresh_trigger.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 

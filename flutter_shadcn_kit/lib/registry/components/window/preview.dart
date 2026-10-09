@@ -43,7 +43,6 @@ class _WindowPreviewState extends State<WindowPreview> {
           data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
           child: Builder(
             builder: (BuildContext context) => WindowNavigator(
-              child: const SizedBox.expand(),
               initialWindows: <Window>[
                 Window(
                   controller: _notes,
@@ -62,6 +61,7 @@ class _WindowPreviewState extends State<WindowPreview> {
                   ),
                 ),
               ],
+              child: const SizedBox.expand(),
             ),
           ),
         ),

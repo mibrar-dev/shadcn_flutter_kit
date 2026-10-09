@@ -1,3 +1,4 @@
+// @dart=3.13
 // The `anchor` component: a point an overlay can position itself against, and
 // track while it moves.
 //
@@ -241,12 +242,10 @@ class OverlayAnchor extends SingleChildRenderObjectWidget {
 class RenderOverlayAnchor extends RenderProxyBox {
   /// Creates a render anchor.
   RenderOverlayAnchor({
-    required Object anchor,
-    required OverlayAnchorRegistry registry,
+    required this._anchor,
+    required this._registry,
     RenderBox? child,
-  }) : _anchor = anchor,
-       _registry = registry,
-       super(child);
+  }) : super(child);
 
   Object _anchor;
   OverlayAnchorRegistry _registry;

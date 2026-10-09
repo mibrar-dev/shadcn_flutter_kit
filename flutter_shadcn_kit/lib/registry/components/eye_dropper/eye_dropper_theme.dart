@@ -11,8 +11,6 @@
 //     previewScale: 12,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'eye_dropper_style.dart';
 
 /// App-wide overrides applied through `ComponentThemes`.

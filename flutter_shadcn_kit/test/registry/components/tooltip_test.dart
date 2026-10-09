@@ -10,7 +10,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/tooltip/tooltip.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/hover.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager_layer.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';

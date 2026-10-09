@@ -13,7 +13,6 @@ import 'package:flutter_shadcn_kit/registry/primitives/date_math.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/form_core/object_form_field.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager_layer.dart';
-import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -3,8 +3,6 @@
 // must agree with the schema (so the emitted `ShadcnColors` arguments can never
 // drift from the validated key set).
 
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../tool/rearch/gen_app_theme.dart' as gen;

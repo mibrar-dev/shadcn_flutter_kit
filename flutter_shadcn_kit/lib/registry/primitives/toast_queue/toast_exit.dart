@@ -211,7 +211,10 @@ class _ToastExitTransitionState<T> extends State<ToastExitTransition<T>>
       child = SizeTransition(
         axis: Axis.vertical,
         sizeFactor: Tween<double>(begin: 1, end: 0).animate(_progress),
-        axisAlignment: widget.direction == ToastSwipeDirection.up ? -1 : 1,
+        alignment: Alignment(
+          -1.0,
+          widget.direction == ToastSwipeDirection.up ? -1.0 : 1.0,
+        ),
         child: child,
       );
     }

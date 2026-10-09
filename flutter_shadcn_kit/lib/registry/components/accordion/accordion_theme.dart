@@ -11,8 +11,6 @@
 //     arrowIconColor: ThemedColor.ref(ColorRef.foreground),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'accordion_style.dart';
 
 /// Accordion overrides applied app-wide through `ComponentThemes`.

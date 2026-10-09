@@ -4,7 +4,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/color_utils.dart';
 import '../../theme/theme.dart';
 import 'color.dart';

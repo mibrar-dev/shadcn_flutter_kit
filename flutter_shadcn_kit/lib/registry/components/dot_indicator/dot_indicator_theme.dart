@@ -17,8 +17,6 @@
 //     duration: Duration(milliseconds: 250),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'dot_indicator_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

@@ -5,7 +5,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../primitives/selectable_radio/selectable_radio.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'radio_group.dart';

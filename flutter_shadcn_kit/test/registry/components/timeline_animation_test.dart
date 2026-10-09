@@ -161,10 +161,10 @@ void main() {
       const Color(0xFFFFFFFF),
       0.5,
     )!;
-    expect(mid.red, closeTo(128, 1));
-    expect(mid.green, closeTo(128, 1));
-    expect(mid.blue, closeTo(128, 1));
-    expect(mid.alpha, 255);
+    expect((mid.r * 255).round().clamp(0, 255), closeTo(128, 1));
+    expect((mid.g * 255).round().clamp(0, 255), closeTo(128, 1));
+    expect((mid.b * 255).round().clamp(0, 255), closeTo(128, 1));
+    expect((mid.a * 255).round().clamp(0, 255), 255);
     expect(Transformers.typeInt(null, 1, 0.5), isNull);
     expect(
       Transformers.typeOffset(Offset.zero, const Offset(10, 10), 0.5),

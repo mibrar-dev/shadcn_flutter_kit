@@ -1,3 +1,4 @@
+// @dart=3.13
 // Pane value/controller model for split-pane layouts, extracted from the
 // `resizable` component so its files stay within the layout budget. Reusable
 // by any pane-based layout (resizable, future split views).
@@ -15,10 +16,9 @@ import '../foundation/resizable_item.dart';
 /// `FlexibleResizablePaneController` pair (clean break).
 class ResizablePaneController extends ChangeNotifier {
   /// Creates a pane controller.
-  ResizablePaneController({double? size, double? flex, bool collapsed = false})
+  ResizablePaneController({double? size, double? flex, this._collapsed = false})
     : _size = size,
-      _flex = flex,
-      _collapsed = collapsed {
+      _flex = flex {
     assert(
       (size == null) != (flex == null),
       'Provide exactly one of size or flex',

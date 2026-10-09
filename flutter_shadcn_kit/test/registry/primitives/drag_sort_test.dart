@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/drag_sort.dart';
@@ -143,7 +141,7 @@ void main() {
   group('DragBounds', () {
     test('reads the item corners from a layer transform', () {
       final bounds = DragBounds.fromTransform(
-        Matrix4.identity()..translate(20.0, 30.0),
+        Matrix4.identity()..translateByDouble(20.0, 30.0, 0, 1),
         const Size(40, 60),
         const Size(200, 200),
       );

@@ -6,11 +6,8 @@
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/widgets.dart';
 
-import '../../primitives/localizations/localizations.dart';
 import '../../primitives/markdown_parser/markdown_parser.dart';
 import '../../primitives/text_editing/text_editing.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import '../collapsible/collapsible.dart';
 import 'markdown_style.dart';
 

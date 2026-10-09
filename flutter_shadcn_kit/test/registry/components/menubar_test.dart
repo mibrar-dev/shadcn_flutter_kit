@@ -49,11 +49,11 @@ Menubar _bar({bool? border, Offset? popoverOffset, MenubarTheme? theme}) {
     theme: theme,
     children: <Widget>[
       MenuButton(
-        child: const Text('File'),
         subMenu: <Widget>[
           MenuButton(child: const Text('New'), onPressed: (_) {}),
           MenuButton(child: const Text('Open'), onPressed: (_) {}),
         ],
+        child: const Text('File'),
       ),
       MenuButton(child: const Text('Edit'), onPressed: (_) {}),
       MenuButton(enabled: false, child: const Text('Help'), onPressed: (_) {}),

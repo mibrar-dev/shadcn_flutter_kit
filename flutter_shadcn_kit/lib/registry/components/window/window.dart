@@ -21,7 +21,6 @@ import '../../primitives/animated_value_builder.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../primitives/window_host.dart';
 import '../../primitives/window_manager.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../card/card.dart';
 import '../outlined_container/outlined_container.dart';

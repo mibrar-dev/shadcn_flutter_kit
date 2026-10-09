@@ -3,18 +3,9 @@
 //
 // Ported from `shared/primitives/clickable.dart` + `_impl/**`.
 
-import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../foundation/constants.dart';
-import '../foundation/data.dart';
-import '../foundation/platform.dart';
-import '../theme/theme.dart';
-import 'animated_value_builder.dart';
 import 'clickable_state.dart';
-import 'focus_outline.dart';
 import 'widget_states.dart';
 
 /// A state-aware, accessible tap target.

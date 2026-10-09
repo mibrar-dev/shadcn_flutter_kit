@@ -154,7 +154,7 @@ void main() {
         app: const <ComponentThemeData>[app],
         child: const ComponentTheme<BreadcrumbTheme>(
           data: scoped,
-          child: Breadcrumb(children: _crumbs, theme: widget),
+          child: Breadcrumb(theme: widget, children: _crumbs),
         ),
       ),
     );

@@ -15,12 +15,12 @@ Widget _wrap(Widget child) {
 
 Widget _probe() {
   return const StatedWidget(
-    child: Text('rest'),
     disabled: Text('disabled'),
     pressed: Text('pressed'),
     hovered: Text('hovered'),
     focused: Text('focused'),
     selected: Text('selected'),
+    child: Text('rest'),
   );
 }
 

@@ -1,3 +1,4 @@
+// @dart=3.13
 // The `scrollable_client` component: a two-dimensional scroll surface whose
 // content is built with the current offset and viewport size.
 //
@@ -17,13 +18,12 @@ import 'scrollable_client_style.dart';
 export 'scrollable_client_style.dart';
 
 /// Builds content for a viewport of [viewportSize] at scroll [offset].
-typedef ScrollableBuilder =
-    Widget Function(
-      BuildContext context,
-      Offset offset,
-      Size viewportSize,
-      Widget? child,
-    );
+typedef ScrollableBuilder = Widget Function(
+  BuildContext context,
+  Offset offset,
+  Size viewportSize,
+  Widget? child,
+);
 
 /// A scrollable surface that scrolls on both axes.
 ///
@@ -234,7 +234,7 @@ class ScrollableClientViewport extends TwoDimensionalViewport {
     required super.horizontalAxisDirection,
     required super.delegate,
     required super.mainAxis,
-    super.cacheExtent,
+    super.scrollCacheExtent,
     super.clipBehavior = Clip.hardEdge,
     required this.overscroll,
   });
@@ -249,7 +249,7 @@ class ScrollableClientViewport extends TwoDimensionalViewport {
       delegate: delegate,
       mainAxis: mainAxis,
       childManager: context as TwoDimensionalChildManager,
-      cacheExtent: cacheExtent,
+      scrollCacheExtent: scrollCacheExtent,
       clipBehavior: clipBehavior,
       overscroll: overscroll,
     );
@@ -267,7 +267,7 @@ class ScrollableClientViewport extends TwoDimensionalViewport {
       ..verticalAxisDirection = verticalAxisDirection
       ..delegate = delegate
       ..mainAxis = mainAxis
-      ..cacheExtent = cacheExtent
+      ..scrollCacheExtent = scrollCacheExtent
       ..clipBehavior = clipBehavior
       ..overscroll = overscroll;
   }
@@ -299,10 +299,10 @@ class RenderScrollableClientViewport extends RenderTwoDimensionalViewport {
     required super.delegate,
     required super.mainAxis,
     required super.childManager,
-    super.cacheExtent,
+    super.scrollCacheExtent,
     super.clipBehavior = Clip.hardEdge,
-    required bool overscroll,
-  }) : _overscroll = overscroll;
+    required this._overscroll,
+  });
 
   @override
   void layoutChildSequence() {

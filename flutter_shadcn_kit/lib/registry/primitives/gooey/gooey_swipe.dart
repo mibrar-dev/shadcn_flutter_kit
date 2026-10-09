@@ -4,7 +4,6 @@
 // pointer positions; this version follows the accepted `toast` component:
 // local pan deltas, animated slide feedback and velocity support.
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
 import '../toast_queue/toast_placement.dart';

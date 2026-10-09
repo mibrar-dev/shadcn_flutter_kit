@@ -27,7 +27,6 @@
     ],
     "components": [
       "backdrop_transform",
-      "drawer",
       "drawer_container"
     ]
   },

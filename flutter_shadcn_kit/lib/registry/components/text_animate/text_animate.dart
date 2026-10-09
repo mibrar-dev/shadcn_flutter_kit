@@ -8,7 +8,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import '../../primitives/markdown_parser/markdown_parser.dart';
 import '../../primitives/streaming_text/streaming_text.dart';
 import '../markdown/markdown.dart';
 import 'text_animate_style.dart';

@@ -86,10 +86,9 @@ class RegistryScan {
     required this.skipGenerated,
     required this.dartFiles,
     required this.components,
-    required Map<String, ComponentInfo> componentByDir,
-    required Map<String, Set<String>> sharedIdsByRelPath,
-  }) : _componentByDir = componentByDir,
-       _sharedIdsByRelPath = sharedIdsByRelPath;
+    required this._componentByDir,
+    required this._sharedIdsByRelPath,
+  });
 
   /// Absolute scan root (normally `lib/registry`).
   final String root;

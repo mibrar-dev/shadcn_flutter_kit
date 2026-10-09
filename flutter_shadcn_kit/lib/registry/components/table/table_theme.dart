@@ -14,8 +14,6 @@
 //     resizerColor: ThemedColor.ref(ColorRef.ring),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'table_style.dart';
 
 /// Table overrides applied app-wide through `ComponentThemes`.

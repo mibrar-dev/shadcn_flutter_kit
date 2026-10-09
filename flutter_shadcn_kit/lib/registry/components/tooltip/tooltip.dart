@@ -30,7 +30,6 @@ import '../../primitives/overlay.dart';
 import '../../primitives/overlay_manager.dart';
 import '../../primitives/popover_controller.dart';
 import '../../primitives/popover_overlay_state.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'tooltip_style.dart';
 

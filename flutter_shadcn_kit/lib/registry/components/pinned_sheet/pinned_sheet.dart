@@ -3,7 +3,6 @@
 // `primitives/sheet_stage.dart`). Fixes vs old: glass gone, barrier alpha
 // multiplies, peek uses handle width on horizontal sheets.
 
-import 'package:flutter/scheduler.dart' show TickerCanceled;
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/constants.dart';
@@ -12,7 +11,6 @@ import '../../primitives/sheet_stage.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../backdrop_transform/backdrop_transform.dart';
-import '../drawer/drawer.dart' show OverlayPosition;
 import '../drawer_container/drawer_container.dart';
 
 export '../../primitives/sheet_stage.dart';

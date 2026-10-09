@@ -18,7 +18,6 @@ import 'package:flutter_shadcn_kit/registry/foundation/data.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/form_core/form_core.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/selectable_radio/selectable_radio.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/roving_group.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -274,13 +273,13 @@ void main() {
               children: const <Widget>[
                 RadioCard<String>(
                   value: 'a',
-                  child: Text('Alpha'),
                   cardTheme: theme,
+                  child: Text('Alpha'),
                 ),
                 RadioCard<String>(
                   value: 'b',
-                  child: Text('Beta'),
                   cardTheme: theme,
+                  child: Text('Beta'),
                 ),
               ],
             ),
@@ -298,13 +297,13 @@ void main() {
               children: const <Widget>[
                 RadioCard<String>(
                   value: 'a',
-                  child: Text('Alpha'),
                   cardTheme: theme,
+                  child: Text('Alpha'),
                 ),
                 RadioCard<String>(
                   value: 'b',
-                  child: Text('Beta'),
                   cardTheme: theme,
+                  child: Text('Beta'),
                 ),
               ],
             ),

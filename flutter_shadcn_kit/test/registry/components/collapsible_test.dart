@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
 import 'package:flutter_shadcn_kit/registry/components/collapsible/collapsible.dart';
-import 'package:flutter_shadcn_kit/registry/foundation/gap.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';

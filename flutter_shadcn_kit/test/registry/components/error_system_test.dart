@@ -231,7 +231,7 @@ void main() {
             key: nav,
             onGenerateRoute: (RouteSettings settings) => PageRouteBuilder<void>(
               settings: settings,
-              pageBuilder: (_, __, ___) => const SizedBox.shrink(),
+              pageBuilder: (_, _, _) => const SizedBox.shrink(),
             ),
           ),
         ),

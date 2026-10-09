@@ -13,7 +13,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
-import '../../theme/tokens.dart';
 
 /// Surface, border, padding and shadow of the card component.
 ///

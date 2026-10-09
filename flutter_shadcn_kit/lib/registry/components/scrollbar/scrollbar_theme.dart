@@ -11,8 +11,6 @@
 //     thickness: 10,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'scrollbar_style.dart';
 
 /// Scrollbar overrides applied app-wide through `ComponentThemes`.

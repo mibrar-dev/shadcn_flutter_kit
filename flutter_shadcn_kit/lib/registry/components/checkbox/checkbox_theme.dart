@@ -13,8 +13,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'checkbox_style.dart';
 
 /// Per-value overrides applied app-wide through `ComponentThemes`.

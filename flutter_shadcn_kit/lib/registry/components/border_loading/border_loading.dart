@@ -8,7 +8,6 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show PathMetric;
 
-import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';

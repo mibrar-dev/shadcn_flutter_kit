@@ -14,8 +14,6 @@
 //     borderRadius: BorderRadius.all(Radius.circular(4)),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'dropzone_style.dart';
 
 /// Dropzone overrides applied app-wide through `ComponentThemes`.

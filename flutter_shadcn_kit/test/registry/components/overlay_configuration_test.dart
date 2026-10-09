@@ -5,7 +5,6 @@
 // and nonAdaptive.
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/drawer/drawer.dart';
 import 'package:flutter_shadcn_kit/registry/components/overlay_configuration/overlay_configuration.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/drawer_route/drawer_route.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay.dart';

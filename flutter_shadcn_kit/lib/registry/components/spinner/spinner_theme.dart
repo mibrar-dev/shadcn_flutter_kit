@@ -11,8 +11,6 @@
 //     color: ThemedColor.ref(ColorRef.mutedForeground),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'spinner_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

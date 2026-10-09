@@ -6,7 +6,6 @@
 
 import 'package:flutter/widgets.dart';
 
-import 'toast_entry.dart';
 import 'toast_placement.dart';
 import 'toast_queue.dart';
 

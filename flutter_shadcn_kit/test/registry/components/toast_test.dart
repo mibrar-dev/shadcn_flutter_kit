@@ -7,7 +7,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/toast/toast.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/toast_queue/toast_entry.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/toast_queue/toast_queue.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';

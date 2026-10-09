@@ -9,8 +9,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/constants.dart';
 import '../../primitives/animation.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import 'progress_style.dart';
 
 export 'progress_style.dart';

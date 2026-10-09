@@ -4,8 +4,6 @@
 // deterministically. Unset fields fall through to `errorSystemDefaults` and the
 // global tokens, so an empty override keeps the exact token look.
 
-import 'package:flutter/widgets.dart';
-
 import 'error_system_style.dart';
 
 /// Error system overrides applied app-wide through `ComponentThemes`.

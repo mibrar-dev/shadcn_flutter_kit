@@ -11,8 +11,6 @@
 //     itemHeight: 24,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'tracker_style.dart';
 
 /// Tracker overrides applied app-wide through `ComponentThemes`.

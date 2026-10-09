@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/captured_wrapper.dart';
 import '../../foundation/constants.dart';
 import '../../foundation/data.dart';
 import '../../primitives/localizations/localizations.dart';

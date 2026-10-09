@@ -5,7 +5,6 @@
 // error_scope,hub_scopes}.dart`. The deprecated `global` / `scope` aliases are
 // dropped (clean break).
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'error_models.dart';

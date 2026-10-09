@@ -9,10 +9,9 @@
 // never read.
 
 import 'dart:async';
-import 'dart:ui' show CheckedState;
+import 'dart:ui' show CheckedState, Tristate;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -115,7 +114,7 @@ class _FakeFormHandle with FormFieldHandle {
   return (
     checked: state == CheckedState.isTrue,
     mixed: state == CheckedState.mixed,
-    enabled: node.getSemanticsData().hasFlag(SemanticsFlag.isEnabled),
+    enabled: node.flagsCollection.isEnabled == Tristate.isTrue,
   );
 }
 

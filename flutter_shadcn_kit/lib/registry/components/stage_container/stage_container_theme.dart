@@ -12,8 +12,6 @@
 //         padding: EdgeInsets.symmetric(horizontal: 32),
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'stage_container_style.dart';
 
 /// Stage overrides applied app-wide through `ComponentThemes`.

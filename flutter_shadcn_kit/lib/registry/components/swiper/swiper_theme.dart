@@ -12,8 +12,6 @@
 //     barrierDismissible: false,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'swiper_style.dart';
 
 /// Swipe overrides applied app-wide through `ComponentThemes`.

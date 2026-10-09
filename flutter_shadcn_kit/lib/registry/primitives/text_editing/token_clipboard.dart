@@ -11,7 +11,6 @@
 // the component README.
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 /// One piece of a copied selection: either a token or a run of plain text.
 sealed class TokenFragment<T> {

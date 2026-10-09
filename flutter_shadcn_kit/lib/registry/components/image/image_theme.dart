@@ -12,8 +12,6 @@
 //     duration: Duration(milliseconds: 250),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'image_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

@@ -4,7 +4,6 @@
 // ratio), the four theme legs and light + dark tokens. `Image` shadows
 // Flutter's `Image`, so the component is imported behind a prefix.
 
-import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/widgets.dart';

@@ -482,7 +482,7 @@ void main() {
 
     testWidgets('no separator without separatorEvery', (tester) async {
       await tester.pumpWidget(
-        _frame(const InputOtp(length: 6, separator: const Text('-'))),
+        _frame(const InputOtp(length: 6, separator: Text('-'))),
       );
       expect(find.text('-'), findsNothing);
     });

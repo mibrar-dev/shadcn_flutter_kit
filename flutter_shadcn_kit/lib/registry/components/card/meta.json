@@ -9,7 +9,7 @@
   "tags": ["layout", "card", "surface", "panel"],
   "deps": {
     "foundation": [],
-    "theme": ["color_tokens", "theme", "tokens"],
+    "theme": ["color_tokens", "theme"],
     "primitives": ["sheet_overlay"],
     "components": []
   },

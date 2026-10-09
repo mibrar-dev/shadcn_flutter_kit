@@ -349,11 +349,11 @@ void main() {
         child: SizedBox(
           width: 400,
           child: ChatReaction(
-            child: const ChatBubble(child: Text('bubble')),
             chips: const <Widget>[
               ChatReactionContainer(child: Text('thumbs 3')),
               ChatReactionContainer(child: Text('party 1')),
             ],
+            child: const ChatBubble(child: Text('bubble')),
           ),
         ),
       ),
@@ -372,10 +372,10 @@ void main() {
         child: SizedBox(
           width: 400,
           child: ChatReaction(
-            child: const ChatBubble(child: Text('bubble')),
             chips: const <Widget>[
               ChatReactionContainer(child: Text('thumbs 3')),
             ],
+            child: const ChatBubble(child: Text('bubble')),
           ),
         ),
       ),
@@ -399,7 +399,6 @@ void main() {
         child: SizedBox(
           width: 400,
           child: ChatReaction(
-            child: const ChatBubble(child: Text('bubble')),
             chips: <Widget>[
               ChatReactionContainer(
                 onTap: () => taps++,
@@ -407,6 +406,7 @@ void main() {
               ),
               const ChatReactionContainer(child: Text('party 1')),
             ],
+            child: const ChatBubble(child: Text('bubble')),
           ),
         ),
       ),
@@ -432,11 +432,11 @@ void main() {
           ),
         ],
         child: ChatReaction(
-          child: const ChatBubble(child: Text('bubble')),
           chips: const <Widget>[
             ChatReactionContainer(child: Text('rest')),
             ChatReactionContainer(selected: true, child: Text('on')),
           ],
+          child: const ChatBubble(child: Text('bubble')),
         ),
       ),
     );
@@ -469,10 +469,10 @@ void main() {
         child: SizedBox(
           width: 400,
           child: ChatReaction(
-            child: const ChatBubble(child: Text('bubble')),
             chips: const <Widget>[
               ChatReactionContainer(child: Text('thumbs 3')),
             ],
+            child: const ChatBubble(child: Text('bubble')),
           ),
         ),
       ),

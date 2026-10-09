@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_shadcn_kit/registry/components/error_system/error_system.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
-import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -30,7 +29,7 @@ void main() {
                 onGenerateRoute: (RouteSettings settings) =>
                     PageRouteBuilder<void>(
                       settings: settings,
-                      pageBuilder: (_, __, ___) => const SizedBox.shrink(),
+                      pageBuilder: (_, _, _) => const SizedBox.shrink(),
                     ),
               ),
             ),

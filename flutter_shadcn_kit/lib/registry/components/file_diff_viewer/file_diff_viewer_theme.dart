@@ -13,8 +13,6 @@
 //         linePadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'file_diff_viewer_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

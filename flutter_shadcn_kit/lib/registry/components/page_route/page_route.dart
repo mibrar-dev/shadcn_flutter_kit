@@ -1,3 +1,4 @@
+// @dart=3.13
 // The `page_route` component: the widgets-only replacement for
 // `MaterialPageRoute` / `MaterialPage`.
 //
@@ -80,10 +81,10 @@ class ShadcnPageRoute<T> extends PageRoute<T> {
     super.settings,
     this.maintainState = true,
     super.fullscreenDialog,
-    bool opaque = true,
+    this._opaque = true,
     this.transitionDuration = kShadcnPageTransitionDuration,
     this.barrierLabel,
-  }) : _opaque = opaque;
+  });
 
   /// Builds the primary content of the route.
   final WidgetBuilder builder;

@@ -5,8 +5,6 @@
 // file. The widget resolves the four legs through
 // `resolveComponentStyle<ImageTheme, ImageTheme>` from `theme/theme.dart`.
 
-import 'dart:ui' show lerpDouble;
-
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/constants.dart';

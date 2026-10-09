@@ -1,8 +1,6 @@
-import 'package:flutter/services.dart' show SystemMouseCursors;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/theme.dart';
-import 'list.dart';
 
 /// Computes a text property from the ambient theme.
 ///

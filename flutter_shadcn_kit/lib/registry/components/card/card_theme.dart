@@ -12,8 +12,6 @@
 //     padding: EdgeInsets.all(16),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'card_style.dart';
 
 /// Surface overrides applied app-wide through `ComponentThemes`.

@@ -5,7 +5,6 @@
 import 'package:flutter/scheduler.dart' show Ticker;
 import 'package:flutter/widgets.dart';
 
-import '../../primitives/animation_queue.dart';
 import '../../theme/theme.dart';
 import 'carousel_style.dart';
 

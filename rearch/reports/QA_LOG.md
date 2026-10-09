@@ -491,3 +491,12 @@
 ## P6-A2 shadcn site spec (mimo-v2.6-flash) — ACCEPTED: 115 reference captures (1440/375, light/dark, 11 states), 769-line measured spec (shell 288/224 sidebar, 640 content, header search 256/192/160, palette 512 no scrim, 150ms ease motion only, breakpoints 640/768/1024/1280, tokens = shadcn neutral), delta vs plan; orchestrator decisions in spec §7. Open Design mockups superseded.
 
 ## P5-B7 CLI e2e + polish (longcat) — ACCEPTED: e2e acceptance on a fresh app (init/add/remove/update/doctor/theme), update installs new upstream files + packages (+ pub get), command_metadata split (max 222), README/doc for new commands, exit 80 documented. Whole CLI: analyze 0, 467 tests. Ruling: registry must pass flutter_lints itself → P4-T2 removes the CLI's nested analysis_options workaround. Multi-registry ambiguity retired (clean break). PHASE 5 functionally complete.
+
+## P4-T1 analyzer 14 bump (step-5-preview-free#high) + P4-T2 flutter_lints (space-bunny → longcat) — ACCEPTED
+- T1: analyzer ^14.0.0 with fragment-AST migration in tool/rearch + tool/registry; check_layers 0 syntax errors (was 9),
+  docs codegen parseClean for all 118. T2: kit analysis_options includes package:flutter_lints/flutter.yaml; every
+  finding fixed (57 prefer_initializing_formals via Dart 3.12 private named params → kit sdk ^3.12.0); 5 unused meta deps
+  aligned; manifest regenerated; CLI nested analysis_options writer removed (it had disabled ALL lints in installs).
+- Orchestrator: kit qa_gate clean (2652 + 42), flutter analyze 0; CLI analyze 0, 466 tests (+ e2e green per agent).
+- Pending (after P6-D3): docs pubspec sdk → ^3.12.0 and drop the 17 `// @dart=3.13` headers sync_registry.sh adds;
+  commit docs-side mirror/generated/pubspec changes then. docs-deploy.yml change = D1 verification comment only.

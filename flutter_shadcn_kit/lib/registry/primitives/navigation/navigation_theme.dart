@@ -9,7 +9,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 
 /// Which navigation container to render.
 enum NavigationContainerType {

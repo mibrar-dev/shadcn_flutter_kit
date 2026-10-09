@@ -1,3 +1,4 @@
+// @dart=3.13
 /// One item managed by a [Resizer].
 class ResizableItem {
   double _value;
@@ -21,13 +22,13 @@ class ResizableItem {
   bool? _newCollapsed;
 
   ResizableItem({
-    required double value,
+    required this._value,
     this.min = 0,
     this.max = double.infinity,
     this.collapsed = false,
     this.collapsedSize,
     this.resizable = true,
-  }) : _value = value;
+  });
 
   /// Whether this item is collapsed after pending resize operations.
   bool get newCollapsed => _newCollapsed ?? collapsed;

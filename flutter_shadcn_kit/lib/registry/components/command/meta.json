@@ -24,7 +24,6 @@
     "primitives": [
       "input_features",
       "localizations",
-      "subfocus_item",
       "subfocus_scope",
       "text"
     ],

@@ -355,7 +355,6 @@ class MenuPopup extends StatelessWidget {
           defaults: menuPopupDefaults,
         );
     return MenuPopupSurface(
-      children: children,
       fill: style.background?.resolve(app.colors),
       foreground: style.foreground?.resolve(app.colors),
       borderColor: style.borderColor?.resolve(app.colors),
@@ -365,6 +364,7 @@ class MenuPopup extends StatelessWidget {
       ),
       padding: style.padding,
       minWidth: style.minWidth ?? 192,
+      children: children,
     );
   }
 }

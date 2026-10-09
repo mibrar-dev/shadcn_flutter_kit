@@ -9,7 +9,6 @@ import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
-import '../dialog/dialog_style.dart';
 import 'alert_dialog.dart';
 
 /// Renders the alert dialog gallery.

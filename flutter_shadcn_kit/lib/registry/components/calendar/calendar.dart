@@ -3,7 +3,6 @@
 // in `calendar_style.dart`. Ported from `components/display/calendar/**`; the
 // `DatePickerDialog` of that tree is not migrated — it needs batch B13's overlay.
 
-import 'package:flutter/services.dart' show LogicalKeyboardKey;
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/date_math.dart';

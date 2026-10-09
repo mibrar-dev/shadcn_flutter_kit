@@ -6,7 +6,6 @@
 // behaviour, all four theme legs, form participation and the eye-dropper
 // toggle.
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/color/color.dart';
@@ -19,7 +18,6 @@ import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/focus_outline.dart';
-import 'package:flutter_shadcn_kit/registry/primitives/form_core/object_form_field.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager_layer.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';

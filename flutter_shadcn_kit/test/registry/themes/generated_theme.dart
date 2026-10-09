@@ -179,7 +179,7 @@ Expression? _callOf(Expression expression) =>
 
 String? _calledName(Expression expression) {
   if (expression is InstanceCreationExpression) {
-    return expression.constructorName.type.name2.lexeme;
+    return expression.constructorName.type.name.lexeme;
   }
   if (expression is MethodInvocation) {
     final target = expression.target;
@@ -195,8 +195,8 @@ Map<String, Expression> _namedArguments(Expression call) {
       : (call as MethodInvocation).argumentList.arguments;
   return <String, Expression>{
     for (final argument in arguments)
-      if (argument is NamedExpression)
-        argument.name.label.name: argument.expression,
+      if (argument is NamedArgument)
+        argument.name.lexeme: argument.argumentExpression,
   };
 }
 

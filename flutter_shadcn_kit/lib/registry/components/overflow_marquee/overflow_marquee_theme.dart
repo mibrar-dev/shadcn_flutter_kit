@@ -13,8 +13,6 @@
 //         fadePortion: 0.15,
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'overflow_marquee_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

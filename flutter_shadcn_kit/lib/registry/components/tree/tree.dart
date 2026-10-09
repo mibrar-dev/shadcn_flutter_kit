@@ -17,7 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
-import '../../primitives/clickable.dart';
 import '../../primitives/tree_selection/tree_nodes.dart';
 import '../../primitives/tree_selection/tree_selection.dart';
 import '../../theme/theme.dart';

@@ -12,8 +12,6 @@
 //     showSparks: true,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'progress_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

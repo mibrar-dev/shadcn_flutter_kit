@@ -1,12 +1,11 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
+# Analyzer configuration for flutter_shadcn_kit.
 #
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
+# This file deliberately uses ONLY `package:flutter_lints/flutter.yaml` — the
+# exact lint set a fresh `flutter create` app ships with. The registry is
+# copy/pasted verbatim into user apps by `flutter_shadcn add`, so anything the
+# registry suppresses here would surface as an analyzer error in every
+# installed project. Registry code must be clean under a stock app's lints;
+# there are no per-package relaxations and no `// ignore:` comments.
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
@@ -19,32 +18,11 @@ analyzer:
     - windows/**
     - macos/**
     - linux/**
-  errors:
-    duplicate_import: ignore
-    unnecessary_import: ignore
-    unused_import: ignore
-    unnecessary_null_comparison: ignore
-    dead_code: ignore
-    deprecated_member_use: ignore
-
-linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
-  rules:
-    unnecessary_const: false
-    sort_child_properties_last: false
-    implicit_call_tearoffs: false
-    unnecessary_underscores: false
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # Intentional-violation fixtures for the guardrail tests: they carry unused
+    # imports (and a Material import) on purpose, so the layer/owner checkers
+    # have something to reject. The checkers parse them directly; they are not
+    # linted as production code.
+    - test/rearch/fixtures/**
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

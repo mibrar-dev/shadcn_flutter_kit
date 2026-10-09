@@ -480,3 +480,5 @@
   Orchestrator re-ran: format 0 changed, flutter analyze 0, 20/20 tests, no Material/Cupertino imports; release web
   build in report. Leftovers (to D3/D6): docs Makefile/README describe old app; web/manifest.json name; unreferenced
   325K user-guide PDF; ⌘K needs one manual post-deploy check.
+
+## P5-B6 CLI theme (space-bunny-free#max) — ACCEPTED (r1), r2 for generator polish: theme list/apply, ThemeService, app_theme generator byte-identical to the kit (golden), drift reporting; 103/103 theme tests, analyze 0. r2: format-clean output, CLI-flavoured header, own drift exit code, themes in manifest fileHashes.

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import '../generated/docs_data.dart';
 import '../routing/docs_router.dart';
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
 
@@ -69,8 +70,8 @@ class _ComponentLinkState extends State<_ComponentLink> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: GestureDetector(
-        onTap: () => DocsRouterScope.of(
+      child: Clickable(
+        onPressed: () => DocsRouterScope.of(
           context,
         ).go(context, '/docs/components/${widget.link.id}'),
         child: Text(

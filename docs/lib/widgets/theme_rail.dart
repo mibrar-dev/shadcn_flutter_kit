@@ -4,17 +4,22 @@
 // drives [DocsState]; the live preview area re-themes through
 // AnimatedShadcnTheme.
 
+import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../generated/docs_data.dart';
 import '../generated/app_theme.dart';
+import '../motion/ease.dart';
 import '../state/docs_state.dart';
+import '../theme/theme_export.dart';
 import '../ui/shadcn/components/button/button.dart';
 import '../ui/shadcn/components/slider/slider.dart';
 import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/foundation/icons/lucide_icons.dart';
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/color_tokens.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
@@ -132,11 +137,20 @@ class ThemeRail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _ActionButton(label: 'Copy JSON', onPressed: () {}),
+                  _RailAction(
+                    label: 'Copy JSON',
+                    copy: () => presetJsonSource(
+                      state.presetId,
+                      radiusPx: state.effectiveRadiusPx,
+                    ),
+                  ),
                   const Gap(8),
-                  _ActionButton(label: 'Copy Dart', onPressed: () {}),
+                  _RailAction(
+                    label: 'Copy Dart',
+                    copy: () => presetDartSource(state.presetId),
+                  ),
                   const Gap(8),
-                  _ActionButton(
+                  _RailAction(
                     label: 'Shuffle',
                     onPressed: () {
                       final List<DocsPreset> presets = kPresets.toList();
@@ -145,7 +159,10 @@ class ThemeRail extends StatelessWidget {
                     },
                   ),
                   const Gap(8),
-                  _ActionButton(label: 'Get Code', onPressed: () {}),
+                  _RailAction(
+                    label: 'Get Code',
+                    copy: () => themeApplyCommand(state.presetId),
+                  ),
                 ],
               ),
             ),
@@ -176,9 +193,9 @@ class _PresetRow extends StatelessWidget {
     ).colors;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: GestureDetector(
+      child: Clickable(
+        onPressed: onTap,
         behavior: HitTestBehavior.opaque,
-        onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -241,11 +258,44 @@ class _PresetRow extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({required this.label, required this.onPressed});
+/// A full-width rail action: [copy] copies its text and swaps the label to
+/// "Copied" for 2 s (spec §2.8); otherwise it runs [onPressed].
+class _RailAction extends StatefulWidget {
+  const _RailAction({required this.label, this.copy, this.onPressed});
 
   final String label;
-  final VoidCallback onPressed;
+  final String Function()? copy;
+  final VoidCallback? onPressed;
+
+  @override
+  State<_RailAction> createState() => _RailActionState();
+}
+
+class _RailActionState extends State<_RailAction> {
+  Timer? _reset;
+  bool _copied = false;
+
+  @override
+  void dispose() {
+    _reset?.cancel();
+    super.dispose();
+  }
+
+  void _run() {
+    final String Function()? copy = widget.copy;
+    if (copy == null) {
+      widget.onPressed?.call();
+      return;
+    }
+    unawaited(Clipboard.setData(ClipboardData(text: copy())));
+    setState(() => _copied = true);
+    _reset?.cancel();
+    _reset = Timer(kDurationCopyFeedback, () {
+      if (mounted) {
+        setState(() => _copied = false);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,8 +304,8 @@ class _ActionButton extends StatelessWidget {
       child: Button(
         variant: ButtonVariant.secondary,
         size: ButtonSize.sm,
-        onPressed: onPressed,
-        child: Text(label),
+        onPressed: _run,
+        child: Text(_copied ? 'Copied' : widget.label),
       ),
     );
   }

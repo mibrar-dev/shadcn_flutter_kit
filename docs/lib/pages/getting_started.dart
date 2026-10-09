@@ -148,13 +148,15 @@ class _StepCounter extends StatelessWidget {
                 ),
               ),
               const Gap(16),
-              Text(
-                title,
-                style: docsText(
-                  context,
-                  size: 16.875,
-                  weight: FontWeight.w600,
-                  height: 24.47 / 16.875,
+              Expanded(
+                child: Text(
+                  title,
+                  style: docsText(
+                    context,
+                    size: 16.875,
+                    weight: FontWeight.w600,
+                    height: 24.47 / 16.875,
+                  ),
                 ),
               ),
             ],
@@ -181,11 +183,19 @@ class _StepCounter extends StatelessWidget {
                         color: theme.colors.foreground.withValues(alpha: 0.7),
                       ),
                       const Gap(8),
-                      Text(
-                        code,
-                        style: theme.typography.mono.copyWith(
-                          fontSize: 14,
-                          height: 24.5 / 14,
+                      // Long commands scroll horizontally instead of
+                      // overflowing the 640 px article at 375 (spec §2.3
+                      // `pre` overflow).
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            code,
+                            style: theme.typography.mono.copyWith(
+                              fontSize: 14,
+                              height: 24.5 / 14,
+                            ),
+                          ),
                         ),
                       ),
                     ],

@@ -14,6 +14,7 @@ import '../ui/shadcn/components/switch/switch.dart';
 import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../motion/ease.dart';
+import '../motion/motion_scope.dart';
 
 /// The live preview area: registry components re-theming live.
 class LivePreview extends StatelessWidget {
@@ -25,9 +26,13 @@ class LivePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The preview shares the viewport with the 192 px rail, so below `sm`
+    // (375 px checklist) every horizontal row switches to wrapping/stacked
+    // layout instead of overflowing.
+    final bool narrow = MediaQuery.sizeOf(context).width < 640;
     return AnimatedShadcnTheme(
       data: state.theme,
-      duration: kDurationTheme,
+      duration: context.motionDuration(kDurationTheme),
       curve: kEaseOutExpo,
       child: ColoredBox(
         color: state.theme.colors.background,
@@ -35,13 +40,13 @@ class LivePreview extends StatelessWidget {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: Padding(
-              padding: const EdgeInsets.all(32),
+              padding: EdgeInsets.all(narrow ? 16 : 32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   // Card row.
                   Card(
-                    padding: const EdgeInsets.all(24),
+                    padding: EdgeInsets.all(narrow ? 16 : 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -62,14 +67,15 @@ class LivePreview extends StatelessWidget {
                           ),
                         ),
                         const Gap(16),
-                        Row(
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
                           children: <Widget>[
                             Button(
                               variant: ButtonVariant.outline,
                               onPressed: () {},
                               child: const Text('Cancel'),
                             ),
-                            const Gap(8),
                             Button(
                               variant: ButtonVariant.primary,
                               onPressed: () {},
@@ -82,18 +88,32 @@ class LivePreview extends StatelessWidget {
                   ),
                   const Gap(16),
                   // Form row.
-                  Row(
-                    children: <Widget>[
-                      Expanded(child: Input(hintText: 'Project name')),
-                      const Gap(8),
-                      Switch(value: true, onChanged: (_) {}),
-                      const Gap(8),
-                      const Badge(
-                        variant: BadgeVariant.secondary,
-                        child: Text('New'),
-                      ),
-                    ],
-                  ),
+                  if (narrow) ...<Widget>[
+                    const Input(hintText: 'Project name'),
+                    const Gap(8),
+                    Row(
+                      children: <Widget>[
+                        Switch(value: true, onChanged: (_) {}),
+                        const Gap(8),
+                        const Badge(
+                          variant: BadgeVariant.secondary,
+                          child: Text('New'),
+                        ),
+                      ],
+                    ),
+                  ] else
+                    Row(
+                      children: <Widget>[
+                        Expanded(child: Input(hintText: 'Project name')),
+                        const Gap(8),
+                        Switch(value: true, onChanged: (_) {}),
+                        const Gap(8),
+                        const Badge(
+                          variant: BadgeVariant.secondary,
+                          child: Text('New'),
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

@@ -125,8 +125,16 @@ class _DocsAppState extends State<DocsApp> with WidgetsBindingObserver {
       themeMode: state.brightness == Brightness.dark
           ? ThemeMode.dark
           : ThemeMode.light,
-      shortcuts: docsShortcuts,
+      // ShadcnApp forwards `shortcuts`/`actions` to WidgetsApp, whose
+      // parameters REPLACE the framework defaults. Spread them back in, or
+      // Tab traversal (NextFocusIntent has no action without it),
+      // Enter/Space activation and Escape dismissal are dead app-wide.
+      shortcuts: <ShortcutActivator, Intent>{
+        ...WidgetsApp.defaultShortcuts,
+        ...docsShortcuts,
+      },
       actions: <Type, Action<Intent>>{
+        ...WidgetsApp.defaultActions,
         OpenDocsPaletteIntent: CallbackAction<OpenDocsPaletteIntent>(
           onInvoke: (OpenDocsPaletteIntent intent) {
             _delegate.openPalette();
@@ -135,11 +143,15 @@ class _DocsAppState extends State<DocsApp> with WidgetsBindingObserver {
         ),
       },
       builder: (BuildContext context, Widget? child) => MotionScope(
-        child: AnimatedShadcnTheme(
-          data: state.theme,
-          duration: kDurationTheme,
-          curve: kEaseOutExpo,
-          child: child ?? const SizedBox.shrink(),
+        child: Builder(
+          builder: (BuildContext context) => AnimatedShadcnTheme(
+            data: state.theme,
+            // The preset/mode colour tween is our documented deviation; under
+            // reduced motion it caps to 150 ms (plan §4) instead of 300 ms.
+            duration: context.motionDuration(kDurationTheme),
+            curve: kEaseOutExpo,
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       ),
       // The home route is deliberately unnamed: the docs navigator must be the

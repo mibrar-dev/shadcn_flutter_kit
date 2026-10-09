@@ -67,13 +67,27 @@ class PreviewStage extends StatelessWidget {
     if (chromeless) {
       return child ?? const SizedBox.shrink();
     }
+    // Desktop previews are galleries, not responsive widgets: at 375 they can
+    // be wider than the 327 px article, so the stage scrolls horizontally
+    // instead of overflowing (the reference `preview` clips/scrolls too).
+    // `ConstrainedBox` keeps the child centred whenever it fits.
     return Container(
       height: DocsMetrics.previewStageHeight,
       width: double.infinity,
       color: theme.colors.background,
-      padding: const EdgeInsets.all(40),
-      alignment: Alignment.center,
-      child: child,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) =>
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.all(40),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: constraints.maxWidth - 80,
+                ),
+                child: Align(alignment: Alignment.center, child: child),
+              ),
+            ),
+      ),
     );
   }
 }

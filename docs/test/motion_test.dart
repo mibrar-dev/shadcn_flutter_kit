@@ -1,7 +1,12 @@
 import 'package:docs/motion/ease.dart';
 import 'package:docs/motion/motion_scope.dart';
+import 'package:docs/routing/docs_router.dart';
+import 'package:docs/ui/shadcn/theme/theme.dart';
+import 'package:docs/widgets/heading_anchor.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'support/app_harness.dart';
 
 void main() {
   test('durations match the amended motion spec (shadcn-site)', () {
@@ -85,5 +90,64 @@ void main() {
     expect(reduced, isFalse);
     expect(duration, kDurationTheme);
     expect(offset, 12);
+  });
+
+  test('palette route caps its transition under reduced motion', () {
+    Widget build(BuildContext context) => const SizedBox.shrink();
+    final DocsPaletteRoute normal = DocsPaletteRoute(builder: build);
+    final DocsPaletteRoute reduced = DocsPaletteRoute(
+      builder: build,
+      reduceMotion: true,
+    );
+    expect(normal.transitionDuration, kDurationPalette);
+    expect(normal.reverseTransitionDuration, kDurationFast);
+    expect(reduced.transitionDuration, kDurationFast);
+    expect(reduced.reverseTransitionDuration, kDurationFast);
+  });
+
+  testWidgets('reduced motion caps the app theme tween to 150 ms', (
+    WidgetTester tester,
+  ) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    await pumpDocsApp(tester);
+    final AnimatedShadcnTheme theme = tester.widget<AnimatedShadcnTheme>(
+      find.byType(AnimatedShadcnTheme).first,
+    );
+    expect(theme.duration, kDurationFast);
+  });
+
+  testWidgets('reduced motion caps the heading anchor reveal to 150 ms', (
+    WidgetTester tester,
+  ) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+    await goTo(tester, delegate, '/docs');
+    final AnimatedOpacity opacity = tester.widget<AnimatedOpacity>(
+      find
+          .descendant(
+            of: find.byType(HeadingAnchor),
+            matching: find.byType(AnimatedOpacity),
+          )
+          .first,
+    );
+    expect(opacity.duration, kDurationFast);
+  });
+
+  testWidgets('the mobile popper animates over 100 ms', (
+    WidgetTester tester,
+  ) async {
+    await pumpDocsApp(tester, width: 800, height: 900);
+    await tester.tap(find.text('Menu'));
+    await tester.pumpAndSettle();
+    final AnimatedSwitcher switcher = tester.widget<AnimatedSwitcher>(
+      find.byType(AnimatedSwitcher),
+    );
+    expect(switcher.duration, kDurationPopper);
+    expect(switcher.switchInCurve, kEaseStandard);
+    expect(switcher.switchOutCurve, kEaseIn);
   });
 }

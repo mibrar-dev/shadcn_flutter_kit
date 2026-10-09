@@ -76,13 +76,17 @@ class _HeadingAnchorState extends State<HeadingAnchor> {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: <Widget>[
-            Text(
-              widget.title,
-              style: docsText(
-                context,
-                size: size,
-                weight: FontWeight.w600,
-                height: height / size,
+            // Flexible so a long heading wraps inside the 640 px article at
+            // 375 instead of overflowing the Row (responsive audit finding).
+            Flexible(
+              child: Text(
+                widget.title,
+                style: docsText(
+                  context,
+                  size: size,
+                  weight: FontWeight.w600,
+                  height: height / size,
+                ),
               ),
             ),
             const Gap(8),

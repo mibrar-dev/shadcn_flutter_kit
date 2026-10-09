@@ -5,6 +5,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../ui/shadcn/foundation/gap.dart';
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'docs_article.dart';
 import 'docs_tokens.dart';
@@ -94,8 +95,8 @@ class _TocLink extends StatelessWidget {
       ),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () => onSelect(heading.id),
+        child: Clickable(
+          onPressed: () => onSelect(heading.id),
           child: Text(
             heading.title,
             style: docsText(

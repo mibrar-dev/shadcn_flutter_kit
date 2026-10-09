@@ -38,6 +38,7 @@ export 'src/render_api.dart';
 export 'src/render_code.dart';
 export 'src/render_common.dart';
 export 'src/render_files.dart';
+export 'src/render_presets.dart';
 export 'src/render_tables.dart';
 
 const String _usage =

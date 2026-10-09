@@ -231,6 +231,10 @@ class CollageTabsCardState extends State<CollageTabsCard> {
         Tabs(
           index: _index,
           onChanged: (int index) => setState(() => _index = index),
+          // The 3-column collage narrows this card to ~263 px at 1024, where
+          // intrinsic-width tabs overflow by ~9 px; expanded tabs share the
+          // width instead (responsive audit finding).
+          expand: true,
           children: const <TabItem>[
             TabItem(child: Text('Preview')),
             TabItem(child: Text('Code')),

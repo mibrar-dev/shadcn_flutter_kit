@@ -9,6 +9,7 @@ import '../ui/shadcn/components/badge/badge.dart';
 import '../ui/shadcn/components/button/button.dart';
 import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/foundation/icons/lucide_icons.dart';
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
@@ -237,8 +238,8 @@ class _LineTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onTap,
+    return Clickable(
+      onPressed: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
@@ -279,8 +280,8 @@ class _PillTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onTap,
+    return Clickable(
+      onPressed: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(

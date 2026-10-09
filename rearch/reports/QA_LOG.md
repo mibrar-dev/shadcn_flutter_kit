@@ -519,3 +519,5 @@
 - Follow-ups → D5: 5 components without API tables (autocomplete, formatter, alpha, color, locale_utils); themes
   "Copy JSON / Copy Dart / Get Code" are stubs (must copy the preset JSON and the generated app_theme.dart);
   kRelatedIds generated but unused (remove from codegen or use).
+
+## P6-D5 motion + responsive + D4 follow-ups (deepseek) — ACCEPTED (r1): shadcn-restrained motion (reduced-motion caps all to ≤150ms), responsive fixes at 375/640/768/1024/1280, focus visible, 5 missing API tables + kRelatedIds removal via codegen, themes Copy JSON/Dart/Get Code working. Docs format/analyze 0, 77 tests, codegen up to date. Found REGISTRY BUG: ShadcnApp shortcuts/actions replace WidgetsApp defaults (Tab/activate/dismiss dead) → P4-T4. Open → D4b: /docs/theming + /docs/dark-mode content, shell Tab order, formatter/color API tables; table_layout negative-min-width assert → P4-T4.

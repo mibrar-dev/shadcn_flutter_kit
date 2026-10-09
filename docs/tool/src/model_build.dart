@@ -10,6 +10,7 @@ import 'render_api.dart';
 import 'render_code.dart';
 import 'render_common.dart';
 import 'render_files.dart';
+import 'render_presets.dart';
 import 'render_tables.dart';
 
 /// Fenced languages that become `DocsSnippet`s.
@@ -129,6 +130,7 @@ Map<String, String> renderBundle(
     '$outDir/docs_tables.dart': renderDocsTables(model),
     '$outDir/docs_search.dart': renderDocsSearch(model),
     '$outDir/docs_snippets.dart': renderDocsSnippets(model),
+    '$outDir/docs_preset_sources.dart': renderPresetSources(model.scan),
     '$outDir/app_theme.dart': renderAppTheme(
       model.scan,
       themeImport: themeImport,
@@ -164,7 +166,8 @@ String describeModel(DocsModel model) {
       .map((MapEntry<String, int> entry) => '${entry.key} ${entry.value}')
       .join(', ');
   return 'components: ${model.scan.components.length}, '
-      'presets: ${model.scan.presets.length}\n'
+      'presets: ${model.scan.presets.length} '
+      '(+${model.scan.presets.length} json/dart sources)\n'
       'snippets: $snippetCount ($languages)\n'
       'api tables: $withApi with parameters, '
       '${model.scan.components.length - withApi} without\n'

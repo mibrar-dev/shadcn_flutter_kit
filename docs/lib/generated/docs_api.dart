@@ -2459,10 +2459,52 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'autocomplete': DocsApiTable(
     componentId: 'autocomplete',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'AutoCompleteFeature',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary:
+        'The `input`-component adapter: an [InputFeature] that turns the field text into the `autocomplete` suggestion popover.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'suggestions',
+        type: 'SuggestionBuilder',
+        isRequired: true,
+        doc: 'Provides the suggestions for a query. May be asynchronous.',
+      ),
+      DocsApiParam(
+        name: 'mode',
+        type: 'AutoCompleteMode?',
+        isRequired: false,
+        doc: 'Overrides `AutoCompleteTheme.mode`.',
+      ),
+      DocsApiParam(
+        name: 'completer',
+        type: 'AutoCompleteCompleter',
+        isRequired: false,
+        defaultValue: 'identityAutoCompleteCompleter',
+        doc: 'Post-processes a suggestion before it is applied.',
+      ),
+      DocsApiParam(
+        name: 'onSuggestionSelected',
+        type: 'ValueChanged<String>?',
+        isRequired: false,
+        doc: 'Called after a suggestion was written into the field.',
+      ),
+      DocsApiParam(
+        name: 'itemBuilder',
+        type: 'SuggestionRowBuilder?',
+        isRequired: false,
+        doc: 'Builds one suggestion row; null renders the shadcn default.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'AutoCompleteTheme?',
+        isRequired: false,
+        doc: 'Widget-leg theme override for the suggestion list.',
+      ),
+      DocsApiParam(name: 'visibility', type: '', isRequired: false),
+      DocsApiParam(name: 'skipFocusTraversal', type: '', isRequired: false),
+    ],
   ),
   'checkbox': DocsApiTable(
     componentId: 'checkbox',
@@ -3270,10 +3312,19 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'formatter': DocsApiTable(
     componentId: 'formatter',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'TimeFormatter',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary:
+        'Pads/trims typed time text to a fixed [length] with leading zeros.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'length',
+        type: 'int',
+        isRequired: true,
+        doc: 'Fixed output length.',
+      ),
+    ],
   ),
   'history': DocsApiTable(
     componentId: 'history',
@@ -7331,10 +7382,33 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'alpha': DocsApiTable(
     componentId: 'alpha',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'AlphaPainter',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary: 'A checkerboard painter used to visualize transparency.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'primary',
+        type: 'Color',
+        isRequired: false,
+        defaultValue: 'checkboardPrimary',
+        doc: 'Fill color of the even squares.',
+      ),
+      DocsApiParam(
+        name: 'secondary',
+        type: 'Color',
+        isRequired: false,
+        defaultValue: 'checkboardSecondary',
+        doc: 'Fill color of the odd squares.',
+      ),
+      DocsApiParam(
+        name: 'squareSize',
+        type: 'double',
+        isRequired: false,
+        defaultValue: 'checkboardSize',
+        doc: 'Edge length of one square.',
+      ),
+    ],
   ),
   'async': DocsApiTable(
     componentId: 'async',
@@ -7367,9 +7441,11 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'color': DocsApiTable(
     componentId: 'color',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'ColorDerivative',
+    hasApiTable: true,
     parseClean: true,
+    summary:
+        'An abstract base class representing a color that can be transformed between different color spaces.',
     params: <DocsApiParam>[],
   ),
   'error_system': DocsApiTable(
@@ -7409,10 +7485,31 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'locale_utils': DocsApiTable(
     componentId: 'locale_utils',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'SizeUnitLocale',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary: 'Unit table and digit-grouping rules for byte-size formatting.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'base',
+        type: 'int',
+        isRequired: true,
+        doc: 'Conversion factor between two neighbouring units.',
+      ),
+      DocsApiParam(
+        name: 'units',
+        type: 'List<String>',
+        isRequired: true,
+        doc: 'Unit labels from smallest ([units] first) to largest.',
+      ),
+      DocsApiParam(
+        name: 'separator',
+        type: 'String',
+        isRequired: false,
+        defaultValue: '\',\'',
+        doc: 'Separator inserted between digit groups of the integer part.',
+      ),
+    ],
   ),
   'timeline_animation': DocsApiTable(
     componentId: 'timeline_animation',

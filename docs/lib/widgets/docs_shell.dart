@@ -10,6 +10,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import '../motion/ease.dart';
+import '../motion/motion_scope.dart';
 import '../routing/docs_router.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../state/docs_state.dart';
@@ -85,33 +87,51 @@ class _DocsAppShellState extends State<DocsAppShell> {
               ),
           ],
         );
-        final Widget content = !_mobileNavOpen
-            ? shell
-            : Stack(
-                children: <Widget>[
-                  shell,
-                  Positioned(
-                    top: headerHeight,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: _closeMobileNav,
-                    ),
-                  ),
-                  Positioned(
-                    top: headerHeight,
-                    left: 0,
-                    right: 0,
-                    child: DocsMobileNav(
-                      delegate: widget.delegate,
-                      currentLocation: config.location,
-                      onNavigate: _closeMobileNav,
-                    ),
-                  ),
-                ],
-              );
+        // The mobile nav is the reference's full-width popper (not a drawer):
+        // it fades in/out over 100 ms (`duration-100`), opacity-only, so the
+        // reduced-motion rule ("no transforms, ≤150 ms") holds unchanged.
+        final Widget content = Stack(
+          children: <Widget>[
+            shell,
+            if (_mobileNavOpen)
+              Positioned(
+                top: headerHeight,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _closeMobileNav,
+                ),
+              ),
+            Positioned(
+              top: headerHeight,
+              left: 0,
+              right: 0,
+              child: IgnorePointer(
+                ignoring: !_mobileNavOpen,
+                child: AnimatedSwitcher(
+                  duration: context.motionDuration(kDurationPopper),
+                  switchInCurve: kEaseStandard,
+                  switchOutCurve: kEaseIn,
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) =>
+                          FadeTransition(opacity: animation, child: child),
+                  child: _mobileNavOpen
+                      ? DocsMobileNav(
+                          key: const ValueKey<String>('mobile-nav'),
+                          delegate: widget.delegate,
+                          currentLocation: config.location,
+                          onNavigate: _closeMobileNav,
+                        )
+                      : const SizedBox.shrink(
+                          key: ValueKey<String>('mobile-nav-closed'),
+                        ),
+                ),
+              ),
+            ),
+          ],
+        );
         // Paint the viewport with the active preset background: the app has
         // no scaffold, so unpainted gaps would otherwise show the dark
         // `index.html` first-paint background in light mode.
@@ -130,7 +150,7 @@ class _DocsAppShellState extends State<DocsAppShell> {
               }
             },
           },
-          child: FocusTraversalGroup(child: painted),
+          child: painted,
         );
       },
     );

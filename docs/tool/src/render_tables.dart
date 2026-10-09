@@ -196,21 +196,6 @@ String renderDocsTables(DocsModel model) {
   out
     ..writeln('};')
     ..writeln()
-    ..writeln(
-      '/// Up to three same-category neighbours per component (wrapping).',
-    )
-    ..writeln(
-      'const Map<String, List<String>> kRelatedIds = '
-      '<String, List<String>>{',
-    );
-  for (final ComponentFacts component in model.scan.components) {
-    out.writeln(
-      '  ${dartString(component.id)}: ${stringList(_relatedIds(model.scan, component), indent: '  ', appended: 1)},',
-    );
-  }
-  out
-    ..writeln('};')
-    ..writeln()
     ..writeln('/// Parsed cli_snapshot.txt command sections.')
     ..writeln('const List<DocsCliCommand> kCliCommands = <DocsCliCommand>[');
   for (final CliCommandFacts command in model.cliCommands) {
@@ -235,30 +220,6 @@ String renderDocsTables(DocsModel model) {
   }
   out.writeln('];');
   return out.toString();
-}
-
-List<String> _relatedIds(RegistryScan scan, ComponentFacts component) {
-  final List<String> categoryOrder = <String>[
-    for (final ComponentFacts other in scan.components)
-      if (other.category == component.category) other.id,
-  ];
-  if (categoryOrder.length < 2) {
-    return <String>[];
-  }
-  final int selfIndex = categoryOrder.indexOf(component.id);
-  final List<String> related = <String>[];
-  for (final int offset in const <int>[1, -1, 2, -2, 3, -3]) {
-    if (related.length >= 3) {
-      break;
-    }
-    final String next =
-        categoryOrder[(selfIndex + offset + categoryOrder.length) %
-            categoryOrder.length];
-    if (next != component.id && !related.contains(next)) {
-      related.add(next);
-    }
-  }
-  return related;
 }
 
 String _depKindName(String layer) => switch (layer) {

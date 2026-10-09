@@ -5,6 +5,7 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../web_bridge.dart';
 import 'docs_tokens.dart';
@@ -80,8 +81,8 @@ class _FooterLinkState extends State<_FooterLink> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: GestureDetector(
-        onTap: widget.onTap,
+      child: Clickable(
+        onPressed: widget.onTap,
         child: Text(
           widget.label,
           style: widget.style.copyWith(

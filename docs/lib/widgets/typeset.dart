@@ -8,6 +8,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../ui/shadcn/foundation/gap.dart';
+import '../ui/shadcn/primitives/clickable.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
 
@@ -114,8 +115,8 @@ class _TypesetLinkState extends State<TypesetLink> {
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: GestureDetector(
-        onTap: widget.onPressed,
+      child: Clickable(
+        onPressed: widget.onPressed,
         child: Text(
           widget.label,
           style: docsText(context, size: 15, weight: FontWeight.w500).copyWith(

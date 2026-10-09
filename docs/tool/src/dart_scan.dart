@@ -88,13 +88,19 @@ class ApiFacts {
 ///
 /// [nameCandidates] is the preference order: the class named after the
 /// manifest display name, the class named after the directory id, then the
-/// manifest `api.classes` list; the first candidate that is declared in the
-/// file (and, for the manifest fallback, is a `StatelessWidget` /
-/// `StatefulWidget`) wins.
+/// manifest `api.classes` list. Selection order:
 ///
-/// Function-first components (dialog → `showShadcnDialog`, popup →
-/// `showShadcnPopup`, drawer → `openDrawer`) have no widget class; their
-/// primary top-level function's parameters are extracted the same way.
+///  1. a class named exactly after the display name or the directory id;
+///  2. a widget class from the manifest `api.classes` list;
+///  3. the primary top-level function (function-first components: dialog →
+///     `showShadcnDialog`, popup → `showShadcnPopup`, drawer → `openDrawer`);
+///  4. the first manifest `api.classes` candidate with a public unnamed
+///     constructor (so the table carries real parameters), else the first
+///     declared candidate (symbol + summary only). This resolves the
+///     irregular components whose primary type does not carry the display
+///     name (`autocomplete` → `AutoCompleteFeature`, `alpha` → `AlphaPainter`,
+///     `color` → `ColorDerivative`, `locale_utils` → `SizeUnitLocale`,
+///     `formatter` → `TimeFormatter`).
 ApiFacts extractApi({
   required String source,
   required List<String> nameCandidates,
@@ -108,29 +114,74 @@ ApiFacts extractApi({
       .whereType<ClassDeclaration>()
       .toList(growable: false);
 
+  ClassDeclaration? selected;
   if (classes.isNotEmpty) {
-    ClassDeclaration? selected;
     for (final String candidate in nameCandidates.take(2)) {
       selected = _classNamed(classes, candidate);
       if (selected != null) {
         break;
       }
     }
-    if (selected == null) {
-      for (final String candidate in nameCandidates.skip(2)) {
-        final ClassDeclaration? match = _classNamed(classes, candidate);
-        if (match != null && _isWidget(match)) {
-          selected = match;
-          break;
-        }
-      }
-    }
+    selected ??= _widgetClass(classes, nameCandidates);
     if (selected != null) {
       return _classApiFacts(selected, source, parseClean);
     }
   }
 
-  return _functionApiFacts(result, nameCandidates, source, parseClean);
+  final ApiFacts functionFacts = _functionApiFacts(
+    result,
+    nameCandidates,
+    source,
+    parseClean,
+  );
+  if (functionFacts.hasApiTable) {
+    return functionFacts;
+  }
+
+  if (classes.isNotEmpty) {
+    final ClassDeclaration? manifestClass = _manifestClass(
+      classes,
+      nameCandidates,
+    );
+    if (manifestClass != null) {
+      return _classApiFacts(manifestClass, source, parseClean);
+    }
+  }
+  return functionFacts;
+}
+
+/// A widget class from the manifest `api.classes` fallback list.
+ClassDeclaration? _widgetClass(
+  List<ClassDeclaration> classes,
+  List<String> nameCandidates,
+) {
+  for (final String candidate in nameCandidates.skip(2)) {
+    final ClassDeclaration? match = _classNamed(classes, candidate);
+    if (match != null && _isWidget(match)) {
+      return match;
+    }
+  }
+  return null;
+}
+
+/// Picks the primary class from the manifest `api.classes` fallback list.
+ClassDeclaration? _manifestClass(
+  List<ClassDeclaration> classes,
+  List<String> nameCandidates,
+) {
+  final List<ClassDeclaration> declared = <ClassDeclaration>[];
+  for (final String candidate in nameCandidates.skip(2)) {
+    final ClassDeclaration? match = _classNamed(classes, candidate);
+    if (match != null && !declared.contains(match)) {
+      declared.add(match);
+    }
+  }
+  for (final ClassDeclaration candidate in declared) {
+    if (_hasUnnamedConstructor(candidate)) {
+      return candidate;
+    }
+  }
+  return declared.firstOrNull;
 }
 
 /// Extracts the API facts from a class constructor.
@@ -344,6 +395,17 @@ ClassDeclaration? _classNamed(List<ClassDeclaration> classes, String name) {
 bool _isWidget(ClassDeclaration declaration) {
   final String base = declaration.extendsClause?.superclass.toSource() ?? '';
   return base == 'StatelessWidget' || base == 'StatefulWidget';
+}
+
+/// Whether [declaration] declares a public unnamed constructor.
+///
+/// `TextInputFormatters._()` is private (and therefore not the component's
+/// callable surface), while `TimeFormatter({required this.length})` is: the
+/// fallback selection prefers the latter so the API table has parameters.
+bool _hasUnnamedConstructor(ClassDeclaration declaration) {
+  return declaration.body.members.whereType<ConstructorDeclaration>().any(
+    (ConstructorDeclaration constructor) => constructor.name == null,
+  );
 }
 
 Map<String, _FieldFacts> _fieldsOf(ClassDeclaration declaration) {

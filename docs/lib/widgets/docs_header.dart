@@ -106,7 +106,11 @@ class DocsHeader extends StatelessWidget {
               size: ButtonSize.sm,
               onPressed: () => webOpenUrl(kDocsRepoUrl),
               leading: const Icon(LucideIcons.github, size: 16),
-              child: wide ? const Text('GitHub') : const SizedBox.shrink(),
+              // The label needs `xl`: at exactly 1024 the bar overflows by a
+              // few pixels with it (measured in the responsive audit).
+              child: width >= 1280
+                  ? const Text('GitHub')
+                  : const SizedBox.shrink(),
             ),
           ),
           const Gap(4),
@@ -205,6 +209,7 @@ class _SearchTrigger extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnColors colors = ShadcnTheme.of(context).colors;
     return SizedBox(
+      key: const ValueKey<String>('docs-search-trigger'),
       width: width,
       height: 32,
       child: Clickable(
@@ -355,12 +360,12 @@ class _MobileGroup extends StatelessWidget {
         for (final DocsNavLink link in links)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () {
+            child: Clickable(
+              onPressed: () {
                 onNavigate();
                 delegate.go(context, link.location);
               },
+              behavior: HitTestBehavior.opaque,
               child: Text(
                 link.label,
                 style: docsText(context, size: 18, weight: FontWeight.w500),

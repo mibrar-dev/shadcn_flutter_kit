@@ -435,3 +435,5 @@
   full-page-capture artefact; mockup copy has placeholder facts (heightMd 40 vs real 36, labelStyle w600 vs w500,
   "2 files per component" vs 3 Dart files) — the build must GENERATE API tables / deps / stats from the real
   registry (meta.json, manifest, source), never from the mockups; preset gallery (12/42) + marquee from full data.
+
+## P6-B docs build plan (muse-spark) — ACCEPTED: minimal router on ShadcnApp.router + AnimatedShadcnTheme, generated catalog/API/search (docs/tool/gen_docs_data.dart, --check in CI), one component template for all 118 with deferred previews, docs app_theme byte-identical to gen_app_theme, batches D1→{D2∥D3}→D4→D5→D6 (D6 = visual check vs mockups). Gaps: popover→popup, chart→docs-only CustomPaint on chart1..5 tokens.

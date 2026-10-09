@@ -1195,6 +1195,13 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Action buttons in the top-right corner.',
       ),
       DocsApiParam(
+        name: 'language',
+        type: 'String?',
+        isRequired: false,
+        doc:
+            'Language id or fence tag (`dart`, `js`, `py`, …) used for syntax\nhighlighting. When null, the language is auto-detected from the code\ntext (fence tag first, then conservative content signals); unknown\ncontent stays plain.',
+      ),
+      DocsApiParam(
         name: 'theme',
         type: 'CodeSnippetTheme?',
         isRequired: false,

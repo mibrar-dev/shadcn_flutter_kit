@@ -91,71 +91,81 @@ class _DocsSidebarState extends State<DocsSidebar> {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
+    // Spec §2.2: the sidebar sticks at `header + 0.6rem` (10 px) and the
+    // first group starts `pt-12` (48 px) below that; the scroll area sits at
+    // `pl-2.5` + the container gutter's 8 px, so rows start at x = 26.
     return SizedBox(
       width: DocsMetrics.sidebarWidth,
-      child: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: SizedBox(
-              width: DocsMetrics.sidebarMenuWidth,
-              child: ScrollConfiguration(
-                behavior: const DocsScrollBehavior(),
-                child: ScrollFade(
-                  fadeTop: false,
-                  fadeBottom: true,
-                  child: SingleChildScrollView(
-                    controller: _scroll,
-                    padding: const EdgeInsets.only(top: 12, bottom: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        const _GroupLabel('Sections'),
-                        for (final DocsNavLink link in kDocsSections)
-                          _SidebarItem(
-                            label: link.label,
-                            location: link.location,
-                            active: link.isActiveFor(widget.activeLocation),
-                            itemKey: _keyFor(link.location),
-                          ),
-                        const Gap(24),
-                        const _GroupLabel('Components'),
-                        for (final DocsComponentLink link in kComponentLinks)
-                          _SidebarItem(
-                            label: link.name,
-                            location: '/docs/components/${link.id}',
-                            active: _isComponentActive(link),
-                            itemKey: _keyFor('/docs/components/${link.id}'),
-                          ),
-                      ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 18),
+              child: SizedBox(
+                width: DocsMetrics.sidebarMenuWidth,
+                child: ScrollConfiguration(
+                  behavior: const DocsScrollBehavior(),
+                  child: ScrollFade(
+                    fadeTop: false,
+                    fadeBottom: true,
+                    child: SingleChildScrollView(
+                      controller: _scroll,
+                      padding: const EdgeInsets.only(top: 48, bottom: 24),
+                      // Rows hug their label (reference: the active pill is
+                      // content-wide, not the full 224 px menu width).
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const _GroupLabel('Sections'),
+                          for (final DocsNavLink link in kDocsSections)
+                            _SidebarItem(
+                              label: link.label,
+                              location: link.location,
+                              active: link.isActiveFor(widget.activeLocation),
+                              itemKey: _keyFor(link.location),
+                              spacing: 4,
+                            ),
+                          const Gap(24),
+                          const _GroupLabel('Components'),
+                          for (final DocsComponentLink link in kComponentLinks)
+                            _SidebarItem(
+                              label: link.name,
+                              location: '/docs/components/${link.id}',
+                              active: _isComponentActive(link),
+                              itemKey: _keyFor('/docs/components/${link.id}'),
+                              spacing: 2,
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            top: 48,
-            right: 8,
-            bottom: 0,
-            width: 1,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    theme.colors.border.withValues(alpha: 0),
-                    theme.colors.border,
-                    theme.colors.border,
-                    theme.colors.border.withValues(alpha: 0),
-                  ],
-                  stops: const <double>[0, 0.1, 0.9, 1],
+            Positioned(
+              top: 48,
+              right: 8,
+              bottom: 0,
+              width: 1,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      theme.colors.border.withValues(alpha: 0),
+                      theme.colors.border,
+                      theme.colors.border,
+                      theme.colors.border.withValues(alpha: 0),
+                    ],
+                    stops: const <double>[0, 0.1, 0.9, 1],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -174,7 +184,7 @@ class _GroupLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
       child: SizedBox(
         height: 32,
         child: Align(
@@ -200,12 +210,14 @@ class _SidebarItem extends StatelessWidget {
     required this.label,
     required this.location,
     required this.active,
+    required this.spacing,
     this.itemKey,
   });
 
   final String label;
   final String location;
   final bool active;
+  final double spacing;
   final Key? itemKey;
 
   @override
@@ -214,7 +226,7 @@ class _SidebarItem extends StatelessWidget {
     final ShadcnColors colors = theme.colors;
     final BorderRadius radius = theme.borderRadiusMd;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2),
+      padding: EdgeInsets.only(bottom: spacing),
       child: Clickable(
         key: itemKey,
         onPressed: () => DocsRouterScope.of(context).go(context, location),

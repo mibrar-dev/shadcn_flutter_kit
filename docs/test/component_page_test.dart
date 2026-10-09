@@ -69,7 +69,10 @@ void main() {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
-      // Switch to Manual tab.
+      // Switch to Manual tab. The tabs now sit above the preview figure, so at
+      // the 1400x900 test surface they can be below the fold - scroll first.
+      await tester.ensureVisible(find.text('Manual'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Manual'));
       await tester.pumpAndSettle();
       expect(

@@ -69,15 +69,24 @@ class DocsHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: DocsMetrics.barPadding),
       child: Row(
         children: <Widget>[
+          // Invisible initial-focus anchor: the reference paints no focus
+          // ring on load, but the first Tab must still start in the header
+          // (focus_test). A plain `Focus(autofocus: true)` loses the race
+          // against the Navigator route scope's own autofocus (it requests
+          // focus during build), so the anchor asks in a post-frame callback
+          // - the same trick `Button(autofocus)` uses. No `FocusOutline`
+          // wraps it, so taking focus paints nothing.
+          FocusTraversalOrder(
+            order: DocsFocusOrder.headerAnchor,
+            child: const _HeaderFocusAnchor(),
+          ),
           if (!wide)
             Button(
               variant: ButtonVariant.ghost,
               size: ButtonSize.sm,
-              // Initial focus starts the shell order (header → sidebar →
-              // content → TOC) instead of entering the page navigator's focus
-              // scope first; the framework would otherwise leave nothing
-              // focused and Tab would begin in the page content.
-              autofocus: true,
+              // No `autofocus`: the reference paints no focus ring on load.
+              // `OrderedTraversalPolicy` + the shell `FocusTraversalOrder`
+              // slots still make the first Tab land in the header.
               onPressed: onToggleMobileNav,
               leading: Icon(
                 mobileNavOpen ? LucideIcons.x : LucideIcons.menu,
@@ -92,7 +101,6 @@ class DocsHeader extends StatelessWidget {
                 child: _NavLink(
                   link: kHeaderNav[i],
                   active: _navActive(kHeaderNav[i].location, currentLocation),
-                  autofocus: i == 0,
                   onPressed: () => delegate.go(context, kHeaderNav[i].location),
                 ),
               ),
@@ -168,18 +176,49 @@ bool _navActive(String linkLocation, String current) {
   return current == linkLocation;
 }
 
+class _HeaderFocusAnchor extends StatefulWidget {
+  const _HeaderFocusAnchor();
+
+  @override
+  State<_HeaderFocusAnchor> createState() => _HeaderFocusAnchorState();
+}
+
+class _HeaderFocusAnchorState extends State<_HeaderFocusAnchor> {
+  final FocusNode _node = FocusNode(debugLabel: 'header-focus-anchor');
+
+  @override
+  void initState() {
+    super.initState();
+    // Post-frame: the route's focus scope grabs focus during the first
+    // build; asking afterwards makes the header the traversal origin.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _node.requestFocus();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _node.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      FocusableActionDetector(focusNode: _node, child: const SizedBox.shrink());
+}
+
 class _NavLink extends StatelessWidget {
   const _NavLink({
     required this.link,
     required this.active,
     required this.onPressed,
-    this.autofocus = false,
   });
 
   final DocsNavLink link;
   final bool active;
   final VoidCallback onPressed;
-  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +226,6 @@ class _NavLink extends StatelessWidget {
     return Button(
       variant: ButtonVariant.ghost,
       size: ButtonSize.sm,
-      autofocus: autofocus,
       theme: ButtonVariantStyle(
         foreground: StateValue<ThemedColor>(
           rest: ThemedColor.value(

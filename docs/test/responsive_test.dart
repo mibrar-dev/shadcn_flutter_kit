@@ -146,12 +146,13 @@ void main() {
     }
 
     // 640 px max article, centred in the remaining column; py 32 / px 0 at
-    // `lg+`, py 24 / px 16 below `md` (spec §2.9).
+    // `lg+` (title box 64+16+32 = 112), py 24 / px 16 below `md` with
+    // `--top-spacing: 0` (title box 56+0+24 = 80) (spec §2.9).
     await check(1280, sidebar: true, toc: true, left: 320, top: 112);
     await check(1024, sidebar: true, toc: false, left: 336, top: 112);
-    await check(768, sidebar: false, toc: false, left: 64, top: 96);
-    await check(640, sidebar: false, toc: false, left: 24, top: 96);
-    await check(375, sidebar: false, toc: false, left: 24, top: 96);
+    await check(768, sidebar: false, toc: false, left: 64, top: 80);
+    await check(640, sidebar: false, toc: false, left: 24, top: 80);
+    await check(375, sidebar: false, toc: false, left: 24, top: 80);
   });
 
   testWidgets('footer heights: 96 at xl, 56 below; hidden on /docs', (

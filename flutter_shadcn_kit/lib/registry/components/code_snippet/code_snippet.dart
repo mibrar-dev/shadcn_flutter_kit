@@ -8,6 +8,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
+import '../../primitives/syntax_highlight/syntax_highlight.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';
@@ -17,7 +18,10 @@ export 'code_snippet_style.dart';
 
 /// Scrollable code block with optional top-right [actions] (copy, run).
 ///
-/// The [code] content renders in the ambient monospace small style.
+/// The [code] content renders in the ambient monospace small style. When a
+/// [language] is given (or auto-detected from a fence tag / strong content
+/// signals), the code is syntax-highlighted with the theme's `syntax` token
+/// group; selection and copy still yield the plain text.
 class CodeSnippet extends StatelessWidget {
   /// Creates a code snippet display.
   const CodeSnippet({
@@ -25,6 +29,7 @@ class CodeSnippet extends StatelessWidget {
     this.constraints,
     this.actions = const <Widget>[],
     required this.code,
+    this.language,
     this.theme,
   });
 
@@ -36,6 +41,12 @@ class CodeSnippet extends StatelessWidget {
 
   /// Code content (usually a [Text]).
   final Widget code;
+
+  /// Language id or fence tag (`dart`, `js`, `py`, …) used for syntax
+  /// highlighting. When null, the language is auto-detected from the code
+  /// text (fence tag first, then conservative content signals); unknown
+  /// content stays plain.
+  final String? language;
 
   /// Widget-leg theme override, merged over the other legs.
   final CodeSnippetTheme? theme;
@@ -78,7 +89,7 @@ class CodeSnippet extends StatelessWidget {
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: ambient.colors.foreground),
-                  child: code.mono.small,
+                  child: _codeChild(ambient),
                 ),
               ),
             ),
@@ -105,5 +116,29 @@ class CodeSnippet extends StatelessWidget {
       out.add(actions[i]);
     }
     return out;
+  }
+
+  /// The code child, highlighted when a language is known or detected.
+  ///
+  /// Only a plain [Text] can be re-colored (its string is the source); any
+  /// other widget renders untouched.
+  Widget _codeChild(ShadcnThemeData ambient) {
+    final Widget raw = code;
+    if (raw is! Text || raw.data == null) return raw.mono.small;
+    final String text = raw.data!;
+    final SyntaxLanguage? detected =
+        syntaxLanguageFromId(language) ?? syntaxLanguageGuess(text);
+    if (detected == null) return raw.mono.small;
+    final TextStyle base = ambient.typography.mono.copyWith(
+      color: ambient.colors.foreground,
+    );
+    return Text.rich(
+      syntaxTextSpan(
+        code: text,
+        language: detected,
+        base: base,
+        colors: ambient.syntaxColors,
+      ),
+    ).mono.small;
   }
 }

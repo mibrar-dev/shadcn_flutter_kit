@@ -12,6 +12,7 @@ import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../widgets/announcement.dart';
 import '../widgets/collage.dart';
+import '../widgets/docs_footer.dart';
 import '../widgets/docs_tokens.dart';
 
 /// `/` — the landing page.
@@ -28,9 +29,14 @@ class LandingPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 24,
-              vertical: width >= 768 ? (xl ? 80 : 64) : 32,
+            // Spec §2.1: `py-8` base, `md:py-16`, `lg:py-20` on top; the
+            // measured gap below the CTAs is 72 px to the first collage card
+            // (48 px section padding + the collage's 24 px top padding).
+            padding: EdgeInsets.fromLTRB(
+              24,
+              width >= 768 ? (xl ? 80 : 64) : 32,
+              24,
+              width >= 768 ? 48 : 32,
             ),
             child: Column(
               children: <Widget>[
@@ -58,10 +64,14 @@ class LandingPage extends StatelessWidget {
                 Gap(xl ? 16 : 8),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 896),
+                  // The reference balances this paragraph into two near-equal
+                  // lines (`text-balance`, measured 633 px max line); the
+                  // explicit break reproduces that at every width — each
+                  // half still wraps naturally on narrow screens.
                   child: Text(
                     'Widgets-only, accessible components with thoughtful '
-                    'defaults. Install the source with one command and make '
-                    'every token yours.',
+                    'defaults.\nInstall the source with one command and make '
+                    'every token ours.',
                     textAlign: TextAlign.center,
                     style: docsText(
                       context,
@@ -70,7 +80,7 @@ class LandingPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Gap(8),
+                const Gap(20),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 8,
@@ -79,7 +89,6 @@ class LandingPage extends StatelessWidget {
                     _PillButton(
                       label: 'Get Started',
                       primary: true,
-                      height: 35,
                       onPressed: () => DocsRouterScope.of(
                         context,
                       ).go(context, '/docs/installation'),
@@ -87,7 +96,6 @@ class LandingPage extends StatelessWidget {
                     _PillButton(
                       label: 'View Components',
                       primary: false,
-                      height: 36,
                       onPressed: () => DocsRouterScope.of(
                         context,
                       ).go(context, '/docs/components'),
@@ -98,6 +106,10 @@ class LandingPage extends StatelessWidget {
             ),
           ),
           const DocsCollage(),
+          DocsFooter(
+            onDocs: () => DocsRouterScope.of(context).go(context, '/docs'),
+            onCli: () => DocsRouterScope.of(context).go(context, '/docs/cli'),
+          ),
         ],
       ),
     );
@@ -108,27 +120,26 @@ class _PillButton extends StatelessWidget {
   const _PillButton({
     required this.label,
     required this.primary,
-    required this.height,
     required this.onPressed,
   });
 
   final String label;
   final bool primary;
-  final double height;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(26),
-      child: SizedBox(
-        height: height,
-        child: Button(
-          variant: primary ? ButtonVariant.primary : ButtonVariant.secondary,
-          size: ButtonSize.sm,
-          onPressed: onPressed,
-          child: Text(label),
-        ),
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    // The reference CTAs are 35/36 px pills (radius 26). The registry button
+    // derives its radius from the `radius` token, so the token is scoped to
+    // this subtree: radiusMd = 1.25 * 16 - 2 = 18 = half of the 36 px box.
+    return ShadcnTheme(
+      data: theme.copyWith(tokens: () => theme.tokens.copyWith(radius: 1.25)),
+      child: Button(
+        variant: primary ? ButtonVariant.primary : ButtonVariant.secondary,
+        size: ButtonSize.md,
+        onPressed: onPressed,
+        child: Text(label),
       ),
     );
   }

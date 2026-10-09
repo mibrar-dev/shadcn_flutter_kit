@@ -1440,6 +1440,7 @@
           "gap"
         ],
         "primitives": [
+          "syntax_highlight",
           "text"
         ],
         "theme": [
@@ -7873,7 +7874,7 @@
     "components/chip_input/chip_input_style.dart": "15357b593ec6374a96f9176ee8364ab0a061d563ea36b06e4678cebaebbe9a82",
     "components/chip_input/chip_input_theme.dart": "879e69b1c259e2e9f98676530560c6e8b516ffd3b8b68c4813f5988b8c535216",
     "components/chip_input/preview.dart": "62b3a20b1858d4cd4b3ce312e6e52721a07cd6b70a56cebd486f32cead23075e",
-    "components/code_snippet/code_snippet.dart": "11047759edc32607e8f4e22e5e77ada898a5705c5f5b29c831df1e8f6430026a",
+    "components/code_snippet/code_snippet.dart": "3f3cf75d81f477ad3006e90214e92569359727491ef1e1db05ec01bf5959c96b",
     "components/code_snippet/code_snippet_style.dart": "0e21351004640c9ebc1a578ed74eb14847ab0fd07ed92c17239ffa4c13342811",
     "components/code_snippet/code_snippet_theme.dart": "dfd9af928c0f207c3c0504fc6d16b998101614ba5c9203addebe811435fa61ad",
     "components/code_snippet/preview.dart": "15b42c8cd43034d3c8bf09e0672eed953d44da8d2fd7fa64e07cd3b5e750c28d",
@@ -8353,7 +8354,7 @@
     "primitives/localizations/localizations_zh_hant.dart": "9b4f3c4684b86e47f05afd1ddb2280e836b177fcbd20ba135af68505206b8ab3",
     "primitives/markdown_parser/api.dart": "f88b5574bac394005cd301db8a400984f3ae6269d4f4f9f65da8373bfba0eb1c",
     "primitives/markdown_parser/block_parser.dart": "ea8b160c9e2acfc0a9dd812488f1f8eb50e628008c1e2f88933768d80d7f96d4",
-    "primitives/markdown_parser/blocks.dart": "9889862bb2296d26651b7cdc323a743e79366af7a7cfb2a8249d6ab4148a2259",
+    "primitives/markdown_parser/blocks.dart": "29574c50aaccaa059903f985a87b116f307f0ac7353a26f626266443da664e11",
     "primitives/markdown_parser/document.dart": "cc785cf2436319ab1f94e315e458368bd859fc73205ffa2f280588d4e4ab8902",
     "primitives/markdown_parser/inline_parser.dart": "9e68fcb2438f1e5f2a606595160f0a4a6432b88a09488aba47b022efccbf2d37",
     "primitives/markdown_parser/markdown_parser.dart": "95202f8026abf3229492463bcbbce3c82de4f8ea26305316bdb504e6cda01c29",
@@ -8405,6 +8406,10 @@
     "primitives/subfocus_item.dart": "c01d2c55b15e0ee03d1bdee7c30cbbef4905465a26a951801ea0f36aa716b5ad",
     "primitives/subfocus_list_item.dart": "1e37fe1f5c36c0ed7c9b5245a512ba300a73df349aa3ea3d20a71fa26f78bccc",
     "primitives/subfocus_scope.dart": "2a7e4159b13bb6a72899ac7a9450154cb8705863a9b44e58cb0681b156d6203c",
+    "primitives/syntax_highlight/syntax_highlight.dart": "0c3b99aab9dc4d1e0c319d96e7655dfce77b69c9e4509b3a3fd5dd351b64c895",
+    "primitives/syntax_highlight/syntax_language.dart": "54f6020aea77269a9da5053b64c75fdb8a933d2761551d0ad3e6f88a9007fb25",
+    "primitives/syntax_highlight/syntax_scanners.dart": "684fdfac3d313341550d203f5a389b6e42886f77b548815566fe9790fd77bad3",
+    "primitives/syntax_highlight/syntax_token.dart": "91a048f90587df31e17eda89c9c96f138ddb3a3aefa0dc410111674a1b0361c9",
     "primitives/tab_container.dart": "4091ab7dea0a9dc412912d98873b9d040e90b3443311804341e530fe7cd1fbc7",
     "primitives/table_layout/table_cell_view.dart": "a5a37f0ed6b6bb85e135c69eb8e01345febd0ea17bd6190d98c9e4b4377e6107",
     "primitives/table_layout/table_cells.dart": "159eaeef8aa03062b676ad408e5f9ea0d6597b63b52540f8eb76522cd861c2ec",
@@ -8442,7 +8447,8 @@
     "theme/color_tokens.dart": "fef9d7c22266ded82b99857d333235089196f0a584c5c58000c60244800b9579",
     "theme/color_utils.dart": "250556c16c4bc54be6375229c47f7fe085a90f79b4544c96b7617760ad52c709",
     "theme/density.dart": "e136455b42e7ecefdb8e6f04bc3985da5cf940909742afef4c9945d025db9ac3",
-    "theme/theme.dart": "97aa13bfcf5490e0888e6bfff910906fcca0166f5bffb04c1fecaba09509acec",
+    "theme/syntax_colors.dart": "4b11c5c11c6c225e4f0a9700ad6ea67685a96312e89f1d54257ba6c91186665b",
+    "theme/theme.dart": "cea60520eb72f87b05b426918486479ef9e09d8ac52bb39723e6bcbfc5097732",
     "theme/tokens.dart": "0bf2552a86761bfddb7d7e30fc3e4de6f7d3555d41ba6c7978128e3c2ad55341",
     "theme/typography.dart": "936da7bfdc6832466d8cd2f4a79d15c93b49b985a7ba181597fb406de0d56f23",
     "themes/amber-minimal.json": "13a12831d4ff5f6d49d5375d631c40ccd4e0db522686e89f5c872e362eca73d1",
@@ -8960,6 +8966,7 @@
     "markdown_parser": {
       "deps": {
         "primitives": [
+          "syntax_highlight",
           "text_editing"
         ]
       },
@@ -9328,6 +9335,17 @@
         "primitives/subfocus_scope.dart"
       ]
     },
+    "syntax_highlight": {
+      "deps": {
+        "primitives": []
+      },
+      "files": [
+        "primitives/syntax_highlight/syntax_highlight.dart",
+        "primitives/syntax_highlight/syntax_language.dart",
+        "primitives/syntax_highlight/syntax_scanners.dart",
+        "primitives/syntax_highlight/syntax_token.dart"
+      ]
+    },
     "tab_container": {
       "deps": {
         "primitives": [
@@ -9467,6 +9485,11 @@
     "density": {
       "files": [
         "theme/density.dart"
+      ]
+    },
+    "syntax_colors": {
+      "files": [
+        "theme/syntax_colors.dart"
       ]
     },
     "theme": {

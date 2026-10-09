@@ -6,6 +6,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/icons/lucide_icons.dart';
+import '../../theme/theme.dart';
+import '../syntax_highlight/syntax_highlight.dart';
 import 'api.dart';
 import 'document.dart';
 import 'inline_parser.dart';
@@ -165,11 +167,24 @@ Widget buildMarkdownListItem(
 }
 
 /// Fenced or indented code with an optional language label.
+///
+/// Fenced blocks with a known language tag are syntax-highlighted with the
+/// theme's `syntax` token group; the spans concatenate back to the plain
+/// text, so selection and copy are unchanged.
 Widget buildMarkdownCode(
   BuildContext context,
   MarkdownRenderStyle style,
   MarkdownBlock block,
 ) {
+  final SyntaxLanguage? language = syntaxLanguageFromId(block.language);
+  final TextSpan code = language == null
+      ? TextSpan(style: style.mono, text: block.text)
+      : syntaxTextSpan(
+          code: block.text,
+          language: language,
+          base: style.mono,
+          colors: ShadcnTheme.of(context).syntaxColors,
+        );
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.symmetric(vertical: 6),
@@ -197,11 +212,7 @@ Widget buildMarkdownCode(
               ),
             ),
           ),
-        markdownRichText(
-          context,
-          style,
-          TextSpan(style: style.mono, text: block.text),
-        ),
+        markdownRichText(context, style, code),
       ],
     ),
   );

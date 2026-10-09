@@ -37,136 +37,146 @@ class ThemeRail extends StatelessWidget {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     return SizedBox(
       width: 192,
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.colors.card,
-          border: Border(right: BorderSide(color: theme.colors.border)),
-        ),
-        child: Column(
-          children: <Widget>[
-            // Header.
-            Container(
-              height: 49,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: theme.colors.border)),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Menu',
-                    style: docsText(context, size: 14, weight: FontWeight.w500),
+      child: ClipRRect(
+        borderRadius: theme.borderRadiusXl,
+        child: Container(
+          decoration: BoxDecoration(
+            color: theme.colors.card,
+            border: Border.all(color: theme.colors.border),
+            borderRadius: theme.borderRadiusXl,
+          ),
+          child: Column(
+            children: <Widget>[
+              // Header.
+              Container(
+                height: 49,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: theme.colors.border),
                   ),
-                  const Spacer(),
-                  Icon(LucideIcons.chevronLeft, size: 16),
-                ],
-              ),
-            ),
-            // Scrollable preset list.
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
                 ),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      'Menu',
+                      style: docsText(
+                        context,
+                        size: 14,
+                        weight: FontWeight.w500,
+                      ),
+                    ),
+                    const Spacer(),
+                    Icon(LucideIcons.chevronLeft, size: 16),
+                  ],
+                ),
+              ),
+              // Scrollable preset list.
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      for (final DocsPreset preset in kPresets)
+                        _PresetRow(
+                          preset: preset,
+                          active: preset.id == state.presetId,
+                          onTap: () => state.setPreset(preset.id),
+                        ),
+                      const Gap(16),
+                      // Radius row.
+                      Text(
+                        'Radius',
+                        style: docsText(
+                          context,
+                          size: 12,
+                          weight: FontWeight.w500,
+                          color: theme.colors.mutedForeground,
+                        ),
+                      ),
+                      const Gap(8),
+                      Slider(
+                        value: state.effectiveRadiusPx,
+                        min: 0,
+                        max: 16,
+                        onChanged: (double v) => state.setRadiusPx(v),
+                      ),
+                      const Gap(16),
+                      // Mode row.
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Mode',
+                            style: docsText(
+                              context,
+                              size: 12,
+                              weight: FontWeight.w500,
+                              color: theme.colors.mutedForeground,
+                            ),
+                          ),
+                          const Spacer(),
+                          Button(
+                            variant: ButtonVariant.ghost,
+                            size: ButtonSize.xs,
+                            onPressed: state.toggleBrightness,
+                            child: Icon(
+                              state.brightness == Brightness.dark
+                                  ? LucideIcons.sun
+                                  : LucideIcons.moon,
+                              size: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Footer actions.
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: theme.colors.border)),
+                  color: theme.colors.muted.withValues(alpha: 0.5),
+                ),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    for (final DocsPreset preset in kPresets)
-                      _PresetRow(
-                        preset: preset,
-                        active: preset.id == state.presetId,
-                        onTap: () => state.setPreset(preset.id),
-                      ),
-                    const Gap(16),
-                    // Radius row.
-                    Text(
-                      'Radius',
-                      style: docsText(
-                        context,
-                        size: 12,
-                        weight: FontWeight.w500,
-                        color: theme.colors.mutedForeground,
+                    _RailAction(
+                      label: 'Copy JSON',
+                      copy: () => presetJsonSource(
+                        state.presetId,
+                        radiusPx: state.effectiveRadiusPx,
                       ),
                     ),
                     const Gap(8),
-                    Slider(
-                      value: state.effectiveRadiusPx,
-                      min: 0,
-                      max: 16,
-                      onChanged: (double v) => state.setRadiusPx(v),
+                    _RailAction(
+                      label: 'Copy Dart',
+                      copy: () => presetDartSource(state.presetId),
                     ),
-                    const Gap(16),
-                    // Mode row.
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          'Mode',
-                          style: docsText(
-                            context,
-                            size: 12,
-                            weight: FontWeight.w500,
-                            color: theme.colors.mutedForeground,
-                          ),
-                        ),
-                        const Spacer(),
-                        Button(
-                          variant: ButtonVariant.ghost,
-                          size: ButtonSize.xs,
-                          onPressed: state.toggleBrightness,
-                          child: Icon(
-                            state.brightness == Brightness.dark
-                                ? LucideIcons.sun
-                                : LucideIcons.moon,
-                            size: 14,
-                          ),
-                        ),
-                      ],
+                    const Gap(8),
+                    _RailAction(
+                      label: 'Shuffle',
+                      onPressed: () {
+                        final List<DocsPreset> presets = kPresets.toList();
+                        presets.shuffle(Random());
+                        state.setPreset(presets.first.id);
+                      },
+                    ),
+                    const Gap(8),
+                    _RailAction(
+                      label: 'Get Code',
+                      copy: () => themeApplyCommand(state.presetId),
                     ),
                   ],
                 ),
               ),
-            ),
-            // Footer actions.
-            Container(
-              decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: theme.colors.border)),
-                color: theme.colors.muted.withValues(alpha: 0.5),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _RailAction(
-                    label: 'Copy JSON',
-                    copy: () => presetJsonSource(
-                      state.presetId,
-                      radiusPx: state.effectiveRadiusPx,
-                    ),
-                  ),
-                  const Gap(8),
-                  _RailAction(
-                    label: 'Copy Dart',
-                    copy: () => presetDartSource(state.presetId),
-                  ),
-                  const Gap(8),
-                  _RailAction(
-                    label: 'Shuffle',
-                    onPressed: () {
-                      final List<DocsPreset> presets = kPresets.toList();
-                      presets.shuffle(Random());
-                      state.setPreset(presets.first.id);
-                    },
-                  ),
-                  const Gap(8),
-                  _RailAction(
-                    label: 'Get Code',
-                    copy: () => themeApplyCommand(state.presetId),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

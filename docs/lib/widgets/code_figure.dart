@@ -7,6 +7,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../ui/shadcn/components/button/button.dart';
+import '../ui/shadcn/primitives/syntax_highlight/syntax_highlight.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
@@ -42,6 +43,22 @@ class DocsCodeFigure extends StatelessWidget {
       color: ink,
     );
     final bool header = language != null || showCopy;
+    // With a known language the code renders highlighted spans (the spans
+    // concatenate back to the plain text, so selection/copy is unchanged);
+    // the copy button always copies the plain [code] string. Named [syntax]
+    // (not [language]) so it never shadows the [String] field of the same
+    // name — the field drives the header label below.
+    final SyntaxLanguage? syntax = syntaxLanguageFromId(language);
+    final Widget codeBlock = syntax == null
+        ? Text(code, style: style)
+        : Text.rich(
+            syntaxTextSpan(
+              code: code,
+              language: syntax,
+              base: style,
+              colors: theme.syntaxColors,
+            ),
+          );
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Container(
@@ -80,7 +97,7 @@ class DocsCodeFigure extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Text(code, style: style),
+                child: codeBlock,
               ),
             ),
           ],

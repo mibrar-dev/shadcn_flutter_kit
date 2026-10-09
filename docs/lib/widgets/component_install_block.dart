@@ -10,6 +10,7 @@ import '../ui/shadcn/components/button/button.dart';
 import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/foundation/icons/lucide_icons.dart';
 import '../ui/shadcn/primitives/clickable.dart';
+import '../ui/shadcn/primitives/syntax_highlight/syntax_highlight.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
@@ -52,12 +53,29 @@ class _ComponentInstallBlockState extends State<ComponentInstallBlock> {
       children: <Widget>[
         const HeadingAnchor(id: 'installation', title: 'Installation'),
         const Gap(16),
+        // Spec §2.4: the Command|Manual line tabs sit ABOVE the figure
+        // (`TabsList` is transparent), not inside its header row.
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _LineTab(
+              label: 'Command',
+              selected: _lineTab == 0,
+              onTap: () => setState(() => _lineTab = 0),
+            ),
+            _LineTab(
+              label: 'Manual',
+              selected: _lineTab == 1,
+              onTap: () => setState(() => _lineTab = 1),
+            ),
+          ],
+        ),
+        const Gap(12),
         _InstallFigure(
           lineTab: _lineTab,
           pillTab: _pillTab,
           command: _command,
           files: files,
-          onLineTab: (int i) => setState(() => _lineTab = i),
           onPillTab: (int i) => setState(() => _pillTab = i),
         ),
       ],
@@ -71,7 +89,6 @@ class _InstallFigure extends StatelessWidget {
     required this.pillTab,
     required this.command,
     required this.files,
-    required this.onLineTab,
     required this.onPillTab,
   });
 
@@ -79,7 +96,6 @@ class _InstallFigure extends StatelessWidget {
   final int pillTab;
   final String command;
   final DocsFileList files;
-  final ValueChanged<int> onLineTab;
   final ValueChanged<int> onPillTab;
 
   @override
@@ -94,7 +110,7 @@ class _InstallFigure extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          // Header row: terminal glyph + line tabs + pill tabs + copy.
+          // Header row: terminal glyph + pill tabs (left) + copy (right).
           Container(
             decoration: BoxDecoration(
               border: Border(
@@ -112,20 +128,9 @@ class _InstallFigure extends StatelessWidget {
                   color: theme.colors.foreground.withValues(alpha: 0.7),
                 ),
                 const Gap(8),
-                _LineTab(
-                  label: 'Command',
-                  selected: lineTab == 0,
-                  onTap: () => onLineTab(0),
-                ),
-                _LineTab(
-                  label: 'Manual',
-                  selected: lineTab == 1,
-                  onTap: () => onLineTab(1),
-                ),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    reverse: true,
                     child: Row(
                       children: <Widget>[
                         for (int i = 0; i < _packageManagers.length; i++)
@@ -137,81 +142,21 @@ class _InstallFigure extends StatelessWidget {
                               onTap: () => onPillTab(i),
                             ),
                           ),
-                        const Gap(8),
-                        CopyButton(
-                          text: command,
-                          variant: ButtonVariant.ghost,
-                          size: ButtonSize.sm,
-                        ),
                       ],
                     ),
                   ),
+                ),
+                const Gap(8),
+                CopyButton(
+                  text: command,
+                  variant: ButtonVariant.ghost,
+                  size: ButtonSize.sm,
                 ),
               ],
             ),
           ),
           // Body.
-          if (lineTab == 0)
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                command,
-                style: theme.typography.mono.copyWith(
-                  fontSize: 14,
-                  height: 24.5 / 14,
-                ),
-              ),
-            )
-          else
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (final String file in files.files)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Text(
-                        file,
-                        style: theme.typography.mono.copyWith(fontSize: 13),
-                      ),
-                    ),
-                  for (final String file in files.userOwned)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              file,
-                              style: theme.typography.mono.copyWith(
-                                fontSize: 13,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const Gap(8),
-                          Badge(
-                            variant: BadgeVariant.outline,
-                            child: const Text('user-owned'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  const Gap(8),
-                  Text(
-                    kUserOwnedNote,
-                    style: docsText(
-                      context,
-                      size: 12,
-                      color: theme.colors.mutedForeground,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          _InstallBody(lineTab: lineTab, command: command, files: files),
         ],
       ),
     );
@@ -222,6 +167,91 @@ class _InstallFigure extends StatelessWidget {
     'dart',
     'flutter',
   ];
+}
+
+/// The figure body: the command text (Command tab) or the generated file
+/// list (Manual tab).
+class _InstallBody extends StatelessWidget {
+  const _InstallBody({
+    required this.lineTab,
+    required this.command,
+    required this.files,
+  });
+
+  final int lineTab;
+  final String command;
+  final DocsFileList files;
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    if (lineTab == 0) {
+      // The command is a shell snippet: highlight it with the theme's
+      // `syntax` token group. Selection/copy still yields the plain text.
+      final TextStyle style = theme.typography.mono.copyWith(
+        fontSize: 14,
+        height: 24.5 / 14,
+      );
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        child: Text.rich(
+          syntaxTextSpan(
+            code: command,
+            language: SyntaxLanguage.bash,
+            base: style,
+            colors: theme.syntaxColors,
+          ),
+        ),
+      );
+    }
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          for (final String file in files.files)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(
+                file,
+                style: theme.typography.mono.copyWith(fontSize: 13),
+              ),
+            ),
+          for (final String file in files.userOwned)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      file,
+                      style: theme.typography.mono.copyWith(fontSize: 13),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const Gap(8),
+                  Badge(
+                    variant: BadgeVariant.outline,
+                    child: const Text('user-owned'),
+                  ),
+                ],
+              ),
+            ),
+          const Gap(8),
+          Text(
+            kUserOwnedNote,
+            style: docsText(
+              context,
+              size: 12,
+              color: theme.colors.mutedForeground,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _LineTab extends StatelessWidget {

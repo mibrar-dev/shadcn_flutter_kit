@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import 'color_tokens.dart';
 import 'density.dart';
+import 'syntax_colors.dart';
 import 'tokens.dart';
 import 'typography.dart';
 
@@ -25,6 +26,7 @@ class ShadcnThemeData {
     this.surfaceOpacity,
     this.surfaceBlur,
     this.enableFeedback,
+    this.syntax,
   });
 
   /// Color tokens for the current brightness.
@@ -64,6 +66,15 @@ class ShadcnThemeData {
 
   /// Haptic/sound feedback toggle for interactive controls.
   final bool? enableFeedback;
+
+  /// Syntax-highlight palette override. Null (the default) resolves
+  /// [syntaxColors] from the ambient brightness, so every preset works with
+  /// no per-preset JSON edits; set it to pin a custom palette.
+  final SyntaxColors? syntax;
+
+  /// Effective syntax-highlight palette for the current brightness.
+  SyntaxColors get syntaxColors =>
+      syntax ?? SyntaxColors.forBrightness(colors.brightness);
 
   /// Effective platform (override or ambient default).
   TargetPlatform get platform => _platform ?? defaultTargetPlatform;
@@ -111,6 +122,7 @@ class ShadcnThemeData {
     ValueGetter<double>? surfaceOpacity,
     ValueGetter<double>? surfaceBlur,
     ValueGetter<bool>? enableFeedback,
+    ValueGetter<SyntaxColors?>? syntax,
   }) {
     final nextDensity = density == null ? this.density : density();
     final nextSpacing = spacing == null
@@ -134,6 +146,7 @@ class ShadcnThemeData {
       enableFeedback: enableFeedback == null
           ? this.enableFeedback
           : enableFeedback(),
+      syntax: syntax == null ? this.syntax : syntax(),
     );
   }
 
@@ -152,6 +165,7 @@ class ShadcnThemeData {
       surfaceOpacity: lerpDouble(a.surfaceOpacity, b.surfaceOpacity, t),
       surfaceBlur: lerpDouble(a.surfaceBlur, b.surfaceBlur, t),
       enableFeedback: t < 0.5 ? a.enableFeedback : b.enableFeedback,
+      syntax: t < 0.5 ? a.syntax : b.syntax,
     );
   }
 
@@ -171,7 +185,8 @@ class ShadcnThemeData {
         other._platform == _platform &&
         other.surfaceOpacity == surfaceOpacity &&
         other.surfaceBlur == surfaceBlur &&
-        other.enableFeedback == enableFeedback;
+        other.enableFeedback == enableFeedback &&
+        other.syntax == syntax;
   }
 
   @override
@@ -189,6 +204,7 @@ class ShadcnThemeData {
     surfaceOpacity,
     surfaceBlur,
     enableFeedback,
+    syntax,
   );
 }
 

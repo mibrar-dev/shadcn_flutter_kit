@@ -31,16 +31,38 @@ class PreviewFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final ThemedColor themedBorder = ThemedColor.value(theme.colors.border);
+    final Color border = theme.colors.border;
     return Padding(
       padding: const EdgeInsets.only(top: 16, bottom: 48),
       child: Card(
         padding: EdgeInsets.zero,
         borderWidth: 1,
-        borderColor: ThemedColor.value(theme.colors.border),
+        borderColor: themedBorder,
         borderRadius: theme.borderRadiusXl,
         shadows: const <BoxShadow>[],
         clipBehavior: clipBehavior,
-        child: child,
+        child: Stack(
+          children: <Widget>[
+            child,
+            // Redrawn above the child: `Card` paints its border before the
+            // content, and the full-bleed stage/teaser surfaces would cover
+            // it — the reference's 1 px frame stays visible on every side.
+            // The overlay is paint-only: `DecoratedBox.hitTestSelf` returns
+            // true for its whole rect, so it must not take pointer events
+            // (that would dead-zone the stage demos and the View Code pill).
+            Positioned.fill(
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: theme.borderRadiusXl,
+                    border: Border.all(color: border),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -70,23 +92,38 @@ class PreviewStage extends StatelessWidget {
     // Desktop previews are galleries, not responsive widgets: at 375 they can
     // be wider than the 327 px article, so the stage scrolls horizontally
     // instead of overflowing (the reference `preview` clips/scrolls too).
-    // `ConstrainedBox` keeps the child centred whenever it fits.
+    // `ConstrainedBox` keeps the child centred whenever it fits, and the
+    // stage grows past the 288 px minimum instead of slicing a heading off
+    // (the reference's single-demo previews always fit in 288 px).
     return Container(
-      height: DocsMetrics.previewStageHeight,
       width: double.infinity,
       color: theme.colors.background,
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) =>
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(40),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth - 80,
-                ),
-                child: Align(alignment: Alignment.center, child: child),
-              ),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: DocsMetrics.previewStageHeight,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) =>
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.all(40),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: constraints.maxWidth - 80,
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: child ?? const SizedBox.shrink(),
+                      ),
+                    ),
+                  ),
             ),
+          ],
+        ),
       ),
     );
   }

@@ -536,3 +536,13 @@
 
 ## P6-D2b docs codegen fallback (step-5) — ACCEPTED: API rows from meta.json api.methods/functions/constants when the primary ctor is no-arg/private; color + formatter goldens; analyze 0, --check up to date. Caveat: goldens guard drift from the manifest, not manifest completeness.
 - P6-D2b r2 ACCEPTED: 10 meta.json api lists corrected (stale names, primitive-owned symbols → api.providedByPrimitives, 2 malformed entries); 32 member rows over 4 components; codegen tests 27/27; manifest/docs data/mirror up to date. Follow-up → D7: component page must render table.members.
+
+## P4-T5 syntax highlighting (longcat; finished on free longcat after a Go quota stop) — ACCEPTED with follow-ups
+- primitives/syntax_highlight/ (11 languages + aliases, no deps), theme syntax_colors (light/dark, all presets),
+  code_snippet `language`, markdown fenced blocks, docs code blocks pass the language. Orchestrator gates: kit 2712 + 42,
+  analyze 0, manifest up to date; docs 88, codegen/mirror up to date; CLI e2e green. Report not written by the agent.
+- Follow-ups: split syntax_scanners.dart (443 → ≤ 400); per-language golden tests (only 25 tests today); theme.dart grew to 473.
+## P6-D6 visual check vs ui.shadcn.com (mimo; resumed on free mimo) — ACCEPTED
+- 100 captures of our site (88 matrix + 12 states), 74 montages (rearch/design/ours/), P1 deltas fixed (incl. a shadowed
+  `language` field that broke dart2js, stale state captures), rearch/reports/P6_UI_CHECK.md per-route table; docs 88 tests,
+  analyze 0, release build OK.

@@ -27,8 +27,11 @@ class DocsToc extends StatelessWidget {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     return SizedBox(
       width: DocsMetrics.tocWidth,
+      // Spec §2.2: the column sticks at `header + 1px`, then the
+      // `--top-spacing` spacer (16 px ≥lg) and the list's `p-4 pt-0` put the
+      // "On This Page" label 33 px below the header.
       child: Padding(
-        padding: const EdgeInsets.only(top: 16, bottom: 32),
+        padding: const EdgeInsets.only(top: 33, bottom: 32),
         child: AnimatedBuilder(
           animation: controller,
           builder: (BuildContext context, Widget? child) {

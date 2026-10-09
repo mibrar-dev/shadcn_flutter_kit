@@ -69,6 +69,13 @@ abstract final class DocsFocusOrder {
   /// Shell: the site header.
   static const NumericFocusOrder header = NumericFocusOrder(0);
 
+  /// Shell: the invisible header focus anchor (before every header item).
+  ///
+  /// A 0x0 box sorts after the 32 px nav buttons in the reading-order
+  /// secondary sort (it is centered at y=32 while they start at y=16), so it
+  /// needs its own slot to stay the header's first Tab stop.
+  static const NumericFocusOrder headerAnchor = NumericFocusOrder(-1);
+
   /// Shell: the docs navigator (every page's content).
   static const NumericFocusOrder navigator = NumericFocusOrder(1);
 

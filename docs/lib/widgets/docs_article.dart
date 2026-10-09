@@ -240,7 +240,8 @@ class _DocsArticleState extends State<DocsArticle> {
             behavior: const DocsScrollBehavior(),
             child: SingleChildScrollView(
               controller: _controller.scroll,
-              padding: const EdgeInsets.only(top: 16, bottom: 48),
+              // Spec §2.2/§2.3: `--top-spacing` is 0 below `lg`, 16 px ≥lg.
+              padding: EdgeInsets.only(top: width >= 1024 ? 16 : 0, bottom: 48),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
@@ -302,6 +303,7 @@ class _DocsArticleState extends State<DocsArticle> {
     ShadcnThemeData theme,
     bool showActions,
   ) {
+    final double width = MediaQuery.sizeOf(context).width;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -317,34 +319,38 @@ class _DocsArticleState extends State<DocsArticle> {
             ),
           ),
         ),
-        if (showActions)
+        if (widget.showTitleActions)
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ...widget.titleActions,
-              CopyButton(
-                text: _copyText,
-                label: 'Copy Page',
-                showLabel: true,
-                variant: ButtonVariant.secondary,
-                size: ButtonSize.xs,
+              // Copy Page hides below `sm`; the prev/next pair renders at
+              // every width (spec §2.3: 28 px ≥md, 32 px below).
+              if (showActions) ...<Widget>[
+                ...widget.titleActions,
+                CopyButton(
+                  text: _copyText,
+                  label: 'Copy Page',
+                  showLabel: true,
+                  variant: ButtonVariant.secondary,
+                  size: ButtonSize.xs,
+                ),
+                const Gap(8),
+              ],
+              _iconNavButton(
+                context,
+                icon: LucideIcons.chevronLeft,
+                tooltip: 'Previous',
+                link: widget.previous,
+                size: width >= 768 ? 28 : 32,
               ),
-              const Gap(8),
-              if (widget.previous != null)
-                _iconNavButton(
-                  context,
-                  icon: LucideIcons.chevronLeft,
-                  tooltip: 'Previous',
-                  link: widget.previous!,
-                ),
-              if (widget.previous != null && widget.next != null) const Gap(4),
-              if (widget.next != null)
-                _iconNavButton(
-                  context,
-                  icon: LucideIcons.chevronRight,
-                  tooltip: 'Next',
-                  link: widget.next!,
-                ),
+              const Gap(12),
+              _iconNavButton(
+                context,
+                icon: LucideIcons.chevronRight,
+                tooltip: 'Next',
+                link: widget.next,
+                size: width >= 768 ? 28 : 32,
+              ),
             ],
           ),
       ],
@@ -355,19 +361,23 @@ class _DocsArticleState extends State<DocsArticle> {
     BuildContext context, {
     required IconData icon,
     required String tooltip,
-    required DocsNavLink link,
+    required DocsNavLink? link,
+    required double size,
   }) {
+    // The reference always renders both arrows; with no neighbour on our side
+    // the button stays visible but disabled instead of disappearing.
     return Tooltip(
       tooltip: (BuildContext context) => Text(tooltip),
       child: SizedBox(
-        width: 28,
-        height: 28,
+        width: size,
+        height: size,
         child: Button(
           variant: ButtonVariant.secondary,
           size: ButtonSize.xs,
           theme: const ButtonVariantStyle(padding: EdgeInsets.zero),
-          onPressed: () =>
-              DocsRouterScope.of(context).go(context, link.location),
+          onPressed: link == null
+              ? null
+              : () => DocsRouterScope.of(context).go(context, link.location),
           child: Icon(icon, size: 16),
         ),
       ),

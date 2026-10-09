@@ -67,9 +67,11 @@ class _DocsAppShellState extends State<DocsAppShell> {
         final double headerHeight = width >= 1024
             ? DocsMetrics.headerHeightLg
             : DocsMetrics.headerHeightSm;
-        final bool showFooter =
-            config.route == DocsRoute.landing ||
-            config.route == DocsRoute.notFound;
+        // The landing footer lives INSIDE the landing page (after the
+        // collage), so at the reference's first-viewport heights the footer
+        // sits below the fold exactly like the reference. The shell keeps it
+        // only for not-found.
+        final bool showFooter = config.route == DocsRoute.notFound;
         final Widget shell = Column(
           children: <Widget>[
             FocusTraversalOrder(

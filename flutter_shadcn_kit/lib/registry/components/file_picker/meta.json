@@ -63,7 +63,6 @@
     ],
     "constants": [
       "fileUploadDefaults",
-      "fileUploadRowDefaults",
       "fileUploadThemeOverrides"
     ],
     "providedByPrimitives": {
@@ -74,7 +73,8 @@
         "FileConstraints",
         "FileError",
         "FileErrorCode",
-        "FileStatusLabels"
+        "FileStatusLabels",
+        "fileUploadRowDefaults"
       ]
     }
   },

@@ -16,6 +16,8 @@
 // `.functionTypedSuffix`) used by analyzer ^14, which the docs pubspec now
 // resolves. `parseClean` records parse diagnostics instead of failing the run.
 
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -23,6 +25,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'api_members.dart';
 import 'api_model.dart';
 import 'ast_docs.dart';
+import 'registry_scan.dart';
 
 /// A codegen input cannot be scanned as expected.
 class DartScanException implements Exception {
@@ -41,7 +44,9 @@ class DartScanException implements Exception {
 /// [nameCandidates] is the preference order: the class named after the
 /// manifest display name, the class named after the directory id, then the
 /// manifest `api.classes` list. [declared] carries the manifest
-/// `api.methods` / `api.constants` / `api.functions` entry points.
+/// `api.methods` / `api.constants` / `api.functions` entry points and
+/// [sources] the parsed files they are resolved against (see
+/// [declaredSources]).
 /// Selection order:
 ///
 ///  1. a class named exactly after the display name or the directory id;
@@ -68,6 +73,7 @@ ApiFacts extractApi({
   required String source,
   required List<String> nameCandidates,
   DeclaredMembers declared = const DeclaredMembers(),
+  List<DeclaredSource> sources = const <DeclaredSource>[],
 }) {
   final ParseStringResult result = parseString(
     content: source,
@@ -88,7 +94,7 @@ ApiFacts extractApi({
     }
     selected ??= _widgetClass(classes, nameCandidates);
     if (selected != null) {
-      return _classApiFacts(selected, result, parseClean, declared);
+      return _classApiFacts(selected, result, parseClean, declared, sources);
     }
   }
 
@@ -109,7 +115,13 @@ ApiFacts extractApi({
       declared,
     );
     if (manifestClass != null) {
-      return _classApiFacts(manifestClass, result, parseClean, declared);
+      return _classApiFacts(
+        manifestClass,
+        result,
+        parseClean,
+        declared,
+        sources,
+      );
     }
   }
   return functionFacts;
@@ -169,6 +181,7 @@ ApiFacts _classApiFacts(
   ParseStringResult result,
   bool parseClean,
   DeclaredMembers declared,
+  List<DeclaredSource> sources,
 ) {
   final Map<String, FieldFacts> fields = fieldsOf(selected);
   final String source = result.content;
@@ -180,7 +193,7 @@ ApiFacts _classApiFacts(
   final String summary = firstParagraph(cleanDocText(docComment(selected)));
 
   if (constructor == null) {
-    final List<ApiMemberFacts> members = _declaredMembers(result, declared);
+    final List<ApiMemberFacts> members = _declaredMembers(declared, sources);
     return ApiFacts(
       hasApiTable: members.isNotEmpty,
       parseClean: parseClean,
@@ -208,24 +221,69 @@ ApiFacts _classApiFacts(
     summary: summary.isEmpty ? null : summary,
     params: params,
     members: params.isEmpty
-        ? _declaredMembers(result, declared)
+        ? _declaredMembers(declared, sources)
         : const <ApiMemberFacts>[],
   );
 }
 
-/// Rows for the declared entry points that resolve in the entry file.
+/// Rows for the declared entry points that resolve in one of the component's
+/// installed files.
+///
+/// When [sources] is empty — a caller that only passes the entry file — the
+/// entry file itself is parsed here, so single-file callers keep working.
 List<ApiMemberFacts> _declaredMembers(
-  ParseStringResult result,
   DeclaredMembers declared,
+  List<DeclaredSource> sources,
 ) {
   if (declared.isEmpty) {
     return const <ApiMemberFacts>[];
   }
-  return extractDeclaredMembers(
-    unit: result.unit,
-    source: result.content,
-    declared: declared,
-  );
+  return extractDeclaredMembers(sources: sources, declared: declared);
+}
+
+/// Parsed files a component's declared entry points resolve against.
+///
+/// The entry file comes first (so `color`/`formatter` keep resolving there),
+/// followed by the component's other installed files and its user-owned theme
+/// file: `buttonDefaults` lives in `button_style.dart`, `buttonThemeOverrides`
+/// in `button_theme.dart`. Previews are excluded — they are demo code, not API.
+///
+/// [entrySource] is the already-read entry text; the remaining files are read
+/// from [registryRoot] relative to their registry-relative path.
+List<DeclaredSource> declaredSources(
+  String registryRoot,
+  ComponentFacts component,
+  String entrySource,
+  String entryPath,
+) {
+  final List<DeclaredSource> sources = <DeclaredSource>[
+    DeclaredSource(
+      path: entryPath,
+      unit: parseString(content: entrySource, throwIfDiagnostics: false).unit,
+      source: entrySource,
+    ),
+  ];
+  for (final String file in <String>[
+    ...component.files,
+    ...component.userOwned,
+  ]) {
+    if (file == component.entry || file == entryPath) {
+      continue;
+    }
+    final File dart = File('$registryRoot/$file');
+    if (!dart.existsSync()) {
+      continue;
+    }
+    final String source = dart.readAsStringSync();
+    sources.add(
+      DeclaredSource(
+        path: file,
+        unit: parseString(content: source, throwIfDiagnostics: false).unit,
+        source: source,
+      ),
+    );
+  }
+  return sources;
 }
 
 /// Extracts the API facts from a function-first component's primary function.

@@ -150,7 +150,120 @@ and `docs/tool/gen_docs_data_test.dart` changed.
    changes (`flutter test` covers the 118-table assertion), but it is a
    behaviour change the QA lead should know about.
 
-## 7. Open questions
+## 7. Round 2 — data repair (QA finding: correct)
+
+**What QA found:** round 1's new test failed on
+`flutter test tool/gen_docs_data_test.dart` because it asserted every declared
+`api` name resolves. `button` — and 92 others — declare names that resolve in
+no file the extractor read. **The root cause was mine, not the data's**: the
+extractor only parsed the **entry file**, but a component's API is spread
+across every file it installs (`buttonDefaults` lives in `button_style.dart`,
+`buttonThemeOverrides` in `button_theme.dart`).
+
+### 7.1 Tool: resolve against the component's installed files
+
+`extractDeclaredMembers` now takes `List<DeclaredSource>` (path + parsed unit
++ source) instead of one entry unit, and walks them in order.
+`dart_scan.declaredSources()` builds that list: entry file first (so
+`color`/`formatter` keep resolving there), then the manifest `files` and the
+user-owned theme file. Previews are excluded — they are demo code, not API.
+
+**Effect: 93 failing components collapsed to 11.** 82 were only failing
+because of the narrow scope; the 11 that remain are genuine data errors.
+
+### 7.2 Data: 10 `meta.json` files corrected
+
+Two root causes, both fixed per the registry's own convention (see `input`,
+which already keeps `api.<kind>` component-owned and lists primitive-provided
+symbols — including functions — under `api.providedByPrimitives`):
+
+1. **Primitive-owned symbols listed as component API** (PLAN §5 single-owner
+   violation). Moved into `api.providedByPrimitives` under the owning
+   primitive, which each component already declares in `deps.primitives`:
+
+   | Component | Names | Owning primitive |
+   |---|---|---|
+   | `markdown` | `computeStableMarkdownPrefixLength` | `markdown_parser` |
+   | `text_animate` | 7 `*Streaming*` / `animateStreamingBlock` | `streaming_text` |
+   | `color_field` | `paintHSVColorField`, `paintHSLColorField` | `color_field_paint` |
+   | `file_picker` | `fileUploadRowDefaults` | `file_value` (merged into the existing block) |
+   | `filter_bar` | `filterBarDefaults`, `FilterMatchers` | `filter_core` |
+   | `window` | `kDefaultWindowConstraints`, `windowSnapPresets`, `windowMaximizeSnapStrategy` | `window_manager`, `window_snap` |
+   | `navigation_bar` | `navigationItemDefaults`, `navigationActiveItemDefaults` | `navigation` |
+   | `error_system` | `rule`, `guard`, `guardSync`, `apiRules`, `authRules`, `validationRules`, `platformRules`, `networkRules`, `fingerprintFor`, `fallbackRule` | `error_handling` |
+
+   Nothing is deleted — every name stays documented, and every theme/widget
+   reference (`"defaults": "filterBarDefaults"`) still resolves through the
+   component's re-export.
+
+2. **Malformed entries** (2):
+   - `anchor`: `"anchorTransformRelativeTo(RenderBox, RenderObject)"` was a
+     pasted **signature**, not a name — it resolved to nothing, so `anchor`
+     rendered zero rows. Corrected to the symbol name. `Anchor` is an abstract
+     parameterless class, so `anchor` now correctly emits its real API row.
+   - `eye_dropper`: `PreviewLabelBuilder` is a **typedef** but was listed under
+     `constants`; moved to `api.typedefs`.
+
+### 7.3 Downstream regeneration
+
+`gen_registry_manifest.dart` -> `sync_registry.sh` -> `gen_docs_data.dart`, all
+verified fresh with `--check`. `docs_api.dart` grew by 1 row (the `anchor`
+fix): **32 member rows over 4 components** (`formatter`, `anchor`,
+`overlay_configuration`, `color`).
+
+### 7.4 Test hardening
+
+- **Reports all failures at once**: the test accumulates
+  `component => [unresolved names]` and asserts once, so a reviewer sees the
+  whole list in a single run (this is how the 11 were enumerated).
+- **New invariant**: a component must end up with *some* API surface
+  (constructor params or member rows) — catches a manifest that empties both.
+- **New `anchor` golden** pinning the corrected name, `kind: 'function'`,
+  `returnType: 'Matrix4'`, params `anchorBox`/`source`.
+
+## 8. Round-2 gate output
+
+```
+docs$ dart format --output=none --set-exit-if-changed lib test tool
+Formatted 740 files (0 changed)                                      # exit 0
+docs$ flutter analyze
+No issues found! (ran in 2.9s)
+docs$ flutter test                        -> 84/84 All tests passed!
+docs$ flutter test tool/gen_docs_data_test.dart -> 27/27 All tests passed!
+docs$ dart run tool/gen_docs_data.dart --check
+generated data is up to date (8 files checked).
+
+kit$  rearch/qa_gate.sh
+format:  Formatted 836 files (0 changed)
+analyze: No issues found! | tests: No issues found!
+test:    +2681: All tests passed!
+rearch:  +42: All tests passed!
+layers:    file-too-long: 8 (warning)      # pre-existing registry files
+owner:     duplicate names: 0 (public 0, private 0) - identical 0, diverged 0
+theme:     check_user_theme: 0 finding(s)
+banned:
+kit$  dart run tool/registry/gen_registry_manifest.dart --check
+registry.json is up to date.
+docs$ tool/sync_registry.sh --check
+mirror is up to date.
+```
+
+`git status` after round 2 is scoped to the 10 registry `meta.json` files, the
+regenerated manifest, the docs tool + test, and `docs_api.dart`.
+(`docs/lib/widgets/docs_sidebar.dart` is also modified on disk — that is D6's
+parallel Spec §2.2 sidebar work, not mine; I verified the diff.)
+
+## 9. Round-2 process note (for the record)
+
+The repair script I used did regex surgery and silently corrupted the 4 files
+whose `api` lists are inline (`markdown`, `color_field`, `filter_bar`,
+`window`) and duplicated `providedByPrimitives` in `file_picker`, which would
+have dropped `FileValue`/`FileItem`/… from that block. I caught all of it by
+validating every edited file with a JSON parser **and** a duplicate-key
+detector before regenerating, and repaired each by hand. No broken file
+reached a gate run — every gate above ran on the repaired tree.
+
+## 10. Open questions
 
 1. **D6 handoff**: the docs pages render `table.params` only. The member rows
    need a table (or a second section) in `component_sections.dart`, plus a
@@ -163,51 +276,96 @@ and `docs/tool/gen_docs_data_test.dart` changed.
    should instance methods be shown at all for a "factory-first" component?
    That is a page decision; the data carries `kind`/`isStatic` to support it.
 3. `overlay_configuration` inclusion (§6.1) — confirm with the registry owner.
-4. Empty `members: <DocsApiMember>[]` on 115 tables: keep for uniformity, or
+4. Should `api.classes` also drop primitive-owned classes? `filter_bar` lists
+   ~15 (`FilterMatcher`, `FilterField`, `FilterState`, …) owned by
+   `filter_core`, while `input` keeps `api.classes` component-owned.
+   Inconsistent, harmless to the tool (candidate selection tolerates it), and
+   out of this brief's scope.
+5. Empty `members: <DocsApiMember>[]` on 114 tables: keep for uniformity, or
    omit to save ~8K of generated source (§6.3).
 
 ## RESULT
 
 status: done
 files_written:
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/gen_docs_data.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/gen_docs_data_test.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/api_model.dart (new)
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/api_members.dart (new)
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/ast_docs.dart (new)
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/dart_scan.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/registry_scan.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/model_build.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/render_api.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/tool/src/render_common.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/docs/lib/generated/docs_api.dart
-- /Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/rearch/reports/P6-D2b.md
+- docs/tool/gen_docs_data.dart
+- docs/tool/gen_docs_data_test.dart
+- docs/tool/src/api_model.dart (new)
+- docs/tool/src/api_members.dart (new)
+- docs/tool/src/ast_docs.dart (new)
+- docs/tool/src/dart_scan.dart
+- docs/tool/src/registry_scan.dart
+- docs/tool/src/model_build.dart
+- docs/tool/src/render_api.dart
+- docs/tool/src/render_common.dart
+- docs/lib/generated/docs_api.dart
+- registry meta.json (10 files): anchor, color_field, error_system,
+  eye_dropper, file_picker, filter_bar, markdown, navigation_bar,
+  text_animate, window
+- flutter_shadcn_kit/lib/registry/manifests/registry.json (regenerated)
+- rearch/reports/P6-D2b.md
 commands_run:
 - flutter pub get -> Got dependencies
-- dart format --output=none --set-exit-if-changed lib test tool -> 0 changed
-- flutter analyze -> No issues found
-- flutter test -> 84/84 All tests passed
-- dart run tool/gen_docs_data.dart -> wrote 8 files (only docs_api.dart differs)
-- dart run tool/gen_docs_data.dart --check -> up to date (8 files checked)
-- tool/sync_registry.sh --check -> mirror is up to date
-- grep -rnE "^import 'package:flutter/(material|cupertino)\.dart'" lib test tool -> 0 matches
+- dart format --output=none --set-exit-if-changed docs/lib docs/test docs/tool -> 0 changed
+- docs flutter analyze -> No issues found
+- docs flutter test -> 84/84; flutter test tool/gen_docs_data_test.dart -> 27/27
+- dart run tool/gen_docs_data.dart -> 8 files written; --check -> up to date
+- kit rearch/qa_gate.sh -> format 0 changed, analyze clean, 2681 + 42 tests
+  pass, 0 duplicate owners, 0 theme findings, no banned patterns
+- kit dart run tool/registry/gen_registry_manifest.dart (+ --check) -> up to date
+- docs tool/sync_registry.sh (+ --check) -> mirror is up to date (651 Dart files)
 key_findings:
-- formatter now resolves to TextInputFormatters (private ctor) and emits 5
-  factories + 2 constants + constraintToNewText; color emits all 22 declared
-  ColorDerivative entry points with kind/isStatic/returnType per row.
-- A third component, overlay_configuration, had the same latent gap (api
-  .functions showOverlay was already declared but invisible); it now renders
-  1 row too.
-- Primary-class selection prefers the uncallable-declared-entry owner over a
-  param-carrying sibling; the other 115 components are byte-identical, proven
-  by --check passing and the diff being content-scoped to the 3 components.
-- Declared-but-unresolvable names are reported (unresolved sink), never
-  invented; a new test asserts the sink is empty for all 118 components.
-open_questions:
-- D6 must render table.members (pages still show params only, so the three
-  affected pages show an empty parameter table until then).
-- color's 22 rows include instance conversions: group them, or show creation
-  factories only?
-- keep or omit the empty `members: <DocsApiMember>[]` on 115 tables (JS size)?
-- hasApiTable now false for a private-only-ctor class with no declared
-  entries (no current component hits this; documented behaviour change).
+- Round-1's test was right and round-1's TOOL was wrong: the extractor only
+  parsed the entry file, so 82 of the 93 "failing" components were false
+  alarms (their API lives in button_style.dart / button_theme.dart).
+- With the scope fixed, 11 real data errors remain: 9 components mislabelled
+  primitive-owned symbols as their own API (PLAN §5 single-owner violation)
+  and 2 malformed entries (a pasted signature in anchor's api.functions, a
+  typedef listed under eye_dropper's constants).
+- The registry already had the right convention - api.providedByPrimitives,
+  used by `input` with functions included - so primitive-provided names were
+  moved there rather than deleted; nothing was lost and theme defaults still
+  resolve through the component's re-export.
+- anchor now emits a real row (Anchor is an abstract parameterless class and
+  its function was previously invisible): 32 member rows over 4 components -
+  formatter, anchor, overlay_configuration, color.
+
+## 11. Gate status note — D6 is mid-edit in `docs/lib/` (not my scope)
+
+The whole-suite docs gates could not be run green at final verification time
+because **D6 has uncommitted, currently non-compiling work on disk** in
+`docs/lib/`. This is the collision the brief warned about ("Do not touch docs
+pages/widgets (D6 is editing them)"), not a regression from this batch.
+
+Observed during the final sweep (D6 iterated twice inside the run):
+
+```
+lib/widgets/preview_stage.dart:34:38  Error: 'ThemedColor' can't be assigned to 'Color'
+lib/widgets/preview_stage.dart:40:22  Error: 'Color' can't be assigned to 'ThemedColor?'
+# ... later in the same sweep, D6 saved again and the errors moved to:
+lib/widgets/preview_stage.dart:54:60  Error: 'BuildContext' can't be assigned to 'ShadcnColors'
+```
+
+Every `flutter test` failure in the docs suite is a **compilation failure of
+that one file** (verified: all failures print the identical
+`preview_stage.dart` diagnostics), and `flutter analyze`'s single remaining
+error is the same file. `preview_stage.dart` is D6-owned; I did not touch it.
+
+What does pass, scoped to this brief's outputs:
+
+```
+docs$ dart analyze tool lib/generated          -> No issues found!
+docs$ dart format --output=none --set-exit-if-changed tool lib/generated -> 0 changed
+docs$ flutter test tool/gen_docs_data_test.dart -> 27/27 All tests passed!
+docs$ dart run tool/gen_docs_data.dart --check  -> up to date (8 files checked)
+kit$  dart run tool/registry/gen_registry_manifest.dart --check -> up to date
+docs$ tool/sync_registry.sh --check             -> mirror is up to date
+```
+
+And these passed green **earlier in the same round**, before D6's WIP landed
+(`rearch/qa_gate.sh`: 2681 + 42 tests, 0 duplicates, 0 theme findings, no
+banned patterns; docs `flutter test` 84/84; `dart format` 0 changed) — see §8.
+The full docs `flutter analyze` / `flutter test` should be re-run once D6
+commits a compiling `preview_stage.dart`; nothing in this batch's diff
+(`docs/tool/**`, `docs/lib/generated/docs_api.dart`, the 10 registry
+`meta.json` files, the regenerated manifest) affects them.

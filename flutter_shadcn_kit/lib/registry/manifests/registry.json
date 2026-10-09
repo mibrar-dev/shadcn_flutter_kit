@@ -244,7 +244,7 @@
           "RenderOverlayAnchor"
         ],
         "functions": [
-          "anchorTransformRelativeTo(RenderBox, RenderObject)"
+          "anchorTransformRelativeTo"
         ]
       },
       "category": "overlay",
@@ -1608,14 +1608,18 @@
         ],
         "constants": [
           "colorFieldDefaults",
-          "colorFieldThemeOverrides",
-          "paintHSVColorField",
-          "paintHSLColorField"
+          "colorFieldThemeOverrides"
         ],
         "enums": [
           "ColorFieldMode",
           "ColorFieldAxis"
-        ]
+        ],
+        "providedByPrimitives": {
+          "color_field_paint": [
+            "paintHSVColorField",
+            "paintHSLColorField"
+          ]
+        }
       },
       "category": "form",
       "deps": {
@@ -2655,20 +2659,24 @@
           "ErrorScopeType"
         ],
         "functions": [
-          "rule",
-          "guard",
-          "guardSync",
-          "apiRules",
-          "authRules",
-          "validationRules",
-          "platformRules",
-          "networkRules",
-          "fingerprintFor",
-          "fallbackRule",
           "showErrorDialog",
           "showErrorSnackbar",
           "errorActionButton"
         ],
+        "providedByPrimitives": {
+          "error_handling": [
+            "rule",
+            "guard",
+            "guardSync",
+            "apiRules",
+            "authRules",
+            "validationRules",
+            "platformRules",
+            "networkRules",
+            "fingerprintFor",
+            "fallbackRule"
+          ]
+        },
         "typedefs": [
           "ErrorMatch",
           "ErrorBuild"
@@ -2742,10 +2750,12 @@
         "constants": [
           "eyeDropperDefaults",
           "eyeDropperThemeOverrides",
-          "pickColorFromScreen",
-          "PreviewLabelBuilder"
+          "pickColorFromScreen"
         ],
-        "enums": []
+        "enums": [],
+        "typedefs": [
+          "PreviewLabelBuilder"
+        ]
       },
       "category": "overlay",
       "deps": {
@@ -2966,7 +2976,6 @@
         ],
         "constants": [
           "fileUploadDefaults",
-          "fileUploadRowDefaults",
           "fileUploadThemeOverrides"
         ],
         "enums": [
@@ -2981,7 +2990,8 @@
             "FileConstraints",
             "FileError",
             "FileErrorCode",
-            "FileStatusLabels"
+            "FileStatusLabels",
+            "fileUploadRowDefaults"
           ]
         },
         "typedefs": [
@@ -3075,13 +3085,17 @@
           "FilterBarGroupedContent"
         ],
         "constants": [
-          "filterBarDefaults",
-          "filterBarThemeOverrides",
-          "FilterMatchers"
+          "filterBarThemeOverrides"
         ],
         "enums": [
           "FilterBarPresentation"
-        ]
+        ],
+        "providedByPrimitives": {
+          "filter_core": [
+            "filterBarDefaults",
+            "FilterMatchers"
+          ]
+        }
       },
       "category": "layout",
       "deps": {
@@ -4208,9 +4222,12 @@
           "MarkdownImagePreviewBehavior",
           "MarkdownTapElementKind"
         ],
-        "functions": [
-          "computeStableMarkdownPrefixLength"
-        ]
+        "functions": [],
+        "providedByPrimitives": {
+          "markdown_parser": [
+            "computeStableMarkdownPrefixLength"
+          ]
+        }
       },
       "category": "display",
       "deps": {
@@ -4633,8 +4650,6 @@
         ],
         "constants": [
           "navigationBarDefaults",
-          "navigationItemDefaults",
-          "navigationActiveItemDefaults",
           "navigationBarThemeOverrides"
         ],
         "enums": [
@@ -4643,7 +4658,13 @@
           "NavigationLabelPosition",
           "NavigationLabelSize",
           "NavigationOverflow"
-        ]
+        ],
+        "providedByPrimitives": {
+          "navigation": [
+            "navigationItemDefaults",
+            "navigationActiveItemDefaults"
+          ]
+        }
       },
       "category": "navigation",
       "deps": {
@@ -6979,16 +7000,20 @@
           "TextAnimateEffectKind"
         ],
         "functions": [
-          "splitStreamingChars",
-          "splitStreamingWords",
-          "sharedStreamingPrefix",
-          "streamingVisibleCount",
-          "streamingIsSettled",
-          "streamingProgress",
-          "animateStreamingBlock",
           "resolveTextAnimateParts",
           "textAnimateCursorVisible"
-        ]
+        ],
+        "providedByPrimitives": {
+          "streaming_text": [
+            "splitStreamingChars",
+            "splitStreamingWords",
+            "sharedStreamingPrefix",
+            "streamingVisibleCount",
+            "streamingIsSettled",
+            "streamingProgress",
+            "animateStreamingBlock"
+          ]
+        }
       },
       "category": "display",
       "deps": {
@@ -7694,14 +7719,20 @@
         ],
         "constants": [
           "windowDefaults",
-          "windowThemeOverrides",
-          "kDefaultWindowConstraints",
-          "windowSnapPresets",
-          "windowMaximizeSnapStrategy"
+          "windowThemeOverrides"
         ],
         "enums": [
           "WindowResizeEdge"
-        ]
+        ],
+        "providedByPrimitives": {
+          "window_manager": [
+            "kDefaultWindowConstraints"
+          ],
+          "window_snap": [
+            "windowSnapPresets",
+            "windowMaximizeSnapStrategy"
+          ]
+        }
       },
       "category": "layout",
       "deps": {

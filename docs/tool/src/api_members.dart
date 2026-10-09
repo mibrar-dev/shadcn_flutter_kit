@@ -8,8 +8,9 @@
 // (`color` -> `ColorDerivative.fromColor`, `formatter` ->
 // `TextInputFormatters.time`), so the docs never invent an API surface.
 //
-// Declared but unresolvable names are reported by [unresolvedEntries] and
-// skipped, so a stale manifest entry can never fabricate a row.
+// Declared but unresolvable names are reported by [unresolvedEntries] — via
+// the `unresolved` sink — and skipped, so a stale manifest entry can never
+// fabricate a row.
 
 import 'package:analyzer/dart/ast/ast.dart';
 
@@ -36,13 +37,16 @@ bool declaresEntriesFor(String className, DeclaredMembers declared) {
   return !anyOwned;
 }
 
-/// Rows for every declared entry that resolves in [unit], in declared order
-/// (methods, constants, functions).
+/// Rows for every declared entry that resolves in one of [sources], in
+/// declared order (methods, constants, functions).
 ///
-/// [unresolved] collects the names that could not be found in the source.
+/// Resolution walks [sources] in order, so a component whose entry file comes
+/// first keeps resolving there; the remaining installed files catch the
+/// surface declared elsewhere (`button_style.dart`, `button_theme.dart`).
+///
+/// [unresolved] collects the names that could not be found in any file.
 List<ApiMemberFacts> extractDeclaredMembers({
-  required CompilationUnit unit,
-  required String source,
+  required List<DeclaredSource> sources,
   required DeclaredMembers declared,
   List<String>? unresolved,
 }) {
@@ -51,11 +55,13 @@ List<ApiMemberFacts> extractDeclaredMembers({
   }
   final List<ApiMemberFacts> rows = <ApiMemberFacts>[];
   for (final String entry in declared.names) {
-    final ApiMemberFacts? row = _resolveEntry(
-      unit: unit,
-      source: source,
-      entry: entry,
-    );
+    ApiMemberFacts? row;
+    for (final DeclaredSource source in sources) {
+      row = _resolveEntry(source: source, entry: entry);
+      if (row != null) {
+        break;
+      }
+    }
     if (row == null) {
       unresolved?.add(entry);
       continue;
@@ -66,21 +72,31 @@ List<ApiMemberFacts> extractDeclaredMembers({
 }
 
 ApiMemberFacts? _resolveEntry({
-  required CompilationUnit unit,
-  required String source,
+  required DeclaredSource source,
   required String entry,
 }) {
+  final CompilationUnit unit = source.unit;
   final int dot = entry.lastIndexOf('.');
   if (dot < 0) {
     // Owner-less name: a top-level function or variable.
     for (final CompilationUnitMember member in unit.declarations) {
       if (member is FunctionDeclaration && member.name.lexeme == entry) {
-        return _rowOf(member, source, const <String, FieldFacts>{}, entry);
+        return _rowOf(
+          member,
+          source.source,
+          const <String, FieldFacts>{},
+          entry,
+        );
       }
       if (member is TopLevelVariableDeclaration) {
         for (final VariableDeclaration variable in member.variables.variables) {
           if (variable.name.lexeme == entry) {
-            return _rowOf(member, source, const <String, FieldFacts>{}, entry);
+            return _rowOf(
+              member,
+              source.source,
+              const <String, FieldFacts>{},
+              entry,
+            );
           }
         }
       }
@@ -99,7 +115,7 @@ ApiMemberFacts? _resolveEntry({
       : const <String, FieldFacts>{};
   for (final AstNode node in _memberNodes(holder)) {
     if (_nameOf(node) == member) {
-      return _rowOf(node, source, fields, entry);
+      return _rowOf(node, source.source, fields, entry);
     }
   }
   return null;

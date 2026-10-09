@@ -49,20 +49,24 @@
       "TextAnimateEffectKind"
     ],
     "functions": [
-      "splitStreamingChars",
-      "splitStreamingWords",
-      "sharedStreamingPrefix",
-      "streamingVisibleCount",
-      "streamingIsSettled",
-      "streamingProgress",
-      "animateStreamingBlock",
       "resolveTextAnimateParts",
       "textAnimateCursorVisible"
     ],
     "constants": [
       "textAnimateDefaults",
       "textAnimateThemeOverrides"
-    ]
+    ],
+    "providedByPrimitives": {
+      "streaming_text": [
+        "splitStreamingChars",
+        "splitStreamingWords",
+        "sharedStreamingPrefix",
+        "streamingVisibleCount",
+        "streamingIsSettled",
+        "streamingProgress",
+        "animateStreamingBlock"
+      ]
+    }
   },
   "theme": {
     "class": "TextAnimateTheme",

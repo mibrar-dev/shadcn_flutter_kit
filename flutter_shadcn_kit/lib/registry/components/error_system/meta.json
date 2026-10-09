@@ -42,21 +42,25 @@
     "enums": ["AppErrorCode", "ErrorActionType", "ErrorScopeType"],
     "typedefs": ["ErrorMatch", "ErrorBuild"],
     "functions": [
-      "rule",
-      "guard",
-      "guardSync",
-      "apiRules",
-      "authRules",
-      "validationRules",
-      "platformRules",
-      "networkRules",
-      "fingerprintFor",
-      "fallbackRule",
       "showErrorDialog",
       "showErrorSnackbar",
       "errorActionButton"
     ],
-    "constants": ["errorSystemDefaults", "errorSystemThemeOverrides"]
+    "constants": ["errorSystemDefaults", "errorSystemThemeOverrides"],
+    "providedByPrimitives": {
+      "error_handling": [
+        "rule",
+        "guard",
+        "guardSync",
+        "apiRules",
+        "authRules",
+        "validationRules",
+        "platformRules",
+        "networkRules",
+        "fingerprintFor",
+        "fallbackRule"
+      ]
+    }
   },
   "theme": {
     "class": "ErrorSystemTheme",

@@ -17,7 +17,11 @@
   "api": {
     "classes": ["Window", "WindowNavigator", "WindowActions", "WindowController", "WindowState", "WindowHandle", "WindowViewport", "WindowTheme", "WindowSnapStrategy", "WindowDragController", "ManagedWindow", "WindowHost", "WindowSnapBar"],
     "enums": ["WindowResizeEdge"],
-    "constants": ["windowDefaults", "windowThemeOverrides", "kDefaultWindowConstraints", "windowSnapPresets", "windowMaximizeSnapStrategy"]
+    "constants": ["windowDefaults", "windowThemeOverrides"],
+    "providedByPrimitives": {
+      "window_manager": ["kDefaultWindowConstraints"],
+      "window_snap": ["windowSnapPresets", "windowMaximizeSnapStrategy"]
+    }
   },
   "theme": {
     "class": "WindowTheme",

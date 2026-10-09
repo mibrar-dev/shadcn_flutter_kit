@@ -535,3 +535,4 @@
   app_theme deferral (test harness preload).
 
 ## P6-D2b docs codegen fallback (step-5) — ACCEPTED: API rows from meta.json api.methods/functions/constants when the primary ctor is no-arg/private; color + formatter goldens; analyze 0, --check up to date. Caveat: goldens guard drift from the manifest, not manifest completeness.
+- P6-D2b r2 ACCEPTED: 10 meta.json api lists corrected (stale names, primitive-owned symbols → api.providedByPrimitives, 2 malformed entries); 32 member rows over 4 components; codegen tests 27/27; manifest/docs data/mirror up to date. Follow-up → D7: component page must render table.members.

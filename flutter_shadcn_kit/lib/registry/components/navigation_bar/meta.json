@@ -61,10 +61,11 @@
     ],
     "constants": [
       "navigationBarDefaults",
-      "navigationItemDefaults",
-      "navigationActiveItemDefaults",
       "navigationBarThemeOverrides"
-    ]
+    ],
+    "providedByPrimitives": {
+      "navigation": ["navigationItemDefaults", "navigationActiveItemDefaults"]
+    }
   },
   "theme": {
     "class": "NavigationBarTheme",

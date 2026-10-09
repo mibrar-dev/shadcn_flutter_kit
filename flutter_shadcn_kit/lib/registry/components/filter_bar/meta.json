@@ -70,11 +70,10 @@
     "enums": [
       "FilterBarPresentation"
     ],
-    "constants": [
-      "filterBarDefaults",
-      "filterBarThemeOverrides",
-      "FilterMatchers"
-    ]
+    "constants": ["filterBarThemeOverrides"],
+    "providedByPrimitives": {
+      "filter_core": ["filterBarDefaults", "FilterMatchers"]
+    }
   },
   "theme": {
     "class": "FilterBarTheme",

@@ -56,8 +56,9 @@ DocsModel buildDocsModel(String registryRoot) {
         '${component.id}: missing entry file ${component.entry}',
       );
     }
+    final String entrySource = entry.readAsStringSync();
     api[component.id] = extractApi(
-      source: entry.readAsStringSync(),
+      source: entrySource,
       nameCandidates: <String>[
         pascalCase(component.name),
         pascalCase(component.id),
@@ -68,6 +69,7 @@ DocsModel buildDocsModel(String registryRoot) {
         constants: component.apiConstants,
         functions: component.apiFunctions,
       ),
+      sources: declaredSources(scan.root, component, entrySource, entry.path),
     );
 
     final File preview = File(

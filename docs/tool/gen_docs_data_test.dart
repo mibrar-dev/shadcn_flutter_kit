@@ -11,7 +11,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:docs/generated/app_theme.dart';
 import 'package:docs/generated/docs_api.dart';
 import 'package:docs/generated/docs_data.dart';
@@ -309,11 +308,37 @@ void main() {
       expect(toColor.returnType, 'Color');
     });
 
+    test('anchor surfaces the real function name, not a pasted signature', () {
+      // `meta.json` used to declare
+      // `anchorTransformRelativeTo(RenderBox, RenderObject)` — a pasted
+      // signature that resolved to nothing, so `anchor` showed zero rows.
+      final DocsApiTable table = kApiTables['anchor']!;
+      expect(table.symbol, 'Anchor');
+      expect(table.hasApiTable, isTrue);
+      expect(table.parseClean, isTrue);
+      expect(table.params, isEmpty);
+      final DocsApiMember transform = table.members.single;
+      expect(transform.name, 'anchorTransformRelativeTo');
+      expect(transform.kind, 'function');
+      expect(transform.returnType, 'Matrix4');
+      expect(transform.isStatic, isFalse);
+      expect(
+        transform.params.map((DocsApiParam p) => p.name).toList(),
+        <String>['anchorBox', 'source'],
+      );
+      expect(transform.params.first.type, 'RenderBox');
+      expect(transform.doc, contains('singular'));
+    });
+
     test('every declared api.methods/constants/functions name resolves', () {
-      // A declared name that does not resolve in the entry file would silently
-      // shrink the table, so the generator must report it.
+      // A declared name that resolves in no installed file of the component
+      // would silently shrink the table, so the generator must report it.
+      // Every component is checked so one bad manifest entry cannot hide the
+      // others.
       final RegistryScan scan = scanRegistry(registry);
-      final List<String> unresolved = <String>[];
+      final Map<String, List<String>> unresolvedByComponent =
+          <String, List<String>>{};
+      final List<String> noSurface = <String>[];
       for (final ComponentFacts component in scan.components) {
         final DeclaredMembers declared = DeclaredMembers(
           methods: component.apiMethods,
@@ -326,6 +351,22 @@ void main() {
         final String source = File(
           '${scan.root}/${component.entry}',
         ).readAsStringSync();
+        final List<String> unresolved = <String>[];
+        extractDeclaredMembers(
+          sources: declaredSources(
+            scan.root,
+            component,
+            source,
+            component.entry,
+          ),
+          declared: declared,
+          unresolved: unresolved,
+        );
+        if (unresolved.isNotEmpty) {
+          unresolvedByComponent[component.id] = unresolved;
+        }
+        // A component must end up with *some* API surface: constructor params
+        // or declared member rows, never neither.
         final ApiFacts facts = extractApi(
           source: source,
           nameCandidates: <String>[
@@ -334,19 +375,28 @@ void main() {
             ...component.apiClasses,
           ],
           declared: declared,
+          sources: declaredSources(
+            scan.root,
+            component,
+            source,
+            component.entry,
+          ),
         );
-        extractDeclaredMembers(
-          unit: parseString(content: source, throwIfDiagnostics: false).unit,
-          source: source,
-          declared: declared,
-          unresolved: unresolved,
-        );
-        expect(facts.members, isNotEmpty, reason: component.id);
+        if (facts.params.isEmpty && facts.members.isEmpty) {
+          noSurface.add(component.id);
+        }
       }
       expect(
-        unresolved,
+        unresolvedByComponent,
         isEmpty,
-        reason: 'declared API entries missing from the entry files',
+        reason:
+            'declared API entries missing from the installed files: '
+            '${unresolvedByComponent.entries.map((MapEntry<String, List<String>> e) => '${e.key}=>${e.value}').join(' | ')}',
+      );
+      expect(
+        noSurface,
+        isEmpty,
+        reason: 'components that end up with no API surface at all',
       );
     });
 
@@ -357,6 +407,7 @@ void main() {
       ];
       expect(withMembers, <String>[
         'formatter',
+        'anchor',
         'overlay_configuration',
         'color',
       ]);

@@ -26,7 +26,7 @@
       "OverlayAnchorScope",
       "RenderOverlayAnchor"
     ],
-    "functions": ["anchorTransformRelativeTo(RenderBox, RenderObject)"]
+    "functions": ["anchorTransformRelativeTo"]
   },
   "theme": null,
   "notes": [

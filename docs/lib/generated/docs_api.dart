@@ -6875,7 +6875,20 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary:
         'Describes an anchor an overlay (popover, menu, tooltip) positions itself against, optionally tracking it as it moves.',
     params: <DocsApiParam>[],
-    members: <DocsApiMember>[],
+    members: <DocsApiMember>[
+      DocsApiMember(
+        name: 'anchorTransformRelativeTo',
+        kind: 'function',
+        returnType: 'Matrix4',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'anchorBox', type: 'RenderBox', isRequired: true),
+          DocsApiParam(name: 'source', type: 'RenderObject', isRequired: true),
+        ],
+        doc:
+            'The transform from [anchorBox]\'s local coordinates into [source]\'s. Returns the identity when [source]\'s transform is singular instead of throwing from `Matrix4.invert()`.',
+      ),
+    ],
   ),
   'backdrop_transform': DocsApiTable(
     componentId: 'backdrop_transform',

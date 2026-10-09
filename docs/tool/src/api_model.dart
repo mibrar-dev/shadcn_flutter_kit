@@ -3,6 +3,11 @@
 //
 // Plain data only — no `package:analyzer` AST types — so the renderer and the
 // golden tests depend on this file without pulling in the analyzer.
+//
+// (`DeclaredSource` is the one exception: it carries the parsed unit that
+// `api_members.dart` resolves declared names against.)
+
+import 'package:analyzer/dart/ast/ast.dart';
 
 /// One constructor parameter row of [ApiFacts] and [ApiMemberFacts].
 class ApiParamFacts {
@@ -129,4 +134,28 @@ class DeclaredMembers {
 
   /// Every declared name in list order (methods, constants, functions).
   List<String> get names => <String>[...methods, ...constants, ...functions];
+}
+
+/// One parsed Dart file of a component, used to resolve declared entry points.
+///
+/// A component's public API is spread across every file it installs
+/// (`button.dart`, `button_style.dart`, the user-owned `button_theme.dart`),
+/// not only its entry file, so declared names resolve against the whole set.
+/// [path] is used only in diagnostics.
+class DeclaredSource {
+  /// Creates the source.
+  const DeclaredSource({
+    required this.path,
+    required this.unit,
+    required this.source,
+  });
+
+  /// Registry-relative file path (`components/button/button_style.dart`).
+  final String path;
+
+  /// Parsed compilation unit.
+  final CompilationUnit unit;
+
+  /// Raw source text (default clauses are sliced from it).
+  final String source;
 }

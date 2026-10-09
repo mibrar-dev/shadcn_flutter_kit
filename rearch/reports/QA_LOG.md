@@ -459,3 +459,10 @@
   checks `git diff --cached` before every commit.
 
 ## 2026-10-09 USER DECISION: Open Design docs mockups REJECTED. The docs website must be designed like https://ui.shadcn.com/ (same structure/layout/spacing/typography/colours/components; own name, logo and copy). P6-A2 captures + specs it; P6_DOCS_BUILD_PLAN D3–D6 will be re-targeted to P6_SHADCN_SITE_SPEC.md. Router/state/codegen/sync (D1, D2) unaffected.
+
+## P5-B1 CLI manifest v2 models + validator (longcat) — ACCEPTED (r1)
+- RegistryManifest/ManifestComponent/ManifestUnit/ThemePreset (+ packages), hand-written validator (schema rules +
+  closure/id checks), fixture registry_v2; 9 v1 model files deleted. Own files: format clean, analyze 0, 53/53 tests.
+  Whole package: expected intermediate break (249 analyzer errors / 24 failing suites in installer+commands owned by
+  B4/B5). Decisions for B5: delete schema_source.dart if still unreferenced; v2 validation exception lives with the
+  validator (lib/src/registry/manifest/). Reverted 2 format-only edits to old installer tests (B4 rewrites them).

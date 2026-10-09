@@ -12,8 +12,6 @@
 //     selectedBackground: ThemedColor.ref(ColorRef.accent, alpha: 0.3),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'tree_style.dart';
 
 /// Tree overrides applied app-wide through `ComponentThemes`.

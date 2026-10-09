@@ -1,3 +1,4 @@
+// @dart=3.13
 // The table layout render object: sizes columns and rows from [TableSize]
 // strategies and positions each cell on the grid.
 //
@@ -14,7 +15,6 @@
 import 'dart:math';
 
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 import 'table_layout.dart';
 import 'table_layout_sizing.dart';
@@ -27,24 +27,16 @@ class RenderTableLayout extends RenderBox
   /// Creates a table layout render object.
   RenderTableLayout({
     List<RenderBox>? children,
-    required TableSizeSupplier width,
-    required TableSizeSupplier height,
-    required Clip clipBehavior,
-    CellPredicate? frozenColumn,
-    CellPredicate? frozenRow,
-    double? verticalOffset,
-    double? horizontalOffset,
-    Size? viewportSize,
-    TextDirection textDirection = TextDirection.ltr,
-  }) : _width = width,
-       _height = height,
-       _clipBehavior = clipBehavior,
-       _frozenColumn = frozenColumn,
-       _frozenRow = frozenRow,
-       _verticalOffset = verticalOffset,
-       _horizontalOffset = horizontalOffset,
-       _viewportSize = viewportSize,
-       _textDirection = textDirection {
+    required this._width,
+    required this._height,
+    required this._clipBehavior,
+    this._frozenColumn,
+    this._frozenRow,
+    this._verticalOffset,
+    this._horizontalOffset,
+    this._viewportSize,
+    this._textDirection = TextDirection.ltr,
+  }) {
     addAll(children);
   }
 

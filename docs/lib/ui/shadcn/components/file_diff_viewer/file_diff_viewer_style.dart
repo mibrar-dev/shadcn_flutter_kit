@@ -4,8 +4,6 @@
 // with. The models live here because the folder may hold at most three Dart
 // files (P4-B17 report); user overrides live in `file_diff_viewer_theme.dart`.
 
-import 'dart:ui' show lerpDouble;
-
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';

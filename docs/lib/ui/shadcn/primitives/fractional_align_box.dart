@@ -1,3 +1,4 @@
+// @dart=3.13
 // `FractionalAlignBox`: lays its child out at most `[factor]` of the
 // available width, then aligns the (naturally sized) child inside its own
 // box.
@@ -62,12 +63,10 @@ class FractionalAlignBox extends SingleChildRenderObjectWidget {
 class FractionalAlignBoxRender extends RenderShiftedBox {
   /// Creates the render box.
   FractionalAlignBoxRender({
-    required double factor,
-    required Alignment alignment,
+    required this._factor,
+    required this._alignment,
     RenderBox? child,
-  }) : _factor = factor,
-       _alignment = alignment,
-       super(child);
+  }) : super(child);
 
   double _factor;
   Alignment _alignment;

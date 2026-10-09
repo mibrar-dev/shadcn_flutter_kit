@@ -16,8 +16,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'toggle_style.dart';
 
 /// On/off overrides applied app-wide through `ComponentThemes`.

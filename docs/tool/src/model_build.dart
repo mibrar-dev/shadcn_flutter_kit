@@ -172,7 +172,7 @@ String describeModel(DocsModel model) {
       'keyboard: ${gaps.length} gaps of ${model.scan.components.length} '
       'components\n'
       'keyboard gaps: ${gaps.join(', ')}\n'
-      'parse errors (analyzer 6.4.1, entry files): '
+      'parse errors (entry files): '
       '${parseErrors.isEmpty ? 'none' : parseErrors.join(', ')}\n'
       'previews: ${model.scan.components.length} deferred imports';
 }

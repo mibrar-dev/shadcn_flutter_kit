@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
 import '../../primitives/countries.dart';
-import '../../primitives/form_core/form_core.dart';
-import '../../primitives/phone_number.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../form/form.dart';

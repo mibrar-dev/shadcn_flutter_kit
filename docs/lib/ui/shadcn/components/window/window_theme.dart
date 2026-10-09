@@ -11,8 +11,6 @@
 //     snapOverlayColor: ThemedColor.ref(ColorRef.primary, alpha: 0.2),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'window_style.dart';
 
 /// App-wide overrides applied through `ComponentThemes`.

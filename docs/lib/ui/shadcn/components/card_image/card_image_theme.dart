@@ -12,8 +12,6 @@
 //     gap: 8,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'card_image_style.dart';
 
 /// Card image overrides applied app-wide through `ComponentThemes`.

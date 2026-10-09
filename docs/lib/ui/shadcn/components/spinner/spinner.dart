@@ -10,8 +10,6 @@ import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/animation.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import 'spinner_style.dart';
 
 export 'spinner_style.dart';

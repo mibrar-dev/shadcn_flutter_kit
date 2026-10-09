@@ -7,8 +7,6 @@
 // primitives layer defines other component themes too: `HoverTheme`,
 // `BasicTheme`, `FileUploadRowTheme`). Re-exported by the component.
 
-import 'package:flutter/widgets.dart';
-
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 

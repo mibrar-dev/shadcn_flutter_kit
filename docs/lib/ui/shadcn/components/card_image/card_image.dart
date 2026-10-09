@@ -18,7 +18,6 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/constants.dart';
 import '../../foundation/gap.dart';
 import '../../primitives/layout.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../outlined_container/outlined_container.dart';

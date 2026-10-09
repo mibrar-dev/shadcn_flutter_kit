@@ -14,8 +14,6 @@
 //     borderRadius: BorderRadius.all(Radius.circular(10)),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'input_style.dart';
 
 /// Input overrides applied app-wide through `ComponentThemes`.

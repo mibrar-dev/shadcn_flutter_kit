@@ -4,16 +4,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('durations match the motion spec', () {
+  test('durations match the amended motion spec (shadcn-site)', () {
     expect(kDurationFast, const Duration(milliseconds: 150));
-    expect(kDurationPage, const Duration(milliseconds: 200));
+    expect(kDurationPopper, const Duration(milliseconds: 100));
+    expect(kDurationPalette, const Duration(milliseconds: 200));
+    expect(kDurationHeadingAnchor, const Duration(milliseconds: 200));
     expect(kDurationTheme, const Duration(milliseconds: 300));
-    expect(kDurationReveal, const Duration(milliseconds: 300));
-    expect(kRevealStagger, const Duration(milliseconds: 40));
-    expect(kDurationHero, const Duration(milliseconds: 500));
-    expect(kDurationCopyFeedback, const Duration(milliseconds: 1500));
-    expect(kDurationMarquee, const Duration(seconds: 40));
-    expect(kDurationFloat, const Duration(seconds: 6));
+    expect(kDurationCopyFeedback, const Duration(milliseconds: 2000));
+    // Removed motions have no constants: no route/reveal/hero/marquee/float.
+    expect(kEaseOutExpo, isA<Cubic>());
+    expect(kEaseStandard, Curves.fastOutSlowIn);
   });
 
   testWidgets('an explicit reduced-motion override wins', (

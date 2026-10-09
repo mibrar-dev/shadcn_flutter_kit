@@ -12,8 +12,6 @@
 //     barrierColor: ThemedColor.ref(ColorRef.foreground, alpha: 0.4),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'drawer_style.dart';
 
 /// Panel overrides applied app-wide through `ComponentThemes`.

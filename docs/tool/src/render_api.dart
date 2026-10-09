@@ -21,8 +21,8 @@ String renderDocsApi(DocsModel model) {
           'API params are extracted from each component entry file with',
           'package:analyzer (unresolved AST, require-first order).',
           'Theme fields come from the manifest `<Name>Theme` field map.',
-          '`parseClean: false` marks the 9 entry files analyzer 6.4.1 cannot',
-          'parse cleanly under Dart 3.13; their facts are best-effort.',
+          '`parseClean: false` marks entry files the analyzer cannot parse',
+          'cleanly; their facts are best-effort.',
         ],
       ),
     )

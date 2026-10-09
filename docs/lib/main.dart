@@ -6,9 +6,9 @@
 // 300ms ease-out-expo colour tween on preset/mode switches), the global
 // keyboard shortcuts and the web-bridge events.
 //
-// TEMPORARY (D1/D3/D4): the route host below is a stub that D3/D4 (real
-// pages) replace — see the markers. The theme resolver is now the generated
-// `generated/app_theme.dart` (D2).
+// Brightness defaults to the system (the reference's `next-themes` default);
+// the header toggle stores an explicit mode. The platform listener below
+// forwards system changes while no explicit mode is stored.
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -16,16 +16,26 @@ import 'package:flutter/widgets.dart';
 import 'generated/app_theme.dart';
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
+import 'pages/components_index_page.dart';
+import 'pages/introduction_page.dart';
+import 'pages/landing_page.dart';
+import 'pages/placeholder_page.dart';
 import 'routing/docs_router.dart';
 import 'state/docs_state.dart';
 import 'ui/shadcn/components/app/app.dart';
 import 'ui/shadcn/theme/color_tokens.dart';
 import 'ui/shadcn/theme/theme.dart';
 import 'web_bridge.dart';
+import 'widgets/docs_shell.dart';
+import 'widgets/palette.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final DocsState state = DocsState(resolveTheme: buildDocsTheme)..restore();
+  final DocsState state = DocsState(
+    resolveTheme: buildDocsTheme,
+    systemBrightness:
+        WidgetsBinding.instance.platformDispatcher.platformBrightness,
+  )..restore();
   runApp(DocsApp(state: state));
 }
 
@@ -41,7 +51,7 @@ class DocsApp extends StatefulWidget {
   State<DocsApp> createState() => _DocsAppState();
 }
 
-class _DocsAppState extends State<DocsApp> {
+class _DocsAppState extends State<DocsApp> with WidgetsBindingObserver {
   late final DocsRouterDelegate _delegate = DocsRouterDelegate(
     state: widget.state,
     pageBuilder: buildDocsPage,
@@ -63,6 +73,7 @@ class _DocsAppState extends State<DocsApp> {
         ),
       ),
     );
+    WidgetsBinding.instance.addObserver(this);
     widget.state.addListener(_onThemeChanged);
     WidgetsBinding.instance.addPostFrameCallback((Duration _) {
       dispatchWebAppReady();
@@ -72,10 +83,18 @@ class _DocsAppState extends State<DocsApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     widget.state.removeListener(_onThemeChanged);
     _delegate.dispose();
     _routeInformationProvider.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    widget.state.setSystemBrightness(
+      WidgetsBinding.instance.platformDispatcher.platformBrightness,
+    );
   }
 
   void _onThemeChanged() {
@@ -121,7 +140,7 @@ class _DocsAppState extends State<DocsApp> {
       ),
       // The home route is deliberately unnamed: the docs navigator must be the
       // only thing reporting URLs to the engine (the Router owns history).
-      home: navigator,
+      home: DocsAppShell(delegate: _delegate, state: state, child: navigator),
       pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) =>
           PageRouteBuilder<T>(
             settings: const RouteSettings(),
@@ -151,112 +170,23 @@ const Map<ShortcutActivator, Intent> docsShortcuts =
           OpenDocsPaletteIntent(),
     };
 
-// ---------------------------------------------------------------------------
-// TEMPORARY (D1): placeholder page host. D3 replaces landing / introduction /
-// components-index, D4 replaces component / themes / installation / cli.
-// ---------------------------------------------------------------------------
-
 /// Maps a parsed route to its page widget.
+///
+/// D3 provides the landing, introduction and components index. The remaining
+/// routes render [DocsPlaceholderPage] until D4 lands (component template,
+/// themes customizer, installation, CLI, theming, dark mode).
 Widget buildDocsPage(BuildContext context, DocsRouteConfiguration config) {
-  return _DocsStubPage(
-    title: config.title,
-    body: switch (config.route) {
-      DocsRoute.component =>
-        'Template for “${config.componentId}” — D4 renders the generated '
-            'API, install tabs and live preview here.',
-      DocsRoute.themes => 'Preset gallery + live dashboard — D4.',
-      DocsRoute.installation => 'Install timeline — D4.',
-      DocsRoute.cli => 'CLI reference — D4.',
-      DocsRoute.components => 'Filterable component index — D3.',
-      DocsRoute.landing => 'Landing page — D3.',
-      DocsRoute.introduction => 'Docs shell + introduction — D3.',
-      DocsRoute.notFound => 'This URL does not match any docs route.',
-    },
-  );
+  return switch (config.route) {
+    DocsRoute.landing => const LandingPage(),
+    DocsRoute.introduction => const IntroductionPage(),
+    DocsRoute.components => const ComponentsIndexPage(),
+    _ => DocsPlaceholderPage(config: config),
+  };
 }
 
 /// Maps the palette overlay slot to its panel.
 Widget buildDocsPalette(BuildContext context, VoidCallback close) {
-  return _DocsPaletteStub(onClose: close);
-}
-
-class _DocsStubPage extends StatelessWidget {
-  const _DocsStubPage({required this.title, required this.body});
-
-  final String title;
-  final String body;
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return ColoredBox(
-      color: theme.colors.background,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(title, style: theme.typography.x3Large),
-              const SizedBox(height: 8),
-              Text(
-                body,
-                textAlign: TextAlign.center,
-                style: theme.typography.sans.copyWith(
-                  color: theme.colors.mutedForeground,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DocsPaletteStub extends StatelessWidget {
-  const _DocsPaletteStub({required this.onClose});
-
-  final VoidCallback onClose;
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 96, left: 20, right: 20),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 640),
-          child: CallbackShortcuts(
-            bindings: <ShortcutActivator, VoidCallback>{
-              const SingleActivator(LogicalKeyboardKey.escape): onClose,
-            },
-            child: Focus(
-              autofocus: true,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: theme.colors.popover,
-                  border: Border.all(color: theme.colors.border),
-                  borderRadius: theme.borderRadiusLg,
-                  boxShadow: theme.tokens.shadows.shadowXl,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    'Command palette (D3) — Esc to close',
-                    style: theme.typography.sans.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  return DocsPalette(onClose: close);
 }
 
 // ---------------------------------------------------------------------------

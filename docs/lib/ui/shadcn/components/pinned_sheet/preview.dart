@@ -4,7 +4,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../drawer_container/drawer_container.dart';
 import 'pinned_sheet.dart';

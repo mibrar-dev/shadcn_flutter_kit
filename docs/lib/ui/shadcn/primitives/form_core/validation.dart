@@ -1,3 +1,4 @@
+// @dart=3.13
 // Form validation primitives: the `Validator` contract, its result types and
 // the combinators that let validators be composed per field.
 //
@@ -47,12 +48,12 @@ class InvalidResult extends ValidationResult {
   /// Creates an unattached failure with [message].
   const InvalidResult(this.message, {required super.state}) : _key = null;
 
-  /// Creates a failure already bound to [key].
+  /// Creates a failure already bound to [_key].
   const InvalidResult.attached(
     this.message, {
-    required FormKey key,
+    required FormKey this._key,
     required super.state,
-  }) : _key = key;
+  });
 
   /// The error message shown to the user.
   final String message;
@@ -72,9 +73,8 @@ class InvalidResult extends ValidationResult {
 
 /// A validation result indicating the check is still running.
 class WaitingResult extends ValidationResult {
-  /// Creates a waiting result bound to [key].
-  const WaitingResult.attached({required FormKey key, required super.state})
-    : _key = key;
+  /// Creates a waiting result bound to [_key].
+  const WaitingResult.attached({required this._key, required super.state});
 
   final FormKey _key;
 
@@ -126,8 +126,9 @@ class ValidatorBuilder<T> extends Validator<T> {
 }
 
 /// Function shape accepted by [ValidatorBuilder].
-typedef ValidatorBuilderFunction<T> =
-    FutureOr<ValidationResult?> Function(T? value);
+typedef ValidatorBuilderFunction<T> = FutureOr<ValidationResult?> Function(
+  T? value,
+);
 
 /// Base class of every field validator.
 ///

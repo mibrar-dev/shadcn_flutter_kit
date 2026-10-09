@@ -14,8 +14,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'stepper_style.dart';
 
 /// Stepper overrides applied app-wide through `ComponentThemes`.

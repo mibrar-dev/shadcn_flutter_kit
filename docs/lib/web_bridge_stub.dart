@@ -16,3 +16,9 @@ String? webLocalStorageRead(String key) => null;
 
 /// Writes a `window.localStorage` entry; no-op off web.
 void webLocalStorageWrite(String key, String value) {}
+
+/// Opens an external URL in a new browser tab; no-op off web.
+///
+/// Used by the header/footer GitHub links — the app deliberately has no
+/// `url_launcher` dependency (see the pubspec dependency policy).
+void webOpenUrl(String url) {}

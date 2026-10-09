@@ -11,8 +11,6 @@
 //     showLabel: false,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'pagination_style.dart';
 
 /// Pagination overrides applied app-wide through `ComponentThemes`.

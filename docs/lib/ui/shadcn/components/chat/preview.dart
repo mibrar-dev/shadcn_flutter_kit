@@ -79,7 +79,6 @@ class _ChatPreviewBody extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ChatReaction(
-                child: const ChatBubble(child: Text('Nice work!')),
                 chips: <Widget>[
                   ChatReactionContainer(
                     onTap: () {},
@@ -88,6 +87,7 @@ class _ChatPreviewBody extends StatelessWidget {
                   ),
                   const ChatReactionContainer(child: Text('\u{1F389} 1')),
                 ],
+                child: const ChatBubble(child: Text('Nice work!')),
               ),
               const SizedBox(height: 16),
               ComponentTheme<ChatTheme>(

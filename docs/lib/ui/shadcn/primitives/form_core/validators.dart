@@ -15,7 +15,6 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 import '../localizations/localizations.dart';
-import 'form_controller.dart';
 import 'form_core.dart';
 import 'validation.dart';
 

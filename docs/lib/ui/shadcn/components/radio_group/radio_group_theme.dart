@@ -15,8 +15,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'radio_group_style.dart';
 
 /// Radio-group overrides applied app-wide through `ComponentThemes`.

@@ -12,8 +12,6 @@
 //         radius: 16,
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'feature_carousel_style.dart';
 
 /// Carousel overrides applied app-wide through `ComponentThemes`.

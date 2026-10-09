@@ -59,3 +59,12 @@ void webLocalStorageWrite(String key, String value) {
     // Ignore quota/security errors.
   }
 }
+
+/// Opens [url] in a new browser tab; silently ignored when blocked.
+void webOpenUrl(String url) {
+  try {
+    web.window.open(url, '_blank');
+  } catch (_) {
+    // Popup blocked or not available; the link is simply inert.
+  }
+}

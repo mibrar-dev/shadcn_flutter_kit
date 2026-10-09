@@ -1,3 +1,4 @@
+// @dart=3.13
 // Adapted from package:gap 3.0.1 (MIT, Copyright (c) 2020 Romain Rastel).
 // See licenses/gap.MIT.txt in the kit repo.
 //
@@ -93,14 +94,11 @@ class _RawGap extends LeafRenderObjectWidget {
 /// Render object behind [Gap].
 class RenderGap extends RenderBox {
   RenderGap({
-    required double mainAxisExtent,
-    double? crossAxisExtent,
-    Axis? fallbackDirection,
-    Color? color,
-  }) : _mainAxisExtent = mainAxisExtent,
-       _crossAxisExtent = crossAxisExtent,
-       _color = color,
-       _fallbackDirection = fallbackDirection;
+    required this._mainAxisExtent,
+    this._crossAxisExtent,
+    this._fallbackDirection,
+    this._color,
+  });
 
   double get mainAxisExtent => _mainAxisExtent;
   double _mainAxisExtent;
@@ -262,9 +260,7 @@ class SliverGap extends LeafRenderObjectWidget {
 
 /// Render object behind [SliverGap].
 class RenderSliverGap extends RenderSliver {
-  RenderSliverGap({required double mainAxisExtent, Color? color})
-    : _mainAxisExtent = mainAxisExtent,
-      _color = color;
+  RenderSliverGap({required this._mainAxisExtent, this._color});
 
   double get mainAxisExtent => _mainAxisExtent;
   double _mainAxisExtent;

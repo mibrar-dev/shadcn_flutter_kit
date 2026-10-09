@@ -11,8 +11,6 @@
 //     spacing: 8,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'breadcrumb_style.dart';
 
 /// Trail overrides applied app-wide through `ComponentThemes`.

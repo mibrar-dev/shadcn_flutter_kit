@@ -9,9 +9,10 @@ import '../motion/ease.dart';
 
 /// The root-level palette overlay route.
 ///
-/// Scrim fades 150ms; the panel scales .97→1 + fades 200ms with ease-out-expo
-/// and exits ease-in 150ms (motion spec). Reduced motion keeps the fade only,
-/// capped at 150ms.
+/// The reference palette has **no scrim** (`<DialogOverlay/>` is commented
+/// out): the transparent barrier below only catches outside taps. The panel
+/// scales .97→1 + fades 200ms `ease` and exits ease-in 150ms (spec §2.8).
+/// Reduced motion keeps a fade capped at 150ms.
 class DocsPaletteRoute extends PageRoute<void> {
   /// Creates the palette route.
   DocsPaletteRoute({required this.builder, this.reduceMotion = false})
@@ -26,8 +27,9 @@ class DocsPaletteRoute extends PageRoute<void> {
   @override
   String? get barrierLabel => 'Command palette';
 
+  /// No dimming; the barrier exists so an outside tap still closes the panel.
   @override
-  Color? get barrierColor => const Color(0x8C000000);
+  Color? get barrierColor => const Color(0x00000000);
 
   @override
   bool get opaque => false;
@@ -37,7 +39,7 @@ class DocsPaletteRoute extends PageRoute<void> {
 
   @override
   Duration get transitionDuration =>
-      reduceMotion ? kDurationFast : kDurationPage;
+      reduceMotion ? kDurationFast : kDurationPalette;
 
   @override
   Duration get reverseTransitionDuration => kDurationFast;
@@ -60,7 +62,7 @@ class DocsPaletteRoute extends PageRoute<void> {
   ) {
     final Animation<double> curved = CurvedAnimation(
       parent: animation,
-      curve: kEaseOutExpo,
+      curve: kEaseStandard,
       reverseCurve: kEaseIn,
     );
     if (reduceMotion) {

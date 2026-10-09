@@ -11,8 +11,6 @@
 //     size: 3,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'triple_dots_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

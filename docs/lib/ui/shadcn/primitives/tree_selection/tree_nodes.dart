@@ -9,7 +9,6 @@
 // range mode stuck on.
 
 import 'package:flutter/foundation.dart' show listEquals;
-import 'package:flutter/widgets.dart';
 
 /// One node of a tree: children plus the expanded/selected flags.
 ///

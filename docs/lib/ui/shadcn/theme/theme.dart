@@ -1,3 +1,4 @@
+// @dart=3.13
 import 'dart:math';
 import 'dart:ui';
 
@@ -21,11 +22,11 @@ class ShadcnThemeData {
     this.density = Density.defaultDensity,
     this.spacing = const SpacingScale(4.0),
     this.tracking = const TrackingScale(),
-    TargetPlatform? platform,
+    this._platform,
     this.surfaceOpacity,
     this.surfaceBlur,
     this.enableFeedback,
-  }) : _platform = platform;
+  });
 
   /// Color tokens for the current brightness.
   final ShadcnColors colors;
@@ -293,14 +294,11 @@ class _AnimatedShadcnThemeState
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    _data =
-        visitor(
-              _data,
-              widget.data,
-              (dynamic value) =>
-                  ShadcnThemeDataTween(begin: value as ShadcnThemeData),
-            )
-            as ShadcnThemeDataTween?;
+    _data = visitor(
+      _data,
+      widget.data,
+      (dynamic value) => ShadcnThemeDataTween(begin: value as ShadcnThemeData),
+    ) as ShadcnThemeDataTween?;
   }
 
   @override

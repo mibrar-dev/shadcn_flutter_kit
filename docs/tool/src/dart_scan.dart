@@ -8,9 +8,10 @@
 //     analyzer tokenizer for Dart and tiny regex/character scanners for
 //     bash and JSON.
 //
-// `package:analyzer` 6.4.1 cannot parse 9 registry files under Dart 3.13
-// (MISSING_IDENTIFIER); extraction stays usable there — `parseClean` records
-// the condition instead of failing the run.
+// Written against the analyzer "fragments" AST (`ClassDeclaration.namePart` /
+// `.body.members`, `FormalParameter.name` / `.defaultClause` /
+// `.functionTypedSuffix`) used by analyzer ^14, which the docs pubspec now
+// resolves. `parseClean` records parse diagnostics instead of failing the run.
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -128,7 +129,7 @@ ApiFacts extractApi({
   }
 
   final Map<String, _FieldFacts> fields = _fieldsOf(selected);
-  final ConstructorDeclaration? constructor = selected.members
+  final ConstructorDeclaration? constructor = selected.body.members
       .whereType<ConstructorDeclaration>()
       .where((ConstructorDeclaration c) => c.name == null)
       .firstOrNull;
@@ -137,7 +138,7 @@ ApiFacts extractApi({
     return ApiFacts(
       hasApiTable: false,
       parseClean: parseClean,
-      symbol: selected.name.lexeme,
+      symbol: selected.namePart.typeName.lexeme,
       summary: summary.isEmpty ? null : summary,
     );
   }
@@ -145,7 +146,7 @@ ApiFacts extractApi({
   final List<ApiParamFacts> required = <ApiParamFacts>[];
   final List<ApiParamFacts> optional = <ApiParamFacts>[];
   for (final FormalParameter parameter in constructor.parameters.parameters) {
-    final _ParamFacts? facts = _paramFacts(parameter, fields);
+    final _ParamFacts? facts = _paramFacts(parameter, fields, source);
     if (facts == null) {
       continue; // `super.key` and other infrastructure parameters.
     }
@@ -162,7 +163,7 @@ ApiFacts extractApi({
   return ApiFacts(
     hasApiTable: true,
     parseClean: parseClean,
-    symbol: selected.name.lexeme,
+    symbol: selected.namePart.typeName.lexeme,
     summary: summary.isEmpty ? null : summary,
     params: <ApiParamFacts>[...required, ...optional],
   );
@@ -188,13 +189,13 @@ String findPreviewClass({
       .whereType<ClassDeclaration>()
       .where(
         (ClassDeclaration c) =>
-            !c.name.lexeme.startsWith('_') &&
-            c.name.lexeme.endsWith('Preview') &&
+            !c.namePart.typeName.lexeme.startsWith('_') &&
+            c.namePart.typeName.lexeme.endsWith('Preview') &&
             _isWidget(c),
       )
       .toList(growable: false);
   final Set<String> names = <String>{
-    for (final ClassDeclaration c in widgetPreviews) c.name.lexeme,
+    for (final ClassDeclaration c in widgetPreviews) c.namePart.typeName.lexeme,
   };
   for (final String preferred in <String>[
     '${pascalCase(displayName)}Preview',
@@ -205,7 +206,7 @@ String findPreviewClass({
     }
   }
   if (widgetPreviews.length == 1) {
-    return widgetPreviews.single.name.lexeme;
+    return widgetPreviews.single.namePart.typeName.lexeme;
   }
   throw DartScanException(
     '$componentId/preview.dart: cannot pick one preview class from '
@@ -234,7 +235,7 @@ String pascalCase(String value) {
 
 ClassDeclaration? _classNamed(List<ClassDeclaration> classes, String name) {
   for (final ClassDeclaration declaration in classes) {
-    if (declaration.name.lexeme == name) {
+    if (declaration.namePart.typeName.lexeme == name) {
       return declaration;
     }
   }
@@ -249,7 +250,7 @@ bool _isWidget(ClassDeclaration declaration) {
 Map<String, _FieldFacts> _fieldsOf(ClassDeclaration declaration) {
   final Map<String, _FieldFacts> fields = <String, _FieldFacts>{};
   for (final FieldDeclaration field
-      in declaration.members.whereType<FieldDeclaration>()) {
+      in declaration.body.members.whereType<FieldDeclaration>()) {
     final String? doc = _cleanDoc(docComment(field));
     for (final VariableDeclaration variable in field.fields.variables) {
       fields[variable.name.lexeme] = _FieldFacts(
@@ -264,35 +265,32 @@ Map<String, _FieldFacts> _fieldsOf(ClassDeclaration declaration) {
 _ParamFacts? _paramFacts(
   FormalParameter parameter,
   Map<String, _FieldFacts> fields,
+  String source,
 ) {
-  FormalParameter base = parameter;
-  String? defaultValue;
-  if (parameter is DefaultFormalParameter) {
-    base = parameter.parameter;
-    defaultValue = parameter.defaultValue?.toSource();
-  }
-  final String? name = switch (base) {
-    FieldFormalParameter(:final Token name) => name.lexeme,
-    SuperFormalParameter(:final Token name) => name.lexeme,
-    SimpleFormalParameter(:final Token? name) => name?.lexeme,
-    FunctionTypedFormalParameter(:final Token name) => name.lexeme,
-    _ => null,
-  };
-  if (name == null || (base is SuperFormalParameter && name == 'key')) {
+  final Token? nameToken = parameter.name;
+  final String? name = nameToken?.lexeme;
+  if (name == null || (parameter is SuperFormalParameter && name == 'key')) {
     return null;
   }
+  // `defaultClause.value2` is experimental and `.value` is deprecated in the
+  // fragments AST; slice the clause's source range instead.
+  final FormalParameterDefaultClause? clause = parameter.defaultClause;
+  final String? defaultValue = clause == null
+      ? null
+      : source
+            .substring(clause.offset, clause.end)
+            .replaceFirst(RegExp(r'^[=:]\s*'), '')
+            .trim();
   final _FieldFacts? field = fields[name];
-  final String type = switch (base) {
+  final String type = switch (parameter) {
     FieldFormalParameter() =>
       field?.type.isNotEmpty == true
           ? field!.type
-          : (base.type?.toSource() ?? ''),
-    SimpleFormalParameter() => base.type?.toSource() ?? '',
-    SuperFormalParameter() => base.type?.toSource() ?? '',
-    FunctionTypedFormalParameter() => _functionType(base),
-    _ => '',
+          : (parameter.type?.toSource() ?? ''),
+    _ when parameter.functionTypedSuffix != null => _functionType(parameter),
+    _ => parameter.type?.toSource() ?? '',
   };
-  final String? doc = field?.doc ?? _cleanDoc(docComment(base));
+  final String? doc = field?.doc ?? _cleanDoc(docComment(parameter));
   return _ParamFacts(
     name: name,
     type: type,
@@ -302,12 +300,14 @@ _ParamFacts? _paramFacts(
   );
 }
 
-String _functionType(FunctionTypedFormalParameter parameter) {
-  final String returnType = parameter.returnType?.toSource() ?? 'void';
-  final String arguments = parameter.parameters.parameters
+String _functionType(FormalParameter parameter) {
+  final String returnType = parameter.type?.toSource() ?? 'void';
+  final FunctionTypedFormalParameterSuffix suffix =
+      parameter.functionTypedSuffix!;
+  final String arguments = suffix.formalParameters.parameters
       .map((FormalParameter p) => p.toSource())
       .join(', ');
-  final String nullable = parameter.question != null ? '?' : '';
+  final String nullable = suffix.question != null ? '?' : '';
   return '$returnType Function($arguments)$nullable';
 }
 

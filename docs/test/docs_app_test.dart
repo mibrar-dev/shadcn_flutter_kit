@@ -20,9 +20,14 @@ class _MemoryStorage extends DocsStorage {
 }
 
 Future<DocsState> _pumpApp(WidgetTester tester) async {
+  // The reference default is the system mode: make the "system" dark so the
+  // default-dark expectations are deterministic.
+  tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+  addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
   final DocsState state = DocsState(
     resolveTheme: buildDocsTheme,
     storage: _MemoryStorage(),
+    systemBrightness: Brightness.dark,
   );
   await tester.pumpWidget(DocsApp(state: state));
   await tester.pumpAndSettle();
@@ -30,10 +35,11 @@ Future<DocsState> _pumpApp(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('shell boots on the landing stub', (WidgetTester tester) async {
+  testWidgets('shell boots on the landing page', (WidgetTester tester) async {
     final DocsState state = await _pumpApp(tester);
     addTearDown(state.dispose);
-    expect(find.text('shadcn_flutter_kit'), findsOneWidget);
+    expect(find.text('A Flutter component kit you own'), findsOneWidget);
+    expect(find.text('Get Started'), findsWidgets);
   });
 
   testWidgets('Ctrl+K opens the palette and Esc closes it', (
@@ -47,11 +53,11 @@ void main() {
     await tester.sendKeyUpEvent(LogicalKeyboardKey.keyK);
     await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
     await tester.pumpAndSettle();
-    expect(find.textContaining('Command palette'), findsOneWidget);
+    expect(find.text('Go to Page'), findsOneWidget);
 
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
     await tester.pumpAndSettle();
-    expect(find.textContaining('Command palette'), findsNothing);
+    expect(find.text('Go to Page'), findsNothing);
   });
 
   testWidgets('navigation reports the new URL to the engine', (
@@ -76,7 +82,7 @@ void main() {
     addTearDown(state.dispose);
 
     final DocsRouterDelegate delegate = tester
-        .widget<DocsRouterScope>(find.byType(DocsRouterScope))
+        .widget<DocsRouterScope>(find.byType(DocsRouterScope).first)
         .delegate;
     delegate.navigate(
       tester.element(find.byType(Navigator).last),
@@ -117,5 +123,6 @@ void main() {
       find.byType(AnimatedShadcnTheme),
     );
     expect(updated.data.brightness, Brightness.light);
+    expect(state.followsSystem, isFalse);
   });
 }

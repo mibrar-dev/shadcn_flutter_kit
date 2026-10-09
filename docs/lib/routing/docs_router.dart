@@ -7,7 +7,7 @@ import 'palette_route.dart';
 
 export 'palette_route.dart';
 
-/// Logical pages of the docs site (mockup sitemap, P6 plan §1.2).
+/// Logical pages of the docs site (shadcn-site sitemap, P6 spec §1).
 enum DocsRoute {
   /// `/` — landing.
   landing,
@@ -18,16 +18,22 @@ enum DocsRoute {
   /// `/docs/installation` — getting started.
   installation,
 
+  /// `/docs/theming` — token tables and snippets.
+  theming,
+
+  /// `/docs/dark-mode` — mode toggle explanation.
+  darkMode,
+
   /// `/docs/cli` — CLI reference.
   cli,
 
-  /// `/docs/components` — filterable index.
+  /// `/docs/components` — link-grid index.
   components,
 
   /// `/docs/components/:id` — one component template instance.
   component,
 
-  /// `/themes` — preset gallery + dashboard.
+  /// `/themes` — preset rail + live preview.
   themes,
 
   /// Anything else; rendered as a not-found page.
@@ -61,6 +67,16 @@ class DocsRouteConfiguration {
   /// `/docs/installation`.
   static const DocsRouteConfiguration installation = DocsRouteConfiguration._(
     DocsRoute.installation,
+  );
+
+  /// `/docs/theming`.
+  static const DocsRouteConfiguration theming = DocsRouteConfiguration._(
+    DocsRoute.theming,
+  );
+
+  /// `/docs/dark-mode`.
+  static const DocsRouteConfiguration darkMode = DocsRouteConfiguration._(
+    DocsRoute.darkMode,
   );
 
   /// `/docs/cli`.
@@ -105,6 +121,10 @@ class DocsRouteConfiguration {
       switch (segments[1]) {
         case 'installation':
           return installation;
+        case 'theming':
+          return theming;
+        case 'dark-mode':
+          return darkMode;
         case 'cli':
           return cli;
         case 'components':
@@ -124,6 +144,8 @@ class DocsRouteConfiguration {
     DocsRoute.landing => '/',
     DocsRoute.introduction => '/docs',
     DocsRoute.installation => '/docs/installation',
+    DocsRoute.theming => '/docs/theming',
+    DocsRoute.darkMode => '/docs/dark-mode',
     DocsRoute.cli => '/docs/cli',
     DocsRoute.components => '/docs/components',
     DocsRoute.component => '/docs/components/$componentId',
@@ -136,6 +158,8 @@ class DocsRouteConfiguration {
     DocsRoute.landing => 'shadcn_flutter_kit',
     DocsRoute.introduction => 'Introduction',
     DocsRoute.installation => 'Getting started',
+    DocsRoute.theming => 'Theming',
+    DocsRoute.darkMode => 'Dark mode',
     DocsRoute.cli => 'CLI reference',
     DocsRoute.components => 'Components',
     DocsRoute.component => componentId ?? 'Component',
@@ -207,6 +231,11 @@ class DocsRouterScope extends InheritedWidget {
     return scope!.delegate;
   }
 
+  /// Nearest delegate, or null when the scope is absent (standalone tests).
+  static DocsRouterDelegate? maybeOf(BuildContext context) {
+    return context.getInheritedWidgetOfExactType<DocsRouterScope>()?.delegate;
+  }
+
   @override
   bool updateShouldNotify(DocsRouterScope oldWidget) =>
       oldWidget.delegate != delegate;
@@ -248,24 +277,27 @@ class DocsRouterDelegate extends RouterDelegate<DocsRouteConfiguration>
         ChangeNotifier,
         PopNavigatorRouterDelegateMixin<DocsRouteConfiguration> {
   /// Creates the delegate.
+  ///
+  /// The builder arguments are assigned in the body (private fields cannot use
+  /// initializing formals with public named parameters).
   DocsRouterDelegate({
     required this.state,
     required DocsPageBuilder pageBuilder,
     required DocsPaletteBuilder paletteBuilder,
     required DocsShellBuilder shellBuilder,
     GlobalKey<NavigatorState>? navigatorKey,
-  }) : _pageBuilder = pageBuilder,
-       _paletteBuilder = paletteBuilder,
-       _shellBuilder = shellBuilder,
-       navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>() {
+  }) : navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>() {
+    _pageBuilder = pageBuilder;
+    _paletteBuilder = paletteBuilder;
+    _shellBuilder = shellBuilder;
     state.addListener(_onStateChanged);
   }
 
   /// Theme/mode state; forwarded so shell rebuilds on preset changes.
   final DocsState state;
-  final DocsPageBuilder _pageBuilder;
-  final DocsPaletteBuilder _paletteBuilder;
-  final DocsShellBuilder _shellBuilder;
+  late final DocsPageBuilder _pageBuilder;
+  late final DocsPaletteBuilder _paletteBuilder;
+  late final DocsShellBuilder _shellBuilder;
 
   /// Navigator key (required by [PopNavigatorRouterDelegateMixin]).
   @override
@@ -336,6 +368,10 @@ class DocsRouterDelegate extends RouterDelegate<DocsRouteConfiguration>
           for (final _RouteEntry entry in _stack)
             ShadcnPage<void>(
               key: entry.key,
+              // The reference site has no route transition (spec §5.2):
+              // in-app navigation is instant. The registry page stays for
+              // structure; only the palette keeps an enter animation.
+              transitionDuration: Duration.zero,
               child: Builder(
                 builder: (BuildContext context) =>
                     _pageBuilder(context, entry.config),

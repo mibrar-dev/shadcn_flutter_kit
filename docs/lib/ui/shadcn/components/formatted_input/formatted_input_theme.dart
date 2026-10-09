@@ -13,8 +13,6 @@
 //     textStyle: TextStyle(letterSpacing: 1.2),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'formatted_input_style.dart';
 
 /// Formatted input overrides applied app-wide through `ComponentThemes`.

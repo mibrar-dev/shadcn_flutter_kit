@@ -17,7 +17,6 @@ class MenubarPreview extends StatelessWidget {
       child: Menubar(
         children: <Widget>[
           MenuButton(
-            child: const Text('File'),
             subMenu: <Widget>[
               MenuButton(child: const Text('New'), onPressed: (_) {}),
               MenuButton(child: const Text('Open'), onPressed: (_) {}),
@@ -28,9 +27,9 @@ class MenubarPreview extends StatelessWidget {
                 onPressed: (_) {},
               ),
             ],
+            child: const Text('File'),
           ),
           MenuButton(
-            child: const Text('Edit'),
             subMenu: <Widget>[
               MenuButton(
                 trailing: const MenuShortcut(shortcut: '⌘X'),
@@ -44,14 +43,14 @@ class MenubarPreview extends StatelessWidget {
               ),
               MenuButton(
                 trailing: const MenuShortcut(shortcut: '⌘V'),
-                child: const Text('Paste'),
                 enabled: false,
                 onPressed: (_) {},
+                child: const Text('Paste'),
               ),
             ],
+            child: const Text('Edit'),
           ),
           MenuButton(
-            child: const Text('View'),
             subMenu: <Widget>[
               const MenuLabel(child: Text('Zoom')),
               MenuSub(
@@ -62,6 +61,7 @@ class MenubarPreview extends StatelessWidget {
                 ],
               ),
             ],
+            child: const Text('View'),
           ),
         ],
       ),

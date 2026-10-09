@@ -1,40 +1,39 @@
 import 'package:flutter/animation.dart';
 
-/// The design's single entrance/morph easing: cubic-bezier(0.16, 1, 0.3, 1).
+// Motion constants for the docs site, per `P6_SHADCN_SITE_SPEC.md` §3.3/§5.2:
+// colour transitions 150ms cubic-bezier(.4,0,.2,1) everywhere; the palette
+// panel 200ms `ease`; the mobile nav popper 100ms; the heading `#` anchor
+// 200ms linear; copy feedback resets after 2000ms. The reference site has no
+// scroll reveals, route transitions, springs, floats or marquees — none of
+// those constants exist here on purpose.
+
+/// The theme tween easing: cubic-bezier(0.16, 1, 0.3, 1).
+///
+/// Retained only for the theme (preset/mode) tween; `AnimatedShadcnTheme` is
+/// our documented deviation (the reference swaps CSS variables instantly).
 const Curve kEaseOutExpo = Cubic(0.16, 1, 0.3, 1);
+
+/// Tailwind `ease` / `--default-transition-timing-function`:
+/// cubic-bezier(0.4, 0, 0.2, 1) — hover colour transitions, palette panel.
+const Curve kEaseStandard = Curves.fastOutSlowIn;
 
 /// Exit easing (motion spec: exits use ease-in, 150ms).
 const Curve kEaseIn = Curves.easeIn;
 
-/// Hero-piece spring-in: cubic-bezier(0.34, 1.4, 0.64, 1). The overshoot is
-/// bounded to ≤ 4px by the widget test in `test/motion_test.dart`.
-const Curve kEaseSpring = Cubic(0.34, 1.4, 0.64, 1);
-
-// Durations straight from the motion spec (`rearch/reports/P6_DOCS_DESIGN.md`).
-
-/// Exit / scrim / small-state durations.
+/// Hover/press colour transitions (shadcn `duration-150`).
 const Duration kDurationFast = Duration(milliseconds: 150);
 
-/// Route transitions (fade + 8px rise).
-const Duration kDurationPage = Duration(milliseconds: 200);
+/// Mobile-nav popper open/close (shadcn `duration-100`).
+const Duration kDurationPopper = Duration(milliseconds: 100);
 
-/// Theme (preset/mode) colour tween.
+/// Command palette panel enter/exit (shadcn `duration-200 ease`).
+const Duration kDurationPalette = Duration(milliseconds: 200);
+
+/// Heading `#` anchor reveal (`margin, opacity 0.2s linear`).
+const Duration kDurationHeadingAnchor = Duration(milliseconds: 200);
+
+/// Theme (preset/mode) colour tween — our deviation, layout untouched.
 const Duration kDurationTheme = Duration(milliseconds: 300);
 
-/// Reveal-on-scroll (fade + 12px rise), staggered by [kRevealStagger].
-const Duration kDurationReveal = Duration(milliseconds: 300);
-
-/// Reveal stagger step between sibling elements.
-const Duration kRevealStagger = Duration(milliseconds: 40);
-
-/// Hero entrance.
-const Duration kDurationHero = Duration(milliseconds: 500);
-
-/// Copy-button "Copied" feedback (label swap).
-const Duration kDurationCopyFeedback = Duration(milliseconds: 1500);
-
-/// Marquee loop.
-const Duration kDurationMarquee = Duration(seconds: 40);
-
-/// Idle hero float loop (±3px).
-const Duration kDurationFloat = Duration(seconds: 6);
+/// Copy-button "Copied" feedback; the check icon resets after 2000ms.
+const Duration kDurationCopyFeedback = Duration(milliseconds: 2000);

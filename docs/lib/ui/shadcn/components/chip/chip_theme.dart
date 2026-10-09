@@ -11,8 +11,6 @@
 //     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'chip_style.dart';
 
 /// Chip overrides applied app-wide through `ComponentThemes`.

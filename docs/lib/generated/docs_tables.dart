@@ -431,7 +431,6 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
     DocsDep(id: 'input', kind: DocsDepKind.component),
     DocsDep(id: 'input_features', kind: DocsDepKind.primitive),
     DocsDep(id: 'localizations', kind: DocsDepKind.primitive),
-    DocsDep(id: 'subfocus_item', kind: DocsDepKind.primitive),
     DocsDep(id: 'subfocus_scope', kind: DocsDepKind.primitive),
     DocsDep(id: 'text', kind: DocsDepKind.primitive),
     DocsDep(id: 'icons/lucide_icons', kind: DocsDepKind.foundation),
@@ -577,7 +576,6 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
   ],
   'pinned_sheet': <DocsDep>[
     DocsDep(id: 'backdrop_transform', kind: DocsDepKind.component),
-    DocsDep(id: 'drawer', kind: DocsDepKind.component),
     DocsDep(id: 'drawer_container', kind: DocsDepKind.component),
     DocsDep(id: 'sheet_stage', kind: DocsDepKind.primitive),
     DocsDep(id: 'constants', kind: DocsDepKind.foundation),
@@ -608,7 +606,6 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
   ],
   'text_animate': <DocsDep>[
     DocsDep(id: 'markdown', kind: DocsDepKind.component),
-    DocsDep(id: 'markdown_parser', kind: DocsDepKind.primitive),
     DocsDep(id: 'streaming_text', kind: DocsDepKind.primitive),
     DocsDep(id: 'color_tokens', kind: DocsDepKind.theme),
     DocsDep(id: 'theme', kind: DocsDepKind.theme),
@@ -939,7 +936,6 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
     DocsDep(id: 'sheet_overlay', kind: DocsDepKind.primitive),
     DocsDep(id: 'color_tokens', kind: DocsDepKind.theme),
     DocsDep(id: 'theme', kind: DocsDepKind.theme),
-    DocsDep(id: 'tokens', kind: DocsDepKind.theme),
   ],
   'card_image': <DocsDep>[
     DocsDep(id: 'button', kind: DocsDepKind.component),
@@ -1138,7 +1134,6 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
   ],
   'dialog': <DocsDep>[
     DocsDep(id: 'localizations', kind: DocsDepKind.primitive),
-    DocsDep(id: 'captured_wrapper', kind: DocsDepKind.foundation),
     DocsDep(id: 'constants', kind: DocsDepKind.foundation),
     DocsDep(id: 'data', kind: DocsDepKind.foundation),
     DocsDep(id: 'color_tokens', kind: DocsDepKind.theme),

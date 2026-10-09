@@ -19,7 +19,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/color_field_paint.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../alpha/alpha.dart';
 import 'color_field_style.dart';

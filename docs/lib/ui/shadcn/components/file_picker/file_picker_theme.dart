@@ -15,9 +15,6 @@
 // (`primitives/file_value/file_upload_row_theme.dart`), themed through
 // `ComponentThemes` or a tree `ComponentTheme<FileUploadRowTheme>`.
 
-import 'package:flutter/widgets.dart';
-
-import '../../theme/color_tokens.dart';
 import 'file_picker_style.dart';
 
 /// File picker overrides applied app-wide through `ComponentThemes`.

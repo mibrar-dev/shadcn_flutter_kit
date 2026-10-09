@@ -13,8 +13,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'badge_style.dart';
 
 /// Per-variant overrides applied app-wide through `ComponentThemes`.

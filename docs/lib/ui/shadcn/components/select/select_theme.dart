@@ -12,8 +12,6 @@
 //     maxHeight: 320,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'select_style.dart';
 
 /// Select overrides applied app-wide through `ComponentThemes`.

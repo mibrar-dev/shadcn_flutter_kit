@@ -10,8 +10,8 @@
 // API params are extracted from each component entry file with
 // package:analyzer (unresolved AST, require-first order).
 // Theme fields come from the manifest `<Name>Theme` field map.
-// `parseClean: false` marks the 9 entry files analyzer 6.4.1 cannot
-// parse cleanly under Dart 3.13; their facts are best-effort.
+// `parseClean: false` marks entry files the analyzer cannot parse
+// cleanly; their facts are best-effort.
 
 /// One constructor parameter row.
 class DocsApiParam {
@@ -612,7 +612,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     componentId: 'badge',
     symbol: 'Badge',
     hasApiTable: true,
-    parseClean: false,
+    parseClean: true,
     summary: 'A small rounded label used for status, counts and categories.',
     params: <DocsApiParam>[
       DocsApiParam(
@@ -1644,8 +1644,8 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary: 'A whole shortcut chord, drawn as a row of caps.',
     params: <DocsApiParam>[
       DocsApiParam(
-        name: 'keys',
-        type: 'List<LogicalKeyboardKey>',
+        name: '_keys',
+        type: 'List<LogicalKeyboardKey>?',
         isRequired: true,
       ),
       DocsApiParam(
@@ -5588,7 +5588,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     componentId: 'scaffold',
     symbol: 'Scaffold',
     hasApiTable: true,
-    parseClean: false,
+    parseClean: true,
     summary:
         'App screen shell; fixed bars take layout space, floating bars overlay.',
     params: <DocsApiParam>[
@@ -6309,10 +6309,12 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'fullscreenDialog', type: '', isRequired: false),
       DocsApiParam(
-        name: 'opaque',
+        name: '_opaque',
         type: 'bool',
         isRequired: false,
         defaultValue: 'true',
+        doc:
+            'Whether routes behind this one stop being built once the transition\nfinishes.',
       ),
       DocsApiParam(
         name: 'transitionDuration',
@@ -7041,7 +7043,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     componentId: 'swiper',
     symbol: 'Swiper',
     hasApiTable: true,
-    parseClean: false,
+    parseClean: true,
     summary:
         'Wraps [child] and reveals a [SwiperVariant.drawer] or [SwiperVariant.sheet] panel when the user swipes towards the panel\'s edge. The panel is painted in-tree so the gesture can scrub it. Provide a non-swipe trigger for keyboard and assistive-technology users.',
     params: <DocsApiParam>[

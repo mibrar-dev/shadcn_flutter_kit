@@ -4,8 +4,6 @@
 // The gradient itself is data-driven (the current colour), so only the
 // cursor ring is themed. User-owned overrides live in `hsv_theme.dart`.
 
-import 'dart:ui' show lerpDouble;
-
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
@@ -83,7 +81,7 @@ class HSVSliderTheme extends ComponentThemeData
 /// Token-derived defaults (the shadcn look).
 const HSVSliderTheme hsvSliderDefaults = HSVSliderTheme(
   slider: HSVSliderStyle(
-    cursorColor: ThemedColor.value(const Color(0xFFFFFFFF)),
+    cursorColor: ThemedColor.value(Color(0xFFFFFFFF)),
     cursorSize: 16,
     cursorWidth: 2,
   ),

@@ -11,8 +11,6 @@
 //     cursorColor: ThemedColor.ref(ColorRef.mutedForeground),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'selectable_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

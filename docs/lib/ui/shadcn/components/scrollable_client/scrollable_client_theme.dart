@@ -11,8 +11,6 @@
 //         overscroll: true,
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'scrollable_client_style.dart';
 
 /// Scrollable client overrides applied app-wide through `ComponentThemes`.

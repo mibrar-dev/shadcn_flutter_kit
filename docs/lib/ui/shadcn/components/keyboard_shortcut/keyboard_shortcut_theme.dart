@@ -12,8 +12,6 @@
 //         keyBorderRadius: BorderRadius.all(Radius.circular(4)),
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'keyboard_shortcut_style.dart';
 
 /// Keyboard-shortcut overrides applied app-wide through `ComponentThemes`.

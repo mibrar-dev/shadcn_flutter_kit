@@ -10,9 +10,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../focus_outline.dart';
-
 /// Owns the controller/focus/state objects and gesture wiring for one
 /// EditableText wrapper.
 ///

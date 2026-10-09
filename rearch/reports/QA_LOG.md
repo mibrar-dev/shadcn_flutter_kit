@@ -500,3 +500,5 @@
 - Orchestrator: kit qa_gate clean (2652 + 42), flutter analyze 0; CLI analyze 0, 466 tests (+ e2e green per agent).
 - Pending (after P6-D3): docs pubspec sdk → ^3.12.0 and drop the 17 `// @dart=3.13` headers sync_registry.sh adds;
   commit docs-side mirror/generated/pubspec changes then. docs-deploy.yml change = D1 verification comment only.
+
+## P6-D3 docs shell/home/palette/index to the shadcn spec (deepseek-v4.1-flash#max) — ACCEPTED (r1): header + search, 288/224 sidebar, 640 content, home (badge, collage, one-line footer), ⌘K palette (512, no scrim, Pages/Components/Presets), components link grid from generated kComponentLinks, system brightness default; adapted D2 dart_scan to analyzer 14. Orchestrator: format 0, analyze 0, 36 + 16 tests, no Material imports, release web build OK. Follow-ups: per-file // @dart=3.13 pins in 17 registry files + sdk floor → P4-T3; 'New Components' marker, Copy Page dropdown omitted; theming/dark-mode pages → D4.

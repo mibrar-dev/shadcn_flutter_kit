@@ -13,8 +13,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'color_field_style.dart';
 
 /// App-wide overrides applied through `ComponentThemes`.

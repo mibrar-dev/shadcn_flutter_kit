@@ -14,8 +14,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'autocomplete_style.dart';
 
 /// Suggestion-list overrides applied app-wide through `ComponentThemes`.

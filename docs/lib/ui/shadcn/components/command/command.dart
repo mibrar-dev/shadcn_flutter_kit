@@ -23,7 +23,6 @@ import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/input_features/adornment_features.dart';
 import '../../primitives/input_features/input_features.dart';
 import '../../primitives/localizations/localizations.dart';
-import '../../primitives/subfocus_item.dart';
 import '../../primitives/subfocus_scope.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../theme/color_tokens.dart';

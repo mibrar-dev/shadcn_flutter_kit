@@ -12,8 +12,6 @@
 //     successTone: ThemedColor.ref(ColorRef.primary),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'gooey_toast_style.dart';
 
 /// Gooey toast overrides applied app-wide through `ComponentThemes`.

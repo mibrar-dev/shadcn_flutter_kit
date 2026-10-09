@@ -11,8 +11,6 @@
 //     badgeColor: ThemedColor.value(Color(0xFF16A34A)),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'avatar_style.dart';
 
 /// Overrides applied app-wide through `ComponentThemes`.

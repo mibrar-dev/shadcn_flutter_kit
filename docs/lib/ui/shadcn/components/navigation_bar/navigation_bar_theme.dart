@@ -19,9 +19,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
-import '../../theme/color_tokens.dart';
 import 'navigation_bar_style.dart';
 
 /// Navigation bar overrides applied app-wide through `ComponentThemes`.

@@ -9,7 +9,6 @@ import 'dart:math' as math;
 
 import 'package:expressions/expressions.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 /// Constrains the text selection to fit within the new text length.
 TextSelection constraintToNewText(TextEditingValue newValue, String newText) {

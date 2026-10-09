@@ -98,6 +98,20 @@ String renderDocsData(DocsModel model) {
     ..writeln('  final int count;')
     ..writeln('}')
     ..writeln()
+    ..writeln('/// Compact link-grid row: id + name only (components index).')
+    ..writeln('class DocsComponentLink {')
+    ..writeln('  /// Creates a link row.')
+    ..writeln(
+      '  const DocsComponentLink({required this.id, required this.name});',
+    )
+    ..writeln()
+    ..writeln('  /// Registry id / route segment (`/docs/components/<id>`).')
+    ..writeln('  final String id;')
+    ..writeln()
+    ..writeln('  /// Display name.')
+    ..writeln('  final String name;')
+    ..writeln('}')
+    ..writeln()
     ..writeln('/// Landing stats band values, each derived from the registry.')
     ..writeln('class DocsStats {')
     ..writeln('  /// Creates the stats block.')
@@ -150,6 +164,29 @@ String renderDocsData(DocsModel model) {
     out.writeln(
       '  DocsPreset(id: ${dartString(preset.id)}, name: '
       '${dartString(preset.name)}, modes: ${stringList(preset.modes)}),',
+    );
+  }
+  out
+    ..writeln('];')
+    ..writeln();
+
+  final List<ComponentFacts> alphabetical = <ComponentFacts>[...scan.components]
+    ..sort(
+      (ComponentFacts a, ComponentFacts b) =>
+          a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+    );
+  out
+    ..writeln(
+      '/// All ${scan.components.length} components as index-grid links, '
+      'alphabetical by name.',
+    )
+    ..writeln(
+      'const List<DocsComponentLink> kComponentLinks = <DocsComponentLink>[',
+    );
+  for (final ComponentFacts component in alphabetical) {
+    out.writeln(
+      '  DocsComponentLink(id: ${dartString(component.id)}, name: '
+      '${dartString(component.name)}),',
     );
   }
   out

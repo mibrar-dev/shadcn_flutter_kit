@@ -12,8 +12,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'alert_style.dart';
 
 /// Per-variant overrides applied app-wide through `ComponentThemes`.

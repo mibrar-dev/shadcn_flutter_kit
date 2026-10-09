@@ -10,8 +10,6 @@
 //     fadeSize: 72,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'scrollable_style.dart';
 
 /// Scrollable overrides applied app-wide through `ComponentThemes`.

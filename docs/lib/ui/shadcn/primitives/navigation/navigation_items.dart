@@ -338,7 +338,6 @@ Widget _navigationRow(
       (labelType == NavigationLabelType.selected && selected) ||
       (labelType == NavigationLabelType.expanded && (data?.expanded ?? true));
   Widget row = NavigationItemRow(
-    child: child,
     label: label,
     selected: selected,
     enabled: enabled,
@@ -368,6 +367,7 @@ Widget _navigationRow(
     textStyle: style.textStyle,
     onPressed: enabled ? onPressed : null,
     registryValue: registryValue,
+    child: child,
   );
   final Widget Function(Widget child, Widget label)? tooltipWrapper =
       data?.tooltipWrapper;

@@ -1,3 +1,4 @@
+// @dart=3.13
 // Adapted from package:data_widget 0.0.3 (BSD 3-Clause, Copyright 2024 Thito
 // Yalasatria Sunarya). See licenses/data_widget.BSD-3-Clause.txt in the kit
 // repo. Only the Data / messenger / capture surface used by the registry was
@@ -118,8 +119,8 @@ class Data<T> extends StatelessWidget implements MultiDataItem {
   /// The child widget.
   final Widget? child;
 
-  /// Provides [data] to the subtree below [child].
-  const Data.inherit({super.key, required T data, this.child}) : _data = data;
+  /// Provides [_data] to the subtree below [child].
+  const Data.inherit({super.key, required T this._data, this.child});
 
   /// Stops [T] data from the ancestors from reaching the descendants.
   const Data.boundary({super.key, this.child}) : _data = null;

@@ -39,35 +39,56 @@ const String kDocsDensityKey = 'docs.theme.densityScale';
 /// One [ChangeNotifier] for the whole shell (plan §1.3). The derived
 /// [theme] applies the radius/density overrides on top of the resolved preset
 /// so a preset switch only ever tweens colours, never layout.
+///
+/// Brightness defaults to **system** (the reference uses `next-themes` with
+/// the system default): [brightness] is the explicit choice when one was
+/// persisted, otherwise [systemBrightness]. Toggling stores an explicit mode
+/// and stops following the system until the storage is cleared.
 class DocsState extends ChangeNotifier {
   /// Creates the state; call [restore] once to load persisted preferences.
+  ///
+  /// The arguments are assigned in the body (not the initializer list) so the
+  /// public parameter names stay `resolveTheme`/`presetId`/… while the fields
+  /// remain private — `prefer_initializing_formals` cannot apply to a private
+  /// field with a public named parameter.
   DocsState({
     required DocsThemeResolver resolveTheme,
     DocsStorage storage = const DocsStorage(),
     String presetId = kDefaultDocsPresetId,
-    Brightness brightness = Brightness.dark,
+    Brightness? brightness,
+    Brightness systemBrightness = Brightness.light,
     double? radiusPx,
     double densityScale = 1,
-  }) : _resolveTheme = resolveTheme,
-       _storage = storage,
-       _presetId = presetId,
-       _brightness = brightness,
-       _radiusPx = radiusPx,
-       _densityScale = densityScale;
+  }) {
+    _resolveTheme = resolveTheme;
+    _storage = storage;
+    _presetId = presetId;
+    _explicitBrightness = brightness;
+    _systemBrightness = systemBrightness;
+    _radiusPx = radiusPx;
+    _densityScale = densityScale;
+  }
 
-  final DocsThemeResolver _resolveTheme;
-  final DocsStorage _storage;
+  late final DocsThemeResolver _resolveTheme;
+  late final DocsStorage _storage;
 
-  String _presetId;
-  Brightness _brightness;
+  late String _presetId;
+  Brightness? _explicitBrightness;
+  late Brightness _systemBrightness;
   double? _radiusPx;
-  double _densityScale;
+  late double _densityScale;
 
   /// Current preset id.
   String get presetId => _presetId;
 
-  /// Current mode.
-  Brightness get brightness => _brightness;
+  /// The effective mode: the explicit choice or the system brightness.
+  Brightness get brightness => _explicitBrightness ?? _systemBrightness;
+
+  /// Whether the mode still follows the platform (no explicit choice stored).
+  bool get followsSystem => _explicitBrightness == null;
+
+  /// The last observed platform brightness.
+  Brightness get systemBrightness => _systemBrightness;
 
   /// Radius override in px (0–16), or null for the preset's own radius.
   double? get radiusPx => _radiusPx;
@@ -77,14 +98,14 @@ class DocsState extends ChangeNotifier {
 
   /// The preset's radius in px, ignoring the override.
   double get presetRadiusPx =>
-      _resolveTheme(_presetId, _brightness).tokens.radius * 16;
+      _resolveTheme(_presetId, brightness).tokens.radius * 16;
 
   /// The effective radius in px (override or preset).
   double get effectiveRadiusPx => _radiusPx ?? presetRadiusPx;
 
   /// The fully-resolved theme for the current state.
   ShadcnThemeData get theme {
-    ShadcnThemeData data = _resolveTheme(_presetId, _brightness);
+    ShadcnThemeData data = _resolveTheme(_presetId, brightness);
     final double? radius = _radiusPx;
     if (radius != null) {
       data = data.copyWith(
@@ -105,6 +126,9 @@ class DocsState extends ChangeNotifier {
   }
 
   /// Loads persisted preferences; safe to call once before `runApp`.
+  ///
+  /// A stored `light`/`dark` value becomes the explicit mode; `system` (or no
+  /// value) keeps following the platform brightness.
   void restore() {
     final String? preset = _storage.read(kDocsPresetKey);
     final String? brightness = _storage.read(kDocsBrightnessKey);
@@ -117,11 +141,16 @@ class DocsState extends ChangeNotifier {
       _presetId = preset;
       changed = true;
     }
-    if (brightness != null && brightness != _brightness.name) {
-      _brightness = brightness == Brightness.light.name
-          ? Brightness.light
-          : Brightness.dark;
-      changed = true;
+    if (brightness != null) {
+      final Brightness? parsed = switch (brightness) {
+        'light' => Brightness.light,
+        'dark' => Brightness.dark,
+        _ => null,
+      };
+      if (parsed != _explicitBrightness) {
+        _explicitBrightness = parsed;
+        changed = true;
+      }
     }
     if (radius != null && radius != _radiusPx) {
       _radiusPx = radius.clamp(0, 16).toDouble();
@@ -146,20 +175,31 @@ class DocsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Sets the explicit brightness.
+  /// Sets the explicit brightness and stops following the platform.
   void setBrightness(Brightness brightness) {
-    if (brightness == _brightness) {
+    if (brightness == _explicitBrightness) {
       return;
     }
-    _brightness = brightness;
+    _explicitBrightness = brightness;
     _storage.write(kDocsBrightnessKey, brightness.name);
     notifyListeners();
   }
 
-  /// Flips between light and dark.
+  /// Records the platform brightness while no explicit mode is stored.
+  void setSystemBrightness(Brightness brightness) {
+    if (brightness == _systemBrightness) {
+      return;
+    }
+    _systemBrightness = brightness;
+    if (_explicitBrightness == null) {
+      notifyListeners();
+    }
+  }
+
+  /// Flips between light and dark (stores the explicit mode).
   void toggleBrightness() {
     setBrightness(
-      _brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      brightness == Brightness.dark ? Brightness.light : Brightness.dark,
     );
   }
 

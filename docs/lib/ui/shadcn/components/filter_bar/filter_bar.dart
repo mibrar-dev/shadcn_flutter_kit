@@ -19,7 +19,6 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/filter_core/filter_controller.dart';
-import '../../primitives/filter_core/filter_group.dart';
 import '../../primitives/filter_core/filter_state.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../theme/theme.dart';

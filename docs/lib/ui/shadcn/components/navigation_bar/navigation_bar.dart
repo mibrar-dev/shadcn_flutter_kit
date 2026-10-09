@@ -17,7 +17,6 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/data.dart';
 import '../../foundation/platform.dart';
 import '../../primitives/navigation/navigation_items.dart';
-import '../../primitives/navigation/navigation_theme.dart';
 import '../../primitives/roving_group.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';

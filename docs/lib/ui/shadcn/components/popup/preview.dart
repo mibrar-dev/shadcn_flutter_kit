@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../theme/theme.dart';
 import '../menu/menu.dart';
-import 'popup.dart';
 
 /// Gallery preview of [MenuPopup] / `showShadcnPopup`.
 class PopupPreview extends StatelessWidget {

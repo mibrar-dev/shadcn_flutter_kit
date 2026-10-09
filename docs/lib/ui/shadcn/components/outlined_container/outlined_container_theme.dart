@@ -13,8 +13,6 @@
 //         surfaceOpacity: 0.8,
 //       );
 
-import 'package:flutter/widgets.dart';
-
 import 'outlined_container_style.dart';
 
 /// Outlined container overrides applied app-wide through `ComponentThemes`.

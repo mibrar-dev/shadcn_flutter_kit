@@ -12,8 +12,6 @@
 //     pauseOnHover: true,
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'toast_style.dart';
 
 /// Toast overrides applied app-wide through `ComponentThemes`.

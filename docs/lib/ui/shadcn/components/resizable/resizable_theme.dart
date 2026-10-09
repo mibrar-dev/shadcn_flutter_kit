@@ -16,8 +16,6 @@
 //     ),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'resizable_style.dart';
 
 /// Handle overrides applied app-wide through `ComponentThemes`.

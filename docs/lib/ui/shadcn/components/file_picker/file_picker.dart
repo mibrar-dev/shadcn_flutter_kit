@@ -12,7 +12,6 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/radix_icons.dart';
 import '../../primitives/clickable.dart';
-import '../../primitives/file_value/file_format.dart';
 import '../../primitives/file_value/file_upload_controller.dart';
 import '../../primitives/file_value/file_upload_items_view.dart';
 import '../../primitives/file_value/file_upload_row.dart';

@@ -12,8 +12,6 @@
 //     indicatorForeground: ThemedColor.ref(ColorRef.primaryForeground),
 //   );
 
-import 'package:flutter/widgets.dart';
-
 import 'steps_style.dart';
 
 /// Step overrides applied app-wide through `ComponentThemes`.

@@ -118,7 +118,6 @@ class _ClickDetectorState extends State<ClickDetector> {
         last != null &&
         now - last <= widget.threshold &&
         (previous == null ||
-            details.localPosition == null ||
             (details.localPosition - previous).distance <= kDoubleTapSlop);
     _count = consecutive ? _count + 1 : 1;
     _lastClickAt = now;

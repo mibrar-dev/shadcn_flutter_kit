@@ -10,7 +10,6 @@ import '../../primitives/toast_queue/toast_controller.dart';
 import '../../primitives/toast_queue/toast_entry.dart';
 import '../../primitives/toast_queue/toast_exit.dart';
 import '../../primitives/toast_queue/toast_placement.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'toast_style.dart';
 

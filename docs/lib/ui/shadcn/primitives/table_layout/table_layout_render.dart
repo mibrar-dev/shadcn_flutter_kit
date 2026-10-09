@@ -1,4 +1,3 @@
-// @dart=3.13
 // The table layout render object: sizes columns and rows from [TableSize]
 // strategies and positions each cell on the grid.
 //

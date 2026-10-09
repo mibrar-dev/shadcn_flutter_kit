@@ -1,4 +1,3 @@
-// @dart=3.13
 // Adapted from package:gap 3.0.1 (MIT, Copyright (c) 2020 Romain Rastel).
 // See licenses/gap.MIT.txt in the kit repo.
 //

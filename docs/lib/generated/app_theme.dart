@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND.
 //
 // Sources:
-//   * flutter_shadcn_kit/lib/registry/themes/*.json (42 presets, index.json order)
+//   * flutter_shadcn_kit/lib/registry/themes/*.json (43 presets, index.json order)
 //
 // Regenerate: dart run tool/gen_docs_data.dart
 //
@@ -2782,6 +2782,127 @@ ShadcnThemeData buildNeoBrutalismTheme(Brightness brightness) {
   );
 }
 
+/// Colour tokens for the Neutral preset, light brightness.
+const ShadcnColors neutralLightColors = ShadcnColors(
+  brightness: Brightness.light,
+  background: Color(0xFFFFFFFF),
+  foreground: Color(0xFF0A0A0A),
+  card: Color(0xFFFFFFFF),
+  cardForeground: Color(0xFF0A0A0A),
+  popover: Color(0xFFFFFFFF),
+  popoverForeground: Color(0xFF0A0A0A),
+  primary: Color(0xFF171717),
+  primaryForeground: Color(0xFFFAFAFA),
+  secondary: Color(0xFFF5F5F5),
+  secondaryForeground: Color(0xFF171717),
+  muted: Color(0xFFF5F5F5),
+  mutedForeground: Color(0xFF737373),
+  accent: Color(0xFFF5F5F5),
+  accentForeground: Color(0xFF171717),
+  destructive: Color(0xFFE7000B),
+  destructiveForeground: Color(0xFFFCF3F3),
+  border: Color(0xFFE5E5E5),
+  input: Color(0xFFE5E5E5),
+  ring: Color(0xFFA1A1A1),
+  chart1: Color(0xFFF54900),
+  chart2: Color(0xFF009689),
+  chart3: Color(0xFF104E64),
+  chart4: Color(0xFFFFB900),
+  chart5: Color(0xFFFE9A00),
+  sidebar: Color(0xFFFAFAFA),
+  sidebarForeground: Color(0xFF0A0A0A),
+  sidebarPrimary: Color(0xFF171717),
+  sidebarPrimaryForeground: Color(0xFFFAFAFA),
+  sidebarAccent: Color(0xFFF5F5F5),
+  sidebarAccentForeground: Color(0xFF171717),
+  sidebarBorder: Color(0xFFE5E5E5),
+  sidebarRing: Color(0xFFA1A1A1),
+);
+
+/// Colour tokens for the Neutral preset, dark brightness.
+const ShadcnColors neutralDarkColors = ShadcnColors(
+  brightness: Brightness.dark,
+  background: Color(0xFF0A0A0A),
+  foreground: Color(0xFFFAFAFA),
+  card: Color(0xFF171717),
+  cardForeground: Color(0xFFFAFAFA),
+  popover: Color(0xFF171717),
+  popoverForeground: Color(0xFFFAFAFA),
+  primary: Color(0xFFE5E5E5),
+  primaryForeground: Color(0xFF171717),
+  secondary: Color(0xFF262626),
+  secondaryForeground: Color(0xFFFAFAFA),
+  muted: Color(0xFF262626),
+  mutedForeground: Color(0xFFA1A1A1),
+  accent: Color(0xFF262626),
+  accentForeground: Color(0xFFFAFAFA),
+  destructive: Color(0xFFFF6467),
+  destructiveForeground: Color(0xFFDF2225),
+  border: Color(0x1AFFFFFF),
+  input: Color(0x26FFFFFF),
+  ring: Color(0xFF737373),
+  chart1: Color(0xFF1447E6),
+  chart2: Color(0xFF00BC7D),
+  chart3: Color(0xFFFE9A00),
+  chart4: Color(0xFFAD46FF),
+  chart5: Color(0xFFFF2056),
+  sidebar: Color(0xFF171717),
+  sidebarForeground: Color(0xFFFAFAFA),
+  sidebarPrimary: Color(0xFF1447E6),
+  sidebarPrimaryForeground: Color(0xFFFAFAFA),
+  sidebarAccent: Color(0xFF262626),
+  sidebarAccentForeground: Color(0xFFFAFAFA),
+  sidebarBorder: Color(0x1AFFFFFF),
+  sidebarRing: Color(0xFF737373),
+);
+
+/// Non-colour tokens for the Neutral preset, light brightness.
+final ShadcnTokens neutralLightTokens = ShadcnTokens(
+  radius: 0.625,
+  spacingBase: 4.0,
+  trackingNormal: 0.0,
+  shadows: ShadowScale.derive(
+    color: Color(0xFF000000),
+    opacity: 0.1,
+    blur: 3.0,
+    spread: 0.0,
+    offsetX: 0.0,
+    offsetY: 1.0,
+  ),
+);
+
+/// Non-colour tokens for the Neutral preset, dark brightness.
+final ShadcnTokens neutralDarkTokens = ShadcnTokens(
+  radius: 0.625,
+  spacingBase: 4.0,
+  trackingNormal: 0.0,
+  shadows: ShadowScale.derive(
+    color: Color(0xFF000000),
+    opacity: 0.1,
+    blur: 3.0,
+    spread: 0.0,
+    offsetX: 0.0,
+    offsetY: 1.0,
+  ),
+);
+
+/// Mode-independent font families for the Neutral preset.
+const ShadcnFonts neutralFonts = ShadcnFonts(
+  fontSans: 'Geist, sans-serif',
+  fontSerif: 'Georgia, serif',
+  fontMono: 'Geist Mono, monospace',
+);
+
+/// Builds the ambient theme for the Neutral preset.
+ShadcnThemeData buildNeutralTheme(Brightness brightness) {
+  final isDark = brightness == Brightness.dark;
+  return ShadcnThemeData(
+    colors: isDark ? neutralDarkColors : neutralLightColors,
+    tokens: isDark ? neutralDarkTokens : neutralLightTokens,
+    fonts: neutralFonts,
+  );
+}
+
 /// Colour tokens for the Northern Lights preset, light brightness.
 const ShadcnColors northernLightsLightColors = ShadcnColors(
   brightness: Brightness.light,
@@ -4747,38 +4868,38 @@ const ShadcnColors vercelLightColors = ShadcnColors(
 /// Colour tokens for the Vercel preset, dark brightness.
 const ShadcnColors vercelDarkColors = ShadcnColors(
   brightness: Brightness.dark,
-  background: Color(0xFFFFFFFF),
-  foreground: Color(0xFF000000),
-  card: Color(0xFFFFFFFF),
-  cardForeground: Color(0xFF000000),
-  popover: Color(0xFFFFFFFF),
-  popoverForeground: Color(0xFF000000),
-  primary: Color(0xFF000000),
-  primaryForeground: Color(0xFFFFFFFF),
-  secondary: Color(0xFFFFFFFF),
-  secondaryForeground: Color(0xFF000000),
-  muted: Color(0xFFFFFFFF),
-  mutedForeground: Color(0xFF000000),
-  accent: Color(0xFFFFFFFF),
-  accentForeground: Color(0xFF000000),
-  destructive: Color(0xFFFE5F55),
-  destructiveForeground: Color(0xFF000000),
-  border: Color(0xFFE0E0E0),
-  input: Color(0xFFE0E0E0),
-  ring: Color(0xFF9CA3AF),
-  chart1: Color(0xFF000000),
-  chart2: Color(0xFFFFFFFF),
-  chart3: Color(0xFFFFFFFF),
-  chart4: Color(0xFF000000),
-  chart5: Color(0xFFFFFFFF),
-  sidebar: Color(0xFFFFFFFF),
-  sidebarForeground: Color(0xFF000000),
-  sidebarPrimary: Color(0xFF000000),
-  sidebarPrimaryForeground: Color(0xFFFFFFFF),
-  sidebarAccent: Color(0xFFFFFFFF),
-  sidebarAccentForeground: Color(0xFF000000),
-  sidebarBorder: Color(0xFFE0E0E0),
-  sidebarRing: Color(0xFF9CA3AF),
+  background: Color(0xFF000000),
+  foreground: Color(0xFFFFFFFF),
+  card: Color(0xFF000000),
+  cardForeground: Color(0xFFFFFFFF),
+  popover: Color(0xFF000000),
+  popoverForeground: Color(0xFFFFFFFF),
+  primary: Color(0xFFFFFFFF),
+  primaryForeground: Color(0xFF000000),
+  secondary: Color(0xFF000000),
+  secondaryForeground: Color(0xFFFFFFFF),
+  muted: Color(0xFF000000),
+  mutedForeground: Color(0xFFFFFFFF),
+  accent: Color(0xFF000000),
+  accentForeground: Color(0xFFFFFFFF),
+  destructive: Color(0xFFAA0B01),
+  destructiveForeground: Color(0xFFFFFFFF),
+  border: Color(0xFF1F1F1F),
+  input: Color(0xFF1F1F1F),
+  ring: Color(0xFF505763),
+  chart1: Color(0xFFFFFFFF),
+  chart2: Color(0xFF000000),
+  chart3: Color(0xFF000000),
+  chart4: Color(0xFFFFFFFF),
+  chart5: Color(0xFF000000),
+  sidebar: Color(0xFF000000),
+  sidebarForeground: Color(0xFFFFFFFF),
+  sidebarPrimary: Color(0xFFFFFFFF),
+  sidebarPrimaryForeground: Color(0xFF000000),
+  sidebarAccent: Color(0xFF000000),
+  sidebarAccentForeground: Color(0xFFFFFFFF),
+  sidebarBorder: Color(0xFF1F1F1F),
+  sidebarRing: Color(0xFF505763),
 );
 
 /// Non-colour tokens for the Vercel preset, light brightness.
@@ -5071,7 +5192,7 @@ ShadcnThemeData buildVioletBloomTheme(Brightness brightness) {
 }
 
 /// Default docs preset (mirrors `kDefaultDocsPresetId` in `state/docs_state.dart`).
-const String kDocsDefaultPresetId = 'modern-minimal';
+const String kDocsDefaultPresetId = 'neutral';
 
 /// Resolves the generated theme factory for [presetId] and
 /// [brightness].
@@ -5103,6 +5224,7 @@ ShadcnThemeData buildDocsTheme(String presetId, Brightness brightness) {
     'mono' => buildMonoTheme(brightness),
     'nature' => buildNatureTheme(brightness),
     'neo-brutalism' => buildNeoBrutalismTheme(brightness),
+    'neutral' => buildNeutralTheme(brightness),
     'northern-lights' => buildNorthernLightsTheme(brightness),
     'notebook' => buildNotebookTheme(brightness),
     'ocean-breeze' => buildOceanBreezeTheme(brightness),
@@ -5122,6 +5244,6 @@ ShadcnThemeData buildDocsTheme(String presetId, Brightness brightness) {
     'vercel' => buildVercelTheme(brightness),
     'vintage-paper' => buildVintagePaperTheme(brightness),
     'violet-bloom' => buildVioletBloomTheme(brightness),
-    _ => buildModernMinimalTheme(brightness),
+    _ => buildNeutralTheme(brightness),
   };
 }

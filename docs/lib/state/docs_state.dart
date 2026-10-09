@@ -25,8 +25,9 @@ class DocsStorage {
   void write(String key, String value) => webLocalStorageWrite(key, value);
 }
 
-/// Preset id selected on a first visit (the design's default, not the CLI's).
-const String kDefaultDocsPresetId = 'modern-minimal';
+/// Preset id selected on a first visit: the official shadcn neutral base
+/// (`themes/neutral.json`), matching the reference site's palette.
+const String kDefaultDocsPresetId = 'neutral';
 
 /// localStorage keys for the theme preferences.
 const String kDocsPresetKey = 'docs.theme.presetId';

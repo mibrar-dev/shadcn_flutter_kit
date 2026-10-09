@@ -1,4 +1,3 @@
-// @dart=3.13
 // Form validation primitives: the `Validator` contract, its result types and
 // the combinators that let validators be composed per field.
 //
@@ -126,9 +125,8 @@ class ValidatorBuilder<T> extends Validator<T> {
 }
 
 /// Function shape accepted by [ValidatorBuilder].
-typedef ValidatorBuilderFunction<T> = FutureOr<ValidationResult?> Function(
-  T? value,
-);
+typedef ValidatorBuilderFunction<T> =
+    FutureOr<ValidationResult?> Function(T? value);
 
 /// Base class of every field validator.
 ///

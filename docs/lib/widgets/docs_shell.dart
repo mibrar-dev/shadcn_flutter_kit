@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../routing/docs_router.dart';
+import '../ui/shadcn/theme/theme.dart';
 import '../state/docs_state.dart';
 import 'docs_footer.dart';
 import 'docs_header.dart';
@@ -111,6 +112,13 @@ class _DocsAppShellState extends State<DocsAppShell> {
                   ),
                 ],
               );
+        // Paint the viewport with the active preset background: the app has
+        // no scaffold, so unpainted gaps would otherwise show the dark
+        // `index.html` first-paint background in light mode.
+        final Widget painted = ColoredBox(
+          color: ShadcnTheme.of(context).colors.background,
+          child: content,
+        );
         // Escape closes the popper. The binding lives at the shell level (an
         // ancestor of the focused node) because the popper itself is a sibling
         // branch and would never see the key event.
@@ -122,7 +130,7 @@ class _DocsAppShellState extends State<DocsAppShell> {
               }
             },
           },
-          child: FocusTraversalGroup(child: content),
+          child: FocusTraversalGroup(child: painted),
         );
       },
     );

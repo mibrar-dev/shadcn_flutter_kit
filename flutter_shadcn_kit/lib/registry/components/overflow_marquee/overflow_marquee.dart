@@ -1,4 +1,3 @@
-// @dart=3.13
 // The `overflow_marquee` component: self-scrolling content with soft edge
 // fades. Fixes over the old copy: no Material import (the fade used
 // `Colors.white`), the vertical axis measured its overflow on `width`,
@@ -339,8 +338,9 @@ class _RenderMarquee extends RenderShiftedBox {
   Shader _shader(Rect bounds) {
     final double portion = fadePortion.clamp(0.0, 0.5);
     if (_overflow <= 0 || portion <= 0) {
-      return const LinearGradient(colors: <Color>[_kWhite, _kWhite])
-          .createShader(bounds);
+      return const LinearGradient(
+        colors: <Color>[_kWhite, _kWhite],
+      ).createShader(bounds);
     }
     final (Alignment begin, Alignment end) = direction == Axis.horizontal
         ? (

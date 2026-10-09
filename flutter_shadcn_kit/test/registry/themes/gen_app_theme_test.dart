@@ -1,4 +1,4 @@
-// Round trip: preset JSON -> `app_theme.dart` for ALL 42 presets, then the two
+// Round trip: preset JSON -> `app_theme.dart` for ALL 43 presets, then the two
 // gates a user app would hit on install - `dart format` must be a no-op and
 // `dart analyze` must report zero issues.
 //
@@ -45,9 +45,9 @@ List<String> generateAll() {
 }
 
 void main() {
-  test('all 42 presets generate a format clean, analyzable theme file', () {
+  test('all 43 presets generate a format clean, analyzable theme file', () {
     final written = generateAll();
-    expect(written.length, 42);
+    expect(written.length, 43);
 
     final format = Process.runSync('dart', <String>[
       'format',

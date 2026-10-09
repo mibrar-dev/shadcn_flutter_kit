@@ -78,16 +78,28 @@ void main() {
   });
 
   test('an opaque token never gains an alpha suffix', () {
+    // shadcn's official neutral CSS defines three dark tokens with alpha
+    // (`oklch(1 0 0 / 10%)` border, `/ 15%` input and sidebar-border); those
+    // are the only documented 8-digit colour tokens. Every other token must
+    // stay opaque: the P1-D regression was alpha appearing where the source
+    // had none.
+    const alphaTokens = <String>{
+      'neutral.json dark.border',
+      'neutral.json dark.input',
+      'neutral.json dark.sidebarBorder',
+    };
     for (final file in presetFiles()) {
       final preset = readJsonMap('$themesDir/$file');
       for (final mode in const ['light', 'dark']) {
         final colors = (preset[mode]! as Map).cast<String, Object?>();
         for (final key in gen.colorTokenKeys) {
-          expect(
-            (colors[key]! as String).length,
-            7,
-            reason: '$file $mode.$key',
-          );
+          final value = colors[key]! as String;
+          final hasAlpha = value.length == 9;
+          if (alphaTokens.contains('$file $mode.$key')) {
+            expect(hasAlpha, isTrue, reason: '$file $mode.$key');
+            continue;
+          }
+          expect(value.length, 7, reason: '$file $mode.$key');
         }
       }
     }

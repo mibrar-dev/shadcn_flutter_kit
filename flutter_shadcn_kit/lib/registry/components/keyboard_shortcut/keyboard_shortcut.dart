@@ -1,4 +1,3 @@
-// @dart=3.13
 // The `keyboard_shortcut` component: [KeyboardShortcut] (the whole chord),
 // [KeyboardKeyCap] (one key) and [KeyboardShortcutDisplayScope] (the optional
 // app-wide key-label override).
@@ -167,8 +166,9 @@ class KeyboardKeyCap extends StatelessWidget {
         style: (container.keyTextStyle ?? keyboardShortcutDefaultTextStyle)
             .copyWith(color: ink.resolve(shadcnTheme.colors)),
         child:
-            Data.maybeOf<KeyboardShortcutDisplayHandle>(context)
-                ?.buildKeyboardDisplay(context, keyboardKey) ??
+            Data.maybeOf<KeyboardShortcutDisplayHandle>(
+              context,
+            )?.buildKeyboardDisplay(context, keyboardKey) ??
             defaultKeyboardKeyLabel(context, keyboardKey),
       ),
     );

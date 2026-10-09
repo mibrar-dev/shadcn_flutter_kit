@@ -1,4 +1,3 @@
-// @dart=3.13
 // The `page_route` component: the widgets-only replacement for
 // `MaterialPageRoute` / `MaterialPage`.
 //

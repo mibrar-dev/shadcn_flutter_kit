@@ -1,4 +1,3 @@
-// @dart=3.13
 import 'dart:async';
 
 import 'package:flutter/foundation.dart' show ValueListenable;
@@ -161,11 +160,12 @@ mixin FormFieldHandle {
 ///
 /// [pending] maps a field key to the future its validation will complete with;
 /// an empty map means nothing is pending.
-typedef FormPendingWidgetBuilder = Widget Function(
-  BuildContext context,
-  Map<FormKey, Future<ValidationResult?>> pending,
-  Widget? child,
-);
+typedef FormPendingWidgetBuilder =
+    Widget Function(
+      BuildContext context,
+      Map<FormKey, Future<ValidationResult?>> pending,
+      Widget? child,
+    );
 
 /// Renders [builder] with the form validations that are still in flight.
 ///

@@ -1,4 +1,3 @@
-// @dart=3.13
 // Column/row sizing controller for the `table` component.
 //
 // Ported from the old `resizable_table_controller.dart`. Extracted into its own

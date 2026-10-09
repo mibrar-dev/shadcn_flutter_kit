@@ -505,3 +505,17 @@
 
 ## P4-T3 dart pins + SDK floor (step-5-preview-free#high) — ACCEPTED (commit held until D3 r3 settles the preset change): all 17 // @dart=3.13 pins removed; one floor ^3.12.0 (kit + docs; ^3.11 → 242 errors); keyboard_shortcut usable from outside its library (test); manifest/mirror/docs data regenerated; kit 2656 + docs 37 tests, analyze 0, CLI e2e green.
 - ISSUE found: P6-D3 r2 overwrote the shipped vercel.json preset with shadcn neutral tokens → r3: restore vercel.json, add a new neutral.json preset (exact shadcn default), docs + CLI init default = neutral.
+
+## P6-D3 r2/r3 + P4-T3 + P6-D4 — ACCEPTED (committed together; shared generated files)
+- D3 r2: neutral look (no blue), real Geist weights (widget test + pixel probe), balanced home card grid, light-mode
+  bands fixed; side-by-side compare PNGs vs reference. D3 r3: vercel light restored exactly; vercel dark was a copy of
+  light (P2-D bug, only preset affected) → derived by documented HSL inversion (no upstream dark exists); NEW `neutral`
+  preset from themes-css/neutral.css (shadcn official); docs + CLI init default = neutral; test fails any preset with
+  light == dark. P4-T3: 17 per-file // @dart pins removed, sdk ^3.12.0 (kit + docs).
+- D4: component template (3 files) for all 118 with generated install file lists + user-owned badges, themes customizer
+  (preset/mode/radius), installation/theming/dark-mode pages, CLI reference from cli_snapshot (11 commands); 17 new tests.
+- Orchestrator gates: kit qa_gate clean (2658 + 42), flutter analyze 0, manifest up to date; docs format/analyze 0, 54
+  tests, codegen + mirror up to date; CLI analyze 0, 466 tests.
+- Follow-ups → D5: 5 components without API tables (autocomplete, formatter, alpha, color, locale_utils); themes
+  "Copy JSON / Copy Dart / Get Code" are stubs (must copy the preset JSON and the generated app_theme.dart);
+  kRelatedIds generated but unused (remove from codegen or use).

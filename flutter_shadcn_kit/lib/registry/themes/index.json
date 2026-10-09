@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "count": 42,
+  "count": 43,
   "themes": [
     {
       "id": "amber-minimal",
@@ -116,6 +116,11 @@
       "id": "neo-brutalism",
       "name": "Neo Brutalism",
       "file": "neo-brutalism.json"
+    },
+    {
+      "id": "neutral",
+      "name": "Neutral",
+      "file": "neutral.json"
     },
     {
       "id": "northern-lights",

@@ -4,6 +4,13 @@ description: "A Flutter registry package for shadcn-style components, themes, an
 version: 1.0.0+1
 
 environment:
+  # SDK floor for the whole kit (kit + docs + every CLI-installed component).
+  # The newest language feature the registry uses is `private-named-parameters`
+  # (a `this._keys` field formal in a named-parameter list), which shipped in
+  # Dart 3.12.0. Nothing here needs 3.13, so the floor stays 3.12: lower it and
+  # `theme/theme.dart` + `components/keyboard_shortcut/` fail with
+  # `experiment_not_enabled`. Registry sources carry no per-library
+  # `// @dart=` pins, so this is the only version they compile against.
   sdk: ^3.12.0
 
 # Dependencies specify other packages that your package needs in order to work.

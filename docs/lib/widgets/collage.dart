@@ -73,18 +73,22 @@ class _CollageBody extends StatelessWidget {
     final double bottomFade = width >= 1280 ? 256 : (width >= 1024 ? 320 : 192);
     final List<Widget> effectiveCards =
         cards ??
+        // Deliberate round-robin order: with 12 cards the 4/3/2-column grids
+        // each get balanced stacks (no short leftover column), matching the
+        // reference's multi-column card wall instead of a ragged masonry.
         <Widget>[
           const CollageButtonsCard(),
           const CollageInputsCard(),
-          const CollageRegistryCard(),
-          const CollagePresetsCard(),
           const CollageGoalCard(),
-          const CollageTabsCard(),
-          const CollageSwitchesCard(),
-          const CollageRadioCard(),
           const CollageInstallCard(),
-          const CollageTooltipCard(),
+          const CollageTabsCard(),
+          const CollagePresetsCard(),
+          const CollageRadioCard(),
           const CollagePagesCard(),
+          const CollageRegistryCard(),
+          const CollageSwitchesCard(),
+          const CollageTooltipCard(),
+          const CollageTableCard(),
         ];
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -92,6 +96,28 @@ class _CollageBody extends StatelessWidget {
       ),
       child: Stack(
         children: <Widget>[
+          if (!dark)
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              height: 480,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        theme.colors.background,
+                        theme.colors.muted,
+                        theme.colors.muted.withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
             child: Center(
@@ -148,28 +174,6 @@ class _CollageBody extends StatelessWidget {
               ),
             ),
           ),
-          if (!dark)
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 0,
-              height: 480,
-              child: IgnorePointer(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        theme.colors.background,
-                        theme.colors.muted,
-                        theme.colors.muted.withValues(alpha: 0),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
         ],
       ),
     );

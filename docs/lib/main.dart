@@ -16,10 +16,14 @@ import 'package:flutter/widgets.dart';
 import 'generated/app_theme.dart';
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
+import 'pages/cli_reference.dart';
+import 'pages/component_page.dart';
 import 'pages/components_index_page.dart';
+import 'pages/getting_started.dart';
 import 'pages/introduction_page.dart';
 import 'pages/landing_page.dart';
 import 'pages/placeholder_page.dart';
+import 'pages/themes.dart';
 import 'routing/docs_router.dart';
 import 'state/docs_state.dart';
 import 'ui/shadcn/components/app/app.dart';
@@ -172,14 +176,18 @@ const Map<ShortcutActivator, Intent> docsShortcuts =
 
 /// Maps a parsed route to its page widget.
 ///
-/// D3 provides the landing, introduction and components index. The remaining
-/// routes render [DocsPlaceholderPage] until D4 lands (component template,
-/// themes customizer, installation, CLI, theming, dark mode).
+/// D3 provides the landing, introduction and components index; D4 provides
+/// the component template, themes customizer, installation and CLI reference.
+/// Theming and dark mode remain placeholders until their batches land.
 Widget buildDocsPage(BuildContext context, DocsRouteConfiguration config) {
   return switch (config.route) {
     DocsRoute.landing => const LandingPage(),
     DocsRoute.introduction => const IntroductionPage(),
     DocsRoute.components => const ComponentsIndexPage(),
+    DocsRoute.component => ComponentPage(componentId: config.componentId!),
+    DocsRoute.themes => const ThemesPage(),
+    DocsRoute.installation => const GettingStartedPage(),
+    DocsRoute.cli => const CliReferencePage(),
     _ => DocsPlaceholderPage(config: config),
   };
 }

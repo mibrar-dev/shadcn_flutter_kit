@@ -1,4 +1,3 @@
-// @dart=3.13
 // `FractionalAlignBox`: lays its child out at most `[factor]` of the
 // available width, then aligns the (naturally sized) child inside its own
 // box.

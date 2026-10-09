@@ -1617,6 +1617,13 @@ const List<DocsSearchEntry> kDocsSearchIndex = <DocsSearchEntry>[
     keywords: <String>['Neo Brutalism'],
   ),
   DocsSearchEntry(
+    label: 'neutral',
+    kind: DocsSearchKind.preset,
+    route: '/themes',
+    tag: 'preset',
+    keywords: <String>['Neutral'],
+  ),
+  DocsSearchEntry(
     label: 'northern-lights',
     kind: DocsSearchKind.preset,
     route: '/themes',

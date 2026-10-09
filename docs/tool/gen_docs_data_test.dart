@@ -107,12 +107,36 @@ void main() {
   });
 
   group('goldens: dialog', () {
-    test('function-first API emits an empty table (never invented)', () {
+    test('function-first API extracts showShadcnDialog params', () {
       final DocsApiTable table = kApiTables['dialog']!;
-      expect(table.hasApiTable, isFalse);
-      expect(table.symbol, isEmpty);
-      expect(table.params, isEmpty);
+      expect(table.hasApiTable, isTrue);
+      expect(table.symbol, 'showShadcnDialog');
       expect(table.parseClean, isTrue);
+      expect(table.summary, contains('shadcn modal dialog'));
+      expect(table.params.map((DocsApiParam p) => p.name).toList(), <String>[
+        'context',
+        'builder',
+        'useRootNavigator',
+        'barrierDismissible',
+        'barrierColor',
+        'barrierLabel',
+        'useSafeArea',
+        'routeSettings',
+        'traversalEdgeBehavior',
+        'alignment',
+        'fullScreen',
+        'theme',
+      ]);
+      expect(table.params.first.isRequired, isTrue);
+      expect(table.params.first.type, 'BuildContext');
+      final DocsApiParam builder = table.params[1];
+      expect(builder.name, 'builder');
+      expect(builder.isRequired, isTrue);
+      expect(builder.type, 'WidgetBuilder');
+      final DocsApiParam fullScreen = table.params.firstWhere(
+        (DocsApiParam p) => p.name == 'fullScreen',
+      );
+      expect(fullScreen.defaultValue, 'false');
     });
 
     test('theme table', () {
@@ -156,7 +180,7 @@ void main() {
   test('catalog is complete and self-consistent', () {
     expect(kStats.components, kComponents.length);
     expect(kStats.presets, kPresets.length);
-    expect(kStats.presets, 42);
+    expect(kStats.presets, 43);
     expect(kStats.materialImports, 0);
     expect(kStats.modes, 2);
     expect(
@@ -280,7 +304,7 @@ void main() {
   });
 
   group('app_theme', () {
-    test('byte-equal to the kit generator output for all 42 presets', () {
+    test('byte-equal to the kit generator output for all 43 presets', () {
       final String app = File(
         'lib/generated/app_theme.dart',
       ).readAsStringSync();
@@ -288,7 +312,7 @@ void main() {
           jsonDecode(File('$registry/themes/index.json').readAsStringSync())
               as Map<String, Object?>;
       final List<Object?> themes = index['themes']! as List<Object?>;
-      expect(themes.length, 42);
+      expect(themes.length, 43);
       for (final Object? entry in themes) {
         final Map<String, Object?> item = entry! as Map<String, Object?>;
         final String id = item['id']! as String;
@@ -315,13 +339,13 @@ void main() {
         'not-a-preset',
         Brightness.dark,
       );
-      final ShadcnThemeData modernMinimal = buildDocsTheme(
+      final ShadcnThemeData docsDefault = buildDocsTheme(
         kDocsDefaultPresetId,
         Brightness.dark,
       );
       expect(
         fallback.colors.primary.toARGB32(),
-        modernMinimal.colors.primary.toARGB32(),
+        docsDefault.colors.primary.toARGB32(),
       );
     });
   });

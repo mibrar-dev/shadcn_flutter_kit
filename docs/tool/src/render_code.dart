@@ -1,6 +1,6 @@
 // Renderers for the code-shaped generated files:
 // `docs_snippets.dart` (highlight maps + install file lists),
-// `app_theme.dart` (all 42 presets, assembled from the kit generator) and
+// `app_theme.dart` (all 43 presets, assembled from the kit generator) and
 // `component_previews.dart` (deferred preview registry for D4).
 
 import 'dart_highlight.dart';
@@ -286,7 +286,7 @@ String renderAppTheme(
       '/// Default docs preset (mirrors `kDefaultDocsPresetId` in '
       '`state/docs_state.dart`).',
     )
-    ..writeln("const String kDocsDefaultPresetId = 'modern-minimal';")
+    ..writeln("const String kDocsDefaultPresetId = 'neutral';")
     ..writeln()
     ..writeln('/// Resolves the generated theme factory for [presetId] and')
     ..writeln('/// [brightness].')
@@ -306,7 +306,7 @@ String renderAppTheme(
     );
   }
   out
-    ..writeln('    _ => ${_factoryName('modern-minimal')}(brightness),')
+    ..writeln('    _ => ${_factoryName('neutral')}(brightness),')
     ..writeln('  };')
     ..writeln('}');
   return out.toString();

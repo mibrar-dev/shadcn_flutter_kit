@@ -1,4 +1,3 @@
-// @dart=3.13
 // `OverlapLayout`: hangs a secondary child (a badge, a row of chips) over
 // one corner of a primary child, keeps the pair tight around their union and
 // aligns that union to a side of the incoming width.

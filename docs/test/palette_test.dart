@@ -62,16 +62,14 @@ void main() {
     final DocsRouterDelegate delegate = await pumpDocsApp(tester);
     delegate.openPalette();
     await tester.pumpAndSettle();
-    await tester.enterText(_inPalette(find.byType(Input)), 'button');
+    // `components` selects the Pages entry, which is a D3-owned route.
+    await tester.enterText(_inPalette(find.byType(Input)), 'components');
     await tester.pumpAndSettle();
 
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await tester.pumpAndSettle();
-    expect(
-      delegate.currentConfiguration,
-      DocsRouteConfiguration.component('button'),
-    );
-    expect(find.text('button'), findsOneWidget);
+    expect(delegate.currentConfiguration, DocsRouteConfiguration.components);
+    expect(find.byType(DocsPalette), findsNothing);
   });
 
   testWidgets('Escape closes the palette without navigating', (

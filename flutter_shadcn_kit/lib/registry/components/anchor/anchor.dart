@@ -1,4 +1,3 @@
-// @dart=3.13
 // The `anchor` component: a point an overlay can position itself against, and
 // track while it moves.
 //

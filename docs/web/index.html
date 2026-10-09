@@ -47,6 +47,18 @@
       color: #e5e5e5;
       font-family: "Geist Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
     }
+    /* First paint before the app reports its theme: follow the system mode so
+       a light-mode visitor never sees a dark flash. The app then sets the
+       exact preset colours through `shadcn_flutter_theme_changed`. */
+    @media (prefers-color-scheme: light) {
+      html, body {
+        background: #ffffff;
+        color: #000000;
+      }
+      #docs-first-paint span {
+        color: #737373;
+      }
+    }
     #docs-first-paint {
       height: 100%;
       display: flex;
@@ -79,6 +91,18 @@
       var placeholder = document.getElementById('docs-first-paint');
       if (placeholder) {
         placeholder.remove();
+      }
+    });
+    // Keep the page background in sync with the active preset/mode so any
+    // area Flutter does not paint (overscroll, resize gaps) matches the app.
+    window.addEventListener('shadcn_flutter_theme_changed', function (event) {
+      var detail = event.detail || {};
+      if (detail.background) {
+        document.documentElement.style.background = detail.background;
+        document.body.style.background = detail.background;
+      }
+      if (detail.foreground) {
+        document.body.style.color = detail.foreground;
       }
     });
   </script>

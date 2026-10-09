@@ -90,7 +90,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Themes'), findsOneWidget);
+    expect(delegate.currentConfiguration, DocsRouteConfiguration.themes);
     expect(
       calls.any(
         (MethodCall call) =>

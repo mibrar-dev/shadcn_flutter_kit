@@ -16,7 +16,11 @@ publish_to: none
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.7
+  # One SDK floor for the whole kit: the registry's newest language feature is
+  # `private-named-parameters` (shipped in Dart 3.12.0). The mirrored registry
+  # sources under lib/ui/shadcn carry no per-library `// @dart=` pins, so this
+  # package's floor is what every installed component compiles against.
+  sdk: ^3.12.0
 
 dependencies:
   flutter:

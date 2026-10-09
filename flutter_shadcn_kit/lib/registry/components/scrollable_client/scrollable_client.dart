@@ -1,4 +1,3 @@
-// @dart=3.13
 // The `scrollable_client` component: a two-dimensional scroll surface whose
 // content is built with the current offset and viewport size.
 //
@@ -18,12 +17,13 @@ import 'scrollable_client_style.dart';
 export 'scrollable_client_style.dart';
 
 /// Builds content for a viewport of [viewportSize] at scroll [offset].
-typedef ScrollableBuilder = Widget Function(
-  BuildContext context,
-  Offset offset,
-  Size viewportSize,
-  Widget? child,
-);
+typedef ScrollableBuilder =
+    Widget Function(
+      BuildContext context,
+      Offset offset,
+      Size viewportSize,
+      Widget? child,
+    );
 
 /// A scrollable surface that scrolls on both axes.
 ///

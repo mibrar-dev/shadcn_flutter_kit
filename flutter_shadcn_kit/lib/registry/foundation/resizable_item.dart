@@ -1,4 +1,3 @@
-// @dart=3.13
 /// One item managed by a [Resizer].
 class ResizableItem {
   double _value;

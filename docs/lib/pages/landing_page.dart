@@ -51,7 +51,7 @@ class LandingPage extends StatelessWidget {
                       weight: FontWeight.w600,
                       height: 1.1,
                       letterSpacing: xl ? -2.4 : 0,
-                      color: theme.colors.primary,
+                      color: theme.colors.foreground,
                     ),
                   ),
                 ),

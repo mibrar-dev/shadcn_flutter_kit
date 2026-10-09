@@ -12,6 +12,7 @@ import '../ui/shadcn/components/card/card.dart';
 import '../ui/shadcn/components/input/input.dart';
 import '../ui/shadcn/components/radio_group/radio_group.dart';
 import '../ui/shadcn/components/switch/switch.dart';
+import '../ui/shadcn/components/table/table.dart';
 import '../ui/shadcn/components/tabs/tabs.dart';
 import '../ui/shadcn/components/tooltip/tooltip.dart';
 import '../ui/shadcn/foundation/gap.dart';
@@ -39,7 +40,7 @@ class CollageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Card(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       background: ThemedColor.ref(ColorRef.card),
       borderColor: ThemedColor.value(
         theme.colors.foreground.withValues(alpha: 0.05),
@@ -56,7 +57,7 @@ class CollageCard extends StatelessWidget {
               title!,
               style: docsText(
                 context,
-                size: 14,
+                size: 16,
                 weight: FontWeight.w600,
                 color: theme.colors.cardForeground,
               ),
@@ -67,7 +68,7 @@ class CollageCard extends StatelessWidget {
               subtitle!,
               style: docsText(
                 context,
-                size: 12.5,
+                size: 14,
                 height: 1.4,
                 color: theme.colors.mutedForeground,
               ),
@@ -110,6 +111,25 @@ class CollageButtonsCard extends StatelessWidget {
               size: ButtonSize.sm,
               onPressed: () {},
               child: const Text('Outline'),
+            ),
+          ],
+        ),
+        const Gap(12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: <Widget>[
+            Button(
+              variant: ButtonVariant.outline,
+              size: ButtonSize.sm,
+              onPressed: () {},
+              child: const Text('Alert Dialog'),
+            ),
+            Button(
+              variant: ButtonVariant.ghost,
+              size: ButtonSize.sm,
+              onPressed: () {},
+              child: const Text('Button Group'),
             ),
           ],
         ),
@@ -168,10 +188,23 @@ class CollageGoalCard extends StatelessWidget {
           ],
         ),
         Gap(12),
-        Button(
-          size: ButtonSize.sm,
-          onPressed: collageNoop,
-          child: Text('Create Goal'),
+        SizedBox(
+          width: double.infinity,
+          child: Button(
+            size: ButtonSize.sm,
+            onPressed: collageNoop,
+            child: Text('Create Goal'),
+          ),
+        ),
+        Gap(8),
+        SizedBox(
+          width: double.infinity,
+          child: Button(
+            variant: ButtonVariant.outline,
+            size: ButtonSize.sm,
+            onPressed: collageNoop,
+            child: Text('Cancel'),
+          ),
         ),
       ],
     );
@@ -403,6 +436,48 @@ class CollagePagesCard extends StatelessWidget {
               ],
             ),
           ),
+      ],
+    );
+  }
+}
+
+/// The collage table card (spec §4 collage list includes `R:table`).
+class CollageTableCard extends StatelessWidget {
+  /// Creates the table card.
+  const CollageTableCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CollageCard(
+      title: 'Table',
+      subtitle: 'Rows, columns and widths from one widget',
+      children: <Widget>[
+        ShadcnTable(
+          defaultColumnWidth: FlexTableSize(),
+          rows: <ShadcnTableRow>[
+            ShadcnTableHeader(
+              cells: <ShadcnTableCell>[
+                ShadcnTableCell(child: Text('Name')),
+                ShadcnTableCell(child: Text('Role')),
+                ShadcnTableCell(child: Text('Status')),
+              ],
+            ),
+            ShadcnTableRow(
+              cells: <ShadcnTableCell>[
+                ShadcnTableCell(child: Text('Maya')),
+                ShadcnTableCell(child: Text('Admin')),
+                ShadcnTableCell(child: Text('Active')),
+              ],
+            ),
+            ShadcnTableRow(
+              cells: <ShadcnTableCell>[
+                ShadcnTableCell(child: Text('Leo')),
+                ShadcnTableCell(child: Text('Editor')),
+                ShadcnTableCell(child: Text('Invited')),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }

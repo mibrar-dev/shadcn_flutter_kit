@@ -1,4 +1,3 @@
-// @dart=3.13
 // Pane value/controller model for split-pane layouts, extracted from the
 // `resizable` component so its files stay within the layout budget. Reusable
 // by any pane-based layout (resizable, future split views).

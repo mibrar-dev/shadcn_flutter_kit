@@ -1,4 +1,4 @@
-// Every one of the 42 canonical presets must satisfy
+// Every one of the 43 canonical presets must satisfy
 // `lib/registry/themes/themes.schema.json`, and the generator's token list
 // must agree with the schema (so the emitted `ShadcnColors` arguments can never
 // drift from the validated key set).
@@ -13,10 +13,10 @@ void main() {
   final index = readJsonMap('$themesDir/index.json');
   final files = presetFiles();
 
-  test('all 42 presets are present', () {
-    expect(files.length, 42);
-    expect(index['count'], 42);
-    expect((index['themes']! as List).length, 42);
+  test('all 43 presets are present', () {
+    expect(files.length, 43);
+    expect(index['count'], 43);
+    expect((index['themes']! as List).length, 43);
   });
 
   test('every preset validates against themes.schema.json', () {
@@ -127,10 +127,27 @@ void main() {
       'claude',
       'modern-minimal',
       'nature',
+      // `neutral` has no CLI atoms either; its atoms come from shadcn's
+      // `--shadow-sm` in themes-css/neutral.css (documented in P6-D3 round 3).
+      'neutral',
       'northern-lights',
       'starry-night',
       't3-chat',
     ]);
+  });
+
+  test('no preset falls back to a light map in dark mode', () {
+    // Regression guard for the P2-D migration bug where `vercel`'s dark map
+    // was a byte-for-byte copy of its light map: a preset whose light and dark
+    // colour maps are identical is always a data error, never a design.
+    final identical = <String>[];
+    for (final file in files) {
+      final preset = readJsonMap('$themesDir/$file');
+      if (preset['light'] == preset['dark']) {
+        identical.add(file);
+      }
+    }
+    expect(identical, isEmpty, reason: 'light == dark for: $identical');
   });
 
   test('rem and em units survive the migration', () {

@@ -9,6 +9,8 @@
 //
 // API params are extracted from each component entry file with
 // package:analyzer (unresolved AST, require-first order).
+// Function-first components (dialog, popup, drawer) extract the
+// primary top-level function parameters instead.
 // Theme fields come from the manifest `<Name>Theme` field map.
 // `parseClean: false` marks entry files the analyzer cannot parse
 // cleanly; their facts are best-effort.
@@ -55,7 +57,7 @@ class DocsApiTable {
   /// Owning component id.
   final String componentId;
 
-  /// Primary class name (`Button`), or empty.
+  /// Primary class name (`Button`) or function name (`showShadcnDialog`).
   final String symbol;
 
   /// Whether a primary constructor was found.
@@ -6667,17 +6669,124 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'dialog': DocsApiTable(
     componentId: 'dialog',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'showShadcnDialog',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary:
+        'Pushes a shadcn modal dialog on a [Navigator] and returns its result.',
+    params: <DocsApiParam>[
+      DocsApiParam(name: 'context', type: 'BuildContext', isRequired: true),
+      DocsApiParam(name: 'builder', type: 'WidgetBuilder', isRequired: true),
+      DocsApiParam(
+        name: 'useRootNavigator',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'barrierDismissible',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'barrierColor',
+        type: 'ThemedColor?',
+        isRequired: false,
+      ),
+      DocsApiParam(name: 'barrierLabel', type: 'String?', isRequired: false),
+      DocsApiParam(
+        name: 'useSafeArea',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'routeSettings',
+        type: 'RouteSettings?',
+        isRequired: false,
+      ),
+      DocsApiParam(
+        name: 'traversalEdgeBehavior',
+        type: 'TraversalEdgeBehavior',
+        isRequired: false,
+        defaultValue: 'TraversalEdgeBehavior.closedLoop',
+      ),
+      DocsApiParam(
+        name: 'alignment',
+        type: 'AlignmentGeometry',
+        isRequired: false,
+        defaultValue: 'Alignment.center',
+      ),
+      DocsApiParam(
+        name: 'fullScreen',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+      ),
+      DocsApiParam(name: 'theme', type: 'DialogTheme?', isRequired: false),
+    ],
   ),
   'drawer': DocsApiTable(
     componentId: 'drawer',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'openDrawerOverlay',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary: 'Opens a drawer and returns a handle to it.',
+    params: <DocsApiParam>[
+      DocsApiParam(name: 'context', type: 'BuildContext', isRequired: true),
+      DocsApiParam(name: 'builder', type: 'WidgetBuilder', isRequired: true),
+      DocsApiParam(
+        name: 'position',
+        type: 'OverlayPosition',
+        isRequired: false,
+        defaultValue: 'OverlayPosition.end',
+      ),
+      DocsApiParam(
+        name: 'expands',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+      ),
+      DocsApiParam(
+        name: 'draggable',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'barrierDismissible',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'useSafeArea',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(name: 'showDragHandle', type: 'bool?', isRequired: false),
+      DocsApiParam(
+        name: 'borderRadius',
+        type: 'BorderRadius?',
+        isRequired: false,
+      ),
+      DocsApiParam(name: 'maxSize', type: 'double?', isRequired: false),
+      DocsApiParam(name: 'barrierLabel', type: 'String?', isRequired: false),
+      DocsApiParam(
+        name: 'useRootNavigator',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'routeSettings',
+        type: 'RouteSettings?',
+        isRequired: false,
+      ),
+      DocsApiParam(name: 'theme', type: 'DrawerTheme?', isRequired: false),
+    ],
   ),
   'drawer_container': DocsApiTable(
     componentId: 'drawer_container',
@@ -6967,10 +7076,57 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
   ),
   'popup': DocsApiTable(
     componentId: 'popup',
-    symbol: '',
-    hasApiTable: false,
+    symbol: 'showShadcnPopup',
+    hasApiTable: true,
     parseClean: true,
-    params: <DocsApiParam>[],
+    summary:
+        'Shows [builder]\'s content on a [MenuPopup] surface anchored to [context].',
+    params: <DocsApiParam>[
+      DocsApiParam(name: 'context', type: 'BuildContext', isRequired: true),
+      DocsApiParam(name: 'builder', type: 'WidgetBuilder', isRequired: true),
+      DocsApiParam(
+        name: 'alignment',
+        type: 'AlignmentGeometry',
+        isRequired: false,
+        defaultValue: 'Alignment.topCenter',
+      ),
+      DocsApiParam(
+        name: 'anchorAlignment',
+        type: 'AlignmentGeometry?',
+        isRequired: false,
+      ),
+      DocsApiParam(
+        name: 'offset',
+        type: 'Offset',
+        isRequired: false,
+        defaultValue: 'const Offset(0, 4)',
+      ),
+      DocsApiParam(
+        name: 'widthConstraint',
+        type: 'PopoverConstraint',
+        isRequired: false,
+        defaultValue: 'PopoverConstraint.flexible',
+      ),
+      DocsApiParam(
+        name: 'heightConstraint',
+        type: 'PopoverConstraint',
+        isRequired: false,
+        defaultValue: 'PopoverConstraint.flexible',
+      ),
+      DocsApiParam(
+        name: 'modal',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(
+        name: 'consumeOutsideTaps',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+      ),
+      DocsApiParam(name: 'theme', type: 'MenuPopupTheme?', isRequired: false),
+    ],
   ),
   'refresh_trigger': DocsApiTable(
     componentId: 'refresh_trigger',

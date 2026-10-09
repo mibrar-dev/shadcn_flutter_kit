@@ -1515,7 +1515,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
 ];
 
-/// The 42 theme presets in `themes/index.json` order.
+/// The 43 theme presets in `themes/index.json` order.
 const List<DocsPreset> kPresets = <DocsPreset>[
   DocsPreset(
     id: 'amber-minimal',
@@ -1616,6 +1616,7 @@ const List<DocsPreset> kPresets = <DocsPreset>[
     name: 'Neo Brutalism',
     modes: <String>['light', 'dark'],
   ),
+  DocsPreset(id: 'neutral', name: 'Neutral', modes: <String>['light', 'dark']),
   DocsPreset(
     id: 'northern-lights',
     name: 'Northern Lights',
@@ -1840,7 +1841,7 @@ const List<DocsCategory> kCategories = <DocsCategory>[
 /// Stats band values, each with its derivation.
 const DocsStats kStats = DocsStats(
   components: 118, // manifest entries
-  presets: 42, // themes/index.json entries
+  presets: 43, // themes/index.json entries
   materialImports: 0, // registry import directives
   modes: 2, // distinct preset modes
 );

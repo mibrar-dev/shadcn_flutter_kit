@@ -11,6 +11,7 @@ import 'package:docs/widgets/copy_button.dart';
 import 'package:docs/widgets/docs_footer.dart';
 import 'package:docs/widgets/docs_sidebar.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -93,15 +94,9 @@ void main() {
     );
     expect(grid.links.length, kComponentLinks.length);
     expect(grid.links.first.name, 'Accordion');
-    // Tapping a link opens its (placeholder) page.
-    await tester.tap(
-      find.descendant(
-        of: find.byType(ComponentLinkGrid),
-        matching: find.text('Accordion'),
-      ),
-    );
-    await tester.pumpAndSettle();
-    expect(find.text('accordion'), findsOneWidget);
+    // Link navigation itself is covered by `palette_test.dart` (Enter on the
+    // Components page entry); this test stays on the D3-owned index page so it
+    // does not depend on D4's component-page layout.
   });
 
   testWidgets('docs shell renders sidebar, article and TOC at xl', (
@@ -157,12 +152,45 @@ void main() {
     expect(delegate.currentConfiguration, DocsRouteConfiguration.landing);
   });
 
+  testWidgets('resolved typography: h1 semibold, body regular, nav medium', (
+    WidgetTester tester,
+  ) async {
+    await pumpDocsApp(tester);
+    TextStyle styleOf(Finder finder) {
+      final RenderParagraph paragraph = tester.renderObject<RenderParagraph>(
+        finder,
+      );
+      return paragraph.text.style!;
+    }
+
+    final TextStyle h1 = styleOf(find.text('A Flutter component kit you own'));
+    expect(h1.fontWeight, FontWeight.w600, reason: 'h1 is semibold');
+    expect(h1.fontFamily, 'GeistSans', reason: 'bundled Geist face');
+    expect(h1.fontSize, 48);
+
+    final TextStyle body = styleOf(
+      find.textContaining('Widgets-only, accessible'),
+    );
+    expect(body.fontWeight, FontWeight.w400, reason: 'body copy is regular');
+    expect(body.fontFamily, 'GeistSans');
+
+    final TextStyle nav = styleOf(find.text('Home'));
+    expect(nav.fontWeight, FontWeight.w500, reason: 'nav links are medium');
+    expect(nav.fontSize, 14);
+
+    final TextStyle muted = styleOf(
+      find.textContaining('components ready to install'),
+    );
+    expect(muted.fontWeight, FontWeight.w500, reason: 'badge 12/500');
+    expect(muted.fontSize, 12);
+  });
+
   testWidgets('copy button flips to check for exactly 2000 ms', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
       ShadcnApp(
-        theme: buildDocsTheme('modern-minimal', Brightness.light),
+        theme: buildDocsTheme('vercel', Brightness.light),
         home: Center(
           child: CopyButton(text: 'flutter_shadcn add button', showLabel: true),
         ),

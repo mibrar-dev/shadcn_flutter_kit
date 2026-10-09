@@ -1,4 +1,3 @@
-// @dart=3.13
 // Render object behind `PopoverLayout`: computes the child offset, applies
 // size constraints and flips the popover when it would overflow.
 //

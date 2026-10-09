@@ -90,8 +90,11 @@ class ApiFacts {
 /// manifest display name, the class named after the directory id, then the
 /// manifest `api.classes` list; the first candidate that is declared in the
 /// file (and, for the manifest fallback, is a `StatelessWidget` /
-/// `StatefulWidget`) wins. Function-first components (dialog, popup) have no
-/// candidate and report `hasApiTable: false` per the build plan §2.2.
+/// `StatefulWidget`) wins.
+///
+/// Function-first components (dialog → `showShadcnDialog`, popup →
+/// `showShadcnPopup`, drawer → `openDrawer`) have no widget class; their
+/// primary top-level function's parameters are extracted the same way.
 ApiFacts extractApi({
   required String source,
   required List<String> nameCandidates,
@@ -104,30 +107,38 @@ ApiFacts extractApi({
   final List<ClassDeclaration> classes = result.unit.declarations
       .whereType<ClassDeclaration>()
       .toList(growable: false);
-  if (classes.isEmpty) {
-    return ApiFacts(hasApiTable: false, parseClean: parseClean);
-  }
 
-  ClassDeclaration? selected;
-  for (final String candidate in nameCandidates.take(2)) {
-    selected = _classNamed(classes, candidate);
-    if (selected != null) {
-      break;
-    }
-  }
-  if (selected == null) {
-    for (final String candidate in nameCandidates.skip(2)) {
-      final ClassDeclaration? match = _classNamed(classes, candidate);
-      if (match != null && _isWidget(match)) {
-        selected = match;
+  if (classes.isNotEmpty) {
+    ClassDeclaration? selected;
+    for (final String candidate in nameCandidates.take(2)) {
+      selected = _classNamed(classes, candidate);
+      if (selected != null) {
         break;
       }
     }
-  }
-  if (selected == null) {
-    return ApiFacts(hasApiTable: false, parseClean: parseClean);
+    if (selected == null) {
+      for (final String candidate in nameCandidates.skip(2)) {
+        final ClassDeclaration? match = _classNamed(classes, candidate);
+        if (match != null && _isWidget(match)) {
+          selected = match;
+          break;
+        }
+      }
+    }
+    if (selected != null) {
+      return _classApiFacts(selected, source, parseClean);
+    }
   }
 
+  return _functionApiFacts(result, nameCandidates, source, parseClean);
+}
+
+/// Extracts the API facts from a class constructor.
+ApiFacts _classApiFacts(
+  ClassDeclaration selected,
+  String source,
+  bool parseClean,
+) {
   final Map<String, _FieldFacts> fields = _fieldsOf(selected);
   final ConstructorDeclaration? constructor = selected.body.members
       .whereType<ConstructorDeclaration>()
@@ -167,6 +178,94 @@ ApiFacts extractApi({
     summary: summary.isEmpty ? null : summary,
     params: <ApiParamFacts>[...required, ...optional],
   );
+}
+
+/// Extracts the API facts from a function-first component's primary function.
+///
+/// The primary function is the public top-level function whose name contains
+/// the component's PascalCase name (e.g. `showShadcnDialog` for `dialog`,
+/// `openDrawer` for `drawer`). When several match, `show*` wins over `open*`,
+/// then the first declaration.
+ApiFacts _functionApiFacts(
+  ParseStringResult result,
+  List<String> nameCandidates,
+  String source,
+  bool parseClean,
+) {
+  final List<FunctionDeclaration> functions = result.unit.declarations
+      .whereType<FunctionDeclaration>()
+      .where((FunctionDeclaration f) => !f.name.lexeme.startsWith('_'))
+      .toList(growable: false);
+  if (functions.isEmpty) {
+    return ApiFacts(hasApiTable: false, parseClean: parseClean);
+  }
+
+  // Collect functions whose name contains a candidate (case-insensitive).
+  final List<FunctionDeclaration> matches = <FunctionDeclaration>[];
+  for (final String candidate in nameCandidates.take(2)) {
+    final String lower = candidate.toLowerCase();
+    for (final FunctionDeclaration function in functions) {
+      if (function.name.lexeme.toLowerCase().contains(lower)) {
+        matches.add(function);
+      }
+    }
+  }
+  if (matches.isEmpty) {
+    return ApiFacts(hasApiTable: false, parseClean: parseClean);
+  }
+
+  // Preference: show* > open* > first declaration.
+  matches.sort((FunctionDeclaration a, FunctionDeclaration b) {
+    final int rankA = _functionRank(a.name.lexeme);
+    final int rankB = _functionRank(b.name.lexeme);
+    if (rankA != rankB) {
+      return rankA - rankB;
+    }
+    return a.offset.compareTo(b.offset);
+  });
+  final FunctionDeclaration primary = matches.first;
+
+  final List<ApiParamFacts> required = <ApiParamFacts>[];
+  final List<ApiParamFacts> optional = <ApiParamFacts>[];
+  final FormalParameterList? parameters = primary.functionExpression.parameters;
+  if (parameters != null) {
+    for (final FormalParameter parameter in parameters.parameters) {
+      final _ParamFacts? facts = _paramFacts(
+        parameter,
+        const <String, _FieldFacts>{},
+        source,
+      );
+      if (facts == null) {
+        continue;
+      }
+      (facts.isRequired ? required : optional).add(
+        ApiParamFacts(
+          name: facts.name,
+          type: facts.type,
+          isRequired: facts.isRequired,
+          defaultValue: facts.defaultValue,
+          doc: facts.doc,
+        ),
+      );
+    }
+  }
+  return ApiFacts(
+    hasApiTable: true,
+    parseClean: parseClean,
+    symbol: primary.name.lexeme,
+    summary: _firstParagraph(_cleanDoc(docComment(primary))),
+    params: <ApiParamFacts>[...required, ...optional],
+  );
+}
+
+int _functionRank(String name) {
+  if (name.startsWith('show')) {
+    return 0;
+  }
+  if (name.startsWith('open')) {
+    return 1;
+  }
+  return 2;
 }
 
 /// The preview widget class for one component, found in its `preview.dart`.

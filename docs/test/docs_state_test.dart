@@ -26,10 +26,10 @@ DocsState _state({DocsStorage? storage, Brightness? brightness}) => DocsState(
 );
 
 void main() {
-  test('defaults: modern-minimal, system brightness, preset radius', () {
+  test('defaults: neutral, system brightness, preset radius', () {
     final DocsState state = _state();
     addTearDown(state.dispose);
-    expect(state.presetId, 'modern-minimal');
+    expect(state.presetId, 'neutral');
     expect(state.followsSystem, isTrue);
     expect(state.brightness, Brightness.light, reason: 'unit-test platform');
     expect(state.radiusPx, isNull);
@@ -98,7 +98,7 @@ void main() {
     addTearDown(state.dispose);
     int notifications = 0;
     state.addListener(() => notifications++);
-    state.setPreset('modern-minimal');
+    state.setPreset('neutral');
     state.setBrightness(Brightness.dark);
     state.setRadiusPx(null);
     state.setDensityScale(1);

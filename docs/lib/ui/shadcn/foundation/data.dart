@@ -1,4 +1,3 @@
-// @dart=3.13
 // Adapted from package:data_widget 0.0.3 (BSD 3-Clause, Copyright 2024 Thito
 // Yalasatria Sunarya). See licenses/data_widget.BSD-3-Clause.txt in the kit
 // repo. Only the Data / messenger / capture surface used by the registry was

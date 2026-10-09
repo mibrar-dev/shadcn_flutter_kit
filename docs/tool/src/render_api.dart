@@ -20,6 +20,8 @@ String renderDocsApi(DocsModel model) {
         notes: <String>[
           'API params are extracted from each component entry file with',
           'package:analyzer (unresolved AST, require-first order).',
+          'Function-first components (dialog, popup, drawer) extract the',
+          'primary top-level function parameters instead.',
           'Theme fields come from the manifest `<Name>Theme` field map.',
           '`parseClean: false` marks entry files the analyzer cannot parse',
           'cleanly; their facts are best-effort.',
@@ -69,7 +71,9 @@ String renderDocsApi(DocsModel model) {
     ..writeln('  /// Owning component id.')
     ..writeln('  final String componentId;')
     ..writeln()
-    ..writeln('  /// Primary class name (`Button`), or empty.')
+    ..writeln(
+      '  /// Primary class name (`Button`) or function name (`showShadcnDialog`).',
+    )
     ..writeln('  final String symbol;')
     ..writeln()
     ..writeln('  /// Whether a primary constructor was found.')

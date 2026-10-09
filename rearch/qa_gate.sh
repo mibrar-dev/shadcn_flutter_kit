@@ -5,7 +5,7 @@ set -u
 KIT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$KIT/flutter_shadcn_kit"
 P=("${@:-lib/registry_next}")
-echo "format:  $(dart format --set-exit-if-changed lib/registry_next test/registry_next 2>&1 | tail -1)"
+echo "format:  $(dart format --output=none --set-exit-if-changed lib/registry_next test/registry_next 2>&1 | tail -1)"
 echo "analyze: $(dart analyze lib/registry_next 2>&1 | tail -1) | tests: $(dart analyze test/registry_next 2>&1 | tail -1)"
 echo "test:    $(flutter test test/registry_next 2>&1 | tail -1 | sed 's/.*\(+[0-9]*.*\)/\1/' | cut -c1-120)"
 echo "rearch:  $(flutter test test/rearch 2>&1 | tail -1 | sed 's/.*\(+[0-9]*.*\)/\1/' | cut -c1-80)"

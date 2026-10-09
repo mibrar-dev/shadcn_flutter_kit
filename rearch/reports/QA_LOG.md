@@ -437,3 +437,10 @@
   registry (meta.json, manifest, source), never from the mockups; preset gallery (12/42) + marquee from full data.
 
 ## P6-B docs build plan (muse-spark) — ACCEPTED: minimal router on ShadcnApp.router + AnimatedShadcnTheme, generated catalog/API/search (docs/tool/gen_docs_data.dart, --check in CI), one component template for all 118 with deferred previews, docs app_theme byte-identical to gen_app_theme, batches D1→{D2∥D3}→D4→D5→D6 (D6 = visual check vs mockups). Gaps: popover→popup, chart→docs-only CustomPaint on chart1..5 tokens.
+
+## P5-B3 CLI lock file v2 + hashing (space-bunny-free#max) — ACCEPTED (r1)
+- lock v2 (registry ref, per-layer units, file sha256, userOwned flags, theme preset; drift report; merge). Own files:
+  format clean, analyze 0, 50/50 tests. Whole suite +274 −14: expected clean-break failures in old installer/resolver
+  code owned by B4/B5/B7. Finding for B4: package:analyzer is NOT a declared CLI dependency (add to dev_dependencies
+  or avoid it). Orchestrator note: qa scripts now use `dart format --output=none` (a check run had reformatted 3 CLI
+  test files; reverted).

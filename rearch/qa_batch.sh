@@ -23,7 +23,7 @@ for n in $NAMES; do
   echo "layout $n: max=$max ${extra:+EXTRA=[$extra]} $dup"
 done
 echo "tests found: $(echo $T | wc -w)"
-echo "format:  $(dart format --set-exit-if-changed $L $T 2>&1 | tail -1)"
+echo "format:  $(dart format --output=none --set-exit-if-changed $L $T 2>&1 | tail -1)"
 for p in $L $T; do r=$(dart analyze "$p" 2>&1 | tail -1); [ "$r" = "No issues found!" ] || echo "analyze $p: $r"; done
 [ -n "$T" ] && echo "test:    $(flutter test $T 2>&1 | tail -1 | sed 's/.*\(+[0-9]*.*\)/\1/' | cut -c1-100)"
 echo "banned:  $(grep -rlnE "// ignore|^import 'package:flutter/(material|cupertino).dart'|^part |^import 'package:(data_widget|gap)/" $L --include=*.dart 2>/dev/null | tr '\n' ' ')"

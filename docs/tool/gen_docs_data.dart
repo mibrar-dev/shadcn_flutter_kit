@@ -29,6 +29,9 @@ import 'src/registry_scan.dart';
 import 'src/render_code.dart';
 import 'src/render_common.dart';
 
+export 'src/api_members.dart';
+export 'src/api_model.dart';
+export 'src/ast_docs.dart';
 export 'src/dart_highlight.dart';
 export 'src/model_build.dart';
 export 'src/dart_scan.dart';

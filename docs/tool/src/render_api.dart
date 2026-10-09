@@ -1,7 +1,7 @@
 // Renderer for `docs_api.dart`: per-component constructor API tables
 // (package:analyzer) and theme-field tables (manifest `<Name>Theme` maps).
 
-import 'dart_scan.dart';
+import 'api_model.dart';
 import 'literals.dart';
 import 'registry_scan.dart';
 import 'render_common.dart';
@@ -22,6 +22,9 @@ String renderDocsApi(DocsModel model) {
           'package:analyzer (unresolved AST, require-first order).',
           'Function-first components (dialog, popup, drawer) extract the',
           'primary top-level function parameters instead.',
+          'Static/factory-first components (color, formatter) extract the',
+          'entry points declared in the manifest api.methods /',
+          'api.constants / api.functions lists instead.',
           'Theme fields come from the manifest `<Name>Theme` field map.',
           '`parseClean: false` marks entry files the analyzer cannot parse',
           'cleanly; their facts are best-effort.',
@@ -56,6 +59,42 @@ String renderDocsApi(DocsModel model) {
     ..writeln('  final String? doc;')
     ..writeln('}')
     ..writeln()
+    ..writeln('/// One declared method/factory/constant/function row.')
+    ..writeln('class DocsApiMember {')
+    ..writeln('  /// Creates the row.')
+    ..writeln('  const DocsApiMember({')
+    ..writeln('    required this.name,')
+    ..writeln('    required this.kind,')
+    ..writeln("    this.returnType = '',")
+    ..writeln('    this.isStatic = false,')
+    ..writeln('    this.params = const <DocsApiParam>[],')
+    ..writeln('    this.doc,')
+    ..writeln('  });')
+    ..writeln()
+    ..writeln('  /// Declared name (`TextInputFormatters.time`).')
+    ..writeln('  final String name;')
+    ..writeln()
+    ..writeln(
+      '  /// Declaration kind: `method`, `factory`, `constructor`, `getter`,',
+    )
+    ..writeln('  /// `setter`, `constant`, `field` or `function`.')
+    ..writeln('  final String kind;')
+    ..writeln()
+    ..writeln(
+      '  /// Declared return type, or the owning class for constructors.',
+    )
+    ..writeln('  final String returnType;')
+    ..writeln()
+    ..writeln('  /// Whether the member is static.')
+    ..writeln('  final bool isStatic;')
+    ..writeln()
+    ..writeln('  /// Parameters, required first.')
+    ..writeln('  final List<DocsApiParam> params;')
+    ..writeln()
+    ..writeln('  /// Doc comment, or null.')
+    ..writeln('  final String? doc;')
+    ..writeln('}')
+    ..writeln()
     ..writeln('/// The constructor API table of one component.')
     ..writeln('class DocsApiTable {')
     ..writeln('  /// Creates the table.')
@@ -65,7 +104,8 @@ String renderDocsApi(DocsModel model) {
     ..writeln('    required this.hasApiTable,')
     ..writeln('    required this.parseClean,')
     ..writeln('    this.summary,')
-    ..writeln('    required this.params,')
+    ..writeln('    this.params = const <DocsApiParam>[],')
+    ..writeln('    this.members = const <DocsApiMember>[],')
     ..writeln('  });')
     ..writeln()
     ..writeln('  /// Owning component id.')
@@ -76,7 +116,7 @@ String renderDocsApi(DocsModel model) {
     )
     ..writeln('  final String symbol;')
     ..writeln()
-    ..writeln('  /// Whether a primary constructor was found.')
+    ..writeln('  /// Whether a primary constructor or function was found.')
     ..writeln('  final bool hasApiTable;')
     ..writeln()
     ..writeln('  /// Whether the entry file parsed without diagnostics.')
@@ -87,6 +127,13 @@ String renderDocsApi(DocsModel model) {
     ..writeln()
     ..writeln('  /// Constructor parameters, required first.')
     ..writeln('  final List<DocsApiParam> params;')
+    ..writeln()
+    ..writeln(
+      '  /// Declared static methods / factories / constants / functions,',
+    )
+    ..writeln('  /// required first per member. Empty unless the primary')
+    ..writeln('  /// constructor is private or parameterless.')
+    ..writeln('  final List<DocsApiMember> members;')
     ..writeln('}')
     ..writeln()
     ..writeln('/// One `<Name>Theme` field.')
@@ -177,14 +224,18 @@ String renderDocsApi(DocsModel model) {
 String _apiTableLiteral(ComponentFacts component, ApiFacts api) {
   final List<String> params = <String>[
     for (final ApiParamFacts param in api.params)
-      callExpr('DocsApiParam', <String>[
-        'name: ${dartString(param.name)}',
-        'type: ${dartString(param.type)}',
-        'isRequired: ${param.isRequired}',
-        if (param.defaultValue != null)
-          'defaultValue: ${dartString(param.defaultValue!)}',
-        if (param.doc != null) 'doc: ${dartString(param.doc!)}',
-      ], indent: '      '),
+      _paramLiteral(param, '      '),
+  ];
+  final List<String> members = <String>[
+    for (final ApiMemberFacts member in api.members)
+      callExpr('DocsApiMember', <String>[
+        'name: ${dartString(member.name)}',
+        'kind: ${dartString(member.kind)}',
+        'returnType: ${dartString(member.returnType)}',
+        'isStatic: ${member.isStatic}',
+        'params: ${listExpr('<DocsApiParam>', _memberParamLiterals(member), indent: '      ', appended: 1)}',
+        if (member.doc != null) 'doc: ${dartString(member.doc!)}',
+      ], indent: '    '),
   ];
   return callExpr('DocsApiTable', <String>[
     'componentId: ${dartString(component.id)}',
@@ -193,7 +244,26 @@ String _apiTableLiteral(ComponentFacts component, ApiFacts api) {
     'parseClean: ${api.parseClean}',
     if (api.summary != null) 'summary: ${dartString(api.summary!)}',
     'params: ${listExpr('<DocsApiParam>', params, indent: '    ', appended: 1)}',
+    'members: ${listExpr('<DocsApiMember>', members, indent: '    ', appended: 1)}',
   ], indent: '  ');
+}
+
+String _paramLiteral(ApiParamFacts param, String indent) {
+  return callExpr('DocsApiParam', <String>[
+    'name: ${dartString(param.name)}',
+    'type: ${dartString(param.type)}',
+    'isRequired: ${param.isRequired}',
+    if (param.defaultValue != null)
+      'defaultValue: ${dartString(param.defaultValue!)}',
+    if (param.doc != null) 'doc: ${dartString(param.doc!)}',
+  ], indent: indent);
+}
+
+List<String> _memberParamLiterals(ApiMemberFacts member) {
+  return <String>[
+    for (final ApiParamFacts param in member.params)
+      _paramLiteral(param, '        '),
+  ];
 }
 
 String _themeTableLiteral(ComponentFacts component) {

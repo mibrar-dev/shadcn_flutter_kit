@@ -533,3 +533,5 @@
   manifest up to date; CLI e2e green.
 - Follow-ups → D6/final: docs codegen fallback so color/formatter API tables show static/factory entry points; /themes +
   app_theme deferral (test harness preload).
+
+## P6-D2b docs codegen fallback (step-5) — ACCEPTED: API rows from meta.json api.methods/functions/constants when the primary ctor is no-arg/private; color + formatter goldens; analyze 0, --check up to date. Caveat: goldens guard drift from the manifest, not manifest completeness.

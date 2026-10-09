@@ -1,6 +1,6 @@
 // Shared model + banner for the docs codegen renderers.
 
-import 'dart_scan.dart';
+import 'api_model.dart';
 import 'readme_scan.dart';
 import 'registry_scan.dart';
 

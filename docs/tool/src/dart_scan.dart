@@ -2,7 +2,10 @@
 //
 // Two jobs:
 //  1. API extraction — the primary class's unnamed-constructor parameters
-//     (name, type, default, doc, required) and the class doc summary.
+//     (name, type, default, doc, required) and the class doc summary; when
+//     that constructor carries no parameters (or is private) the declared
+//     static methods / factories / constants / top-level functions are
+//     emitted instead (see `api_members.dart`).
 //  2. Code classification — the 4-class highlight map (`p` plain, `c`
 //     comment, `k` keyword, `s` string) for README code blocks, using the
 //     analyzer tokenizer for Dart and tiny regex/character scanners for
@@ -16,7 +19,10 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart';
+
+import 'api_members.dart';
+import 'api_model.dart';
+import 'ast_docs.dart';
 
 /// A codegen input cannot be scanned as expected.
 class DartScanException implements Exception {
@@ -30,80 +36,38 @@ class DartScanException implements Exception {
   String toString() => 'dart scan: $message';
 }
 
-/// One constructor parameter row of [ApiFacts].
-class ApiParamFacts {
-  /// Creates the row.
-  const ApiParamFacts({
-    required this.name,
-    required this.type,
-    required this.isRequired,
-    this.defaultValue,
-    this.doc,
-  });
-
-  /// Parameter name (`variant`).
-  final String name;
-
-  /// Declared type (`ButtonVariant`), or empty when unresolved.
-  final String type;
-
-  /// Whether the parameter is required (positional or named `required`).
-  final bool isRequired;
-
-  /// Default expression source (`ButtonVariant.primary`), or null.
-  final String? defaultValue;
-
-  /// Doc comment text, or null.
-  final String? doc;
-}
-
-/// Extracted API for one component.
-class ApiFacts {
-  /// Creates the facts.
-  const ApiFacts({
-    required this.hasApiTable,
-    required this.parseClean,
-    this.symbol = '',
-    this.summary,
-    this.params = const <ApiParamFacts>[],
-  });
-
-  /// Whether a primary constructor was found.
-  final bool hasApiTable;
-
-  /// Whether `package:analyzer` parsed the entry file without diagnostics.
-  final bool parseClean;
-
-  /// Primary class name (`Button`).
-  final String symbol;
-
-  /// First paragraph of the class doc, or null.
-  final String? summary;
-
-  /// Constructor parameters, required first.
-  final List<ApiParamFacts> params;
-}
-
 /// Extracts the API table facts for one component entry file.
 ///
 /// [nameCandidates] is the preference order: the class named after the
 /// manifest display name, the class named after the directory id, then the
-/// manifest `api.classes` list. Selection order:
+/// manifest `api.classes` list. [declared] carries the manifest
+/// `api.methods` / `api.constants` / `api.functions` entry points.
+/// Selection order:
 ///
 ///  1. a class named exactly after the display name or the directory id;
 ///  2. a widget class from the manifest `api.classes` list;
 ///  3. the primary top-level function (function-first components: dialog →
 ///     `showShadcnDialog`, popup → `showShadcnPopup`, drawer → `openDrawer`);
-///  4. the first manifest `api.classes` candidate with a public unnamed
-///     constructor (so the table carries real parameters), else the first
-///     declared candidate (symbol + summary only). This resolves the
-///     irregular components whose primary type does not carry the display
-///     name (`autocomplete` → `AutoCompleteFeature`, `alpha` → `AlphaPainter`,
-///     `color` → `ColorDerivative`, `locale_utils` → `SizeUnitLocale`,
-///     `formatter` → `TimeFormatter`).
+///  4. the manifest `api.classes` fallback list, in this order:
+///     a. a class that cannot be instantiated publicly and owns declared
+///        entries — the factory set (`formatter` → `TextInputFormatters`,
+///        whose only constructor is `_()`), so its static methods and
+///        constants become the rows;
+///     b. the first candidate with a public unnamed constructor (so the
+///        table carries real parameters);
+///     c. the first declared candidate (symbol + summary only). This
+///        resolves the irregular components whose primary type does not
+///        carry the display name (`autocomplete` →
+///        `AutoCompleteFeature`, `alpha` → `AlphaPainter`, `color` →
+///        `ColorDerivative`, `locale_utils` → `SizeUnitLocale`).
+///
+/// Whenever the selected primary constructor has no parameters or is
+/// private, the rows come from [declared] (`color` → `ColorDerivative`
+/// factories, `formatter` → `TextInputFormatters.*`).
 ApiFacts extractApi({
   required String source,
   required List<String> nameCandidates,
+  DeclaredMembers declared = const DeclaredMembers(),
 }) {
   final ParseStringResult result = parseString(
     content: source,
@@ -124,7 +88,7 @@ ApiFacts extractApi({
     }
     selected ??= _widgetClass(classes, nameCandidates);
     if (selected != null) {
-      return _classApiFacts(selected, source, parseClean);
+      return _classApiFacts(selected, result, parseClean, declared);
     }
   }
 
@@ -142,9 +106,10 @@ ApiFacts extractApi({
     final ClassDeclaration? manifestClass = _manifestClass(
       classes,
       nameCandidates,
+      declared,
     );
     if (manifestClass != null) {
-      return _classApiFacts(manifestClass, source, parseClean);
+      return _classApiFacts(manifestClass, result, parseClean, declared);
     }
   }
   return functionFacts;
@@ -168,66 +133,98 @@ ClassDeclaration? _widgetClass(
 ClassDeclaration? _manifestClass(
   List<ClassDeclaration> classes,
   List<String> nameCandidates,
+  DeclaredMembers declared,
 ) {
-  final List<ClassDeclaration> declared = <ClassDeclaration>[];
+  final List<ClassDeclaration> candidates = <ClassDeclaration>[];
   for (final String candidate in nameCandidates.skip(2)) {
     final ClassDeclaration? match = _classNamed(classes, candidate);
-    if (match != null && !declared.contains(match)) {
-      declared.add(match);
+    if (match != null && !candidates.contains(match)) {
+      candidates.add(match);
     }
   }
-  for (final ClassDeclaration candidate in declared) {
-    if (_hasUnnamedConstructor(candidate)) {
+  if (!declared.isEmpty) {
+    for (final ClassDeclaration candidate in candidates) {
+      if (!_hasPublicUnnamedConstructor(candidate) &&
+          declaresEntriesFor(candidate.namePart.typeName.lexeme, declared)) {
+        return candidate;
+      }
+    }
+  }
+  for (final ClassDeclaration candidate in candidates) {
+    if (_hasPublicUnnamedConstructor(candidate)) {
       return candidate;
     }
   }
-  return declared.firstOrNull;
+  return candidates.firstOrNull;
 }
 
 /// Extracts the API facts from a class constructor.
+///
+/// A constructor with parameters is the component's call surface. When it is
+/// private (`TextInputFormatters._()`) or takes no parameters
+/// (`ColorDerivative()`), the declared entry points of `api.methods` /
+/// `api.constants` / `api.functions` are emitted as the rows instead.
 ApiFacts _classApiFacts(
   ClassDeclaration selected,
-  String source,
+  ParseStringResult result,
   bool parseClean,
+  DeclaredMembers declared,
 ) {
-  final Map<String, _FieldFacts> fields = _fieldsOf(selected);
+  final Map<String, FieldFacts> fields = fieldsOf(selected);
+  final String source = result.content;
   final ConstructorDeclaration? constructor = selected.body.members
       .whereType<ConstructorDeclaration>()
       .where((ConstructorDeclaration c) => c.name == null)
+      .where((ConstructorDeclaration c) => !_isPrivate(c))
       .firstOrNull;
-  final String summary = _firstParagraph(_cleanDoc(docComment(selected)));
+  final String summary = firstParagraph(cleanDocText(docComment(selected)));
+
   if (constructor == null) {
+    final List<ApiMemberFacts> members = _declaredMembers(result, declared);
     return ApiFacts(
-      hasApiTable: false,
+      hasApiTable: members.isNotEmpty,
       parseClean: parseClean,
       symbol: selected.namePart.typeName.lexeme,
       summary: summary.isEmpty ? null : summary,
+      members: members,
     );
   }
 
   final List<ApiParamFacts> required = <ApiParamFacts>[];
   final List<ApiParamFacts> optional = <ApiParamFacts>[];
   for (final FormalParameter parameter in constructor.parameters.parameters) {
-    final _ParamFacts? facts = _paramFacts(parameter, fields, source);
+    final ApiParamFacts? facts = formalParamFacts(parameter, fields, source);
     if (facts == null) {
       continue; // `super.key` and other infrastructure parameters.
     }
-    (facts.isRequired ? required : optional).add(
-      ApiParamFacts(
-        name: facts.name,
-        type: facts.type,
-        isRequired: facts.isRequired,
-        defaultValue: facts.defaultValue,
-        doc: facts.doc,
-      ),
-    );
+    (facts.isRequired ? required : optional).add(facts);
   }
+  final List<ApiParamFacts> params = <ApiParamFacts>[...required, ...optional];
+
   return ApiFacts(
     hasApiTable: true,
     parseClean: parseClean,
     symbol: selected.namePart.typeName.lexeme,
     summary: summary.isEmpty ? null : summary,
-    params: <ApiParamFacts>[...required, ...optional],
+    params: params,
+    members: params.isEmpty
+        ? _declaredMembers(result, declared)
+        : const <ApiMemberFacts>[],
+  );
+}
+
+/// Rows for the declared entry points that resolve in the entry file.
+List<ApiMemberFacts> _declaredMembers(
+  ParseStringResult result,
+  DeclaredMembers declared,
+) {
+  if (declared.isEmpty) {
+    return const <ApiMemberFacts>[];
+  }
+  return extractDeclaredMembers(
+    unit: result.unit,
+    source: result.content,
+    declared: declared,
   );
 }
 
@@ -281,30 +278,22 @@ ApiFacts _functionApiFacts(
   final FormalParameterList? parameters = primary.functionExpression.parameters;
   if (parameters != null) {
     for (final FormalParameter parameter in parameters.parameters) {
-      final _ParamFacts? facts = _paramFacts(
+      final ApiParamFacts? facts = formalParamFacts(
         parameter,
-        const <String, _FieldFacts>{},
+        const <String, FieldFacts>{},
         source,
       );
       if (facts == null) {
         continue;
       }
-      (facts.isRequired ? required : optional).add(
-        ApiParamFacts(
-          name: facts.name,
-          type: facts.type,
-          isRequired: facts.isRequired,
-          defaultValue: facts.defaultValue,
-          doc: facts.doc,
-        ),
-      );
+      (facts.isRequired ? required : optional).add(facts);
     }
   }
   return ApiFacts(
     hasApiTable: true,
     parseClean: parseClean,
     symbol: primary.name.lexeme,
-    summary: _firstParagraph(_cleanDoc(docComment(primary))),
+    summary: firstDocLine(primary),
     params: <ApiParamFacts>[...required, ...optional],
   );
 }
@@ -400,161 +389,14 @@ bool _isWidget(ClassDeclaration declaration) {
 /// Whether [declaration] declares a public unnamed constructor.
 ///
 /// `TextInputFormatters._()` is private (and therefore not the component's
-/// callable surface), while `TimeFormatter({required this.length})` is: the
-/// fallback selection prefers the latter so the API table has parameters.
-bool _hasUnnamedConstructor(ClassDeclaration declaration) {
+/// callable surface), while `TimeFormatter({required this.length})` is.
+bool _hasPublicUnnamedConstructor(ClassDeclaration declaration) {
   return declaration.body.members.whereType<ConstructorDeclaration>().any(
-    (ConstructorDeclaration constructor) => constructor.name == null,
+    (ConstructorDeclaration constructor) =>
+        constructor.name == null && !_isPrivate(constructor),
   );
 }
 
-Map<String, _FieldFacts> _fieldsOf(ClassDeclaration declaration) {
-  final Map<String, _FieldFacts> fields = <String, _FieldFacts>{};
-  for (final FieldDeclaration field
-      in declaration.body.members.whereType<FieldDeclaration>()) {
-    final String? doc = _cleanDoc(docComment(field));
-    for (final VariableDeclaration variable in field.fields.variables) {
-      fields[variable.name.lexeme] = _FieldFacts(
-        type: field.fields.type?.toSource() ?? '',
-        doc: doc,
-      );
-    }
-  }
-  return fields;
-}
-
-_ParamFacts? _paramFacts(
-  FormalParameter parameter,
-  Map<String, _FieldFacts> fields,
-  String source,
-) {
-  final Token? nameToken = parameter.name;
-  final String? name = nameToken?.lexeme;
-  if (name == null || (parameter is SuperFormalParameter && name == 'key')) {
-    return null;
-  }
-  // `defaultClause.value2` is experimental and `.value` is deprecated in the
-  // fragments AST; slice the clause's source range instead.
-  final FormalParameterDefaultClause? clause = parameter.defaultClause;
-  final String? defaultValue = clause == null
-      ? null
-      : source
-            .substring(clause.offset, clause.end)
-            .replaceFirst(RegExp(r'^[=:]\s*'), '')
-            .trim();
-  final _FieldFacts? field = fields[name];
-  final String type = switch (parameter) {
-    FieldFormalParameter() =>
-      field?.type.isNotEmpty == true
-          ? field!.type
-          : (parameter.type?.toSource() ?? ''),
-    _ when parameter.functionTypedSuffix != null => _functionType(parameter),
-    _ => parameter.type?.toSource() ?? '',
-  };
-  final String? doc = field?.doc ?? _cleanDoc(docComment(parameter));
-  return _ParamFacts(
-    name: name,
-    type: type,
-    isRequired: parameter.isRequired,
-    defaultValue: defaultValue,
-    doc: doc,
-  );
-}
-
-String _functionType(FormalParameter parameter) {
-  final String returnType = parameter.type?.toSource() ?? 'void';
-  final FunctionTypedFormalParameterSuffix suffix =
-      parameter.functionTypedSuffix!;
-  final String arguments = suffix.formalParameters.parameters
-      .map((FormalParameter p) => p.toSource())
-      .join(', ');
-  final String nullable = suffix.question != null ? '?' : '';
-  return '$returnType Function($arguments)$nullable';
-}
-
-/// Doc comment attached to [node], or null.
-String? docComment(AstNode node) {
-  final List<String> comments = <String>[];
-  Token? comment = node.beginToken.precedingComments;
-  while (comment != null) {
-    comments.add(comment.lexeme);
-    comment = comment.next;
-  }
-  Token token = node.beginToken;
-  while (_isComment(token)) {
-    comments.add(token.lexeme);
-    final Token? next = token.next;
-    if (next == null) {
-      break;
-    }
-    token = next;
-  }
-  return comments.isEmpty ? null : comments.join('\n');
-}
-
-bool _isComment(Token token) =>
-    token.type == TokenType.SINGLE_LINE_COMMENT ||
-    token.type == TokenType.MULTI_LINE_COMMENT ||
-    token.type == TokenType.SCRIPT_TAG;
-
-String? _cleanDoc(String? raw) {
-  if (raw == null) {
-    return null;
-  }
-  final List<String> lines = <String>[
-    for (final String line in raw.split('\n'))
-      line
-          .replaceFirst(RegExp(r'^\s*///?'), '')
-          .replaceFirst(RegExp(r'^\s*/\*+'), '')
-          .replaceFirst(RegExp(r'\*/\s*$'), '')
-          .replaceFirst(RegExp(r'^\s*\*'), '')
-          .trim(),
-  ];
-  while (lines.isNotEmpty && lines.first.isEmpty) {
-    lines.removeAt(0);
-  }
-  while (lines.isNotEmpty && lines.last.isEmpty) {
-    lines.removeLast();
-  }
-  return lines.isEmpty ? null : lines.join('\n');
-}
-
-String _firstParagraph(String? doc) {
-  if (doc == null) {
-    return '';
-  }
-  final StringBuffer buffer = StringBuffer();
-  for (final String line in doc.split('\n')) {
-    if (line.isEmpty) {
-      break;
-    }
-    if (buffer.isNotEmpty) {
-      buffer.write(' ');
-    }
-    buffer.write(line);
-  }
-  return buffer.toString();
-}
-
-class _FieldFacts {
-  const _FieldFacts({required this.type, this.doc});
-
-  final String type;
-  final String? doc;
-}
-
-class _ParamFacts {
-  const _ParamFacts({
-    required this.name,
-    required this.type,
-    required this.isRequired,
-    this.defaultValue,
-    this.doc,
-  });
-
-  final String name;
-  final String type;
-  final bool isRequired;
-  final String? defaultValue;
-  final String? doc;
-}
+/// Whether an unnamed constructor is private (`Foo._()`: its name is `_`).
+bool _isPrivate(ConstructorDeclaration constructor) =>
+    constructor.name?.lexeme == '_';

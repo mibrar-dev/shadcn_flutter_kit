@@ -11,6 +11,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:docs/generated/app_theme.dart';
 import 'package:docs/generated/docs_api.dart';
 import 'package:docs/generated/docs_data.dart';
@@ -190,8 +191,7 @@ void main() {
     test('the five formerly-missing tables pick the manifest classes', () {
       expect(kApiTables['autocomplete']!.symbol, 'AutoCompleteFeature');
       expect(kApiTables['autocomplete']!.params.first.name, 'suggestions');
-      expect(kApiTables['formatter']!.symbol, 'TimeFormatter');
-      expect(kApiTables['formatter']!.params.first.name, 'length');
+      expect(kApiTables['formatter']!.symbol, 'TextInputFormatters');
       expect(kApiTables['alpha']!.symbol, 'AlphaPainter');
       expect(
         kApiTables['alpha']!.params.map((DocsApiParam p) => p.name),
@@ -203,6 +203,163 @@ void main() {
         kApiTables['locale_utils']!.params.map((DocsApiParam p) => p.name),
         containsAll(<String>['base', 'units', 'separator']),
       );
+    });
+
+    test('formatter surfaces the factory set, not TimeFormatter.length', () {
+      final DocsApiTable table = kApiTables['formatter']!;
+      // `TextInputFormatters._()` is private, so the declared factories win.
+      expect(table.symbol, 'TextInputFormatters');
+      expect(
+        table.summary,
+        'Factory methods for common text input formatters.',
+      );
+      expect(table.parseClean, isTrue);
+      // Constructor rows are empty: the class cannot be constructed.
+      expect(table.params, isEmpty);
+      expect(table.members.map((DocsApiMember m) => m.name).toList(), <String>[
+        'TextInputFormatters.time',
+        'TextInputFormatters.integerOnly',
+        'TextInputFormatters.digitsOnly',
+        'TextInputFormatters.mathExpression',
+        'TextInputFormatters.hex',
+        'TextInputFormatters.toUpperCase',
+        'TextInputFormatters.toLowerCase',
+        'constraintToNewText',
+      ]);
+      final DocsApiMember time = table.members.first;
+      expect(time.kind, 'method');
+      expect(time.returnType, 'TextInputFormatter');
+      expect(time.isStatic, isTrue);
+      expect(time.params.single.name, 'length');
+      expect(time.params.single.type, 'int');
+      expect(time.params.single.isRequired, isTrue);
+      expect(
+        time.doc,
+        'Creates a time formatter padded left with zeros to [length].',
+      );
+      final DocsApiMember hex = table.members.firstWhere(
+        (DocsApiMember m) => m.name == 'TextInputFormatters.hex',
+      );
+      final DocsApiParam hashPrefix = hex.params.single;
+      expect(hashPrefix.type, 'bool');
+      expect(hashPrefix.defaultValue, 'false');
+      final DocsApiMember toUpperCase = table.members.firstWhere(
+        (DocsApiMember m) => m.name == 'TextInputFormatters.toUpperCase',
+      );
+      expect(toUpperCase.kind, 'constant');
+      expect(toUpperCase.returnType, 'TextInputFormatter');
+      expect(toUpperCase.params, isEmpty);
+      final DocsApiMember constraint = table.members.last;
+      expect(constraint.kind, 'function');
+      expect(constraint.returnType, 'TextSelection');
+      expect(
+        constraint.params.map((DocsApiParam p) => p.name).toList(),
+        <String>['newValue', 'newText'],
+      );
+      expect(
+        constraint.doc,
+        'Constrains the text selection to fit within the new text length.',
+      );
+    });
+
+    test('color surfaces the ColorDerivative factories and conversions', () {
+      final DocsApiTable table = kApiTables['color']!;
+      // `const ColorDerivative();` takes no parameters: the declared entry
+      // points are the component's API.
+      expect(table.symbol, 'ColorDerivative');
+      expect(table.hasApiTable, isTrue);
+      expect(table.parseClean, isTrue);
+      expect(table.summary, contains('abstract base class'));
+      expect(table.params, isEmpty);
+      final List<String> names = table.members
+          .map((DocsApiMember m) => m.name)
+          .toList();
+      expect(names.first, 'ColorDerivative.fromColor');
+      expect(names, contains('ColorDerivative.fromHex'));
+      expect(names, contains('ColorDerivative.fromHSV'));
+      expect(names, contains('ColorDerivative.fromHSL'));
+      expect(names.last, 'ColorDerivative.toHSLColor');
+      expect(names.length, 22);
+      for (final DocsApiMember member in table.members) {
+        expect(
+          member.name,
+          startsWith('ColorDerivative.'),
+          reason: member.name,
+        );
+        expect(member.returnType, isNotEmpty, reason: member.name);
+      }
+      final DocsApiMember fromHSV = table.members.firstWhere(
+        (DocsApiMember m) => m.name == 'ColorDerivative.fromHSV',
+      );
+      expect(fromHSV.kind, 'factory');
+      expect(fromHSV.isStatic, isFalse);
+      expect(fromHSV.params.single.name, 'color');
+      expect(fromHSV.params.single.type, 'HSVColor');
+      expect(fromHSV.doc, 'Creates a [ColorDerivative] from an [HSVColor].');
+      final DocsApiMember fromHex = table.members.firstWhere(
+        (DocsApiMember m) => m.name == 'ColorDerivative.fromHex',
+      );
+      expect(fromHex.isStatic, isTrue);
+      expect(fromHex.returnType, 'ColorDerivative?');
+      final DocsApiMember toColor = table.members.firstWhere(
+        (DocsApiMember m) => m.name == 'ColorDerivative.toColor',
+      );
+      expect(toColor.kind, 'method');
+      expect(toColor.params, isEmpty);
+      expect(toColor.returnType, 'Color');
+    });
+
+    test('every declared api.methods/constants/functions name resolves', () {
+      // A declared name that does not resolve in the entry file would silently
+      // shrink the table, so the generator must report it.
+      final RegistryScan scan = scanRegistry(registry);
+      final List<String> unresolved = <String>[];
+      for (final ComponentFacts component in scan.components) {
+        final DeclaredMembers declared = DeclaredMembers(
+          methods: component.apiMethods,
+          constants: component.apiConstants,
+          functions: component.apiFunctions,
+        );
+        if (declared.isEmpty) {
+          continue;
+        }
+        final String source = File(
+          '${scan.root}/${component.entry}',
+        ).readAsStringSync();
+        final ApiFacts facts = extractApi(
+          source: source,
+          nameCandidates: <String>[
+            pascalCase(component.name),
+            pascalCase(component.id),
+            ...component.apiClasses,
+          ],
+          declared: declared,
+        );
+        extractDeclaredMembers(
+          unit: parseString(content: source, throwIfDiagnostics: false).unit,
+          source: source,
+          declared: declared,
+          unresolved: unresolved,
+        );
+        expect(facts.members, isNotEmpty, reason: component.id);
+      }
+      expect(
+        unresolved,
+        isEmpty,
+        reason: 'declared API entries missing from the entry files',
+      );
+    });
+
+    test('member rows only appear for static/factory-first components', () {
+      final List<String> withMembers = <String>[
+        for (final DocsComponent component in kComponents)
+          if (kApiTables[component.id]!.members.isNotEmpty) component.id,
+      ];
+      expect(withMembers, <String>[
+        'formatter',
+        'overlay_configuration',
+        'color',
+      ]);
     });
   });
 

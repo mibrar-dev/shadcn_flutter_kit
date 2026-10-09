@@ -11,6 +11,9 @@
 // package:analyzer (unresolved AST, require-first order).
 // Function-first components (dialog, popup, drawer) extract the
 // primary top-level function parameters instead.
+// Static/factory-first components (color, formatter) extract the
+// entry points declared in the manifest api.methods /
+// api.constants / api.functions lists instead.
 // Theme fields come from the manifest `<Name>Theme` field map.
 // `parseClean: false` marks entry files the analyzer cannot parse
 // cleanly; their facts are best-effort.
@@ -42,6 +45,38 @@ class DocsApiParam {
   final String? doc;
 }
 
+/// One declared method/factory/constant/function row.
+class DocsApiMember {
+  /// Creates the row.
+  const DocsApiMember({
+    required this.name,
+    required this.kind,
+    this.returnType = '',
+    this.isStatic = false,
+    this.params = const <DocsApiParam>[],
+    this.doc,
+  });
+
+  /// Declared name (`TextInputFormatters.time`).
+  final String name;
+
+  /// Declaration kind: `method`, `factory`, `constructor`, `getter`,
+  /// `setter`, `constant`, `field` or `function`.
+  final String kind;
+
+  /// Declared return type, or the owning class for constructors.
+  final String returnType;
+
+  /// Whether the member is static.
+  final bool isStatic;
+
+  /// Parameters, required first.
+  final List<DocsApiParam> params;
+
+  /// Doc comment, or null.
+  final String? doc;
+}
+
 /// The constructor API table of one component.
 class DocsApiTable {
   /// Creates the table.
@@ -51,7 +86,8 @@ class DocsApiTable {
     required this.hasApiTable,
     required this.parseClean,
     this.summary,
-    required this.params,
+    this.params = const <DocsApiParam>[],
+    this.members = const <DocsApiMember>[],
   });
 
   /// Owning component id.
@@ -60,7 +96,7 @@ class DocsApiTable {
   /// Primary class name (`Button`) or function name (`showShadcnDialog`).
   final String symbol;
 
-  /// Whether a primary constructor was found.
+  /// Whether a primary constructor or function was found.
   final bool hasApiTable;
 
   /// Whether the entry file parsed without diagnostics.
@@ -71,6 +107,11 @@ class DocsApiTable {
 
   /// Constructor parameters, required first.
   final List<DocsApiParam> params;
+
+  /// Declared static methods / factories / constants / functions,
+  /// required first per member. Empty unless the primary
+  /// constructor is private or parameterless.
+  final List<DocsApiMember> members;
 }
 
 /// One `<Name>Theme` field.
@@ -221,6 +262,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'command': DocsApiTable(
     componentId: 'command',
@@ -284,6 +326,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged over the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'patch': DocsApiTable(
     componentId: 'patch',
@@ -320,6 +363,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Longest gap between two clicks that still counts as consecutive.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'scrollbar': DocsApiTable(
     componentId: 'scrollbar',
@@ -409,6 +453,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'scrollview': DocsApiTable(
     componentId: 'scrollview',
@@ -432,6 +477,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'When false the child renders untouched and no pointer is intercepted.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'toggle': DocsApiTable(
     componentId: 'toggle',
@@ -524,6 +570,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Whether the toggle requests focus when first built.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'avatar': DocsApiTable(
     componentId: 'avatar',
@@ -609,6 +656,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'badge': DocsApiTable(
     componentId: 'badge',
@@ -689,6 +737,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged over the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'border_loading': DocsApiTable(
     componentId: 'border_loading',
@@ -797,6 +846,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'calendar': DocsApiTable(
     componentId: 'calendar',
@@ -875,6 +925,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override; the value a tap or an `Enter` on [date] produces\ncomes from [calendarSelect] (see [select]).',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'carousel': DocsApiTable(
     componentId: 'carousel',
@@ -983,6 +1034,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget leg of [CarouselTheme].',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'chat': DocsApiTable(
     componentId: 'chat',
@@ -1033,6 +1085,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'chip': DocsApiTable(
     componentId: 'chip',
@@ -1112,6 +1165,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'code_snippet': DocsApiTable(
     componentId: 'code_snippet',
@@ -1147,6 +1201,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'country_flag': DocsApiTable(
     componentId: 'country_flag',
@@ -1186,6 +1241,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'divider': DocsApiTable(
     componentId: 'divider',
@@ -1265,6 +1321,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'dot_indicator': DocsApiTable(
     componentId: 'dot_indicator',
@@ -1327,6 +1384,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'empty_state': DocsApiTable(
     componentId: 'empty_state',
@@ -1399,6 +1457,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg style override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'feature_carousel': DocsApiTable(
     componentId: 'feature_carousel',
@@ -1435,6 +1494,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         defaultValue: 'false',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'file_diff_viewer': DocsApiTable(
     componentId: 'file_diff_viewer',
@@ -1493,6 +1553,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'icon': DocsApiTable(
     componentId: 'icon',
@@ -1538,6 +1599,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'image': DocsApiTable(
     componentId: 'image',
@@ -1637,6 +1699,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'keyboard_shortcut': DocsApiTable(
     componentId: 'keyboard_shortcut',
@@ -1663,6 +1726,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg style override, applied to every cap.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'markdown': DocsApiTable(
     componentId: 'markdown',
@@ -1750,6 +1814,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'MarkdownTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'number_ticker': DocsApiTable(
     componentId: 'number_ticker',
@@ -1801,6 +1866,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'pinned_sheet': DocsApiTable(
     componentId: 'pinned_sheet',
@@ -1898,6 +1964,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         defaultValue: 'const Duration(milliseconds: 350)',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'progress': DocsApiTable(
     componentId: 'progress',
@@ -1967,6 +2034,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'selectable': DocsApiTable(
     componentId: 'selectable',
@@ -2136,6 +2204,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'skeleton': DocsApiTable(
     componentId: 'skeleton',
@@ -2173,6 +2242,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'spinner': DocsApiTable(
     componentId: 'spinner',
@@ -2214,6 +2284,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'text_animate': DocsApiTable(
     componentId: 'text_animate',
@@ -2295,6 +2366,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'tracker': DocsApiTable(
     componentId: 'tracker',
@@ -2317,6 +2389,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'tree': DocsApiTable(
     componentId: 'tree',
@@ -2403,6 +2476,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'triple_dots': DocsApiTable(
     componentId: 'triple_dots',
@@ -2456,6 +2530,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'autocomplete': DocsApiTable(
     componentId: 'autocomplete',
@@ -2505,6 +2580,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       DocsApiParam(name: 'visibility', type: '', isRequired: false),
       DocsApiParam(name: 'skipFocusTraversal', type: '', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'checkbox': DocsApiTable(
     componentId: 'checkbox',
@@ -2605,6 +2681,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg override, merged over the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'chip_input': DocsApiTable(
     componentId: 'chip_input',
@@ -2735,6 +2812,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg overrides for the field surface itself.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'color_field': DocsApiTable(
     componentId: 'color_field',
@@ -2800,6 +2878,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'color_input': DocsApiTable(
     componentId: 'color_input',
@@ -2899,6 +2978,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'color_picker': DocsApiTable(
     componentId: 'color_picker',
@@ -2973,6 +3053,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override (orientation/spacing/slider size live here).',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'date_picker': DocsApiTable(
     componentId: 'date_picker',
@@ -3024,6 +3105,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       DocsApiParam(name: 'enabled', type: 'bool?', isRequired: false),
       DocsApiParam(name: 'theme', type: 'DatePickerTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'dropzone': DocsApiTable(
     componentId: 'dropzone',
@@ -3113,6 +3195,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg style override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'file_picker': DocsApiTable(
     componentId: 'file_picker',
@@ -3207,6 +3290,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'FileUploadTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'form': DocsApiTable(
     componentId: 'form',
@@ -3235,6 +3319,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Called by `FormController.submit` after a successful validation.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'formatted_input': DocsApiTable(
     componentId: 'formatted_input',
@@ -3309,20 +3394,109 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'formatter': DocsApiTable(
     componentId: 'formatter',
-    symbol: 'TimeFormatter',
+    symbol: 'TextInputFormatters',
     hasApiTable: true,
     parseClean: true,
-    summary:
-        'Pads/trims typed time text to a fixed [length] with leading zeros.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'length',
-        type: 'int',
-        isRequired: true,
-        doc: 'Fixed output length.',
+    summary: 'Factory methods for common text input formatters.',
+    params: <DocsApiParam>[],
+    members: <DocsApiMember>[
+      DocsApiMember(
+        name: 'TextInputFormatters.time',
+        kind: 'method',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'length', type: 'int', isRequired: true),
+        ],
+        doc: 'Creates a time formatter padded left with zeros to [length].',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.integerOnly',
+        kind: 'method',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'min', type: 'int?', isRequired: false),
+          DocsApiParam(name: 'max', type: 'int?', isRequired: false),
+        ],
+        doc: 'Creates an integer-only formatter with optional bounds.',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.digitsOnly',
+        kind: 'method',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'min', type: 'double?', isRequired: false),
+          DocsApiParam(name: 'max', type: 'double?', isRequired: false),
+          DocsApiParam(name: 'decimalDigits', type: 'int?', isRequired: false),
+        ],
+        doc:
+            'Creates a decimal formatter with optional bounds and fixed places.',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.mathExpression',
+        kind: 'method',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(
+            name: 'context',
+            type: 'Map<String, dynamic>?',
+            isRequired: false,
+          ),
+        ],
+        doc: 'Creates a math-expression evaluator formatter.',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.hex',
+        kind: 'method',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(
+            name: 'hashPrefix',
+            type: 'bool',
+            isRequired: false,
+            defaultValue: 'false',
+          ),
+        ],
+        doc: 'Creates a hex-only formatter.',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.toUpperCase',
+        kind: 'constant',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[],
+        doc: 'Converts all input text to uppercase.',
+      ),
+      DocsApiMember(
+        name: 'TextInputFormatters.toLowerCase',
+        kind: 'constant',
+        returnType: 'TextInputFormatter',
+        isStatic: true,
+        params: <DocsApiParam>[],
+        doc: 'Converts all input text to lowercase.',
+      ),
+      DocsApiMember(
+        name: 'constraintToNewText',
+        kind: 'function',
+        returnType: 'TextSelection',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(
+            name: 'newValue',
+            type: 'TextEditingValue',
+            isRequired: true,
+          ),
+          DocsApiParam(name: 'newText', type: 'String', isRequired: true),
+        ],
+        doc: 'Constrains the text selection to fit within the new text length.',
       ),
     ],
   ),
@@ -3360,6 +3534,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Called whenever the list changes.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'hsl': DocsApiTable(
     componentId: 'hsl',
@@ -3440,6 +3615,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Request focus on first build.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'hsv': DocsApiTable(
     componentId: 'hsv',
@@ -3520,6 +3696,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Request focus on first build.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'input': DocsApiTable(
     componentId: 'input',
@@ -3728,6 +3905,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'InputTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'input_otp': DocsApiTable(
     componentId: 'input_otp',
@@ -3870,6 +4048,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'item_picker': DocsApiTable(
     componentId: 'item_picker',
@@ -3928,6 +4107,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'multi_select': DocsApiTable(
     componentId: 'multi_select',
@@ -4040,6 +4220,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'multiple_choice': DocsApiTable(
     componentId: 'multiple_choice',
@@ -4094,6 +4275,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged over the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'object_input': DocsApiTable(
     componentId: 'object_input',
@@ -4192,6 +4374,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, forwarded to [FormattedInput].',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'phone_input': DocsApiTable(
     componentId: 'phone_input',
@@ -4253,6 +4436,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'radio_group': DocsApiTable(
     componentId: 'radio_group',
@@ -4307,6 +4491,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override for the group.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'select': DocsApiTable(
     componentId: 'select',
@@ -4420,6 +4605,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'slider': DocsApiTable(
     componentId: 'slider',
@@ -4501,6 +4687,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Whether to take focus when first built.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'star_rating': DocsApiTable(
     componentId: 'star_rating',
@@ -4558,6 +4745,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'StarRatingStyle?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'switch': DocsApiTable(
     componentId: 'switch',
@@ -4631,6 +4819,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg override, merged over the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'text_area': DocsApiTable(
     componentId: 'text_area',
@@ -4796,6 +4985,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg [InputTheme] override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'time_picker': DocsApiTable(
     componentId: 'time_picker',
@@ -4838,6 +5028,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       DocsApiParam(name: 'enabled', type: 'bool?', isRequired: false),
       DocsApiParam(name: 'theme', type: 'TimePickerTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'accordion': DocsApiTable(
     componentId: 'accordion',
@@ -4861,6 +5052,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'alert': DocsApiTable(
     componentId: 'alert',
@@ -4908,6 +5100,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'app': DocsApiTable(
     componentId: 'app',
@@ -5127,6 +5320,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Animates theme changes with [AnimatedShadcnTheme] when true.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'card': DocsApiTable(
     componentId: 'card',
@@ -5194,6 +5388,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'card_image': DocsApiTable(
     componentId: 'card_image',
@@ -5267,6 +5462,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'collapsible': DocsApiTable(
     componentId: 'collapsible',
@@ -5304,6 +5500,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'filter_bar': DocsApiTable(
     componentId: 'filter_bar',
@@ -5408,6 +5605,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'FilterBarTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'group': DocsApiTable(
     componentId: 'group',
@@ -5419,6 +5617,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     params: <DocsApiParam>[
       DocsApiParam(name: 'children', type: '', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'media_query': DocsApiTable(
     componentId: 'media_query',
@@ -5459,6 +5658,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'outlined_container': DocsApiTable(
     componentId: 'outlined_container',
@@ -5560,6 +5760,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'overflow_marquee': DocsApiTable(
     componentId: 'overflow_marquee',
@@ -5620,6 +5821,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'resizable': DocsApiTable(
     componentId: 'resizable',
@@ -5638,6 +5840,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'ResizableTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'scaffold': DocsApiTable(
     componentId: 'scaffold',
@@ -5717,6 +5920,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'scrollable': DocsApiTable(
     componentId: 'scrollable',
@@ -5752,6 +5956,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'scrollable_client': DocsApiTable(
     componentId: 'scrollable_client',
@@ -5844,6 +6049,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'sortable': DocsApiTable(
     componentId: 'sortable',
@@ -5969,6 +6175,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Called when a drop lands on no valid target.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'stage_container': DocsApiTable(
     componentId: 'stage_container',
@@ -6004,6 +6211,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'steps': DocsApiTable(
     componentId: 'steps',
@@ -6025,6 +6233,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'table': DocsApiTable(
     componentId: 'table',
@@ -6133,6 +6342,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged on top of the other resolver legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'timeline': DocsApiTable(
     componentId: 'timeline',
@@ -6161,6 +6371,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'window': DocsApiTable(
     componentId: 'window',
@@ -6192,6 +6403,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'WindowTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'breadcrumb': DocsApiTable(
     componentId: 'breadcrumb',
@@ -6227,6 +6439,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'navigation_bar': DocsApiTable(
     componentId: 'navigation_bar',
@@ -6322,6 +6535,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'navigation_menu': DocsApiTable(
     componentId: 'navigation_menu',
@@ -6340,6 +6554,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged over the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'page_route': DocsApiTable(
     componentId: 'page_route',
@@ -6379,6 +6594,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'barrierLabel', type: 'String?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'pagination': DocsApiTable(
     componentId: 'pagination',
@@ -6464,6 +6680,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'stepper': DocsApiTable(
     componentId: 'stepper',
@@ -6516,6 +6733,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'switcher': DocsApiTable(
     componentId: 'switcher',
@@ -6571,6 +6789,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'tabs': DocsApiTable(
     componentId: 'tabs',
@@ -6601,6 +6820,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Container layout defaults; resolved and forwarded to [TabContainer].',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'alert_dialog': DocsApiTable(
     componentId: 'alert_dialog',
@@ -6645,6 +6865,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'anchor': DocsApiTable(
     componentId: 'anchor',
@@ -6654,6 +6875,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary:
         'Describes an anchor an overlay (popover, menu, tooltip) positions itself against, optionally tracking it as it moves.',
     params: <DocsApiParam>[],
+    members: <DocsApiMember>[],
   ),
   'backdrop_transform': DocsApiTable(
     componentId: 'backdrop_transform',
@@ -6663,6 +6885,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary:
         'Describes how the backdrop behind a sheet or drawer is transformed as it animates between closed (`t == 0`) and fully open (`t == 1`).',
     params: <DocsApiParam>[],
+    members: <DocsApiMember>[],
   ),
   'context_menu': DocsApiTable(
     componentId: 'context_menu',
@@ -6719,6 +6942,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg surface override, merged over the popup theme legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'dialog': DocsApiTable(
     componentId: 'dialog',
@@ -6779,6 +7003,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'DialogTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'drawer': DocsApiTable(
     componentId: 'drawer',
@@ -6840,6 +7065,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'DrawerTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'drawer_container': DocsApiTable(
     componentId: 'drawer_container',
@@ -6870,6 +7096,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         defaultValue: '0',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'dropdown_menu': DocsApiTable(
     componentId: 'dropdown_menu',
@@ -6892,6 +7119,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg surface override, merged over the popup theme legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'eye_dropper': DocsApiTable(
     componentId: 'eye_dropper',
@@ -6946,6 +7174,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'gooey_toast': DocsApiTable(
     componentId: 'gooey_toast',
@@ -6974,6 +7203,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'hover_card': DocsApiTable(
     componentId: 'hover_card',
@@ -7046,6 +7276,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'menu': DocsApiTable(
     componentId: 'menu',
@@ -7079,6 +7310,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'MenuTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'menubar': DocsApiTable(
     componentId: 'menubar',
@@ -7117,6 +7349,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'overlay_configuration': DocsApiTable(
     componentId: 'overlay_configuration',
@@ -7126,6 +7359,34 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary:
         'Describes what overlay to show and how, independent of the specific mechanism.',
     params: <DocsApiParam>[],
+    members: <DocsApiMember>[
+      DocsApiMember(
+        name: 'showOverlay',
+        kind: 'function',
+        returnType: 'OverlayCompleter<T?>',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'context', type: 'BuildContext', isRequired: true),
+          DocsApiParam(
+            name: 'configuration',
+            type: 'OverlayConfiguration',
+            isRequired: true,
+          ),
+          DocsApiParam(
+            name: 'builder',
+            type: 'WidgetBuilder',
+            isRequired: true,
+          ),
+          DocsApiParam(
+            name: 'adaptive',
+            type: 'bool',
+            isRequired: false,
+            defaultValue: 'true',
+          ),
+        ],
+        doc: 'Presents [configuration] with [builder] as its content.',
+      ),
+    ],
   ),
   'popup': DocsApiTable(
     componentId: 'popup',
@@ -7180,6 +7441,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'MenuPopupTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'refresh_trigger': DocsApiTable(
     componentId: 'refresh_trigger',
@@ -7225,6 +7487,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'spell_check_suggestions_toolbar': DocsApiTable(
     componentId: 'spell_check_suggestions_toolbar',
@@ -7247,6 +7510,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'The replacement suggestions to display, at most three.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'swiper': DocsApiTable(
     componentId: 'swiper',
@@ -7303,6 +7567,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg theme override; other legs resolve from the tree and the app.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'toast': DocsApiTable(
     componentId: 'toast',
@@ -7318,6 +7583,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
       DocsApiParam(name: 'theme', type: 'ToastTheme?', isRequired: false),
     ],
+    members: <DocsApiMember>[],
   ),
   'tooltip': DocsApiTable(
     componentId: 'tooltip',
@@ -7381,6 +7647,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Widget-leg theme override for the presented container.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'alpha': DocsApiTable(
     componentId: 'alpha',
@@ -7411,6 +7678,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Edge length of one square.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'async': DocsApiTable(
     componentId: 'async',
@@ -7440,6 +7708,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Value reported while a [Future] is still pending.\n\nOnly consulted on the asynchronous path; a synchronous value is always\ncomplete, so the snapshot carries [future] itself and never\n[initialData].',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'color': DocsApiTable(
     componentId: 'color',
@@ -7449,6 +7718,224 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary:
         'An abstract base class representing a color that can be transformed between different color spaces.',
     params: <DocsApiParam>[],
+    members: <DocsApiMember>[
+      DocsApiMember(
+        name: 'ColorDerivative.fromColor',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'Color', isRequired: true),
+        ],
+        doc:
+            'Creates a [ColorDerivative] from a Flutter [Color] using HSV internally.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.fromHex',
+        kind: 'method',
+        returnType: 'ColorDerivative?',
+        isStatic: true,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'text', type: 'String', isRequired: true),
+        ],
+        doc:
+            'Parses a hex string (`#RGB`, `#RRGGBB`, `#AARRGGBB`) into a [ColorDerivative], or null when [text] is not a valid hex colour.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.fromHSV',
+        kind: 'factory',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'HSVColor', isRequired: true),
+        ],
+        doc: 'Creates a [ColorDerivative] from an [HSVColor].',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.fromHSL',
+        kind: 'factory',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'HSLColor', isRequired: true),
+        ],
+        doc: 'Creates a [ColorDerivative] from an [HSLColor].',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToColor',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'Color', isRequired: true),
+        ],
+        doc: 'Returns a copy of [color] expressed in this colour\'s space.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToColorRed',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'red', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the red channel (0–255).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToColorGreen',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'green', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the green channel (0–255).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToColorBlue',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'blue', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the blue channel (0–255).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSV',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'HSVColor', isRequired: true),
+        ],
+        doc: 'Returns a copy of [color] expressed in this colour\'s space.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSVHue',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'hue', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSV hue (0–360).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSVSaturation',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'saturation', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSV saturation (0–1).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSVValue',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'value', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSV value (0–1).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSVAlpha',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'alpha', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the alpha channel (0–1) in HSV space.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSL',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'color', type: 'HSLColor', isRequired: true),
+        ],
+        doc: 'Returns a copy of [color] expressed in this colour\'s space.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSLHue',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'hue', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSL hue (0–360).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSLSaturation',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'saturation', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSL saturation (0–1).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToHSLLightness',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'lightness', type: 'double', isRequired: true),
+        ],
+        doc: 'Replaces the HSL lightness (0–1).',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.changeToOpacity',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'alpha', type: 'double', isRequired: true),
+        ],
+        doc: 'Returns a copy with the opacity replaced by [alpha].',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.transform',
+        kind: 'method',
+        returnType: 'ColorDerivative',
+        isStatic: false,
+        params: <DocsApiParam>[
+          DocsApiParam(name: 'old', type: 'ColorDerivative', isRequired: true),
+        ],
+        doc: 'Re-expresses this colour using [other]\'s internal colour space.',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.toColor',
+        kind: 'method',
+        returnType: 'Color',
+        isStatic: false,
+        params: <DocsApiParam>[],
+        doc: 'Converts this color derivative to a Flutter [Color].',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.toHSVColor',
+        kind: 'method',
+        returnType: 'HSVColor',
+        isStatic: false,
+        params: <DocsApiParam>[],
+        doc: 'Converts this color derivative to an [HSVColor].',
+      ),
+      DocsApiMember(
+        name: 'ColorDerivative.toHSLColor',
+        kind: 'method',
+        returnType: 'HSLColor',
+        isStatic: false,
+        params: <DocsApiParam>[],
+        doc: 'Converts this color derivative to an [HSLColor].',
+      ),
+    ],
   ),
   'error_system': DocsApiTable(
     componentId: 'error_system',
@@ -7484,6 +7971,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
             'Widget-leg override, merged over the component/app/defaults legs.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'locale_utils': DocsApiTable(
     componentId: 'locale_utils',
@@ -7512,6 +8000,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Separator inserted between digit groups of the integer part.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
   'timeline_animation': DocsApiTable(
     componentId: 'timeline_animation',
@@ -7533,6 +8022,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         doc: 'Interpolation used by absolute and relative segments.',
       ),
     ],
+    members: <DocsApiMember>[],
   ),
 };
 

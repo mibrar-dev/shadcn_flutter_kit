@@ -65,6 +65,9 @@ class ComponentFacts {
     required this.themeUserFile,
     required this.themeFields,
     required this.apiClasses,
+    required this.apiMethods,
+    required this.apiConstants,
+    required this.apiFunctions,
   });
 
   /// Registry id == directory name.
@@ -116,6 +119,16 @@ class ComponentFacts {
 
   /// Manifest `api.classes` (used as class-name fallback candidates).
   final List<String> apiClasses;
+
+  /// Manifest `api.methods` (`ColorDerivative.fromColor`): the entry points
+  /// surfaced when the primary constructor is private or parameterless.
+  final List<String> apiMethods;
+
+  /// Manifest `api.constants` (`TextInputFormatters.toUpperCase`).
+  final List<String> apiConstants;
+
+  /// Manifest `api.functions` (`constraintToNewText`).
+  final List<String> apiFunctions;
 
   /// Whether this component physically owns a `*_theme.dart`.
   bool get hasUserTheme => userOwned.isNotEmpty;
@@ -298,7 +311,21 @@ ComponentFacts _componentFacts(
           _objectOrEmpty(meta['api'])['classes'],
       'api.classes',
     ),
+    apiMethods: _apiList(manifest, meta, 'methods'),
+    apiConstants: _apiList(manifest, meta, 'constants'),
+    apiFunctions: _apiList(manifest, meta, 'functions'),
   );
+}
+
+/// One `api` list from the manifest, with `meta.json` as the fallback.
+List<String> _apiList(
+  Map<String, Object?> manifest,
+  Map<String, Object?> meta,
+  String key,
+) {
+  final Object? value =
+      _objectOrEmpty(manifest['api'])[key] ?? _objectOrEmpty(meta['api'])[key];
+  return value == null ? const <String>[] : _strings(value, 'api.$key');
 }
 
 Map<String, Object?> _readMeta(Directory root, String id) {

@@ -4,6 +4,7 @@
 import 'dart:io';
 
 import 'dart_scan.dart';
+import 'api_model.dart';
 import 'readme_scan.dart';
 import 'registry_scan.dart';
 import 'render_api.dart';
@@ -62,6 +63,11 @@ DocsModel buildDocsModel(String registryRoot) {
         pascalCase(component.id),
         ...component.apiClasses,
       ],
+      declared: DeclaredMembers(
+        methods: component.apiMethods,
+        constants: component.apiConstants,
+        functions: component.apiFunctions,
+      ),
     );
 
     final File preview = File(
@@ -165,12 +171,25 @@ String describeModel(DocsModel model) {
   final String languages = snippetLanguages.entries
       .map((MapEntry<String, int> entry) => '${entry.key} ${entry.value}')
       .join(', ');
+  final List<String> memberComponents = <String>[
+    for (final ComponentFacts component in model.scan.components)
+      if ((model.api[component.id]?.members.length ?? 0) > 0) component.id,
+  ];
+  final int memberRows = model.api.values.fold<int>(
+    0,
+    (int sum, ApiFacts facts) => sum + facts.members.length,
+  );
+  final String members = memberRows == 0
+      ? ''
+      : 'api members: $memberRows declared rows '
+            '(${memberComponents.join(', ')})\n';
   return 'components: ${model.scan.components.length}, '
       'presets: ${model.scan.presets.length} '
       '(+${model.scan.presets.length} json/dart sources)\n'
       'snippets: $snippetCount ($languages)\n'
       'api tables: $withApi with parameters, '
       '${model.scan.components.length - withApi} without\n'
+      '$members'
       'keyboard: ${gaps.length} gaps of ${model.scan.components.length} '
       'components\n'
       'keyboard gaps: ${gaps.join(', ')}\n'

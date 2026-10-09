@@ -32,7 +32,21 @@
       "ToUpperCaseTextFormatter",
       "ToLowerCaseTextFormatter"
     ],
+    "functions": [
+      "constraintToNewText"
+    ],
+    "constants": [
+      "TextInputFormatters.toUpperCase",
+      "TextInputFormatters.toLowerCase"
+    ],
+    "methods": [
+      "TextInputFormatters.time",
+      "TextInputFormatters.integerOnly",
+      "TextInputFormatters.digitsOnly",
+      "TextInputFormatters.mathExpression",
+      "TextInputFormatters.hex"
+    ],
     "enums": [],
-    "constants": []
+    "typedefs": []
   }
 }

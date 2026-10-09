@@ -128,6 +128,8 @@ void main() {
   ) async {
     final delegate = await pumpDocsApp(tester, width: 1400, height: 900);
     await goTo(tester, delegate, '/themes');
+    // The themes page is deferred (heavy preset sources); settle the chunk.
+    await tester.pumpAndSettle();
     await _tabUntil(
       tester,
       find.descendant(
@@ -174,5 +176,78 @@ void main() {
       tester,
       find.descendant(of: find.byType(DocsFooter), matching: find.text('Docs')),
     );
+  });
+
+  testWidgets('fresh app: the first Tab lands in the header', (
+    WidgetTester tester,
+  ) async {
+    await pumpDocsApp(tester, width: 1400, height: 900);
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pump();
+    expect(_focusedWithin(find.byType(DocsHeader)), isTrue);
+  });
+
+  testWidgets('shell Tab order is header, sidebar, content, TOC', (
+    WidgetTester tester,
+  ) async {
+    final delegate = await pumpDocsApp(tester, width: 1400, height: 900);
+    await goTo(tester, delegate, '/docs/components/button');
+    await tester.pumpAndSettle();
+
+    final Set<Element> header = find.byType(DocsHeader).evaluate().toSet();
+    final Set<Element> sidebar = find.byType(DocsSidebar).evaluate().toSet();
+    final Set<Element> toc = find.byType(DocsToc).evaluate().toSet();
+
+    bool within(Element node, Set<Element> roots) {
+      for (final Element root in roots) {
+        if (identical(root, node) ||
+            _isAncestorOf(root, node) ||
+            _isAncestorOf(node, root)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    String regionOf(Element? focused) {
+      if (focused == null) {
+        return '';
+      }
+      if (within(focused, header)) {
+        return 'header';
+      }
+      if (within(focused, sidebar)) {
+        return 'sidebar';
+      }
+      if (within(focused, toc)) {
+        return 'toc';
+      }
+      return 'content';
+    }
+
+    // Walk Tab until each of the four regions has been seen, recording the
+    // region transitions. `OrderedTraversalPolicy` + the `FocusTraversalOrder`
+    // slots make the cycle header → sidebar → content → TOC; the default
+    // reading order interleaved the article and TOC columns and reached the
+    // header (outside the page navigator) only after the article.
+    final List<String> order = <String>[];
+    for (int i = 0; i < 400 && order.length < 4; i++) {
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await tester.pump();
+      final Element? focused =
+          FocusManager.instance.primaryFocus?.context as Element?;
+      final String region = regionOf(focused);
+      if (region.isNotEmpty && (order.isEmpty || order.last != region)) {
+        order.add(region);
+      }
+    }
+    // Rotate the cycle so it starts at the header, then assert the order.
+    final int start = order.indexOf('header');
+    expect(start, isNonNegative, reason: 'header region never reached');
+    final List<String> rotated = <String>[
+      ...order.sublist(start),
+      ...order.sublist(0, start),
+    ];
+    expect(rotated, <String>['header', 'sidebar', 'content', 'toc']);
   });
 }

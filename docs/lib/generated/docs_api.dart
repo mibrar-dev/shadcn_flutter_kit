@@ -5082,13 +5082,15 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         name: 'shortcuts',
         type: 'Map<ShortcutActivator, Intent>?',
         isRequired: false,
-        doc: 'See [WidgetsApp.shortcuts].',
+        doc:
+            'App-wide keyboard shortcuts, merged over [WidgetsApp.defaultShortcuts].\n\n`WidgetsApp` *replaces* its defaults when a map is supplied: an app that\npasses a single shortcut would otherwise lose Tab traversal\n(`NextFocusIntent`), activation (`Enter`/`Space` → `ActivateIntent`) and\ndismissal (`Escape` → `DismissIntent`) app-wide. `ShadcnApp` therefore\nmerges, and caller entries win.',
       ),
       DocsApiParam(
         name: 'actions',
         type: 'Map<Type, Action<Intent>>?',
         isRequired: false,
-        doc: 'See [WidgetsApp.actions].',
+        doc:
+            'App-wide intent-to-action bindings, merged over\n[WidgetsApp.defaultActions] with the same "caller entries win" rule as\n[shortcuts].',
       ),
       DocsApiParam(
         name: 'restorationScopeId',

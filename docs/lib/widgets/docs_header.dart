@@ -73,6 +73,11 @@ class DocsHeader extends StatelessWidget {
             Button(
               variant: ButtonVariant.ghost,
               size: ButtonSize.sm,
+              // Initial focus starts the shell order (header → sidebar →
+              // content → TOC) instead of entering the page navigator's focus
+              // scope first; the framework would otherwise leave nothing
+              // focused and Tab would begin in the page content.
+              autofocus: true,
               onPressed: onToggleMobileNav,
               leading: Icon(
                 mobileNavOpen ? LucideIcons.x : LucideIcons.menu,
@@ -81,13 +86,14 @@ class DocsHeader extends StatelessWidget {
               child: Text(mobileNavOpen ? 'Close' : 'Menu'),
             ),
           if (wide)
-            for (final DocsNavLink link in kHeaderNav)
+            for (int i = 0; i < kHeaderNav.length; i++)
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: _NavLink(
-                  link: link,
-                  active: _navActive(link.location, currentLocation),
-                  onPressed: () => delegate.go(context, link.location),
+                  link: kHeaderNav[i],
+                  active: _navActive(kHeaderNav[i].location, currentLocation),
+                  autofocus: i == 0,
+                  onPressed: () => delegate.go(context, kHeaderNav[i].location),
                 ),
               ),
           const Spacer(),
@@ -167,11 +173,13 @@ class _NavLink extends StatelessWidget {
     required this.link,
     required this.active,
     required this.onPressed,
+    this.autofocus = false,
   });
 
   final DocsNavLink link;
   final bool active;
   final VoidCallback onPressed;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +187,7 @@ class _NavLink extends StatelessWidget {
     return Button(
       variant: ButtonVariant.ghost,
       size: ButtonSize.sm,
+      autofocus: autofocus,
       theme: ButtonVariantStyle(
         foreground: StateValue<ThemedColor>(
           rest: ThemedColor.value(

@@ -288,7 +288,11 @@ class _DocsArticleState extends State<DocsArticle> {
             ),
           ),
         ),
-        if (showToc) DocsToc(controller: _controller, onSelect: _scrollTo),
+        if (showToc)
+          FocusTraversalOrder(
+            order: DocsFocusOrder.toc,
+            child: DocsToc(controller: _controller, onSelect: _scrollTo),
+          ),
       ],
     );
   }

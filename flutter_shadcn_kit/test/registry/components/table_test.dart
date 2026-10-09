@@ -83,6 +83,21 @@ Widget _table({
   );
 }
 
+Widget _scrolledTable({
+  ResizableTableController? resizeController,
+  Map<int, TableSize>? columnWidths,
+  FrozenTableData? frozenCells,
+}) {
+  return ShadcnTable(
+    rows: _rows(),
+    columnWidths: columnWidths,
+    resizeController: resizeController,
+    frozenCells: frozenCells,
+    verticalController: ScrollController(),
+    horizontalController: ScrollController(),
+  );
+}
+
 BoxDecoration _cellDecoration(WidgetTester tester, String text) {
   final DecoratedBox box = tester.widget<DecoratedBox>(
     find
@@ -394,6 +409,101 @@ void main() {
       expect(moved, 30);
       expect(controller.getColumnWidth(0), 130);
       expect(controller.getColumnWidth(1), 70);
+    });
+  });
+
+  // Regression (P4-T4): the table's sizing budget used to go negative when the
+  // resized columns already overflowed the viewport, which surfaced as
+  // "the height argument to getMaxIntrinsicWidth was negative" from the
+  // intrinsic pass and as a negative `BoxConstraints` minimum for the cells.
+  group('resized columns in a cramped viewport', () {
+    testWidgets('resized columns wider than the viewport', (tester) async {
+      final ResizableTableController controller = ResizableTableController(
+        defaultColumnWidth: 100,
+        defaultRowHeight: 40,
+      );
+      addTearDown(controller.dispose);
+      controller.resizeColumn(0, 400);
+      await tester.pumpWidget(
+        _frame(
+          size: const Size(200, 200),
+          child: _scrolledTable(resizeController: controller),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('resized columns in a zero-width viewport', (tester) async {
+      final ResizableTableController controller = ResizableTableController(
+        defaultColumnWidth: 100,
+        defaultRowHeight: 40,
+      );
+      addTearDown(controller.dispose);
+      controller.resizeColumn(0, 400);
+      await tester.pumpWidget(
+        _frame(
+          size: const Size(0, 0),
+          child: _scrolledTable(resizeController: controller),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('resized columns with frozen cells under a narrow viewport', (
+      tester,
+    ) async {
+      final ResizableTableController controller = ResizableTableController(
+        defaultColumnWidth: 100,
+        defaultRowHeight: 40,
+      );
+      addTearDown(controller.dispose);
+      controller.resizeColumn(0, 400);
+      await tester.pumpWidget(
+        _frame(
+          size: const Size(150, 150),
+          child: _scrolledTable(
+            resizeController: controller,
+            frozenCells: const FrozenTableData(
+              frozenRows: <TableRef>[TableRef(0)],
+              frozenColumns: <TableRef>[TableRef(0)],
+            ),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('dragging a divider past the viewport keeps the grid valid', (
+      tester,
+    ) async {
+      final ResizableTableController controller = ResizableTableController(
+        defaultColumnWidth: 100,
+        defaultRowHeight: 40,
+      );
+      addTearDown(controller.dispose);
+      await tester.pumpWidget(
+        _frame(
+          size: const Size(180, 200),
+          child: _scrolledTable(resizeController: controller),
+        ),
+      );
+      // Drag the first column divider far past the 180px viewport.
+      final Finder handles = find.byWidgetPredicate(
+        (Widget widget) =>
+            widget is MouseRegion &&
+            widget.cursor == SystemMouseCursors.resizeColumn,
+      );
+      await tester.dragFrom(
+        tester.getCenter(handles.first),
+        const Offset(900, 0),
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      final Map<int, double> widths = controller.columnWidths!;
+      expect(widths, isNotEmpty);
+      for (final double width in widths.values) {
+        expect(width, greaterThanOrEqualTo(0));
+      }
     });
   });
 }

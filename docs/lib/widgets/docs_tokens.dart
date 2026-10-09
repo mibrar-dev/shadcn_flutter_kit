@@ -58,6 +58,33 @@ abstract final class DocsMetrics {
   static const double codeTeaserHeight = 109;
 }
 
+/// Tab-order slots for the persistent shell and the docs layout.
+///
+/// The shell scope traverses header → docs navigator → footer; the docs-layout
+/// scope traverses sidebar → article content → TOC. Both scopes use
+/// [OrderedTraversalPolicy], so the numbers are per-scope (the header and the
+/// sidebar may both be `0`). This matches the reference DOM order and keeps the
+/// header reachable first even though it lives outside the page navigator.
+abstract final class DocsFocusOrder {
+  /// Shell: the site header.
+  static const NumericFocusOrder header = NumericFocusOrder(0);
+
+  /// Shell: the docs navigator (every page's content).
+  static const NumericFocusOrder navigator = NumericFocusOrder(1);
+
+  /// Shell: the one-line footer.
+  static const NumericFocusOrder footer = NumericFocusOrder(2);
+
+  /// Docs layout: the sidebar column.
+  static const NumericFocusOrder sidebar = NumericFocusOrder(0);
+
+  /// Docs layout: the article content column.
+  static const NumericFocusOrder content = NumericFocusOrder(1);
+
+  /// Docs layout: the "On This Page" column.
+  static const NumericFocusOrder toc = NumericFocusOrder(2);
+}
+
 /// The three palette groups, in order (spec §5.3 D2 delta).
 enum PaletteGroup {
   /// Site pages and CLI command entries.

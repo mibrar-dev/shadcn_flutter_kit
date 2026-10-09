@@ -2,6 +2,15 @@
 //
 // Extracted from `table_layout_render.dart` so both files stay within the
 // 400-line limit. Pure computation over the child render boxes.
+//
+// Bug fixed 2026-10-09 (P4-T4): `remainingWidth`/`remainingHeight` were
+// `maxWidth - fixedWidth` WITHOUT a zero clamp, so any grid whose fixed columns
+// or rows already overflow the incoming constraints (resized columns inside a
+// zero-width viewport) produced a negative budget. That negative was then used
+// as the "extent" argument of the children's intrinsic queries, and the
+// framework asserts on it ("The height argument to getMaxIntrinsicWidth was
+// negative"). The negative also reached the public `remainingWidth` /
+// `remainingHeight` accessors. Both budgets are now clamped at the source.
 
 import 'dart:math';
 
@@ -77,11 +86,17 @@ TableLayoutResult computeTableLayout(
     }
   }
 
+  // `maxWidth - fixedWidth` goes NEGATIVE as soon as the fixed columns/rows
+  // overflow the incoming constraints (resized columns inside a zero-width
+  // viewport). A negative budget is not harmless: it is used below as the
+  // "extent" argument of the children's intrinsic queries — the framework
+  // asserts `getMaxIntrinsicWidth(negative)` — and it shrinks the space left
+  // for flex and intrinsic tracks. Clamp it here, once, at the source.
   double remainingWidth = constraints.hasBoundedWidth
-      ? constraints.maxWidth - fixedWidth
+      ? max(0.0, constraints.maxWidth - fixedWidth)
       : double.infinity;
   double remainingHeight = constraints.hasBoundedHeight
-      ? constraints.maxHeight - fixedHeight
+      ? max(0.0, constraints.maxHeight - fixedHeight)
       : double.infinity;
 
   // Intrinsic pass (uses the running row/column extents).
@@ -137,13 +152,13 @@ TableLayoutResult computeTableLayout(
 
   if (intrinsicComputer == null) {
     remainingWidth = constraints.hasBoundedWidth
-        ? constraints.maxWidth - usedColumnWidth
+        ? max(0.0, constraints.maxWidth - usedColumnWidth)
         : double.infinity;
     looseRemainingWidth = constraints.hasInfiniteWidth
         ? double.infinity
         : max(0, constraints.minWidth - usedColumnWidth);
     remainingHeight = constraints.hasBoundedHeight
-        ? constraints.maxHeight - usedRowHeight
+        ? max(0.0, constraints.maxHeight - usedRowHeight)
         : double.infinity;
     looseRemainingHeight = constraints.hasInfiniteHeight
         ? double.infinity
@@ -166,21 +181,27 @@ TableLayoutResult computeTableLayout(
     for (int c = 0; c <= maxColumn; c++) {
       final TableSize constraint = width(c);
       if (constraint is FlexTableSize) {
-        columnWidths[c] =
-            constraint.flex *
-            (constraint.fit == FlexFit.tight || hasTightFlexWidth
-                ? spacePerFlexWidth
-                : looseSpacePerFlexWidth);
+        // `performLayout` feeds these into `BoxConstraints.tightFor(width: …)`,
+        // so a negative flex factor would assert there.
+        columnWidths[c] = max(
+          0.0,
+          constraint.flex *
+              (constraint.fit == FlexFit.tight || hasTightFlexWidth
+                  ? spacePerFlexWidth
+                  : looseSpacePerFlexWidth),
+        );
       }
     }
     for (int r = 0; r <= maxRow; r++) {
       final TableSize constraint = height(r);
       if (constraint is FlexTableSize) {
-        rowHeights[r] =
-            constraint.flex *
-            (constraint.fit == FlexFit.tight || hasTightFlexHeight
-                ? spacePerFlexHeight
-                : looseSpacePerFlexHeight);
+        rowHeights[r] = max(
+          0.0,
+          constraint.flex *
+              (constraint.fit == FlexFit.tight || hasTightFlexHeight
+                  ? spacePerFlexHeight
+                  : looseSpacePerFlexHeight),
+        );
       }
     }
   }

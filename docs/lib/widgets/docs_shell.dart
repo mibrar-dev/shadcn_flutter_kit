@@ -72,18 +72,29 @@ class _DocsAppShellState extends State<DocsAppShell> {
             config.route == DocsRoute.notFound;
         final Widget shell = Column(
           children: <Widget>[
-            DocsHeader(
-              delegate: widget.delegate,
-              state: widget.state,
-              currentLocation: config.location,
-              mobileNavOpen: _mobileNavOpen,
-              onToggleMobileNav: _toggleMobileNav,
+            FocusTraversalOrder(
+              order: DocsFocusOrder.header,
+              child: DocsHeader(
+                delegate: widget.delegate,
+                state: widget.state,
+                currentLocation: config.location,
+                mobileNavOpen: _mobileNavOpen,
+                onToggleMobileNav: _toggleMobileNav,
+              ),
             ),
-            Expanded(child: widget.child),
+            Expanded(
+              child: FocusTraversalOrder(
+                order: DocsFocusOrder.navigator,
+                child: widget.child,
+              ),
+            ),
             if (showFooter)
-              DocsFooter(
-                onDocs: () => widget.delegate.go(context, '/docs'),
-                onCli: () => widget.delegate.go(context, '/docs/cli'),
+              FocusTraversalOrder(
+                order: DocsFocusOrder.footer,
+                child: DocsFooter(
+                  onDocs: () => widget.delegate.go(context, '/docs'),
+                  onCli: () => widget.delegate.go(context, '/docs/cli'),
+                ),
               ),
           ],
         );
@@ -142,6 +153,11 @@ class _DocsAppShellState extends State<DocsAppShell> {
         // Escape closes the popper. The binding lives at the shell level (an
         // ancestor of the focused node) because the popper itself is a sibling
         // branch and would never see the key event.
+        //
+        // Tab order: `OrderedTraversalPolicy` + the `FocusTraversalOrder`
+        // slots above make the shell traverse header → navigator → footer
+        // instead of the default reading order, which reaches the header (it
+        // lives outside the page navigator) only after the article.
         return CallbackShortcuts(
           bindings: <ShortcutActivator, VoidCallback>{
             const SingleActivator(LogicalKeyboardKey.escape): () {
@@ -150,7 +166,10 @@ class _DocsAppShellState extends State<DocsAppShell> {
               }
             },
           },
-          child: painted,
+          child: FocusTraversalGroup(
+            policy: OrderedTraversalPolicy(),
+            child: painted,
+          ),
         );
       },
     );
@@ -179,12 +198,23 @@ class DocsLayout extends StatelessWidget {
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                DocsSidebar(activeLocation: location),
-                Expanded(child: child),
+                FocusTraversalOrder(
+                  order: DocsFocusOrder.sidebar,
+                  child: DocsSidebar(activeLocation: location),
+                ),
+                Expanded(
+                  child: FocusTraversalOrder(
+                    order: DocsFocusOrder.content,
+                    child: child,
+                  ),
+                ),
               ],
             )
           : child,
     );
-    return FocusTraversalGroup(child: content);
+    return FocusTraversalGroup(
+      policy: OrderedTraversalPolicy(),
+      child: content,
+    );
   }
 }

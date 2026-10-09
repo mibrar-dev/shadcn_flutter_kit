@@ -5,8 +5,11 @@
 // never resolved the dark theme because the old app read MediaQuery above
 // WidgetsApp.
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/app/app.dart';
+import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
+import 'package:flutter_shadcn_kit/registry/components/dialog/dialog.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/data.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlay_manager.dart';
@@ -19,6 +22,12 @@ class _ProbeTheme extends ComponentThemeData {
   const _ProbeTheme(this.value);
 
   final int value;
+}
+
+/// An intent the shell binds to a key that is NOT in the framework defaults.
+class OpenPaletteIntent extends Intent {
+  /// Creates the intent.
+  const OpenPaletteIntent();
 }
 
 /// Everything the shell installs, captured at the home context.
@@ -243,4 +252,335 @@ void main() {
     );
     expect(style.color, dark.foreground);
   });
+
+  // -------------------------------------------------------------------------
+  // `shortcuts` / `actions` merge.
+  //
+  // `WidgetsApp` REPLACES its defaults when either map is supplied, so an app
+  // that passes one binding would otherwise lose Tab traversal, Enter/Space
+  // activation and Escape dismissal app-wide. `ShadcnApp` merges instead.
+  // -------------------------------------------------------------------------
+
+  /// One extra shortcut, which used to displace every framework default.
+  final Map<ShortcutActivator, Intent> customShortcuts =
+      <ShortcutActivator, Intent>{
+        const SingleActivator(LogicalKeyboardKey.keyK, meta: true):
+            const OpenPaletteIntent(),
+      };
+
+  /// One extra action, with no entry for any framework intent.
+  final Map<Type, Action<Intent>> customActions = <Type, Action<Intent>>{
+    OpenPaletteIntent: CallbackAction<OpenPaletteIntent>(
+      onInvoke: (OpenPaletteIntent intent) => null,
+    ),
+  };
+
+  testWidgets('regression: custom shortcuts keep Tab focus traversal', (
+    tester,
+  ) async {
+    final FocusNode first = FocusNode();
+    final FocusNode second = FocusNode();
+    addTearDown(first.dispose);
+    addTearDown(second.dispose);
+    await tester.pumpWidget(
+      ShadcnApp(
+        shortcuts: customShortcuts,
+        actions: customActions,
+        home: Column(
+          children: <Widget>[
+            Button(
+              focusNode: first,
+              onPressed: () {},
+              child: const Text('First'),
+            ),
+            Button(
+              focusNode: second,
+              onPressed: () {},
+              child: const Text('Second'),
+            ),
+          ],
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(FocusManager.instance.primaryFocus, isNot(first));
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pumpAndSettle();
+    expect(
+      first.hasPrimaryFocus,
+      isTrue,
+      reason: 'NextFocusIntent lost its Tab binding',
+    );
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pumpAndSettle();
+    expect(second.hasPrimaryFocus, isTrue);
+
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.shift);
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.shift);
+    await tester.pumpAndSettle();
+    expect(
+      first.hasPrimaryFocus,
+      isTrue,
+      reason: 'PreviousFocusIntent lost its Shift+Tab binding',
+    );
+  });
+
+  testWidgets('regression: custom shortcuts keep Enter activation', (
+    tester,
+  ) async {
+    int activations = 0;
+    final FocusNode node = FocusNode();
+    addTearDown(node.dispose);
+    await tester.pumpWidget(
+      ShadcnApp(
+        shortcuts: customShortcuts,
+        actions: customActions,
+        home: Button(
+          focusNode: node,
+          onPressed: () => activations++,
+          child: const Text('Activate me'),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    node.requestFocus();
+    await tester.pumpAndSettle();
+    expect(node.hasPrimaryFocus, isTrue);
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+    await tester.pumpAndSettle();
+    expect(activations, 1, reason: 'ActivateIntent was dropped');
+  });
+
+  testWidgets('regression: custom shortcuts keep Escape dismissal', (
+    tester,
+  ) async {
+    // `RawDialogRoute` only installs the `DismissIntent` ACTION; the Escape
+    // key binding comes from `WidgetsApp.defaultShortcuts`, so this is the
+    // app-level proof. (The shadcn `Dialog` binds Escape itself and is covered
+    // separately below.)
+    await tester.pumpWidget(
+      ShadcnApp(
+        shortcuts: customShortcuts,
+        actions: customActions,
+        home: Builder(
+          builder: (BuildContext context) => Button(
+            onPressed: () => Navigator.of(context).push(
+              RawDialogRoute<void>(
+                barrierLabel: 'Close',
+                barrierDismissible: true,
+                pageBuilder:
+                    (
+                      BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                    ) => const SizedBox(
+                      key: ValueKey<String>('dialog-body'),
+                      width: 200,
+                      height: 200,
+                    ),
+              ),
+            ),
+            child: const Text('Open'),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey<String>('dialog-body')), findsOneWidget);
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const ValueKey<String>('dialog-body')),
+      findsNothing,
+      reason: 'DismissIntent was dropped: the route cannot be closed',
+    );
+  });
+
+  testWidgets('a shadcn Dialog still closes on Escape', (tester) async {
+    // The component installs its own Escape binding, so it never depended on
+    // the app-level map — worth pinning so the merge does not change it.
+    await tester.pumpWidget(
+      ShadcnApp(
+        shortcuts: customShortcuts,
+        actions: customActions,
+        home: Builder(
+          builder: (BuildContext context) => Button(
+            onPressed: () => showShadcnDialog<void>(
+              context: context,
+              builder: (BuildContext context) => const SizedBox(
+                key: ValueKey<String>('shadcn-dialog-body'),
+                width: 200,
+                height: 200,
+              ),
+            ),
+            child: const Text('Open'),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const ValueKey<String>('shadcn-dialog-body')),
+      findsOneWidget,
+    );
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await tester.pumpAndSettle();
+    expect(
+      find.byKey(const ValueKey<String>('shadcn-dialog-body')),
+      findsNothing,
+    );
+  });
+
+  testWidgets('merges actions over the framework defaults', (tester) async {
+    final BuildContext probe = await _pumpContext(
+      tester,
+      shortcuts: customShortcuts,
+      actions: customActions,
+    );
+    expect(
+      Actions.maybeFind<NextFocusIntent>(
+        probe,
+        intent: const NextFocusIntent(),
+      ),
+      isA<NextFocusAction>(),
+    );
+    expect(
+      Actions.maybeFind<DismissIntent>(probe, intent: const DismissIntent()),
+      isA<DismissAction>(),
+    );
+    // The caller's own entry survives the merge.
+    expect(
+      Actions.maybeFind<OpenPaletteIntent>(
+        probe,
+        intent: const OpenPaletteIntent(),
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets('caller entries win over a default binding', (tester) async {
+    final FocusNode node = FocusNode();
+    addTearDown(node.dispose);
+    await tester.pumpWidget(
+      ShadcnApp(
+        // Rebind Tab on purpose: the framework's Tab -> NextFocusIntent
+        // default must lose to the caller's entry.
+        shortcuts: const <ShortcutActivator, Intent>{
+          SingleActivator(LogicalKeyboardKey.tab): OpenPaletteIntent(),
+        },
+        actions: customActions,
+        home: Button(
+          focusNode: node,
+          onPressed: () {},
+          child: const Text('Rebound'),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pumpAndSettle();
+    expect(
+      node.hasPrimaryFocus,
+      isFalse,
+      reason: 'the caller Tab binding must replace the default',
+    );
+  });
+
+  testWidgets('regression: app-level Enter still produces ActivateIntent', (
+    tester,
+  ) async {
+    // `Clickable` (and therefore `Button`) binds Enter locally, so the button
+    // case above cannot prove the app-level `actions` merge on its own: this
+    // one dispatches through the app-level `Shortcuts` -> `Actions` chain only.
+    int invoked = 0;
+    final FocusNode node = FocusNode();
+    addTearDown(node.dispose);
+    await tester.pumpWidget(
+      ShadcnApp(
+        shortcuts: customShortcuts,
+        actions: customActions,
+        home: Actions(
+          actions: <Type, Action<Intent>>{
+            ActivateIntent: CallbackAction<ActivateIntent>(
+              onInvoke: (ActivateIntent intent) {
+                invoked++;
+                return null;
+              },
+            ),
+          },
+          child: Focus(
+            focusNode: node,
+            autofocus: true,
+            child: const SizedBox(width: 10, height: 10),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(node.hasPrimaryFocus, isTrue);
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+    await tester.pumpAndSettle();
+    expect(invoked, 1, reason: 'Enter lost its ActivateIntent binding');
+  });
+
+  testWidgets('no shortcuts/actions keeps the platform defaults', (
+    tester,
+  ) async {
+    final FocusNode node = FocusNode();
+    addTearDown(node.dispose);
+    final BuildContext probe = await _pumpContext(tester, node: node);
+    expect(
+      Actions.maybeFind<NextFocusIntent>(
+        probe,
+        intent: const NextFocusIntent(),
+      ),
+      isA<NextFocusAction>(),
+    );
+
+    await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+    await tester.pumpAndSettle();
+    expect(node.hasPrimaryFocus, isTrue);
+  });
+}
+
+/// Pumps a [ShadcnApp] with a single focusable [Button] and returns the build
+/// context below the shell (inside `Shortcuts`/`Actions`).
+Future<BuildContext> _pumpContext(
+  WidgetTester tester, {
+  Map<ShortcutActivator, Intent>? shortcuts,
+  Map<Type, Action<Intent>>? actions,
+  FocusNode? node,
+}) async {
+  late BuildContext captured;
+  await tester.pumpWidget(
+    ShadcnApp(
+      shortcuts: shortcuts,
+      actions: actions,
+      home: Column(
+        children: <Widget>[
+          Button(focusNode: node, onPressed: () {}, child: const Text('Probe')),
+          Builder(
+            builder: (BuildContext context) {
+              captured = context;
+              return const SizedBox(width: 1, height: 1);
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+  await tester.pumpAndSettle();
+  return captured;
 }

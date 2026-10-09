@@ -112,6 +112,18 @@ class DocsStats {
   final int modes;
 }
 
+/// One global theme token: the shadcn CSS variable name in camelCase.
+class DocsThemeToken {
+  /// Creates a token entry.
+  const DocsThemeToken({required this.name, required this.cssVar});
+
+  /// camelCase token name (`cardForeground`).
+  final String name;
+
+  /// shadcn CSS variable (`--card-foreground`).
+  final String cssVar;
+}
+
 /// All 118 installable components, ordered by category then id.
 const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
@@ -1700,6 +1712,52 @@ const List<DocsPreset> kPresets = <DocsPreset>[
     name: 'Violet Bloom',
     modes: <String>['light', 'dark'],
   ),
+];
+
+/// The 33 global theme tokens in registry declaration order (32 colours, then radius).
+const List<DocsThemeToken> kThemeTokens = <DocsThemeToken>[
+  DocsThemeToken(name: 'background', cssVar: '--background'),
+  DocsThemeToken(name: 'foreground', cssVar: '--foreground'),
+  DocsThemeToken(name: 'card', cssVar: '--card'),
+  DocsThemeToken(name: 'cardForeground', cssVar: '--card-foreground'),
+  DocsThemeToken(name: 'popover', cssVar: '--popover'),
+  DocsThemeToken(name: 'popoverForeground', cssVar: '--popover-foreground'),
+  DocsThemeToken(name: 'primary', cssVar: '--primary'),
+  DocsThemeToken(name: 'primaryForeground', cssVar: '--primary-foreground'),
+  DocsThemeToken(name: 'secondary', cssVar: '--secondary'),
+  DocsThemeToken(name: 'secondaryForeground', cssVar: '--secondary-foreground'),
+  DocsThemeToken(name: 'muted', cssVar: '--muted'),
+  DocsThemeToken(name: 'mutedForeground', cssVar: '--muted-foreground'),
+  DocsThemeToken(name: 'accent', cssVar: '--accent'),
+  DocsThemeToken(name: 'accentForeground', cssVar: '--accent-foreground'),
+  DocsThemeToken(name: 'destructive', cssVar: '--destructive'),
+  DocsThemeToken(
+    name: 'destructiveForeground',
+    cssVar: '--destructive-foreground',
+  ),
+  DocsThemeToken(name: 'border', cssVar: '--border'),
+  DocsThemeToken(name: 'input', cssVar: '--input'),
+  DocsThemeToken(name: 'ring', cssVar: '--ring'),
+  DocsThemeToken(name: 'chart1', cssVar: '--chart-1'),
+  DocsThemeToken(name: 'chart2', cssVar: '--chart-2'),
+  DocsThemeToken(name: 'chart3', cssVar: '--chart-3'),
+  DocsThemeToken(name: 'chart4', cssVar: '--chart-4'),
+  DocsThemeToken(name: 'chart5', cssVar: '--chart-5'),
+  DocsThemeToken(name: 'sidebar', cssVar: '--sidebar'),
+  DocsThemeToken(name: 'sidebarForeground', cssVar: '--sidebar-foreground'),
+  DocsThemeToken(name: 'sidebarPrimary', cssVar: '--sidebar-primary'),
+  DocsThemeToken(
+    name: 'sidebarPrimaryForeground',
+    cssVar: '--sidebar-primary-foreground',
+  ),
+  DocsThemeToken(name: 'sidebarAccent', cssVar: '--sidebar-accent'),
+  DocsThemeToken(
+    name: 'sidebarAccentForeground',
+    cssVar: '--sidebar-accent-foreground',
+  ),
+  DocsThemeToken(name: 'sidebarBorder', cssVar: '--sidebar-border'),
+  DocsThemeToken(name: 'sidebarRing', cssVar: '--sidebar-ring'),
+  DocsThemeToken(name: 'radius', cssVar: '--radius'),
 ];
 
 /// All 118 components as index-grid links, alphabetical by name.

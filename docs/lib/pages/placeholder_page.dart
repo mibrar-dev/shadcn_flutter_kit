@@ -1,7 +1,7 @@
-// Placeholder pages for routes owned by later batches (D4: component template,
-// themes, installation, CLI, theming, dark mode). They keep every sitemap URL
-// navigable while D4 lands the real content; the landing, introduction and
-// components index are D3's.
+// The not-found page: the last fallback in the route switch. Every sitemap URL
+// now resolves to a real page (D3 landing/introduction/index, D4 component
+// template/themes/installation/CLI, D4b theming/dark mode); only unknown URLs
+// reach here.
 
 import 'package:flutter/widgets.dart';
 
@@ -11,7 +11,7 @@ import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../widgets/docs_tokens.dart';
 
-/// A readable placeholder for a not-yet-built route.
+/// A readable not-found page.
 class DocsPlaceholderPage extends StatelessWidget {
   /// Creates the placeholder for [config].
   const DocsPlaceholderPage({super.key, required this.config});
@@ -47,11 +47,8 @@ class DocsPlaceholderPage extends StatelessWidget {
                 ),
                 const Gap(12),
                 Text(
-                  config.route == DocsRoute.notFound
-                      ? 'This URL does not match any docs route.'
-                      : 'This page is completed in the next docs batch '
-                            '(install, CLI, theming, dark mode, the themes '
-                            'customizer and the component template).',
+                  'This URL does not match any docs route. Use the header or '
+                  'the command palette to find a page.',
                   textAlign: TextAlign.center,
                   style: docsText(
                     context,

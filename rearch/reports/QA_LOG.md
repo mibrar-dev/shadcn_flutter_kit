@@ -521,3 +521,15 @@
   kRelatedIds generated but unused (remove from codegen or use).
 
 ## P6-D5 motion + responsive + D4 follow-ups (deepseek) — ACCEPTED (r1): shadcn-restrained motion (reduced-motion caps all to ≤150ms), responsive fixes at 375/640/768/1024/1280, focus visible, 5 missing API tables + kRelatedIds removal via codegen, themes Copy JSON/Dart/Get Code working. Docs format/analyze 0, 77 tests, codegen up to date. Found REGISTRY BUG: ShadcnApp shortcuts/actions replace WidgetsApp defaults (Tab/activate/dismiss dead) → P4-T4. Open → D4b: /docs/theming + /docs/dark-mode content, shell Tab order, formatter/color API tables; table_layout negative-min-width assert → P4-T4.
+
+## P4-T4 registry fixes (step-5) + P6-D4b docs content (longcat) — ACCEPTED
+- T4: ShadcnApp merges WidgetsApp default shortcuts/actions (caller wins; tests: Tab/Enter/Esc with custom shortcuts,
+  RawDialogRoute case); table_layout tight-path remainingWidth/Height clamped at 0 (root cause of the negative-min-width
+  assert; regression tests); formatter/color meta.json + READMEs name their real entry points.
+- D4b: real /docs/theming + /docs/dark-mode (codegen-driven token table, compile-tested snippets), OrderedTraversalPolicy
+  shell Tab order (header → sidebar → content → TOC), component pages deferred (−348 KB); main.dart.js 2.84 MB raw /
+  787 KB gzip.
+- Orchestrator: mirror re-synced + docs data regenerated; docs format/analyze 0, 84 tests; kit qa_gate clean (2681 + 42);
+  manifest up to date; CLI e2e green.
+- Follow-ups → D6/final: docs codegen fallback so color/formatter API tables show static/factory entry points; /themes +
+  app_theme deferral (test harness preload).

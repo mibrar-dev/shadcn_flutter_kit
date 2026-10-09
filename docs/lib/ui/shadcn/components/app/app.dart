@@ -18,6 +18,12 @@
 //  * two Material imports (`import 'package:flutter/material.dart' as
 //    material`), the `Material` transparency fallback and
 //    `registerComponentThemeGlobalConfigs()` global registry.
+//
+// `shortcuts`/`actions` are merged over [WidgetsApp.defaultShortcuts] and
+// [WidgetsApp.defaultActions] (caller entries win): the framework REPLACES its
+// defaults when a map is supplied, so forwarding them verbatim killed Tab
+// traversal, Enter/Space activation and Escape dismissal in every app that
+// set one (regression-tested in `test/registry/components/app_test.dart`).
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/widgets.dart';
@@ -187,10 +193,18 @@ class ShadcnApp extends StatelessWidget {
   /// See [WidgetsApp.debugShowCheckedModeBanner].
   final bool debugShowCheckedModeBanner;
 
-  /// See [WidgetsApp.shortcuts].
+  /// App-wide keyboard shortcuts, merged over [WidgetsApp.defaultShortcuts].
+  ///
+  /// `WidgetsApp` *replaces* its defaults when a map is supplied: an app that
+  /// passes a single shortcut would otherwise lose Tab traversal
+  /// (`NextFocusIntent`), activation (`Enter`/`Space` → `ActivateIntent`) and
+  /// dismissal (`Escape` → `DismissIntent`) app-wide. `ShadcnApp` therefore
+  /// merges, and caller entries win.
   final Map<ShortcutActivator, Intent>? shortcuts;
 
-  /// See [WidgetsApp.actions].
+  /// App-wide intent-to-action bindings, merged over
+  /// [WidgetsApp.defaultActions] with the same "caller entries win" rule as
+  /// [shortcuts].
   final Map<Type, Action<Intent>>? actions;
 
   /// See [WidgetsApp.restorationScopeId].
@@ -207,6 +221,29 @@ class ShadcnApp extends StatelessWidget {
 
   /// Animates theme changes with [AnimatedShadcnTheme] when true.
   final bool enableThemeAnimation;
+
+  /// [WidgetsApp] replaces its defaults when `shortcuts`/`actions` are
+  /// non-null, so merge over them instead of forwarding the raw maps.
+  ///
+  /// Returning null for the unsupplied side keeps `WidgetsApp` on its own
+  /// platform-dependent default (identical to the untouched behaviour).
+  Map<ShortcutActivator, Intent>? get _mergedShortcuts {
+    if (shortcuts == null) {
+      return null;
+    }
+    return <ShortcutActivator, Intent>{
+      ...WidgetsApp.defaultShortcuts,
+      ...?shortcuts,
+    };
+  }
+
+  /// See [_mergedShortcuts].
+  Map<Type, Action<Intent>>? get _mergedActions {
+    if (actions == null) {
+      return null;
+    }
+    return <Type, Action<Intent>>{...WidgetsApp.defaultActions, ...?actions};
+  }
 
   Iterable<LocalizationsDelegate<dynamic>> get _delegates {
     final List<LocalizationsDelegate<dynamic>> delegates =
@@ -300,8 +337,8 @@ class ShadcnApp extends StatelessWidget {
       showPerformanceOverlay: showPerformanceOverlay,
       showSemanticsDebugger: showSemanticsDebugger,
       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      actions: actions,
+      shortcuts: _mergedShortcuts,
+      actions: _mergedActions,
       restorationScopeId: restorationScopeId,
     );
   }

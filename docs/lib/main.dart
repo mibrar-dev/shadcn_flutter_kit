@@ -17,13 +17,16 @@ import 'generated/app_theme.dart';
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
 import 'pages/cli_reference.dart';
-import 'pages/component_page.dart';
+import 'pages/component_page.dart' deferred as component_page;
 import 'pages/components_index_page.dart';
+import 'pages/dark_mode_page.dart';
 import 'pages/getting_started.dart';
 import 'pages/introduction_page.dart';
 import 'pages/landing_page.dart';
 import 'pages/placeholder_page.dart';
 import 'pages/themes.dart';
+import 'pages/theming_page.dart';
+import 'routing/deferred_page.dart';
 import 'routing/docs_router.dart';
 import 'state/docs_state.dart';
 import 'ui/shadcn/components/app/app.dart';
@@ -125,16 +128,11 @@ class _DocsAppState extends State<DocsApp> with WidgetsBindingObserver {
       themeMode: state.brightness == Brightness.dark
           ? ThemeMode.dark
           : ThemeMode.light,
-      // ShadcnApp forwards `shortcuts`/`actions` to WidgetsApp, whose
-      // parameters REPLACE the framework defaults. Spread them back in, or
-      // Tab traversal (NextFocusIntent has no action without it),
-      // Enter/Space activation and Escape dismissal are dead app-wide.
-      shortcuts: <ShortcutActivator, Intent>{
-        ...WidgetsApp.defaultShortcuts,
-        ...docsShortcuts,
-      },
+      // ShadcnApp merges `shortcuts`/`actions` over the WidgetsApp defaults
+      // (Tab traversal, Enter/Space activation, Escape dismissal survive), so
+      // only the docs-specific bindings are listed here.
+      shortcuts: docsShortcuts,
       actions: <Type, Action<Intent>>{
-        ...WidgetsApp.defaultActions,
         OpenDocsPaletteIntent: CallbackAction<OpenDocsPaletteIntent>(
           onInvoke: (OpenDocsPaletteIntent intent) {
             _delegate.openPalette();
@@ -189,16 +187,23 @@ const Map<ShortcutActivator, Intent> docsShortcuts =
 /// Maps a parsed route to its page widget.
 ///
 /// D3 provides the landing, introduction and components index; D4 provides
-/// the component template, themes customizer, installation and CLI reference.
-/// Theming and dark mode remain placeholders until their batches land.
+/// the component template, themes customizer, installation and CLI reference;
+/// D4b provides theming and dark mode. Only unknown URLs fall through to the
+/// not-found page.
 Widget buildDocsPage(BuildContext context, DocsRouteConfiguration config) {
   return switch (config.route) {
     DocsRoute.landing => const LandingPage(),
     DocsRoute.introduction => const IntroductionPage(),
     DocsRoute.components => const ComponentsIndexPage(),
-    DocsRoute.component => ComponentPage(componentId: config.componentId!),
+    DocsRoute.component => DeferredPage(
+      load: component_page.loadLibrary,
+      builder: (BuildContext context) =>
+          component_page.ComponentPage(componentId: config.componentId!),
+    ),
     DocsRoute.themes => const ThemesPage(),
     DocsRoute.installation => const GettingStartedPage(),
+    DocsRoute.theming => const ThemingPage(),
+    DocsRoute.darkMode => const DarkModePage(),
     DocsRoute.cli => const CliReferencePage(),
     _ => DocsPlaceholderPage(config: config),
   };

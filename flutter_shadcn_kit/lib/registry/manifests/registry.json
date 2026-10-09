@@ -1549,8 +1549,32 @@
         "classes": [
           "ColorDerivative"
         ],
-        "constants": [],
-        "enums": []
+        "enums": [],
+        "methods": [
+          "ColorDerivative.fromColor",
+          "ColorDerivative.fromHex",
+          "ColorDerivative.fromHSV",
+          "ColorDerivative.fromHSL",
+          "ColorDerivative.changeToColor",
+          "ColorDerivative.changeToColorRed",
+          "ColorDerivative.changeToColorGreen",
+          "ColorDerivative.changeToColorBlue",
+          "ColorDerivative.changeToHSV",
+          "ColorDerivative.changeToHSVHue",
+          "ColorDerivative.changeToHSVSaturation",
+          "ColorDerivative.changeToHSVValue",
+          "ColorDerivative.changeToHSVAlpha",
+          "ColorDerivative.changeToHSL",
+          "ColorDerivative.changeToHSLHue",
+          "ColorDerivative.changeToHSLSaturation",
+          "ColorDerivative.changeToHSLLightness",
+          "ColorDerivative.changeToOpacity",
+          "ColorDerivative.transform",
+          "ColorDerivative.toColor",
+          "ColorDerivative.toHSVColor",
+          "ColorDerivative.toHSLColor"
+        ],
+        "typedefs": []
       },
       "category": "utility",
       "deps": {
@@ -3288,8 +3312,22 @@
           "ToUpperCaseTextFormatter",
           "ToLowerCaseTextFormatter"
         ],
-        "constants": [],
-        "enums": []
+        "constants": [
+          "TextInputFormatters.toUpperCase",
+          "TextInputFormatters.toLowerCase"
+        ],
+        "enums": [],
+        "functions": [
+          "constraintToNewText"
+        ],
+        "methods": [
+          "TextInputFormatters.time",
+          "TextInputFormatters.integerOnly",
+          "TextInputFormatters.digitsOnly",
+          "TextInputFormatters.mathExpression",
+          "TextInputFormatters.hex"
+        ],
+        "typedefs": []
       },
       "category": "form",
       "deps": {
@@ -7741,7 +7779,7 @@
     "components/alpha/preview.dart": "146a4853448d604a092094f1b283f5a49a33e6a1cc3dabb9a3e1602532133c85",
     "components/anchor/anchor.dart": "44819b2fdf54882b31812260a07716e52c7d7556862f802ddb80cc6e4de85c0b",
     "components/anchor/preview.dart": "3e49ea62efe2178caa312dfa65c60f295f8da86823dd3d5ddb5106e0c4844580",
-    "components/app/app.dart": "1dd772c279e9c33e4d7023c5832ed540fe1dc198d7801346a7a56008965cc6df",
+    "components/app/app.dart": "7b142f7712ab91de0880658bce4a920f0e391ee0ccf53c41f892037d2e9156ed",
     "components/app/preview.dart": "bed4a017444431460cf4424d8f3199c9f0d6826aca6a06e21a675bd147e07db2",
     "components/async/async.dart": "b78dab734d119221c9d23f59ae0b903f25f476db454d6c121cad568393fe0df7",
     "components/async/preview.dart": "c9528ba5e0e69f3ccdbb8f8df704032bd14017d75e9edcb988718b7d0c7c6820",
@@ -8341,7 +8379,7 @@
     "primitives/table_layout/table_cells.dart": "159eaeef8aa03062b676ad408e5f9ea0d6597b63b52540f8eb76522cd861c2ec",
     "primitives/table_layout/table_layout.dart": "3b9b90443b4a2780b85939a31e376944bbdb0fc41b7ac70c32c153d20c7d60ad",
     "primitives/table_layout/table_layout_render.dart": "c83398917a055111fcc6616b8291b57ab9ef114a22bf70492e311c46729caaf2",
-    "primitives/table_layout/table_layout_sizing.dart": "418fc57b9214a129784b9910c1265d0677e54768b4a7a7910767584f6923a65d",
+    "primitives/table_layout/table_layout_sizing.dart": "f7c2c2835ae6612d0562d8a308302c32e62e3b73f57d0899a83348184e4c0595",
     "primitives/table_layout/table_models.dart": "79f16e04dcdd05b1198855e6d2cb1c9e12b0bc2343a9aa1744d3057cee0e696b",
     "primitives/table_layout/table_resize.dart": "ec79b8025b404ef8beb50351a4bd35cfd058f23a0a4d1b194a0a83777270a810",
     "primitives/table_layout/table_resize_controller.dart": "b5e9a8a92a1d121287305a8b593a3c375c15d881ad15353cfcd7ed87f3a3e537",

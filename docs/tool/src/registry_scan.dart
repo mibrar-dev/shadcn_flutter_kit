@@ -8,6 +8,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+
 /// The registry tree does not look like the post-cutover layout.
 class RegistryScanException implements Exception {
   /// Creates the exception with a [message].
@@ -146,6 +150,19 @@ class PresetFacts {
   final String file;
 }
 
+/// One global theme token: the shadcn CSS variable name in camelCase plus the
+/// CSS variable it mirrors (`cardForeground` ↔ `--card-foreground`).
+class ThemeTokenFacts {
+  /// Creates a token fact.
+  const ThemeTokenFacts({required this.name, required this.cssVar});
+
+  /// camelCase token name (`cardForeground`), matching the preset JSON key.
+  final String name;
+
+  /// shadcn CSS variable (`--card-foreground`).
+  final String cssVar;
+}
+
 /// Everything the codegen needs from the registry, deterministically ordered.
 class RegistryScan {
   /// Creates the scan result.
@@ -154,6 +171,7 @@ class RegistryScan {
     required this.schemaVersion,
     required this.components,
     required this.presets,
+    required this.themeTokens,
     required this.materialImports,
     required this.installRoot,
   });
@@ -169,6 +187,10 @@ class RegistryScan {
 
   /// Presets in `themes/index.json` order.
   final List<PresetFacts> presets;
+
+  /// Global theme tokens in registry declaration order: the 32 `ShadcnColors`
+  /// colour fields (minus `brightness`) followed by the `radius` token.
+  final List<ThemeTokenFacts> themeTokens;
 
   /// Count of `package:flutter/material.dart` / `cupertino.dart` import
   /// directives found in the registry Dart sources (the stats band's `0`).
@@ -208,6 +230,7 @@ RegistryScan scanRegistry(String rootPath) {
   });
 
   final List<PresetFacts> presets = _presets(root, themesJson);
+  final List<ThemeTokenFacts> themeTokens = _themeTokens(root);
   final _ImportScan imports = _scanImports(root);
   final Map<String, Object?> install = _objectOrEmpty(manifest['install']);
   return RegistryScan(
@@ -215,6 +238,7 @@ RegistryScan scanRegistry(String rootPath) {
     schemaVersion: (manifest['schemaVersion'] as num?)?.toInt() ?? 0,
     components: components,
     presets: presets,
+    themeTokens: themeTokens,
     materialImports: imports.materialImports,
     installRoot: _string(install['root'], 'lib/ui/shadcn'),
   );
@@ -350,6 +374,104 @@ PresetFacts _preset(
     modes: modes,
     file: file,
   );
+}
+
+/// The global theme tokens, parsed from the registry theme layer:
+/// the `ShadcnColors` `Color` fields in declaration order, then the
+/// `ShadcnTokens.radius` field. Names are camelCase of the shadcn CSS
+/// variables (PLAN §6.1).
+List<ThemeTokenFacts> _themeTokens(Directory root) {
+  final List<({String name, String type})> colors = _classFields(
+    '${root.path}/theme/color_tokens.dart',
+    'ShadcnColors',
+  );
+  final List<({String name, String type})> tokens = _classFields(
+    '${root.path}/theme/tokens.dart',
+    'ShadcnTokens',
+  );
+  final List<String> names = <String>[
+    for (final ({String name, String type}) field in colors)
+      if (field.type == 'Color') field.name,
+    for (final ({String name, String type}) field in tokens)
+      if (field.name == 'radius') field.name,
+  ];
+  if (names.isEmpty) {
+    throw RegistryScanException(
+      'no theme tokens parsed from ${root.path}/theme/color_tokens.dart',
+    );
+  }
+  return <ThemeTokenFacts>[
+    for (final String name in names)
+      ThemeTokenFacts(name: name, cssVar: _cssVarName(name)),
+  ];
+}
+
+/// Field declarations of [className] in [path], in source order.
+///
+/// Uses `package:analyzer` (never regex): the theme layer is Dart source and
+/// the token list must follow renames automatically.
+List<({String name, String type})> _classFields(String path, String className) {
+  final File file = File(path);
+  if (!file.existsSync()) {
+    throw RegistryScanException('missing theme source: $path');
+  }
+  final ParseStringResult result = parseString(
+    content: file.readAsStringSync(),
+    throwIfDiagnostics: false,
+  );
+  ClassDeclaration? target;
+  for (final CompilationUnitMember member in result.unit.declarations) {
+    if (member is ClassDeclaration &&
+        member.namePart.typeName.lexeme == className) {
+      target = member;
+      break;
+    }
+  }
+  if (target == null) {
+    throw RegistryScanException('$path: class $className not found');
+  }
+  final List<({String name, String type})> fields =
+      <({String name, String type})>[];
+  for (final ClassMember member in target.body.members) {
+    if (member is! FieldDeclaration || member.isStatic) {
+      continue;
+    }
+    final String type = member.fields.type?.toSource() ?? '';
+    for (final VariableDeclaration variable in member.fields.variables) {
+      fields.add((name: variable.name.lexeme, type: type));
+    }
+  }
+  return fields;
+}
+
+/// camelCase → shadcn CSS variable (`cardForeground` → `--card-foreground`,
+/// `chart1` → `--chart-1`).
+String _cssVarName(String name) {
+  final StringBuffer out = StringBuffer('--');
+  for (int i = 0; i < name.length; i++) {
+    final String ch = name[i];
+    final bool upper = ch.toUpperCase() == ch && ch.toLowerCase() != ch;
+    final bool digit = _isDigit(ch);
+    final bool afterLetter =
+        i > 0 && !_isDigit(name[i - 1]) && name[i - 1] != '-';
+    if (upper) {
+      out
+        ..write('-')
+        ..write(ch.toLowerCase());
+    } else if (digit && afterLetter) {
+      out
+        ..write('-')
+        ..write(ch);
+    } else {
+      out.write(ch);
+    }
+  }
+  return out.toString();
+}
+
+bool _isDigit(String ch) {
+  final int code = ch.codeUnitAt(0);
+  return code >= 0x30 && code <= 0x39;
 }
 
 final RegExp _materialImport = RegExp(

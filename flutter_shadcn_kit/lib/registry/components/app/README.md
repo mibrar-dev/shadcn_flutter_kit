@@ -71,3 +71,39 @@ warning is emitted (regression-tested).
 - Bug fix: the old manual `Localizations` override (with a private locale
   resolver) disagreed with `WidgetsApp`'s resolver; the framework resolver is
   used now.
+
+## Keyboard shortcuts and actions
+
+`ShadcnApp` passes `shortcuts` and `actions` to `WidgetsApp`, **merged** over
+the framework defaults — `shortcuts` starts from `WidgetsApp.defaultShortcuts`
+and `actions` from `WidgetsApp.defaultActions`, and your entries win.
+
+`WidgetsApp` *replaces* its defaults when either map is supplied, so forwarding
+them verbatim silently disables, app-wide:
+
+| Key | Intent | Action |
+|---|---|---|
+| `Tab` / `Shift+Tab` | `NextFocusIntent` / `PreviousFocusIntent` | focus traversal |
+| `Enter` / `Space` | `ActivateIntent` | activates the focused control |
+| `Escape` | `DismissIntent` | dismisses dialogs/popovers |
+
+Passing neither map leaves the platform default untouched.
+
+```dart
+ShadcnApp(
+  shortcuts: const <ShortcutActivator, Intent>{
+    SingleActivator(LogicalKeyboardKey.keyK, meta: true): OpenPaletteIntent(),
+  },
+  actions: <Type, Action<Intent>>{
+    OpenPaletteIntent: CallbackAction<OpenPaletteIntent>(onInvoke: (_) => …),
+  },
+  home: const HomePage(),
+)
+```
+
+Only override an existing binding when you mean to: a caller entry for
+`SingleActivator(LogicalKeyboardKey.tab)` replaces the framework's
+`NextFocusIntent` mapping.
+
+Regression-tested: with custom shortcuts supplied, `Tab` still moves focus,
+`Enter` still activates a `Button`, and `Escape` still dismisses a `Dialog`.

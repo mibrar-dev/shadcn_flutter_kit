@@ -1634,13 +1634,22 @@ FormTableLayout(rows: <ShadcnFormField<Object?>>[titleRow, slugRow]);''',
       componentId: 'formatter',
       language: 'dart',
       code: r'''TextField(
-  inputFormatters: [
+  inputFormatters: <TextInputFormatter>[
     TextInputFormatters.integerOnly(min: 0, max: 100),
     TextInputFormatters.hex(hashPrefix: true),
   ],
 )''',
       tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkppppppppp',
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkppppppppp',
+    ),
+    DocsSnippet(
+      id: 'formatter.1',
+      componentId: 'formatter',
+      language: 'dart',
+      code:
+          'TextInputFormatters.toUpperCase        // \'ABC\'\nTextInputFormatters.toLowerCase       // \'abc\'\nTextInputFormatters.time(length: 2)   // \'09\'\nTextInputFormatters.integerOnly(min: 0, max: 100)\nTextInputFormatters.digitsOnly(min: 0, max: 1, decimalDigits: 2)\nTextInputFormatters.mathExpression()  // \'2+2\' -> \'4\'\nTextInputFormatters.hex()             // \'#ff8800\'',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppccccccccpppppppppppppppppppppppppppppppppppppppccccccccpppppppppppppppppppppppppppppppppppppppcccccccppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppcccccccccccccccpppppppppppppppppppppppppppppppppppppppcccccccccccc',
     ),
   ],
   'history': <DocsSnippet>[
@@ -2403,6 +2412,22 @@ Alert(
 }''',
       tokenClasses:
           'kkkkppppppppppppppppppppppppppppppppppppppppppppppppssssssssppppppppppppppppppppppppppppppppppppccccccccccccccccccpppppppppppppppppppppppppppppppppppccccccccccccccccccppppppppppppppppppppppppppppppppppppppppppppccccccccccccccccccccccccccccccccccccpppppppppppppkkkkkpppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'app.1',
+      componentId: 'app',
+      language: 'dart',
+      code: r'''ShadcnApp(
+  shortcuts: const <ShortcutActivator, Intent>{
+    SingleActivator(LogicalKeyboardKey.keyK, meta: true): OpenPaletteIntent(),
+  },
+  actions: <Type, Action<Intent>>{
+    OpenPaletteIntent: CallbackAction<OpenPaletteIntent>(onInvoke: (_) => …),
+  },
+  home: const HomePage(),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppp',
     ),
   ],
   'card': <DocsSnippet>[
@@ -4016,13 +4041,24 @@ FutureOrBuilder<User>(
       id: 'color.0',
       componentId: 'color',
       language: 'dart',
+      code: r'''ColorDerivative? fromHex = ColorDerivative.fromHex('#0080FF');
+final ColorDerivative fromColor = ColorDerivative.fromColor(const Color(0xFF0080FF));
+final ColorDerivative fromHSV = ColorDerivative.fromHSV(const HSVColor.fromAHSV(1, 210, 1, 1));
+final ColorDerivative fromHSL = ColorDerivative.fromHSL(const HSLColor.fromAHSL(1, 0.58, 0.5, 0.5));''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppssssssssspppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'color.1',
+      componentId: 'color',
+      language: 'dart',
       code:
           r'''final derivative = ColorDerivative.fromColor(const Color(0xFF0080FF));
 final muted = derivative.changeToHSVSaturation(0.5);
-final shifted = derivative.changeToHSLHue(280);
-final hex = colorToHex(muted.toColor()); // theme/color_utils.dart''',
+final shifted = muted.changeToHSLHue(280);
+final hex = colorToHex(shifted.toColor()); // theme/color_utils.dart''',
       tokenClasses:
-          'kkkkkppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppccccccccccccccccccccccccc',
+          'kkkkkppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppccccccccccccccccccccccccc',
     ),
   ],
   'error_system': <DocsSnippet>[

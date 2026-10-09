@@ -27,7 +27,31 @@
     "classes": [
       "ColorDerivative"
     ],
+    "methods": [
+      "ColorDerivative.fromColor",
+      "ColorDerivative.fromHex",
+      "ColorDerivative.fromHSV",
+      "ColorDerivative.fromHSL",
+      "ColorDerivative.changeToColor",
+      "ColorDerivative.changeToColorRed",
+      "ColorDerivative.changeToColorGreen",
+      "ColorDerivative.changeToColorBlue",
+      "ColorDerivative.changeToHSV",
+      "ColorDerivative.changeToHSVHue",
+      "ColorDerivative.changeToHSVSaturation",
+      "ColorDerivative.changeToHSVValue",
+      "ColorDerivative.changeToHSVAlpha",
+      "ColorDerivative.changeToHSL",
+      "ColorDerivative.changeToHSLHue",
+      "ColorDerivative.changeToHSLSaturation",
+      "ColorDerivative.changeToHSLLightness",
+      "ColorDerivative.changeToOpacity",
+      "ColorDerivative.transform",
+      "ColorDerivative.toColor",
+      "ColorDerivative.toHSVColor",
+      "ColorDerivative.toHSLColor"
+    ],
     "enums": [],
-    "constants": []
+    "typedefs": []
   }
 }

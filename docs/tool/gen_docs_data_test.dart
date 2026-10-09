@@ -353,7 +353,9 @@ void main() {
       );
       expect(homeEnd.action, 'the first or last day of the focused week');
       expect(homeEnd.source, 'Keyboard');
-      expect(kKeyboardGaps.length, kComponents.length - 3);
+      // Exactly four components document keyboard rows; `app` gained its
+      // shortcuts section, so the gap count dropped by one.
+      expect(kKeyboardGaps.length, kComponents.length - 4);
     },
   );
 
@@ -483,6 +485,34 @@ void main() {
     final Widget command = await loadComponentPreview('command');
     expect(command, isA<Widget>());
     expect(() => loadComponentPreview('not-a-component'), throwsArgumentError);
+  });
+
+  group('theme tokens', () {
+    test('generated from the registry theme layer, camelCase + CSS var', () {
+      // 32 ShadcnColors colour fields + the radius token.
+      expect(kThemeTokens.length, 33);
+      expect(kThemeTokens.first.name, 'background');
+      expect(kThemeTokens.first.cssVar, '--background');
+      expect(
+        kThemeTokens
+            .firstWhere((DocsThemeToken t) => t.name == 'cardForeground')
+            .cssVar,
+        '--card-foreground',
+      );
+      expect(
+        kThemeTokens
+            .firstWhere((DocsThemeToken t) => t.name == 'chart1')
+            .cssVar,
+        '--chart-1',
+      );
+      expect(kThemeTokens.last.name, 'radius');
+      expect(kThemeTokens.last.cssVar, '--radius');
+      // `brightness` is not a token.
+      expect(
+        kThemeTokens.where((DocsThemeToken t) => t.name == 'brightness'),
+        isEmpty,
+      );
+    });
   });
 
   test('--check self-test: fresh passes, drift fails', () {

@@ -137,6 +137,22 @@ String renderDocsData(DocsModel model) {
     ..writeln('  /// Distinct preset modes (2: light + dark).')
     ..writeln('  final int modes;')
     ..writeln('}')
+    ..writeln()
+    ..writeln(
+      '/// One global theme token: the shadcn CSS variable name in camelCase.',
+    )
+    ..writeln('class DocsThemeToken {')
+    ..writeln('  /// Creates a token entry.')
+    ..writeln(
+      '  const DocsThemeToken({required this.name, required this.cssVar});',
+    )
+    ..writeln()
+    ..writeln('  /// camelCase token name (`cardForeground`).')
+    ..writeln('  final String name;')
+    ..writeln()
+    ..writeln('  /// shadcn CSS variable (`--card-foreground`).')
+    ..writeln('  final String cssVar;')
+    ..writeln('}')
     ..writeln();
 
   final List<String> components = <String>[
@@ -164,6 +180,20 @@ String renderDocsData(DocsModel model) {
     out.writeln(
       '  DocsPreset(id: ${dartString(preset.id)}, name: '
       '${dartString(preset.name)}, modes: ${stringList(preset.modes)}),',
+    );
+  }
+  out
+    ..writeln('];')
+    ..writeln()
+    ..writeln(
+      '/// The ${scan.themeTokens.length} global theme tokens in registry '
+      'declaration order (32 colours, then radius).',
+    )
+    ..writeln('const List<DocsThemeToken> kThemeTokens = <DocsThemeToken>[');
+  for (final ThemeTokenFacts token in scan.themeTokens) {
+    out.writeln(
+      '  DocsThemeToken(name: ${dartString(token.name)}, cssVar: '
+      '${dartString(token.cssVar)}),',
     );
   }
   out

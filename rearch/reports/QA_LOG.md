@@ -483,3 +483,5 @@
 
 ## P5-B6 CLI theme (space-bunny-free#max) — ACCEPTED (r1), r2 for generator polish: theme list/apply, ThemeService, app_theme generator byte-identical to the kit (golden), drift reporting; 103/103 theme tests, analyze 0. r2: format-clean output, CLI-flavoured header, own drift exit code, themes in manifest fileHashes.
 - P5-B6 r2/r3 ACCEPTED: CLI theme 106/106, exit code 80 theme_drift (doc/reference/exit-codes.md row still owed — B5/B7), full v2 validation in theme flow; kit generator + manifest changes committed fe2d42c.
+
+## P5-B5 CLI commands + registry source (longcat) — ACCEPTED (r1): cycles relaxed in B1 validator, init/add/remove/update/list/search/info/doctor, remote GitHub registry + cache, v1 callers remapped/deleted. WHOLE CLI: format clean, analyze 0, 461/461 tests. Gaps → B7: update doesn't install new upstream files of installed components; command_metadata.dart 555 lines (split); exit-code 80 row in doc/reference/exit-codes.md.

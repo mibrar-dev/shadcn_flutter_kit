@@ -472,3 +472,11 @@
   (injectable runner); 19 v1 installer files + 4 old tests deleted; fixture registry_v2 now has real Dart sources;
   golden install asserts tree + shadcn.lock byte-for-byte. 49/49 tests, analyze 0, files ≤ 383 lines.
   Follow-ups → B5: relax B1 _checkPrimitiveCycles; remap v1 Installer callers; HTTP registry reader; drift-driven update.
+
+## P6-D1 docs shell (deepseek-v4.1-flash#max) — ACCEPTED (r1, ended on ECONNRESET after its report)
+- New docs app skeleton: minimal router (+ ⌘K palette route), DocsState, motion helpers, stub generated data,
+  tool/sync_registry.sh mirror of lib/registry into docs/lib/ui/shadcn (Dart sources only — same as CLI install);
+  3,827 old docs files deleted (old pages, loaders, category mirror, python scripts, go_router/syntax_highlight).
+  Orchestrator re-ran: format 0 changed, flutter analyze 0, 20/20 tests, no Material/Cupertino imports; release web
+  build in report. Leftovers (to D3/D6): docs Makefile/README describe old app; web/manifest.json name; unreferenced
+  325K user-guide PDF; ⌘K needs one manual post-deploy check.

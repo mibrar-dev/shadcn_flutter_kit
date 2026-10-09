@@ -457,3 +457,5 @@
 - NOTE: the mechanical git mv/rm (3889 files) was staged by the agent and got swept into orchestrator commit 8d04b3a
   ("P6 docs build plan") — contents correct, message wrong; not rewritten (would need force-push). Orchestrator now
   checks `git diff --cached` before every commit.
+
+## 2026-10-09 USER DECISION: Open Design docs mockups REJECTED. The docs website must be designed like https://ui.shadcn.com/ (same structure/layout/spacing/typography/colours/components; own name, logo and copy). P6-A2 captures + specs it; P6_DOCS_BUILD_PLAN D3–D6 will be re-targeted to P6_SHADCN_SITE_SPEC.md. Router/state/codegen/sync (D1, D2) unaffected.

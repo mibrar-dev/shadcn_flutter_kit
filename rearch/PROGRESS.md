@@ -18,7 +18,7 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 ## User decisions (binding)
 - 2026-10-09: Ibrar APPROVED (complete approval): Phase 4 cutover (replace lib/registry with registry_next, delete old tree,
   rewrite imports, regenerate manifests, drop the ~8 unused packages); Phase 5 CLI rewrite for the new component install
-  (CLI repo branch `refactor/rearchitecture`, his installer WIP preserved as commit de35dd2; main untouched); Phase 6 docs:
+  (CLI repo branch `refactor/rearchitecture`, his installer WIP preserved as commit de35dd2; main untouched); Phase 6 docs (2026-10-09 UPDATE: Open Design mockups rejected — design must mirror https://ui.shadcn.com/, spec in rearch/reports/P6_SHADCN_SITE_SPEC.md):
   design a modern, motion-rich docs website with the Open Design CLI (`opendesign`, daemon :7456, project
   shadcn-flutter-kit-docs), then rebuild the whole docs app in Flutter with the new registry components. Parallel OpenCode agents.
 - Agents: **OpenCode only** (no Claude subagents, Gemini/Antigravity dropped). The orchestrator plans, briefs, and

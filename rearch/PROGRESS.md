@@ -92,3 +92,11 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
 - Watch list for the orchestrator monitor: `rearch/logs/.watch` (one log name per line; exit line must be LAST line).
 - Open follow-ups: split `primitives/localizations/localizations.dart` (416 lines) + l10n pass (error_system strings);
   re-run full `rearch/qa_gate.sh` once all batches are in; cutover checklist in `rearch/reports/P4_PLAN.md`.
+
+## User requirements 2026-10-10 (binding for Phase 6 finish)
+- Docs previews: one example at a time + Select to switch variants + light/dark toggle (shadcn style).
+- Sidebar / index / ⌘K list only user-facing components; building blocks (color, history, hsl, …) hidden (still installable).
+- Every component renders correctly in light AND dark and behaves correctly (audit P6-D9a).
+- All paddings/margins/gaps are theme-dependent (spacing + density); no stretch/compact; icon gaps exact (audit P6-D9b).
+- Staggered (masonry) grid for block showcases (P6-D8). Syntax colours in all code blocks (done P4-T5/T5b).
+- Theme Studio like shadcn /create, applied site-wide (P6-D7). Sub-agents on FREE models (Step 5 preview for these fixes).

@@ -482,3 +482,4 @@
   325K user-guide PDF; ⌘K needs one manual post-deploy check.
 
 ## P5-B6 CLI theme (space-bunny-free#max) — ACCEPTED (r1), r2 for generator polish: theme list/apply, ThemeService, app_theme generator byte-identical to the kit (golden), drift reporting; 103/103 theme tests, analyze 0. r2: format-clean output, CLI-flavoured header, own drift exit code, themes in manifest fileHashes.
+- P5-B6 r2/r3 ACCEPTED: CLI theme 106/106, exit code 80 theme_drift (doc/reference/exit-codes.md row still owed — B5/B7), full v2 validation in theme flow; kit generator + manifest changes committed fe2d42c.

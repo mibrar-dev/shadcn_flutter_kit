@@ -1,4 +1,4 @@
-import 'package:docs/generated/stub_docs_data.dart';
+import 'package:docs/generated/app_theme.dart';
 import 'package:docs/main.dart';
 import 'package:docs/motion/ease.dart';
 import 'package:docs/routing/docs_router.dart';
@@ -21,7 +21,7 @@ class _MemoryStorage extends DocsStorage {
 
 Future<DocsState> _pumpApp(WidgetTester tester) async {
   final DocsState state = DocsState(
-    resolveTheme: buildStubDocsTheme,
+    resolveTheme: buildDocsTheme,
     storage: _MemoryStorage(),
   );
   await tester.pumpWidget(DocsApp(state: state));

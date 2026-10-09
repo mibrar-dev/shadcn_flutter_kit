@@ -6,9 +6,9 @@ import '../web_bridge.dart';
 
 /// Builds the base [ShadcnThemeData] for one preset id + brightness.
 ///
-/// D2's generated `app_theme.dart` provides the real resolver (all presets);
-/// until then `generated/stub_docs_data.dart` supplies a stub. Keeping the
-/// resolver injectable means the state never embeds preset values itself.
+/// D2's generated `app_theme.dart` provides the real resolver (all 42
+/// presets; `buildDocsTheme`). Keeping the resolver injectable means the
+/// state never embeds preset values itself.
 typedef DocsThemeResolver =
     ShadcnThemeData Function(String presetId, Brightness brightness);
 

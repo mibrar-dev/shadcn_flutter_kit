@@ -6,13 +6,14 @@
 // 300ms ease-out-expo colour tween on preset/mode switches), the global
 // keyboard shortcuts and the web-bridge events.
 //
-// TEMPORARY (D1): the theme resolver and the route host below are stubs that
-// D2 (generated data) and D3/D4 (real pages) replace — see the markers.
+// TEMPORARY (D1/D3/D4): the route host below is a stub that D3/D4 (real
+// pages) replace — see the markers. The theme resolver is now the generated
+// `generated/app_theme.dart` (D2).
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import 'generated/stub_docs_data.dart';
+import 'generated/app_theme.dart';
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
 import 'routing/docs_router.dart';
@@ -24,8 +25,7 @@ import 'web_bridge.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final DocsState state = DocsState(resolveTheme: buildStubDocsTheme)
-    ..restore();
+  final DocsState state = DocsState(resolveTheme: buildDocsTheme)..restore();
   runApp(DocsApp(state: state));
 }
 

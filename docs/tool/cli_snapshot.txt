@@ -1,0 +1,136 @@
+# flutter_shadcn CLI reference snapshot (hand-maintained).
+#
+# The new CLI (P5, `shadcn_flutter_cli` branch `refactor/rearchitecture`) does
+# not ship real `--help` text yet; this file is the documented command surface
+# from rearch/reports/P5_CLI_PLAN.md §2 and MUST be re-pasted when the CLI
+# lands. docs/tool/gen_docs_data.dart parses it into `kCliCommands`
+# (docs_tables.dart); the CLI page renders each section's text plus a generated
+# flags table. No other file hard-codes command syntax.
+#
+# Format contract (parser in docs/tool/src/readme_scan.dart):
+#   * a section starts with a `$ <invocation>` line at column 0;
+#   * the first `Usage:` line is the syntax string;
+#   * flag lines match `      --flag=<value>  Description` (an optional
+#     `-s, ` alias may precede the long flag);
+#   * `#` lines are comments for this file and never reach the page.
+
+$ flutter_shadcn --help
+Component manager for the shadcn_flutter_kit registry.
+
+Usage: flutter_shadcn <command> [arguments]
+-h, --help       Print this usage information.
+    --version    Print the CLI version.
+
+Available commands:
+  init       Install the layer core and pick a theme preset.
+  add        Add components and their dependency closure.
+  remove     Remove registry-owned files (user-owned files stay).
+  update     Pull upstream registry changes for installed files.
+  list       List every component in the registry manifest.
+  search     Search components by name, tag or description.
+  info       Show dependency closure, files and theme class for one component.
+  theme      List or apply theme presets.
+  doctor     Check the install closure, lock drift and user-owned files.
+  validate   Validate the registry manifest against the v2 schema.
+
+Run "flutter_shadcn help <command>" for more information about a command.
+
+$ flutter_shadcn init --help
+Install the registry layer core (foundation + theme) into a project and choose
+a theme preset. Writes .shadcn/config.json and shadcn.lock v2; installs no
+component.
+
+Usage: flutter_shadcn init [arguments]
+-h, --help         Print this usage information.
+    --dir=<path>   Install root (default: lib/ui/shadcn or the path recorded in .shadcn/config.json).
+    --theme=<id>   Preset id from themes/index.json; interactive list when omitted.
+    --yes          Accept defaults without prompting.
+    --json         Print the result as JSON.
+
+$ flutter_shadcn add --help
+Add components and the transitive dependency closure (components -> primitives
+-> foundation/theme). Existing user-owned files are never overwritten. Refuses
+to install when a symbol would be defined twice (single-owner preflight).
+
+Usage: flutter_shadcn add <ids...> [arguments]
+-h, --help             Print this usage information.
+    --dry-run          Print the plan without writing files.
+    --json             Print the plan or result as JSON.
+    --force            Continue past non-fatal preflight warnings.
+    --all              Add every component in the registry manifest.
+    --include-preview  Also copy preview.dart files (default: never).
+
+$ flutter_shadcn update --help
+Hash-based update of registry-owned files. Unchanged files are overwritten,
+locally modified files are reported and skipped, user-owned files are never
+touched. Regenerates theme/app_theme.dart from the locked preset.
+
+Usage: flutter_shadcn update [ids...] [arguments]
+-h, --help    Print this usage information.
+    --all     Update every installed component.
+    --check   Report only; exit 1 when anything is behind or modified.
+    --json    Print the result as JSON.
+
+$ flutter_shadcn remove --help
+Remove registry-owned files for the given components. Refuses when another
+installed component depends on the target.
+
+Usage: flutter_shadcn remove [ids...] [arguments]
+-h, --help               Print this usage information.
+    --purge-user-themes  Also delete the user-owned *_theme.dart files.
+    --json               Print the result as JSON.
+
+$ flutter_shadcn list --help
+List every component in the registry manifest.
+
+Usage: flutter_shadcn list [arguments]
+-h, --help    Print this usage information.
+    --json    Print the list as JSON.
+
+$ flutter_shadcn search --help
+Search the registry manifest by component id, name, tag or description.
+
+Usage: flutter_shadcn search <query> [arguments]
+-h, --help    Print this usage information.
+    --json    Print the matches as JSON.
+
+$ flutter_shadcn info --help
+Show the dependency closure, files, API symbols and theme class for one
+component.
+
+Usage: flutter_shadcn info <id> [arguments]
+-h, --help    Print this usage information.
+    --json    Print the report as JSON.
+
+$ flutter_shadcn theme list --help
+List the theme presets recorded in the registry manifest.
+
+Usage: flutter_shadcn theme list [arguments]
+-h, --help    Print this usage information.
+    --json    Print the presets as JSON.
+
+$ flutter_shadcn theme apply --help
+Generate theme/app_theme.dart from a preset JSON (values-only file, full
+rewrite; no regex patching). Updates the lock's theme section.
+
+Usage: flutter_shadcn theme apply <preset> [arguments]
+-h, --help      Print this usage information.
+    --refresh   Re-read the preset JSON even when the lock hash matches.
+    --json      Print the result as JSON.
+
+$ flutter_shadcn doctor --help
+Check the manifest, the installed closure, lock drift, user-owned files and
+relative imports escaping the install root.
+
+Usage: flutter_shadcn doctor [arguments]
+-h, --help    Print this usage information.
+    --json    Print the report as JSON.
+Exit codes: 0 clean, 1 drift or modified files, 2 broken closure,
+3 invalid manifest.
+
+$ flutter_shadcn validate --help
+Validate lib/registry/manifests/registry.json against the v2 schema.
+
+Usage: flutter_shadcn validate [arguments]
+-h, --help    Print this usage information.
+    --json    Print the validation report as JSON.

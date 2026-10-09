@@ -5,7 +5,7 @@
   "description": "Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.",
   "tier": "component",
   "install": "flutter_shadcn add window",
-  "import": "import 'package:<your_app>/ui/shadcn/window/window.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/window/window.dart';",
   "tags": ["layout", "window", "desktop", "draggable", "resizable"],
   "deps": {
     "foundation": ["constants", "data", "gap"],

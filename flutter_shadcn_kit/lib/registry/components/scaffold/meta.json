@@ -5,7 +5,7 @@
   "description": "App screen shell with header/footer bars, a loading bar and keyboard avoidance, plus the AppBar title bar.",
   "tier": "component",
   "install": "flutter_shadcn add scaffold",
-  "import": "import 'package:<your_app>/ui/shadcn/scaffold/scaffold.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scaffold/scaffold.dart';",
   "tags": ["layout", "scaffold", "appbar", "shell", "screen"],
   "deps": {
     "foundation": ["data", "gap"],

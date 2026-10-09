@@ -5,7 +5,7 @@
   "description": "Searchable country selector (flag + dial code) with a national-number field, wired into the form system.",
   "tier": "component",
   "install": "flutter_shadcn add phone_input",
-  "import": "import 'package:<your_app>/ui/shadcn/phone_input/phone_input.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/phone_input/phone_input.dart';",
   "tags": ["form", "phone", "country", "input"],
   "deps": {
     "foundation": ["gap"],

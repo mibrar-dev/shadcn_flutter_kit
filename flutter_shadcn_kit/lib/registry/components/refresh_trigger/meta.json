@@ -5,7 +5,7 @@
   "description": "Pull-to-refresh wrapper for any scrollable, with a themed indicator pill and programmatic refresh.",
   "tier": "component",
   "install": "flutter_shadcn add refresh_trigger",
-  "import": "import 'package:<your_app>/ui/shadcn/refresh_trigger/refresh_trigger.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/refresh_trigger/refresh_trigger.dart';",
   "tags": ["overlay", "refresh", "pull", "scroll", "loading"],
   "deps": {
     "foundation": ["constants", "gap", "icons"],

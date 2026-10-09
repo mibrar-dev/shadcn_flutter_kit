@@ -257,7 +257,7 @@
         "object",
         "null"
       ],
-      "description": "meta.json theme section, kept for Studio; may be null (6 components). userFile may point at another component's file (owner); a component with no theme class has class null. Free-form keys (measured: class, owner, userFile, defaults, fields, note, notes, reason, cellFields, popupTheme, menubarTheme, row); fields/cellFields are objects of field -> description.",
+      "description": "meta.json theme section, kept for Studio; may be null (6 components). userFile may point at another component's file (owner); a component with no theme class has class null. Free-form keys (measured: class, owner, userFile, defaults, fields, note, notes, reason, cellFields, popupTheme, menubarTheme, row); fields/cellFields are objects of field -> description and popupTheme/menubarTheme nest another theme block, so object values are free-form (P4-Z amendment; the pre-cutover data does not fit a string-only map).",
       "additionalProperties": {
         "oneOf": [
           {
@@ -267,10 +267,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
+            "type": "object"
           }
         ]
       }

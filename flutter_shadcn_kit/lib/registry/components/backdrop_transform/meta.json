@@ -5,7 +5,7 @@
   "description": "Strategy describing how the content behind a sheet or drawer is transformed while it opens.",
   "tier": "component",
   "install": "flutter_shadcn add backdrop_transform",
-  "import": "import 'package:<your_app>/ui/shadcn/backdrop_transform/backdrop_transform.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/backdrop_transform/backdrop_transform.dart';",
   "tags": ["overlay", "sheet", "drawer", "backdrop", "scale"],
   "deps": {
     "foundation": [],

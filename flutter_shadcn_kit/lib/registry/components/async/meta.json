@@ -5,7 +5,7 @@
   "description": "Renders a value that may already be available or may still be loading through one builder.",
   "tier": "component",
   "install": "flutter_shadcn add async",
-  "import": "import 'package:<your_app>/ui/shadcn/async/async.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/async/async.dart';",
   "tags": ["utility", "async", "future", "loading"],
   "deps": {
     "foundation": [],

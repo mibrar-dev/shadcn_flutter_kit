@@ -5,7 +5,7 @@
   "description": "Widgets-only loading placeholder with a repeating shimmer sweep; replaces the banned skeletonizer package.",
   "tier": "component",
   "install": "flutter_shadcn add skeleton",
-  "import": "import 'package:<your_app>/ui/shadcn/skeleton/skeleton.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/skeleton/skeleton.dart';",
   "tags": ["display", "loading", "placeholder", "shimmer"],
   "deps": {
     "foundation": [],

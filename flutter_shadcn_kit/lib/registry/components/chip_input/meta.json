@@ -5,7 +5,7 @@
   "description": "Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.",
   "tier": "component",
   "install": "flutter_shadcn add chip_input",
-  "import": "import 'package:<your_app>/ui/shadcn/chip_input/chip_input.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/chip_input/chip_input.dart';",
   "tags": [
     "form",
     "input",

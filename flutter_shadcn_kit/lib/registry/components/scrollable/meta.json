@@ -5,7 +5,7 @@
   "description": "Notification-driven edge-fade viewport for any scrollable subtree.",
   "tier": "component",
   "install": "flutter_shadcn add scrollable",
-  "import": "import 'package:<your_app>/ui/shadcn/scrollable/scrollable.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
   "tags": ["layout", "scrollable", "fade", "viewport"],
   "deps": {
     "foundation": [],

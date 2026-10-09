@@ -5,7 +5,7 @@
   "description": "A multi-selection dropdown built on select: checkbox popup rows (menu MenuCheckboxItem) that stay open while toggling, and removable chips in the trigger.",
   "tier": "component",
   "install": "flutter_shadcn add multi_select",
-  "import": "import 'package:<your_app>/ui/shadcn/multi_select/multi_select.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/multi_select/multi_select.dart';",
   "tags": [
     "form",
     "select",

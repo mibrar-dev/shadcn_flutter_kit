@@ -5,7 +5,7 @@
   "description": "Shows one child while the viewport width is inside a range and another when it is not.",
   "tier": "component",
   "install": "flutter_shadcn add media_query",
-  "import": "import 'package:<your_app>/ui/shadcn/media_query/media_query.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/media_query/media_query.dart';",
   "tags": ["layout", "responsive", "breakpoint", "viewport"],
   "deps": {
     "foundation": [],

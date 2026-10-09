@@ -5,7 +5,7 @@
   "description": "Shadcn alert dialog: icon, title, description and an action footer on top of the dialog route.",
   "tier": "component",
   "install": "flutter_shadcn add alert_dialog",
-  "import": "import 'package:<your_app>/ui/shadcn/alert_dialog/alert_dialog.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/alert_dialog/alert_dialog.dart';",
   "tags": ["overlay", "dialog", "alert", "modal", "confirm"],
   "deps": {
     "foundation": ["gap"],

@@ -1,90 +1,16 @@
-import 'dart:convert';
 import 'dart:io';
 
-typedef JsonMap = Map<String, dynamic>;
-typedef JsonList = List<dynamic>;
-
-const List<String> sharedThemeExports = <String>[
-  'registry/shared/theme/app_theme.dart',
-  'registry/shared/theme/app_theme_preset.dart',
-  'registry/shared/theme/color_scheme.dart',
-  'registry/shared/theme/component_theme_global_registry.dart',
-  'registry/shared/theme/generated_colors.dart',
-  'registry/shared/theme/preset_themes.dart',
-  'registry/shared/theme/theme.dart',
-  'registry/shared/theme/typography.dart',
-];
-
-const Map<String, List<String>> barrelHideOverrides = <String, List<String>>{
-  'registry/components/form/text_field/text_field.dart': <String>[
-    'AcceptSuggestionIntent',
-    'AutoComplete',
-    'AutoCompleteCompleter',
-    'AutoCompleteIntent',
-    'AutoCompleteMode',
-    'AutoCompleteTheme',
-    'buildEditableTextContextMenu',
-    'InputAutoCompleteFeature',
-    'InputCopyFeature',
-    'InputFeaturePosition',
-    'InputHintFeature',
-    'InputClearFeature',
-    'InputLeadingFeature',
-    'InputPasswordToggleFeature',
-    'InputPasteFeature',
-    'InputRevalidateFeature',
-    'InputShowHintIntent',
-    'InputSpinnerFeature',
-    'InputTrailingFeature',
-    'NavigateSuggestionIntent',
-    'PasswordPeekMode',
-    'SuggestionBuilder',
-  ],
-  'registry/components/layout/scrollable/scrollable.dart': <String>[
-    'ScrollableBuilder',
-    'ScrollableClient',
-    'ScrollableClientTheme',
-    'ScrollableClientViewport',
-    'RenderScrollableClientViewport',
-  ],
-  'registry/components/layout/table/table.dart': <String>[
-    'Table',
-    'TableRow',
-  ],
-  'registry/components/navigation/tabs/tabs.dart': <String>[
-    'KeyedTabChild',
-    'KeyedTabChildWidget',
-    'KeyedTabItem',
-    'TabBuilder',
-    'TabChildBuilder',
-    'TabChild',
-    'TabContainer',
-    'TabChildWidget',
-    'TabContainerData',
-    'TabContainerTheme',
-    'TabItem',
-    'TabPaneData',
-    'TabPaneItemBuilder',
-    'TabPane',
-    'TabPaneState',
-    'TabPaneTheme',
-  ],
-  'registry/components/overlay/menu/menu.dart': <String>[
-    'Menubar',
-    'MenubarState',
-    'MenubarTheme',
-    'MenuPopup',
-    'MenuPopupTheme',
-  ],
-};
-
+/// Locates the flutter_shadcn_kit root by walking up from [start] until the
+/// flat registry layout is found (its generated manifest, or the theme layer
+/// before the manifest has been generated for the first time).
 Directory? findRegistryRoot(Directory start) {
   Directory current = start.absolute;
   while (true) {
-    final candidate = File(
-      '${current.path}/lib/registry/manifests/components.json',
+    final manifest = File(
+      '${current.path}/lib/registry/manifests/registry.json',
     );
-    if (candidate.existsSync()) {
+    final theme = File('${current.path}/lib/registry/theme/theme.dart');
+    if (manifest.existsSync() || theme.existsSync()) {
       return current;
     }
     final parent = current.parent;
@@ -95,53 +21,26 @@ Directory? findRegistryRoot(Directory start) {
   }
 }
 
-String? _resolveComponentEntryPoint(JsonMap component) {
-  final category = component['category'];
-  final id = component['id'];
-  if (category is! String || id is! String) {
-    return null;
-  }
-
-  final prefix = 'registry/components/$category/$id/';
-  final topLevelSources = (component['files'] as JsonList? ?? const <dynamic>[])
-      .whereType<JsonMap>()
-      .map((file) => file['source'])
-      .whereType<String>()
-      .where((source) {
-        if (!source.startsWith(prefix)) return false;
-        final relative = source.substring(prefix.length);
-        if (relative.contains('/')) return false;
-        if (!relative.endsWith('.dart')) return false;
-        return !relative.startsWith('_');
-      })
-      .toList();
-
-  final conventionalEntryPoint = '$prefix$id.dart';
-  if (topLevelSources.contains(conventionalEntryPoint)) {
-    return conventionalEntryPoint;
-  }
-
-  if (topLevelSources.length == 1) {
-    return topLevelSources.single;
-  }
-
-  return null;
-}
-
+/// Builds the package barrel for the flat registry layout: every file in
+/// `registry/theme/` plus every `registry/components/<id>/<id>.dart` entry,
+/// sorted alphabetically.
 String buildRootBarrel(Directory registryRoot) {
-  final manifest = File(
-    '${registryRoot.path}/lib/registry/manifests/components.json',
+  final registry = Directory('${registryRoot.path}/lib/registry');
+
+  final themeExports = _dartExports(
+    Directory('${registry.path}/theme'),
+    prefix: 'registry/theme/',
   );
-  final data = jsonDecode(manifest.readAsStringSync()) as JsonMap;
-  final components = (data['components'] as JsonList? ?? const <dynamic>[])
-      .whereType<JsonMap>()
-      .toList();
 
   final componentExports = <String>[];
-  for (final component in components) {
-    final entryPoint = _resolveComponentEntryPoint(component);
-    if (entryPoint == null) continue;
-    componentExports.add(entryPoint);
+  for (final entity in Directory('${registry.path}/components').listSync()) {
+    if (entity is! Directory) {
+      continue;
+    }
+    final id = _baseName(entity.path);
+    if (File('${entity.path}/$id.dart').existsSync()) {
+      componentExports.add('registry/components/$id/$id.dart');
+    }
   }
   componentExports.sort();
 
@@ -150,32 +49,28 @@ String buildRootBarrel(Directory registryRoot) {
     '// Run: dart run tool/registry/registry_barrel_generate.dart',
     '',
   ];
-
-  for (final export in sharedThemeExports) {
+  for (final export in themeExports) {
     lines.add("export '$export';");
   }
-
   lines.add('');
-
   for (final export in componentExports) {
-    final hides = barrelHideOverrides[export];
-    if (hides == null || hides.isEmpty) {
-      lines.add("export '$export';");
-      continue;
-    }
+    lines.add("export '$export';");
+  }
+  return '${lines.join('\n')}\n';
+}
 
-    if (hides.length == 1) {
-      lines.add("export '$export' hide ${hides.single};");
-      continue;
-    }
-
-    lines.add("export '$export'");
-    lines.add('    hide');
-    for (var i = 0; i < hides.length; i++) {
-      final suffix = i == hides.length - 1 ? ';' : ',';
-      lines.add('        ${hides[i]}$suffix');
+List<String> _dartExports(Directory directory, {required String prefix}) {
+  final exports = <String>[];
+  for (final entity in directory.listSync()) {
+    if (entity is File && entity.path.endsWith('.dart')) {
+      exports.add('$prefix${_baseName(entity.path)}');
     }
   }
+  exports.sort();
+  return exports;
+}
 
-  return '${lines.join('\n')}\n';
+String _baseName(String path) {
+  final segments = path.split(Platform.pathSeparator);
+  return segments.lastWhere((segment) => segment.isNotEmpty);
 }

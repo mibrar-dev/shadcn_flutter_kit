@@ -1,4 +1,4 @@
-// CLI: render one canonical preset (lib/registry_next/themes/<id>.json,
+// CLI: render one canonical preset (lib/registry/themes/<id>.json,
 // schemaVersion 2) as a values-only `app_theme.dart` for the theme layer.
 //
 // Usage:
@@ -20,7 +20,7 @@
 // style formatter produces.
 //
 // This library holds no Flutter import (it must run on the plain Dart VM), so
-// the values stay numbers and strings. `test/registry_next/themes` parses the
+// the values stay numbers and strings. `test/registry/themes` parses the
 // emitted file back into real `ShadcnColors` objects.
 
 import 'dart:convert';
@@ -30,7 +30,7 @@ import 'src/cli_args.dart';
 
 /// Default library that exports `ShadcnThemeData` in the kit itself.
 const String defaultThemeImport =
-    'package:flutter_shadcn_kit/registry_next/theme/theme.dart';
+    'package:flutter_shadcn_kit/registry/theme/theme.dart';
 
 /// The 32 colour tokens in `ShadcnColors` declaration order (PLAN 6.1).
 ///
@@ -230,7 +230,7 @@ class ThemeValues {
   String toDartSource({String themeImport = defaultThemeImport}) {
     final out = StringBuffer()
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND.')
-      ..writeln('// Source: lib/registry_next/themes/$id.json (id: $id).')
+      ..writeln('// Source: lib/registry/themes/$id.json (id: $id).')
       ..writeln(
         '// Regenerate: dart run tool/rearch/gen_app_theme.dart '
         '$id.json app_theme.dart',
@@ -413,7 +413,7 @@ const String _usage =
     'Usage: dart run tool/rearch/gen_app_theme.dart <preset.json> <out.dart>\n'
     '         [--theme-import <uri>] [--help]\n'
     '  <preset.json>          Decoded preset, e.g. '
-    'lib/registry_next/themes/claude.json\n'
+    'lib/registry/themes/claude.json\n'
     '  <out.dart>             File to write the values-only theme to\n'
     '  --theme-import <uri>   Library exporting ShadcnThemeData\n'
     "                         (default: $defaultThemeImport)\n"

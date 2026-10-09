@@ -5,7 +5,7 @@
   "description": "Expandable section with a trigger, hidden content panes and controlled or uncontrolled expansion.",
   "tier": "component",
   "install": "flutter_shadcn add collapsible",
-  "import": "import 'package:<your_app>/ui/shadcn/collapsible/collapsible.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/collapsible/collapsible.dart';",
   "tags": ["layout", "collapsible", "expand", "section"],
   "deps": {
     "foundation": ["data", "gap", "icons/lucide_icons"],

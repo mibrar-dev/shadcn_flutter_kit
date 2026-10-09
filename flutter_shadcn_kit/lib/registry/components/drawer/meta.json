@@ -5,7 +5,7 @@
   "description": "Modal panel that slides in from a screen edge, plus an expanding sheet variant.",
   "tier": "component",
   "install": "flutter_shadcn add drawer",
-  "import": "import 'package:<your_app>/ui/shadcn/drawer/drawer.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/drawer/drawer.dart';",
   "tags": [
     "overlay",
     "drawer",

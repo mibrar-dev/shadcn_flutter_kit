@@ -5,7 +5,7 @@
   "description": "Transient, non-blocking notifications anchored to a screen edge.",
   "tier": "component",
   "install": "flutter_shadcn add toast",
-  "import": "import 'package:<your_app>/ui/shadcn/toast/toast.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/toast/toast.dart';",
   "tags": [
     "overlay",
     "notification",

@@ -5,7 +5,7 @@
   "description": "Pill tab strip with roving arrow-key navigation, plus a sortable IDE-style tab pane over a content card.",
   "tier": "component",
   "install": "flutter_shadcn add tabs",
-  "import": "import 'package:<your_app>/ui/shadcn/tabs/tabs.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tabs/tabs.dart';",
   "tags": [
     "navigation",
     "tabs",

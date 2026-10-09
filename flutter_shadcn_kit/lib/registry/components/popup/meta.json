@@ -5,7 +5,7 @@
   "description": "An anchored floating surface for arbitrary content: the menu component's MenuPopup (re-exported) plus showShadcnPopup, a generic helper with Escape/outside-tap dismissal.",
   "tier": "component",
   "install": "flutter_shadcn add popup",
-  "import": "import 'package:<your_app>/ui/shadcn/popup/popup.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/popup/popup.dart';",
   "tags": [
     "overlay",
     "popup",

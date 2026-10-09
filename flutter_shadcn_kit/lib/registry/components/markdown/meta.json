@@ -5,7 +5,7 @@
   "description": "Text-only markdown renderer with a shadcn theme, tap callbacks and an image preview overlay.",
   "tier": "component",
   "install": "flutter_shadcn add markdown",
-  "import": "import 'package:<your_app>/ui/shadcn/markdown/markdown.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/markdown/markdown.dart';",
   "tags": ["display", "markdown", "text", "streaming"],
   "deps": {
     "foundation": [],

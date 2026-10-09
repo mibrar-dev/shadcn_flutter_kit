@@ -5,7 +5,7 @@
   "description": "Counts consecutive taps inside a time and distance window for double/triple-click gestures.",
   "tier": "component",
   "install": "flutter_shadcn add patch",
-  "import": "import 'package:<your_app>/ui/shadcn/patch/patch.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/patch/patch.dart';",
   "tags": ["control", "click", "gesture", "double-click", "tap"],
   "deps": {
     "foundation": [],

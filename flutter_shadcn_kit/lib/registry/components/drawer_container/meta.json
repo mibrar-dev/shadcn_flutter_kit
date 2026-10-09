@@ -5,7 +5,7 @@
   "description": "Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.",
   "tier": "component",
   "install": "flutter_shadcn add drawer_container",
-  "import": "import 'package:<your_app>/ui/shadcn/drawer_container/drawer_container.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
   "tags": [
     "overlay",
     "drawer",

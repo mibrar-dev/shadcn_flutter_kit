@@ -5,7 +5,7 @@
   "description": "Keyboard-navigable menu family: MenuGroup with roving focus and typeahead; MenuButton, MenuCheckboxItem, MenuRadioItem, MenuLabel, MenuShortcut, MenuSeparator and MenuSub rows; showShadcnMenu helper; MenuPopup surface. Owns MenuPopupTheme and MenubarTheme for the wave-D menu consumers.",
   "tier": "component",
   "install": "flutter_shadcn add menu",
-  "import": "import 'package:<your_app>/ui/shadcn/menu/menu.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/menu/menu.dart';",
   "tags": [
     "overlay",
     "menu",

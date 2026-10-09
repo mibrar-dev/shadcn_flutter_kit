@@ -5,7 +5,7 @@
   "description": "Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.",
   "tier": "component",
   "install": "flutter_shadcn add outlined_container",
-  "import": "import 'package:<your_app>/ui/shadcn/outlined_container/outlined_container.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
   "tags": ["layout", "container", "outline", "surface", "blur"],
   "deps": {
     "foundation": [],

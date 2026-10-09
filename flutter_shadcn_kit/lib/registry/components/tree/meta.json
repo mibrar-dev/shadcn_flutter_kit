@@ -5,7 +5,7 @@
   "description": "Immutable hierarchical list with expand/collapse, selection and themed indent guides.",
   "tier": "component",
   "install": "flutter_shadcn add tree",
-  "import": "import 'package:<your_app>/ui/shadcn/tree/tree.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tree/tree.dart';",
   "tags": [
     "tree",
     "hierarchy",

@@ -1,4 +1,4 @@
-// CLI: validate user-owned component theme files in the new tree.
+// CLI: validate user-owned component theme files in the registry tree.
 //
 // Usage:
 //   dart run tool/rearch/check_user_theme.dart [--root <dir>] [--json <path>]
@@ -14,7 +14,7 @@ import 'src/user_theme.dart';
 const String _usage =
     'Usage: dart run tool/rearch/check_user_theme.dart '
     '[--root <dir>] [--json <path>] [--strict]\n'
-    '  --root <dir>    Registry root (default: lib/registry_next)\n'
+    '  --root <dir>    Registry root (default: lib/registry)\n'
     '  --json <path>   Write the full report as stable JSON\n'
     '  --strict        Exit 1 when any finding exists\n'
     '  --help          Print this help';
@@ -31,7 +31,7 @@ void main(List<String> args) {
     exitCode = 64;
     return;
   }
-  final root = cli.value('root') ?? _defaultNextRoot();
+  final root = cli.value('root') ?? _defaultRegistryRoot();
   final findings = checkUserThemes(root);
   final jsonPath = cli.value('json');
   if (jsonPath != null) {
@@ -54,12 +54,12 @@ void main(List<String> args) {
   }
 }
 
-String _defaultNextRoot() {
+String _defaultRegistryRoot() {
   final scriptPath = Platform.script.toFilePath();
   final appRoot = dirName(dirName(dirName(scriptPath)));
-  final candidate = joinPath(appRoot, 'lib/registry_next');
+  final candidate = joinPath(appRoot, 'lib/registry');
   if (Directory(candidate).existsSync()) {
     return candidate;
   }
-  return joinPath(Directory.current.path, 'lib/registry_next');
+  return joinPath(Directory.current.path, 'lib/registry');
 }

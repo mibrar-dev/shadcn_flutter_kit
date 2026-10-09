@@ -5,7 +5,7 @@
   "description": "Themed data grid with span-aware cells, frozen rows/columns, scrolling and optional column/row resizing.",
   "tier": "component",
   "install": "flutter_shadcn add table",
-  "import": "import 'package:<your_app>/ui/shadcn/table/table.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/table/table.dart';",
   "tags": ["table", "layout", "data", "grid", "resizable"],
   "deps": {
     "foundation": [],

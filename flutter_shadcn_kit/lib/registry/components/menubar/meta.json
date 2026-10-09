@@ -5,7 +5,7 @@
   "description": "A horizontal bar of menu triggers whose submenus open below the bar. Rows, keyboard traversal and popup surfaces are the menu component's; MenubarTheme is owned by menu and resolved here.",
   "tier": "component",
   "install": "flutter_shadcn add menubar",
-  "import": "import 'package:<your_app>/ui/shadcn/menubar/menubar.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/menubar/menubar.dart';",
   "tags": [
     "overlay",
     "menubar",

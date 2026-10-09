@@ -5,7 +5,7 @@
   "description": "App shell over WidgetsApp that installs ShadcnTheme, ComponentThemes, the overlay manager and shadcn localizations, plus the ShadcnUI default text/icon scope.",
   "tier": "component",
   "install": "flutter_shadcn add app",
-  "import": "import 'package:<your_app>/ui/shadcn/app/app.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/app/app.dart';",
   "tags": ["layout", "app", "shell", "bootstrap"],
   "deps": {
     "foundation": ["constants"],

@@ -5,7 +5,7 @@
   "description": "In-tree sheet that slides in from an edge, drags, and snaps between snap stages.",
   "tier": "component",
   "install": "flutter_shadcn add pinned_sheet",
-  "import": "import 'package:<your_app>/ui/shadcn/pinned_sheet/pinned_sheet.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/pinned_sheet/pinned_sheet.dart';",
   "tags": [
     "display",
     "sheet",

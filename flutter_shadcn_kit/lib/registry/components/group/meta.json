@@ -5,7 +5,7 @@
   "description": "Absolute-position layout surface that places children at explicit offsets and sizes.",
   "tier": "component",
   "install": "flutter_shadcn add group",
-  "import": "import 'package:<your_app>/ui/shadcn/group/group.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/group/group.dart';",
   "tags": ["layout", "positioning", "render"],
   "deps": {
     "foundation": [],

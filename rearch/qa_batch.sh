@@ -4,14 +4,14 @@
 set -u
 KIT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$KIT/flutter_shadcn_kit"
-C=lib/registry_next/components
+C=lib/registry/components
 L=""; T=""; NAMES=""
 for x in "$@"; do
-  if [[ "$x" == primitives/* ]]; then p="lib/registry_next/$x"; else p="$C/$x"; NAMES="$NAMES $x"; fi
+  if [[ "$x" == primitives/* ]]; then p="lib/registry/$x"; else p="$C/$x"; NAMES="$NAMES $x"; fi
   if [ ! -e "$p" ]; then echo "MISSING: $p"; continue; fi
   L="$L $p"
   base=$(basename "${x%.dart}")
-  for t in test/registry_next/components/${base}_test.dart test/registry_next/primitives/${base}_test.dart; do
+  for t in test/registry/components/${base}_test.dart test/registry/primitives/${base}_test.dart; do
     [ -f "$t" ] && T="$T $t"
   done
 done
@@ -28,7 +28,7 @@ for p in $L $T; do r=$(dart analyze "$p" 2>&1 | tail -1); [ "$r" = "No issues fo
 [ -n "$T" ] && echo "test:    $(flutter test $T 2>&1 | tail -1 | sed 's/.*\(+[0-9]*.*\)/\1/' | cut -c1-100)"
 echo "banned:  $(grep -rlnE "// ignore|^import 'package:flutter/(material|cupertino).dart'|^part |^import 'package:(data_widget|gap)/" $L --include=*.dart 2>/dev/null | tr '\n' ' ')"
 J=$(mktemp)
-dart run tool/rearch/check_layers.dart --root lib/registry_next --json "$J" >/dev/null 2>&1
+dart run tool/rearch/check_layers.dart --root lib/registry --json "$J" >/dev/null 2>&1
 python3 - "$J" "$@" <<'EOF'
 import json, sys
 d = json.load(open(sys.argv[1])); keys = sys.argv[2:]
@@ -37,5 +37,5 @@ print('layers:  ' + ('clean' if not hits else ''))
 for f in hits: print('  ', f['rule'], f['file'], f['message'][:90])
 EOF
 rm -f "$J"
-echo "owner:   $(dart run tool/rearch/check_single_owner.dart --root lib/registry_next 2>&1 | tail -1)"
-echo "theme:   $(dart run tool/rearch/check_user_theme.dart --root lib/registry_next --strict 2>&1 | tail -1)"
+echo "owner:   $(dart run tool/rearch/check_single_owner.dart --root lib/registry 2>&1 | tail -1)"
+echo "theme:   $(dart run tool/rearch/check_user_theme.dart --root lib/registry --strict 2>&1 | tail -1)"

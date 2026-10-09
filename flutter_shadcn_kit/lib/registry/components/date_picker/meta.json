@@ -5,7 +5,7 @@
   "description": "Single-date and date-span fields opening a calendar sheet (DatePickerDialog with month/year stepper) in a dialog or a popover, wired into the form system.",
   "tier": "component",
   "install": "flutter_shadcn add date_picker",
-  "import": "import 'package:<your_app>/ui/shadcn/date_picker/date_picker.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/date_picker/date_picker.dart';",
   "tags": [
     "form",
     "date",

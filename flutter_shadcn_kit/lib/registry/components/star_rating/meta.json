@@ -5,7 +5,7 @@
   "description": "Interactive star rating with half-star snapping, keyboard stepping, drag preview and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add star_rating",
-  "import": "import 'package:<your_app>/ui/shadcn/star_rating/star_rating.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/star_rating/star_rating.dart';",
   "tags": [
     "form",
     "rating",

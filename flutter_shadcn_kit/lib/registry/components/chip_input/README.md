@@ -94,7 +94,7 @@ placeholders (chips, mentions, tags) can reuse it, and it knows nothing about
 
 ## Tests
 
-`test/registry_next/components/chip_input_test.dart` — 42 tests covering word
+`test/registry/components/chip_input_test.dart` — 42 tests covering word
 submission, backspace-removes-a-chip, the remove button and its localized
 label, delimited paste, copy serialization, suggestion acceptance, arrow-key
 navigation across tokens, controlled/uncontrolled value, disabled/read-only,

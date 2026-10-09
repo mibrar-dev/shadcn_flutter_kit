@@ -5,7 +5,7 @@
   "description": "An upload surface: outline, upload icon, localized status line, optional hint and a browse button. Presentational — it takes a state, it does not listen to a drag stream.",
   "tier": "component",
   "install": "flutter_shadcn add dropzone",
-  "import": "import 'package:<your_app>/ui/shadcn/dropzone/dropzone.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/dropzone/dropzone.dart';",
   "tags": [
     "form",
     "upload",

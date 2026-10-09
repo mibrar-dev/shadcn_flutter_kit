@@ -4,7 +4,7 @@
 //
 // User-owned overrides live in `formatted_input_theme.dart`; CLI updates may
 // replace this file. Like `calendar`, the theme class carries no
-// `copyWith`/`lerp`: nothing in `registry_next` calls them.
+// `copyWith`/`lerp`: nothing in the registry calls them.
 
 import 'package:flutter/widgets.dart';
 

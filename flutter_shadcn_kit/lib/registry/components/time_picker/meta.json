@@ -5,7 +5,7 @@
   "description": "Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.",
   "tier": "component",
   "install": "flutter_shadcn add time_picker",
-  "import": "import 'package:<your_app>/ui/shadcn/time_picker/time_picker.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/time_picker/time_picker.dart';",
   "tags": ["form", "time", "duration", "clock", "picker"],
   "deps": {
     "foundation": ["gap", "icons", "time_of_day"],

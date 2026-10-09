@@ -5,7 +5,7 @@
   "description": "A pressable card pairing an image with a leading/title/subtitle/trailing text block.",
   "tier": "component",
   "install": "flutter_shadcn add card_image",
-  "import": "import 'package:<your_app>/ui/shadcn/card_image/card_image.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/card_image/card_image.dart';",
   "tags": ["layout", "card", "image", "media", "pressable"],
   "deps": {
     "foundation": ["constants", "gap"],

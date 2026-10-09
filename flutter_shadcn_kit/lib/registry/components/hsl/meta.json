@@ -5,7 +5,7 @@
   "description": "Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.",
   "tier": "component",
   "install": "flutter_shadcn add hsl",
-  "import": "import 'package:<your_app>/ui/shadcn/hsl/hsl.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/hsl/hsl.dart';",
   "tags": [
     "color",
     "slider",

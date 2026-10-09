@@ -5,7 +5,7 @@
   "description": "Vertical three-column event timeline: time label, indicator dot with connector, title and content.",
   "tier": "component",
   "install": "flutter_shadcn add timeline",
-  "import": "import 'package:<your_app>/ui/shadcn/timeline/timeline.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/timeline/timeline.dart';",
   "tags": ["layout", "timeline", "events", "history"],
   "deps": {
     "foundation": ["gap"],

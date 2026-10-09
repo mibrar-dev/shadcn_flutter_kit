@@ -5,7 +5,7 @@
   "description": "Full colour picker: HSV/HSL pad, hue/alpha bars, RGB/HSL/HSV/HEX fields, optional alpha, colour history and screen sampling.",
   "tier": "component",
   "install": "flutter_shadcn add color_picker",
-  "import": "import 'package:<your_app>/ui/shadcn/color_picker/color_picker.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/color_picker/color_picker.dart';",
   "tags": ["form", "color", "picker", "hsv", "hsl", "hex"],
   "deps": {
     "foundation": ["data", "gap", "icons"],

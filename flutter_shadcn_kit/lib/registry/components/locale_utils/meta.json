@@ -5,7 +5,7 @@
   "description": "Byte-size formatting against a configurable unit table (decimal, binary or custom).",
   "tier": "component",
   "install": "flutter_shadcn add locale_utils",
-  "import": "import 'package:<your_app>/ui/shadcn/locale_utils/locale_utils.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/locale_utils/locale_utils.dart';",
   "tags": ["utility", "locale", "formatting", "file", "size"],
   "deps": {
     "foundation": [],

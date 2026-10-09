@@ -5,7 +5,7 @@
   "description": "Single-expansion accordion with animated items, themed dividers and a keyboard-accessible trigger.",
   "tier": "component",
   "install": "flutter_shadcn add accordion",
-  "import": "import 'package:<your_app>/ui/shadcn/accordion/accordion.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/accordion/accordion.dart';",
   "tags": ["layout", "accordion", "collapsible", "sections"],
   "deps": {
     "foundation": ["constants", "data", "gap", "icons/lucide_icons"],

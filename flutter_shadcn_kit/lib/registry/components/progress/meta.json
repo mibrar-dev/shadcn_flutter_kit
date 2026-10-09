@@ -5,7 +5,7 @@
   "description": "Determinate and indeterminate linear progress bar, widgets-only.",
   "tier": "component",
   "install": "flutter_shadcn add progress",
-  "import": "import 'package:<your_app>/ui/shadcn/progress/progress.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/progress/progress.dart';",
   "tags": ["display", "progress", "indicator", "loading"],
   "deps": {
     "foundation": ["constants"],

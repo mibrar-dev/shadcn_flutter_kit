@@ -5,7 +5,7 @@
   "description": "Tri-state form checkbox with controlled and controller-driven modes, keyboard activation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add checkbox",
-  "import": "import 'package:<your_app>/ui/shadcn/checkbox/checkbox.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/checkbox/checkbox.dart';",
   "tags": [
     "form",
     "checkbox",

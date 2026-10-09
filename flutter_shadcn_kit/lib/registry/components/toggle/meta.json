@@ -5,7 +5,7 @@
   "description": "On/off button with a controlled and a controller-driven mode, plus form participation.",
   "tier": "component",
   "install": "flutter_shadcn add toggle",
-  "import": "import 'package:<your_app>/ui/shadcn/toggle/toggle.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/toggle/toggle.dart';",
   "tags": [
     "control",
     "toggle",

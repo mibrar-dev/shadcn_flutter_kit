@@ -5,7 +5,7 @@
   "description": "ShadcnForm scope, labelled field layouts, validators, controller and submission flow.",
   "tier": "component",
   "install": "flutter_shadcn add form",
-  "import": "import 'package:<your_app>/ui/shadcn/form/form.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/form/form.dart';",
   "tags": [
     "form",
     "validation",

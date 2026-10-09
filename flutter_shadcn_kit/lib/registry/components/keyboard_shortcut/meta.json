@@ -5,7 +5,7 @@
   "description": "Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.",
   "tier": "component",
   "install": "flutter_shadcn add keyboard_shortcut",
-  "import": "import 'package:<your_app>/ui/shadcn/keyboard_shortcut/keyboard_shortcut.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';",
   "tags": ["display", "keyboard", "shortcut", "hint", "hotkey"],
   "deps": {
     "foundation": ["data", "gap", "keyboard"],

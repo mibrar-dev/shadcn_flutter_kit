@@ -5,7 +5,7 @@
   "description": "A single-selection dropdown picker. The trigger reuses the button variant table and the popover primitive; the popup is the menu component's surface and rows; the search field is the input component.",
   "tier": "component",
   "install": "flutter_shadcn add select",
-  "import": "import 'package:<your_app>/ui/shadcn/select/select.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/select/select.dart';",
   "tags": [
     "form",
     "select",

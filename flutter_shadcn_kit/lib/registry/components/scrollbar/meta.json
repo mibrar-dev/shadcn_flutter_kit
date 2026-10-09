@@ -5,7 +5,7 @@
   "description": "Themeable scrollbar wrapper around Flutter's RawScrollbar with token-derived thumb, thickness and radius.",
   "tier": "component",
   "install": "flutter_shadcn add scrollbar",
-  "import": "import 'package:<your_app>/ui/shadcn/scrollbar/scrollbar.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
   "tags": ["control", "scrollbar", "scroll", "thumb"],
   "deps": {
     "foundation": [],

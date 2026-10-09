@@ -5,7 +5,7 @@
   "description": "Describes the point an overlay positions itself against and tracks it while it moves.",
   "tier": "component",
   "install": "flutter_shadcn add anchor",
-  "import": "import 'package:<your_app>/ui/shadcn/anchor/anchor.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/anchor/anchor.dart';",
   "tags": ["overlay", "anchor", "positioning", "popover", "menu", "tooltip"],
   "deps": {
     "foundation": ["data"],

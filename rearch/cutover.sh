@@ -21,6 +21,14 @@ REG="$APP/lib/registry"
 NEXT="$APP/lib/registry_next"
 OLD_BAK="$APP/lib/registry_old"
 
+# Executed 2026-10-09 (P4-Z). The cutover is a one-shot; refuse to run again
+# so a future invocation cannot half-move the already-flat tree.
+if [[ ! -d "$NEXT" ]]; then
+  echo "cutover already executed: lib/registry_next is gone. Nothing to do." >&2
+  echo "See rearch/reports/P4_CUTOVER_RESULT.md." >&2
+  exit 1
+fi
+
 # Blockers: new components with no finished home in registry_next yet
 # (B24: color_picker, phone_input, filter_bar; B25: color_input, text_animate).
 BLOCKERS=(color_picker phone_input filter_bar color_input text_animate)

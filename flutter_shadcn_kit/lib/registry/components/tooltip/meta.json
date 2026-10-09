@@ -5,7 +5,7 @@
   "description": "Delayed hover label presented through the popover machinery, plus the themed TooltipContainer surface and the tooltip overlay handler.",
   "tier": "component",
   "install": "flutter_shadcn add tooltip",
-  "import": "import 'package:<your_app>/ui/shadcn/tooltip/tooltip.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tooltip/tooltip.dart';",
   "tags": ["overlay", "tooltip", "hover", "label"],
   "deps": {
     "foundation": [],

@@ -5,7 +5,7 @@
   "description": "Gradient slider that controls hue, saturation, value, or alpha for HSV colours.",
   "tier": "component",
   "install": "flutter_shadcn add hsv",
-  "import": "import 'package:<your_app>/ui/shadcn/hsv/hsv.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/hsv/hsv.dart';",
   "tags": [
     "color",
     "slider",

@@ -5,7 +5,7 @@
   "description": "Indeterminate circular indicator with a rotating arc, widgets-only.",
   "tier": "component",
   "install": "flutter_shadcn add spinner",
-  "import": "import 'package:<your_app>/ui/shadcn/spinner/spinner.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/spinner/spinner.dart';",
   "tags": ["display", "spinner", "loading", "indicator"],
   "deps": {
     "foundation": [],

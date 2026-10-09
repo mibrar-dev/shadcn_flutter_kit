@@ -5,7 +5,7 @@
   "description": "Themed rounded image slot with a placeholder while loading and a caller-supplied error slot on failure.",
   "tier": "component",
   "install": "flutter_shadcn add image",
-  "import": "import 'package:<your_app>/ui/shadcn/image/image.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/image/image.dart';",
   "tags": ["display", "image", "media", "picture", "avatar"],
   "deps": {
     "foundation": ["constants"],

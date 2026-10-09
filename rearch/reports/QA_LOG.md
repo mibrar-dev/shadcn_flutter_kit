@@ -444,3 +444,16 @@
   code owned by B4/B5/B7. Finding for B4: package:analyzer is NOT a declared CLI dependency (add to dev_dependencies
   or avoid it). Orchestrator note: qa scripts now use `dart format --output=none` (a check run had reformatted 3 CLI
   test files; reverted).
+
+## P4-Z CUTOVER (deepseek-v4.1-flash#max) — ACCEPTED (user-approved 2026-10-09)
+- registry_next → lib/registry; old tree deleted (145 dirs, 361,090 lines); 188 files rewritten registry_next → registry;
+  test/registry_next → test/registry; retired 6 examples, 10 old tests, ~70 old-layout tool files; new
+  tool/registry/gen_registry_manifest.dart → lib/registry/manifests/registry.json (19 foundation, 6 theme, 73 primitive
+  units, 90 primitive edges, 118 components, 42 presets, 651 hashes; --check + schema + closure test); 9 packages removed
+  (data_widget, gap, phonecodes, country_flags, cross_file, web, skeletonizer, animation_kit, email_validator).
+- Orchestrator re-ran: qa_gate clean (2652 registry tests + 42 rearch), whole-project flutter analyze 0, manifest --check
+  up to date. Findings for CLI: primitive graph has cycles (clickable↔clickable_state, overlay_manager↔layer, popover
+  cluster) → CLI closure must be cycle-tolerant; schema componentTheme amended for nested popupTheme/menubarTheme.
+- NOTE: the mechanical git mv/rm (3889 files) was staged by the agent and got swept into orchestrator commit 8d04b3a
+  ("P6 docs build plan") — contents correct, message wrong; not rewritten (would need force-push). Orchestrator now
+  checks `git diff --cached` before every commit.

@@ -5,7 +5,7 @@
   "description": "Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.",
   "tier": "component",
   "install": "flutter_shadcn add country_flag",
-  "import": "import 'package:<your_app>/ui/shadcn/country_flag/country_flag.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/country_flag/country_flag.dart';",
   "tags": ["display", "flag", "country", "phone"],
   "deps": {
     "foundation": [],

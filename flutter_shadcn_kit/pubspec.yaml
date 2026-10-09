@@ -19,19 +19,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  email_validator: ^3.0.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
-  skeletonizer: ^2.1.0+1
-  country_flags: ^4.1.0
-  phonecodes: ^0.0.4
-  cross_file: ^0.3.4+2
-  web: ^1.1.1
-  data_widget: ^0.0.2
-  gap: ^3.0.1
   expressions: ^0.2.5+2
-  animation_kit: ^0.0.2
 
 dev_dependencies:
   flutter_test:

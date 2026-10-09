@@ -5,7 +5,7 @@
   "description": "Animated feature-card carousel with autoplay, swipe, keyboard navigation, nav arrows and a call to action.",
   "tier": "component",
   "install": "flutter_shadcn add feature_carousel",
-  "import": "import 'package:<your_app>/ui/shadcn/feature_carousel/feature_carousel.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/feature_carousel/feature_carousel.dart';",
   "tags": ["display", "carousel", "feature", "cards", "autoplay"],
   "deps": {
     "foundation": ["gap", "icons"],

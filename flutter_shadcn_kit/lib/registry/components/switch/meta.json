@@ -5,7 +5,7 @@
   "description": "Boolean form switch with controlled and controller-driven modes, sliding thumb, keyboard activation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add switch",
-  "import": "import 'package:<your_app>/ui/shadcn/switch/switch.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/switch/switch.dart';",
   "tags": ["form", "switch", "toggle", "input", "boolean"],
   "deps": {
     "foundation": ["data", "gap"],

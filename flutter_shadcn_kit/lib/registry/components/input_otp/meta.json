@@ -5,7 +5,7 @@
   "description": "One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add input_otp",
-  "import": "import 'package:<your_app>/ui/shadcn/input_otp/input_otp.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/input_otp/input_otp.dart';",
   "tags": ["form", "otp", "verification", "code", "pin"],
   "deps": {
     "foundation": [],

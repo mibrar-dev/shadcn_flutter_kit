@@ -158,8 +158,11 @@ LayersReport runLayersCheck({
       .where(enabled.contains)
       .toList(growable: false);
 
-  // `--new-layout` on the CLI; inferred for roots ending in `registry_next`.
-  final isNewLayout = newLayout ?? root.endsWith('registry_next');
+  // `--new-layout` on the CLI; inferred for the post-cutover `lib/registry`
+  // root and the migration-era `registry_next` root.
+  final isNewLayout =
+      newLayout ??
+      (root.endsWith('registry') || root.endsWith('registry_next'));
 
   final scan = RegistryScan.load(root, skipGenerated: skipGenerated);
   final findings = <LayerFinding>[];

@@ -5,7 +5,7 @@
   "description": "Checkerboard painter for transparency indicators.",
   "tier": "component",
   "install": "flutter_shadcn add alpha",
-  "import": "import 'package:<your_app>/ui/shadcn/alpha/alpha.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/alpha/alpha.dart';",
   "tags": [
     "color",
     "picker",

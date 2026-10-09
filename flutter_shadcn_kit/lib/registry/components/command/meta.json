@@ -5,7 +5,7 @@
   "description": "Command palette with a debounced async result stream, keyboard navigation and a dialog entry point.",
   "tier": "component",
   "install": "flutter_shadcn add command",
-  "import": "import 'package:<your_app>/ui/shadcn/command/command.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/command/command.dart';",
   "tags": [
     "control",
     "command",

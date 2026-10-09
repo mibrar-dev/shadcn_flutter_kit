@@ -5,7 +5,7 @@
   "description": "Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.",
   "tier": "component",
   "install": "flutter_shadcn add text_area",
-  "import": "import 'package:<your_app>/ui/shadcn/text_area/text_area.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/text_area/text_area.dart';",
   "tags": ["form", "input", "textarea", "multiline"],
   "deps": {
     "foundation": [],

@@ -20,8 +20,8 @@ const String _usage =
     '                         $_ruleList\n'
     '  --strict               Exit 1 when any error level finding exists\n'
     '  --no-skip-generated    Include shared/theme/generated/**\n'
-    '  --new-layout            Use the registry_next component layout\n'
-    '                         (default: on when --root ends with registry_next)\n'
+    '  --new-layout            Use the flat component layout\n'
+    '                         (default: on when --root ends with registry)\n'
     '  --help                 Print this help';
 
 const String _ruleList =

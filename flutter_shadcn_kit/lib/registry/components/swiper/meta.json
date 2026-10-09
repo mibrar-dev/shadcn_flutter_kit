@@ -5,7 +5,7 @@
   "description": "Swipe-to-open wrapper that reveals a drawer or sheet panel.",
   "tier": "component",
   "install": "flutter_shadcn add swiper",
-  "import": "import 'package:<your_app>/ui/shadcn/swiper/swiper.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/swiper/swiper.dart';",
   "tags": [
     "overlay",
     "drawer",

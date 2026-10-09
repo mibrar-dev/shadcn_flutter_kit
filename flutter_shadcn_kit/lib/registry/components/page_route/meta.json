@@ -5,7 +5,7 @@
   "description": "Widgets-only page route and declarative Page with the shadcn fade + slide transition.",
   "tier": "component",
   "install": "flutter_shadcn add page_route",
-  "import": "import 'package:<your_app>/ui/shadcn/page_route/page_route.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/page_route/page_route.dart';",
   "tags": ["navigation", "route", "page", "transition"],
   "deps": {
     "foundation": [],

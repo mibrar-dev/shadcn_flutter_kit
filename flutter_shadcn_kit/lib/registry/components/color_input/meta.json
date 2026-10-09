@@ -5,7 +5,7 @@
   "description": "Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.",
   "tier": "component",
   "install": "flutter_shadcn add color_input",
-  "import": "import 'package:<your_app>/ui/shadcn/color_input/color_input.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
   "tags": ["form", "color", "input", "picker", "hex", "history"],
   "deps": {
     "foundation": ["captured_wrapper", "data", "gap"],

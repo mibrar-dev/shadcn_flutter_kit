@@ -5,7 +5,7 @@
   "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, time) plus selection clipping helpers.",
   "tier": "component",
   "install": "flutter_shadcn add formatter",
-  "import": "import 'package:<your_app>/ui/shadcn/formatter/formatter.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/formatter/formatter.dart';",
   "tags": [
     "input",
     "format",

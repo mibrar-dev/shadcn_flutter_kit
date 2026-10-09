@@ -5,7 +5,7 @@
   "description": "Structured error models, rule-based mapping, app/screen error channels and the matching UI surfaces.",
   "tier": "component",
   "install": "flutter_shadcn add error_system",
-  "import": "import 'package:<your_app>/ui/shadcn/error_system/error_system.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/error_system/error_system.dart';",
   "tags": ["utility", "error", "handling", "repository", "ui"],
   "deps": {
     "foundation": ["gap", "icons"],

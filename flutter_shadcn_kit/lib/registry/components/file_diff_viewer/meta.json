@@ -5,7 +5,7 @@
   "description": "Renders unified or split file diffs with line gutters, coloured additions/deletions, collapsible unchanged hunks and a copy-patch action.",
   "tier": "component",
   "install": "flutter_shadcn add file_diff_viewer",
-  "import": "import 'package:<your_app>/ui/shadcn/file_diff_viewer/file_diff_viewer.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/file_diff_viewer/file_diff_viewer.dart';",
   "tags": ["display", "diff", "code", "review", "git"],
   "deps": {
     "foundation": ["icons"],

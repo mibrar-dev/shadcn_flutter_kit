@@ -5,7 +5,7 @@
   "description": "Themed rule in either orientation, optionally carrying a centred label.",
   "tier": "component",
   "install": "flutter_shadcn add divider",
-  "import": "import 'package:<your_app>/ui/shadcn/divider/divider.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/divider/divider.dart';",
   "tags": ["display", "divider", "separator", "rule"],
   "deps": {
     "foundation": [],

@@ -5,7 +5,7 @@
   "description": "Animated number with a formatter or custom builder, plus flip-clock character rollers.",
   "tier": "component",
   "install": "flutter_shadcn add number_ticker",
-  "import": "import 'package:<your_app>/ui/shadcn/number_ticker/number_ticker.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/number_ticker/number_ticker.dart';",
   "tags": ["display", "number", "ticker", "animation", "counter"],
   "deps": {
     "foundation": [],

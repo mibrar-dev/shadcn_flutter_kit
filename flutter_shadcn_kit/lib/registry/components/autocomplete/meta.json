@@ -5,7 +5,7 @@
   "description": "Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.",
   "tier": "component",
   "install": "flutter_shadcn add autocomplete",
-  "import": "import 'package:<your_app>/ui/shadcn/autocomplete/autocomplete.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/autocomplete/autocomplete.dart';",
   "tags": [
     "form",
     "autocomplete",

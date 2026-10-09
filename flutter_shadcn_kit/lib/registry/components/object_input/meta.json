@@ -5,7 +5,7 @@
   "description": "Typed date, time and duration fields: locale-ordered numeric segments with a calendar dialog behind the date field.",
   "tier": "component",
   "install": "flutter_shadcn add object_input",
-  "import": "import 'package:<your_app>/ui/shadcn/object_input/object_input.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/object_input/object_input.dart';",
   "tags": [
     "form",
     "date",

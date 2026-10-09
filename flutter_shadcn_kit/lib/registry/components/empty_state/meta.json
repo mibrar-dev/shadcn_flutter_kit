@@ -5,7 +5,7 @@
   "description": "A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.",
   "tier": "component",
   "install": "flutter_shadcn add empty_state",
-  "import": "import 'package:<your_app>/ui/shadcn/empty_state/empty_state.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/empty_state/empty_state.dart';",
   "tags": ["display", "empty", "placeholder", "no-results", "error"],
   "deps": {
     "foundation": ["gap", "icons"],

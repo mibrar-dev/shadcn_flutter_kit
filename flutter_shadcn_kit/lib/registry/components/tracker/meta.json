@@ -5,7 +5,7 @@
   "description": "A row of coloured activity segments, each with a hover tooltip.",
   "tier": "component",
   "install": "flutter_shadcn add tracker",
-  "import": "import 'package:<your_app>/ui/shadcn/tracker/tracker.dart';",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tracker/tracker.dart';",
   "tags": ["display", "tracker", "status", "activity", "monitor"],
   "deps": {
     "foundation": ["gap"],

@@ -11,9 +11,9 @@ Branch: `refactor/rearchitecture` in `/Users/ibrar/Desktop/infinora.noworkspace/
 | 1 Audit (read-only) | ✅ done, user-approved 2026-10-06 |
 | 2 Foundation + theme + primitives + presets | ✅ done (all units accepted) |
 | 3 Pilot (button, input, dialog) | ✅ built + QA-accepted + user-approved (sizes fixed in P3-F) (button/button_group/toggle ee32250, dialog 587335e, input + text_editing + input_features) — ⏸ STOPPED for user review |
-| 4 Migrate remaining components + cutover | 🔄 accepted: all primitives + B01–B19, B22, B23, chip_input (+M1, M2, P3-F). NOT STARTED: localizations.dart split (619 lines) + l10n pass, B20, B21, B24, B25; then full-tree qa_gate + cutover |
-| 5 CLI | ⏳ not started |
-| 6 Docs gallery, final QA, PR | ⏳ not started |
+| 4 Migrate remaining components + cutover | ✅ migration done 2026-10-09: 118 components + all primitives (full gate 2652/2652, owner 0); 🔄 cutover P4-Z running (user-approved) |
+| 5 CLI | 🔄 plan ✅ (rearch/reports/P5_CLI_PLAN.md + registry_manifest.v2.schema.json); CLI repo branch refactor/rearchitecture; batches B1 (models) + B3 (lock) running |
+| 6 Docs gallery, final QA, PR | 🔄 P6-A docs design in Open Design running; Flutter rebuild next; PR needs user approval |
 
 ## User decisions (binding)
 - 2026-10-09: Ibrar APPROVED (complete approval): Phase 4 cutover (replace lib/registry with registry_next, delete old tree,

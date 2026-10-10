@@ -559,3 +559,9 @@
 - analyze 0; layout_audit +26 ~10 (10 skips = findings for the fix batch); format clean. Agent exit=1 was the final-turn wrapper; outputs complete.
 - 84/118 compliant; only button + dialog derive padding from density. 7 density findings (chip, badge, input, table, select, menu, tabs), 3 icon-geometry findings (chip leading renders AFTER label → 84px from edge). 28 raw literals in primitives/, 8 in theme/. 552 preview.dart literals = mechanical follow-up.
 - Orchestrator: moved a stray scanner output written outside the repo (shadcn_copy_paste/rearch/reports/) to scratchpad.
+
+## P6-D9a — component render audit + classification — ACCEPTED
+- docs analyze 0, docs tests 132 green (render audit opt-in via AUDIT_RENDER=1: threw=25 overflow=25 baseline). 236 light/dark captures.
+- Dominant root cause is the docs harness: `preview_stage.dart:98-128` gives previews unbounded width+height. 18 previews pin `ShadcnThemeData()` (ignore site theme/mode → likely cause of the user's black Calendar-class symptoms); 75 ignore light/dark overall; 25 overflow.
+- Registry bugs: chat IntrinsicHeight+Flexible overflow, eye_dropper notifier used after dispose, empty_state intrinsic width; preview bugs: file_diff_viewer, switch, image (remote SVG).
+- Classification 97 listed / 21 building blocks; preview examples proposed per component.

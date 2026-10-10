@@ -23,13 +23,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
-import 'package:flutter_shadcn_kit/registry/components/button/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/button/preview.dart'
+    show buttonPreviews;
 import 'package:flutter_shadcn_kit/registry/components/dialog/dialog.dart';
 import 'package:flutter_shadcn_kit/registry/components/dialog/dialog_style.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
-import 'package:flutter_shadcn_kit/registry/components/input/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/toggle/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/input/preview.dart'
+    show inputPreviews;
+import 'package:flutter_shadcn_kit/registry/components/toggle/preview.dart'
+    show togglePreviews;
 import 'package:flutter_shadcn_kit/registry/components/toggle/toggle.dart';
+import 'package:flutter_shadcn_kit/registry/foundation/component_preview.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/gap.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/form_core/form_core.dart';
@@ -158,23 +162,24 @@ void main() {
     );
   });
 
-  // The components' own `preview.dart` galleries (brief: "use each component's
-  // preview.dart where it already covers a scene").
-  group('preview galleries', () {
+  // The components' own `preview.dart` named examples (brief: "use each
+  // component's preview.dart where it already covers a scene"). Each scene is
+  // the default example of the component's P6-F3 preview contract.
+  group('preview examples', () {
     _scene(
       name: 'preview_button',
       size: const Size(900, 1000),
-      build: () => const ButtonPreview(),
+      build: () => _PreviewScene(buttonPreviews.first),
     );
     _scene(
       name: 'preview_input',
       size: const Size(900, 1000),
-      build: () => const InputPreview(),
+      build: () => _PreviewScene(inputPreviews.first),
     );
     _scene(
       name: 'preview_toggle',
       size: const Size(900, 640),
-      build: () => const TogglePreview(),
+      build: () => _PreviewScene(togglePreviews.first),
     );
   });
 }
@@ -227,6 +232,16 @@ ShadcnThemeData _presetTheme(Brightness brightness) {
 // ---------------------------------------------------------------------------
 // Frame + capture.
 // ---------------------------------------------------------------------------
+
+/// Builds one named docs example of a component's preview contract.
+class _PreviewScene extends StatelessWidget {
+  const _PreviewScene(this.preview);
+
+  final ComponentPreview preview;
+
+  @override
+  Widget build(BuildContext context) => Builder(builder: preview.builder);
+}
 
 /// Wraps [child] in the theme legs, directionality, text style and an
 /// [Overlay] (the input context menu needs one).

@@ -42,12 +42,9 @@ class _AnchorPreviewState extends State<AnchorPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: _body(context),
     );
   }
 
@@ -81,15 +78,12 @@ class _AnchorPreviewState extends State<AnchorPreview> {
                 ),
               ),
             SizedBox(height: ShadcnTheme.of(context).spacing.md),
-            ShadcnTheme(
-              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-              child: Builder(
-                builder: (context) => ColoredBox(
-                  color: ShadcnTheme.of(context).colors.background,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text('dark tokens / $_report'),
-                  ),
+            Builder(
+              builder: (context) => ColoredBox(
+                color: ShadcnTheme.of(context).colors.background,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text('dark tokens / $_report'),
                 ),
               ),
             ),

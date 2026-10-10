@@ -2,6 +2,7 @@
   "id": "anchor",
   "name": "Anchor",
   "category": "overlay",
+  "listed": false,
   "description": "Describes the point an overlay positions itself against and tracks it while it moves.",
   "tier": "component",
   "install": "flutter_shadcn add anchor",

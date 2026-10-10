@@ -2,6 +2,7 @@
   "id": "timeline_animation",
   "name": "Timeline Animation",
   "category": "utility",
+  "listed": false,
   "description": "Typed keyframe timeline: turns an AnimationController's 0..1 progress into values segment by segment.",
   "tier": "component",
   "install": "flutter_shadcn add timeline_animation",

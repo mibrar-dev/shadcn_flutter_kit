@@ -329,6 +329,7 @@ class _Builder {
       'userOwned': userOwned,
       'deps': component.meta['deps'],
       'tags': component.meta['tags'] ?? const <String>[],
+      'listed': component.meta['listed'] != false,
       'api': component.meta['api'] ?? const <String, Object?>{},
       'install': component.meta['install'],
       'import': component.meta['import'],

@@ -1,90 +1,58 @@
-// Gallery preview for the `overflow_marquee` component.
+// Named examples for the `overflow_marquee` component (P6-F3 preview contract).
 //
-// Widgets-only: an overflowing horizontal ticker, a vertical one, a
-// non-overflowing (static) child and a scoped theme leg.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each marquee carries its own bounded box because
+// the ticker measures the overflow against its constraints.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'overflow_marquee.dart';
 
-/// Preview entry point used by the docs gallery.
-class OverflowMarqueePreview extends StatelessWidget {
-  /// Creates the preview.
-  const OverflowMarqueePreview({super.key});
+/// Long enough to overflow a narrow container and keep scrolling.
+const String _line =
+    'The quick brown fox jumps over the lazy dog — long enough to overflow '
+    'a narrow container and keep scrolling.';
 
-  @override
-  Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _OverflowMarqueePreviewBody(),
+/// A horizontal ticker in a bordered band.
+Widget _horizontal(BuildContext context) {
+  final ShadcnColors colors = ShadcnTheme.of(context).colors;
+  return SizedBox(
+    width: 320,
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: colors.border),
+        borderRadius: BorderRadius.circular(8),
       ),
-    );
-  }
-}
-
-class _OverflowMarqueePreviewBody extends StatelessWidget {
-  const _OverflowMarqueePreviewBody();
-
-  static const String _line =
-      'The quick brown fox jumps over the lazy dog — long enough to overflow '
-      'a narrow container and keep scrolling.';
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 420),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(color: colors.border),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: OverflowMarquee(
-                    duration: Duration(seconds: 6),
-                    child: Text(_line),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: ComponentTheme<OverflowMarqueeTheme>(
-                      data: const OverflowMarqueeTheme(
-                        duration: Duration(seconds: 3),
-                        fadePortion: 0.2,
-                      ),
-                      child: const OverflowMarquee(
-                        direction: Axis.vertical,
-                        child: SizedBox(height: 96, child: Text(_line)),
-                      ),
-                    ),
-                  ),
-                  const Gap(16),
-                  // Fits: the render object never starts a scroll.
-                  const OverflowMarquee(child: Text('fits')),
-                ],
-              ),
-            ],
-          ),
+      child: Padding(
+        padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.sm),
+        child: const OverflowMarquee(
+          duration: Duration(seconds: 6),
+          child: Text(_line),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
+
+/// A vertical ticker in a short viewport.
+Widget _vertical(BuildContext context) {
+  return const SizedBox(
+    width: 200,
+    height: 120,
+    child: OverflowMarquee(
+      direction: Axis.vertical,
+      duration: Duration(seconds: 3),
+      child: SizedBox(height: 160, child: Text(_line)),
+    ),
+  );
+}
+
+/// Named docs examples for `overflow_marquee`; the first entry is the default.
+const List<ComponentPreview> overflowMarqueePreviews = <ComponentPreview>[
+  ComponentPreview('Horizontal', _horizontal),
+  ComponentPreview('Vertical', _vertical),
+];

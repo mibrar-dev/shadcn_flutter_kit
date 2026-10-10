@@ -1,91 +1,106 @@
-// Gallery preview for the `avatar` component.
+// Named examples for the `avatar` component (P6-F3 preview contract).
 //
-// Widgets-only, like the component itself. Shows initials, image, sizes,
-// badges, groups, dark tokens and a scoped theme override.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
+
+import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../primitives/text/text_extension.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'avatar.dart';
 
-/// Preview entry point used by the docs gallery.
-class AvatarPreview extends StatelessWidget {
-  /// Creates the preview.
-  const AvatarPreview({super.key});
+/// A 48x48 PNG decoded from memory: the preview never hits the network, so it
+/// renders identically offline and inside a widget test.
+const String _avatarPhotoBase64 =
+    'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAAWElEQVR42u3OoRGAMBBFwdPURBHoFIaj'
+    'KTS9hBL+ROTUzjz/ts7xxZ73js1x5eqIFRAQEBAQ0CKoczarYkBAQEBAQKugzhkQEBAQENAWUOMMCAgIC'
+    'AhoQz/vbpR28UARAAAAAABJRU5ErkJggg==';
 
-  @override
-  Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: ColoredBox(
-          color: const ShadcnThemeData().colors.background,
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text('Initials, sizes and badges').small,
-                  SizedBox(height: ShadcnTheme.of(context).spacing.md),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Avatar(initials: 'IB'),
-                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
-                      Avatar(initials: 'IB', size: 56),
-                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
-                      Avatar(
-                        initials: 'AC',
-                        badge: AvatarBadge(
-                          child: Icon(LucideIcons.check, size: 8),
-                        ),
-                      ),
-                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
-                      Avatar(
-                        initials: 'AC',
-                        badge: AvatarBadge(),
-                        badgeAlignment: AlignmentDirectional.topEnd,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-                  const Text('Group and theme override').small,
-                  SizedBox(height: ShadcnTheme.of(context).spacing.md),
-                  const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      AvatarGroup(
-                        children: <Widget>[
-                          Avatar(initials: 'IB'),
-                          Avatar(initials: 'AC'),
-                          Avatar(initials: 'MK'),
-                          Avatar(initials: '+4'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-                  ComponentTheme<AvatarTheme>(
-                    data: const AvatarTheme(
-                      backgroundColor: ThemedColor.ref(ColorRef.secondary),
-                      foregroundColor: ThemedColor.ref(
-                        ColorRef.secondaryForeground,
-                      ),
-                    ),
-                    child: const Avatar(initials: 'TM', size: 48),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+/// Local photo provider shared by the avatar examples.
+final ImageProvider _avatarPhoto = MemoryImage(
+  base64Decode(_avatarPhotoBase64),
+);
+
+/// A photo avatar, with the initials fallback next to it.
+Widget _avatarImage(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      Avatar(initials: 'IB', image: _avatarPhoto, size: 56),
+      Gap(spacing.md),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Avatar(initials: 'AC', image: _avatarPhoto),
+          Gap(spacing.sm),
+          Avatar(initials: 'MK', image: _avatarPhoto, size: 40),
+        ],
       ),
-    );
-  }
+    ],
+  );
 }
+
+/// Initials-only avatars at three sizes.
+Widget _avatarInitials(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      const Avatar(initials: 'IB'),
+      Gap(spacing.md),
+      const Avatar(initials: 'AC', size: 40),
+      Gap(spacing.md),
+      const Avatar(initials: 'MK', size: 56),
+    ],
+  );
+}
+
+/// An avatar carrying a status badge.
+Widget _avatarBadge(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      Avatar(
+        initials: 'AC',
+        badge: AvatarBadge(child: Icon(LucideIcons.check, size: 8)),
+      ),
+      Gap(spacing.md),
+      const Avatar(
+        initials: 'AC',
+        badge: AvatarBadge(),
+        badgeAlignment: AlignmentDirectional.topEnd,
+      ),
+    ],
+  );
+}
+
+/// A stack of avatars.
+Widget _avatarGroup(BuildContext context) {
+  return const AvatarGroup(
+    children: <Widget>[
+      Avatar(initials: 'IB'),
+      Avatar(initials: 'AC'),
+      Avatar(initials: 'MK'),
+      Avatar(initials: '+4'),
+    ],
+  );
+}
+
+/// Named docs examples for `avatar`; the first entry is the default.
+const List<ComponentPreview> avatarPreviews = <ComponentPreview>[
+  ComponentPreview('Image', _avatarImage),
+  ComponentPreview('Initials', _avatarInitials),
+  ComponentPreview('Badge', _avatarBadge),
+  ComponentPreview('Group', _avatarGroup),
+];

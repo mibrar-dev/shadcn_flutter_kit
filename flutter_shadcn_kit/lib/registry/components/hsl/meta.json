@@ -2,6 +2,7 @@
   "id": "hsl",
   "name": "HSL Color Slider",
   "category": "form",
+  "listed": false,
   "description": "Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.",
   "tier": "component",
   "install": "flutter_shadcn add hsl",

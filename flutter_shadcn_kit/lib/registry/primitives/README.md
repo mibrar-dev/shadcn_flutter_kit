@@ -99,6 +99,19 @@ Flutter non-Material libraries. No third-party packages (except `intl` /
   surface, so a layer 2 file may not import `Card`. `radio_group` owns
   `RadioCard` and `SelectableCardTheme`.
 
+- `masonry_layout.dart` (P6-D8) — `MasonryLayout` (+ `MasonryParentData`,
+  `MasonryLayoutRender`): a staggered grid. Children are laid out one by one
+  into the **shortest** column (left-most on a tie, so the result is stable),
+  so cards of different heights pack tightly and no row forces its members to
+  a shared height. Two forms — `MasonryLayout.fixed(crossAxisCount:)` and
+  `MasonryLayout.responsive(maxCrossAxisExtent:)`, which derives the count
+  with the `SliverGridDelegateWithMaxCrossAxisExtent` rule. Uniform
+  `mainAxisSpacing`/`crossAxisSpacing`, no stretch on either axis, intrinsic
+  queries that replay the same packing, RTL mirrors the column order,
+  semantics walk the visual order, and it works in a scroll view. A masonry
+  needs a bounded width and reports a clear error when it does not get one.
+  Used by the docs card walls (Theme Studio canvas, landing collage).
+
 ## Component themes
 
 Each primitive with theming exposes a `ComponentThemeData` subclass

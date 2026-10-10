@@ -24,12 +24,9 @@ class _BackdropTransformPreviewState extends State<BackdropTransformPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: _body(context),
     );
   }
 
@@ -104,17 +101,14 @@ class _BackdropTransformPreviewState extends State<BackdropTransformPreview> {
               ),
             ),
             SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-            ShadcnTheme(
-              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-              child: Builder(
-                builder: (context) => ColoredBox(
-                  color: ShadcnTheme.of(context).colors.background,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      'dark tokens / radiusXxl = '
-                      '${ShadcnTheme.of(context).radiusXxl}',
-                    ),
+            Builder(
+              builder: (context) => ColoredBox(
+                color: ShadcnTheme.of(context).colors.background,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    'dark tokens / radiusXxl = '
+                    '${ShadcnTheme.of(context).radiusXxl}',
                   ),
                 ),
               ),

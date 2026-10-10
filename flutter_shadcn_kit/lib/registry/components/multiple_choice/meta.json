@@ -2,6 +2,7 @@
   "id": "multiple_choice",
   "name": "Multiple Choice",
   "category": "form",
+  "listed": false,
   "description": "Selection scopes for single-choice and multi-choice trees, controlled or controller-driven.",
   "tier": "component",
   "install": "flutter_shadcn add multiple_choice",

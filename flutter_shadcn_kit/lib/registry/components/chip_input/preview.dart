@@ -1,65 +1,47 @@
-// Gallery preview for the `chip_input` component: removable, read-only,
-// controlled, validated and suggested token fields, in light and dark.
-// Widgets-only; the docs app embeds [ChipInputPreview] directly.
+// Named examples for the `chip_input` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'chip_input.dart';
 
-/// Renders the chip-input gallery.
-class ChipInputPreview extends StatefulWidget {
-  /// Creates the preview.
-  const ChipInputPreview({super.key});
+/// Rejects the word at the caret; used where the typed word is irrelevant.
+String? _chipInputReject(String text) => null;
+
+/// Suggestions for the suggestion example.
+const List<String> _chipInputFruits = <String>[
+  'apple',
+  'apricot',
+  'avocado',
+  'banana',
+  'blueberry',
+  'cherry',
+];
+
+/// The controlled field: the example owns the chip list.
+class _ChipInputControlledChips extends StatefulWidget {
+  const _ChipInputControlledChips();
 
   @override
-  State<ChipInputPreview> createState() => _ChipInputPreviewState();
+  State<_ChipInputControlledChips> createState() =>
+      _ChipInputControlledChipsState();
 }
 
-class _ChipInputPreviewState extends State<ChipInputPreview> {
+class _ChipInputControlledChipsState extends State<_ChipInputControlledChips> {
   List<String> _chips = <String>['flutter'];
-  int _submits = 0;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Controlled', _controlled(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Uncontrolled', _uncontrolled(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Read-only tokens', _readOnly()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Suggestions', _suggestions()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Validation', _validated()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Disabled', _disabled()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _controlled(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         ChipInput<String>(
           hintText: 'Add a tag and press Enter',
@@ -68,106 +50,94 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
               setState(() => _chips = chips),
           onChipSubmit: (String text) => text.trim().toLowerCase(),
         ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
+        Gap(spacing.sm),
         Text('value: ${_chips.join(', ')}'),
       ],
     );
   }
+}
 
-  Widget _uncontrolled(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        ChipInput<String>(
-          hintText: 'Uncontrolled: the field owns its chips',
-          initialChips: const <String>['dart', 'flutter'],
-          onChipSubmit: _reject,
-          onChipsChanged: (_) => setState(() => _submits++),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        Text('changes reported: $_submits'),
-      ],
-    );
-  }
+/// The suggestion list filtering as you type.
+class _ChipInputSuggestedChips extends StatelessWidget {
+  const _ChipInputSuggestedChips();
 
-  Widget _readOnly() {
-    return const ChipInput<String>(
-      hintText: 'Tokens without a remove button',
-      initialChips: <String>['flutter', 'shadcn'],
-      theme: ChipInputTheme(removable: false),
-      onChipSubmit: _reject,
-    );
-  }
-
-  Widget _suggestions() {
+  @override
+  Widget build(BuildContext context) {
     return ChipInput<String>(
       hintText: 'Type to filter the fruits',
-      onChipSubmit: _reject,
-      suggestions: (String query) => _fruits
+      onChipSubmit: _chipInputReject,
+      suggestions: (String query) => _chipInputFruits
           .where((String fruit) => fruit.startsWith(query.toLowerCase()))
           .take(5),
     );
   }
+}
 
-  Widget _validated() {
+/// Read-only tokens: no remove button.
+class _ChipInputReadOnlyChips extends StatelessWidget {
+  const _ChipInputReadOnlyChips();
+
+  @override
+  Widget build(BuildContext context) {
+    return const ChipInput<String>(
+      hintText: 'Tokens without a remove button',
+      initialChips: <String>['flutter', 'shadcn'],
+      theme: ChipInputTheme(removable: false),
+      onChipSubmit: _chipInputReject,
+    );
+  }
+}
+
+/// The validated field, below the minimum.
+class _ChipInputValidatedChips extends StatelessWidget {
+  const _ChipInputValidatedChips();
+
+  @override
+  Widget build(BuildContext context) {
     return ChipInput<String>(
       hintText: 'Needs at least two chips',
       initialChips: const <String>['flutter'],
       validator: (List<String> chips) =>
           chips.length < 2 ? 'Pick at least two chips.' : null,
-      onChipSubmit: _reject,
-    );
-  }
-
-  Widget _disabled() {
-    return const ChipInput<String>(
-      enabled: false,
-      initialChips: <String>['disabled'],
-      onChipSubmit: _reject,
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ChipInput<String>(
-            hintText: 'dark field',
-            initialChips: const <String>['dark'],
-            onChipSubmit: _reject,
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Suggestions for the suggestion example.
-  static const List<String> _fruits = <String>[
-    'apple',
-    'apricot',
-    'avocado',
-    'banana',
-    'blueberry',
-    'cherry',
-  ];
-
-  /// Rejects the word at the caret; used where the typed word is irrelevant.
-  static String? _reject(String text) => null;
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
+      onChipSubmit: _chipInputReject,
     );
   }
 }
+
+/// The disabled field.
+class _ChipInputDisabledChips extends StatelessWidget {
+  const _ChipInputDisabledChips();
+
+  @override
+  Widget build(BuildContext context) {
+    return const ChipInput<String>(
+      enabled: false,
+      initialChips: <String>['disabled'],
+      onChipSubmit: _chipInputReject,
+    );
+  }
+}
+
+Widget _chipInputDefault(BuildContext context) =>
+    const _ChipInputControlledChips();
+
+Widget _chipInputSuggestions(BuildContext context) =>
+    const _ChipInputSuggestedChips();
+
+Widget _chipInputReadOnly(BuildContext context) =>
+    const _ChipInputReadOnlyChips();
+
+Widget _chipInputValidated(BuildContext context) =>
+    const _ChipInputValidatedChips();
+
+Widget _chipInputDisabled(BuildContext context) =>
+    const _ChipInputDisabledChips();
+
+/// Named docs examples for `chip_input`; the first entry is the default.
+const List<ComponentPreview> chipInputPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _chipInputDefault),
+  ComponentPreview('With suggestions', _chipInputSuggestions),
+  ComponentPreview('Read-only', _chipInputReadOnly),
+  ComponentPreview('Validated', _chipInputValidated),
+  ComponentPreview('Disabled', _chipInputDisabled),
+];

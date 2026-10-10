@@ -5,7 +5,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'error_system.dart';
 
@@ -62,17 +61,6 @@ class _ErrorSystemPreviewState extends State<ErrorSystemPreview> {
                 ),
                 Gap(theme.spacing.xl),
                 _section(context, 'Banner', AppErrorBanner(scope: _scope)),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: ErrorState(error: _error),
-                  ),
-                ),
               ],
             ),
           ),

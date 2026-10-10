@@ -1,11 +1,10 @@
 // Gallery preview for the `group` component: absolute placement, pinning to
-// each edge, a `fromRect` child and a dark palette. Widgets-only; the docs app
-// embeds [GroupPreview] directly.
+// each edge and a `fromRect` child. Widgets-only; the docs app embeds
+// [GroupPreview] directly.
 
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'group.dart';
 
@@ -29,8 +28,6 @@ class GroupPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(context, 'Absolute placement', _stage(theme)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark(theme)),
               ],
             ),
           ),
@@ -68,13 +65,6 @@ class GroupPreview extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _dark(ShadcnThemeData theme) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: Builder(builder: (context) => _stage(ShadcnTheme.of(context))),
     );
   }
 

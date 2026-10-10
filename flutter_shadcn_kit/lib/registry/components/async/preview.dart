@@ -37,12 +37,9 @@ class _AsyncPreviewState extends State<AsyncPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: _body(context),
     );
   }
 
@@ -89,18 +86,15 @@ class _AsyncPreviewState extends State<AsyncPreview> {
               child: const Text('reload futures'),
             ),
             SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-            ShadcnTheme(
-              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-              child: Builder(
-                builder: (context) => ColoredBox(
-                  color: ShadcnTheme.of(context).colors.card,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: FutureOrBuilder<int>(
-                      future: 42,
-                      builder: (context, snapshot) =>
-                          Text('dark tokens / ${snapshot.data}'),
-                    ),
+            Builder(
+              builder: (context) => ColoredBox(
+                color: ShadcnTheme.of(context).colors.card,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: FutureOrBuilder<int>(
+                    future: 42,
+                    builder: (context, snapshot) =>
+                        Text('dark tokens / ${snapshot.data}'),
                   ),
                 ),
               ),

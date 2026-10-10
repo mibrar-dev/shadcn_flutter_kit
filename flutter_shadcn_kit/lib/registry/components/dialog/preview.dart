@@ -1,234 +1,59 @@
+// Named examples for the `dialog` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
+//
+// The example ships its own [Navigator], so the demo opens a real route no
+// matter where the docs page mounts it.
+
 import 'package:flutter/widgets.dart';
 
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
-import '../../theme/tokens.dart';
 import 'dialog.dart';
 import 'dialog_style.dart';
 
-/// Widgets-only gallery of the dialog: dismissal modes, alignments, barrier
-/// theming, full-screen mode, a dark subtree and a result round trip.
-class DialogPreview extends StatelessWidget {
-  const DialogPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // The gallery ships its own navigator so the demos work wherever the
-    // preview is mounted, and its own directionality + text style because
-    // there is no Scaffold ancestor to inherit from.
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 14),
-        child: Navigator(
-          onGenerateRoute: (settings) => PageRouteBuilder<void>(
-            settings: settings,
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const _DialogGallery(),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DialogGallery extends StatelessWidget {
-  const _DialogGallery();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: <Widget>[
-            _Trigger(
-              label: 'Open dialog',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                builder: (context) => _DialogBody(
-                  title: 'Delete this project?',
-                  message: 'This cannot be undone.',
-                ),
-              ),
-            ),
-            _Trigger(
-              label: 'Barrier locked',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => _DialogBody(
-                  title: 'Confirm',
-                  message: 'Escape and barrier taps are disabled.',
-                ),
-              ),
-            ),
-            _Trigger(
-              label: 'Top left',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                alignment: Alignment.topLeft,
-                builder: (context) => _DialogBody(
-                  title: 'Top left',
-                  message: 'Alignment topLeft.',
-                ),
-              ),
-            ),
-            _Trigger(
-              label: 'Returns a result',
-              onPressed: (context) async {
-                final result = await showShadcnDialog<String>(
-                  context: context,
-                  builder: (context) => _DialogBody(
-                    title: 'Pick one',
-                    message: 'The future completes with the picked value.',
-                    onResult: (value) => Navigator.pop(context, value),
-                  ),
-                );
-                debugPrint('showShadcnDialog returned $result');
-              },
-            ),
-            _Trigger(
-              label: 'Full screen',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                fullScreen: true,
-                builder: (context) => _DialogBody(
-                  title: 'Full screen',
-                  message: 'No radius, border, shadow or inset.',
-                ),
-              ),
-            ),
-            _Trigger(
-              label: 'No safe area',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                useSafeArea: false,
-                builder: (context) => const _DialogBody(
-                  title: 'No safe area',
-                  message: 'The card reaches the screen edges.',
-                ),
-              ),
-            ),
-            _Trigger(
-              label: 'Themed barrier',
-              onPressed: (context) => showShadcnDialog<void>(
-                context: context,
-                theme: const DialogTheme(
-                  barrierColor: ThemedColor.ref(ColorRef.primary, alpha: 0.35),
-                  maxWidth: 320,
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
-                  shadows: <BoxShadow>[],
-                ),
-                builder: (context) => const _DialogBody(
-                  title: 'Widget theme',
-                  message: 'Barrier and radius come from the theme param.',
-                ),
-              ),
-            ),
-            ShadcnTheme(
-              data: ShadcnThemeData(
-                colors: ShadcnColors.darkFallback,
-                tokens: ShadcnTokens(radius: 1.0),
-              ),
-              child: _Trigger(
-                label: 'Open (dark, radius 1.0)',
-                onPressed: (context) => showShadcnDialog<void>(
-                  context: context,
-                  builder: (context) => _DialogBody(
-                    title: 'Dark tokens',
-                    message: 'Card, border and shadows follow the tokens.',
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Minimal focusable, pressable control used by the gallery so the preview
-/// needs no dependency on the button component.
-class _Trigger extends StatefulWidget {
-  const _Trigger({required this.label, required this.onPressed});
+/// The trigger the example wraps in a [Builder], so it can reach the nearest
+/// Navigator.
+class _DialogTrigger extends StatelessWidget {
+  const _DialogTrigger({required this.label, required this.onPressed});
 
   final String label;
-  final void Function(BuildContext context) onPressed;
-
-  @override
-  State<_Trigger> createState() => _TriggerState();
-}
-
-class _TriggerState extends State<_Trigger> {
-  bool _hovered = false;
-  bool _pressed = false;
-
-  bool get _activated => _hovered || _pressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final colors = ShadcnTheme.of(context).colors;
-    return FocusableActionDetector(
-      onShowHoverHighlight: (value) => setState(() => _hovered = value),
-      onShowFocusHighlight: (value) =>
-          setState(() => _hovered = _hovered || value),
-      actions: <Type, Action<Intent>>{
-        ActivateIntent: CallbackAction<ActivateIntent>(
-          onInvoke: (_) {
-            widget.onPressed(context);
-            return null;
-          },
+    final theme = ShadcnTheme.of(context);
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: theme.colors.primary,
+          borderRadius: theme.borderRadiusMd,
         ),
-      },
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTapDown: (_) => setState(() => _pressed = true),
-          onTapUp: (_) => setState(() => _pressed = false),
-          onTapCancel: () => setState(() => _pressed = false),
-          onTap: () => widget.onPressed(context),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: _activated
-                  ? colors.accent.withValues(alpha: 0.5)
-                  : colors.primary,
-              borderRadius: const BorderRadius.all(Radius.circular(6)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: Text(
-                widget.label,
-                style: TextStyle(color: colors.primaryForeground),
-              ),
-            ),
-          ),
+        child: Text(
+          label,
+          style: TextStyle(color: theme.colors.primaryForeground),
         ),
       ),
     );
   }
 }
 
-/// Content placed inside the dialog card. Actions are caller supplied.
-class _DialogBody extends StatelessWidget {
-  const _DialogBody({
-    required this.title,
-    required this.message,
-    this.onResult,
-  });
+/// The dialog card itself.
+class _DialogDialogBody extends StatelessWidget {
+  const _DialogDialogBody({required this.title, required this.message});
 
   final String title;
   final String message;
-  final void Function(String result)? onResult;
 
   @override
   Widget build(BuildContext context) {
-    final colors = ShadcnTheme.of(context).colors;
+    final theme = ShadcnTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,31 +61,83 @@ class _DialogBody extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: colors.foreground,
+            color: theme.colors.foreground,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
-        SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-        Text(message, style: TextStyle(color: colors.mutedForeground)),
-        SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            _Trigger(
-              label: 'Close',
-              onPressed: (context) => Navigator.of(context).maybePop(),
-            ),
-            if (onResult != null) ...<Widget>[
-              SizedBox(width: ShadcnTheme.of(context).spacing.sm),
-              _Trigger(
-                label: 'Confirm',
-                onPressed: (context) => onResult!('ok'),
-              ),
-            ],
-          ],
-        ),
+        Gap(theme.spacing.lg),
+        Text(message, style: TextStyle(color: theme.colors.mutedForeground)),
       ],
     );
   }
 }
+
+/// A named example driven through a real route push.
+class _DialogDialogExample extends StatelessWidget {
+  const _DialogDialogExample({
+    required this.label,
+    this.barrierDismissible = true,
+    this.fullScreen = false,
+    this.theme,
+  });
+
+  final String label;
+  final bool barrierDismissible;
+  final bool fullScreen;
+  final DialogTheme? theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Builder(
+        builder: (context) => _DialogTrigger(
+          label: label,
+          onPressed: () => showShadcnDialog<void>(
+            context: context,
+            barrierDismissible: barrierDismissible,
+            fullScreen: fullScreen,
+            theme: theme,
+            builder: (context) => _DialogDialogBody(
+              title: 'Delete this project?',
+              message: 'This cannot be undone.',
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The default modal dialog.
+Widget _dialogDefault(BuildContext context) =>
+    const _DialogDialogExample(label: 'Open dialog');
+
+/// A full-screen dialog.
+Widget _dialogFullScreen(BuildContext context) =>
+    const _DialogDialogExample(label: 'Open full screen', fullScreen: true);
+
+/// A barrier-locked dialog.
+Widget _dialogLocked(BuildContext context) => const _DialogDialogExample(
+  label: 'Open locked dialog',
+  barrierDismissible: false,
+);
+
+/// A dialog themed from the widget leg.
+Widget _dialogThemed(BuildContext context) => _DialogDialogExample(
+  label: 'Open themed dialog',
+  theme: const DialogTheme(
+    maxWidth: 320,
+    borderRadius: BorderRadius.all(Radius.circular(24)),
+    shadows: <BoxShadow>[],
+  ),
+);
+
+/// Named docs examples for `dialog`; the first entry is the default.
+const List<ComponentPreview> dialogPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _dialogDefault),
+  ComponentPreview('Full screen', _dialogFullScreen),
+  ComponentPreview('Barrier locked', _dialogLocked),
+  ComponentPreview('Themed', _dialogThemed),
+];

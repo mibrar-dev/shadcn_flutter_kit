@@ -1,129 +1,49 @@
-// Gallery preview for the `badge` component: every variant, a pressable
-// badge, the dot form and the dark palette.
-// Widgets-only; the docs app embeds [BadgePreview] directly.
+// Named examples for the `badge` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'badge.dart';
 
-/// Renders the badge gallery.
-class BadgePreview extends StatefulWidget {
-  /// Creates the preview.
-  const BadgePreview({super.key});
-
-  @override
-  State<BadgePreview> createState() => _BadgePreviewState();
+Widget _badgeExample(BuildContext context, BadgeVariant variant, String label) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Badge(variant: variant, child: Text(label)),
+      Gap(ShadcnTheme.of(context).spacing.md),
+      Badge(
+        variant: variant,
+        leading: const Icon(LucideIcons.star, size: 12),
+        child: Text('$label with icon'),
+      ),
+    ],
+  );
 }
 
-class _BadgePreviewState extends State<BadgePreview> {
-  int _presses = 0;
+Widget _badgeDefault(BuildContext context) =>
+    _badgeExample(context, BadgeVariant.primary, 'Default');
 
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Variants',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      for (final BadgeVariant variant in BadgeVariant.values)
-                        Badge(variant: variant, child: Text(variant.name)),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Pressable',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: <Widget>[
-                      Badge(
-                        onPressed: () => setState(() => _presses++),
-                        leading: const Icon(LucideIcons.check, size: 12),
-                        child: const Text('Pressable'),
-                      ),
-                      Text('pressed $_presses times'),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dot',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      for (final BadgeVariant variant in BadgeVariant.values)
-                        Badge(
-                          variant: variant,
-                          showAsDot: true,
-                          child: const SizedBox.shrink(),
-                        ),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+Widget _badgeSecondary(BuildContext context) =>
+    _badgeExample(context, BadgeVariant.secondary, 'Secondary');
 
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              for (final BadgeVariant variant in BadgeVariant.values)
-                Badge(variant: variant, child: Text(variant.name)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+Widget _badgeOutline(BuildContext context) =>
+    _badgeExample(context, BadgeVariant.outline, 'Outline');
 
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
-}
+Widget _badgeDestructive(BuildContext context) =>
+    _badgeExample(context, BadgeVariant.destructive, 'Destructive');
+
+/// Named docs examples for `badge`; the first entry is the default.
+const List<ComponentPreview> badgePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _badgeDefault),
+  ComponentPreview('Secondary', _badgeSecondary),
+  ComponentPreview('Outline', _badgeOutline),
+  ComponentPreview('Destructive', _badgeDestructive),
+];

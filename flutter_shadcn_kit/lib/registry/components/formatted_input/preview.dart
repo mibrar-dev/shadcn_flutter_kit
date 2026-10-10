@@ -1,91 +1,54 @@
-// Gallery preview for the `formatted_input` component: a phone field, a date
-// field, the controlled mode, the disabled state and a validation error.
-// Widgets-only; the docs app embeds [FormattedInputPreview] directly.
+// Named examples for the `formatted_input` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. State lives in
+// the example's own widget. The fixed width is inherent: the segment row sizes
+// from its parts, so the example hands it a bounded box.
 
 import 'package:flutter/widgets.dart';
 
-import '../../components/icon/icon.dart';
-import '../../primitives/form_core/form_core.dart';
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
+import '../../primitives/form_core/form_core.dart';
 import 'formatted_input.dart';
 
 /// A `(555) 123-4567` phone field in controlled mode.
-class PhonePreview extends StatefulWidget {
-  /// Creates the preview.
-  const PhonePreview({super.key});
+class _PhoneExample extends StatefulWidget {
+  const _PhoneExample();
 
   @override
-  State<PhonePreview> createState() => _PhonePreviewState();
+  State<_PhoneExample> createState() => _PhoneExampleState();
 }
 
-class _PhonePreviewState extends State<PhonePreview> {
+class _PhoneExampleState extends State<_PhoneExample> {
   SegmentedValue? _value;
 
   @override
   Widget build(BuildContext context) {
-    return FormattedInput(
-      leading: const Icon(LucideIcons.phone).iconSmall(),
-      value: _value,
-      onChanged: (SegmentedValue value) => setState(() => _value = value),
-      initialValue: const SegmentedValue(<SegmentPart>[
-        SegmentPart.editable(length: 3, width: 32, placeholder: Text('555')),
-        SegmentPart.separator(' ('),
-        SegmentPart.editable(length: 3, width: 32, placeholder: Text('123')),
-        SegmentPart.separator(') '),
-        SegmentPart.editable(length: 4, width: 36, placeholder: Text('4567')),
-      ]),
+    return SizedBox(
+      width: 300,
+      child: FormattedInput(
+        leading: const Icon(LucideIcons.phone, size: 16),
+        value: _value,
+        onChanged: (SegmentedValue value) => setState(() => _value = value),
+        initialValue: const SegmentedValue(<SegmentPart>[
+          SegmentPart.editable(length: 3, width: 32, placeholder: Text('555')),
+          SegmentPart.separator(' ('),
+          SegmentPart.editable(length: 3, width: 32, placeholder: Text('123')),
+          SegmentPart.separator(') '),
+          SegmentPart.editable(length: 4, width: 36, placeholder: Text('4567')),
+        ]),
+      ),
     );
   }
 }
 
-/// The same field driven by a [FormattedInputController].
-class PhoneControllerPreview extends StatefulWidget {
-  /// Creates the preview.
-  const PhoneControllerPreview({super.key});
+Widget _phone(BuildContext context) => const _PhoneExample();
 
-  @override
-  State<PhoneControllerPreview> createState() => _PhoneControllerPreviewState();
-}
-
-class _PhoneControllerPreviewState extends State<PhoneControllerPreview> {
-  final FormattedInputController _controller = FormattedInputController(
-    const SegmentedValue(<SegmentPart>[
-      SegmentPart.editable(value: '555', length: 3, width: 32),
-      SegmentPart.separator('-'),
-      SegmentPart.editable(value: '0100', length: 4, width: 36),
-    ]),
-  );
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        FormattedInput(controller: _controller),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        Text(_controller.value.text),
-      ],
-    );
-  }
-}
-
-/// A field that reports a validation error while incomplete.
-class DatePreview extends StatelessWidget {
-  /// Creates the preview.
-  const DatePreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FormattedInput(
+/// A date field reporting a validation error while incomplete.
+Widget _date(BuildContext context) {
+  return SizedBox(
+    width: 300,
+    child: FormattedInput(
       initialValue: const SegmentedValue(<SegmentPart>[
         SegmentPart.editable(length: 2, width: 28, placeholder: Text('MM')),
         SegmentPart.separator('/'),
@@ -93,77 +56,41 @@ class DatePreview extends StatelessWidget {
         SegmentPart.separator('/'),
         SegmentPart.editable(length: 4, width: 36, placeholder: Text('YYYY')),
       ]),
-      validator: _validate,
+      validator: _validateDate,
       autovalidateMode: FormValidationMode.changed,
-    );
-  }
-
-  static String? _validate(String? text) {
-    final String value = text ?? '';
-    if (value.length == 8) {
-      return null;
-    }
-    return 'Enter a full date (MM/DD/YYYY).';
-  }
+    ),
+  );
 }
 
-/// Renders the formatted input gallery.
-class FormattedInputPreview extends StatelessWidget {
-  /// Creates the preview.
-  const FormattedInputPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Phone', const PhoneControllerPreview()),
-                Gap(theme.spacing.xl),
-                _section(context, 'With a leading icon', const PhonePreview()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Date + validation', const DatePreview()),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Disabled',
-                  const FormattedInput(enabled: false),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: const DatePreview(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+String? _validateDate(String? text) {
+  final String value = text ?? '';
+  if (value.length == 8) {
+    return null;
   }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
+  return 'Enter a full date (MM/DD/YYYY).';
 }
+
+/// A 16-digit card field.
+Widget _card(BuildContext context) {
+  return const SizedBox(
+    width: 300,
+    child: FormattedInput(
+      initialValue: SegmentedValue(<SegmentPart>[
+        SegmentPart.editable(length: 4, width: 40, placeholder: Text('1234')),
+        SegmentPart.separator(' '),
+        SegmentPart.editable(length: 4, width: 40, placeholder: Text('5678')),
+        SegmentPart.separator(' '),
+        SegmentPart.editable(length: 4, width: 40, placeholder: Text('9012')),
+        SegmentPart.separator(' '),
+        SegmentPart.editable(length: 4, width: 40, placeholder: Text('3456')),
+      ]),
+    ),
+  );
+}
+
+/// Named docs examples for `formatted_input`; the first entry is the default.
+const List<ComponentPreview> formattedInputPreviews = <ComponentPreview>[
+  ComponentPreview('Phone', _phone),
+  ComponentPreview('Date', _date),
+  ComponentPreview('Card', _card),
+];

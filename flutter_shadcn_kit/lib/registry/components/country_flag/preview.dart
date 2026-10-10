@@ -1,115 +1,55 @@
-// Gallery preview for the `country_flag` component: code/currency/prefix
-// lookups, sizes, shapes and a dark subtree. Widgets-only; the docs app
-// embeds [CountryFlagPreview] directly.
+// Named examples for the `country_flag` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/theme.dart';
 import 'country_flag.dart';
 
-/// Renders the country flag gallery.
-class CountryFlagPreview extends StatelessWidget {
-  /// Creates the preview.
-  const CountryFlagPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 13),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _section(
-                context,
-                'Codes',
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
-                    CountryFlag.fromCountryCode('US'),
-                    CountryFlag.fromCountryCode('JP'),
-                    CountryFlag.fromCountryCode('DE'),
-                    CountryFlag.fromCountryCode('BR'),
-                    CountryFlag.fromCountryCode('XX'),
-                  ],
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Other lookups',
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
-                    CountryFlag.fromCurrencyCode('JPY'),
-                    CountryFlag.fromPhonePrefix('+49'),
-                  ],
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Sizes and shapes',
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: <Widget>[
-                    CountryFlag.fromCountryCode('FR'),
-                    CountryFlag.fromCountryCode('FR', width: 36, height: 27),
-                    CountryFlag.fromCountryCode(
-                      'IT',
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Dark',
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: Wrap(
-                    spacing: 8,
-                    children: <Widget>[
-                      CountryFlag.fromCountryCode('US'),
-                      CountryFlag.fromCountryCode('JP'),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
+/// A row of flags looked up from different keys.
+Widget _countryFlagDefault(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.md,
+    runSpacing: spacing.sm,
+    crossAxisAlignment: WrapCrossAlignment.center,
+    children: <Widget>[
+      CountryFlag.fromCountryCode('US'),
+      CountryFlag.fromCountryCode('JP'),
+      CountryFlag.fromCountryCode('DE'),
+      CountryFlag.fromCountryCode('BR'),
+      CountryFlag.fromCountryCode('XX'),
+      CountryFlag.fromCurrencyCode('JPY'),
+      CountryFlag.fromPhonePrefix('+49'),
+    ],
+  );
 }
+
+/// The size scale and the rounded shape.
+Widget _countryFlagSizes(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.md,
+    runSpacing: spacing.sm,
+    crossAxisAlignment: WrapCrossAlignment.center,
+    children: <Widget>[
+      CountryFlag.fromCountryCode('FR'),
+      CountryFlag.fromCountryCode('FR', width: 36, height: 27),
+      CountryFlag.fromCountryCode('IT', width: 48, height: 36),
+      CountryFlag.fromCountryCode(
+        'ES',
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
+    ],
+  );
+}
+
+/// Named docs examples for `country_flag`; the first entry is the default.
+const List<ComponentPreview> countryFlagPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _countryFlagDefault),
+  ComponentPreview('Sizes', _countryFlagSizes),
+];

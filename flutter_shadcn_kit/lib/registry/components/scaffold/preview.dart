@@ -1,134 +1,53 @@
-// Gallery preview for the `scaffold` component: headers, body, footers,
-// AppBar slots, loading states and a dark subtree. Widgets-only; the docs
-// app embeds [ScaffoldPreview] directly.
+// Named examples for the `scaffold` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each shell carries its own bounded box because the
+// scaffold stretches to its constraints.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
-import '../progress/progress.dart';
+import '../../foundation/component_preview.dart';
 import 'scaffold.dart';
 
-/// Renders the scaffold gallery.
-class ScaffoldPreview extends StatelessWidget {
-  /// Creates the preview.
-  const ScaffoldPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 13),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _section(
-                context,
-                'Shell',
-                SizedBox(
-                  height: 280,
-                  child: Scaffold(
-                    headers: <Widget>[
-                      AppBar(
-                        leading: <Widget>[const Text('‹')],
-                        title: const Text('My Application'),
-                        subtitle: const Text('Dashboard'),
-                        trailing: <Widget>[const Text('⋯')],
-                      ),
-                    ],
-                    footers: <Widget>[
-                      AppBar(
-                        title: const Text('Status'),
-                        subtitle: const Text('All systems go'),
-                      ),
-                    ],
-                    child: const Center(child: Text('Main content area')),
-                  ),
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Loading',
-                SizedBox(
-                  height: 160,
-                  child: Scaffold(
-                    headers: <Widget>[const AppBar(title: Text('Syncing'))],
-                    loadingProgress: 0.4,
-                    showLoadingSparks: true,
-                    child: const Center(child: Text('Fetching…')),
-                  ),
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Floating header over content',
-                SizedBox(
-                  height: 160,
-                  child: Scaffold(
-                    floatingHeader: true,
-                    headers: <Widget>[
-                      AppBar(
-                        surfaceOpacity: 0.8,
-                        title: const Text('Overlay title'),
-                      ),
-                    ],
-                    child: const ColoredBox(
-                      color: Color(0xFF334155),
-                      child: Center(child: Text('Full-bleed body')),
-                    ),
-                  ),
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Dark',
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: SizedBox(
-                    height: 200,
-                    child: Scaffold(
-                      headers: <Widget>[
-                        const AppBar(title: Text('Dark shell')),
-                      ],
-                      loadingProgressIndeterminate: true,
-                      child: const Center(child: Text('Body')),
-                    ),
-                  ),
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Progress reference',
-                const Progress(value: 0.6, showSparks: true),
-              ),
-            ],
-          ),
+/// A shell with a header bar, a footer bar and body content.
+Widget _default(BuildContext context) {
+  return const SizedBox(
+    width: 360,
+    height: 280,
+    child: Scaffold(
+      headers: <Widget>[
+        AppBar(
+          leading: <Widget>[Text('<')],
+          title: Text('My Application'),
+          subtitle: Text('Dashboard'),
+          trailing: <Widget>[Text('...')],
         ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
       ],
-    );
-  }
+      footers: <Widget>[
+        AppBar(title: Text('Status'), subtitle: Text('All systems go')),
+      ],
+      child: Center(child: Text('Main content area')),
+    ),
+  );
 }
+
+/// A shell showing the loading bar over fetching content.
+Widget _withLoading(BuildContext context) {
+  return const SizedBox(
+    width: 360,
+    height: 200,
+    child: Scaffold(
+      headers: <Widget>[AppBar(title: Text('Syncing'))],
+      loadingProgress: 0.4,
+      showLoadingSparks: true,
+      child: Center(child: Text('Fetching...')),
+    ),
+  );
+}
+
+/// Named docs examples for `scaffold`; the first entry is the default.
+const List<ComponentPreview> scaffoldPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('With loading', _withLoading),
+];

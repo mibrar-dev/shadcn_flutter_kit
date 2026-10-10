@@ -1,108 +1,97 @@
-// Gallery preview for `object_input`: date, time and duration fields plus
-// the dark palette. Widgets-only.
+// Named examples for the `object_input` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each field carries its own bounded width because
+// the segment rows measure an intrinsic width.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../foundation/time_of_day.dart';
 import '../../primitives/form_core/object_form_field.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import 'object_input.dart';
 
-/// Renders the object-input gallery.
-class ObjectInputPreview extends StatefulWidget {
-  /// Creates the preview.
-  const ObjectInputPreview({super.key});
+/// A date field; the value lives in this example's state.
+class _DateDemo extends StatefulWidget {
+  const _DateDemo();
 
   @override
-  State<ObjectInputPreview> createState() => _ObjectInputPreviewState();
+  State<_DateDemo> createState() => _DateDemoState();
 }
 
-class _ObjectInputPreviewState extends State<ObjectInputPreview> {
+class _DateDemoState extends State<_DateDemo> {
   DateTime? _date;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: DateInput(
+        value: _date,
+        // Dialog: the example may not provide an OverlayManager.
+        mode: PromptMode.dialog,
+        onChanged: (DateTime? next) => setState(() => _date = next),
+      ),
+    );
+  }
+}
+
+/// A time field; the value lives in this example's state.
+class _TimeDemo extends StatefulWidget {
+  const _TimeDemo();
+
+  @override
+  State<_TimeDemo> createState() => _TimeDemoState();
+}
+
+class _TimeDemoState extends State<_TimeDemo> {
   TimeOfDay? _time;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 280,
+      child: TimeInput(
+        value: _time,
+        onChanged: (TimeOfDay? next) => setState(() => _time = next),
+      ),
+    );
+  }
+}
+
+/// A duration field; the value lives in this example's state.
+class _DurationDemo extends StatefulWidget {
+  const _DurationDemo();
+
+  @override
+  State<_DurationDemo> createState() => _DurationDemoState();
+}
+
+class _DurationDemoState extends State<_DurationDemo> {
   Duration? _duration;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 14),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Date',
-                  DateInput(
-                    value: _date,
-                    // Dialog: the gallery may not provide an OverlayManager.
-                    mode: PromptMode.dialog,
-                    onChanged: (DateTime? next) => setState(() => _date = next),
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Time',
-                  TimeInput(
-                    value: _time,
-                    onChanged: (TimeOfDay? next) =>
-                        setState(() => _time = next),
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Duration',
-                  DurationInput(
-                    value: _duration,
-                    onChanged: (Duration? next) =>
-                        setState(() => _duration = next),
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: DateInput(
-                      value: _date,
-                      mode: PromptMode.dialog,
-                      onChanged: (DateTime? next) =>
-                          setState(() => _date = next),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    return SizedBox(
+      width: 280,
+      child: DurationInput(
+        value: _duration,
+        onChanged: (Duration? next) => setState(() => _duration = next),
       ),
     );
   }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
 }
+
+Widget _date(BuildContext context) => const _DateDemo();
+
+Widget _time(BuildContext context) => const _TimeDemo();
+
+Widget _duration(BuildContext context) => const _DurationDemo();
+
+/// Named docs examples for `object_input`; the first entry is the default.
+const List<ComponentPreview> objectInputPreviews = <ComponentPreview>[
+  ComponentPreview('Date', _date),
+  ComponentPreview('Time', _time),
+  ComponentPreview('Duration', _duration),
+];

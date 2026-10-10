@@ -1,135 +1,99 @@
-// Gallery preview for the `outlined_container` component: token look,
-// custom radius/padding, translucency, backdrop blur, dashed borders and the
-// dark palette.
-// Widgets-only; the docs app embeds [OutlinedContainerPreview] directly.
+// Named examples for the `outlined_container` component (P6-F3 preview
+// contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'outlined_container.dart';
 
-/// Renders the outlined container gallery.
-class OutlinedContainerPreview extends StatelessWidget {
-  /// Creates the preview.
-  const OutlinedContainerPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Default', _default(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Radius and padding', _rounded()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Translucent', _translucent()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Blur', _blurred()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dashed', _dashed(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark(context)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _default(BuildContext context) {
-    return SizedBox(
-      width: 320,
-      child: OutlinedContainer(
-        padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
-        child: Text('Outlined container'),
-      ),
-    );
-  }
-
-  Widget _rounded() {
-    return SizedBox(
-      width: 320,
-      child: OutlinedContainer(
-        padding: const EdgeInsets.all(20),
-        borderRadius: BorderRadius.circular(24),
-        child: const Text('Rounded corners'),
-      ),
-    );
-  }
-
-  Widget _translucent() {
-    return SizedBox(
-      width: 320,
-      child: OutlinedContainer(
-        padding: const EdgeInsets.all(16),
-        backgroundColor: ThemedColor.ref(ColorRef.primary),
-        surfaceOpacity: 0.12,
-        child: const Text('Translucent primary fill'),
-      ),
-    );
-  }
-
-  Widget _blurred() {
-    return SizedBox(
-      width: 320,
-      child: OutlinedContainer(
-        padding: const EdgeInsets.all(16),
-        surfaceBlur: 12,
-        surfaceOpacity: 0.6,
-        child: const Text('Backdrop blur'),
-      ),
-    );
-  }
-
-  Widget _dashed(BuildContext context) {
-    return SizedBox(
-      width: 320,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          DashedContainer(
-            child: Padding(
-              padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
-              child: Text('Dashed container'),
-            ),
-          ),
-          Gap(ShadcnTheme.of(context).spacing.lg),
-          DashedLine(),
-        ],
-      ),
-    );
-  }
-
-  Widget _dark(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: _default(context),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
+/// Token look: the theme border and card surface at the default radius.
+Widget _outlinedContainerDefault(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return SizedBox(
+    width: 320,
+    child: OutlinedContainer(
+      padding: EdgeInsets.all(spacing.lg),
+      child: const Text('Outlined container'),
+    ),
+  );
 }
+
+/// A wider radius and denser padding.
+Widget _outlinedContainerRounded(BuildContext context) {
+  return const SizedBox(
+    width: 320,
+    child: OutlinedContainer(
+      padding: EdgeInsetsDensity.pxAll(20),
+      borderRadius: BorderRadius.all(Radius.circular(24)),
+      child: Text('Rounded corners'),
+    ),
+  );
+}
+
+/// A translucent fill and a backdrop-blurred surface.
+Widget _outlinedContainerTranslucent(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const SizedBox(
+        width: 320,
+        child: OutlinedContainer(
+          padding: EdgeInsetsDensity.pxAll(16),
+          backgroundColor: ThemedColor.ref(ColorRef.primary),
+          surfaceOpacity: 0.12,
+          child: Text('Translucent primary fill'),
+        ),
+      ),
+      Gap(spacing.lg),
+      const SizedBox(
+        width: 320,
+        child: OutlinedContainer(
+          padding: EdgeInsetsDensity.pxAll(16),
+          surfaceBlur: 12,
+          surfaceOpacity: 0.6,
+          child: Text('Backdrop blur'),
+        ),
+      ),
+    ],
+  );
+}
+
+/// The dashed outline form.
+Widget _outlinedContainerDashed(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return SizedBox(
+    width: 320,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        DashedContainer(
+          child: Padding(
+            padding: EdgeInsetsDensity.pxAll(16),
+            child: const Text('Dashed container'),
+          ),
+        ),
+        Gap(spacing.lg),
+        const DashedLine(),
+      ],
+    ),
+  );
+}
+
+/// Named docs examples for `outlined_container`; the first is the default.
+const List<ComponentPreview> outlinedContainerPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _outlinedContainerDefault),
+  ComponentPreview('Rounded', _outlinedContainerRounded),
+  ComponentPreview('Translucent', _outlinedContainerTranslucent),
+  ComponentPreview('Dashed', _outlinedContainerDashed),
+];

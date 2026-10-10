@@ -2,6 +2,7 @@
   "id": "history",
   "name": "Color History",
   "category": "form",
+  "listed": false,
   "description": "Recent-colour storage plus the swatch grid that reuses them.",
   "tier": "component",
   "install": "flutter_shadcn add history",

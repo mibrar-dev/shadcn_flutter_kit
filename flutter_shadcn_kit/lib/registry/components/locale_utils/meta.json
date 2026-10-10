@@ -2,6 +2,7 @@
   "id": "locale_utils",
   "name": "Locale Utils",
   "category": "utility",
+  "listed": false,
   "description": "Byte-size formatting against a configurable unit table (decimal, binary or custom).",
   "tier": "component",
   "install": "flutter_shadcn add locale_utils",

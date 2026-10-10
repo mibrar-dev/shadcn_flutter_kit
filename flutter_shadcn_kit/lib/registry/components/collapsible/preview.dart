@@ -1,68 +1,52 @@
-// Gallery preview for the `collapsible` component: uncontrolled and
-// controlled sections plus the dark palette.
-// Widgets-only; the docs app embeds [CollapsiblePreview] directly.
+// Named examples for the `collapsible` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'collapsible.dart';
 
-/// Renders the collapsible gallery.
-class CollapsiblePreview extends StatefulWidget {
-  /// Creates the preview.
-  const CollapsiblePreview({super.key});
-
-  @override
-  State<CollapsiblePreview> createState() => _CollapsiblePreviewState();
+/// One muted row of the branch list.
+Widget _collapsibleRow(BuildContext context, String label) {
+  final theme = ShadcnTheme.of(context);
+  return DecoratedBox(
+    decoration: BoxDecoration(
+      color: theme.colors.muted,
+      borderRadius: theme.borderRadiusLg,
+    ),
+    child: Padding(padding: EdgeInsetsDensity.pxAll(12), child: Text(label)),
+  );
 }
 
-class _CollapsiblePreviewState extends State<CollapsiblePreview> {
-  bool _controlled = false;
+/// Uncontrolled: the section keeps its own state.
+class _CollapsibleUncontrolled extends StatelessWidget {
+  const _CollapsibleUncontrolled();
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Uncontrolled', _uncontrolled(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Controlled', _controlledSection(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark(context)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _uncontrolled(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return SizedBox(
       width: 360,
       child: Collapsible(
         children: <Widget>[
           const CollapsibleTrigger(child: Text('Recent activity')),
-          Gap(ShadcnTheme.of(context).spacing.sm),
-          _row('@mibrar-dev/shadcn_flutter_kit'),
+          Gap(spacing.sm),
+          _collapsibleRow(context, '@mibrar-dev/shadcn_flutter_kit'),
           CollapsibleContent(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Gap(ShadcnTheme.of(context).spacing.sm),
-                _row('@flutter/flutter'),
-                Gap(ShadcnTheme.of(context).spacing.sm),
-                _row('@dart-lang/sdk'),
+                Gap(spacing.sm),
+                _collapsibleRow(context, '@flutter/flutter'),
+                Gap(spacing.sm),
+                _collapsibleRow(context, '@dart-lang/sdk'),
               ],
             ),
           ),
@@ -70,51 +54,49 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
       ),
     );
   }
+}
 
-  Widget _controlledSection(BuildContext context) {
+/// Controlled: the example owns the expansion state.
+class _CollapsibleControlled extends StatefulWidget {
+  const _CollapsibleControlled();
+
+  @override
+  State<_CollapsibleControlled> createState() => _CollapsibleControlledState();
+}
+
+class _CollapsibleControlledState extends State<_CollapsibleControlled> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return SizedBox(
       width: 360,
       child: Collapsible(
-        isExpanded: _controlled,
-        onExpansionChanged: (value) => setState(() => _controlled = value),
+        isExpanded: _expanded,
+        onExpansionChanged: (bool value) => setState(() => _expanded = value),
         children: <Widget>[
           const CollapsibleTrigger(child: Text('Controlled section')),
-          Gap(ShadcnTheme.of(context).spacing.sm),
-          CollapsibleContent(child: _row('Toggled by the parent')),
+          Gap(spacing.sm),
+          CollapsibleContent(
+            child: _collapsibleRow(context, 'Toggled by the parent'),
+          ),
+          Gap(spacing.sm),
+          Text(_expanded ? 'open' : 'closed'),
         ],
       ),
     );
   }
-
-  Widget _row(String label) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: theme.colors.muted,
-        borderRadius: theme.borderRadiusLg,
-      ),
-      child: Padding(padding: const EdgeInsets.all(12), child: Text(label)),
-    );
-  }
-
-  Widget _dark(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: _uncontrolled(context),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
 }
+
+Widget _collapsibleDefault(BuildContext context) =>
+    const _CollapsibleUncontrolled();
+
+Widget _collapsibleControlledExample(BuildContext context) =>
+    const _CollapsibleControlled();
+
+/// Named docs examples for `collapsible`; the first entry is the default.
+const List<ComponentPreview> collapsiblePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _collapsibleDefault),
+  ComponentPreview('Controlled', _collapsibleControlledExample),
+];

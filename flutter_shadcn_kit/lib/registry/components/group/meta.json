@@ -2,6 +2,7 @@
   "id": "group",
   "name": "Group",
   "category": "layout",
+  "listed": false,
   "description": "Absolute-position layout surface that places children at explicit offsets and sizes.",
   "tier": "component",
   "install": "flutter_shadcn add group",

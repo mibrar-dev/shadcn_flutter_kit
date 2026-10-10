@@ -1,88 +1,62 @@
-// Gallery preview for the `stage_container` component: the same content at
-// three container widths, printing the outer padding the stage resolves.
+// Named examples for the `stage_container` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/theme.dart';
 import 'stage_container.dart';
 
-/// Renders the stage container gallery.
-class StageContainerPreview extends StatelessWidget {
-  /// Creates the preview.
-  const StageContainerPreview({super.key});
+/// The content the stage wraps; prints the resolved outer padding.
+class _StageContent extends StatelessWidget {
+  const _StageContent();
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _StageDemo(width: 480, label: 'Narrow (480)'),
-                Gap(theme.spacing.xl),
-                _StageDemo(width: 800, label: 'Medium (800)'),
-                Gap(theme.spacing.xl),
-                _StageDemo(width: 1200, label: 'Wide (1200)'),
-              ],
+    final theme = ShadcnTheme.of(context);
+    return StageContainer(
+      builder: (BuildContext context, EdgeInsets padding) {
+        return Container(
+          padding: padding,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: theme.colors.muted,
+            border: Border.all(color: theme.colors.border),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            color: theme.colors.card,
+            child: Text(
+              'padding: ${padding.left.toStringAsFixed(0)} / '
+              '${padding.right.toStringAsFixed(0)}',
+              style: TextStyle(color: theme.colors.mutedForeground),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
-class _StageDemo extends StatelessWidget {
-  const _StageDemo({required this.width, required this.label});
-
-  final double width;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        SizedBox(
-          width: width,
-          child: StageContainer(
-            builder: (BuildContext context, EdgeInsets padding) {
-              return Container(
-                padding: padding,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: colors.muted,
-                  border: Border.all(color: colors.border),
-                ),
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  color: colors.card,
-                  child: Text(
-                    'padding: ${padding.left.toStringAsFixed(0)} / '
-                    '${padding.right.toStringAsFixed(0)}',
-                    style: TextStyle(color: colors.mutedForeground),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
+/// The stage at the available width.
+Widget _default(BuildContext context) {
+  return const _StageContent();
 }
+
+/// The stage inside a narrow column.
+Widget _narrow(BuildContext context) {
+  return const Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[SizedBox(width: 320, child: _StageContent())],
+  );
+}
+
+/// Named docs examples for `stage_container`; the first entry is the default.
+const List<ComponentPreview> stageContainerPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Narrow', _narrow),
+];

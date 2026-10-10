@@ -1,107 +1,105 @@
-// Gallery preview for the `stepper` component: both variants in both
-// directions, the three sizes, a failed step and the dark palette.
-// Widgets-only; the docs app embeds [StepperPreview] directly.
+// Named examples for the `stepper` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'stepper.dart';
 
-/// Renders the stepper gallery.
-class StepperPreview extends StatelessWidget {
-  /// Creates the preview.
-  const StepperPreview({super.key});
+List<StepperStep> _steps() => const <StepperStep>[
+  StepperStep(title: Text('Account'), content: Text('Email, password')),
+  StepperStep(title: Text('Profile'), content: Text('Name, avatar')),
+  StepperStep(title: Text('Payment'), content: Text('Card, invoice')),
+];
 
-  List<StepperStep> _steps() => const <StepperStep>[
-    StepperStep(title: Text('Account'), content: Text('Email, password')),
-    StepperStep(title: Text('Profile'), content: Text('Name, avatar')),
-    StepperStep(title: Text('Payment'), content: Text('Card, invoice')),
-  ];
+/// A stepper that moves when a step is activated; owns its index.
+class _InteractiveStepper extends StatefulWidget {
+  const _InteractiveStepper({this.direction = Axis.horizontal});
+
+  final Axis direction;
+
+  @override
+  State<_InteractiveStepper> createState() => _InteractiveStepperState();
+}
+
+class _InteractiveStepperState extends State<_InteractiveStepper> {
+  int _current = 1;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Circle, horizontal',
-                  Stepper(currentStep: 1, steps: _steps()),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Circle, vertical',
-                  Stepper(
-                    currentStep: 2,
-                    direction: Axis.vertical,
-                    steps: _steps(),
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(context, 'Sizes', _sizes(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Failed step', _failed()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _sizes(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        for (final StepperSize size in StepperSize.values) ...<Widget>[
-          Text('${size.name} (${size.indicatorSize}px)'),
-          Stepper(currentStep: 1, size: size, steps: _steps()),
-          Gap(ShadcnTheme.of(context).spacing.md),
-        ],
-      ],
-    );
-  }
-
-  Widget _failed() {
-    final StepperController controller = StepperController(1);
-    controller.setStepState(0, StepperStepState.failed);
-    return Stepper(controller: controller, steps: _steps());
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
+    return Stepper(
+      currentStep: _current,
+      onStepChanged: (int index) => setState(() => _current = index),
+      direction: widget.direction,
+      steps: _steps(),
     );
   }
 }
 
-/// The same gallery rendered with the dark token set.
-class StepperPreviewDark extends StatelessWidget {
-  /// Creates the dark preview.
-  const StepperPreviewDark({super.key});
+/// Horizontal circle stepper.
+Widget _default(BuildContext context) => const _InteractiveStepper();
+
+/// Vertical circle stepper.
+Widget _vertical(BuildContext context) {
+  return const _InteractiveStepper(direction: Axis.vertical);
+}
+
+/// The three indicator sizes in one column.
+Widget _sizes(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      for (final StepperSize size in StepperSize.values) ...<Widget>[
+        Text('${size.name} (${size.indicatorSize}px)'),
+        Stepper(currentStep: 1, size: size, steps: _steps()),
+        Gap(spacing.md),
+      ],
+    ],
+  );
+}
+
+/// A controller-driven stepper with the first step flagged as failed.
+class _FailedStepper extends StatefulWidget {
+  const _FailedStepper();
+
+  @override
+  State<_FailedStepper> createState() => _FailedStepperState();
+}
+
+class _FailedStepperState extends State<_FailedStepper> {
+  final StepperController _controller = StepperController(1);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.setStepState(0, StepperStepState.failed);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: const StepperPreview(),
-    );
+    return Stepper(controller: _controller, steps: _steps());
   }
 }
+
+Widget _failed(BuildContext context) => const _FailedStepper();
+
+/// Named docs examples for `stepper`; the first entry is the default.
+const List<ComponentPreview> stepperPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Vertical', _vertical),
+  ComponentPreview('Sizes', _sizes),
+  ComponentPreview('Failed step', _failed),
+];

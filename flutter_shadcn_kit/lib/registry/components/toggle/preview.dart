@@ -1,180 +1,101 @@
-// Gallery preview for the `toggle` component: controlled, controller-driven
-// and disabled states plus a notched icon toggle, in light and dark.
-// Widgets-only; the docs app embeds [TogglePreview] directly.
+// Named examples for the `toggle` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'toggle.dart';
 
-/// Renders the toggle gallery.
-class TogglePreview extends StatefulWidget {
-  /// Creates the preview.
-  const TogglePreview({super.key});
+/// Controlled toggle: the example owns the value.
+class _ToggleControlledToggle extends StatefulWidget {
+  const _ToggleControlledToggle();
 
   @override
-  State<TogglePreview> createState() => _TogglePreviewState();
+  State<_ToggleControlledToggle> createState() =>
+      _ToggleControlledToggleState();
 }
 
-class _TogglePreviewState extends State<TogglePreview> {
-  final ToggleController _controller = ToggleController();
-  bool _controlled = false;
-  bool _iconToggle = true;
+class _ToggleControlledToggleState extends State<_ToggleControlledToggle> {
+  bool _value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: Toggle(
+        value: _value,
+        onChanged: (bool value) => setState(() => _value = value),
+        child: Text(_value ? 'On' : 'Off'),
+      ),
+    );
+  }
+}
+
+/// Controller-driven toggles: the [ToggleController] is created inside this
+/// state, so two examples can never attach one controller twice.
+class _ToggleControllerToggle extends StatefulWidget {
+  const _ToggleControllerToggle();
+
+  @override
+  State<_ToggleControllerToggle> createState() =>
+      _ToggleControllerToggleState();
+}
+
+class _ToggleControllerToggleState extends State<_ToggleControllerToggle> {
+  final ToggleController _toggleController = ToggleController();
 
   @override
   void dispose() {
-    _controller.dispose();
+    _toggleController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Controlled',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      Toggle(
-                        value: _controlled,
-                        onChanged: (value) {
-                          setState(() => _controlled = value);
-                        },
-                        child: const Text('Controlled'),
-                      ),
-                      Toggle(
-                        value: _controlled,
-                        onChanged: (value) {
-                          setState(() => _controlled = value);
-                        },
-                        activeStyle: const ToggleStyle(
-                          background: StateValue(
-                            rest: ThemedColor.ref(ColorRef.secondary),
-                            hovered: ThemedColor.ref(
-                              ColorRef.secondary,
-                              alpha: 0.8,
-                            ),
-                            pressed: ThemedColor.ref(
-                              ColorRef.secondary,
-                              alpha: 0.8,
-                            ),
-                          ),
-                        ),
-                        child: const Text('Secondary active'),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Controller',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      Toggle(
-                        controller: _controller,
-                        child: const Text('Controller driven'),
-                      ),
-                      Toggle(
-                        controller: _controller,
-                        child: const Icon(LucideIcons.bell, size: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'States',
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: <Widget>[
-                      const Toggle(value: true, child: Text('On (disabled)')),
-                      const Toggle(
-                        value: false,
-                        onChanged: null,
-                        child: Text('Off (disabled)'),
-                      ),
-                      Toggle(
-                        value: _iconToggle,
-                        onChanged: (value) {
-                          setState(() => _iconToggle = value);
-                        },
-                        child: const Icon(LucideIcons.star, size: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: ColoredBox(
-                      color: ShadcnColors.darkFallback.background,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: <Widget>[
-                            Toggle(
-                              value: true,
-                              onChanged: (_) {},
-                              child: const Text('On'),
-                            ),
-                            Toggle(
-                              value: false,
-                              onChanged: (_) {},
-                              child: const Text('Off'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final spacing = ShadcnTheme.of(context).spacing;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        Toggle(controller: _toggleController, child: const Text('Controller')),
+        Gap(spacing.md),
+        Toggle(
+          controller: _toggleController,
+          child: const Icon(LucideIcons.bell, size: 16),
         ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
       ],
     );
   }
 }
+
+/// Disabled toggles in both states.
+Widget _toggleDisabled(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      const Toggle(value: true, child: Text('On')),
+      Gap(spacing.md),
+      const Toggle(value: false, onChanged: null, child: Text('Off')),
+    ],
+  );
+}
+
+Widget _toggleDefault(BuildContext context) => const _ToggleControlledToggle();
+
+Widget _toggleController(BuildContext context) =>
+    const _ToggleControllerToggle();
+
+/// Named docs examples for `toggle`; the first entry is the default.
+const List<ComponentPreview> togglePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _toggleDefault),
+  ComponentPreview('Controller', _toggleController),
+  ComponentPreview('Disabled', _toggleDisabled),
+];

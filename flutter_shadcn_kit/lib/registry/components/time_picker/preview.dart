@@ -1,59 +1,74 @@
-// Widgets-only preview gallery for the `time_picker` component.
+// Named examples for the `time_picker` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/time_of_day.dart';
-import '../../theme/theme.dart';
 import 'time_picker.dart';
 
-/// Preview entry point used by the docs gallery.
-class TimePickerPreview extends StatelessWidget {
-  /// Creates the preview.
-  const TimePickerPreview({super.key});
+/// Clock trigger; owns its value.
+class _ClockTrigger extends StatefulWidget {
+  const _ClockTrigger();
+
+  @override
+  State<_ClockTrigger> createState() => _ClockTriggerState();
+}
+
+class _ClockTriggerState extends State<_ClockTrigger> {
+  TimeOfDay? _value = const TimeOfDay(hour: 14, minute: 30);
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: ColoredBox(
-          color: const ShadcnThemeData().colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text('Empty trigger'),
-                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
-                TimePicker(value: null, onChanged: (_) {}),
-                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-                const Text('Filled trigger (24h)'),
-                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
-                TimePicker(
-                  value: const TimeOfDay(hour: 14, minute: 30),
-                  onChanged: (_) {},
-                  use24HourFormat: true,
-                ),
-                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-                const Text('Duration trigger'),
-                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
-                DurationPicker(
-                  value: const Duration(hours: 1, minutes: 30),
-                  onChanged: (_) {},
-                ),
-                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-                const Text('Inline sheets'),
-                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
-                const TimePickerDialog(use24HourFormat: true),
-                SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-                const DurationPickerDialog(),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return TimePicker(
+      value: _value,
+      onChanged: (TimeOfDay? value) => setState(() => _value = value),
+      use24HourFormat: true,
     );
   }
 }
+
+Widget _clock(BuildContext context) => const _ClockTrigger();
+
+/// Duration trigger; owns its value.
+class _DurationTrigger extends StatefulWidget {
+  const _DurationTrigger();
+
+  @override
+  State<_DurationTrigger> createState() => _DurationTriggerState();
+}
+
+class _DurationTriggerState extends State<_DurationTrigger> {
+  Duration? _value = const Duration(hours: 1, minutes: 30);
+
+  @override
+  Widget build(BuildContext context) {
+    return DurationPicker(
+      value: _value,
+      onChanged: (Duration? value) => setState(() => _value = value),
+    );
+  }
+}
+
+Widget _duration(BuildContext context) => const _DurationTrigger();
+
+/// The inline clock sheet.
+Widget _clockDialog(BuildContext context) {
+  return const TimePickerDialog(use24HourFormat: true);
+}
+
+/// The inline duration sheet.
+Widget _durationDialog(BuildContext context) {
+  return const DurationPickerDialog();
+}
+
+/// Named docs examples for `time_picker`; the first entry is the default.
+const List<ComponentPreview> timePickerPreviews = <ComponentPreview>[
+  ComponentPreview('Clock', _clock),
+  ComponentPreview('Duration', _duration),
+  ComponentPreview('Clock dialog', _clockDialog),
+  ComponentPreview('Duration dialog', _durationDialog),
+];

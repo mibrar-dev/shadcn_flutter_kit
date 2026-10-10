@@ -2,6 +2,7 @@
   "id": "icon",
   "name": "Icon",
   "category": "display",
+  "listed": false,
   "description": "Theme-driven icon size/colour modifiers and a filled icon container.",
   "tier": "component",
   "install": "flutter_shadcn add icon",

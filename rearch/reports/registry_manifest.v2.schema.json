@@ -316,6 +316,10 @@
         "tags": {
           "$ref": "#/$defs/stringList"
         },
+        "listed": {
+          "type": "boolean",
+          "description": "Whether the docs site lists the component in its sidebar, index and command palette. Absent or true = a user-facing component; false = a building block (its preview stays for maintainers, its API stays reachable from the components that depend on it)."
+        },
         "api": {
           "$ref": "#/$defs/api"
         },

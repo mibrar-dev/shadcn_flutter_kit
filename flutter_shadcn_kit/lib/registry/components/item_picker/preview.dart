@@ -1,124 +1,93 @@
-// Gallery preview for the `item_picker` component: trigger, grid and list
-// bodies, options and a dark subtree. Widgets-only; the docs app embeds
-// [ItemPickerPreview] directly.
+// Named examples for the `item_picker` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. The fixed
+// width is inherent: the grid body needs a bounded box. Swatch colours come
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/theme.dart';
 import 'item_picker.dart';
 
-/// Renders the item picker gallery.
-class ItemPickerPreview extends StatelessWidget {
-  /// Creates the preview.
-  const ItemPickerPreview({super.key});
+/// Grid body with a live selection.
+class _GridExample extends StatefulWidget {
+  const _GridExample();
+
+  @override
+  State<_GridExample> createState() => _GridExampleState();
+}
+
+class _GridExampleState extends State<_GridExample> {
+  String? _value = 'B';
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 13),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _section(
-                context,
-                'Trigger',
-                ItemPicker<String>(
-                  items: const ItemList(<String>['Alpha', 'Beta', 'Gamma']),
-                  placeholder: const Text('Pick item'),
-                  builder: (context, value) => Text(value),
-                  onChanged: (_) {},
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Grid body',
-                ItemPickerDialog<String>(
-                  items: const ItemList(<String>['A', 'B', 'C', 'D']),
-                  builder: (context, value) => ItemPickerOption<String>(
-                    value: value,
-                    child: Center(child: Text(value)),
-                  ),
-                  value: 'B',
-                  onChanged: (_) {},
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'List body',
-                ItemPickerDialog<String>(
-                  items: const ItemList(<String>['Red', 'Green']),
-                  layout: ItemPickerLayout.list,
-                  builder: (context, value) => ItemPickerOption<String>(
-                    value: value,
-                    label: Text(value),
-                    child: _ColorSwatch(value),
-                  ),
-                  onChanged: (_) {},
-                ),
-              ),
-              Gap(ShadcnTheme.of(context).spacing.xl),
-              _section(
-                context,
-                'Dark',
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: ItemPickerDialog<String>(
-                    items: const ItemList(<String>['One', 'Two']),
-                    builder: (context, value) => ItemPickerOption<String>(
-                      value: value,
-                      child: Center(child: Text(value)),
-                    ),
-                    value: 'One',
-                    onChanged: (_) {},
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return SizedBox(
+      width: 320,
+      child: ItemPickerDialog<String>(
+        items: const ItemList<String>(<String>['A', 'B', 'C', 'D']),
+        builder: (BuildContext context, String value) =>
+            ItemPickerOption<String>(
+              value: value,
+              child: Center(child: Text(value)),
+            ),
+        value: _value,
+        onChanged: (String? next) => setState(() => _value = next),
       ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
     );
   }
 }
 
-/// Color tile for the list preview.
-class _ColorSwatch extends StatelessWidget {
-  /// Creates a swatch.
-  const _ColorSwatch(this.name);
+Widget _grid(BuildContext context) => const _GridExample();
 
-  /// Item name selecting the color.
+/// List body with a swatch per row and a live selection.
+class _ListExample extends StatefulWidget {
+  const _ListExample();
+
+  @override
+  State<_ListExample> createState() => _ListExampleState();
+}
+
+class _ListExampleState extends State<_ListExample> {
+  String? _value = 'Coral';
+
+  static const List<String> _items = <String>['Coral', 'Mint', 'Sky'];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 320,
+      child: ItemPickerDialog<String>(
+        items: const ItemList<String>(_items),
+        layout: ItemPickerLayout.list,
+        builder: (BuildContext context, String value) =>
+            ItemPickerOption<String>(
+              value: value,
+              label: Text(value),
+              child: _Swatch(value),
+            ),
+        value: _value,
+        onChanged: (String? next) => setState(() => _value = next),
+      ),
+    );
+  }
+}
+
+/// Theme-token swatch for the list example.
+class _Swatch extends StatelessWidget {
+  const _Swatch(this.name);
+
   final String name;
 
   @override
   Widget build(BuildContext context) {
+    final colors = ShadcnTheme.of(context).colors;
     final Color color = switch (name) {
-      'Red' => const Color(0xFFDC2626),
-      'Green' => const Color(0xFF16A34A),
-      _ => const Color(0xFF6B7280),
+      'Coral' => colors.chart1,
+      'Mint' => colors.chart2,
+      _ => colors.chart3,
     };
     return SizedBox(
       width: ShadcnTheme.of(context).spacing.xl,
@@ -127,3 +96,11 @@ class _ColorSwatch extends StatelessWidget {
     );
   }
 }
+
+Widget _list(BuildContext context) => const _ListExample();
+
+/// Named docs examples for `item_picker`; the first entry is the default.
+const List<ComponentPreview> itemPickerPreviews = <ComponentPreview>[
+  ComponentPreview('Grid', _grid),
+  ComponentPreview('List', _list),
+];

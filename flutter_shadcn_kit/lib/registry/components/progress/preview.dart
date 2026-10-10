@@ -1,75 +1,59 @@
-// Gallery preview for the `progress` component.
+// Named examples for the `progress` component (P6-F3 preview contract).
 //
-// Widgets-only, like the component itself. Shows determinate values,
-// indeterminate mode, heights, sparks, a custom theme leg and dark tokens.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
 import 'progress.dart';
 
-/// Preview entry point used by the docs gallery.
-class ProgressPreview extends StatelessWidget {
-  /// Creates the preview.
-  const ProgressPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _ProgressPreviewBody(),
-      ),
-    );
-  }
-}
-
-class _ProgressPreviewBody extends StatelessWidget {
-  const _ProgressPreviewBody();
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Center(
-        child: SizedBox(
-          width: 420,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Progress(value: 0.25, semanticsLabel: 'Quarter'),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(value: 0.6),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(value: 0.85, showSparks: true),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(value: 0.4, height: 4),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(value: 0.5, height: 14),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              const Progress(
-                value: 0.7,
-                color: Color(0xFF16A34A),
-                backgroundColor: Color(0x3316A34A),
-              ),
-              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
-              ComponentTheme<ProgressTheme>(
-                data: const ProgressTheme(
-                  color: ThemedColor.ref(ColorRef.chart2),
-                  height: 6,
-                ),
-                child: const Progress(value: 0.5),
-              ),
-            ],
-          ),
+/// Determinate values at a few fill levels and heights.
+Widget _progressDeterminate(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  final bar = <Widget>[
+    const Progress(value: 0.25, semanticsLabel: 'Quarter'),
+    Gap(spacing.lg),
+    const Progress(value: 0.6, semanticsLabel: 'Sixty percent'),
+    Gap(spacing.lg),
+    const Progress(
+      value: 0.85,
+      showSparks: true,
+      semanticsLabel: 'Eighty five percent',
+    ),
+  ];
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      ...bar,
+      Gap(spacing.lg),
+      SizedBox(
+        width: 320,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Progress(value: 0.4, height: 4),
+            Gap(spacing.lg),
+            const Progress(value: 0.5, height: 14),
+          ],
         ),
       ),
-    );
-  }
+    ],
+  );
 }
+
+/// Indeterminate mode.
+Widget _progressIndeterminate(BuildContext context) {
+  return const Progress(semanticsLabel: 'Loading');
+}
+
+/// Named docs examples for `progress`; the first entry is the default.
+const List<ComponentPreview> progressPreviews = <ComponentPreview>[
+  ComponentPreview('Determinate', _progressDeterminate),
+  ComponentPreview('Indeterminate', _progressIndeterminate),
+];

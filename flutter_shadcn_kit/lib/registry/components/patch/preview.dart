@@ -25,12 +25,9 @@ class _PatchPreviewState extends State<PatchPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: _body(context),
     );
   }
 

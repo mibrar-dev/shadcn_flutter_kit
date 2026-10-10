@@ -7,7 +7,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/calendar/calendar.dart';
-import 'package:flutter_shadcn_kit/registry/components/calendar/preview.dart';
+import 'package:flutter_shadcn_kit/registry/components/calendar/preview.dart'
+    show calendarPreviews;
 import 'package:flutter_shadcn_kit/registry/primitives/date_math.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/focus_outline.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
@@ -1107,17 +1108,19 @@ void main() {
 
     testWidgets('the preview stepper buttons are 24x24', (tester) async {
       // `Calendar` owns no navigation: `view` is the caller's, so the month
-      // stepper belongs to the caller. The preview builds one, and its tap
-      // target is exactly 24x24.
-      await tester.pumpWidget(const CalendarPreview());
+      // stepper belongs to the caller. The default example of the preview
+      // contract builds one, and its tap target is exactly 24x24.
+      await tester.pumpWidget(
+        _frame(Builder(builder: calendarPreviews.first.builder)),
+      );
       final Finder steps = find.byWidgetPredicate(
         (Widget widget) =>
             widget is Container &&
             widget.constraints?.maxWidth == 24 &&
             widget.constraints?.maxHeight == 24,
       );
-      // Four panels (single, range, multi, read-only) each carry a stepper.
-      expect(steps, findsNWidgets(8));
+      // The header carries one previous and one next stepper.
+      expect(steps, findsNWidgets(2));
       expect(tester.getSize(steps.first), const Size(24, 24));
     });
   });

@@ -1,121 +1,100 @@
-// Gallery preview for the `switch` component: on/off, controlled and
-// controller-driven modes, labels, disabled and dark.
-// Widgets-only; the docs app embeds [SwitchPreview] directly.
+// Named examples for the `switch` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/theme.dart';
 import 'switch.dart';
 
-/// Renders the switch gallery.
-class SwitchPreview extends StatefulWidget {
-  /// Creates the preview.
-  const SwitchPreview({super.key});
+/// Controlled switch; owns its value.
+class _ControlledSwitch extends StatefulWidget {
+  const _ControlledSwitch();
 
   @override
-  State<SwitchPreview> createState() => _SwitchPreviewState();
+  State<_ControlledSwitch> createState() => _ControlledSwitchState();
 }
 
-class _SwitchPreviewState extends State<SwitchPreview> {
+class _ControlledSwitchState extends State<_ControlledSwitch> {
+  bool _value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      value: _value,
+      onChanged: (bool value) => setState(() => _value = value),
+      label: const Text('Airplane mode'),
+    );
+  }
+}
+
+Widget _default(BuildContext context) => const _ControlledSwitch();
+
+/// Controller-driven switch; the controller owns the value.
+class _ControllerSwitch extends StatefulWidget {
+  const _ControllerSwitch();
+
+  @override
+  State<_ControllerSwitch> createState() => _ControllerSwitchState();
+}
+
+class _ControllerSwitchState extends State<_ControllerSwitch> {
   final SwitchController _controller = SwitchController(true);
-  bool _controlled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_refresh);
+  }
+
+  void _refresh() => setState(() {});
 
   @override
   void dispose() {
+    _controller.removeListener(_refresh);
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Controlled', _controlledRow()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Controller', _controllerRow(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Disabled', _disabled(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark(context)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _controlledRow() {
-    return Switch(
-      value: _controlled,
-      onChanged: (value) => setState(() => _controlled = value),
-      label: const Text('Airplane mode'),
-    );
-  }
-
-  Widget _controllerRow(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    final spacing = ShadcnTheme.of(context).spacing;
+    return Wrap(
+      spacing: spacing.lg,
+      runSpacing: spacing.sm,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
         Switch(
           controller: _controller,
           label: const Text('Driven by a controller'),
         ),
-        Gap(ShadcnTheme.of(context).spacing.lg),
-        Text('value: $_controller'),
-      ],
-    );
-  }
-
-  Widget _disabled(BuildContext context) {
-    return Wrap(
-      spacing: ShadcnTheme.of(context).spacing.xl,
-      runSpacing: ShadcnTheme.of(context).spacing.md,
-      children: <Widget>[
-        Switch(value: true, label: Text('on')),
-        Switch(value: false, label: Text('off')),
-      ],
-    );
-  }
-
-  Widget _dark(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: Padding(
-          padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
-          child: Switch(value: true, onChanged: _noop, label: Text('dark')),
-        ),
-      ),
-    );
-  }
-
-  static void _noop(bool value) {}
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
+        Text('value: ${_controller.value}'),
       ],
     );
   }
 }
+
+Widget _controller(BuildContext context) => const _ControllerSwitch();
+
+/// On and off switches with no callback, so both are disabled.
+Widget _disabled(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.xl,
+    runSpacing: spacing.md,
+    children: const <Widget>[
+      Switch(value: true, label: Text('on')),
+      Switch(value: false, label: Text('off')),
+    ],
+  );
+}
+
+/// Named docs examples for `switch`; the first entry is the default.
+const List<ComponentPreview> switchPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Controller', _controller),
+  ComponentPreview('Disabled', _disabled),
+];

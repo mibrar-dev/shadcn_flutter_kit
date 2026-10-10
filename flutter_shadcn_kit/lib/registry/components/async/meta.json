@@ -2,6 +2,7 @@
   "id": "async",
   "name": "FutureOrBuilder",
   "category": "utility",
+  "listed": false,
   "description": "Renders a value that may already be available or may still be loading through one builder.",
   "tier": "component",
   "install": "flutter_shadcn add async",

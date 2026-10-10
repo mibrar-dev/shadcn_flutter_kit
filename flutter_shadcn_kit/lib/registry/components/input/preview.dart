@@ -1,142 +1,23 @@
-// Widgets-only preview gallery for the `input` component.
+// Named examples for the `input` component (P6-F3 preview contract).
 //
-// Shows the default look, every built-in feature, error/disabled/read-only
-// states and a dark-token subtree.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/input_features/adornment_features.dart';
 import '../../primitives/input_features/input_features.dart';
 import '../../primitives/input_features/numeric_features.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'input.dart';
 
-/// Gallery of [Input] states and features.
-class InputPreview extends StatefulWidget {
-  /// Creates the preview.
-  const InputPreview({super.key});
-
-  @override
-  State<InputPreview> createState() => _InputPreviewState();
-}
-
-class _InputPreviewState extends State<InputPreview> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(theme.spacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const _Section('Basic'),
-            const Input(hintText: 'Email'),
-            Gap(theme.spacing.lg),
-            const _Section('Features'),
-            Input(
-              controller: _controller,
-              hintText: 'Type to enable clear/copy',
-              features: <InputFeature>[
-                InputLeadingFeature(const Icon(LucideIcons.search, size: 16)),
-                InputClearFeature(),
-                InputCopyFeature(),
-                const InputPasteFeature(),
-              ],
-            ),
-            Gap(theme.spacing.lg),
-            const Input(
-              obscureText: true,
-              hintText: 'Password',
-              features: <InputFeature>[InputPasswordToggleFeature()],
-            ),
-            Gap(theme.spacing.lg),
-            const Input(
-              keyboardType: TextInputType.number,
-              hintText: 'Quantity',
-              features: <InputFeature>[InputSpinnerFeature(min: 0, max: 10)],
-            ),
-            Gap(theme.spacing.lg),
-            const Input(
-              keyboardType: TextInputType.number,
-              hintText: 'Guests',
-              features: <InputFeature>[
-                InputStepperButtonFeature(),
-                InputStepperButtonFeature.decrement(),
-              ],
-            ),
-            Gap(theme.spacing.lg),
-            const _Section('Above / below and hint'),
-            const Input(
-              hintText: 'With helper rows',
-              features: <InputFeature>[
-                InputAboveBelowFeature.above(Text('Label')),
-                InputAboveBelowFeature.below(Text('Helper text')),
-                InputHintFeature(popupBuilder: _hintPopup),
-              ],
-            ),
-            Gap(theme.spacing.lg),
-            const _Section('Validation, disabled, read-only'),
-            Input(
-              hintText: 'Invalid while non-empty',
-              validator: (value) =>
-                  (value ?? '').isEmpty ? null : 'This value is not allowed.',
-              features: const <InputFeature>[InputRevalidateFeature()],
-            ),
-            Gap(theme.spacing.lg),
-            const Input(hintText: 'Disabled', enabled: false),
-            Gap(theme.spacing.lg),
-            const Input(
-              hintText: 'Read-only',
-              readOnly: true,
-              initialValue: 'Read-only value',
-            ),
-            Gap(theme.spacing.lg),
-            const _Section('Multiline'),
-            const Input(
-              hintText: 'Notes',
-              maxLines: 3,
-              minLines: 3,
-              features: <InputFeature>[InputClearFeature()],
-            ),
-            Gap(theme.spacing.xl),
-            _Section('Dark tokens'),
-            ShadcnTheme(
-              data: theme.copyWith(colors: () => ShadcnColors.darkFallback),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Input(hintText: 'Dark basic'),
-                  Gap(theme.spacing.lg),
-                  Input(
-                    obscureText: true,
-                    hintText: 'Dark password',
-                    features: <InputFeature>[InputPasswordToggleFeature()],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  const _Section(this.label);
+/// A small section label above a field.
+class _InputSection extends StatelessWidget {
+  const _InputSection(this.label);
 
   final String label;
 
@@ -155,4 +36,125 @@ class _Section extends StatelessWidget {
   }
 }
 
-Widget _hintPopup(BuildContext context) => const Text('Extra information');
+/// The default email field.
+Widget _inputDefault(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisSize: MainAxisSize.min,
+    children: const <Widget>[
+      _InputSection('Email'),
+      Input(hintText: 'Email'),
+    ],
+  );
+}
+
+/// A field with a leading icon and the clear/copy features.
+class _InputWithIcon extends StatefulWidget {
+  const _InputWithIcon();
+
+  @override
+  State<_InputWithIcon> createState() => _InputWithIconState();
+}
+
+class _InputWithIconState extends State<_InputWithIcon> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Input(
+          controller: _controller,
+          hintText: 'Type to enable clear/copy',
+          features: <InputFeature>[
+            InputLeadingFeature(const Icon(LucideIcons.search, size: 16)),
+            InputClearFeature(),
+            InputCopyFeature(),
+            const InputPasteFeature(),
+          ],
+        ),
+        Gap(spacing.lg),
+        const Input(
+          obscureText: true,
+          hintText: 'Password',
+          features: <InputFeature>[InputPasswordToggleFeature()],
+        ),
+        Gap(spacing.lg),
+        const Input(
+          keyboardType: TextInputType.number,
+          hintText: 'Quantity',
+          features: <InputFeature>[InputSpinnerFeature(min: 0, max: 10)],
+        ),
+      ],
+    );
+  }
+}
+
+/// An invalid field.
+Widget _inputInvalid(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisSize: MainAxisSize.min,
+    children: const <Widget>[
+      _InputSection('Invalid'),
+      Input(
+        hintText: 'Invalid while non-empty',
+        validator: _inputNotAllowed,
+        features: <InputFeature>[InputRevalidateFeature()],
+      ),
+      _InputSection('Above / below and hint'),
+      Input(
+        hintText: 'With helper rows',
+        features: <InputFeature>[
+          InputAboveBelowFeature.above(Text('Label')),
+          InputAboveBelowFeature.below(Text('Helper text')),
+          InputHintFeature(popupBuilder: _inputHintPopup),
+        ],
+      ),
+    ],
+  );
+}
+
+String? _inputNotAllowed(String? value) =>
+    (value ?? '').isEmpty ? null : 'This value is not allowed.';
+
+Widget _inputHintPopup(BuildContext context) => const Text('Extra information');
+
+/// A disabled field beside a read-only one.
+Widget _inputDisabled(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const _InputSection('Disabled'),
+      const Input(hintText: 'Disabled', enabled: false),
+      Gap(spacing.lg),
+      const _InputSection('Read-only'),
+      const Input(
+        hintText: 'Read-only',
+        readOnly: true,
+        initialValue: 'Read-only value',
+      ),
+    ],
+  );
+}
+
+Widget _inputWithIconExample(BuildContext context) => const _InputWithIcon();
+
+/// Named docs examples for `input`; the first entry is the default.
+const List<ComponentPreview> inputPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _inputDefault),
+  ComponentPreview('With icon', _inputWithIconExample),
+  ComponentPreview('Invalid', _inputInvalid),
+  ComponentPreview('Disabled', _inputDisabled),
+];

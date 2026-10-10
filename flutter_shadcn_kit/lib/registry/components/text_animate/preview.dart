@@ -1,161 +1,51 @@
-// Gallery preview for the `text_animate` component: every animation style
-// streaming the same sample, word mode with a cursor, the markdown tail,
-// and dark + themed sections. Widgets-only; the docs app embeds
-// [TextAnimatePreview] directly.
-
-import 'dart:async';
+// Named examples for the `text_animate` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
-import '../markdown/markdown.dart';
+import '../../foundation/component_preview.dart';
 import 'text_animate.dart';
 
-const String _streamSample =
-    'The assistant is thinking...\nStreaming tokens into the UI in real time.';
+const String _sample = 'Ship a new build to production.';
 
-/// Renders the animated-text gallery, streaming [_streamSample] on a timer.
-class TextAnimatePreview extends StatefulWidget {
-  /// Creates the preview.
-  const TextAnimatePreview({super.key});
-
-  @override
-  State<TextAnimatePreview> createState() => _TextAnimatePreviewState();
+/// Opacity-only entrance.
+Widget _default(BuildContext context) {
+  return const TextAnimate(text: _sample, effect: TextAnimateEffect.fade());
 }
 
-class _TextAnimatePreviewState extends State<TextAnimatePreview> {
-  String _text = '';
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(milliseconds: 60), (timer) {
-      if (!mounted) return;
-      final runes = _streamSample.runes.toList();
-      if (_text.runes.length >= runes.length) {
-        timer.cancel();
-        return;
-      }
-      setState(() {
-        _text = String.fromCharCodes(runes.take(_text.runes.length + 1));
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Fade',
-                  TextAnimate(
-                    text: _text,
-                    effect: const TextAnimateEffect.fade(),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Slide',
-                  TextAnimate(
-                    text: _text,
-                    effect: const TextAnimateEffect.slide(),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Blur',
-                  TextAnimate(
-                    text: _text,
-                    effect: const TextAnimateEffect.blur(),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Scramble',
-                  TextAnimate(
-                    text: _text,
-                    effect: const TextAnimateEffect.scramble(),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Words + cursor',
-                  TextAnimate(
-                    text: _text,
-                    animateByWord: true,
-                    effect: const TextAnimateEffect.slide(),
-                    cursor: const TextAnimateCursor.blink(),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Markdown tail',
-                  Markdown(data: _text).withTextStreaming(),
-                ),
-                _section(
-                  context,
-                  'Themed override',
-                  ComponentTheme<TextAnimateTheme>(
-                    data: const TextAnimateTheme(
-                      effect: TextAnimateEffect.slide(offsetY: 16),
-                    ),
-                    child: TextAnimate(text: _text),
-                  ),
-                ),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: TextAnimate(
-                      text: _text,
-                      effect: const TextAnimateEffect.fade(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(height: ShadcnTheme.of(context).spacing.sm),
-          child,
-        ],
-      ),
-    );
-  }
+/// Vertical slide entrance.
+Widget _slide(BuildContext context) {
+  return const TextAnimate(text: _sample, effect: TextAnimateEffect.slide());
 }
+
+/// Blur-to-sharp entrance.
+Widget _blur(BuildContext context) {
+  return const TextAnimate(text: _sample, effect: TextAnimateEffect.blur());
+}
+
+/// Scramble-then-resolve entrance.
+Widget _scramble(BuildContext context) {
+  return const TextAnimate(text: _sample, effect: TextAnimateEffect.scramble());
+}
+
+/// Word-by-word slide with a blinking cursor.
+Widget _words(BuildContext context) {
+  return const TextAnimate(
+    text: _sample,
+    animateByWord: true,
+    effect: TextAnimateEffect.slide(),
+    cursor: TextAnimateCursor.blink(),
+  );
+}
+
+/// Named docs examples for `text_animate`; the first entry is the default.
+const List<ComponentPreview> textAnimatePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Slide', _slide),
+  ComponentPreview('Blur', _blur),
+  ComponentPreview('Scramble', _scramble),
+  ComponentPreview('Words', _words),
+];

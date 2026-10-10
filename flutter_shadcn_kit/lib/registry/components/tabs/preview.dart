@@ -1,24 +1,69 @@
-// Gallery preview for `tabs`: pill strip, disabled strip, sortable tab
-// pane and the dark palette. Widgets-only.
+// Named examples for the `tabs` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
 import 'tabs.dart';
 
-/// Renders the tabs gallery.
-class TabsPreview extends StatefulWidget {
-  /// Creates the preview.
-  const TabsPreview({super.key});
+/// Interactive pill strip; owns its index.
+class _InteractiveTabs extends StatefulWidget {
+  const _InteractiveTabs();
 
   @override
-  State<TabsPreview> createState() => _TabsPreviewState();
+  State<_InteractiveTabs> createState() => _InteractiveTabsState();
 }
 
-class _TabsPreviewState extends State<TabsPreview> {
+class _InteractiveTabsState extends State<_InteractiveTabs> {
   int _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tabs(
+      index: _index,
+      onChanged: (int index) => setState(() => _index = index),
+      children: const <TabItem>[
+        TabItem(child: Text('Account')),
+        TabItem(child: Text('Password')),
+        TabItem(child: Text('Settings')),
+      ],
+    );
+  }
+}
+
+Widget _default(BuildContext context) {
+  // The strip sizes to its content; it scrolls instead of overflowing on a
+  // 375-wide phone.
+  return const SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: _InteractiveTabs(),
+  );
+}
+
+/// Strip with no callback, so every tab is disabled.
+Widget _disabled(BuildContext context) {
+  return const Tabs(
+    index: 0,
+    children: <TabItem>[
+      TabItem(child: Text('Account')),
+      TabItem(child: Text('Password')),
+    ],
+  );
+}
+
+/// Sortable IDE-style pane over a content card; owns its order. The fixed
+/// height is inherent: the content card flexes inside the pane.
+class _PaneDemo extends StatefulWidget {
+  const _PaneDemo();
+
+  @override
+  State<_PaneDemo> createState() => _PaneDemoState();
+}
+
+class _PaneDemoState extends State<_PaneDemo> {
   int _focused = 1;
   List<TabPaneData<String>> _order = const <TabPaneData<String>>[
     TabPaneData<String>('main.dart'),
@@ -28,100 +73,31 @@ class _TabsPreviewState extends State<TabsPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 14),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _section(
-                  context,
-                  'Pill strip',
-                  Tabs(
-                    index: _index,
-                    onChanged: (i) => setState(() => _index = i),
-                    children: const [
-                      TabItem(child: Text('Account')),
-                      TabItem(child: Text('Password')),
-                      TabItem(child: Text('Settings')),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Disabled strip',
-                  const Tabs(
-                    index: 0,
-                    children: [
-                      TabItem(child: Text('Account')),
-                      TabItem(child: Text('Password')),
-                    ],
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Tab pane',
-                  SizedBox(
-                    height: 220,
-                    child: TabPane<String>(
-                      items: _order,
-                      focused: _focused,
-                      onFocused: (i) => setState(() => _focused = i),
-                      onSort: (next) => setState(() => _order = next),
-                      itemBuilder: (context, item, i) =>
-                          Text(item.data, overflow: TextOverflow.ellipsis),
-                      child: Padding(
-                        padding: EdgeInsets.all(theme.spacing.lg),
-                        child: Text('Editor content'),
-                      ),
-                    ),
-                  ),
-                ),
-                Gap(theme.spacing.xl),
-                _section(
-                  context,
-                  'Dark',
-                  ShadcnTheme(
-                    data: const ShadcnThemeData(
-                      colors: ShadcnColors.darkFallback,
-                    ),
-                    child: Tabs(
-                      index: _index,
-                      onChanged: (i) => setState(() => _index = i),
-                      children: const [
-                        TabItem(child: Text('Account')),
-                        TabItem(child: Text('Password')),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return SizedBox(
+      height: 200,
+      child: TabPane<String>(
+        items: _order,
+        focused: _focused,
+        onFocused: (int index) => setState(() => _focused = index),
+        onSort: (List<TabPaneData<String>> next) =>
+            setState(() => _order = next),
+        itemBuilder:
+            (BuildContext context, TabPaneData<String> item, int index) =>
+                Text(item.data, overflow: TextOverflow.ellipsis),
+        child: const Padding(
+          padding: EdgeInsets.all(12),
+          child: Text('Editor content'),
         ),
       ),
     );
   }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
 }
+
+Widget _pane(BuildContext context) => const _PaneDemo();
+
+/// Named docs examples for `tabs`; the first entry is the default.
+const List<ComponentPreview> tabsPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Disabled', _disabled),
+  ComponentPreview('Tab pane', _pane),
+];

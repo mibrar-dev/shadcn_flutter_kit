@@ -1,62 +1,56 @@
-// Gallery preview for the `spinner` component.
+// Named examples for the `spinner` component (P6-F3 preview contract).
 //
-// Widgets-only, like the component itself. Shows sizes, strokes, colours, a
-// scoped theme leg and dark tokens.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
 import 'spinner.dart';
 
-/// Preview entry point used by the docs gallery.
-class SpinnerPreview extends StatelessWidget {
-  /// Creates the preview.
-  const SpinnerPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _SpinnerPreviewBody(),
-      ),
-    );
-  }
+/// The size scale and a couple of stroke widths in one row.
+Widget _spinnerDefault(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.xl,
+    runSpacing: spacing.xl,
+    alignment: WrapAlignment.center,
+    children: const <Widget>[
+      Spinner(),
+      Spinner(size: 16),
+      Spinner(size: 32),
+      Spinner(size: 48),
+      Spinner(strokeWidth: 2),
+      Spinner(strokeWidth: 6),
+    ],
+  );
 }
 
-class _SpinnerPreviewBody extends StatelessWidget {
-  const _SpinnerPreviewBody();
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Center(
-        child: Wrap(
-          spacing: 32,
-          runSpacing: 32,
-          alignment: WrapAlignment.center,
-          children: <Widget>[
-            const Spinner(),
-            const Spinner(size: 16),
-            const Spinner(size: 32),
-            const Spinner(size: 48),
-            const Spinner(strokeWidth: 2),
-            const Spinner(strokeWidth: 6),
-            const Spinner(color: Color(0xFF16A34A)),
-            const Spinner(color: Color(0xFFE7000B)),
-            ComponentTheme<SpinnerTheme>(
-              data: const SpinnerTheme(
-                color: ThemedColor.ref(ColorRef.mutedForeground),
-              ),
-              child: const Spinner(),
-            ),
-          ],
+/// A small spinner inside a text row.
+Widget _spinnerSmall(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      const Spinner(size: 14, strokeWidth: 2),
+      Gap(spacing.sm),
+      Text(
+        'Loading...',
+        style: TextStyle(
+          fontSize: 13,
+          color: ShadcnTheme.of(context).colors.mutedForeground,
         ),
       ),
-    );
-  }
+    ],
+  );
 }
+
+/// Named docs examples for `spinner`; the first entry is the default.
+const List<ComponentPreview> spinnerPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _spinnerDefault),
+  ComponentPreview('Small', _spinnerSmall),
+];

@@ -1,111 +1,120 @@
-// Gallery preview for the `code_snippet` component: plain, with actions,
-// long lines and a dark subtree. Widgets-only; the docs app embeds
-// [CodeSnippetPreview] directly.
+// Named examples for the `code_snippet` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'code_snippet.dart';
 
-/// Renders the code snippet gallery.
-class CodeSnippetPreview extends StatelessWidget {
-  /// Creates the preview.
-  const CodeSnippetPreview({super.key});
+/// A small pill button for the snippet actions row.
+class _CodeSnippetAction extends StatelessWidget {
+  const _CodeSnippetAction({required this.label, required this.onPressed});
+
+  final String label;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 13),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _section(
-                'Plain',
-                const CodeSnippet(code: Text('const greeting = "hello";')),
-              ),
-              const Gap(24),
-              _section(
-                'With actions',
-                CodeSnippet(
-                  actions: <Widget>[
-                    _Action(label: 'Copy'),
-                    _Action(label: 'Run'),
-                  ],
-                  code: const Text('flutter run -d chrome'),
-                ),
-              ),
-              const Gap(24),
-              _section(
-                'Long lines scroll',
-                const CodeSnippet(
-                  constraints: BoxConstraints(maxWidth: 320),
-                  code: Text(
-                    'void main() { runApp(const MyApp(home: Scaffold(body: Center(child: Text("wide"))))); }',
-                  ),
-                ),
-              ),
-              const Gap(24),
-              _section(
-                'Dark',
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: const CodeSnippet(code: Text('dark = true;')),
-                ),
-              ),
-            ],
+    final theme = ShadcnTheme.of(context);
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: theme.colors.secondary,
+          borderRadius: theme.borderRadiusMd,
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: theme.colors.secondaryForeground,
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _section(String title, Widget child) {
+/// A plain snippet.
+Widget _codeSnippetDefault(BuildContext context) {
+  return const Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: CodeSnippet(code: Text('const greeting = "hello";')),
+  );
+}
+
+/// A snippet with an actions row.
+class _CodeSnippetWithActions extends StatefulWidget {
+  const _CodeSnippetWithActions();
+
+  @override
+  State<_CodeSnippetWithActions> createState() =>
+      _CodeSnippetWithActionsState();
+}
+
+class _CodeSnippetWithActionsState extends State<_CodeSnippetWithActions> {
+  String _status = 'idle';
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        CodeSnippet(
+          actions: <Widget>[
+            _CodeSnippetAction(
+              label: 'Copy',
+              onPressed: () => setState(() => _status = 'copied'),
+            ),
+            _CodeSnippetAction(
+              label: 'Run',
+              onPressed: () => setState(() => _status = 'running'),
+            ),
+          ],
+          code: const Text('flutter run -d chrome'),
         ),
-        const Gap(8),
-        child,
+        Gap(spacing.sm),
+        Text(
+          _status,
+          style: TextStyle(
+            fontSize: 12,
+            color: ShadcnTheme.of(context).colors.mutedForeground,
+          ),
+        ),
       ],
     );
   }
 }
 
-/// Small pill button for the actions preview.
-class _Action extends StatelessWidget {
-  /// Creates an action pill.
-  const _Action({required this.label});
-
-  /// Button label.
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData ambient = ShadcnTheme.of(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: ambient.colors.secondary,
-        borderRadius: ambient.borderRadiusMd,
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 12,
-          color: ambient.colors.secondaryForeground,
+/// A long line that scrolls inside its bounded box.
+Widget _codeSnippetLongLines(BuildContext context) {
+  return const Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: SizedBox(
+      width: 320,
+      child: CodeSnippet(
+        code: Text(
+          'void main() { runApp(const MyApp(home: Center(child: Text("wide")))); }',
         ),
       ),
-    );
-  }
+    ),
+  );
 }
+
+Widget _codeSnippetWithActions(BuildContext context) =>
+    const _CodeSnippetWithActions();
+
+/// Named docs examples for `code_snippet`; the first entry is the default.
+const List<ComponentPreview> codeSnippetPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _codeSnippetDefault),
+  ComponentPreview('With actions', _codeSnippetWithActions),
+  ComponentPreview('Long lines', _codeSnippetLongLines),
+];

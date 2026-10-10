@@ -1,172 +1,120 @@
-// Gallery preview for the `alert_dialog` component: the static composition
-// plus a live push through `showAlertDialog`, in light and dark.
-// Widgets-only; the docs app embeds [AlertDialogPreview] directly.
+// Named examples for the `alert_dialog` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import 'alert_dialog.dart';
 
-/// Renders the alert dialog gallery.
-class AlertDialogPreview extends StatefulWidget {
-  /// Creates the preview.
-  const AlertDialogPreview({super.key});
-
-  @override
-  State<AlertDialogPreview> createState() => _AlertDialogPreviewState();
-}
-
-class _AlertDialogPreviewState extends State<AlertDialogPreview> {
-  bool _withIcon = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(
-          color: ShadcnTheme.of(context).colors.foreground,
-          fontSize: 13,
-        ),
-        child: ColoredBox(
-          color: ShadcnTheme.of(context).colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  context,
-                  'Open',
-                  Button(
-                    onPressed: _show,
-                    child: const Text('Show alert dialog'),
-                  ),
-                ),
-                Gap(ShadcnTheme.of(context).spacing.xl),
-                _section(
-                  context,
-                  'Composition',
-                  Button(
-                    size: ButtonSize.sm,
-                    variant: ButtonVariant.outline,
-                    onPressed: () => setState(() => _withIcon = !_withIcon),
-                    child: Text(
-                      _withIcon ? 'Header icon: on' : 'Header icon: off',
-                    ),
-                  ),
-                ),
-                Gap(ShadcnTheme.of(context).spacing.xl),
-                _section(context, 'Static body', _body()),
-                Gap(ShadcnTheme.of(context).spacing.xl),
-                _section(context, 'Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _show() {
-    showAlertDialog<bool>(
-      context: context,
-      icon: const Icon(LucideIcons.triangleAlert),
-      title: const Text('Delete this project?'),
-      description: const Text(
-        'This action cannot be undone. The project and its history are removed.',
-      ),
-      actions: <Widget>[
-        Button(
-          variant: ButtonVariant.outline,
-          onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
-        ),
-        Button(
-          variant: ButtonVariant.destructive,
-          onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Delete'),
-        ),
-      ],
-    );
-  }
-
-  Widget _body() {
-    return DecoratedBox(
+/// The dialog body as shadcn composes it: a framed surface that carries the
+/// widget, so the docs stage shows the composition without a route push.
+Widget _alertDialogDialog(
+  BuildContext context,
+  String title,
+  String description,
+) {
+  final theme = ShadcnTheme.of(context);
+  return Center(
+    child: DecoratedBox(
       decoration: BoxDecoration(
-        color: ShadcnTheme.of(context).colors.background,
-        borderRadius: ShadcnTheme.of(context).borderRadiusLg,
-        border: Border.all(color: ShadcnTheme.of(context).colors.border),
+        color: theme.colors.background,
+        borderRadius: theme.borderRadiusLg,
+        border: Border.all(color: theme.colors.border),
+        boxShadow: theme.tokens.shadows.shadowLg,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: AlertDialog(
-          icon: _withIcon ? const Icon(LucideIcons.circleAlert) : null,
-          title: const Text('Are you absolutely sure?'),
-          description: const Text('This permanently deletes the account.'),
-          actions: <Widget>[
-            Button(
-              size: ButtonSize.sm,
-              variant: ButtonVariant.outline,
-              onPressed: () {},
-              child: const Text('Cancel'),
-            ),
-            Button(
-              size: ButtonSize.sm,
-              variant: ButtonVariant.destructive,
-              onPressed: () {},
-              child: const Text('Continue'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: ShadcnColors.darkFallback.background,
-          borderRadius: ShadcnTheme.of(context).borderRadiusLg,
-        ),
+      child: SizedBox(
+        width: 420,
         child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: const AlertDialog(
-            title: Text('Dark alert'),
-            description: Text('Tokens resolve against the dark palette.'),
+          padding: EdgeInsetsDensity.pxAll(24),
+          child: AlertDialog(
+            icon: const Icon(LucideIcons.circleAlert),
+            title: Text(title),
+            description: Text(description),
             actions: <Widget>[
               Button(
                 size: ButtonSize.sm,
-                variant: ButtonVariant.ghost,
-                onPressed: _noop,
-                child: Text('Dismiss'),
+                variant: ButtonVariant.outline,
+                onPressed: () {},
+                child: const Text('Cancel'),
+              ),
+              SizedBox(width: theme.spacing.sm),
+              Button(
+                size: ButtonSize.sm,
+                variant: ButtonVariant.destructive,
+                onPressed: () {},
+                child: const Text('Delete'),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  static void _noop() {}
+/// The default dialog.
+Widget _alertDialogDefault(BuildContext context) => _alertDialogDialog(
+  context,
+  'Are you absolutely sure?',
+  'This permanently deletes the account.',
+);
 
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+/// The destructive dialog.
+Widget _alertDialogDestructive(BuildContext context) => _alertDialogDialog(
+  context,
+  'Delete this project?',
+  'This action cannot be undone. The project and its history are removed.',
+);
+
+/// A live push through `showAlertDialog`.
+class _AlertDialogPushedDialog extends StatelessWidget {
+  const _AlertDialogPushedDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: Button(
+        onPressed: () => showAlertDialog<bool>(
+          context: context,
+          icon: const Icon(LucideIcons.triangleAlert),
+          title: const Text('Delete this project?'),
+          description: const Text(
+            'This action cannot be undone. The project and its history are '
+            'removed.',
+          ),
+          actions: <Widget>[
+            Button(
+              variant: ButtonVariant.outline,
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            Button(
+              variant: ButtonVariant.destructive,
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Delete'),
+            ),
+          ],
         ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
+        child: const Text('Show alert dialog'),
+      ),
     );
   }
 }
+
+Widget _alertDialogPushed(BuildContext context) =>
+    const _AlertDialogPushedDialog();
+
+/// Named docs examples for `alert_dialog`; the first entry is the default.
+const List<ComponentPreview> alertDialogPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _alertDialogDefault),
+  ComponentPreview('Destructive', _alertDialogDestructive),
+  ComponentPreview('Live push', _alertDialogPushed),
+];

@@ -24,12 +24,9 @@ class _MediaQueryPreviewState extends State<MediaQueryPreview> {
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: _body(context),
     );
   }
 
@@ -75,16 +72,13 @@ class _MediaQueryPreviewState extends State<MediaQueryPreview> {
                 ),
               ),
               SizedBox(height: ShadcnTheme.of(context).spacing.xl),
-              ShadcnTheme(
-                data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-                child: Builder(
-                  builder: (context) => ColoredBox(
-                    color: ShadcnTheme.of(context).colors.background,
-                    child: _visibility(
-                      minWidth: 600,
-                      alternateChild: const Text('dark: mobile'),
-                      child: const Text('dark: desktop'),
-                    ),
+              Builder(
+                builder: (context) => ColoredBox(
+                  color: ShadcnTheme.of(context).colors.background,
+                  child: _visibility(
+                    minWidth: 600,
+                    alternateChild: const Text('dark: mobile'),
+                    child: const Text('dark: desktop'),
                   ),
                 ),
               ),

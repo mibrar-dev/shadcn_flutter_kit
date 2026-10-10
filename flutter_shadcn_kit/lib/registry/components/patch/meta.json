@@ -2,6 +2,7 @@
   "id": "patch",
   "name": "ClickDetector",
   "category": "control",
+  "listed": false,
   "description": "Counts consecutive taps inside a time and distance window for double/triple-click gestures.",
   "tier": "component",
   "install": "flutter_shadcn add patch",

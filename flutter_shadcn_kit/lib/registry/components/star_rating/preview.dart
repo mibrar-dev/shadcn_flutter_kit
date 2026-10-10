@@ -1,70 +1,61 @@
-// Gallery preview for the `star_rating` component.
+// Named examples for the `star_rating` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../primitives/text/text_extension.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
 import 'star_rating.dart';
 
-/// Shows values, directions, a custom style and the disabled state.
-class StarRatingPreview extends StatefulWidget {
-  /// Creates the preview.
-  const StarRatingPreview({super.key});
+void _ignore(double value) {}
+
+/// Interactive rating with half-star steps; owns its value.
+class _InteractiveRating extends StatefulWidget {
+  const _InteractiveRating();
 
   @override
-  State<StarRatingPreview> createState() => _StarRatingPreviewState();
+  State<_InteractiveRating> createState() => _InteractiveRatingState();
 }
 
-class _StarRatingPreviewState extends State<StarRatingPreview> {
+class _InteractiveRatingState extends State<_InteractiveRating> {
   double _value = 3.5;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Padding(
-      padding: EdgeInsets.all(theme.spacing.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text('Interactive (step 0.5)').small.muted,
-          StarRating(
-            value: _value,
-            onChanged: (value) => setState(() => _value = value),
-          ),
-          SizedBox(height: theme.spacing.md),
-          const Text('Read-only').small.muted,
-          const StarRating(value: 4),
-          SizedBox(height: theme.spacing.md),
-          const Text('Step 1').small.muted,
-          const StarRating(value: 2, step: 1, onChanged: _ignore),
-          SizedBox(height: theme.spacing.md),
-          const Text('Vertical').small.muted,
-          const StarRating(
-            value: 3,
-            direction: Axis.vertical,
-            onChanged: _ignore,
-          ),
-          SizedBox(height: theme.spacing.md),
-          const Text('Custom style').small.muted,
-          const StarRating(
-            value: 4.5,
-            onChanged: _ignore,
-            theme: StarRatingStyle(
-              activeColor: ThemedColor.value(Color(0xFFF59E0B)),
-              inactiveColor: ThemedColor.value(Color(0xFFE5E7EB)),
-              size: 30,
-              spacing: 8,
-            ),
-          ),
-          SizedBox(height: theme.spacing.md),
-          const Text('Disabled').small.muted,
-          const StarRating(value: 3, enabled: false),
-        ],
-      ),
+    return StarRating(
+      value: _value,
+      onChanged: (double value) => setState(() => _value = value),
     );
   }
-
-  static void _ignore(double value) {}
 }
+
+Widget _default(BuildContext context) => const _InteractiveRating();
+
+/// A non-interactive rating.
+Widget _readOnly(BuildContext context) {
+  return const StarRating(value: 4);
+}
+
+/// A vertical rating.
+Widget _vertical(BuildContext context) {
+  return const StarRating(
+    value: 3,
+    direction: Axis.vertical,
+    onChanged: _ignore,
+  );
+}
+
+/// A disabled rating.
+Widget _disabled(BuildContext context) {
+  return const StarRating(value: 3, enabled: false);
+}
+
+/// Named docs examples for `star_rating`; the first entry is the default.
+const List<ComponentPreview> starRatingPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Read-only', _readOnly),
+  ComponentPreview('Vertical', _vertical),
+  ComponentPreview('Disabled', _disabled),
+];

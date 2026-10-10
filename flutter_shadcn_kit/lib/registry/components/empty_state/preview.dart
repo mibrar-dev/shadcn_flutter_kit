@@ -1,125 +1,78 @@
-// Gallery preview for the `empty_state` component: both sizes, all three
-// variants, the action slots and dark.
-// Widgets-only; the docs app embeds [EmptyStatePreview] directly.
+// Named examples for the `empty_state` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
+//
+// No outer fixed-height box: the full-page sizes want a tall host, so each
+// example is laid out in a box the stage already bounds.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import '../button/button.dart';
+import '../../theme/theme.dart';
 import 'empty_state.dart';
 
-/// Renders the empty-state gallery.
-class EmptyStatePreview extends StatelessWidget {
-  /// Creates the preview.
-  const EmptyStatePreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Full page — empty', _fullPage()),
-                Gap(theme.spacing.xl),
-                _section(context, 'No results', _noResults()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Error fallback', _error()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Compact', _compact()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Bare icon', _bare()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _fullPage() {
-    return const EmptyState(
-      variant: EmptyStateVariant.empty,
-      primaryAction: EmptyStateAction(label: 'Create project'),
-      secondaryAction: EmptyStateAction(label: 'Import'),
-    );
-  }
-
-  Widget _noResults() {
-    return const EmptyState(
-      variant: EmptyStateVariant.noResults,
-      primaryAction: EmptyStateAction(label: 'Clear filters'),
-    );
-  }
-
-  Widget _error() {
-    return const EmptyState(
-      variant: EmptyStateVariant.errorFallback,
-      primaryAction: EmptyStateAction(label: 'Try again'),
-      footerAction: EmptyStateAction(
-        label: 'Report this',
-        variant: ButtonVariant.link,
-      ),
-    );
-  }
-
-  Widget _compact() {
-    return const EmptyState(
-      size: EmptyStateSize.compact,
-      variant: EmptyStateVariant.empty,
-      title: Text('Nothing here yet'),
-      primaryAction: EmptyStateAction(label: 'Create'),
-    );
-  }
-
-  Widget _bare() {
-    return const EmptyState(
-      size: EmptyStateSize.compact,
-      variant: EmptyStateVariant.noResults,
-      showIconContainer: false,
-      title: Text('No matches'),
-      description: Text('Try a different term.'),
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: const SizedBox(
-          height: 320,
-          child: EmptyState(
-            variant: EmptyStateVariant.empty,
-            primaryAction: EmptyStateAction(label: 'Create project'),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        SizedBox(height: 320, child: child),
-      ],
-    );
-  }
+/// The full-page empty state, both actions.
+Widget _emptyStateNoResults(BuildContext context) {
+  return const EmptyState(
+    variant: EmptyStateVariant.noResults,
+    primaryAction: EmptyStateAction(label: 'Clear filters'),
+  );
 }
+
+/// the full-page empty variant.
+Widget _emptyStateEmpty(BuildContext context) {
+  return const EmptyState(
+    variant: EmptyStateVariant.empty,
+    primaryAction: EmptyStateAction(label: 'Create project'),
+    secondaryAction: EmptyStateAction(label: 'Import'),
+  );
+}
+
+/// the error-fallback variant with a footer link.
+Widget _emptyStateError(BuildContext context) {
+  return const EmptyState(
+    variant: EmptyStateVariant.errorFallback,
+    primaryAction: EmptyStateAction(label: 'Try again'),
+    footerAction: EmptyStateAction(
+      label: 'Report this',
+      variant: ButtonVariant.link,
+    ),
+  );
+}
+
+/// the compact scale, with and without the icon container.
+Widget _emptyStateCompact(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      const EmptyState(
+        size: EmptyStateSize.compact,
+        variant: EmptyStateVariant.empty,
+        title: Text('Nothing here yet'),
+        primaryAction: EmptyStateAction(label: 'Create'),
+      ),
+      Gap(spacing.xl),
+      const EmptyState(
+        size: EmptyStateSize.compact,
+        variant: EmptyStateVariant.noResults,
+        showIconContainer: false,
+        title: Text('No matches'),
+        description: Text('Try a different term.'),
+      ),
+    ],
+  );
+}
+
+/// Named docs examples for `empty_state`; the first entry is the default.
+const List<ComponentPreview> emptyStatePreviews = <ComponentPreview>[
+  ComponentPreview('No results', _emptyStateNoResults),
+  ComponentPreview('Empty', _emptyStateEmpty),
+  ComponentPreview('Error fallback', _emptyStateError),
+  ComponentPreview('Compact', _emptyStateCompact),
+];

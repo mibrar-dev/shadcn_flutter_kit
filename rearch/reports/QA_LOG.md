@@ -581,3 +581,9 @@
 - fade_scroll rewritten alpha-only dstIn (old one painted black/white: modulate + inverted stops) — fixes the user's black block; MenuPopupSurface intrinsic/LayoutBuilder throw fixed at root; popups max-height + scroll + selected item kept visible; radius/spacing/shadow presets; live apply (slider drag, hover).
 - Registry +106 targeted tests, 2860 full (1 failure = F3 in-flight preview rename); docs 56/56 theme suites (full docs blocked by F3 renames until F3 lands). Manifest left for F3's commit. menu.dart 431 lines (accepted, noted).
 - Preset values follow tweakcn scale (shadcn /create values unverified).
+
+## P6-F3 (+F3b/F3c/F3d helpers) — preview contract + building-block flag — ACCEPTED
+- qa_gate: analyze 0, registry +3789, rearch +42; previews_test (generated, 586) + helper suites 889 pass; manifest --check + gen_previews_test --check up to date; no ShadcnThemeData( in previews.
+- 97 listed previews → `const List<ComponentPreview> <camel>Previews` (first = default); 21 building blocks `listed:false` in meta/manifest/schema. Root fixes: chat IntrinsicHeight+stretch overflow, SubFocusScope.detach setState during unmount. eye_dropper notifier = harness artefact.
+- Helpers on Muse Spark xhigh finished 19/19/12 previews in ~10 min each (vs Step 5 ~30 in 3.5h) → prefer Muse Spark for bulk mechanical work.
+- Known transient: docs app does not compile against the new preview lists until P6-F4 regenerates component_previews.dart; committed manifest already lists T1's masonry_layout (lands with T1).

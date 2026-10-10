@@ -2,6 +2,7 @@
   "id": "alpha",
   "name": "Alpha",
   "category": "utility",
+  "listed": false,
   "description": "Checkerboard painter for transparency indicators.",
   "tier": "component",
   "install": "flutter_shadcn add alpha",

@@ -1,76 +1,36 @@
-// Gallery preview for the `radio_group` component: rows and cards, controlled
-// and controller-driven, a horizontal group, disabled items and dark.
-// Widgets-only; the docs app embeds [RadioGroupPreview] directly.
+// Named examples for the `radio_group` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each example owns its selection state: the old
+// gallery shared one controller across every section.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/theme.dart';
 import 'radio_group.dart';
 
-/// Renders the radio-group gallery.
-class RadioGroupPreview extends StatefulWidget {
-  /// Creates the preview.
-  const RadioGroupPreview({super.key});
+/// A vertical group of row items; the selection lives in this example.
+class _RowsDemo extends StatefulWidget {
+  const _RowsDemo();
 
   @override
-  State<RadioGroupPreview> createState() => _RadioGroupPreviewState();
+  State<_RowsDemo> createState() => _RowsDemoState();
 }
 
-class _RadioGroupPreviewState extends State<RadioGroupPreview> {
-  final ShadcnRadioGroupController<String> _controller =
-      ShadcnRadioGroupController<String>('pro');
+class _RowsDemoState extends State<_RowsDemo> {
   String _plan = 'free';
-  String _size = 'm';
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(context, 'Rows', _rows()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Horizontal', _horizontal()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Cards', _cards(context)),
-                Gap(theme.spacing.xl),
-                _section(context, 'Controller', _controllerGroup()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Disabled', _disabled()),
-                Gap(theme.spacing.xl),
-                _section(context, 'Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _rows() {
     return ShadcnRadioGroup<String>(
       value: _plan,
       onChanged: (String value) => setState(() => _plan = value),
-      child: Column(
+      child: const Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
+        children: <Widget>[
           RadioItem<String>(value: 'free', label: Text('Free')),
           RadioItem<String>(value: 'pro', label: Text('Pro')),
           RadioItem<String>(value: 'team', label: Text('Team')),
@@ -78,24 +38,22 @@ class _RadioGroupPreviewState extends State<RadioGroupPreview> {
       ),
     );
   }
+}
 
-  Widget _horizontal() {
-    return ShadcnRadioGroup<String>(
-      value: _size,
-      direction: Axis.horizontal,
-      onChanged: (String value) => setState(() => _size = value),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const <Widget>[
-          RadioItem<String>(value: 's', label: Text('S')),
-          RadioItem<String>(value: 'm', label: Text('M')),
-          RadioItem<String>(value: 'l', label: Text('L')),
-        ],
-      ),
-    );
-  }
+/// A group of card items; the selection lives in this example.
+class _CardsDemo extends StatefulWidget {
+  const _CardsDemo();
 
-  Widget _cards(BuildContext context) {
+  @override
+  State<_CardsDemo> createState() => _CardsDemoState();
+}
+
+class _CardsDemoState extends State<_CardsDemo> {
+  String _plan = 'pro';
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return ShadcnRadioGroup<String>(
       value: _plan,
       onChanged: (String value) => setState(() => _plan = value),
@@ -104,23 +62,15 @@ class _RadioGroupPreviewState extends State<RadioGroupPreview> {
         children: <Widget>[
           for (final String plan in <String>['free', 'pro'])
             Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: EdgeInsets.only(bottom: spacing.sm),
               child: RadioCard<String>(
                 value: plan,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      plan,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Gap(ShadcnTheme.of(context).spacing.xs),
-                    Text('${plan[0].toUpperCase()}${plan.substring(1)} plan'),
-                  ],
+                child: Text(
+                  plan,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -128,73 +78,14 @@ class _RadioGroupPreviewState extends State<RadioGroupPreview> {
       ),
     );
   }
-
-  Widget _controllerGroup() {
-    return ShadcnRadioGroup<String>(
-      controller: _controller,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          for (final String plan in <String>['free', 'pro'])
-            RadioItem<String>(value: plan, label: Text(plan)),
-        ],
-      ),
-    );
-  }
-
-  Widget _disabled() {
-    return const Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        RadioItem<String>(value: 'a', label: Text('enabled')),
-        RadioItem<String>(
-          value: 'b',
-          label: Text('disabled item'),
-          enabled: false,
-        ),
-        RadioItem<String>(
-          value: 'c',
-          label: Text('another one'),
-          enabled: false,
-        ),
-      ],
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: ShadcnRadioGroup<String>(
-          value: 'pro',
-          onChanged: (String _) {},
-          child: const Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              RadioItem<String>(value: 'free', label: Text('free')),
-              RadioItem<String>(value: 'pro', label: Text('pro')),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(BuildContext context, String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        Gap(ShadcnTheme.of(context).spacing.sm),
-        child,
-      ],
-    );
-  }
 }
+
+Widget _default(BuildContext context) => const _RowsDemo();
+
+Widget _cardItems(BuildContext context) => const _CardsDemo();
+
+/// Named docs examples for `radio_group`; the first entry is the default.
+const List<ComponentPreview> radioGroupPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Card items', _cardItems),
+];

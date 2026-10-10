@@ -2,6 +2,7 @@
   "id": "hsv",
   "name": "HSV Color Slider",
   "category": "form",
+  "listed": false,
   "description": "Gradient slider that controls hue, saturation, value, or alpha for HSV colours.",
   "tier": "component",
   "install": "flutter_shadcn add hsv",

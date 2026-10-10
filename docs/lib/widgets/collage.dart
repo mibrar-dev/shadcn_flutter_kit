@@ -13,6 +13,19 @@ import '../ui/shadcn/primitives/masonry_layout.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'collage_cards.dart';
 import 'collage_cards_controls.dart';
+import 'collage_home_auth.dart';
+import 'collage_home_data.dart';
+import 'collage_home_feedback.dart';
+import 'collage_home_forms.dart';
+import 'collage_home_media.dart';
+import 'collage_home_menus.dart';
+import 'collage_home_misc.dart';
+import 'collage_home_money.dart';
+import 'collage_home_nav.dart';
+import 'collage_home_overlays.dart';
+import 'collage_home_settings.dart';
+import 'collage_home_stats.dart';
+import 'collage_home_time.dart';
 
 /// The landing hero collage.
 class DocsCollage extends StatelessWidget {
@@ -76,20 +89,76 @@ class _CollageBody extends StatelessWidget {
     final List<Widget> effectiveCards =
         cards ??
         // The masonry packs each card into the shortest column, so the
-        // build order is the reading order, not a stack assignment.
+        // build order is the reading order, not a stack assignment. Tall
+        // and short cards are interleaved so no column runs away, and the
+        // set mirrors the reference home: buttons, forms, stats, overlays,
+        // navigation, data display, feedback, settings, date/time, chat.
         <Widget>[
           const CollageButtonsCard(),
+          const HomeAnalyticsCard(),
+          const HomePayoutCard(),
           const CollageInputsCard(),
+          const HomeContributionCard(),
+          const HomeDialogCard(),
           const CollageGoalCard(),
+          const HomeTransactionsCard(),
+          const HomeStatusCard(),
           const CollageInstallCard(),
           const CollageTabsCard(),
+          const HomeSavingsCard(),
+          const HomeMenubarCard(),
           const CollagePresetsCard(),
+          const HomeReportCard(),
+          const HomeSidebarCard(),
           const CollageRadioCard(),
+          const HomeClaimableCard(),
+          const HomeCommandCard(),
           const CollagePagesCard(),
+          const HomeUsageCard(),
+          const HomeLoginCard(),
           const CollageRegistryCard(),
+          const HomeDividendCard(),
+          const HomeDropdownCard(),
           const CollageSwitchesCard(),
+          const HomeTeamCard(),
+          const HomeCalendarCard(),
+          const HomeNotificationsCard(),
+          const HomeFaqCard(),
           const CollageTooltipCard(),
+          const HomeChatCard(),
+          const HomeAlertsCard(),
+          const HomeBrowseCard(),
+          const HomeSparkCard(
+            title: 'Net Revenue',
+            value: r'$48,320',
+            caption: '+12.4% vs last month',
+            samples: <double>[22, 26, 24, 31, 29, 38, 35, 44, 41, 52],
+          ),
+          const HomeCreateAccountCard(),
+          const HomeStepperCard(),
+          const HomeShareCard(),
           const CollageTableCard(),
+          const HomeAlertConfirmCard(),
+          const HomeOtpCard(),
+          const HomePreferencesCard(),
+          const HomeDrawerCard(),
+          const HomeEmptyCard(),
+          const HomeCardBalanceCard(),
+          const HomeDateRangeCard(),
+          const HomeLoadingCard(),
+          const HomeContributorsCard(),
+          const HomeActivityCard(),
+          const HomeTimeCard(),
+          const HomeRatingCard(),
+          const HomeTimelineCard(),
+          const HomeUploadCard(),
+          const HomeCookieCard(),
+          const HomeSparkCard(
+            title: 'Active Listeners',
+            value: '18,204',
+            caption: '+3.1% vs last month',
+            samples: <double>[31, 34, 33, 38, 42, 40, 46, 44, 49, 52],
+          ),
         ];
     return DecoratedBox(
       decoration: BoxDecoration(

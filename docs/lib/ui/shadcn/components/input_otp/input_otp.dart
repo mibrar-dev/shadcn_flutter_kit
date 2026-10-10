@@ -267,6 +267,77 @@ class _InputOtpState extends State<InputOtp>
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final double box = _resolved.boxSize ?? 36;
     final double gap = _resolved.spacing ?? theme.density.baseGap;
+
+    // Six 36 px slots plus gaps need ~256 px, more than a masonry column
+    // holds, so the slots shrink — staying square — to share the available
+    // width. Unbounded widths keep the nominal box size.
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double slot = _slotSize(
+          constraints.maxWidth,
+          length: widget.length,
+          box: box,
+          gap: gap,
+          separatorReserve: _separatorReserve(theme),
+        );
+        return _row(context, theme, box: slot, gap: gap);
+      },
+    );
+  }
+
+  /// One slot's share of [maxWidth]: the nominal [box] when it fits, otherwise
+  /// an even split after the fixed gaps (and separator dashes) are reserved.
+  /// The slot stays square at whatever size results, so the row never
+  /// overflows a narrow column; the 0 floor only guards absurd widths where
+  /// the gaps alone exceed the constraint.
+  double _slotSize(
+    double maxWidth, {
+    required int length,
+    required double box,
+    required double gap,
+    required double separatorReserve,
+  }) {
+    if (!maxWidth.isFinite) {
+      return box;
+    }
+    final int every = widget.separatorEvery ?? 0;
+    int separators = 0;
+    if (widget.separator != null && every > 0) {
+      for (int i = 1; i < length; i++) {
+        if (i % every == 0) {
+          separators++;
+        }
+      }
+    }
+    final double fixed =
+        (length - 1 - separators) * gap + separators * (gap + separatorReserve);
+    final double fit = (maxWidth - fixed) / length;
+    if (fit >= box) {
+      return box;
+    }
+    return fit.clamp(0.0, box);
+  }
+
+  /// Width of the dash the row draws between groups, measured in the resolved
+  /// separator style so the slot split reserves exactly what it costs.
+  double _separatorReserve(ShadcnThemeData theme) {
+    final TextPainter painter = TextPainter(
+      text: TextSpan(
+        text: '-',
+        style: _resolved.separatorTextStyle ?? theme.typography.base,
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return painter.width;
+  }
+
+  /// The painted slot row (plus the hidden field and the error, if any).
+  Widget _row(
+    BuildContext context,
+    ShadcnThemeData theme, {
+    required double box,
+    required double gap,
+  }) {
     final int caret =
         _host.focusNode.hasFocus && _host.controller.selection.isValid
         ? _host.controller.selection.baseOffset.clamp(0, widget.length)

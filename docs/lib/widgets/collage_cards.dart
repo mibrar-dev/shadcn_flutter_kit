@@ -29,11 +29,15 @@ class CollageCard extends StatelessWidget {
     super.key,
     this.title,
     this.subtitle,
+    this.trailing,
     required this.children,
   });
 
   final String? title;
   final String? subtitle;
+
+  /// Optional widget at the end of the header row (actions, icons, counts).
+  final Widget? trailing;
   final List<Widget> children;
 
   @override
@@ -53,14 +57,22 @@ class CollageCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           if (title != null)
-            Text(
-              title!,
-              style: docsText(
-                context,
-                size: 16,
-                weight: FontWeight.w600,
-                color: theme.colors.cardForeground,
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    title!,
+                    style: docsText(
+                      context,
+                      size: 16,
+                      weight: FontWeight.w600,
+                      color: theme.colors.cardForeground,
+                    ),
+                  ),
+                ),
+                if (trailing != null) ...<Widget>[const Gap(8), trailing!],
+              ],
             ),
           if (subtitle != null) ...<Widget>[
             const Gap(4),

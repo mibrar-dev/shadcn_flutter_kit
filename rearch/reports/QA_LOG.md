@@ -601,3 +601,7 @@
 ## P6-F5 — pagination/calendar/input_otp narrow widths — ACCEPTED
 - analyze 0; component suites + narrow-column tests (240/300/375) pass; registry 3817 (excl. B1's in-flight blocks).
 - Calendar/OTP: exact even-share fit. Pagination: collapse decided by a scaled width estimate (56/control, 112 per labelled control, × scaling) — heuristic accepted; a measuring layout would be the long-term fix. Docs mirror sync + removal of T1's horizontal-scroll workarounds deferred to P6-H1/B3.
+
+## P6-H1 — home showcase — ACCEPTED
+- docs analyze 0, +180, codegen + mirror --check (after orchestrator synced F5), release build. 55 composed cards (live shadcn home has 42), 4/3/2/1 masonry columns, no overflow light/dark. Visual check of home-v2-dark-1440: shadcn-like.
+- Polish follow-ups: "View Analytics" button reads as disabled grey; payout slider min/max labels not edge-aligned; collage_cards.dart 500 lines (split). Registry bug: MenuGroup autofocuses its RovingGroup on mount (docs works around with FocusScope(canRequestFocus:false)) → fix in registry.

@@ -210,13 +210,20 @@ class _CalendarState extends State<Calendar> {
         );
     final bool days = widget.viewType == CalendarViewType.date;
     return _keys(
-      _grid(
-        context: context,
-        slots: _slotsFor(context),
-        weekdays: days
-            ? calendarWeekdayLabels(context, widget.firstDayOfWeek)
-            : null,
-        style: style,
+      // A masonry column (~300 px) or a phone (375 px minus padding) is
+      // narrower than seven 32 px cells plus gaps, so the cells shrink to the
+      // available width (down to a ~7x32 px minimum footprint). Unbounded
+      // widths keep the nominal cell sizes.
+      LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) => _grid(
+          context: context,
+          slots: _slotsFor(context),
+          weekdays: days
+              ? calendarWeekdayLabels(context, widget.firstDayOfWeek)
+              : null,
+          style: style,
+          maxWidth: constraints.maxWidth,
+        ),
       ),
     );
   }
@@ -289,17 +296,46 @@ typedef _Slot = ({
   VoidCallback? onTap,
 });
 
+/// Narrowest a shrunken cell gets: 7 x 28 + 6 x 4 = 220 px, the brief's
+/// ~7x32 px minimum footprint, so the 240 px column test still fits.
+const double _kMinCalendarCell = 28;
+
+/// A nominal cell width fitted into [maxWidth]: the nominal size when it fits,
+/// otherwise an even share of the row, floored at [_kMinCalendarCell].
+/// Heights never shrink — only the width adapts, so rows keep their pitch.
+double _fitCalendarCell({
+  required double nominal,
+  required int columns,
+  required double gap,
+  required double maxWidth,
+}) {
+  if (!maxWidth.isFinite) {
+    return nominal;
+  }
+  final double fit = (maxWidth - (columns - 1) * gap) / columns;
+  return fit >= nominal ? nominal : fit.clamp(_kMinCalendarCell, nominal);
+}
+
 /// An optional weekday header, then rows of cells.
 Widget _grid({
   required BuildContext context,
   required List<_Slot> slots,
   required CalendarTheme style,
   List<String>? weekdays,
+  double maxWidth = double.infinity,
 }) {
   final ShadcnThemeData theme = ShadcnTheme.of(context);
   final double size = style.cellHeight ?? 32;
   final double gap = style.gap ?? theme.density.baseGap;
   final int columns = weekdays == null ? 4 : 7;
+  double fit(double nominal) => _fitCalendarCell(
+    nominal: nominal,
+    columns: columns,
+    gap: gap,
+    maxWidth: maxWidth,
+  );
+  final double dayWidth = fit(style.cellWidth ?? size);
+  final double wideWidth = fit(style.cellWidth ?? 56);
   final TextStyle header = theme.typography.xSmall.copyWith(
     color: theme.colors.mutedForeground,
     fontSize: style.weekdayTextStyle?.fontSize,
@@ -313,7 +349,7 @@ Widget _grid({
           children: <Widget>[
             for (final String day in weekdays)
               SizedBox(
-                width: size,
+                width: dayWidth,
                 height: size,
                 child: Center(child: Text(day, style: header)),
               ),
@@ -336,6 +372,9 @@ Widget _grid({
                       context,
                       slots[row * columns + column],
                       style,
+                      cellWidth: slots[row * columns + column].wide
+                          ? wideWidth
+                          : dayWidth,
                     ),
                   ),
             ],
@@ -348,7 +387,12 @@ Widget _grid({
 /// One painted cell, wrapped in the focus ring of the focused day. A
 /// `Clickable` owns a traversable focus node per cell, so the focus lives on
 /// the grid and the ring is drawn here.
-Widget _calendarCell(BuildContext context, _Slot slot, CalendarTheme style) {
+Widget _calendarCell(
+  BuildContext context,
+  _Slot slot,
+  CalendarTheme style, {
+  double? cellWidth,
+}) {
   final ShadcnThemeData theme = ShadcnTheme.of(context);
   final ({Color fill, Color foreground}) colors = calendarCellColors(
     lookup: slot.lookup,
@@ -357,7 +401,9 @@ Widget _calendarCell(BuildContext context, _Slot slot, CalendarTheme style) {
     colors: theme.colors,
   );
   final double size = style.cellHeight ?? (slot.wide ? 40 : 32);
-  final double width = style.cellWidth ?? (slot.wide ? 56 : 0);
+  // [cellWidth] is the row's fitted share; without it the cell keeps the
+  // nominal theme size (cellWidth, or the cell height for date cells).
+  final double width = cellWidth ?? style.cellWidth ?? (slot.wide ? 56 : 0);
   final BorderRadius radius = (style.cellBorderRadius ?? theme.borderRadiusMd)
       .resolve(Directionality.of(context));
   return Semantics(

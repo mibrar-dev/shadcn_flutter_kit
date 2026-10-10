@@ -3,6 +3,9 @@
 // One focused demo per example; the first entry is the default. Spacing comes
 // from the ambient theme, so the examples follow the selected preset and the
 // site light/dark toggle.
+//
+// The control collapses to prev/ellipsis/current/next in narrow columns by
+// itself, so the examples need no horizontal scroll view.
 
 import 'package:flutter/widgets.dart';
 
@@ -22,44 +25,23 @@ class _LabelledPaginationState extends State<_LabelledPagination> {
 
   @override
   Widget build(BuildContext context) {
-    return _ScrollableRow(
-      child: Pagination(
-        page: _page,
-        totalPages: 10,
-        onPageChanged: (int page) => setState(() => _page = page),
-      ),
+    return Pagination(
+      page: _page,
+      totalPages: 10,
+      onPageChanged: (int page) => setState(() => _page = page),
     );
   }
 }
 
-/// A row that scrolls horizontally on a 375-wide phone (a no-op on the
-/// 720-wide stage); same fix as the P6-F3c `tabs` strip.
-class _ScrollableRow extends StatelessWidget {
-  const _ScrollableRow({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: child,
-    );
-  }
-}
-
-Widget _labelled(BuildContext context) =>
-    const _ScrollableRow(child: _LabelledPagination());
+Widget _labelled(BuildContext context) => const _LabelledPagination();
 
 /// Page buttons without the "Page x of y" label.
 Widget _iconOnly(BuildContext context) {
-  return const _ScrollableRow(
-    child: Pagination(
-      page: 5,
-      totalPages: 12,
-      showLabel: false,
-      onPageChanged: _noop,
-    ),
+  return const Pagination(
+    page: 5,
+    totalPages: 12,
+    showLabel: false,
+    onPageChanged: _noop,
   );
 }
 

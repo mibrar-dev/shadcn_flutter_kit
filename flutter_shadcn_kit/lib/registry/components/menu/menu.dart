@@ -346,9 +346,30 @@ class MenuSub extends StatelessWidget implements MenuItem {
 
 /// The themed popup surface rows are presented on. B20 re-exports this.
 class MenuPopup extends StatelessWidget {
-  const MenuPopup({super.key, required this.children, this.theme});
+  /// Creates a menu popup.
+  const MenuPopup({
+    super.key,
+    required this.children,
+    this.theme,
+    this.width,
+    this.maxWidth,
+    this.maxHeight,
+  });
+
+  /// The rows.
   final List<Widget> children;
+
+  /// Widget-leg popup theme override.
   final MenuPopupTheme? theme;
+
+  /// Exact popup width; null sizes up to [maxWidth].
+  final double? width;
+
+  /// Maximum popup width (default 288); null keeps the default.
+  final double? maxWidth;
+
+  /// Maximum popup height (default 360); null keeps the default.
+  final double? maxHeight;
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData app = ShadcnTheme.of(context);
@@ -372,6 +393,9 @@ class MenuPopup extends StatelessWidget {
         app.density.baseContentPadding * app.scaling,
       ),
       minWidth: style.minWidth ?? 192,
+      width: width,
+      maxWidth: maxWidth ?? 288,
+      maxHeight: maxHeight ?? 360,
       children: children,
     );
   }

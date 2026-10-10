@@ -210,7 +210,12 @@ class DateInput extends StatelessWidget {
         if (dialogTitle == null) return sheet;
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[dialogTitle!, const Gap(8), sheet],
+          // shadcn `gap-2` (8) between the title and the sheet body.
+          children: <Widget>[
+            dialogTitle!,
+            Gap(ShadcnTheme.of(context).spacing.sm),
+            sheet,
+          ],
         );
       },
     );

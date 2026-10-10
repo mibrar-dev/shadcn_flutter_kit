@@ -24,6 +24,7 @@ import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/keyboard.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../card/card.dart';
 import 'keyboard_shortcut_style.dart';
@@ -158,7 +159,10 @@ class KeyboardKeyCap extends StatelessWidget {
 
     return Card(
       key: keyboardKeyCapKey,
-      padding: padding ?? container.keyPadding,
+      padding: resolveEdgeInsets(
+        padding ?? container.keyPadding ?? keyboardShortcutDefaultKeyPadding,
+        shadcnTheme.density.baseContentPadding * shadcnTheme.scaling,
+      ),
       background: fill,
       borderRadius: borderRadius ?? container.keyBorderRadius,
       shadows: shadows ?? container.keyShadows,

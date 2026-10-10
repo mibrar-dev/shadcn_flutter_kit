@@ -25,6 +25,7 @@ import 'open_preset_dialog.dart';
 import 'rail_footer.dart';
 import 'rail_glyphs.dart';
 import 'rail_picker_scales.dart';
+import 'rail_picker_shadow.dart';
 import 'rail_pickers.dart';
 import 'rail_row.dart';
 
@@ -59,77 +60,79 @@ class _ThemeRailState extends State<ThemeRail> {
   /// [anchor] is the row's context; the registry `popup` positions the panel
   /// against it, so every picker opens beside its row instead of at the rail's
   /// corner.
-  Future<void> _pickPreset(BuildContext anchor) async {
-    final String? id = await showPresetPicker(anchor, _model.presetId);
-    if (id != null) {
-      _model.selectPreset(id);
-    }
+  ///
+  /// Every picker applies live to [_model] while it is open (hover, pick or
+  /// drag); closing keeps the current value, so the callers ignore results.
+  void _pickPreset(BuildContext anchor) {
+    showPresetPicker(anchor, _model.presetId, onChanged: _model.selectPreset);
   }
 
-  Future<void> _pickColor(
-    BuildContext anchor,
-    void Function(Color seed) apply,
-  ) async {
-    final Color? seed = await showColorPicker(
-      anchor,
-      docsColorOf(_model.document.light['primary']!),
-    );
-    if (seed != null) {
-      apply(seed);
-    }
+  void _pickRadius(BuildContext anchor) {
+    showRadiusPicker(anchor, _model.radiusPx, onChanged: _model.setRadiusPx);
   }
 
-  Future<void> _pickFont(BuildContext anchor, String slot) async {
-    final String? spec = await showFontPicker(
-      anchor,
-      slot,
-      _model.document.fontOf(slot),
-    );
-    if (spec != null) {
-      _model.setFont(slot, spec.isEmpty ? null : spec);
-    }
-  }
-
-  Future<void> _pickRadius(BuildContext anchor) async {
-    final double? px = await showRadiusPicker(anchor, _model.radiusPx);
-    if (px != null) {
-      _model.setRadiusPx(px);
-    }
-  }
-
-  Future<void> _pickSpacing(BuildContext anchor) async {
-    final double? rem = await showSpacingPicker(
+  void _pickSpacing(BuildContext anchor) {
+    showSpacingPicker(
       anchor,
       _model.document.spacing,
+      onChanged: _model.setSpacingRem,
     );
-    if (rem != null) {
-      _model.setSpacingRem(rem);
-    }
   }
 
-  Future<void> _pickShadow(BuildContext anchor) async {
+  void _pickShadow(BuildContext anchor) {
     final bool dark = widget.state.brightness == Brightness.dark;
-    final DocsShadowAtoms? atoms = await showShadowPicker(
+    showShadowPicker(
       anchor,
       _model.document.shadowOf(widget.state.brightness),
       dark: dark,
+      onChanged: (DocsShadowAtoms atoms) =>
+          _model.setShadow(widget.state.brightness, atoms),
     );
-    if (atoms != null) {
-      _model.setShadow(widget.state.brightness, atoms);
-    }
   }
 
-  void _pickColorBase(BuildContext row) => _pickColor(row, _model.setBaseColor);
+  void _pickColorBase(BuildContext row) {
+    showColorPicker(
+      row,
+      docsColorOf(_model.document.light['background']!),
+      onChanged: _model.setBaseColor,
+    );
+  }
 
-  void _pickColorAccent(BuildContext row) =>
-      _pickColor(row, _model.setAccentColor);
+  void _pickColorAccent(BuildContext row) {
+    showColorPicker(
+      row,
+      docsColorOf(_model.document.light['primary']!),
+      onChanged: _model.setAccentColor,
+    );
+  }
 
-  void _pickColorChart(BuildContext row) =>
-      _pickColor(row, _model.setChartColors);
+  void _pickColorChart(BuildContext row) {
+    showColorPicker(
+      row,
+      docsColorOf(_model.document.light['chart1']!),
+      onChanged: _model.setChartColors,
+    );
+  }
 
-  void _pickHeadingFont(BuildContext row) => _pickFont(row, 'sans');
+  void _pickHeadingFont(BuildContext row) {
+    showFontPicker(
+      row,
+      'sans',
+      _model.document.fontOf('sans'),
+      onChanged: (String spec) =>
+          _model.setFont('sans', spec.isEmpty ? null : spec),
+    );
+  }
 
-  void _pickBodyFont(BuildContext row) => _pickFont(row, 'mono');
+  void _pickBodyFont(BuildContext row) {
+    showFontPicker(
+      row,
+      'mono',
+      _model.document.fontOf('mono'),
+      onChanged: (String spec) =>
+          _model.setFont('mono', spec.isEmpty ? null : spec),
+    );
+  }
 
   Future<void> _showSyntax(BuildContext row) => showShadcnPicker<void>(
     context: row,
@@ -187,10 +190,6 @@ class _ThemeRailState extends State<ThemeRail> {
                     controller: _scroll,
                     startOffset: 12,
                     endOffset: 12,
-                    gradient: <Color>[
-                      theme.colors.card,
-                      theme.colors.card.withValues(alpha: 0),
-                    ],
                     // A scroll view + column (not a lazy ListView): the rail is
                     // short and every row must be built, focusable and
                     // reachable by Tab, exactly like the reference's

@@ -9,6 +9,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../menu/menu.dart';
@@ -16,17 +17,15 @@ import '../menu/menu.dart';
 export '../button/button.dart' show ButtonVariant, ButtonVariantStyle;
 export '../menu/menu.dart' show MenuPopupTheme;
 
-/// Trigger padding (shadcn `px-3`); the height comes from the 36px minimum.
-const EdgeInsetsGeometry selectDefaultTriggerPadding = EdgeInsets.symmetric(
-  horizontal: 12,
-);
+/// Trigger padding (shadcn `px-3`), density-scaled; the height comes from
+/// the 36px minimum.
+const EdgeInsetsGeometry selectDefaultTriggerPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 12);
 
-/// Menu row metrics for select options (shadcn `px-2 py-1.5`): 6 + 20 + 6 =
-/// 32 high with the 14px type.
-const EdgeInsetsGeometry selectDefaultItemPadding = EdgeInsets.symmetric(
-  horizontal: 8,
-  vertical: 6,
-);
+/// Menu row metrics for select options (shadcn `px-2 py-1.5`), density
+/// scaled: 6 + 20 + 6 = 32 high with the 14px type.
+const EdgeInsetsGeometry selectDefaultItemPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 6);
 
 /// Theme container for the select component.
 ///

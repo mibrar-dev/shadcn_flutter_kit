@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/selectable_radio/selectable_radio_theme.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 export '../../primitives/selectable_radio/selectable_radio_theme.dart'
@@ -133,7 +134,7 @@ class SelectableCardTheme extends ComponentThemeData
   /// Corner radius; null resolves the ambient `radiusLg` at build.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding; null resolves 16.
+  /// Inner padding; null resolves 16, density-scaled.
   final EdgeInsetsGeometry? padding;
 
   /// Space between the indicator and the content; null resolves 12.
@@ -205,6 +206,8 @@ const SelectableCardTheme selectableCardDefaults = SelectableCardTheme(
     selected: ThemedColor.ref(ColorRef.primary),
   ),
   borderWidth: 1,
-  padding: EdgeInsets.all(16),
+  // Card inner padding 16, density-scaled (resolved at the `Card` that
+  // paints it).
+  padding: EdgeInsetsDensity.pxAll(16),
   gap: 12,
 );

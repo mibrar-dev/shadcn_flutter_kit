@@ -147,7 +147,9 @@ class FilterBarDateControl extends StatelessWidget {
   Widget build(BuildContext context) {
     final FilterDateRange? range = value;
     // h-9 like every other control: the ObjectFormField trigger's own
-    // padding/minHeight would otherwise measure 54.
+    // padding/minHeight would otherwise measure 54. A fixed box height, the
+    // border-box metric the `button` size table also keeps as a literal
+    // (h-9 = 36), so it is deliberately NOT density-scaled; only padding is.
     return SizedBox(
       width: width,
       height: 36,
@@ -318,6 +320,8 @@ class FilterBarSheetScaffold extends StatelessWidget {
                   child: SingleChildScrollView(
                     padding:
                         contentPadding ??
+                        // Flush under the title row (it already carries the
+                        // `sm` bottom), so the top inset is a deliberate 0.
                         EdgeInsets.fromLTRB(
                           ambient.spacing.md,
                           0,
@@ -330,6 +334,8 @@ class FilterBarSheetScaffold extends StatelessWidget {
                 if (footer != null)
                   Padding(
                     padding: EdgeInsets.fromLTRB(
+                      // Flush under the scrolling body (it already carries the
+                      // `md` bottom), so the top inset is a deliberate 0.
                       ambient.spacing.md,
                       0,
                       ambient.spacing.md,

@@ -306,7 +306,6 @@ class _TabPaneState<T> extends State<TabPane<T>> {
             height: barHeight,
             child: FadeScroll(
               controller: _scrolling,
-              endCrossOffset: borderWidth,
               child: SingleChildScrollView(
                 controller: _scrolling,
                 scrollDirection: Axis.horizontal,

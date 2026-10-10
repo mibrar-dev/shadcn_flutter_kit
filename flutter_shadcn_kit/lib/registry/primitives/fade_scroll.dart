@@ -1,27 +1,29 @@
 // `FadeScroll`: fades the leading/trailing edges of a scrollable when there
 // is more content in that direction.
 //
+// The fade is an alpha-only `ShaderMask` (`BlendMode.dstIn`, opaque white to
+// transparent white), so it dissolves into whatever surface sits behind the
+// scrollable and stays correct in light and dark mode. Colour-gradient masks
+// (`BlendMode.modulate`, the default) multiply colour but never alpha, so a
+// colour-to-transparent gradient either fades nothing (transparent white) or
+// paints a tinted block (a surface colour in dark mode reads as black).
+//
 // Ported from `shared/primitives/fade_scroll.dart` + `_impl/**`.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import '../foundation/style_value.dart';
-import '../theme/color_utils.dart';
 import '../theme/color_tokens.dart';
 import '../theme/theme.dart';
 
-/// Offset and gradient defaults for [FadeScroll].
+/// Offset defaults for [FadeScroll].
 class FadeScrollTheme extends ComponentThemeData
     implements Mergeable<FadeScrollTheme> {
-  /// Distance from the start where the fade begins.
+  /// Fade length from the start edge in logical pixels.
   final double? startOffset;
 
-  /// Distance from the end where the fade begins.
+  /// Fade length from the end edge in logical pixels.
   final double? endOffset;
-
-  /// Gradient colours used for the fade. Defaults to white -> transparent.
-  final List<Color>? gradient;
 
   /// Creates a [FadeScrollTheme].
   const FadeScrollTheme({
@@ -30,19 +32,16 @@ class FadeScrollTheme extends ComponentThemeData
     super.themeShadows,
     this.startOffset,
     this.endOffset,
-    this.gradient,
   });
 
   /// Returns a copy with the given fields replaced.
   FadeScrollTheme copyWith({
     ValueGetter<double?>? startOffset,
     ValueGetter<double?>? endOffset,
-    ValueGetter<List<Color>?>? gradient,
   }) {
     return FadeScrollTheme(
       startOffset: startOffset == null ? this.startOffset : startOffset(),
       endOffset: endOffset == null ? this.endOffset : endOffset(),
-      gradient: gradient == null ? this.gradient : gradient(),
     );
   }
 
@@ -56,7 +55,6 @@ class FadeScrollTheme extends ComponentThemeData
       themeShadows: themeShadows ?? fallback.themeShadows,
       startOffset: startOffset ?? fallback.startOffset,
       endOffset: endOffset ?? fallback.endOffset,
-      gradient: gradient ?? fallback.gradient,
     );
   }
 
@@ -65,36 +63,26 @@ class FadeScrollTheme extends ComponentThemeData
     if (identical(this, other)) return true;
     return other is FadeScrollTheme &&
         other.startOffset == startOffset &&
-        other.endOffset == endOffset &&
-        listEquals(other.gradient, gradient);
+        other.endOffset == endOffset;
   }
 
   @override
-  int get hashCode => Object.hash(startOffset, endOffset, gradient);
+  int get hashCode => Object.hash(startOffset, endOffset);
 }
 
 /// Fades the edges of [child] while [controller] reports hidden content.
-class FadeScroll extends StatelessWidget {
-  /// Distance from the start where the fade begins. Defaults to 0.
+class FadeScroll extends StatefulWidget {
+  /// Fade length from the start edge. Defaults to 0 (no start fade).
   final double? startOffset;
 
-  /// Distance from the end where the fade begins. Defaults to 0.
+  /// Fade length from the end edge. Defaults to 0 (no end fade).
   final double? endOffset;
-
-  /// Cross-axis offset of the start fade.
-  final double startCrossOffset;
-
-  /// Cross-axis offset of the end fade.
-  final double endCrossOffset;
 
   /// The scrollable child.
   final Widget child;
 
   /// Controller monitored for the scroll position.
   final ScrollController controller;
-
-  /// Gradient colours for the fade. Defaults to white -> transparent.
-  final List<Color>? gradient;
 
   /// Creates a fade scroll widget.
   const FadeScroll({
@@ -103,10 +91,23 @@ class FadeScroll extends StatelessWidget {
     this.endOffset,
     required this.child,
     required this.controller,
-    this.gradient,
-    this.startCrossOffset = 0,
-    this.endCrossOffset = 0,
   });
+
+  @override
+  State<FadeScroll> createState() => _FadeScrollState();
+}
+
+class _FadeScrollState extends State<FadeScroll> {
+  @override
+  void initState() {
+    super.initState();
+    // The controller gains its client during the first layout, after the
+    // first build already chose the identity shader. Refresh once so an
+    // initially overflowing scrollable fades without waiting for a scroll.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,80 +118,34 @@ class FadeScroll extends StatelessWidget {
           defaults: const FadeScrollTheme(),
         );
     final startOffset = styleValue(
-      widgetValue: this.startOffset,
+      widgetValue: widget.startOffset,
       themeValue: componentTheme.startOffset,
       defaultValue: 0.0,
     );
     final endOffset = styleValue(
-      widgetValue: this.endOffset,
+      widgetValue: widget.endOffset,
       themeValue: componentTheme.endOffset,
       defaultValue: 0.0,
     );
-    final gradient = styleValue(
-      widgetValue: this.gradient,
-      themeValue: componentTheme.gradient,
-      defaultValue: const [Colors.white, Colors.transparent],
-    );
     return ListenableBuilder(
-      listenable: controller,
-      child: child,
+      listenable: widget.controller,
+      child: widget.child,
       builder: (context, child) {
-        if (!controller.hasClients) {
-          return ShaderMask(shaderCallback: _identityShader, child: child!);
+        final mask = _fadeMask(widget.controller, startOffset, endOffset);
+        if (mask == null) {
+          return ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: _identityShader,
+            child: child!,
+          );
         }
-        final position = controller.position;
-        final pixels = position.pixels;
-        final max = position.maxScrollExtent;
-        final min = position.minScrollExtent;
-        final shouldFadeStart = pixels > min;
-        final shouldFadeEnd = pixels < max;
-        if (!shouldFadeStart && !shouldFadeEnd) {
-          return ShaderMask(shaderCallback: _identityShader, child: child!);
-        }
-        final direction = position.axis;
-        final size = position.viewportDimension;
-        final Alignment start = direction == Axis.horizontal
-            ? Alignment.centerLeft
-            : Alignment.topCenter;
-        final Alignment end = direction == Axis.horizontal
-            ? Alignment.centerRight
-            : Alignment.bottomCenter;
-        final double relativeStart = startOffset / size;
-        final double relativeEnd = 1 - endOffset / size;
-        final List<double> stops = shouldFadeStart && shouldFadeEnd
-            ? [
-                for (int i = 0; i < gradient.length; i++)
-                  (i / gradient.length) * relativeStart,
-                relativeStart,
-                relativeEnd,
-                for (int i = 1; i < gradient.length + 1; i++)
-                  relativeEnd + (i / gradient.length) * (1 - relativeEnd),
-              ]
-            : shouldFadeStart
-            ? [
-                for (int i = 0; i < gradient.length; i++)
-                  (i / gradient.length) * relativeStart,
-                relativeStart,
-                1,
-              ]
-            : [
-                0,
-                relativeEnd,
-                for (int i = 1; i < gradient.length + 1; i++)
-                  relativeEnd + (i / gradient.length) * (1 - relativeEnd),
-              ];
         return ShaderMask(
+          blendMode: BlendMode.dstIn,
           shaderCallback: (bounds) => LinearGradient(
-            colors: [
-              if (shouldFadeStart) ...gradient,
-              Colors.white,
-              Colors.white,
-              if (shouldFadeEnd) ...gradient.reversed,
-            ],
-            stops: stops,
-            begin: start,
-            end: end,
-            transform: const _ScaleGradient(Offset(1, 1.5)),
+            begin: mask.begin,
+            end: mask.end,
+            colors: mask.colors,
+            stops: mask.stops,
           ).createShader(bounds),
           child: child!,
         );
@@ -204,24 +159,86 @@ class FadeScroll extends StatelessWidget {
   /// child is never remounted when the fade state changes.
   static Shader _identityShader(Rect bounds) {
     return const LinearGradient(
-      colors: [Colors.white, Colors.white],
+      colors: [Color(0xFFFFFFFF), Color(0xFFFFFFFF)],
     ).createShader(bounds);
   }
 }
 
-class _ScaleGradient extends GradientTransform {
-  final Offset scale;
-
-  const _ScaleGradient(this.scale);
-
-  @override
-  Matrix4? transform(Rect bounds, {TextDirection? textDirection}) {
-    final center = bounds.center;
-    final dx = center.dx * (1 - scale.dx);
-    final dy = center.dy * (1 - scale.dy);
-    return Matrix4.identity()
-      ..translateByDouble(dx, dy, 0, 1)
-      ..scaleByDouble(scale.dx, scale.dy, 1, 1)
-      ..translateByDouble(-dx, -dy, 0, 1);
+/// An alpha-only edge mask, or null when no edge needs a fade.
+_CutMask? _fadeMask(
+  ScrollController controller,
+  double startOffset,
+  double endOffset,
+) {
+  if (!controller.hasClients) return null;
+  final position = controller.position;
+  final pixels = position.pixels;
+  final max = position.maxScrollExtent;
+  final min = position.minScrollExtent;
+  final size = position.viewportDimension;
+  if (size <= 0) return null;
+  final bool wantStart = pixels > min && startOffset > 0;
+  final bool wantEnd = pixels < max && endOffset > 0;
+  if (!wantStart && !wantEnd) return null;
+  double r0 = (startOffset / size).clamp(0.0, 1.0).toDouble();
+  double r1 = (endOffset / size).clamp(0.0, 1.0).toDouble();
+  if (wantStart && wantEnd && r0 + r1 > 1) {
+    final total = r0 + r1;
+    r0 /= total;
+    r1 /= total;
   }
+  final bool horizontal = position.axis == Axis.horizontal;
+  final Alignment begin = horizontal
+      ? Alignment.centerLeft
+      : Alignment.topCenter;
+  final Alignment end = horizontal
+      ? Alignment.centerRight
+      : Alignment.bottomCenter;
+  const Color opaque = Color(0xFFFFFFFF);
+  const Color clear = Color(0x00FFFFFF);
+  if (wantStart && wantEnd) {
+    return _CutMask(
+      begin: begin,
+      end: end,
+      colors: const [clear, opaque, opaque, clear],
+      stops: [0, r0, 1 - r1, 1],
+    );
+  }
+  if (wantStart) {
+    return _CutMask(
+      begin: begin,
+      end: end,
+      colors: const [clear, opaque, opaque],
+      stops: [0, r0, 1],
+    );
+  }
+  return _CutMask(
+    begin: begin,
+    end: end,
+    colors: const [opaque, opaque, clear],
+    stops: [0, 1 - r1, 1],
+  );
+}
+
+/// Gradient geometry of one [FadeScroll] edge mask.
+class _CutMask {
+  /// Creates mask geometry.
+  const _CutMask({
+    required this.begin,
+    required this.end,
+    required this.colors,
+    required this.stops,
+  });
+
+  /// Gradient begin alignment.
+  final Alignment begin;
+
+  /// Gradient end alignment.
+  final Alignment end;
+
+  /// Alpha-only stops (RGB is ignored by `dstIn`).
+  final List<Color> colors;
+
+  /// Stop positions.
+  final List<double> stops;
 }

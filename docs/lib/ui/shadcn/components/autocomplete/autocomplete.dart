@@ -33,6 +33,7 @@ import '../../primitives/input_features/input_features.dart';
 import '../../primitives/overlay.dart';
 import '../../primitives/popover_controller.dart';
 import '../../primitives/popover_overlay_handler.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../card/card.dart';
 import 'autocomplete_style.dart';
@@ -167,6 +168,8 @@ class AutoCompleteFeature extends InputFeature {
   ) {
     final ShadcnThemeData ambient = ShadcnTheme.of(context);
     final List<String> items = slot.items;
+    // `containerPadding` is density-derived; the `Card` below is the widget
+    // that paints it, so it is the one that resolves it (never both).
     final EdgeInsets padding = (theme.containerPadding ?? EdgeInsets.zero)
         .resolve(Directionality.of(context));
     return ConstrainedBox(
@@ -225,7 +228,12 @@ class AutoCompleteFeature extends InputFeature {
       focusOutline: false,
       onPressed: () => _accept(slot, suggestion, theme),
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry?>(
-        theme.itemPadding ?? autocompleteDefaultItemPadding,
+        // `Clickable` hands its padding to a `Container`, so the density
+        // multipliers must be resolved here.
+        resolveEdgeInsets(
+          theme.itemPadding ?? autocompleteDefaultItemPadding,
+          ambient.density.baseContentPadding * ambient.scaling,
+        ),
       ),
       decoration: WidgetStateProperty.resolveWith<Decoration?>((states) {
         final Color? fill = theme.itemBackground

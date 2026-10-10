@@ -67,6 +67,19 @@ class Density {
   final double baseGap;
   final double baseContentPadding;
 
+  /// Scale of this density relative to [defaultDensity]: exactly 1 at the
+  /// shadcn reference density (16/16/8), 0.5 at compact, 1.25 at comfortable.
+  ///
+  /// The `button` size table scales every shadcn px value with this factor
+  /// (`_buttonMetricsFor`); [EdgeInsetsDensity.pxSymmetric] is the const
+  /// spelling of the same rule for theme defaults.
+  double get scale =>
+      baseContentPadding / Density.defaultDensity.baseContentPadding;
+
+  /// Density base at [defaultDensity]: the divisor that turns a shadcn px
+  /// value into an [EdgeInsetsDensity] multiplier.
+  static const double pxBase = 16.0;
+
   SpacingScale toSpacingScale() => SpacingScale(baseGap / 2);
 
   Density copyWith({
@@ -159,6 +172,33 @@ class EdgeInsetsDensity extends EdgeInsets
     super.vertical = 0.0,
     super.horizontal = 0.0,
   }) : super.symmetric();
+
+  /// Padding whose sides are shadcn px values at the default density.
+  ///
+  /// `EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 2)` is shadcn
+  /// `px-2 py-0.5`: every side resolves to `px * base / 16`, so at
+  /// [Density.defaultDensity] the padding measures exactly the shadcn value
+  /// and every other density scales it by [Density.scale] — the rule the
+  /// `button` size table spells out per size.
+  const EdgeInsetsDensity.pxSymmetric({
+    double horizontal = 0,
+    double vertical = 0,
+  }) : super.only(
+         left: horizontal / Density.pxBase,
+         top: vertical / Density.pxBase,
+         right: horizontal / Density.pxBase,
+         bottom: vertical / Density.pxBase,
+       );
+
+  /// `EdgeInsets.all` in shadcn px at the default density.
+  const EdgeInsetsDensity.pxAll(double px)
+    : super.only(
+        left: px / Density.pxBase,
+        top: px / Density.pxBase,
+        right: px / Density.pxBase,
+        bottom: px / Density.pxBase,
+      );
+
   @override
   EdgeInsets resolveDensity(double basePadding) {
     return EdgeInsets.only(

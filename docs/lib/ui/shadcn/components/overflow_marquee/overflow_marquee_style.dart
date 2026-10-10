@@ -165,6 +165,7 @@ class MarqueeSurface {
     required this.step,
     required this.fadePortion,
     required this.curve,
+    required this.fadeColor,
   });
 
   /// Scroll axis.
@@ -184,6 +185,10 @@ class MarqueeSurface {
 
   /// Easing of each run.
   final Curve curve;
+
+  /// Colour the edge fade blends into; the ambient `background` token, so the
+  /// fade tracks the selected preset in light and dark.
+  final Color fadeColor;
 }
 
 /// Resolves the four theme legs plus widget-leg overrides into concrete
@@ -215,5 +220,6 @@ MarqueeSurface resolveMarqueeSurface(
     step: step ?? resolved.step ?? 100,
     fadePortion: (fadePortion ?? resolved.fadePortion ?? 0.1).clamp(0.0, 0.5),
     curve: curve ?? resolved.curve ?? Curves.linear,
+    fadeColor: ShadcnTheme.of(context).colors.background,
   );
 }

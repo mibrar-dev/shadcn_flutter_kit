@@ -29,6 +29,9 @@ Future<T?> showShadcnPopup<T>({
   bool modal = true,
   bool consumeOutsideTaps = true,
   MenuPopupTheme? theme,
+  double? width,
+  double? maxWidth,
+  double? maxHeight,
 }) {
   return showPopover<T>(
     context: context,
@@ -55,6 +58,9 @@ Future<T?> showShadcnPopup<T>({
         },
         child: MenuPopup(
           theme: theme,
+          width: width,
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
           children: <Widget>[
             Focus(autofocus: true, child: Builder(builder: builder)),
           ],

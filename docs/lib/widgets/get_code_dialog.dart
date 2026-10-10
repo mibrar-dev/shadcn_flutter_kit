@@ -160,10 +160,6 @@ class _CodePaneState extends State<_CodePane> {
             controller: _scroll,
             endOffset: 8,
             startOffset: 8,
-            gradient: <Color>[
-              site.codeSurface,
-              site.codeSurface.withValues(alpha: 0),
-            ],
             child: SingleChildScrollView(
               controller: _scroll,
               scrollDirection: Axis.horizontal,

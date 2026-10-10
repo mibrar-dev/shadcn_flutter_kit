@@ -204,7 +204,9 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
                 onPressed: () => _setPm(false),
                 child: Text(strings.timeAM),
               ),
-              const SizedBox(height: 4),
+              // A gap, not a layout cap: it spaces the AM/PM stack
+              // (shadcn `gap-1` = 4 = `spacing.xs`), so it tracks the scale.
+              Gap(ShadcnTheme.of(context).spacing.xs),
               Button(
                 size: ButtonSize.sm,
                 variant: _pm ? ButtonVariant.primary : ButtonVariant.ghost,

@@ -10,6 +10,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../animation.dart';
+import '../../theme/density.dart';
+import '../../theme/theme.dart';
 
 /// Compact pill content: leading icon, title and optional trailing widget.
 ///
@@ -92,9 +94,13 @@ class GooeySurfacePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     final Widget row = Row(
       children: <Widget>[
-        if (leading != null) ...<Widget>[leading!, const SizedBox(width: 8)],
+        if (leading != null) ...<Widget>[
+          leading!,
+          SizedBox(width: theme.spacing.sm),
+        ],
         Expanded(
           child: Text(
             title,
@@ -183,6 +189,7 @@ class GooeySurfaceBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     final Widget content =
         body ??
         Column(
@@ -192,14 +199,23 @@ class GooeySurfaceBody extends StatelessWidget {
             if (description != null)
               Text(description!, style: descriptionStyle),
             if (action != null)
-              Padding(padding: const EdgeInsets.only(top: 12), child: action),
+              Padding(
+                padding: EdgeInsets.only(top: theme.density.baseGap * 1.5),
+                child: action,
+              ),
           ],
         );
     return GooeyMeasure(
       onSizeChanged: onSizeChanged,
       child: SizedBox(
         width: width,
-        child: Padding(padding: const EdgeInsets.all(16), child: content),
+        child: Padding(
+          padding: resolveEdgeInsets(
+            EdgeInsetsDensity.pxAll(16),
+            theme.density.baseContentPadding * theme.scaling,
+          ),
+          child: content,
+        ),
       ),
     );
   }
@@ -270,6 +286,8 @@ class GooeyStateIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget glyph = Icon(icon, size: 16, color: color);
+    // A fixed `size-6` envelope around the 16px glyph, like the button size
+    // table's unscaled `minHeight`: not spacing.
     return SizedBox(
       width: 24,
       height: 24,

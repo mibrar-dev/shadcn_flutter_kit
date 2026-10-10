@@ -12,6 +12,7 @@ import '../../primitives/layout.dart';
 import '../../primitives/overlay.dart';
 import '../../primitives/popover.dart';
 import '../../primitives/text/text_extension.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../card/card.dart';
@@ -188,6 +189,7 @@ class ItemPickerDialog<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
     final ItemPickerTheme style =
         resolveComponentStyle<ItemPickerTheme, ItemPickerTheme>(
           context,
@@ -208,7 +210,10 @@ class ItemPickerDialog<T> extends StatelessWidget {
           constraints:
               constraints ?? style.constraints ?? const BoxConstraints(),
           child: Padding(
-            padding: style.padding ?? EdgeInsets.zero,
+            padding: resolveEdgeInsets(
+              style.padding ?? EdgeInsets.zero,
+              ambient.density.baseContentPadding * ambient.scaling,
+            ),
             child: Data<ItemPickerData>.inherit(
               data: ItemPickerData(
                 value: value,

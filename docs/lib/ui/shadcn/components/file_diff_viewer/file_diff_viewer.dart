@@ -168,7 +168,9 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
             ),
           ),
           _buildStat(surface, '+${file.additions}', surface.addition),
-          const SizedBox(width: 8),
+          // Spacers between the inline header items, not fixed content boxes:
+          // they follow the spacing scale like every other gap in the registry.
+          SizedBox(width: theme.spacing.sm),
           _buildStat(surface, '-${file.deletions}', surface.deletion),
           Text(
             file.status,
@@ -177,7 +179,7 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
             ),
           ),
           if (widget.showCopyAction) ...<Widget>[
-            const SizedBox(width: 12),
+            SizedBox(width: theme.spacing.md),
             Button(
               variant: ButtonVariant.ghost,
               size: ButtonSize.sm,

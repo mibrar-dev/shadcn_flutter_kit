@@ -61,7 +61,8 @@ TabPane<String>(
   in place); the scroll controller is disposed; focus tracking compares
   indices (old compared `widget.focused == value.data`, index vs data).
 - Hardcoded light colors (`0xFFF5F5F5`, `0xFF171717`, ...) become tokens;
-  old `Colors.white.withAlpha(0)` fade gradient is the `FadeScroll` default.
+  the old `Colors.white.withAlpha(0)` fade gradient is gone: `FadeScroll`
+  is an alpha-only `dstIn` mask now and takes no colours.
 - `TabChildWidget`/`KeyedTabChildWidget`/`KeyedTabItem` wrappers are gone
   (zero consumers); `TabItem` covers indexed tabs. Material
   `VerticalDivider` separators become 1px token boxes.

@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../primitives/syntax_highlight/syntax_highlight.dart';
 import '../../primitives/text/text_extension.dart';
+import '../../primitives/text_editing/text_editing.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'code_snippet_style.dart';
@@ -21,7 +22,10 @@ export 'code_snippet_style.dart';
 /// The [code] content renders in the ambient monospace small style. When a
 /// [language] is given (or auto-detected from a fence tag / strong content
 /// signals), the code is syntax-highlighted with the theme's `syntax` token
-/// group; selection and copy still yield the plain text.
+/// group. The block sits inside a [SelectableRegion], so the source is
+/// selectable by mouse, by the keyboard (`Ctrl/Cmd+A`, then `Ctrl/Cmd+C`) and
+/// through the platform context menu; [Text] and [Text.rich] register with
+/// the region on their own, so the syntax colours are unchanged.
 class CodeSnippet extends StatelessWidget {
   /// Creates a code snippet display.
   const CodeSnippet({
@@ -89,7 +93,15 @@ class CodeSnippet extends StatelessWidget {
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: ambient.colors.foreground),
-                  child: _codeChild(ambient),
+                  // SelectableRegion needs an Overlay for its handles and
+                  // menu; without one (e.g. a bare WidgetsApp) the code still
+                  // renders, just not selectable.
+                  child: Overlay.maybeOf(context) == null
+                      ? _codeChild(ambient)
+                      : SelectableRegion(
+                          selectionControls: ShadcnSelectionControls(),
+                          child: _codeChild(ambient),
+                        ),
                 ),
               ),
             ),

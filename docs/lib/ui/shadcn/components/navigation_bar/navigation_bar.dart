@@ -19,6 +19,7 @@ import '../../foundation/platform.dart';
 import '../../primitives/navigation/navigation_items.dart';
 import '../../primitives/roving_group.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../overflow_marquee/overflow_marquee.dart';
 import '../tooltip/tooltip.dart';
@@ -167,10 +168,10 @@ class _NavigationBarState extends State<NavigationBar> {
       ),
       marqueeWrapper: (Widget label) => OverflowMarquee(child: label),
     );
-    final EdgeInsetsGeometry padding =
-        widget.padding ??
-        style.padding ??
-        const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      widget.padding ?? style.padding ?? navigationBarDefaultPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
     _roving.direction = direction;
     final Widget body = _body(
       ambient,

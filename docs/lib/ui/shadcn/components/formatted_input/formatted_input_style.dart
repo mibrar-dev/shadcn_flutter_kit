@@ -146,13 +146,21 @@ class FormattedInputTheme extends ComponentThemeData
   ]);
 }
 
+/// Inner padding of the field: shadcn `px-2 py-1`, density-scaled.
+///
+/// A const whose stored sides are shadcn-px multipliers (8/16, 4/16), resolved
+/// by [resolveFormattedInputSurface] against
+/// `density.baseContentPadding * scaling`.
+const EdgeInsetsGeometry formattedInputDefaultPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 4);
+
 /// Token-derived baseline; every unset override field falls through here.
 const FormattedInputTheme formattedInputDefaults = FormattedInputTheme(
   background: ThemedColor.ref(ColorRef.input, alpha: 0.3),
   hoveredBackground: ThemedColor.ref(ColorRef.input, alpha: 0.5),
   borderColor: ThemedColor.ref(ColorRef.input),
   borderWidth: 1,
-  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+  padding: formattedInputDefaultPadding,
   height: 36,
   leadingGap: 8,
   partGap: 0,
@@ -246,8 +254,7 @@ FormattedInputSurface resolveFormattedInputSurface(
     ),
     borderRadius: radius,
     padding: resolveEdgeInsets(
-      resolved.padding ??
-          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      resolved.padding ?? formattedInputDefaultPadding,
       theme.density.baseContentPadding * theme.scaling,
     ),
     height: resolved.height ?? 36,

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/tab_container.dart' show TabBuilder, TabChildBuilder;
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Default builders for [TabContainer]; null means the built-in layout.
@@ -244,8 +245,8 @@ class TabsTheme extends ComponentThemeData implements Mergeable<TabsTheme> {
 /// Token-derived baselines for [TabsTheme].
 const TabsTheme tabsDefaults = TabsTheme(
   containerColor: StateValue(rest: ThemedColor.ref(ColorRef.muted)),
-  containerPadding: EdgeInsets.all(3),
-  tabPadding: EdgeInsets.symmetric(horizontal: 8),
+  containerPadding: EdgeInsetsDensity.pxAll(3),
+  tabPadding: EdgeInsetsDensity.pxSymmetric(horizontal: 8),
   selectedColor: StateValue(rest: ThemedColor.ref(ColorRef.background)),
   labelColor: StateValue(rest: ThemedColor.ref(ColorRef.mutedForeground)),
   selectedLabelColor: StateValue(rest: ThemedColor.ref(ColorRef.foreground)),

@@ -285,6 +285,7 @@ class DefaultRefreshIndicator extends StatelessWidget {
       TriggerStage.refreshing => _row(
         Text(strings.refreshTriggerRefreshing),
         _SpinIcon(color: ambient.colors.foreground),
+        ambient.spacing.sm,
       ),
       TriggerStage.completed => _row(
         Text(strings.refreshTriggerComplete),
@@ -292,6 +293,7 @@ class DefaultRefreshIndicator extends StatelessWidget {
           size: const Size(16, 12),
           painter: _CheckPainter(ambient.colors.foreground),
         ),
+        ambient.spacing.sm,
       ),
       TriggerStage.pulling || TriggerStage.idle => _row(
         Text(
@@ -303,6 +305,7 @@ class DefaultRefreshIndicator extends StatelessWidget {
           angle: angle,
           child: const Icon(LucideIcons.arrowDown, size: 16),
         ),
+        ambient.spacing.sm,
       ),
     };
     return Center(
@@ -328,12 +331,14 @@ class DefaultRefreshIndicator extends StatelessWidget {
     );
   }
 
-  Widget _row(Widget label, Widget icon) {
+  /// One pill row: label, spacing-token gap (`spacing.sm` = shadcn `gap-2`),
+  /// then the icon.
+  Widget _row(Widget label, Widget icon, double gap) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Flexible(child: label),
-        const Gap(8),
+        Gap(gap),
         icon,
       ],
     );

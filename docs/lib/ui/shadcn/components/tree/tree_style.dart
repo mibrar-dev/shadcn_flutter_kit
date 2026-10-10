@@ -10,6 +10,7 @@ import '../../foundation/data.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/clickable.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// How the guide between a row and its parent is drawn.
@@ -55,7 +56,8 @@ class TreeTheme extends ComponentThemeData implements Mergeable<TreeTheme> {
   /// Horizontal space per level. Default: 16 (scaled).
   final double? indentWidth;
 
-  /// Padding inside one row. Default: 8 horizontal, 4 vertical (scaled).
+  /// Padding inside one row. Default: 8 horizontal, 4 vertical, resolved
+  /// against density.
   final EdgeInsetsGeometry? itemPadding;
 
   /// Gap between the adornments and the row content. Default: 8 (scaled).
@@ -132,7 +134,7 @@ const TreeTheme treeDefaults = TreeTheme(
   branchLine: TreeBranchLine.path,
   branchLineColor: ThemedColor.ref(ColorRef.border),
   indentWidth: 16,
-  itemPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+  itemPadding: EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 4),
   itemGap: 8,
   selectedBackground: ThemedColor.ref(ColorRef.primary, alpha: 0.05),
   selectedFocusedBackground: ThemedColor.ref(ColorRef.primary, alpha: 0.1),
@@ -372,7 +374,10 @@ class TreeRow extends StatelessWidget {
         );
       }),
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        style.itemPadding ?? treeDefaults.itemPadding!,
+        resolveEdgeInsets(
+          style.itemPadding ?? treeDefaults.itemPadding!,
+          data.density.baseContentPadding * data.scaling,
+        ),
       ),
       // IntrinsicHeight bounds the guides: a list row has no height of its own.
       child: IntrinsicHeight(

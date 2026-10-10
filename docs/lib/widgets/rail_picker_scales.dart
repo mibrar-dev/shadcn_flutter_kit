@@ -1,15 +1,14 @@
-// The scale pickers of the Theme Studio rail: fonts, radius, spacing/density
-// and shadows, plus the read-only syntax palette preview (spec §2.7
-// requirement 5).
+// The scale pickers of the Theme Studio rail: fonts, radius and
+// spacing/density, plus the read-only syntax palette preview (spec §2.7
+// requirement 5). The shadow picker lives in `rail_picker_shadow.dart`.
 //
 // Split out of `rail_pickers.dart` for the ~400-line rule; the popup chrome
-// (`showShadcnPicker`, `RailPickerPanel`, `RailPickerRow`) is shared from
-// there.
+// (`showShadcnPicker`), the rows (`RailPickerPanel`, `RailPickerRow`) and the
+// scroll reveal (`revealSelectedOnMount`) are shared from their own files.
 
 import 'package:flutter/widgets.dart';
 
 import '../../state/site_theme_model.dart';
-import '../../theme/theme_document.dart';
 import '../../ui/shadcn/components/button/button.dart';
 import '../../ui/shadcn/components/slider/slider.dart';
 import '../../ui/shadcn/components/tooltip/tooltip.dart';
@@ -18,38 +17,70 @@ import '../../ui/shadcn/theme/syntax_colors.dart';
 import '../../ui/shadcn/primitives/overlay.dart';
 import '../../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
+import 'rail_picker_rows.dart';
+import 'rail_picker_scroll.dart';
 import 'rail_pickers.dart';
 
-/// Shows the family list popup for [slot] and returns the picked family list.
-Future<String?> showFontPicker(
+/// Shows the family list popup for [slot]; hovering or picking applies live.
+///
+/// [onChanged] runs for every highlight and pick ('' clears the slot), so
+/// the whole site follows while the popup is open. Closing keeps the value.
+Future<void> showFontPicker(
   BuildContext context,
   String slot,
-  String? current,
-) {
+  String? current, {
+  required ValueChanged<String> onChanged,
+}) {
   final List<String> options = <String>{
     ...kDocsFontOptions,
     if (current case final String spec) spec,
   }.toList()..sort();
-  return showShadcnPicker<String>(
+  String live = current ?? '';
+  Widget row(
+    StateSetter setState, {
+    required String label,
+    required String detail,
+    required String spec,
+    Widget? trailing,
+  }) {
+    final Widget line = RailPickerRow(
+      label: label,
+      detail: detail,
+      selected: live == spec,
+      onHighlight: () {
+        setState(() => live = spec);
+        onChanged(spec);
+      },
+      onPick: () {
+        setState(() => live = spec);
+        onChanged(spec);
+        closeOverlay(context);
+      },
+      trailing: trailing,
+    );
+    return revealSelectedOnMount(selected: live == spec, child: line);
+  }
+
+  return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
-      child: SingleChildScrollView(
-        child: Column(
+      child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            RailPickerRow(
+            row(
+              setState,
               label: 'Default',
               detail: 'bundled Geist stack',
-              selected: current == null,
-              onPick: () => closeOverlay(context, ''),
+              spec: '',
             ),
             for (final String option in options)
-              RailPickerRow(
+              row(
+                setState,
                 label: railFirstFamily(option),
                 detail: option,
-                selected: option == current,
-                onPick: () => closeOverlay(context, option),
+                spec: option,
                 trailing: Text(
                   'Aa',
                   style: docsText(
@@ -67,189 +98,191 @@ Future<String?> showFontPicker(
   );
 }
 
-/// Shows the radius slider popup (0–16 px, as the reference's Radius row).
-Future<double?> showRadiusPicker(BuildContext context, double radiusPx) {
-  double value = radiusPx.clamp(0, 16);
-  return showShadcnPicker<double>(
-    context: context,
-    builder: (BuildContext context) => RailPickerPanel(
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  '${value.round()} px',
-                  style: docsText(context, size: 14, weight: FontWeight.w500),
-                ),
-                const Spacer(),
-                Text(
-                  'radius ${(value / 16).toStringAsFixed(3)}',
-                  style: docsText(
-                    context,
-                    size: 12,
-                    color: ShadcnTheme.of(context).colors.mutedForeground,
-                  ),
-                ),
-              ],
-            ),
-            const Gap(8),
-            SizedBox(
-              width: kDocsPickerWidth - 24,
-              child: Slider(
-                value: value,
-                min: 0,
-                max: 16,
-                onChanged: (double next) => setState(() => value = next),
-              ),
-            ),
-            const Gap(4),
-            Button(
-              variant: ButtonVariant.secondary,
-              size: ButtonSize.sm,
-              onPressed: () => closeOverlay(context),
-              child: const Text('Done'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  ).then((double? picked) => picked ?? value);
-}
+/// Radius presets (px), after the shadcn scale: 0, 0.25, 0.5, the 0.625 rem
+/// neutral default, 0.75 and a full 1 rem.
+const List<(String, double)> kRadiusPresets = <(String, double)>[
+  ('None', 0),
+  ('Small', 4),
+  ('Default', 8),
+  ('Medium', 10),
+  ('Large', 12),
+  ('Full', 16),
+];
 
-/// Shows the spacing slider popup (the density/spacing row).
-Future<double?> showSpacingPicker(BuildContext context, double rem) {
-  double value = rem.clamp(0.15, 0.35);
-  return showShadcnPicker<double>(
-    context: context,
-    builder: (BuildContext context) => RailPickerPanel(
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(
-                  '${(value * 16).toStringAsFixed(1)} px base',
-                  style: docsText(context, size: 14, weight: FontWeight.w500),
-                ),
-                const Spacer(),
-                Text(
-                  'spacing ${value.toStringAsFixed(2)}',
-                  style: docsText(
-                    context,
-                    size: 12,
-                    color: ShadcnTheme.of(context).colors.mutedForeground,
-                  ),
-                ),
-              ],
-            ),
-            const Gap(8),
-            SizedBox(
-              width: kDocsPickerWidth - 24,
-              child: Slider(
-                value: value,
-                min: 0.15,
-                max: 0.35,
-                onChanged: (double next) => setState(() => value = next),
-              ),
-            ),
-            const Gap(4),
-            Button(
-              variant: ButtonVariant.secondary,
-              size: ButtonSize.sm,
-              onPressed: () => closeOverlay(context),
-              child: const Text('Done'),
-            ),
-          ],
-        ),
-      ),
-    ),
-  ).then((double? picked) => picked ?? value);
-}
+/// Spacing presets (rem): the 0.25 rem default with a step either side.
+const List<(String, double)> kSpacingPresets = <(String, double)>[
+  ('Compact', 0.2),
+  ('Default', 0.25),
+  ('Comfortable', 0.3),
+];
 
-/// Shows the shadow panel: opacity and blur sliders for the live mode.
-Future<DocsShadowAtoms?> showShadowPicker(
+/// Shows the radius popup: presets plus the fine slider (0–16 px).
+///
+/// Every interaction applies live through [onChanged]; `Done` only closes.
+Future<void> showRadiusPicker(
   BuildContext context,
-  DocsShadowAtoms atoms, {
-  required bool dark,
+  double radiusPx, {
+  required ValueChanged<double> onChanged,
 }) {
-  DocsShadowAtoms value = atoms;
-  void update(DocsShadowAtoms next) => value = next;
-  return showShadcnPicker<DocsShadowAtoms>(
+  double value = radiusPx.clamp(0, 16);
+  bool near(double preset) => (value - preset).abs() < 0.25;
+  return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
       child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            for (final (String label, double value, double min, double max) row
-                in <(String, double, double, double)>[
-                  ('Opacity', value.opacity, 0, 0.4),
-                  ('Blur', value.blur, 0, 40),
-                  ('Spread', value.spread, -20, 10),
-                  ('Offset Y', value.offsetY, 0, 12),
-                ])
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        builder: (BuildContext context, StateSetter setState) {
+          void apply(double next) {
+            setState(() => value = next);
+            onChanged(next);
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              for (final (String label, double px) in kRadiusPresets)
+                RailPickerRow(
+                  label: label,
+                  detail: '${px.round()} px',
+                  selected: near(px),
+                  onHighlight: () => apply(px),
+                  onPick: () => apply(px),
+                ),
+              const Gap(8),
+              Row(
                 children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(row.$1, style: docsText(context, size: 12)),
-                      const Spacer(),
-                      Text(
-                        row.$2.toStringAsFixed(2),
-                        style: docsText(
-                          context,
-                          size: 12,
-                          color: ShadcnTheme.of(context).colors.mutedForeground,
-                        ),
+                  Flexible(
+                    child: Text(
+                      '${value.round()} px',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: docsText(
+                        context,
+                        size: 14,
+                        weight: FontWeight.w500,
                       ),
-                    ],
+                    ),
                   ),
-                  SizedBox(
-                    width: kDocsPickerWidth - 24,
-                    child: Slider(
-                      value: row.$2.clamp(row.$3, row.$4),
-                      min: row.$3,
-                      max: row.$4,
-                      onChanged: (double next) => setState(() {
-                        update(switch (row.$1) {
-                          'Opacity' => value.copyWith(opacity: next),
-                          'Blur' => value.copyWith(blur: next),
-                          'Spread' => value.copyWith(spread: next),
-                          _ => value.copyWith(offsetY: next),
-                        });
-                      }),
+                  const Spacer(),
+                  Flexible(
+                    child: Text(
+                      'radius ${(value / 16).toStringAsFixed(3)}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: docsText(
+                        context,
+                        size: 12,
+                        color: ShadcnTheme.of(context).colors.mutedForeground,
+                      ),
                     ),
                   ),
                 ],
               ),
-            const Gap(8),
-            Text(
-              dark ? 'dark mode atoms' : 'light mode atoms',
-              style: docsText(
-                context,
-                size: 12,
-                color: ShadcnTheme.of(context).colors.mutedForeground,
+              const Gap(8),
+              SizedBox(
+                width: kDocsPickerWidth - 24,
+                child: Slider(value: value, min: 0, max: 16, onChanged: apply),
               ),
-            ),
-            const Gap(4),
-            Button(
-              variant: ButtonVariant.secondary,
-              size: ButtonSize.sm,
-              onPressed: () => closeOverlay(context),
-              child: const Text('Done'),
-            ),
-          ],
-        ),
+              const Gap(4),
+              Button(
+                variant: ButtonVariant.secondary,
+                size: ButtonSize.sm,
+                onPressed: () => closeOverlay(context),
+                child: const Text('Done'),
+              ),
+            ],
+          );
+        },
       ),
     ),
-  ).then((DocsShadowAtoms? picked) => picked ?? value);
+  );
+}
+
+/// Shows the spacing popup: presets plus the fine slider.
+///
+/// Every interaction applies live through [onChanged]; `Done` only closes.
+Future<void> showSpacingPicker(
+  BuildContext context,
+  double rem, {
+  required ValueChanged<double> onChanged,
+}) {
+  double value = rem.clamp(0.15, 0.35);
+  bool near(double preset) => (value - preset).abs() < 0.005;
+  return showShadcnPicker<void>(
+    context: context,
+    builder: (BuildContext context) => RailPickerPanel(
+      child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          void apply(double next) {
+            setState(() => value = next);
+            onChanged(next);
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              for (final (String label, double preset) in kSpacingPresets)
+                RailPickerRow(
+                  label: label,
+                  detail: '${(preset * 16).toStringAsFixed(1)} px base',
+                  selected: near(preset),
+                  onHighlight: () => apply(preset),
+                  onPick: () => apply(preset),
+                ),
+              const Gap(8),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      '${(value * 16).toStringAsFixed(1)} px base',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: docsText(
+                        context,
+                        size: 14,
+                        weight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Flexible(
+                    child: Text(
+                      'spacing ${value.toStringAsFixed(2)}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: docsText(
+                        context,
+                        size: 12,
+                        color: ShadcnTheme.of(context).colors.mutedForeground,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(8),
+              SizedBox(
+                width: kDocsPickerWidth - 24,
+                child: Slider(
+                  value: value,
+                  min: 0.15,
+                  max: 0.35,
+                  onChanged: apply,
+                ),
+              ),
+              const Gap(4),
+              Button(
+                variant: ButtonVariant.secondary,
+                size: ButtonSize.sm,
+                onPressed: () => closeOverlay(context),
+                child: const Text('Done'),
+              ),
+            ],
+          );
+        },
+      ),
+    ),
+  );
 }
 
 /// The read-only syntax palette preview (requirement 5).

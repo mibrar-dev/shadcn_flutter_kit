@@ -12,6 +12,7 @@ import '../../primitives/text_editing/editable_text_host.dart';
 import '../../primitives/text_editing/editable_text_validation.dart';
 import '../../primitives/text_editing/text_editing.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'input_otp_style.dart';
 
@@ -382,7 +383,10 @@ Widget _slot(
       width: size,
       height: size,
       alignment: Alignment.center,
-      padding: theme.padding,
+      padding: resolveEdgeInsets(
+        theme.padding ?? inputOtpDefaultPadding,
+        appTheme.density.baseContentPadding * appTheme.scaling,
+      ),
       decoration: BoxDecoration(
         color: colorFor(theme.background),
         border: box,

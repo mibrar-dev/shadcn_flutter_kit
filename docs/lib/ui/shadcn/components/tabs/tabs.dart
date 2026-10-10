@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import '../../primitives/fade_scroll.dart';
 import '../../primitives/roving_group.dart';
 import '../../primitives/tab_container.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../sortable/sortable.dart';
 import 'tabs_style.dart';
@@ -98,7 +99,10 @@ class _TabsState extends State<Tabs> {
                         .resolve(ambient.colors),
                 borderRadius: style.borderRadius ?? ambient.borderRadiusLg,
               ),
-              padding: style.containerPadding ?? tabsDefaults.containerPadding!,
+              padding: resolveEdgeInsets(
+                style.containerPadding ?? tabsDefaults.containerPadding!,
+                ambient.density.baseContentPadding * ambient.scaling,
+              ),
               child: IntrinsicHeight(
                 child: Row(
                   mainAxisSize: widget.expand
@@ -161,7 +165,10 @@ class _TabsState extends State<Tabs> {
               : null,
           borderRadius: style.borderRadius ?? ambient.borderRadiusMd,
         ),
-        padding: style.tabPadding ?? tabsDefaults.tabPadding!,
+        padding: resolveEdgeInsets(
+          style.tabPadding ?? tabsDefaults.tabPadding!,
+          ambient.density.baseContentPadding * ambient.scaling,
+        ),
         // Pill triggers fill the strip (h-9 = 36, p-[3px]): 30px boxes.
         // Upstream is h-[calc(100%-1px)] (29); the 1px compensates its
         // transparent border, which these borderless pills omit.
@@ -299,7 +306,6 @@ class _TabPaneState<T> extends State<TabPane<T>> {
             height: barHeight,
             child: FadeScroll(
               controller: _scrolling,
-              endCrossOffset: borderWidth,
               child: SingleChildScrollView(
                 controller: _scrolling,
                 scrollDirection: Axis.horizontal,

@@ -201,12 +201,18 @@ const StateValue<ThemedColor> _inputBorder = StateValue<ThemedColor>(
   rest: ThemedColor.ref(ColorRef.input),
 );
 
+/// Input content padding: shadcn `px-3 py-2`, density-scaled.
+const EdgeInsetsGeometry inputDefaultPadding = EdgeInsetsDensity.pxSymmetric(
+  horizontal: 12,
+  vertical: 8,
+);
+
 /// Token-derived baseline; every unset override field falls through here.
 const InputTheme inputDefaults = InputTheme(
   background: _inputBackground,
   borderColor: _inputBorder,
   borderWidth: 1,
-  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  padding: inputDefaultPadding,
   cursorColor: ThemedColor.ref(ColorRef.primary),
   height: 36,
 );
@@ -337,9 +343,7 @@ InputSurface resolveInputSurface(
     decoration: surface,
     borderRadius: radius,
     padding: resolveEdgeInsets(
-      padding ??
-          resolved.padding ??
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding ?? resolved.padding ?? inputDefaultPadding,
       theme.density.baseContentPadding * theme.scaling,
     ),
     textStyle: textStyle,

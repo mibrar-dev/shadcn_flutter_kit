@@ -12,6 +12,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Surface, border, padding and shadow of the card component.
@@ -49,7 +50,9 @@ class CardTheme extends ComponentThemeData implements Mergeable<CardTheme> {
   /// Corner radius; null resolves the ambient `radiusXl` at build.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding; null resolves the 24 default at build.
+  /// Inner padding; null resolves the shadcn `p-6` (24) default at build, as an
+  /// [EdgeInsetsDensity] that scales with density. A literal override passes
+  /// through unchanged.
   final EdgeInsetsGeometry? padding;
 
   /// Drop shadows of the card; null resolves the ambient `shadowSm` at build,
@@ -152,8 +155,10 @@ class CardTheme extends ComponentThemeData implements Mergeable<CardTheme> {
   );
 }
 
-/// Default card padding: shadcn `py-6` plus the horizontal gutter.
-const EdgeInsetsGeometry cardDefaultPadding = EdgeInsets.all(24);
+/// Default card padding: shadcn `p-6` (`py-6` plus the horizontal gutter) as
+/// density multipliers, resolved by `Card` against
+/// `density.baseContentPadding * scaling`.
+const EdgeInsetsGeometry cardDefaultPadding = EdgeInsetsDensity.pxAll(24);
 
 /// Token-derived baseline values; unset override fields fall through here.
 ///

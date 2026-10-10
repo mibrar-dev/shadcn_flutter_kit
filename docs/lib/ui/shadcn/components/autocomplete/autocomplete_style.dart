@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/text_input.dart';
 import '../../primitives/overlay.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// How an accepted suggestion is written into the field.
@@ -110,11 +111,11 @@ const double autocompleteDefaultMaxHeight = 240;
 /// Fallback text style of a suggestion row (shadcn `text-sm` = 14).
 const TextStyle autocompleteDefaultTextStyle = TextStyle(fontSize: 14);
 
-/// Fallback row padding: shadcn `px-2 py-1.5`.
-const EdgeInsetsGeometry autocompleteDefaultItemPadding = EdgeInsets.symmetric(
-  horizontal: 8,
-  vertical: 6,
-);
+/// Fallback row padding: shadcn `px-2 py-1.5` as density multipliers,
+/// resolved by `AutoCompleteFeature` against
+/// `density.baseContentPadding * scaling`.
+const EdgeInsetsGeometry autocompleteDefaultItemPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 6);
 
 /// Popover presentation and per-row styling of the suggestion list.
 ///
@@ -178,7 +179,8 @@ class AutoCompleteTheme extends ComponentThemeData
   /// Corner radius of the popover container.
   final BorderRadiusGeometry? containerBorderRadius;
 
-  /// Inner padding of the popover container.
+  /// Inner padding of the popover container; cmdk `p-1` (4) as density
+  /// multipliers. Resolved by the `Card` that paints the popover.
   final EdgeInsetsGeometry? containerPadding;
 
   /// Per-state fill of a suggestion row.
@@ -187,8 +189,9 @@ class AutoCompleteTheme extends ComponentThemeData
   /// Per-state label colour of a suggestion row.
   final StateValue<ThemedColor>? itemForeground;
 
-  /// Padding of a suggestion row; null resolves
-  /// [autocompleteDefaultItemPadding].
+  /// Padding of a suggestion row (shadcn `px-2 py-1.5` as density
+  /// multipliers); null resolves [autocompleteDefaultItemPadding]. The row is
+  /// painted by `Clickable`, so `AutoCompleteFeature` resolves it.
   final EdgeInsetsGeometry? itemPadding;
 
   /// Corner radius of a suggestion row.
@@ -325,6 +328,12 @@ const _itemFg = StateValue(
 
 /// Token-derived baseline values; every unset override field falls through
 /// here.
+///
+/// `containerPadding` is the cmdk command-list surface's `p-1` (4) and
+/// `itemPadding` a row's `px-2 py-1.5` (8/6), both stored as density
+/// multipliers: the popover is painted by `Card` (which resolves them against
+/// `density.baseContentPadding * scaling`) and the rows by `AutoCompleteFeature`,
+/// so neither is resolved twice.
 const AutoCompleteTheme autocompleteDefaults = AutoCompleteTheme(
   mode: AutoCompleteMode.replaceWord,
   popoverWidthConstraint: PopoverConstraint.anchorFixedSize,
@@ -334,7 +343,7 @@ const AutoCompleteTheme autocompleteDefaults = AutoCompleteTheme(
   containerForeground: ThemedColor.ref(ColorRef.popoverForeground),
   containerBorderColor: ThemedColor.ref(ColorRef.border),
   containerBorderWidth: 1,
-  containerPadding: EdgeInsets.all(4),
+  containerPadding: EdgeInsetsDensity.pxAll(4),
   itemBackground: _itemBg,
   itemForeground: _itemFg,
   itemPadding: autocompleteDefaultItemPadding,

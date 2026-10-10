@@ -576,3 +576,8 @@
 - qa_gate: format 0, analyze 0, registry +2881, rearch +42, layers/owner/user-theme 0. layout_audit 36/36, theme_audit 89/89, 0 skips. Manifest --check ok.
 - Mechanism: EdgeInsetsDensity.pxSymmetric/pxAll + Density.scale (no new system). Impl findings 112→22 (all allowed, commented); raw literals 664→63; chip/badge icon geometry fixed (leading 8px from edge, gap-2 to label). 3 assertions corrected vs shadcn.
 - Follow-ups: 9 files over ~400 lines (chat×2, error_system, input_otp, object_input, refresh_trigger, time_picker, tree, window); double gap theme fields can't hold tokens in const defaults. Leftover BLOCKED sub-agent report discarded.
+
+## P6-T2 — Theme Studio rail UX — ACCEPTED
+- fade_scroll rewritten alpha-only dstIn (old one painted black/white: modulate + inverted stops) — fixes the user's black block; MenuPopupSurface intrinsic/LayoutBuilder throw fixed at root; popups max-height + scroll + selected item kept visible; radius/spacing/shadow presets; live apply (slider drag, hover).
+- Registry +106 targeted tests, 2860 full (1 failure = F3 in-flight preview rename); docs 56/56 theme suites (full docs blocked by F3 renames until F3 lands). Manifest left for F3's commit. menu.dart 431 lines (accepted, noted).
+- Preset values follow tweakcn scale (shadcn /create values unverified).

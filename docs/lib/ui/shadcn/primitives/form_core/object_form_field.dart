@@ -17,6 +17,7 @@ import '../../foundation/captured_wrapper.dart';
 import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../clickable.dart';
 import '../localizations/localizations.dart';
@@ -59,6 +60,11 @@ abstract class ObjectFormHandler<T> {
 }
 
 /// The result a dialog prompt pops with.
+/// Object-form trigger padding: shadcn `px-3 py-2` (12/8) as density
+/// multipliers, resolved at build.
+const EdgeInsetsGeometry objectFormPromptPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8);
+
 class ObjectFormFieldDialogResult<T> {
   /// Creates a dialog result wrapping [value].
   ObjectFormFieldDialogResult(this.value);
@@ -327,8 +333,11 @@ class _ObjectFormFieldState<T> extends State<ObjectFormField<T>>
         textStyle: WidgetStatePropertyAll<TextStyle>(
           theme.typography.small.copyWith(color: foreground),
         ),
-        padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+          resolveEdgeInsets(
+            widget.popoverPadding ?? objectFormPromptPadding,
+            theme.density.baseContentPadding * theme.scaling,
+          ),
         ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 36),

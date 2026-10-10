@@ -21,6 +21,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/clickable.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'dot_indicator_style.dart';
 
@@ -71,7 +72,8 @@ class DotIndicator extends StatelessWidget {
   final Axis direction;
 
   /// Padding around the run of dots; null uses [DotIndicatorTheme.padding] then
-  /// the density base gap. It is applied once, to the run, never per dot.
+  /// [dotIndicatorDefaultPadding]. It is applied once, to the run, never per
+  /// dot.
   final EdgeInsetsGeometry? padding;
 
   /// Custom dot builder; null paints the theme rows.
@@ -91,12 +93,14 @@ class DotIndicator extends StatelessWidget {
           defaults: dotIndicatorDefaults,
         );
     final double gap = spacing ?? resolved.spacing ?? 8 * appTheme.scaling;
-    // Resolved once: the old code re-resolved and re-scaled it per dot.
-    final EdgeInsets outer =
-        (padding ??
-                resolved.padding ??
-                EdgeInsets.all(appTheme.density.baseGap))
-            .resolve(Directionality.of(context));
+    // Resolved once: the old code re-resolved and re-scaled it per dot, and
+    // multiplied it by `scaling` after resolution, so a caller-provided
+    // `padding` was silently inflated. A plain `EdgeInsets` override passes
+    // through `resolveEdgeInsets` unchanged.
+    final EdgeInsets outer = resolveEdgeInsets(
+      padding ?? resolved.padding ?? dotIndicatorDefaultPadding,
+      appTheme.density.baseContentPadding * appTheme.scaling,
+    ).resolve(Directionality.of(context));
 
     final List<Widget> dots = <Widget>[
       for (int i = 0; i < length; i++)

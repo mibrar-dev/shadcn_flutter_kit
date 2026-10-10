@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Default indicator side: shadcn `size-4`.
@@ -233,7 +234,8 @@ const SelectableRadioTheme selectableRadioDefaults = SelectableRadioTheme(
   unselected: _radioUnselected,
   selected: _radioSelected,
   gap: 8,
-  itemPadding: EdgeInsets.all(2),
+  // shadcn radio-group row `p-0.5`, density-scaled.
+  itemPadding: EdgeInsetsDensity.pxAll(2),
   labelStyle: radioDefaultTextStyle,
 );
 

@@ -9,16 +9,21 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Default horizontal gap between two caps (shadcn `gap-0.5` = 2).
 const double keyboardShortcutDefaultSpacing = 2;
 
-/// Default padding inside one cap (shadcn `px-1.5 py-0.5`).
-const EdgeInsets keyboardShortcutDefaultKeyPadding = EdgeInsets.symmetric(
-  horizontal: 6,
-  vertical: 4,
-);
+/// Default padding inside one cap: shadcn `px-1.5 py-0.5`, density-scaled.
+///
+/// Typed [EdgeInsets] (the value an override leg is compared against) but
+/// built as an [EdgeInsetsDensity]: its stored sides are shadcn-px multipliers
+/// (6/16, 4/16), so [KeyboardKeyCap] resolves it against
+/// `density.baseContentPadding * scaling` and a literal override passes
+/// through unchanged.
+const EdgeInsets keyboardShortcutDefaultKeyPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 6, vertical: 4);
 
 /// Fallback label text style (shadcn `text-xs` = 12).
 const TextStyle keyboardShortcutDefaultTextStyle = TextStyle(
@@ -51,7 +56,7 @@ class KeyboardShortcutTheme extends ComponentThemeData
   final double? spacing;
 
   /// Padding inside one cap; null resolves
-  /// [keyboardShortcutDefaultKeyPadding].
+  /// [keyboardShortcutDefaultKeyPadding] (density-scaled).
   final EdgeInsetsGeometry? keyPadding;
 
   /// Fill of one cap; null resolves `background` at 70% alpha.

@@ -12,6 +12,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Visual contract of the OTP slots.
@@ -46,7 +47,8 @@ class InputOtpTheme extends ComponentThemeData
   /// Corner radius; null resolves `borderRadiusMd`.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding; null resolves 6 x 0.
+  /// Inner padding; null resolves 6 x 0 (`px-1.5 py-0`), density-scaled
+  /// through [inputOtpDefaultPadding].
   final EdgeInsetsGeometry? padding;
 
   /// Slot label style; its colour is ignored (taken from the foreground).
@@ -198,12 +200,20 @@ const StateValue<ThemedColor> _otpBorder = StateValue<ThemedColor>(
   rest: ThemedColor.ref(ColorRef.input),
 );
 
+/// Inner padding of one slot: shadcn `px-1.5`, density-scaled.
+///
+/// A const whose stored sides are shadcn-px multipliers (6/16, 0/16), so it
+/// measures exactly `px-1.5 py-0` at the default density and scales with it.
+const EdgeInsetsGeometry inputOtpDefaultPadding = EdgeInsetsDensity.pxSymmetric(
+  horizontal: 6,
+);
+
 /// Token-derived baseline; every unset override field falls through here.
 const InputOtpTheme inputOtpDefaults = InputOtpTheme(
   background: _otpBackground,
   borderColor: _otpBorder,
   borderWidth: 1,
-  padding: EdgeInsets.symmetric(horizontal: 6),
+  padding: inputOtpDefaultPadding,
   textStyle: TextStyle(fontSize: 14),
   cursorColor: ThemedColor.ref(ColorRef.ring),
 );

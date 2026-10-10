@@ -10,6 +10,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Theme container for the command palette.
@@ -53,7 +54,13 @@ class CommandTheme extends ComponentThemeData
   /// Surface corner radius; null falls back to `theme.borderRadiusLg`.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Padding around the search field and result list.
+  /// Padding around the search field and result list: the cmdk command
+  /// surface's `p-1` (4) as density multipliers.
+  ///
+  /// `Command` paints no such box itself — the search field carries its own
+  /// padding and a row carries [itemPadding] — so an app that composes its own
+  /// group surface applies this value and resolves it
+  /// (`resolveEdgeInsets(p, density.baseContentPadding * scaling)`).
   final EdgeInsetsGeometry? padding;
 
   /// Background of the item under SubFocus.
@@ -62,7 +69,12 @@ class CommandTheme extends ComponentThemeData
   /// Text/icon colour while an item is highlighted.
   final ThemedColor? itemHighlightForeground;
 
-  /// Padding inside one result row.
+  /// Padding inside one result row: shadcn `px-2 py-1.5` (8/6) as density
+  /// multipliers.
+  ///
+  /// `Command` never builds the rows — the app supplies them through
+  /// `CommandBuilder` — so the row host resolves this before handing it to a
+  /// `Clickable`.
   final EdgeInsetsGeometry? itemPadding;
 
   /// Surface shadows; empty draws none.
@@ -231,20 +243,24 @@ class CommandTheme extends ComponentThemeData
   }
 }
 
-/// Default item padding: 8/6.
-const EdgeInsetsGeometry commandDefaultItemPadding = EdgeInsets.symmetric(
-  horizontal: 8,
-  vertical: 6,
-);
+/// Default item padding: shadcn `px-2 py-1.5` as density multipliers, to be
+/// resolved by the host of the row that paints it (`Command` never builds the
+/// rows, the app's `CommandBuilder` does).
+const EdgeInsetsGeometry commandDefaultItemPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 6);
 
 /// Token-derived baseline; every unset override field falls through here.
+///
+/// `padding` is the cmdk command surface's `p-1` (4) and `itemPadding` a row's
+/// `px-2 py-1.5` (8/6), both stored as density multipliers so an app composing
+/// its own palette chrome scales with density.
 const CommandTheme commandDefaults = CommandTheme(
   background: ThemedColor.ref(ColorRef.popover),
   foreground: ThemedColor.ref(ColorRef.foreground),
   mutedForeground: ThemedColor.ref(ColorRef.mutedForeground),
   borderColor: ThemedColor.ref(ColorRef.border),
   borderWidth: 1,
-  padding: EdgeInsets.all(4),
+  padding: EdgeInsetsDensity.pxAll(4),
   itemHighlight: ThemedColor.ref(ColorRef.accent),
   itemHighlightForeground: ThemedColor.ref(ColorRef.accentForeground),
   itemPadding: commandDefaultItemPadding,

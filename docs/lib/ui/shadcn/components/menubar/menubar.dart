@@ -7,6 +7,7 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../menu/menu.dart';
 
@@ -77,7 +78,10 @@ class Menubar extends StatelessWidget {
     final Color? borderColor = style.borderColor?.resolve(ambient.colors);
     final double borderWidth = style.borderWidth ?? 1;
     bar = Padding(
-      padding: style.padding ?? const EdgeInsets.all(4),
+      padding: resolveEdgeInsets(
+        style.padding ?? menubarDefaults.padding!,
+        ambient.density.baseContentPadding * ambient.scaling,
+      ),
       child: bar,
     );
     return DecoratedBox(

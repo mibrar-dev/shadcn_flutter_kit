@@ -298,8 +298,13 @@ class TextFlipper extends StatelessWidget {
   }
 }
 
-/// Vertical fade mask over rolling characters (white shader stops are mask
-/// values, not theme colors).
+/// Vertical fade mask over rolling characters.
+///
+/// `dstIn` from transparent to the ambient `background` token, so the rolling
+/// characters dissolve into the surface they sit on in both brightnesses.
+/// (`ShaderMask`'s default `BlendMode.modulate` only multiplies colour, never
+/// alpha — a white-stop `modulate` mask therefore fades nothing, which is what
+/// the previous version did.)
 class _FlipperGradientMask extends StatelessWidget {
   const _FlipperGradientMask({
     required this.child,
@@ -314,16 +319,18 @@ class _FlipperGradientMask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double edge = gradientHeight.clamp(0.0, 0.5);
+    final Color surface = ShadcnTheme.of(context).colors.background;
     return ShaderMask(
+      blendMode: BlendMode.dstIn,
       shaderCallback: (bounds) {
         return LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: const <Color>[
-            Color(0x00FFFFFF),
-            Color(0xFFFFFFFF),
-            Color(0xFFFFFFFF),
-            Color(0x00FFFFFF),
+          colors: <Color>[
+            surface.withValues(alpha: 0),
+            surface,
+            surface,
+            surface.withValues(alpha: 0),
           ],
           stops: <double>[0, edge, 1 - edge, 1],
         ).createShader(bounds);

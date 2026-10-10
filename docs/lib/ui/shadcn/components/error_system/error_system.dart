@@ -14,6 +14,7 @@ import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/error_handling/error_handling.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../alert_dialog/alert_dialog.dart';
 import '../button/button.dart';
@@ -65,7 +66,12 @@ class ErrorState extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: maxWidth ?? 520),
         child: Card(
-          padding: style.cardPadding,
+          // `Card` paints its padding verbatim: resolve the density
+          // multipliers of `errorSystemDefaultCardPadding` before handoff.
+          padding: resolveEdgeInsets(
+            style.cardPadding ?? errorSystemDefaults.cardPadding!,
+            ambient.density.baseContentPadding * ambient.scaling,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -76,7 +82,9 @@ class ErrorState extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: style.titleStyle!.copyWith(color: colors.foreground),
               ),
-              const Gap(6),
+              // 6 is off the spacing scale: three quarters of the density
+              // base gap (4/8 spacing steps are `xs`/`sm`, 6 sits between).
+              Gap(ambient.density.baseGap * 0.75),
               Text(
                 error.message,
                 textAlign: TextAlign.center,
@@ -118,13 +126,14 @@ class InlineError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
+    final ShadcnColors colors = ambient.colors;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         icon ??
             Icon(LucideIcons.circleAlert, size: 16, color: colors.destructive),
-        const Gap(8),
+        Gap(ambient.spacing.sm),
         Expanded(
           child: Text(
             message,
@@ -161,7 +170,8 @@ class AppErrorBanner extends StatelessWidget {
   }
 
   Widget _banner(BuildContext context, AppError error, ErrorSystemTheme style) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
+    final ShadcnColors colors = ambient.colors;
     final ThemedColor border = style.bannerBorder!;
     final Widget? action = error.actions.isEmpty
         ? null
@@ -170,7 +180,12 @@ class AppErrorBanner extends StatelessWidget {
       background: style.bannerBackground,
       borderColor: border,
       borderWidth: 1,
-      padding: style.bannerPadding,
+      // `Card` paints its padding verbatim: resolve the density
+      // multipliers of `errorSystemDefaultBannerPadding` before handoff.
+      padding: resolveEdgeInsets(
+        style.bannerPadding ?? errorSystemDefaults.bannerPadding!,
+        ambient.density.baseContentPadding * ambient.scaling,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -179,7 +194,7 @@ class AppErrorBanner extends StatelessWidget {
             size: 18,
             color: border.resolve(colors),
           ),
-          const Gap(12),
+          Gap(ambient.spacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +204,7 @@ class AppErrorBanner extends StatelessWidget {
                   error.title,
                   style: style.titleStyle!.copyWith(color: colors.foreground),
                 ),
-                const Gap(4),
+                Gap(ambient.spacing.xs),
                 Text(
                   error.message,
                   style: style.messageStyle!.copyWith(
@@ -199,8 +214,8 @@ class AppErrorBanner extends StatelessWidget {
               ],
             ),
           ),
-          if (action != null) ...<Widget>[const Gap(12), action],
-          const Gap(8),
+          if (action != null) ...<Widget>[Gap(ambient.spacing.md), action],
+          Gap(ambient.spacing.sm),
           Button(
             variant: ButtonVariant.ghost,
             size: ButtonSize.sm,
@@ -252,12 +267,13 @@ String showErrorSnackbar(
     context,
     duration: duration,
     builder: (BuildContext context) {
-      final ShadcnColors colors = ShadcnTheme.of(context).colors;
+      final ShadcnThemeData ambient = ShadcnTheme.of(context);
+      final ShadcnColors colors = ambient.colors;
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Icon(LucideIcons.triangleAlert, size: 16, color: colors.destructive),
-          const Gap(8),
+          Gap(ambient.spacing.sm),
           Flexible(child: Text(error.message)),
         ],
       );

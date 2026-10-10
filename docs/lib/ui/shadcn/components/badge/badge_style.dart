@@ -11,6 +11,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Visual variants of the badge component (shadcn `default | secondary |
@@ -270,7 +271,7 @@ class BadgeTheme extends ComponentThemeData implements Mergeable<BadgeTheme> {
 // ---------------------------------------------------------------------------
 
 /// Default badge padding: shadcn `px-2 py-0.5`, density-scaled.
-const EdgeInsetsGeometry badgeDefaultPadding = EdgeInsets.symmetric(
+const EdgeInsetsGeometry badgeDefaultPadding = EdgeInsetsDensity.pxSymmetric(
   horizontal: 8,
   vertical: 2,
 );

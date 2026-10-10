@@ -6,6 +6,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'drawer_route.dart';
 
@@ -73,8 +74,15 @@ class DrawerPanelSurface extends StatelessWidget {
     final ShadcnThemeData ambient = ShadcnTheme.of(context);
     final ShadcnColors colors = ambient.colors;
 
+    // The drawer/sheet panel is a container: `theme.padding` defaults to a
+    // density-multiplier value (see `drawerDefaultPadding`), so it is resolved
+    // here, where it is painted. A plain `EdgeInsets` override (the shared
+    // `swiper` chrome passes one) resolves unchanged.
     Widget content = Padding(
-      padding: theme.padding ?? EdgeInsets.zero,
+      padding: resolveEdgeInsets(
+        theme.padding ?? EdgeInsets.zero,
+        ambient.density.baseContentPadding * ambient.scaling,
+      ),
       child: child,
     );
     if (showDragHandle) {

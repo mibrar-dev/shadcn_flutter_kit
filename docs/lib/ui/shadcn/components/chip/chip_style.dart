@@ -12,6 +12,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 
@@ -25,8 +26,8 @@ const TextStyle chipDefaultTextStyle = TextStyle(
   height: 4 / 3,
 );
 
-/// Padding of a chip: shadcn `px-2 py-0.5`.
-const EdgeInsetsGeometry chipDefaultPadding = EdgeInsets.symmetric(
+/// Padding of a chip: shadcn `px-2 py-0.5`, density-scaled.
+const EdgeInsetsGeometry chipDefaultPadding = EdgeInsetsDensity.pxSymmetric(
   horizontal: 8,
   vertical: 2,
 );

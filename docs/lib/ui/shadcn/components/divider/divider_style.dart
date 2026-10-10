@@ -9,6 +9,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Where a [Divider.label] sits on the cross axis.
@@ -60,7 +61,9 @@ class DividerTheme extends ComponentThemeData
   /// Space after the rule, measured from the trailing edge. Default: 0.
   final double? endIndent;
 
-  /// Padding around [Divider.label]. Default: 8 logical pixels on both sides.
+  /// Padding around [Divider.label]: shadcn's `px-2` label gutter (8) as
+  /// density multipliers, resolved by `Divider`. Default:
+  /// [dividerDefaultLabelPadding].
   final EdgeInsetsGeometry? labelPadding;
 
   /// Cross-axis placement of [Divider.label]. Default:
@@ -176,10 +179,12 @@ class DividerTheme extends ComponentThemeData
   );
 }
 
-/// Default padding around a divider label: 8 logical pixels on both sides.
-const EdgeInsetsGeometry dividerDefaultLabelPadding = EdgeInsets.symmetric(
-  horizontal: 8,
-);
+/// Default padding around a divider label: shadcn's separator label gutter,
+/// 8 logical pixels on both sides (shadcn `px-2`), stored as density
+/// multipliers and resolved by `Divider` against
+/// `density.baseContentPadding * scaling`.
+const EdgeInsetsGeometry dividerDefaultLabelPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 8);
 
 /// Token-derived baseline values; unset override fields fall through here.
 const DividerTheme dividerDefaults = DividerTheme(

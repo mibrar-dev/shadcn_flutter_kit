@@ -157,6 +157,7 @@ class _RovingRowState extends State<RovingRow> {
   @override
   void initState() {
     super.initState();
+    _node.addListener(_handleFocusChange);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final MenuGroupData? group = Data.maybeFind<MenuGroupData>(context);
@@ -177,10 +178,38 @@ class _RovingRowState extends State<RovingRow> {
   }
 
   @override
+  void didUpdateWidget(RovingRow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.focusNode != widget.focusNode) {
+      (oldWidget.focusNode ?? _ownedNode)?.removeListener(_handleFocusChange);
+      _node.addListener(_handleFocusChange);
+    }
+  }
+
+  @override
   void dispose() {
     _group?.slots.removeWhere((s) => s.node == _node);
+    _node.removeListener(_handleFocusChange);
     _ownedNode?.dispose();
     super.dispose();
+  }
+
+  /// Keeps the focused row scrolled into view inside a capped popup.
+  ///
+  /// A [FocusNode] listener, not the highlight callback: highlight only
+  /// reports in traditional mode, while traversal focus must scroll in
+  /// every mode (and under widget tests).
+  void _handleFocusChange() {
+    if (!_node.hasFocus || !mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        Scrollable.ensureVisible(
+          context,
+          duration: const Duration(milliseconds: 150),
+          alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
+        );
+      }
+    });
   }
 
   @override

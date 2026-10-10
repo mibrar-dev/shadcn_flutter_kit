@@ -40,10 +40,10 @@ class TrackerTheme extends ComponentThemeData
     this.itemHeight,
   });
 
-  /// Fill of a [TrackerLevel.fine] segment.
+  /// Fill of a [TrackerLevel.fine] segment. Default: the `chart2` token.
   final ThemedColor? fine;
 
-  /// Fill of a [TrackerLevel.warning] segment.
+  /// Fill of a [TrackerLevel.warning] segment. Default: the `chart4` token.
   final ThemedColor? warning;
 
   /// Fill of a [TrackerLevel.critical] segment.
@@ -171,10 +171,12 @@ const double trackerDefaultGap = 2;
 const double trackerDefaultItemHeight = 32;
 
 // Status colours: shadcn has no green/amber token, so `fine` and `warning`
-// are literals (same precedent as `gooey_toast`'s status rows); `critical`
-// and `unknown` follow tokens so a preset switch restyles them.
-const _trackerFine = ThemedColor.value(Color(0xFF22C55E));
-const _trackerWarning = ThemedColor.value(Color(0xFFF59E0B));
+// borrow the closest slots in the categorical scale (chart2 / chart4 — green
+// and amber in every preset's ordering); `critical` and `unknown` use shadcn's
+// own `destructive` / `mutedForeground`. All four therefore follow a preset
+// switch instead of staying pinned to a literal.
+const _trackerFine = ThemedColor.ref(ColorRef.chart2);
+const _trackerWarning = ThemedColor.ref(ColorRef.chart4);
 const _trackerCritical = ThemedColor.ref(ColorRef.destructive);
 const _trackerUnknown = ThemedColor.ref(ColorRef.mutedForeground);
 

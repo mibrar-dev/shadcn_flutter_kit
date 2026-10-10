@@ -341,9 +341,9 @@ void main() {
         await tester.pump(const Duration(milliseconds: 600));
 
         expect(
-          recorder.castErrors,
+          recorder.errors,
           isEmpty,
-          reason: 'closing the picker must not throw a cast error',
+          reason: 'closing the picker must not throw',
         );
         recorder.drain(tester);
         expect(find.text(sentinel.value), findsNothing);
@@ -368,7 +368,7 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
 
-      expect(recorder.castErrors, isEmpty);
+      expect(recorder.errors, isEmpty);
       recorder.drain(tester);
       expect(find.text('Done'), findsNothing);
       expect(state.themeModel.radiusPx, before);
@@ -378,10 +378,10 @@ void main() {
 
 /// Records the framework errors a widget test reports.
 ///
-/// Opening a picker unavoidably trips a layout assertion in the registry
-/// `MenuRow` (a `LayoutBuilder` nested inside an `IntrinsicWidth`). Recording
-/// every error and filtering for cast failures keeps this regression precise
-/// without hiding that separate layout noise.
+/// Opening and closing a picker must be error-free: the registry popup
+/// surface sizes deterministically (no `IntrinsicWidth`, so no
+/// `LayoutBuilder`-inside-intrinsics assertion) and dismissals complete with
+/// a null result (no unsafe cast). Any recorded error fails the test.
 class _ErrorRecorder {
   _ErrorRecorder._(this._previous);
 
@@ -399,15 +399,10 @@ class _ErrorRecorder {
     return recorder;
   }
 
-  /// Messages of failures caused by an unsafe cast.
-  List<String> get castErrors => _errors
-      .where((String error) => error.contains('is not a subtype'))
-      .toList(growable: false);
+  /// Every recorded framework error.
+  List<String> get errors => List<String>.unmodifiable(_errors);
 
   /// Clears the framework's own error queue once the assertions are done.
-  ///
-  /// The picker layout noise described above is unrelated, so it must not
-  /// fail the test — but leaving it in the queue would.
   void drain(WidgetTester tester) {
     while (tester.takeException() != null) {}
   }

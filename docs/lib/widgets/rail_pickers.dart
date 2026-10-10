@@ -102,12 +102,21 @@ Future<Color?> showColorPicker(BuildContext context, Color current) {
 }
 
 /// Opens an anchored picker popup (registry `popup` → `showShadcnPopup`).
+///
+/// The popup is opened with a **nullable** result type on purpose. The
+/// registry's `Popup` closes with a `null` result whenever it is dismissed
+/// without a pick (Escape, outside tap, a "Done" button) and its
+/// `onCloseWithResult` performs `value as T` (see
+/// `ui/shadcn/primitives/popover_overlay_handler.dart`). A non-nullable `T`
+/// therefore throws `type 'Null' is not a subtype of type 'T'` on every
+/// dismissal. `T?` keeps the picker contract (`null` = "not picked") and the
+/// caller-visible `Future<T?>` unchanged.
 Future<T?> showShadcnPicker<T>({
   required BuildContext context,
   required WidgetBuilder builder,
   String? title,
 }) {
-  return showShadcnPopup<T>(
+  return showShadcnPopup<T?>(
     context: context,
     // Open below the row (like the reference's popovers) and keep the panel
     // inside the 192 px rail: the anchor is the row, so the default

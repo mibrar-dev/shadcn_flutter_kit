@@ -14,6 +14,7 @@ import 'package:docs/ui/shadcn/theme/theme.dart';
 import 'package:docs/widgets/docs_header.dart';
 import 'package:docs/widgets/studio_canvas.dart';
 import 'package:docs/widgets/theme_rail.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -302,4 +303,112 @@ void main() {
       );
     });
   });
+
+  // Regression: the Theme Studio shipped "TypeError: null: type 'minified:CI'
+  // is not a subtype of type 'minified:V'" in the release console. Root cause:
+  // `Popup` dismisses itself (Escape, outside tap, a bare "Done" button)
+  // through `closeOverlay(context)` with **no** result, and the registry's
+  // `onCloseWithResult` performs `completer.complete(value as T)`
+  // (`ui/shadcn/primitives/popover_overlay_handler.dart`). When the popup was
+  // opened with a non-nullable `T` that cast threw
+  // `type 'Null' is not a subtype of type 'String'` on every dismissal.
+  // `showShadcnPicker` now opens popups with a nullable result type.
+  group('picker popup dismissal', () {
+    const Map<String, String> kRowSentinel = <String, String>{
+      'rail-row-heading': 'ui-serif',
+      'rail-row-body': 'ui-serif',
+      'rail-row-radius': 'Done',
+      'rail-row-spacing': 'Done',
+      'rail-row-shadow': 'dark mode atoms',
+      'rail-row-syntax': 'read-only · dark shiki palette',
+    };
+
+    for (final MapEntry<String, String> sentinel in kRowSentinel.entries) {
+      testWidgets('${sentinel.key} closes on Escape', (
+        WidgetTester tester,
+      ) async {
+        final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+        await goTo(tester, delegate, '/themes');
+        final _ErrorRecorder recorder = _ErrorRecorder.install();
+
+        await tester.tap(find.byKey(ValueKey<String>(sentinel.key)));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 600));
+        expect(find.text(sentinel.value), findsWidgets);
+
+        await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 600));
+
+        expect(
+          recorder.castErrors,
+          isEmpty,
+          reason: 'closing the picker must not throw a cast error',
+        );
+        recorder.drain(tester);
+        expect(find.text(sentinel.value), findsNothing);
+      });
+    }
+
+    testWidgets('a row dismissed on Escape leaves the theme untouched', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/themes');
+      final DocsState state = docsState;
+      final double before = state.themeModel.radiusPx;
+      final _ErrorRecorder recorder = _ErrorRecorder.install();
+
+      await tester.tap(find.byKey(const ValueKey<String>('rail-row-radius')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.text('Done'), findsWidgets);
+
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+
+      expect(recorder.castErrors, isEmpty);
+      recorder.drain(tester);
+      expect(find.text('Done'), findsNothing);
+      expect(state.themeModel.radiusPx, before);
+    });
+  });
+}
+
+/// Records the framework errors a widget test reports.
+///
+/// Opening a picker unavoidably trips a layout assertion in the registry
+/// `MenuRow` (a `LayoutBuilder` nested inside an `IntrinsicWidth`). Recording
+/// every error and filtering for cast failures keeps this regression precise
+/// without hiding that separate layout noise.
+class _ErrorRecorder {
+  _ErrorRecorder._(this._previous);
+
+  final void Function(FlutterErrorDetails)? _previous;
+  final List<String> _errors = <String>[];
+
+  /// Installs the recorder for the current test and restores it on teardown.
+  static _ErrorRecorder install() {
+    final _ErrorRecorder recorder = _ErrorRecorder._(FlutterError.onError);
+    FlutterError.onError = (FlutterErrorDetails details) {
+      recorder._errors.add(details.exception.toString());
+      recorder._previous?.call(details);
+    };
+    addTearDown(() => FlutterError.onError = recorder._previous);
+    return recorder;
+  }
+
+  /// Messages of failures caused by an unsafe cast.
+  List<String> get castErrors => _errors
+      .where((String error) => error.contains('is not a subtype'))
+      .toList(growable: false);
+
+  /// Clears the framework's own error queue once the assertions are done.
+  ///
+  /// The picker layout noise described above is unrelated, so it must not
+  /// fail the test — but leaving it in the queue would.
+  void drain(WidgetTester tester) {
+    while (tester.takeException() != null) {}
+  }
 }

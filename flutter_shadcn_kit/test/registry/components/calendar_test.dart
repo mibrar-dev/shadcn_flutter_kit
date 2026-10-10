@@ -1176,6 +1176,97 @@ void main() {
       expect(tester.getSize(find.byType(Calendar)).height.isFinite, isTrue);
     });
   });
+
+  group('narrow columns', () {
+    Widget narrowFrame(double width, Widget child) => ShadcnTheme(
+      data: const ShadcnThemeData(),
+      child: ComponentThemes(
+        themes: const <ComponentThemeData>[],
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Localizations(
+            locale: const Locale('en'),
+            delegates: const <LocalizationsDelegate<dynamic>>[
+              DefaultWidgetsLocalizations.delegate,
+              ShadcnLocalizations.delegate,
+            ],
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(width: width, child: child),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    for (final double width in <double>[240, 300, 375]) {
+      testWidgets('a date grid fits at $width px, cells stay tappable', (
+        tester,
+      ) async {
+        CalendarValue? value;
+        await tester.pumpWidget(
+          narrowFrame(
+            width,
+            StatefulBuilder(
+              builder: (BuildContext context, StateSetter set) => Calendar(
+                view: march,
+                selectionMode: CalendarSelectionMode.single,
+                value: value,
+                onChanged: (CalendarValue? next) => set(() => value = next),
+              ),
+            ),
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        final Size grid = tester.getSize(find.byType(Calendar));
+        expect(grid.width, lessThanOrEqualTo(width));
+        // 300 px and up hold the nominal 32 px cells; 240 px shrinks them.
+        final double cellWidth = tester
+            .getSize(_cellFinder(tester, '14'))
+            .width;
+        if (width >= 300) {
+          expect(cellWidth, 32);
+        } else {
+          expect(cellWidth, lessThan(32));
+          expect(cellWidth, greaterThanOrEqualTo(28));
+        }
+        // The weekday header keeps the shrunken pitch.
+        expect(tester.getRect(find.text('Mon')).width, cellWidth);
+        // A shrunken cell still selects its date.
+        await tester.tap(find.text('15'));
+        await tester.pump();
+        expect(value, CalendarValue.single(DateTime(2024, 3, 15)));
+      });
+
+      testWidgets('month and year grids fit at $width px', (tester) async {
+        await tester.pumpWidget(
+          narrowFrame(
+            width,
+            const Calendar(view: march, viewType: CalendarViewType.month),
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(Calendar)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(find.text('Jan'), findsOneWidget);
+
+        await tester.pumpWidget(
+          narrowFrame(
+            width,
+            const Calendar(view: march, viewType: CalendarViewType.year),
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(Calendar)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(find.text('2024'), findsOneWidget);
+      });
+    }
+  });
 }
 
 /// [Calendar.stateBuilder] that disables every even day.

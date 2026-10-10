@@ -87,11 +87,26 @@ class Pagination extends StatelessWidget {
   bool get hasNext => _current < totalPages;
 
   /// The page numbers currently shown in the window.
-  Iterable<int> get pages sync* {
+  Iterable<int> get pages => _window(_maxWindow);
+
+  /// First page of the current window.
+  int get firstShownPage => _firstShown(_maxWindow);
+
+  /// Last page of the current window.
+  int get lastShownPage => _lastShown(_maxWindow);
+
+  /// Whether the window has earlier pages to jump back to.
+  bool get hasMorePreviousPages => firstShownPage > 1;
+
+  /// Whether the window has later pages to jump forward to.
+  bool get hasMoreNextPages => lastShownPage < totalPages;
+
+  /// The window of [size] around the current page, clamped into range.
+  Iterable<int> _window(int size) sync* {
     if (totalPages <= 0) {
       return;
     }
-    final int window = _maxWindow;
+    final int window = size < 1 ? 1 : size;
     if (totalPages <= window) {
       yield* List<int>.generate(totalPages, (i) => i + 1);
       return;
@@ -107,29 +122,25 @@ class Pagination extends StatelessWidget {
     }
   }
 
-  /// First page of the current window.
-  int get firstShownPage {
-    if (totalPages <= _maxWindow) {
+  /// First page of a [size] window around the current page.
+  int _firstShown(int size) {
+    final int window = size < 1 ? 1 : size;
+    if (totalPages <= window) {
       return 1;
     }
-    final int start = _current - _maxWindow ~/ 2;
+    final int start = _current - window ~/ 2;
     return start < 1 ? 1 : start;
   }
 
-  /// Last page of the current window.
-  int get lastShownPage {
-    if (totalPages <= _maxWindow) {
+  /// Last page of a [size] window around the current page.
+  int _lastShown(int size) {
+    final int window = size < 1 ? 1 : size;
+    if (totalPages <= window) {
       return totalPages;
     }
-    final int end = _current + _maxWindow ~/ 2;
+    final int end = _current + window ~/ 2;
     return end > totalPages ? totalPages : end;
   }
-
-  /// Whether the window has earlier pages to jump back to.
-  bool get hasMorePreviousPages => firstShownPage > 1;
-
-  /// Whether the window has later pages to jump forward to.
-  bool get hasMoreNextPages => lastShownPage < totalPages;
 
   @override
   Widget build(BuildContext context) {
@@ -146,36 +157,114 @@ class Pagination extends StatelessWidget {
     final ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final double iconSize = 12 * ambient.scaling;
 
-    final List<Widget> children = <Widget>[];
+    // A masonry column (~300 px) or a phone (375 px minus padding) cannot hold
+    // the full window, so the control collapses to prev/ellipsis/current/next:
+    // icon-only ends, a one-page window, no skip-to-edge buttons. Unbounded
+    // widths (a horizontal scroll view, the docs stage) keep the full layout.
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final bool compact = _collapses(
+          constraints.maxWidth,
+          spacing: spacing,
+          scaling: ambient.scaling,
+          withLabel: withLabel,
+        );
+        final int window = compact ? 1 : _maxWindow;
+        final bool labelled = !compact && withLabel;
+        final bool skipFirst = !compact && showSkipToFirstPage;
+        final bool skipLast = !compact && showSkipToLastPage;
+        final int firstShown = _firstShown(window);
+        final int lastShown = _lastShown(window);
+
+        final List<Widget> children = <Widget>[];
+        if (!hidePreviousOnFirstPage || hasPrevious) {
+          children.add(_previous(localizations, labelled, iconSize));
+        }
+        if (firstShown > 1) {
+          if (skipFirst && firstShown - 1 > 1) {
+            children.add(_pageButton(1));
+          }
+          children.add(_ellipsis(firstShown - 1));
+        }
+        for (final int p in _window(window)) {
+          children.add(_pageButton(p));
+        }
+        if (lastShown < totalPages) {
+          children.add(_ellipsis(lastShown + 1));
+          if (skipLast && lastShown + 1 < totalPages) {
+            children.add(_pageButton(totalPages));
+          }
+        }
+        if (!hideNextOnLastPage || hasNext) {
+          children.add(_next(localizations, labelled, iconSize));
+        }
+
+        return IntrinsicHeight(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: _spaced(children, spacing),
+          ),
+        );
+      },
+    );
+  }
+
+  /// Whether the full window would overflow [maxWidth].
+  ///
+  /// Each control is estimated at one icon-button quantum (the button size
+  /// table's `icon` size, 36, scaled) plus a calibration margin covering the
+  /// widest measured sm control (a two-digit page, 52 at the default density);
+  /// a labelled prev/next carries about two extra quanta of text. The estimate
+  /// is deliberately conservative — collapsing early only drops labels and
+  /// window neighbours, never a reachable page — and unbounded widths never
+  /// collapse, so scroll views keep the full layout.
+  bool _collapses(
+    double maxWidth, {
+    required double spacing,
+    required double scaling,
+    required bool withLabel,
+  }) {
+    if (!maxWidth.isFinite) {
+      return false;
+    }
+    const double unit = 56;
+    const double labelExtra = 112;
+    int controls = 0;
+    int labelled = 0;
     if (!hidePreviousOnFirstPage || hasPrevious) {
-      children.add(_previous(localizations, withLabel, iconSize));
+      controls++;
+      if (withLabel) {
+        labelled++;
+      }
     }
     if (hasMorePreviousPages) {
       if (showSkipToFirstPage && firstShownPage - 1 > 1) {
-        children.add(_pageButton(1));
+        controls++;
       }
-      children.add(_ellipsis(firstShownPage - 1));
+      controls++;
     }
-    for (final int p in pages) {
-      children.add(_pageButton(p));
-    }
+    controls += pages.length;
     if (hasMoreNextPages) {
-      children.add(_ellipsis(lastShownPage + 1));
+      controls++;
       if (showSkipToLastPage && lastShownPage + 1 < totalPages) {
-        children.add(_pageButton(totalPages));
+        controls++;
       }
     }
     if (!hideNextOnLastPage || hasNext) {
-      children.add(_next(localizations, withLabel, iconSize));
+      controls++;
+      if (withLabel) {
+        labelled++;
+      }
     }
-
-    return IntrinsicHeight(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _spaced(children, spacing),
-      ),
-    );
+    if (controls <= 1) {
+      return false;
+    }
+    final double estimate =
+        controls * unit * scaling +
+        (controls - 1) * spacing +
+        labelled * labelExtra * scaling;
+    return maxWidth < estimate;
   }
 
   Widget _pageButton(int pageNumber) {

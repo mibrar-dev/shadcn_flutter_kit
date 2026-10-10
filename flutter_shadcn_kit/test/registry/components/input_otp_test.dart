@@ -844,4 +844,86 @@ void main() {
       expect(_slots, findsNWidgets(3));
     });
   });
+
+  group('narrow columns', () {
+    Widget narrowFrame(double width, Widget child) {
+      return ShadcnTheme(
+        data: const ShadcnThemeData(),
+        child: ComponentThemes(
+          themes: const <ComponentThemeData>[],
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: _OverlayHost(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SizedBox(width: width, child: child),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    for (final double width in <double>[240, 300, 375]) {
+      testWidgets('six slots fit at $width px and stay square', (tester) async {
+        await tester.pumpWidget(narrowFrame(width, const InputOtp(length: 6)));
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(InputOtp)).width,
+          lessThanOrEqualTo(width),
+        );
+        final Size slot = tester.getSize(_slots.at(0));
+        expect(slot.width, slot.height);
+        if (width >= 300) {
+          expect(slot, const Size(36, 36));
+        } else {
+          expect(slot.width, lessThan(36));
+        }
+      });
+
+      testWidgets('a separated row fits at $width px', (tester) async {
+        await tester.pumpWidget(
+          narrowFrame(
+            width,
+            const InputOtp(length: 6, separatorEvery: 3, separator: Text('-')),
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(InputOtp)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(find.text('-'), findsOneWidget);
+        final Size slot = tester.getSize(_slots.at(0));
+        expect(slot.width, slot.height);
+      });
+
+      testWidgets('a four-slot row fits at $width px', (tester) async {
+        await tester.pumpWidget(narrowFrame(width, const InputOtp(length: 4)));
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(InputOtp)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(_slots, findsNWidgets(4));
+      });
+
+      testWidgets('typing still fills the slots at $width px', (tester) async {
+        final List<String> changes = <String>[];
+        await tester.pumpWidget(
+          narrowFrame(width, InputOtp(length: 6, onChanged: changes.add)),
+        );
+        await _focus(tester);
+        await tester.enterText(find.byType(InputOtp), '12');
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+        expect(_slotCharacters(tester), <String>['1', '2', '', '', '', '']);
+        expect(changes, <String>['12']);
+        expect(
+          tester.getSize(find.byType(InputOtp)).width,
+          lessThanOrEqualTo(width),
+        );
+      });
+    }
+  });
 }

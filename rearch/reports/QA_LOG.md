@@ -597,3 +597,7 @@
 - Combined tree after F4: docs format/analyze 0, +171, codegen + mirror --check OK; agent ran qa_gate (+3794) + release build. Agent exit=1 after writing its final report.
 - Registry primitive masonry_layout (shortest column, RTL, responsive 3/2/1 cols; 13 tests); canvas + home collage on it, ~40 content-height blocks (money/forms/settings/media/lists/stats/tabs), 7 canvas tests, captures at 1440/375 light/dark.
 - Follow-ups: Pagination/Calendar/InputOtp can't shrink to a column (blocks scroll them) → registry min-width fix; canvas gap 24px (ref 40px on wider wall).
+
+## P6-F5 — pagination/calendar/input_otp narrow widths — ACCEPTED
+- analyze 0; component suites + narrow-column tests (240/300/375) pass; registry 3817 (excl. B1's in-flight blocks).
+- Calendar/OTP: exact even-share fit. Pagination: collapse decided by a scaled width estimate (56/control, 112 per labelled control, × scaling) — heuristic accepted; a measuring layout would be the long-term fix. Docs mirror sync + removal of T1's horizontal-scroll workarounds deferred to P6-H1/B3.

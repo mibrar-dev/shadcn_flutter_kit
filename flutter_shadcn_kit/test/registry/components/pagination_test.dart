@@ -7,6 +7,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/button/button.dart';
 import 'package:flutter_shadcn_kit/registry/components/pagination/pagination.dart';
+import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -195,6 +196,120 @@ void main() {
     );
     expect(find.byType(Icon), findsNWidgets(2));
     expect(tester.takeException(), isNull);
+  });
+
+  group('narrow columns', () {
+    Future<void> pumpNarrow(
+      WidgetTester tester,
+      double width,
+      Pagination child,
+    ) async {
+      await tester.pumpWidget(
+        ShadcnTheme(
+          data: const ShadcnThemeData(),
+          child: ComponentThemes(
+            themes: const <ComponentThemeData>[],
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SizedBox(width: width, child: child),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    for (final double width in <double>[240, 300, 375]) {
+      testWidgets('many pages fit at $width px, all controls reachable', (
+        tester,
+      ) async {
+        int? changed;
+        await pumpNarrow(
+          tester,
+          width,
+          Pagination(
+            page: 10,
+            totalPages: 20,
+            onPageChanged: (int page) => changed = page,
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(Pagination)).width,
+          lessThanOrEqualTo(width),
+        );
+        // Collapsed: icon-only ends, the current page, both ellipsis jumps.
+        expect(find.text('Previous'), findsNothing);
+        expect(find.text('Next'), findsNothing);
+        expect(find.text('10'), findsOneWidget);
+        expect(find.text('1'), findsNothing);
+        expect(find.text('20'), findsNothing);
+        // Every remaining control still fires.
+        await tester.tap(find.byIcon(LucideIcons.chevronRight));
+        expect(changed, 11);
+        await tester.tap(find.byIcon(LucideIcons.chevronLeft));
+        expect(changed, 9);
+        await tester.tap(find.text('10'));
+        expect(changed, 10);
+      });
+
+      testWidgets('a small pager fits at $width px', (tester) async {
+        int? changed;
+        await pumpNarrow(
+          tester,
+          width,
+          Pagination(
+            page: 2,
+            totalPages: 5,
+            onPageChanged: (int page) => changed = page,
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(Pagination)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(find.text('2'), findsOneWidget);
+        await tester.tap(find.byIcon(LucideIcons.chevronRight));
+        expect(changed, 3);
+      });
+
+      testWidgets('icon-only pager fits at $width px', (tester) async {
+        await pumpNarrow(
+          tester,
+          width,
+          Pagination(
+            page: 5,
+            totalPages: 12,
+            showLabel: false,
+            onPageChanged: (_) {},
+          ),
+        );
+        expect(tester.takeException(), isNull);
+        expect(
+          tester.getSize(find.byType(Pagination)).width,
+          lessThanOrEqualTo(width),
+        );
+        expect(find.text('5'), findsOneWidget);
+      });
+    }
+
+    testWidgets('unbounded widths keep the full layout', (tester) async {
+      await tester.pumpWidget(
+        _frame(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Pagination(page: 1, totalPages: 10, onPageChanged: (_) {}),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(find.text('Previous'), findsOneWidget);
+      expect(find.text('1'), findsOneWidget);
+      expect(find.text('10'), findsOneWidget);
+    });
   });
 }
 

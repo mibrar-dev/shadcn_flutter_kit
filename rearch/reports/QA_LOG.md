@@ -554,3 +554,8 @@
 - 76 tests (+75 ~1), analyze clean after orchestrator fix (scanner: print→stdout, dropped undeclared `path` import).
 - Registry Calendar resolves `primary` correctly → user's "black selected day" is docs-side (theme propagation into previews / stale mirror); fix batch must reproduce in the docs app under `claude`.
 - 19 fix + 2 review literals (gooey_toast, gooey_surface, overflow_marquee, number_ticker, scrollable fades, tracker, feature_carousel); code_snippet is the non-selectable registry surface; docs View Code/Get Code/install blocks need their own pass.
+
+## P6-D9b — spacing/density audit — ACCEPTED
+- analyze 0; layout_audit +26 ~10 (10 skips = findings for the fix batch); format clean. Agent exit=1 was the final-turn wrapper; outputs complete.
+- 84/118 compliant; only button + dialog derive padding from density. 7 density findings (chip, badge, input, table, select, menu, tabs), 3 icon-geometry findings (chip leading renders AFTER label → 84px from edge). 28 raw literals in primitives/, 8 in theme/. 552 preview.dart literals = mechanical follow-up.
+- Orchestrator: moved a stray scanner output written outside the repo (shadcn_copy_paste/rearch/reports/) to scratchpad.

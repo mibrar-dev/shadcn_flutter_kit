@@ -33,16 +33,16 @@ class ColorFieldPreview extends StatelessWidget {
                 valueAxis: ColorFieldAxis.vertical,
               ),
             ),
-            const Gap(12),
-            const SizedBox(
+            Gap(theme.spacing.md),
+            SizedBox(
               width: 240,
-              height: 24,
+              height: theme.spacing.xl,
               child: ColorField(
                 color: Color(0xFF2563EB),
                 hueAxis: ColorFieldAxis.horizontal,
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'HSL field and alpha ramp'),
             const SizedBox(
               width: 240,
@@ -54,16 +54,16 @@ class ColorFieldPreview extends StatelessWidget {
                 lightnessAxis: ColorFieldAxis.vertical,
               ),
             ),
-            const Gap(12),
-            const SizedBox(
+            Gap(theme.spacing.md),
+            SizedBox(
               width: 240,
-              height: 24,
+              height: theme.spacing.xl,
               child: ColorField(
                 color: Color(0xFF2563EB),
                 alphaAxis: ColorFieldAxis.horizontal,
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Dark palette'),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),

@@ -5,11 +5,13 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/toast_queue/toast_controller.dart';
 import '../../primitives/toast_queue/toast_entry.dart';
 import '../../primitives/toast_queue/toast_exit.dart';
 import '../../primitives/toast_queue/toast_placement.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'toast_style.dart';
 
@@ -319,7 +321,10 @@ class _ToastCardState extends State<_ToastCard>
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: theme.maxWidth ?? 380),
         child: Padding(
-          padding: theme.padding ?? const EdgeInsets.all(16),
+          padding: resolveEdgeInsets(
+            theme.padding ?? toastDefaultPadding,
+            ambient.density.baseContentPadding * ambient.scaling,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,7 +336,7 @@ class _ToastCardState extends State<_ToastCard>
                 ),
               ),
               if (theme.showCloseButton ?? true) ...<Widget>[
-                const SizedBox(width: 8),
+                Gap(ambient.spacing.sm),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: _dismiss,

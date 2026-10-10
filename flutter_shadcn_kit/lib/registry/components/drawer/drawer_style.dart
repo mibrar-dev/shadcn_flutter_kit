@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/drawer_route/drawer_route.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Surface, border, barrier and sizing contract of a drawer or sheet.
@@ -60,7 +61,7 @@ class DrawerTheme extends ComponentThemeData
   @override
   final BorderRadius? borderRadius;
 
-  /// Panel padding. Default: `EdgeInsets.all(24)`.
+  /// Panel padding. Default: shadcn `p-6`, density-scaled.
   @override
   final EdgeInsetsGeometry? padding;
 
@@ -234,6 +235,9 @@ class DrawerTheme extends ComponentThemeData
   );
 }
 
+/// Panel padding: shadcn `p-6` (24px), density-scaled.
+const EdgeInsetsGeometry drawerDefaultPadding = EdgeInsetsDensity.pxAll(24);
+
 /// Token-derived baseline; every unset override field falls through here.
 ///
 /// `borderRadius` and `shadows` stay null because their real defaults come
@@ -244,7 +248,7 @@ const DrawerTheme drawerDefaults = DrawerTheme(
   foreground: ThemedColor.ref(ColorRef.foreground),
   borderColor: ThemedColor.ref(ColorRef.border),
   borderWidth: 1,
-  padding: EdgeInsets.all(24),
+  padding: drawerDefaultPadding,
   barrierColor: ThemedColor.value(Color(0x80000000)),
   maxSize: 320,
   showDragHandle: true,

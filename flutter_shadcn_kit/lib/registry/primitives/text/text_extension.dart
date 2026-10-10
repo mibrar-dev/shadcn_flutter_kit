@@ -270,6 +270,7 @@ extension TextExtension on Widget {
     wrapper: (context, child) {
       final depth = Data.maybeOf<UnorderedListData>(context)?.depth ?? 0;
       final style = DefaultTextStyle.of(context).style;
+      final theme = ShadcnTheme.of(context);
       final size = (style.fontSize ?? 12) / 16 * 6;
       return IntrinsicWidth(
         child: Row(
@@ -279,7 +280,7 @@ extension TextExtension on Widget {
               height: (style.fontSize ?? 12) * (style.height ?? 1) * 1.2,
               child: getBullet(context, depth, size),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: theme.spacing.sm),
             Expanded(
               child: Data<UnorderedListData>.inherit(
                 data: UnorderedListData(depth: depth + 1),

@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../clickable.dart';
 import '../localizations/localizations.dart';
@@ -18,6 +19,19 @@ import '../overlay.dart';
 import 'object_form_field.dart';
 
 /// The dialog presentation of an object editor.
+/// Object-form dialog card padding: shadcn `p-6` (24) as density
+/// multipliers, resolved at build.
+const EdgeInsetsGeometry objectFormDialogPadding = EdgeInsetsDensity.pxAll(24);
+
+/// Object-form popover card padding: shadcn `p-4` (16) as density
+/// multipliers, resolved at build.
+const EdgeInsetsGeometry objectFormPopupPadding = EdgeInsetsDensity.pxAll(16);
+
+/// Object-form action-row padding: shadcn `px-4 py-2` (16/8) as density
+/// multipliers, resolved at build.
+const EdgeInsetsGeometry objectFormButtonPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 16, vertical: 8);
+
 class ObjectFormPromptDialog<T> extends StatefulWidget {
   /// Creates the dialog page.
   const ObjectFormPromptDialog({
@@ -97,7 +111,10 @@ class _ObjectFormPromptDialogState<T> extends State<ObjectFormPromptDialog<T>>
     final ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: resolveEdgeInsets(
+          objectFormDialogPadding,
+          theme.density.baseContentPadding * theme.scaling,
+        ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 480),
           child: DecoratedBox(
@@ -110,7 +127,10 @@ class _ObjectFormPromptDialogState<T> extends State<ObjectFormPromptDialog<T>>
             child: Data<ObjectFormHandler<T>>.inherit(
               data: this,
               child: Padding(
-                padding: const EdgeInsets.all(24),
+                padding: resolveEdgeInsets(
+                  objectFormDialogPadding,
+                  theme.density.baseContentPadding * theme.scaling,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -231,7 +251,10 @@ class _ObjectFormPromptPopupState<T> extends State<ObjectFormPromptPopup<T>>
           boxShadow: theme.tokens.shadows.shadowLg,
         ),
         child: Padding(
-          padding: widget.popoverPadding ?? const EdgeInsets.all(16),
+          padding: resolveEdgeInsets(
+            widget.popoverPadding ?? objectFormPopupPadding,
+            theme.density.baseContentPadding * theme.scaling,
+          ),
           child: widget.editorBuilder(context, this),
         ),
       ),
@@ -272,8 +295,11 @@ class _PromptButton extends StatelessWidget {
       textStyle: WidgetStatePropertyAll<TextStyle>(
         theme.typography.small.copyWith(color: foreground),
       ),
-      padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+        resolveEdgeInsets(
+          objectFormButtonPadding,
+          theme.density.baseContentPadding * theme.scaling,
+        ),
       ),
       child: Text(label),
     );

@@ -5,6 +5,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/icons/lucide_icons.dart';
+import '../../theme/theme.dart';
 import 'api.dart';
 import 'blocks.dart';
 import 'document.dart';
@@ -156,6 +157,7 @@ Widget buildMarkdownImage(
       ),
     );
   }
+  final ShadcnThemeData theme = ShadcnTheme.of(context);
   Widget framed = ConstrainedBox(
     constraints: const BoxConstraints(maxHeight: 280),
     child: picture,
@@ -166,7 +168,7 @@ Widget buildMarkdownImage(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         framed,
-        const SizedBox(height: 4),
+        SizedBox(height: theme.spacing.xs),
         markdownRichText(
           context,
           style,

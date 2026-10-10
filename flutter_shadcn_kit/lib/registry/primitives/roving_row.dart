@@ -144,6 +144,9 @@ class _RovingRowState extends State<RovingRow> {
   FocusNode get _node => widget.focusNode ?? (_ownedNode ??= FocusNode());
 
   /// Leading with the 16px box and gutter reservation applied.
+  ///
+  /// 16 is shadcn `size-4`, the fixed icon envelope the check/caret glyphs
+  /// live in — like the button table's unscaled `minHeight`, not spacing.
   Widget? get _resolvedLeading {
     if (widget.leading != null) {
       return SizedBox(width: 16, height: 16, child: widget.leading);
@@ -243,10 +246,10 @@ class _RovingRowState extends State<RovingRow> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ?_resolvedLeading,
-              if (_resolvedLeading != null) const SizedBox(width: 8),
+              if (_resolvedLeading != null) SizedBox(width: app.spacing.sm),
               Flexible(child: widget.child),
               if (widget.trailing != null || widget.showChevron)
-                const SizedBox(width: 8),
+                SizedBox(width: app.spacing.sm),
               ?widget.trailing,
               if (widget.trailing == null && widget.showChevron)
                 const Icon(LucideIcons.chevronRight, size: 16),

@@ -102,7 +102,7 @@ class _Row extends StatelessWidget {
               ),
             ),
           ),
-          const Gap(12),
+          Gap(theme.spacing.md),
           Expanded(child: Text(item)),
         ],
       ),

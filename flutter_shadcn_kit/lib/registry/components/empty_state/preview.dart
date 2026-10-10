@@ -29,17 +29,17 @@ class EmptyStatePreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Full page — empty', _fullPage()),
-                const Gap(24),
-                _section('No results', _noResults()),
-                const Gap(24),
-                _section('Error fallback', _error()),
-                const Gap(24),
-                _section('Compact', _compact()),
-                const Gap(24),
-                _section('Bare icon', _bare()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Full page — empty', _fullPage()),
+                Gap(theme.spacing.xl),
+                _section(context, 'No results', _noResults()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Error fallback', _error()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Compact', _compact()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Bare icon', _bare()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -109,7 +109,7 @@ class EmptyStatePreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -117,7 +117,7 @@ class EmptyStatePreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         SizedBox(height: 320, child: child),
       ],
     );

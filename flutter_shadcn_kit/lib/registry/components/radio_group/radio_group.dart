@@ -18,6 +18,7 @@ import '../../primitives/clickable.dart';
 import '../../primitives/form_core/form_value.dart';
 import '../../primitives/roving_group.dart';
 import '../../primitives/selectable_radio/selectable_radio.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../card/card.dart';
 import 'radio_group_style.dart';
@@ -348,7 +349,10 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
           decoration: const WidgetStatePropertyAll<Decoration?>(null),
           child: Card(
             key: kRadioCardKey,
-            padding: card.padding ?? selectableCardDefaults.padding,
+            padding: resolveEdgeInsets(
+              card.padding ?? selectableCardDefaults.padding!,
+              shadcnTheme.density.baseContentPadding * shadcnTheme.scaling,
+            ),
             background: card.background?.resolve(states),
             borderColor: card.borderColor?.resolve(states),
             borderWidth: card.borderWidth ?? 1,

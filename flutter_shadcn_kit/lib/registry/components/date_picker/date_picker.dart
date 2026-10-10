@@ -15,6 +15,7 @@ import '../../primitives/date_math.dart';
 import '../../primitives/form_core/object_form_field.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../primitives/localizations/localizations_extensions.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../calendar/calendar.dart';
 import 'date_picker_style.dart';
@@ -374,13 +375,21 @@ class _HeaderButton extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(vertical: 8),
+      // The control's own breathing room (8 above and below the label/icon),
+      // held as a density multiplier. `Clickable` hands its padding to a
+      // `Container`, so the multipliers are resolved here.
+      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+        resolveEdgeInsets(
+          const EdgeInsetsDensity.pxSymmetric(vertical: 8),
+          theme.density.baseContentPadding * theme.scaling,
+        ),
       ),
       child: icon == null
           ? Center(child: Text(label!))
           : IconTheme.merge(
               data: IconThemeData(color: theme.colors.foreground),
+              // A layout cap, not spacing: the icon slot is a fixed 32px
+              // envelope (shadcn `size-8`) around a 16px glyph.
               child: SizedBox(
                 width: 32,
                 height: 32,

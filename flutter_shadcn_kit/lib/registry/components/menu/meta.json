@@ -20,8 +20,9 @@
       "icons"
     ],
     "theme": [
-      "color_tokens",
-      "theme"
+        "color_tokens",
+        "density",
+        "theme"
     ],
     "primitives": [
       "menu_nav",
@@ -60,12 +61,13 @@
       "MenuChangedCallback"
     ],
     "constants": [
-      "menuDefaults",
-      "menuPopupDefaults",
-      "menubarDefaults",
-      "menuThemeOverrides",
-      "menuPopupThemeOverrides",
-      "menubarThemeOverrides"
+        "menuDefaults",
+        "menuItemDefaultPadding",
+        "menuPopupDefaults",
+        "menuPopupThemeOverrides",
+        "menuThemeOverrides",
+        "menubarDefaults",
+        "menubarThemeOverrides"
     ],
     "reExportedFromPrimitives": {
       "menu_nav": [

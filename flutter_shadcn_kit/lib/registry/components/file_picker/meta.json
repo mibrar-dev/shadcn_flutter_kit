@@ -19,8 +19,9 @@
       "icons"
     ],
     "theme": [
-      "color_tokens",
-      "theme"
+        "color_tokens",
+        "density",
+        "theme"
     ],
     "primitives": [
       "clickable",
@@ -62,8 +63,9 @@
       "FileUploadItemBuilder"
     ],
     "constants": [
-      "fileUploadDefaults",
-      "fileUploadThemeOverrides"
+        "fileUploadDefaultPadding",
+        "fileUploadDefaults",
+        "fileUploadThemeOverrides"
     ],
     "providedByPrimitives": {
       "file_value": [

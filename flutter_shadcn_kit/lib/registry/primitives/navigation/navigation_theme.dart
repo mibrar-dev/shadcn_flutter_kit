@@ -9,6 +9,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 
 /// Which navigation container to render.
 enum NavigationContainerType {
@@ -164,6 +165,11 @@ class NavigationItemStyle implements Mergeable<NavigationItemStyle> {
   );
 }
 
+/// Navigation row padding: shadcn `px-3 py-2` (12/8) as density multipliers,
+/// resolved by `NavigationItemRow`.
+const EdgeInsetsGeometry navigationItemDefaultPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8);
+
 /// Token-derived unselected item row.
 const NavigationItemStyle navigationItemDefaults = NavigationItemStyle(
   background: StateValue(
@@ -173,7 +179,7 @@ const NavigationItemStyle navigationItemDefaults = NavigationItemStyle(
     focused: ThemedColor.ref(ColorRef.muted, alpha: 0.4),
   ),
   foreground: StateValue(rest: ThemedColor.ref(ColorRef.foreground)),
-  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  padding: navigationItemDefaultPadding,
   minHeight: 20,
   textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
 );
@@ -186,7 +192,7 @@ const NavigationItemStyle navigationActiveItemDefaults = NavigationItemStyle(
     pressed: ThemedColor.ref(ColorRef.secondary, alpha: 0.8),
   ),
   foreground: StateValue(rest: ThemedColor.ref(ColorRef.secondaryForeground)),
-  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  padding: navigationItemDefaultPadding,
   minHeight: 20,
   textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
 );

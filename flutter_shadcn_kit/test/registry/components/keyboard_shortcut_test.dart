@@ -319,12 +319,17 @@ void main() {
       expect(fill.a, closeTo(dark.accent.a * 0.5, 0.001));
     });
 
-    testWidgets('regression: the caps scale as a whole, not the padding', (
+    testWidgets('the cap padding scales with the ambient density', (
       tester,
     ) async {
-      // The old code multiplied only the padding by `scaling`, leaving the
-      // border radius and shadow alone, so a scaled theme produced fatter caps
-      // with the same rounding.
+      // The default padding is now a density default
+      // (`EdgeInsetsDensity.pxSymmetric(horizontal: 6, vertical: 4)`), resolved
+      // against `density.baseContentPadding * scaling` = 16 * 2 = 32, so the
+      // px multipliers (6/16, 4/16) measure 12 x 8 here. The old assertion
+      // pinned the raw 6 x 4 literal because at the time only the padding was
+      // multiplied by `scaling`; the re-architecture applies the canonical
+      // resolution every other component uses, and a literal override passed
+      // to `KeyboardKeyCap` still goes through `resolveEdgeInsets` unchanged.
       await tester.pumpWidget(
         _frame(
           data: const ShadcnThemeData(scaling: 2),
@@ -336,8 +341,9 @@ void main() {
       final shadcn.Card card = _cap(tester);
       expect(
         (card.padding as EdgeInsets).resolve(TextDirection.ltr),
-        const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       );
+      // The shadcn look: the cap paints no rounding or shadow of its own.
       expect(card.borderRadius, isNull);
       expect(card.shadows, isNull);
     });

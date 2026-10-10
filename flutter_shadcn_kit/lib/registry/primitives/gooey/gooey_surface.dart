@@ -1,17 +1,16 @@
 // An expandable metaball surface: a compact pill that morphs into an expanded
-// body, with autopilot timing and hover/press interaction.
-//
-// Carved from the presentation half of the old `_GooeyToastState` in
-// `overlay/gooey_toast/_impl/core/gooey_toast_widget.dart` (expand animation,
-// autopilot, compact morph). The queue/stack concerns live in
-// `gooey_stack.dart`, the per-frame composition in `gooey_frame.dart` and the
-// silhouette in `gooey_shape.dart`.
+// body, with autopilot timing and hover/press interaction. Carved from the
+// presentation half of the old `_GooeyToastState` in `overlay/gooey_toast`;
+// the queue/stack lives in `gooey_stack.dart`, the per-frame composition in
+// `gooey_frame.dart` and the silhouette in `gooey_shape.dart`.
 
 import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../theme/color_tokens.dart';
+import '../../theme/theme.dart';
 import 'gooey_content.dart';
 import 'gooey_frame.dart';
 
@@ -40,7 +39,7 @@ class GooeySurface extends StatefulWidget {
     this.action,
     this.expandable = true,
     this.width = 350,
-    this.fill = const Color(0xFF0D1117),
+    this.fill = const ThemedColor.ref(ColorRef.popover),
     this.fillAlpha = 1,
     this.roundness = 18,
     this.compactAlignment = Alignment.centerLeft,
@@ -79,7 +78,8 @@ class GooeySurface extends StatefulWidget {
 
   final double width;
 
-  final Color fill;
+  /// Surface fill; resolves per build, so a preset switch restyles it.
+  final ThemedColor fill;
 
   /// Whole-surface opacity.
   final double fillAlpha;
@@ -359,7 +359,7 @@ class _GooeySurfaceState extends State<GooeySurface>
             pillWidth: pillWidth,
             pillX: pillX,
             roundness: widget.roundness,
-            color: widget.fill,
+            color: widget.fill.resolve(ShadcnTheme.of(context).colors),
             fillAlpha: widget.fillAlpha,
             blur: blur,
             surfaceBlur: widget.surfaceBlur,

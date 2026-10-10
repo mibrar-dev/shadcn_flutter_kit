@@ -5,6 +5,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../text_editing/text_editing.dart';
+import '../../theme/theme.dart';
 import 'api.dart';
 import 'block_parser.dart';
 import 'blocks.dart';
@@ -25,8 +26,9 @@ Widget buildMarkdownBlock({
   required Set<String> failedUrls,
   required Widget Function(BuildContext context, MarkdownBlock block) nested,
 }) {
+  final ShadcnThemeData theme = ShadcnTheme.of(context);
   return switch (block.kind) {
-    MarkdownBlockKind.blank => const SizedBox(height: 8),
+    MarkdownBlockKind.blank => SizedBox(height: theme.spacing.sm),
     MarkdownBlockKind.paragraph => markdownRichText(
       context,
       style,

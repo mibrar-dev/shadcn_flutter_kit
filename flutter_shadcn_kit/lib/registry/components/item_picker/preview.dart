@@ -26,6 +26,7 @@ class ItemPickerPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _section(
+                context,
                 'Trigger',
                 ItemPicker<String>(
                   items: const ItemList(<String>['Alpha', 'Beta', 'Gamma']),
@@ -34,8 +35,9 @@ class ItemPickerPreview extends StatelessWidget {
                   onChanged: (_) {},
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Grid body',
                 ItemPickerDialog<String>(
                   items: const ItemList(<String>['A', 'B', 'C', 'D']),
@@ -47,8 +49,9 @@ class ItemPickerPreview extends StatelessWidget {
                   onChanged: (_) {},
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'List body',
                 ItemPickerDialog<String>(
                   items: const ItemList(<String>['Red', 'Green']),
@@ -61,8 +64,9 @@ class ItemPickerPreview extends StatelessWidget {
                   onChanged: (_) {},
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Dark',
                 ShadcnTheme(
                   data: const ShadcnThemeData(
@@ -86,7 +90,7 @@ class ItemPickerPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -94,7 +98,7 @@ class ItemPickerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );
@@ -117,8 +121,8 @@ class _ColorSwatch extends StatelessWidget {
       _ => const Color(0xFF6B7280),
     };
     return SizedBox(
-      width: 24,
-      height: 24,
+      width: ShadcnTheme.of(context).spacing.xl,
+      height: ShadcnTheme.of(context).spacing.xl,
       child: ColoredBox(color: color, child: const SizedBox()),
     );
   }

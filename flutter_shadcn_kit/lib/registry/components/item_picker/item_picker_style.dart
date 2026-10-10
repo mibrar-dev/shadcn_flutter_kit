@@ -6,6 +6,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Theme of the item picker grid/list body.
@@ -29,7 +30,8 @@ class ItemPickerTheme extends ComponentThemeData
   /// Bounds of the item body. Default: at most 320x320.
   final BoxConstraints? constraints;
 
-  /// Padding around the items. Default: 8 on every side.
+  /// Padding around the items. Default: 8 on every side, density-scaled
+  /// (see [itemPickerDefaultPadding]).
   final EdgeInsetsGeometry? padding;
 
   /// Gap between grid cells. Default: 4.
@@ -103,9 +105,15 @@ class ItemPickerTheme extends ComponentThemeData
   );
 }
 
+/// Padding around the picker items: shadcn `p-2`, density-scaled.
+///
+/// A const whose stored sides are shadcn-px multipliers (8/16 on every side),
+/// resolved by `ItemPicker` against `density.baseContentPadding * scaling`.
+const EdgeInsetsGeometry itemPickerDefaultPadding = EdgeInsetsDensity.pxAll(8);
+
 /// Built-in item picker defaults.
 const ItemPickerTheme itemPickerDefaults = ItemPickerTheme(
   constraints: BoxConstraints(maxWidth: 320, maxHeight: 320),
-  padding: EdgeInsets.all(8),
+  padding: itemPickerDefaultPadding,
   spacing: 4,
 );

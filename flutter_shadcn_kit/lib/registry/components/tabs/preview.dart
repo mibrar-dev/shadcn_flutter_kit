@@ -41,6 +41,7 @@ class _TabsPreviewState extends State<TabsPreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _section(
+                  context,
                   'Pill strip',
                   Tabs(
                     index: _index,
@@ -52,8 +53,9 @@ class _TabsPreviewState extends State<TabsPreview> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Disabled strip',
                   const Tabs(
                     index: 0,
@@ -63,8 +65,9 @@ class _TabsPreviewState extends State<TabsPreview> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Tab pane',
                   SizedBox(
                     height: 220,
@@ -75,15 +78,16 @@ class _TabsPreviewState extends State<TabsPreview> {
                       onSort: (next) => setState(() => _order = next),
                       itemBuilder: (context, item, i) =>
                           Text(item.data, overflow: TextOverflow.ellipsis),
-                      child: const Padding(
-                        padding: EdgeInsets.all(16),
+                      child: Padding(
+                        padding: EdgeInsets.all(theme.spacing.lg),
                         child: Text('Editor content'),
                       ),
                     ),
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -107,7 +111,7 @@ class _TabsPreviewState extends State<TabsPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -115,7 +119,7 @@ class _TabsPreviewState extends State<TabsPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

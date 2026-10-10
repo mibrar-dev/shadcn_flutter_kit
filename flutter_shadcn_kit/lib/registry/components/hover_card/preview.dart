@@ -18,18 +18,18 @@ class HoverCardPreview extends StatelessWidget {
         textDirection: TextDirection.ltr,
         child: ColoredBox(
           color: const ShadcnThemeData().colors.background,
-          child: const SingleChildScrollView(
-            padding: EdgeInsets.all(24),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.xl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('Hover the name (500 ms delay)'),
-                SizedBox(height: 8),
+                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
                 HoverCard(hoverBuilder: _card, child: Text('@shadcn')),
-                SizedBox(height: 24),
+                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
                 Text('Instant card'),
-                SizedBox(height: 8),
+                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
                 HoverCard(
                   wait: Duration.zero,
                   hoverBuilder: _card,
@@ -46,12 +46,12 @@ class HoverCardPreview extends StatelessWidget {
 
 /// Sample card content.
 Widget _card(BuildContext context) {
-  return const Column(
+  return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text('@shadcn'),
-      SizedBox(height: 4),
+      SizedBox(height: ShadcnTheme.of(context).spacing.xs),
       Text('Beautifully designed components.'),
     ],
   );

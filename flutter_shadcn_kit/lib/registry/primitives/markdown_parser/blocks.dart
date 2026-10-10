@@ -117,6 +117,7 @@ Widget buildMarkdownListItem(
   MarkdownCallbacks callbacks,
   MarkdownBlock block,
 ) {
+  final ShadcnThemeData theme = ShadcnTheme.of(context);
   Widget marker;
   if (block.kind == MarkdownBlockKind.taskList) {
     final checked = block.checked == true;
@@ -153,7 +154,7 @@ Widget buildMarkdownListItem(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(padding: const EdgeInsets.only(top: 2), child: marker),
-        const SizedBox(width: 8),
+        SizedBox(width: theme.spacing.sm),
         Expanded(
           child: markdownRichText(
             context,

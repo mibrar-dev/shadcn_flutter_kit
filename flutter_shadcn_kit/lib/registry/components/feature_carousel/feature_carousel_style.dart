@@ -280,6 +280,13 @@ AnimatedTransitionStyle featureCarouselTransitionStyle(
   };
 }
 
+/// Elevation of the centre card: the widget/app leg's shadow scale when it
+/// sets one, otherwise the ambient preset's `shadowLg`.
+List<BoxShadow> featureCarouselCardShadow(
+  BuildContext context,
+  FeatureCarouselTheme theme,
+) => (theme.themeShadows ?? ShadcnTheme.of(context).tokens.shadows).shadowLg;
+
 /// The centre card: a token-filled surface with an accent icon.
 class FeatureCarouselCenterCard extends StatelessWidget {
   /// Creates a centre card.
@@ -290,6 +297,7 @@ class FeatureCarouselCenterCard extends StatelessWidget {
     required this.fill,
     required this.border,
     required this.accent,
+    required this.shadow,
   });
 
   final FeatureCarouselItem item;
@@ -301,6 +309,9 @@ class FeatureCarouselCenterCard extends StatelessWidget {
   final Color border;
 
   final Color accent;
+
+  /// Elevation shadows, from the preset's shadow scale (`shadowLg`).
+  final List<BoxShadow> shadow;
 
   @override
   Widget build(BuildContext context) {
@@ -319,13 +330,7 @@ class FeatureCarouselCenterCard extends StatelessWidget {
           color: fill,
           borderRadius: BorderRadius.circular(radius),
           border: Border.all(color: border, width: 1.2),
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: Color(0x8C000000),
-              blurRadius: 28,
-              offset: Offset(0, 10),
-            ),
-          ],
+          boxShadow: shadow,
         ),
         child: Center(child: icon),
       ),

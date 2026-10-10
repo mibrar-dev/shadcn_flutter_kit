@@ -35,11 +35,11 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Uncontrolled', _uncontrolled()),
-                const Gap(24),
-                _section('Controlled', _controlledSection()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Uncontrolled', _uncontrolled(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Controlled', _controlledSection(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -48,20 +48,20 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
     );
   }
 
-  Widget _uncontrolled() {
+  Widget _uncontrolled(BuildContext context) {
     return SizedBox(
       width: 360,
       child: Collapsible(
         children: <Widget>[
           const CollapsibleTrigger(child: Text('Recent activity')),
-          const Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           _row('@mibrar-dev/shadcn_flutter_kit'),
           CollapsibleContent(
             child: Column(
               children: <Widget>[
-                const Gap(8),
+                Gap(ShadcnTheme.of(context).spacing.sm),
                 _row('@flutter/flutter'),
-                const Gap(8),
+                Gap(ShadcnTheme.of(context).spacing.sm),
                 _row('@dart-lang/sdk'),
               ],
             ),
@@ -71,7 +71,7 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
     );
   }
 
-  Widget _controlledSection() {
+  Widget _controlledSection(BuildContext context) {
     return SizedBox(
       width: 360,
       child: Collapsible(
@@ -79,7 +79,7 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
         onExpansionChanged: (value) => setState(() => _controlled = value),
         children: <Widget>[
           const CollapsibleTrigger(child: Text('Controlled section')),
-          const Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           CollapsibleContent(child: _row('Toggled by the parent')),
         ],
       ),
@@ -97,14 +97,14 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: _uncontrolled(),
+      child: _uncontrolled(context),
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -112,7 +112,7 @@ class _CollapsiblePreviewState extends State<CollapsiblePreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

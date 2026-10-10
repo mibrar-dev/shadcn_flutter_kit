@@ -11,6 +11,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Visual variants of the alert component.
@@ -47,7 +48,9 @@ class AlertStyle implements Mergeable<AlertStyle> {
   /// Corner radius; null resolves the ambient `radiusLg` (shadcn `rounded-lg`).
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding.
+  /// Inner padding. The default is shadcn `px-4 py-3` (16/12) as an
+  /// [EdgeInsetsDensity], so it scales with the ambient density; a literal
+  /// override passes through `Alert` unchanged.
   final EdgeInsetsGeometry? padding;
 
   /// Title text style; its colour falls back to [titleColor].
@@ -66,6 +69,11 @@ class AlertStyle implements Mergeable<AlertStyle> {
   final ThemedColor? iconColor;
 
   /// Space between the leading icon and the text column.
+  ///
+  /// A raw `double` (handed straight to `BasicLayout.contentSpacing`), so it
+  /// cannot carry a density multiplier: the 12 default is the `spacing.md`
+  /// step of the default spacing scale (base 4, shadcn `gap-3`). An app that
+  /// wants it to follow a preset spacing base resolves it at build time.
   final double? gap;
 
   /// First-non-null-wins merge; the receiver (higher-priority leg) wins.
@@ -260,11 +268,16 @@ const TextStyle alertDefaultContentStyle = TextStyle(fontSize: 14);
 /// (padding 16/12, radius `--radius` = [ShadcnThemeData.radiusLg]) with a
 /// 12px icon-to-text gap. The destructive variant only swaps the three
 /// foreground colours to the `destructive` token; the surface stays a card.
+///
+/// The `px-4 py-3` padding is an [EdgeInsetsDensity] (shadcn px stored as
+/// multipliers): `Alert` resolves it against
+/// `density.baseContentPadding * scaling`, so it measures 16/12 at the default
+/// density and scales everywhere else. The icon gap stays a plain `double`.
 const AlertTheme alertDefaults = AlertTheme(
   base: AlertStyle(
     background: ThemedColor.ref(ColorRef.card),
     borderColor: ThemedColor.ref(ColorRef.border),
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    padding: EdgeInsetsDensity.pxSymmetric(horizontal: 16, vertical: 12),
     titleStyle: alertDefaultTitleStyle,
     contentStyle: alertDefaultContentStyle,
     titleColor: ThemedColor.ref(ColorRef.foreground),

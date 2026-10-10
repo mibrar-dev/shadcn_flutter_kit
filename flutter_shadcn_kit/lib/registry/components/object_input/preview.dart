@@ -39,6 +39,7 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Date',
                   DateInput(
                     value: _date,
@@ -47,8 +48,9 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
                     onChanged: (DateTime? next) => setState(() => _date = next),
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Time',
                   TimeInput(
                     value: _time,
@@ -56,8 +58,9 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
                         setState(() => _time = next),
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Duration',
                   DurationInput(
                     value: _duration,
@@ -65,8 +68,9 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
                         setState(() => _duration = next),
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -88,7 +92,7 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -96,7 +100,7 @@ class _ObjectInputPreviewState extends State<ObjectInputPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

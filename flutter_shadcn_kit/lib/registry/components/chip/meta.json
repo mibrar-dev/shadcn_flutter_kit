@@ -18,8 +18,9 @@
       "gap"
     ],
     "theme": [
-      "color_tokens",
-      "theme"
+        "color_tokens",
+        "density",
+        "theme"
     ],
     "primitives": [
       "clickable"

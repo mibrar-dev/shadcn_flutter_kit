@@ -9,6 +9,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'table_cells.dart';
 import 'table_layout.dart';
@@ -129,7 +130,10 @@ class TableCellView extends StatelessWidget {
                   : null,
             ),
             child: Padding(
-              padding: padding ?? EdgeInsets.zero,
+              padding: resolveEdgeInsets(
+                padding ?? EdgeInsets.zero,
+                theme.density.baseContentPadding * theme.scaling,
+              ),
               child: DefaultTextStyle.merge(
                 style: _textStyle(theme, states),
                 child: child!,

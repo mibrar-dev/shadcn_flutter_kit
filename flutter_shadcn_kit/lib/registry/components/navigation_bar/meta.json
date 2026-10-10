@@ -20,8 +20,9 @@
       "platform"
     ],
     "theme": [
-      "color_tokens",
-      "theme"
+        "color_tokens",
+        "density",
+        "theme"
     ],
     "primitives": [
       "navigation",
@@ -60,8 +61,9 @@
       "NavigationOverflow"
     ],
     "constants": [
-      "navigationBarDefaults",
-      "navigationBarThemeOverrides"
+        "navigationBarDefaultPadding",
+        "navigationBarDefaults",
+        "navigationBarThemeOverrides"
     ],
     "providedByPrimitives": {
       "navigation": ["navigationItemDefaults", "navigationActiveItemDefaults"]

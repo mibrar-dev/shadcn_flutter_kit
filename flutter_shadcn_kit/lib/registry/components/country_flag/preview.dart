@@ -26,6 +26,7 @@ class CountryFlagPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _section(
+                context,
                 'Codes',
                 Wrap(
                   spacing: 8,
@@ -40,8 +41,9 @@ class CountryFlagPreview extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Other lookups',
                 Wrap(
                   spacing: 8,
@@ -53,8 +55,9 @@ class CountryFlagPreview extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Sizes and shapes',
                 Wrap(
                   spacing: 8,
@@ -72,8 +75,9 @@ class CountryFlagPreview extends StatelessWidget {
                   ],
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Dark',
                 ShadcnTheme(
                   data: const ShadcnThemeData(
@@ -95,7 +99,7 @@ class CountryFlagPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -103,7 +107,7 @@ class CountryFlagPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

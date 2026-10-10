@@ -13,6 +13,7 @@ import 'package:flutter_shadcn_kit/registry/components/badge/badge.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/focus_outline.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -438,7 +439,15 @@ void main() {
       final Padding padding = tester.widget<Padding>(
         find.descendant(of: find.byType(Badge), matching: find.byType(Padding)),
       );
-      expect(padding.padding, badgeDefaultPadding);
+      // `badgeDefaultPadding` is density multipliers; the built badge holds
+      // the shadcn value (px-2 py-0.5) resolved at the default density.
+      expect(
+        padding.padding,
+        resolveEdgeInsets(
+          badgeDefaultPadding,
+          Density.defaultDensity.baseContentPadding,
+        ),
+      );
     });
 
     testWidgets('alpha multiplies the token alpha', (tester) async {

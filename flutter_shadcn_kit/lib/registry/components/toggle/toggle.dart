@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import '../../primitives/clickable.dart';
 import '../../primitives/form_core/form_value.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'toggle_style.dart';
 
@@ -224,7 +225,13 @@ class _ToggleState extends State<Toggle> with FormValueSupplier<bool, Toggle> {
     };
     final double borderWidth = resolved.borderWidth ?? 0;
     final bool hasBorder = resolved.borderColor != null && borderWidth > 0;
-    final EdgeInsets resolvedPad = padding.resolve(Directionality.of(context));
+    // Density resolution happens before `.resolve`, so an
+    // [EdgeInsetsDensity] theme leg measures its shadcn px value at the
+    // default density and scales with every other one.
+    final EdgeInsets resolvedPad = resolveEdgeInsets(
+      padding,
+      theme.density.baseContentPadding * theme.scaling,
+    ).resolve(Directionality.of(context));
     final EdgeInsets contentPadding = hasBorder
         ? insetBorder(resolvedPad, borderWidth)
         : resolvedPad;

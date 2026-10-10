@@ -43,28 +43,28 @@ class _DotIndicatorPreviewState extends State<DotIndicatorPreview> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text('index $_index'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             DotIndicator(
               index: _index,
               length: 5,
               onChanged: (int value) => setState(() => _index = value),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('read-only (no click cursor, no tap target)'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             DotIndicator(index: 1, length: 5),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('vertical'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             DotIndicator(
               index: 0,
               length: 3,
               direction: Axis.vertical,
               onChanged: (int value) => setState(() => _index = value),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('scoped theme leg (bigger, accent dots)'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             ComponentTheme<DotIndicatorTheme>(
               data: const DotIndicatorTheme(
                 active: DotStyle(
@@ -81,15 +81,15 @@ class _DotIndicatorPreviewState extends State<DotIndicatorPreview> {
                 onChanged: (int value) => setState(() => _index = value),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('custom builder'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             DotIndicator(
               index: _index,
               length: 4,
               dotBuilder: (context, index, isActive) => SizedBox(
                 width: isActive ? 24 : 8,
-                height: 8,
+                height: ShadcnTheme.of(context).spacing.sm,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: isActive
@@ -100,7 +100,7 @@ class _DotIndicatorPreviewState extends State<DotIndicatorPreview> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(

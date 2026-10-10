@@ -37,13 +37,13 @@ class _ChipPreviewState extends State<ChipPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Static', _static()),
-                const Gap(24),
-                _section('Pressable', _pressable()),
-                const Gap(24),
-                _section('Removable', _removable()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Static', _static(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Pressable', _pressable()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Removable', _removable()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -52,10 +52,10 @@ class _ChipPreviewState extends State<ChipPreview> {
     );
   }
 
-  Widget _static() {
-    return const Wrap(
-      spacing: 8,
-      runSpacing: 8,
+  Widget _static(BuildContext context) {
+    return Wrap(
+      spacing: ShadcnTheme.of(context).spacing.sm,
+      runSpacing: ShadcnTheme.of(context).spacing.sm,
       children: <Widget>[
         Chip(child: Text('static')),
         Chip(leading: Icon(LucideIcons.star, size: 12), child: Text('leading')),
@@ -96,20 +96,20 @@ class _ChipPreviewState extends State<ChipPreview> {
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
       child: ColoredBox(
         color: ShadcnColors.darkFallback.background,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
+        child: Padding(
+          padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
           child: Chip(child: Text('dark chip')),
         ),
       ),
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -117,7 +117,7 @@ class _ChipPreviewState extends State<ChipPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

@@ -28,15 +28,15 @@ class DrawerContainerPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Drawers', _drawerRow()),
-                const Gap(24),
-                _section('Sheet', _sheetBox()),
-                const Gap(24),
-                _section('Cross-axis size', _crossAxisBox()),
-                const Gap(24),
-                _section('Barrier wash', _barrierBox()),
-                const Gap(24),
-                _section('Data-driven', _dataDrivenBox()),
+                _section(context, 'Drawers', _drawerRow()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Sheet', _sheetBox()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Cross-axis size', _crossAxisBox()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Barrier wash', _barrierBox()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Data-driven', _dataDrivenBox(context)),
               ],
             ),
           ),
@@ -114,16 +114,16 @@ class DrawerContainerPreview extends StatelessWidget {
     );
   }
 
-  Widget _dataDrivenBox() {
+  Widget _dataDrivenBox(BuildContext context) {
     return _frame(
-      const SizedBox(
+      SizedBox(
         width: 240,
         height: 140,
         child: Data<DrawerContainerData>.inherit(
           data: DrawerContainerData(
             position: OverlayPosition.right,
             isSheet: true,
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.md),
           ),
           child: DrawerContainer(
             size: FractionAxisSize(0.6),
@@ -141,7 +141,7 @@ class DrawerContainerPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -149,7 +149,7 @@ class DrawerContainerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

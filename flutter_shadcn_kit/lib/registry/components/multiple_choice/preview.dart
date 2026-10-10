@@ -43,7 +43,7 @@ class _MultipleChoicePreviewState extends State<MultipleChoicePreview> {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: ShadcnTheme.of(context).spacing.lg),
           const Text('MultipleAnswer').small.muted,
           MultipleAnswer<String>(
             value: _many,
@@ -83,8 +83,8 @@ class _PreviewItem extends StatelessWidget {
           borderRadius: theme.borderRadiusSm,
         ),
       ),
-      padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: theme.spacing.md, vertical: 6),
       ),
       child: Text(label),
     );

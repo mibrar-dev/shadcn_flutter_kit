@@ -241,9 +241,9 @@ class _DialogBody extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: ShadcnTheme.of(context).spacing.lg),
         Text(message, style: TextStyle(color: colors.mutedForeground)),
-        const SizedBox(height: 16),
+        SizedBox(height: ShadcnTheme.of(context).spacing.lg),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -252,7 +252,7 @@ class _DialogBody extends StatelessWidget {
               onPressed: (context) => Navigator.of(context).maybePop(),
             ),
             if (onResult != null) ...<Widget>[
-              const SizedBox(width: 8),
+              SizedBox(width: ShadcnTheme.of(context).spacing.sm),
               _Trigger(
                 label: 'Confirm',
                 onPressed: (context) => onResult!('ok'),

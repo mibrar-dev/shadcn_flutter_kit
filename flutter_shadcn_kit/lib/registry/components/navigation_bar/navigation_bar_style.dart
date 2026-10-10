@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/navigation/navigation_theme.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 export '../../primitives/navigation/navigation_theme.dart';
@@ -56,7 +57,8 @@ class NavigationBarTheme extends ComponentThemeData
   /// Label text size.
   final NavigationLabelSize? labelSize;
 
-  /// Container padding; null resolves 12x8.
+  /// Container padding; null resolves 12x8 (`px-3 py-2`), density-scaled
+  /// through [navigationBarDefaultPadding].
   final EdgeInsetsGeometry? padding;
 
   /// Style of an unselected item.
@@ -127,10 +129,18 @@ class NavigationBarTheme extends ComponentThemeData
   ]);
 }
 
+/// Padding around the bar body: shadcn `px-3 py-2`, density-scaled.
+///
+/// A const whose stored sides are shadcn-px multipliers (12/16, 8/16), so it
+/// measures exactly `px-3 py-2` at the default density and every other
+/// density scales it.
+const EdgeInsetsGeometry navigationBarDefaultPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8);
+
 /// Token-derived baseline values; unset override fields fall through here.
 const NavigationBarTheme navigationBarDefaults = NavigationBarTheme(
   spacing: 8,
-  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+  padding: navigationBarDefaultPadding,
   labelPosition: NavigationLabelPosition.bottom,
   labelSize: NavigationLabelSize.small,
   itemStyle: navigationItemDefaults,

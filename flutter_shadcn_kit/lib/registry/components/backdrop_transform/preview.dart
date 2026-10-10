@@ -60,7 +60,7 @@ class _BackdropTransformPreviewState extends State<BackdropTransformPreview> {
                 color: ShadcnTheme.of(context).colors.muted,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             Center(
               child: SizedBox(
                 width: size.width,
@@ -91,9 +91,9 @@ class _BackdropTransformPreviewState extends State<BackdropTransformPreview> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('no transform'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             SizedBox(
               width: size.width,
               height: 60,
@@ -103,7 +103,7 @@ class _BackdropTransformPreviewState extends State<BackdropTransformPreview> {
                 _t,
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(

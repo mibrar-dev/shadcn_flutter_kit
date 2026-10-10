@@ -49,8 +49,9 @@
       ]
     },
     "constants": [
-      "formattedInputDefaults",
-      "formattedInputThemeOverrides"
+        "formattedInputDefaultPadding",
+        "formattedInputDefaults",
+        "formattedInputThemeOverrides"
     ],
     "functions": [
       "resolveFormattedInputSurface"

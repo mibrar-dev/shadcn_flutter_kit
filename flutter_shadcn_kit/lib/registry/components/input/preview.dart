@@ -44,7 +44,7 @@ class _InputPreviewState extends State<InputPreview> {
           children: <Widget>[
             const _Section('Basic'),
             const Input(hintText: 'Email'),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const _Section('Features'),
             Input(
               controller: _controller,
@@ -56,19 +56,19 @@ class _InputPreviewState extends State<InputPreview> {
                 const InputPasteFeature(),
               ],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const Input(
               obscureText: true,
               hintText: 'Password',
               features: <InputFeature>[InputPasswordToggleFeature()],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const Input(
               keyboardType: TextInputType.number,
               hintText: 'Quantity',
               features: <InputFeature>[InputSpinnerFeature(min: 0, max: 10)],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const Input(
               keyboardType: TextInputType.number,
               hintText: 'Guests',
@@ -77,7 +77,7 @@ class _InputPreviewState extends State<InputPreview> {
                 InputStepperButtonFeature.decrement(),
               ],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const _Section('Above / below and hint'),
             const Input(
               hintText: 'With helper rows',
@@ -87,7 +87,7 @@ class _InputPreviewState extends State<InputPreview> {
                 InputHintFeature(popupBuilder: _hintPopup),
               ],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const _Section('Validation, disabled, read-only'),
             Input(
               hintText: 'Invalid while non-empty',
@@ -95,15 +95,15 @@ class _InputPreviewState extends State<InputPreview> {
                   (value ?? '').isEmpty ? null : 'This value is not allowed.',
               features: const <InputFeature>[InputRevalidateFeature()],
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const Input(hintText: 'Disabled', enabled: false),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const Input(
               hintText: 'Read-only',
               readOnly: true,
               initialValue: 'Read-only value',
             ),
-            const Gap(16),
+            Gap(theme.spacing.lg),
             const _Section('Multiline'),
             const Input(
               hintText: 'Notes',
@@ -111,15 +111,15 @@ class _InputPreviewState extends State<InputPreview> {
               minLines: 3,
               features: <InputFeature>[InputClearFeature()],
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _Section('Dark tokens'),
             ShadcnTheme(
               data: theme.copyWith(colors: () => ShadcnColors.darkFallback),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Input(hintText: 'Dark basic'),
-                  Gap(16),
+                  Gap(theme.spacing.lg),
                   Input(
                     obscureText: true,
                     hintText: 'Dark password',

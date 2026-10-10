@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../primitives/clickable.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import 'chip_style.dart';
@@ -129,21 +130,30 @@ class Chip extends StatelessWidget {
       return IconThemeData(color: color, size: style.buttonIconSize);
     }
 
-    Widget content = Padding(
-      padding: resolved.padding ?? chipDefaultPadding,
-      child: child,
-    );
+    Widget content = child;
     if (leading != null || trailing != null) {
       final double gap = ambient.spacing.sm;
       content = Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          content,
-          if (leading != null) ...<Widget>[Gap(gap), leading!],
-          if (trailing != null) ...<Widget>[Gap(gap), trailing!],
+          ?leading,
+          if (leading != null) Gap(gap),
+          child,
+          if (trailing != null) Gap(gap),
+          ?trailing,
         ],
       );
     }
+    // The padding wraps the whole row, so a leading/trailing icon keeps the
+    // same edge distance as the label (shadcn `px-2`), never touching it.
+    content = Padding(
+      padding: resolveEdgeInsets(
+        resolved.padding ?? chipDefaultPadding,
+        ambient.density.baseContentPadding * ambient.scaling,
+      ),
+      child: content,
+    );
 
     if (!interactive) {
       return DecoratedBox(

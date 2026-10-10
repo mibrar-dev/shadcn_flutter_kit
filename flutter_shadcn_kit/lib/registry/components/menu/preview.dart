@@ -18,22 +18,22 @@ class MenuPreview extends StatelessWidget {
         textDirection: TextDirection.ltr,
         child: ColoredBox(
           color: ShadcnTheme.of(context).colors.background,
-          child: const SingleChildScrollView(
-            padding: EdgeInsets.all(24),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.xl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('Menu rows'),
-                SizedBox(height: 8),
+                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
                 MenuPopup(children: <Widget>[_Rows()]),
-                SizedBox(height: 24),
+                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
                 Text('Menubar bar (horizontal group)'),
-                SizedBox(height: 8),
+                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
                 _Bar(),
-                SizedBox(height: 24),
+                SizedBox(height: ShadcnTheme.of(context).spacing.xl),
                 Text('Checkbox, radio, label, shortcut'),
-                SizedBox(height: 8),
+                SizedBox(height: ShadcnTheme.of(context).spacing.sm),
                 MenuPopup(children: <Widget>[_ValueRows()]),
               ],
             ),

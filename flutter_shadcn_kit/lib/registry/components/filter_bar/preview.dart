@@ -60,7 +60,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                 onStateChanged: (next) => setState(() => _state = next),
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Rich: date range, custom filter, trailing action'),
             SizedBox(
               width: 900,
@@ -105,7 +105,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                 onStateChanged: (next) => setState(() => _state = next),
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Grouped custom filters'),
             SizedBox(
               width: 720,
@@ -146,7 +146,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                 onStateChanged: (next) => setState(() => _state = next),
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Auto sheet below 720px'),
             SizedBox(
               width: 420,
@@ -157,7 +157,7 @@ class _FilterBarPreviewState extends State<FilterBarPreview> {
                 onStateChanged: (next) => setState(() => _state = next),
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Dark palette'),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),

@@ -39,13 +39,13 @@ class _TripleDotsPreviewBody extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const TripleDots(),
-            const SizedBox(width: 32),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xxl),
             const TripleDots(count: 4, spacing: 4),
-            const SizedBox(width: 32),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xxl),
             const TripleDots(size: 6, color: Color(0xFFE7000B)),
-            const SizedBox(width: 32),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xxl),
             const TripleDots(direction: Axis.vertical),
-            const SizedBox(width: 32),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xxl),
             ComponentTheme<TripleDotsTheme>(
               data: const TripleDotsTheme(
                 color: ThemedColor.ref(ColorRef.foreground),

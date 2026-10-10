@@ -62,13 +62,21 @@ class TreePreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Default (path guides)', _tree()),
-                const Gap(24),
-                _section('Line guides', _tree(branchLine: TreeBranchLine.line)),
-                const Gap(24),
-                _section('No guides', _tree(branchLine: TreeBranchLine.none)),
-                const Gap(24),
-                _section('Collapsed', _tree(nodes: _collapsed())),
+                _section(context, 'Default (path guides)', _tree()),
+                Gap(theme.spacing.xl),
+                _section(
+                  context,
+                  'Line guides',
+                  _tree(branchLine: TreeBranchLine.line),
+                ),
+                Gap(theme.spacing.xl),
+                _section(
+                  context,
+                  'No guides',
+                  _tree(branchLine: TreeBranchLine.none),
+                ),
+                Gap(theme.spacing.xl),
+                _section(context, 'Collapsed', _tree(nodes: _collapsed())),
               ],
             ),
           ),
@@ -85,12 +93,12 @@ class TreePreview extends StatelessWidget {
     TreeItem<String>(data: 'Pictures'),
   ];
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

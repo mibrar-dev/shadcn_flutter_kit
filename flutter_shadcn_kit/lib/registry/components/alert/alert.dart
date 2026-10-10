@@ -18,6 +18,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/basic_layout.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'alert_style.dart';
 
@@ -90,7 +91,12 @@ class Alert extends StatelessWidget {
         borderRadius: radius,
       ),
       child: Padding(
-        padding: style.padding ?? EdgeInsets.zero,
+        // `alertDefaults.base.padding` is shadcn `px-4 py-3` held as density
+        // multipliers; a widget-leg literal resolves to itself here.
+        padding: resolveEdgeInsets(
+          style.padding ?? EdgeInsets.zero,
+          ambient.density.baseContentPadding * ambient.scaling,
+        ),
         child: BasicLayout(
           leading: leading == null
               ? null

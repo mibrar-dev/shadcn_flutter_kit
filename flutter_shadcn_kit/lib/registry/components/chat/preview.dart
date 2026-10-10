@@ -52,7 +52,7 @@ class _ChatPreviewBody extends StatelessWidget {
                   ChatBubble(child: Text('Please reply ASAP.')),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ChatGroup(
                 color: ThemedColor.ref(ColorRef.accent),
                 foreground: ThemedColor.ref(ColorRef.accentForeground),
@@ -62,14 +62,14 @@ class _ChatPreviewBody extends StatelessWidget {
                   ChatBubble(child: Text('New phone who dis?')),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ChatGroup(
                 variant: ChatBubbleVariant.sharpCorner,
                 children: const <Widget>[
                   ChatBubble(child: Text('Sharp corner bubbles.')),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ChatGroup(
                 variant: ChatBubbleVariant.plain,
                 spacing: 8,
@@ -77,7 +77,7 @@ class _ChatPreviewBody extends StatelessWidget {
                   ChatBubble(child: Text('Plain bubbles, no tail.')),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ChatReaction(
                 chips: <Widget>[
                   ChatReactionContainer(
@@ -89,7 +89,7 @@ class _ChatPreviewBody extends StatelessWidget {
                 ],
                 child: const ChatBubble(child: Text('Nice work!')),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ComponentTheme<ChatTheme>(
                 data: const ChatTheme(
                   widthFactor: 0.8,

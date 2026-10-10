@@ -45,30 +45,30 @@ class _SkeletonPreviewState extends State<SkeletonPreview> {
               _loading ? 'loading' : 'loaded',
               style: TextStyle(color: colors.foreground),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             ClickableToggle(
               label: 'toggle',
               onTap: () => setState(() => _loading = !_loading),
             ),
-            const SizedBox(height: 16),
-            Skeleton(enabled: _loading, child: _card(colors)),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
+            Skeleton(enabled: _loading, child: _card(context, colors)),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('circle'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             const Skeleton(
               borderRadius: BorderRadius.all(Radius.circular(40)),
               child: SizedBox(width: 80, height: 80, child: SizedBox.shrink()),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('scoped theme leg (accent sweep, slow)'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             ComponentTheme<SkeletonTheme>(
               data: const SkeletonTheme(
                 fromColor: ThemedColor.ref(ColorRef.accent),
                 toColor: ThemedColor.ref(ColorRef.secondary),
                 duration: Duration(milliseconds: 1600),
               ),
-              child: Skeleton(enabled: _loading, child: _card(colors)),
+              child: Skeleton(enabled: _loading, child: _card(context, colors)),
             ),
           ],
         ),
@@ -76,7 +76,7 @@ class _SkeletonPreviewState extends State<SkeletonPreview> {
     );
   }
 
-  Widget _card(ShadcnColors colors) {
+  Widget _card(BuildContext context, ShadcnColors colors) {
     return Container(
       width: 260,
       padding: const EdgeInsets.all(12),
@@ -88,7 +88,7 @@ class _SkeletonPreviewState extends State<SkeletonPreview> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text('Card title', style: TextStyle(color: colors.foreground)),
-          const SizedBox(height: 8),
+          SizedBox(height: ShadcnTheme.of(context).spacing.sm),
           Text(
             'Body copy that keeps its box while loading.',
             style: TextStyle(color: colors.mutedForeground),

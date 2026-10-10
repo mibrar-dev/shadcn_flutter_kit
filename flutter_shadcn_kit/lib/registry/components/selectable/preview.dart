@@ -44,7 +44,7 @@ class _SelectablePreviewBody extends StatelessWidget {
               const SelectableText(
                 'Select this text to see the custom selection styling.',
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               SelectableText.rich(
                 TextSpan(
                   children: <TextSpan>[
@@ -57,12 +57,12 @@ class _SelectablePreviewBody extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               const SelectableText(
                 'Selection disabled.',
                 enableInteractiveSelection: false,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               ComponentTheme<SelectableTextTheme>(
                 data: const SelectableTextTheme(
                   cursorWidth: 3,

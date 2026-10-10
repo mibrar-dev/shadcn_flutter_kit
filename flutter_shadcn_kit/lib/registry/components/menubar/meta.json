@@ -17,7 +17,8 @@
   "deps": {
     "foundation": [],
     "theme": [
-      "theme"
+        "density",
+        "theme"
     ],
     "primitives": [],
     "components": [

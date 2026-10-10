@@ -206,6 +206,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     FeatureCarouselItem item,
   ) {
     final Color border = theme.cardBorder!.resolve(colors);
+    final List<BoxShadow> shadow = featureCarouselCardShadow(context, theme);
     final Widget card =
         widget.cardBuilder?.call(context, item, _index, theme) ??
         FeatureCarouselCenterCard(
@@ -214,6 +215,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
           fill: theme.cardFill!.resolve(colors),
           border: border,
           accent: (item.accentColor ?? theme.accentColor!).resolve(colors),
+          shadow: shadow,
         );
     return Stack(
       alignment: Alignment.center,

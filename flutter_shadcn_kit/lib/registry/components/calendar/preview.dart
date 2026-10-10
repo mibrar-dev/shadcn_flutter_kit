@@ -53,47 +53,52 @@ class _CalendarPreviewState extends State<CalendarPreview> {
           runSpacing: 32,
           crossAxisAlignment: WrapCrossAlignment.start,
           children: <Widget>[
-            _panel(colors, 'single selection', _singlePicker()),
-            _panel(colors, 'range selection', _rangePicker()),
-            _panel(colors, 'multi selection', _multiPicker()),
-            _panel(colors, 'read-only', _readOnly()),
-            _panel(colors, 'month grid', _monthGrid()),
-            _panel(colors, 'year grid', _yearGrid()),
-            _panel(colors, 'dark tokens', _dark()),
+            _panel(context, colors, 'single selection', _singlePicker(context)),
+            _panel(context, colors, 'range selection', _rangePicker(context)),
+            _panel(context, colors, 'multi selection', _multiPicker(context)),
+            _panel(context, colors, 'read-only', _readOnly(context)),
+            _panel(context, colors, 'month grid', _monthGrid()),
+            _panel(context, colors, 'year grid', _yearGrid()),
+            _panel(context, colors, 'dark tokens', _dark()),
           ],
         ),
       ),
     );
   }
 
-  Widget _panel(ShadcnColors colors, String title, Widget child) => SizedBox(
+  Widget _panel(
+    BuildContext context,
+    ShadcnColors colors,
+    String title,
+    Widget child,
+  ) => SizedBox(
     width: 280,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(title, style: TextStyle(color: colors.mutedForeground)),
-        const SizedBox(height: 8),
+        SizedBox(height: ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     ),
   );
 
-  Widget _header() => Row(
+  Widget _header(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       _Step('‹', () => setState(() => _view = _view.previous)),
-      const SizedBox(width: 8),
+      SizedBox(width: ShadcnTheme.of(context).spacing.sm),
       _Caption('${_view.year}'),
-      const SizedBox(width: 8),
+      SizedBox(width: ShadcnTheme.of(context).spacing.sm),
       _Step('›', () => setState(() => _view = _view.next)),
     ],
   );
 
-  Widget _singlePicker() => Column(
+  Widget _singlePicker(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      _header(),
-      const SizedBox(height: 8),
+      _header(context),
+      SizedBox(height: ShadcnTheme.of(context).spacing.sm),
       Calendar(
         view: _view,
         now: _today,
@@ -104,11 +109,11 @@ class _CalendarPreviewState extends State<CalendarPreview> {
     ],
   );
 
-  Widget _rangePicker() => Column(
+  Widget _rangePicker(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      _header(),
-      const SizedBox(height: 8),
+      _header(context),
+      SizedBox(height: ShadcnTheme.of(context).spacing.sm),
       Calendar(
         view: _view,
         now: _today,
@@ -119,11 +124,11 @@ class _CalendarPreviewState extends State<CalendarPreview> {
     ],
   );
 
-  Widget _multiPicker() => Column(
+  Widget _multiPicker(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      _header(),
-      const SizedBox(height: 8),
+      _header(context),
+      SizedBox(height: ShadcnTheme.of(context).spacing.sm),
       Calendar(
         view: _view,
         now: _today,
@@ -134,11 +139,11 @@ class _CalendarPreviewState extends State<CalendarPreview> {
     ],
   );
 
-  Widget _readOnly() => Column(
+  Widget _readOnly(BuildContext context) => Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      _header(),
-      const SizedBox(height: 8),
+      _header(context),
+      SizedBox(height: ShadcnTheme.of(context).spacing.sm),
       Calendar(
         view: _view,
         now: _today,

@@ -28,15 +28,15 @@ class BreadcrumbPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Default chevron', _trail()),
-                const Gap(24),
-                _section('Slash separator', _slash()),
-                const Gap(24),
-                _section('Single crumb', _single()),
-                const Gap(24),
-                _section('Padded', _padded()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Default chevron', _trail()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Slash separator', _slash()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Single crumb', _single()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Padded', _padded(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -66,9 +66,12 @@ class BreadcrumbPreview extends StatelessWidget {
     return const Breadcrumb(children: <Widget>[Text('Home')]);
   }
 
-  Widget _padded() {
-    return const Breadcrumb(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+  Widget _padded(BuildContext context) {
+    return Breadcrumb(
+      padding: EdgeInsets.symmetric(
+        horizontal: ShadcnTheme.of(context).spacing.sm,
+        vertical: ShadcnTheme.of(context).spacing.xs,
+      ),
       children: <Widget>[Text('Docs'), Text('Getting started')],
     );
   }
@@ -82,7 +85,7 @@ class BreadcrumbPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -90,7 +93,7 @@ class BreadcrumbPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

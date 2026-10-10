@@ -81,9 +81,10 @@ An empty `data` list renders a zero-size box.
 
 - `package:flutter/material.dart` (imported for `Colors`) is gone.
 - The four level colours were `static const` literals and could not follow a
-  preset; they are `ThemedColor` theme rows now (`critical` and `unknown` are
-  tokens; `fine` and `warning` are literals because shadcn defines no
-  green/amber token).
+  preset; they are `ThemedColor` theme rows now. `critical` and `unknown` map
+  to shadcn's own `destructive` / `mutedForeground`; `fine` and `warning`
+  borrow the `chart2` / `chart4` slots, because shadcn defines no
+  green/amber token of its own.
 - `TrackerLevel` is an enum. Its `name` getter is dropped: the widget never
   rendered it (the caller supplies the tooltip), and custom level classes are
   no longer supported — a clean break, matching the "variants are data" rule.

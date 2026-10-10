@@ -22,6 +22,7 @@ import '../../foundation/gap.dart';
 import '../../foundation/icons/radix_icons.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import 'dropzone_style.dart';
@@ -135,7 +136,10 @@ class Dropzone extends StatelessWidget {
           minHeight: (container.minHeight ?? 0) * shadcnTheme.scaling,
         ),
         child: Padding(
-          padding: container.padding ?? dropzoneDefaults.padding!,
+          padding: resolveEdgeInsets(
+            container.padding ?? dropzoneDefaults.padding!,
+            shadcnTheme.density.baseContentPadding * shadcnTheme.scaling,
+          ),
           // No `Center` here: `Align` expands to fill a bounded parent, which
           // made the surface swallow the whole page instead of hugging its
           // content. `Column` already centres its children horizontally.

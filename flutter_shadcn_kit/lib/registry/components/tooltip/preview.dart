@@ -41,7 +41,7 @@ class TooltipPreview extends StatelessWidget {
               label: 'hover me (500 ms delay)',
               child: _anchor(context, LucideIcons.info, 'Details'),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             _row(
               context,
               label: 'hover me (instant)',
@@ -52,22 +52,25 @@ class TooltipPreview extends StatelessWidget {
                 waitDuration: Duration.zero,
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             _row(
               context,
               label: 'scoped theme leg (accent surface)',
               child: ComponentTheme<TooltipTheme>(
-                data: const TooltipTheme(
+                data: TooltipTheme(
                   background: ThemedColor.ref(ColorRef.accent),
                   foreground: ThemedColor.ref(ColorRef.accentForeground),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: ShadcnTheme.of(context).spacing.lg,
+                    vertical: ShadcnTheme.of(context).spacing.sm,
+                  ),
                 ),
                 child: _anchor(context, LucideIcons.star, 'Accent surface'),
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('standalone TooltipContainer'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             const TooltipContainer(child: Text('Primary surface')),
           ],
         ),
@@ -84,7 +87,7 @@ class TooltipPreview extends StatelessWidget {
     return Row(
       children: <Widget>[
         child,
-        const SizedBox(width: 12),
+        SizedBox(width: ShadcnTheme.of(context).spacing.md),
         Text(label, style: TextStyle(color: colors.mutedForeground)),
       ],
     );

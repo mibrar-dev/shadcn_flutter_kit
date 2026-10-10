@@ -126,10 +126,14 @@ void main() {
     testWidgets('each level paints its default fill', (tester) async {
       await tester.pumpWidget(_frame(const Tracker(data: _data)));
       final List<ColoredBox> segments = _segments(tester);
-      expect(segments[0].color, const Color(0xFF22C55E));
-      expect(segments[1].color, const Color(0xFFF59E0B));
-      expect(segments[2].color, ShadcnColors.lightFallback.destructive);
-      expect(segments[3].color, ShadcnColors.lightFallback.mutedForeground);
+      // `fine` / `warning` have no shadcn token of their own, so they borrow
+      // the green and amber slots of the categorical scale (chart2 / chart4);
+      // `critical` / `unknown` keep shadcn's own tokens.
+      final ShadcnColors colors = ShadcnColors.lightFallback;
+      expect(segments[0].color, trackerDefaults.fine!.resolve(colors));
+      expect(segments[1].color, trackerDefaults.warning!.resolve(colors));
+      expect(segments[2].color, colors.destructive);
+      expect(segments[3].color, colors.mutedForeground);
     });
 
     testWidgets('regression: a level follows the dark tokens', (tester) async {

@@ -1,11 +1,7 @@
 // The `gooey_toast` component: gooey-style transient notifications whose
-// compact pill morphs into an expanded body.
-//
-// The stack and controller are the shared `primitives/toast_queue` (the same
-// queue the accepted `toast` component uses, including its documented
-// auto-dismiss policy); the metaball surface machinery lives in
-// `primitives/gooey/`. This file owns the public API, the queue wiring, the
-// layer and the card.
+// compact pill morphs into an expanded body. The stack and controller are the
+// shared `primitives/toast_queue`; the metaball machinery lives in
+// `primitives/gooey/`. This file owns the API, the queue wiring and the card.
 
 import 'package:flutter/widgets.dart';
 
@@ -332,6 +328,10 @@ class _GooeyToastCard extends StatelessWidget {
     final TextStyle titleStyle = theme.titleStyle!.copyWith(
       color: theme.titleStyle!.color ?? tone,
     );
+    final ThemedColor description = theme.descriptionColor!;
+    final TextStyle descriptionStyle = theme.descriptionStyle!.copyWith(
+      color: theme.descriptionStyle!.color ?? description.resolve(colors),
+    );
     final double surfaceBlur = (ambient.surfaceBlur ?? 0)
         .clamp(0.0, 36.0)
         .toDouble();
@@ -355,7 +355,7 @@ class _GooeyToastCard extends StatelessWidget {
         loading: loading,
       ),
       description: options.expandedChild == null ? options.description : null,
-      descriptionStyle: theme.descriptionStyle,
+      descriptionStyle: descriptionStyle,
       body: options.expandedChild,
       action: options.action == null
           ? null
@@ -366,7 +366,7 @@ class _GooeyToastCard extends StatelessWidget {
             ),
       expandable: !loading,
       width: theme.width!,
-      fill: baseFill.withValues(alpha: 1.0),
+      fill: ThemedColor.value(baseFill.withValues(alpha: 1.0)),
       fillAlpha: fillAlpha,
       roundness: theme.shapeStyle!.roundness(
         theme.roundness!,

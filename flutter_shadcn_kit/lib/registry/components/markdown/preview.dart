@@ -71,6 +71,7 @@ class MarkdownPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Blocks',
                   Markdown(
                     data: _sample,
@@ -92,16 +93,18 @@ class MarkdownPreview extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: theme.spacing.xl),
                 _section(
+                  context,
                   'Link taps',
                   Markdown(
                     data: 'Read the [docs](https://example.com).',
                     onTapLink: (text, url) {},
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: theme.spacing.xl),
                 _section(
+                  context,
                   'Themed override',
                   ComponentTheme<MarkdownTheme>(
                     data: const MarkdownTheme(blockSpacing: 12),
@@ -110,8 +113,9 @@ class MarkdownPreview extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -120,7 +124,7 @@ class MarkdownPreview extends StatelessWidget {
                     child: Markdown(
                       data: '# Dark\n\nBody with a [link](https://e.com).',
                       imageBuilder: (context, url, alt) =>
-                          const SizedBox(height: 24),
+                          SizedBox(height: theme.spacing.xl),
                     ),
                   ),
                 ),
@@ -132,7 +136,7 @@ class MarkdownPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -140,7 +144,7 @@ class MarkdownPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

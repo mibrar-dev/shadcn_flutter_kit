@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Theme data for the `phone_input` component.
@@ -36,7 +37,7 @@ class PhoneInputTheme extends ComponentThemeData
     this.countryGap,
   });
 
-  /// Padding inside the number field.
+  /// Padding inside the number field; density-scaled (shadcn `px-3 py-2`).
   final EdgeInsetsGeometry? inputPadding;
 
   /// Maximum width of the number field.
@@ -143,7 +144,9 @@ class PhoneInputTheme extends ComponentThemeData
 /// Token-derived defaults: 200px number field, 24x18 flags, 8px flag gap,
 /// 8px field gap, 16px country gap, 250x300 popup.
 const PhoneInputTheme phoneInputDefaults = PhoneInputTheme(
-  inputPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  // shadcn `px-3 py-2` — the same rule as `inputDefaultPadding`, resolved by
+  // the `Input` this value feeds.
+  inputPadding: EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8),
   maxWidth: 200,
   selectWidth: 180,
   popupConstraints: BoxConstraints(maxWidth: 250, maxHeight: 300),

@@ -64,6 +64,7 @@ class _AutoCompletePreviewState extends State<AutoCompletePreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Modes',
                   SizedBox(
                     width: 280,
@@ -79,11 +80,11 @@ class _AutoCompletePreviewState extends State<AutoCompletePreview> {
                     ),
                   ),
                 ),
-                const Gap(24),
-                _section('Completer + custom row', _custom()),
-                const Gap(24),
-                _section('Dark', _dark()),
-                const Gap(12),
+                Gap(theme.spacing.xl),
+                _section(context, 'Completer + custom row', _custom()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
+                Gap(theme.spacing.md),
                 Text(
                   'Last selected: ${_lastSelected.isEmpty ? '-' : _lastSelected}',
                 ),
@@ -154,7 +155,7 @@ class _AutoCompletePreviewState extends State<AutoCompletePreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -162,7 +163,7 @@ class _AutoCompletePreviewState extends State<AutoCompletePreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

@@ -44,17 +44,17 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Values', _values()),
-                const Gap(24),
-                _section('Controlled', _controlled()),
-                const Gap(24),
-                _section('Tri-state', _tristate()),
-                const Gap(24),
-                _section('Controller', _controllerRow()),
-                const Gap(24),
-                _section('Disabled', _disabled()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Values', _values()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Controlled', _controlled()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Tri-state', _tristate()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Controller', _controllerRow(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Disabled', _disabled(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -92,7 +92,7 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
     );
   }
 
-  Widget _controllerRow() {
+  Widget _controllerRow(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -101,16 +101,16 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
           tristate: true,
           label: const Text('Driven by a controller'),
         ),
-        const Gap(16),
+        Gap(ShadcnTheme.of(context).spacing.lg),
         Text('value: ${_controller.value.name}'),
       ],
     );
   }
 
-  Widget _disabled() {
-    return const Wrap(
-      spacing: 24,
-      runSpacing: 12,
+  Widget _disabled(BuildContext context) {
+    return Wrap(
+      spacing: ShadcnTheme.of(context).spacing.xl,
+      runSpacing: ShadcnTheme.of(context).spacing.md,
       children: <Widget>[
         Checkbox(value: CheckboxValue.checked, label: Text('checked')),
         Checkbox(value: CheckboxValue.unchecked, label: Text('unchecked')),
@@ -118,13 +118,13 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
       child: ColoredBox(
         color: ShadcnColors.darkFallback.background,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
+        child: Padding(
+          padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
           child: Wrap(
             spacing: 24,
             runSpacing: 12,
@@ -153,7 +153,7 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
 
   static void _noop(CheckboxValue value) {}
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -161,7 +161,7 @@ class _CheckboxPreviewState extends State<CheckboxPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

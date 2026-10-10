@@ -28,15 +28,15 @@ class ResizablePreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Horizontal (grip handle)', _horizontal()),
-                const Gap(24),
-                _section('Vertical', _vertical()),
-                const Gap(24),
-                _section('Constrained + collapsed', _constrained()),
-                const Gap(24),
-                _section('Controlled', _ControlledDemo()),
-                const Gap(24),
-                _section('Themed', _themed()),
+                _section(context, 'Horizontal (grip handle)', _horizontal()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Vertical', _vertical()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Constrained + collapsed', _constrained()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Controlled', _ControlledDemo()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Themed', _themed()),
               ],
             ),
           ),
@@ -127,7 +127,7 @@ class ResizablePreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -135,7 +135,7 @@ class ResizablePreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

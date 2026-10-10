@@ -68,6 +68,13 @@ class FadedScrollableViewport extends StatefulWidget {
     );
   }
 
+  /// Colour the edge fade blends into: the ambient `background` token, so the
+  /// fade follows the selected preset in light and dark.
+  ///
+  /// Exposed so custom masks can paint the same surface the built-in one does.
+  static Color resolveFadeSurface(BuildContext context) =>
+      ShadcnTheme.of(context).colors.background;
+
   /// Gradient stops for the fade mask over an axis of [axisExtent].
   ///
   /// Stops are clamped monotonic so short content cannot produce a crossed
@@ -137,6 +144,9 @@ class _FadedScrollableViewportState extends State<FadedScrollableViewport> {
     final bool vertical = _snapshot.axis == Axis.vertical;
     final ({Alignment begin, Alignment end}) axis =
         FadedScrollableViewport.gradientAxis(_snapshot.axis);
+    // `dstIn` reads only alpha, but naming the surface token the fade blends
+    // into keeps the intent explicit (and the mask correct in dark mode).
+    final Color surface = FadedScrollableViewport.resolveFadeSurface(context);
 
     return NotificationListener<ScrollNotification>(
       onNotification: _onNotification,
@@ -147,11 +157,11 @@ class _FadedScrollableViewportState extends State<FadedScrollableViewport> {
           return LinearGradient(
             begin: axis.begin,
             end: axis.end,
-            colors: const <Color>[
-              Color(0x00000000),
-              Color(0xFF000000),
-              Color(0xFF000000),
-              Color(0x00000000),
+            colors: <Color>[
+              surface.withValues(alpha: 0),
+              surface,
+              surface,
+              surface.withValues(alpha: 0),
             ],
             stops: FadedScrollableViewport.gradientStops(
               leading: leading,

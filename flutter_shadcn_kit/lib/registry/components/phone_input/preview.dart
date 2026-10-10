@@ -40,7 +40,7 @@ class _PhoneInputPreviewState extends State<PhoneInputPreview> {
               initialValue: _value,
               onChanged: (value) => setState(() => _value = value),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Custom country list'),
             PhoneInput(
               initialCountry: const Country(dialCode: '+44', code: 'GB'),
@@ -51,7 +51,7 @@ class _PhoneInputPreviewState extends State<PhoneInputPreview> {
               ],
               onChanged: (value) => setState(() => _value = value),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'In a form field with the phone validator'),
             ShadcnForm(
               child: ShadcnFormField<PhoneNumber>(
@@ -64,7 +64,7 @@ class _PhoneInputPreviewState extends State<PhoneInputPreview> {
                 ),
               ),
             ),
-            const Gap(24),
+            Gap(theme.spacing.xl),
             _label(theme, 'Dark palette'),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),

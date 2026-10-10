@@ -30,6 +30,7 @@ class KeyboardShortcutPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'From an activator',
                   const KeyboardShortcut.fromActivator(
                     activator: SingleActivator(
@@ -38,8 +39,9 @@ class KeyboardShortcutPreview extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Explicit keys',
                   const KeyboardShortcut(
                     keys: <LogicalKeyboardKey>[
@@ -49,8 +51,9 @@ class KeyboardShortcutPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Arrows',
                   const KeyboardShortcut(
                     keys: <LogicalKeyboardKey>[
@@ -59,15 +62,16 @@ class KeyboardShortcutPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Single cap',
                   const KeyboardKeyCap(keyboardKey: LogicalKeyboardKey.enter),
                 ),
-                const Gap(16),
-                _section('Custom label scope', const _Scoped()),
-                const Gap(16),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.lg),
+                _section(context, 'Custom label scope', const _Scoped()),
+                Gap(theme.spacing.lg),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -76,13 +80,13 @@ class KeyboardShortcutPreview extends StatelessWidget {
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
       child: ColoredBox(
         color: ShadcnColors.darkFallback.background,
-        child: const Padding(
-          padding: EdgeInsets.all(12),
+        child: Padding(
+          padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.md),
           child: KeyboardShortcut(
             keys: <LogicalKeyboardKey>[
               LogicalKeyboardKey.meta,
@@ -94,7 +98,7 @@ class KeyboardShortcutPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -102,7 +106,7 @@ class KeyboardShortcutPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

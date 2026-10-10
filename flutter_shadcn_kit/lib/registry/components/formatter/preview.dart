@@ -29,23 +29,23 @@ class FormatterPreview extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const Text('integerOnly (0–100)'),
-                const Gap(4),
+                Gap(theme.spacing.xs),
                 _Line(
                   formatters: <TextInputFormatter>[
                     TextInputFormatters.integerOnly(min: 0, max: 100),
                   ],
                 ),
-                const Gap(12),
+                Gap(theme.spacing.md),
                 const Text('hex (# prefixed)'),
-                const Gap(4),
+                Gap(theme.spacing.xs),
                 _Line(
                   formatters: <TextInputFormatter>[
                     TextInputFormatters.hex(hashPrefix: true),
                   ],
                 ),
-                const Gap(12),
+                Gap(theme.spacing.md),
                 const Text('time (length 2)'),
-                const Gap(4),
+                Gap(theme.spacing.xs),
                 _Line(
                   formatters: <TextInputFormatter>[
                     TextInputFormatters.time(length: 2),

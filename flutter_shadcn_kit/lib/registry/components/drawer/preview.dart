@@ -29,11 +29,11 @@ class DrawerPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Drawers', _drawerButtons()),
-                const Gap(24),
-                _section('Sheet', _sheetButton()),
-                const Gap(24),
-                _section('Themed', _themedButton()),
+                _section(context, 'Drawers', _drawerButtons()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Sheet', _sheetButton()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Themed', _themedButton()),
               ],
             ),
           ),
@@ -103,7 +103,7 @@ class DrawerPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -111,7 +111,7 @@ class DrawerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );
@@ -127,7 +127,7 @@ class _DrawerContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         const Text('Drawer content'),
-        const Gap(16),
+        Gap(ShadcnTheme.of(context).spacing.lg),
         Button(
           size: ButtonSize.sm,
           onPressed: () => openDrawer<void>(
@@ -137,7 +137,7 @@ class _DrawerContent extends StatelessWidget {
           ),
           child: const Text('Open another'),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         Button(
           variant: ButtonVariant.outline,
           size: ButtonSize.sm,
@@ -158,7 +158,7 @@ class _SheetContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         const Text('Sheet content'),
-        const Gap(16),
+        Gap(ShadcnTheme.of(context).spacing.lg),
         Button(
           variant: ButtonVariant.outline,
           size: ButtonSize.sm,

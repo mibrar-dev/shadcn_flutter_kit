@@ -36,7 +36,7 @@ class ScrollviewPreview extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           child: Text('Drag with the middle button · $index'),
                         ),
-                      const Gap(16),
+                      Gap(theme.spacing.lg),
                     ],
                   ),
                 ),

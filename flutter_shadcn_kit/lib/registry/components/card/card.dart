@@ -15,6 +15,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/sheet_overlay.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'card_style.dart';
 
@@ -44,7 +45,9 @@ class Card extends StatelessWidget {
   final Widget child;
 
   /// Padding between the card border and its content; null falls back to
-  /// `cardDefaults.padding`.
+  /// `cardDefaults.padding`, a density-scaled shadcn `p-6` that `Card`
+  /// resolves against `density.baseContentPadding * scaling`. A literal
+  /// override passes through unchanged.
   final EdgeInsetsGeometry? padding;
 
   /// Fill override; null falls back to `CardTheme.background`.
@@ -77,8 +80,12 @@ class Card extends StatelessWidget {
       select: (t) => t,
       defaults: cardDefaults,
     );
-    final EdgeInsetsGeometry padding =
-        this.padding ?? style.padding ?? cardDefaultPadding;
+    // This `Padding` is the single place the card's chrome paints, so it is
+    // also the only place the density multipliers are resolved.
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      this.padding ?? style.padding ?? cardDefaultPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
     final Widget content = Padding(padding: padding, child: child);
     if (SheetOverlayHandler.isSheetOverlay(context)) {
       return content;

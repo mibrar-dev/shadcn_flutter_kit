@@ -47,16 +47,16 @@ class _WindowPreviewState extends State<WindowPreview> {
                 Window(
                   controller: _notes,
                   title: const Text('Notes'),
-                  content: const Padding(
-                    padding: EdgeInsets.all(12),
+                  content: Padding(
+                    padding: EdgeInsets.all(theme.spacing.md),
                     child: Text('Drag the title bar; resize from any edge.'),
                   ),
                 ),
                 Window(
                   controller: _inspector,
                   title: const Text('Inspector'),
-                  content: const Padding(
-                    padding: EdgeInsets.all(12),
+                  content: Padding(
+                    padding: EdgeInsets.all(theme.spacing.md),
                     child: Text('Always on top.'),
                   ),
                 ),

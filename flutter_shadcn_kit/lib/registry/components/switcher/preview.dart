@@ -65,7 +65,7 @@ class _SwitcherPreviewState extends State<SwitcherPreview> {
                 children: pages,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: ShadcnTheme.of(context).spacing.md),
             Wrap(
               spacing: 8,
               children: <Widget>[
@@ -86,9 +86,9 @@ class _SwitcherPreviewState extends State<SwitcherPreview> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             Text('reported: $_reported'),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             const Text('vertical, slower curve'),
             ComponentTheme<SwitcherTheme>(
               data: const SwitcherTheme(
@@ -110,12 +110,12 @@ class _SwitcherPreviewState extends State<SwitcherPreview> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             Clickable(
               onPressed: () => setState(() => _index = _index),
               child: const Text('rebuild with the same index'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(

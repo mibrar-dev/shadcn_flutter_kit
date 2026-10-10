@@ -32,21 +32,21 @@ class AvatarPreview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text('Initials, sizes and badges').small,
-                  const SizedBox(height: 12),
-                  const Row(
+                  SizedBox(height: ShadcnTheme.of(context).spacing.md),
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Avatar(initials: 'IB'),
-                      SizedBox(width: 12),
+                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
                       Avatar(initials: 'IB', size: 56),
-                      SizedBox(width: 12),
+                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
                       Avatar(
                         initials: 'AC',
                         badge: AvatarBadge(
                           child: Icon(LucideIcons.check, size: 8),
                         ),
                       ),
-                      SizedBox(width: 12),
+                      SizedBox(width: ShadcnTheme.of(context).spacing.md),
                       Avatar(
                         initials: 'AC',
                         badge: AvatarBadge(),
@@ -54,9 +54,9 @@ class AvatarPreview extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: ShadcnTheme.of(context).spacing.xl),
                   const Text('Group and theme override').small,
-                  const SizedBox(height: 12),
+                  SizedBox(height: ShadcnTheme.of(context).spacing.md),
                   const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -70,7 +70,7 @@ class AvatarPreview extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: ShadcnTheme.of(context).spacing.xl),
                   ComponentTheme<AvatarTheme>(
                     data: const AvatarTheme(
                       backgroundColor: ThemedColor.ref(ColorRef.secondary),

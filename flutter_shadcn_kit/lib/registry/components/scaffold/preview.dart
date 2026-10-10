@@ -27,6 +27,7 @@ class ScaffoldPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _section(
+                context,
                 'Shell',
                 SizedBox(
                   height: 280,
@@ -49,8 +50,9 @@ class ScaffoldPreview extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Loading',
                 SizedBox(
                   height: 160,
@@ -62,8 +64,9 @@ class ScaffoldPreview extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Floating header over content',
                 SizedBox(
                   height: 160,
@@ -82,8 +85,9 @@ class ScaffoldPreview extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Dark',
                 ShadcnTheme(
                   data: const ShadcnThemeData(
@@ -101,8 +105,9 @@ class ScaffoldPreview extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Progress reference',
                 const Progress(value: 0.6, showSparks: true),
               ),
@@ -113,7 +118,7 @@ class ScaffoldPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -121,7 +126,7 @@ class ScaffoldPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

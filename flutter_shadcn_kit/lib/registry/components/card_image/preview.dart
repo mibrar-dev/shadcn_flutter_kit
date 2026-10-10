@@ -29,13 +29,13 @@ class CardImagePreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Vertical', _vertical()),
-                const Gap(24),
-                _section('Horizontal', _horizontal()),
-                const Gap(24),
-                _section('Disabled', _disabled()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Vertical', _vertical()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Horizontal', _horizontal()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Disabled', _disabled()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -107,7 +107,7 @@ class CardImagePreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -115,7 +115,7 @@ class CardImagePreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

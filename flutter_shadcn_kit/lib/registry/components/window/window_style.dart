@@ -10,6 +10,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Chrome metrics and snap-preview colours of a window.
@@ -37,7 +38,7 @@ class WindowTheme extends ComponentThemeData implements Mergeable<WindowTheme> {
   /// Grab thickness of the resize edges. Default: 8 (scaled).
   final double? resizeThickness;
 
-  /// Padding inside the title bar. Default: 8 horizontal.
+  /// Padding inside the title bar. Default: 8 horizontal, density-scaled.
   final EdgeInsetsGeometry? titleBarPadding;
 
   /// Title colour. Default: the `foreground` token.
@@ -169,7 +170,8 @@ class WindowTheme extends ComponentThemeData implements Mergeable<WindowTheme> {
 const WindowTheme windowDefaults = WindowTheme(
   titleBarHeight: 32,
   resizeThickness: 8,
-  titleBarPadding: EdgeInsets.symmetric(horizontal: 8),
+  // Title-row padding 8, density-scaled; resolved in `_titleBar`.
+  titleBarPadding: EdgeInsetsDensity.pxSymmetric(horizontal: 8),
   titleColor: ThemedColor.ref(ColorRef.foreground),
   snapOverlayColor: ThemedColor.ref(ColorRef.card),
   snapOverlayOpacity: 0.8,

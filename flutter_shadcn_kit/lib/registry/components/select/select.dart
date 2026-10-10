@@ -14,6 +14,7 @@ import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
+import '../../foundation/gap.dart';
 import '../../foundation/geometry.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/clickable.dart';
@@ -22,6 +23,7 @@ import '../../primitives/overlay.dart';
 import '../../primitives/popover_controller.dart';
 import '../../primitives/select_popup.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../input/input.dart';
@@ -252,7 +254,10 @@ class _SelectState<T> extends State<Select<T>>
               autofocus: true,
               decoration: const BoxDecoration(color: Color(0x00000000)),
               border: Border.fromBorderSide(BorderSide.none),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding: const EdgeInsetsDensity.pxSymmetric(
+                horizontal: 12,
+                vertical: 12,
+              ),
               placeholder: widget.searchPlaceholder,
             )
           : null,
@@ -299,10 +304,10 @@ class _SelectState<T> extends State<Select<T>>
         ? widget.itemBuilder(context, selected)
         : widget.placeholder ?? const SizedBox.shrink();
     // A painted border adds layout; reserve it in the 36px total.
-    final EdgeInsets resolvedPadding =
-        (trigger.padding ?? selectDefaultTriggerPadding).resolve(
-          Directionality.of(context),
-        );
+    final EdgeInsets resolvedPadding = resolveEdgeInsets(
+      trigger.padding ?? selectDefaultTriggerPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    ).resolve(Directionality.of(context));
     final double borderWidth = trigger.borderColor == null
         ? 0
         : trigger.borderWidth ?? 1;
@@ -343,7 +348,7 @@ class _SelectState<T> extends State<Select<T>>
                 children: <Widget>[
                   Expanded(child: valueContent),
                   if (widget.expandIcon != null) ...<Widget>[
-                    const SizedBox(width: 8),
+                    Gap(ambient.spacing.sm),
                     widget.expandIcon!,
                   ],
                 ],

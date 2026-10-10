@@ -124,6 +124,9 @@ Set<Color> allRenderedColors(WidgetTester tester) {
   )) {
     addDecoration(box.decoration);
   }
+  for (final box in tester.widgetList<ColoredBox>(find.byType(ColoredBox))) {
+    colors.add(box.color);
+  }
 
   void addTextStyle(TextStyle? style) {
     if (style?.color != null) colors.add(style!.color!);
@@ -152,6 +155,30 @@ Set<Color> allRenderedColors(WidgetTester tester) {
     addTextStyle(style.style);
   }
   return colors;
+}
+
+/// Pumps [child] with the `Overlay` ancestor `SelectableRegion` requires.
+Future<void> pumpWithOverlay(
+  WidgetTester tester, {
+  required String presetId,
+  required Brightness brightness,
+  required Widget child,
+}) async {
+  final view = loadPreset(presetId).view(brightness);
+  await tester.pumpWidget(
+    ShadcnTheme(
+      data: ShadcnThemeData(
+        colors: view.colors,
+        tokens: view.tokens,
+        fonts: view.fonts,
+      ),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Overlay(initialEntries: [OverlayEntry(builder: (_) => child)]),
+      ),
+    ),
+  );
+  await tester.pump(kSettleDuration);
 }
 
 /// Whether any decoration in the tree paints [color].

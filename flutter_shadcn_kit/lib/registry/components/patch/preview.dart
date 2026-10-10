@@ -56,9 +56,9 @@ class _PatchPreviewState extends State<PatchPreview> {
                 child: Text('clicks: $_clicks'),
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: ShadcnTheme.of(context).spacing.md),
             Text('last position: ${_lastPosition ?? '-'}'),
-            const SizedBox(height: 12),
+            SizedBox(height: ShadcnTheme.of(context).spacing.md),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -67,7 +67,7 @@ class _PatchPreviewState extends State<PatchPreview> {
                   onPressed: () => setState(() => _clicks = 0),
                   child: const Text('reset'),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: ShadcnTheme.of(context).spacing.md),
                 const Text('tap fast and near to count up'),
               ],
             ),

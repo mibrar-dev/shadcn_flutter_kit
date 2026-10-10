@@ -8,6 +8,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/alert/alert.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -305,8 +306,13 @@ void main() {
       final AlertStyle base = alertDefaults.forVariant(AlertVariant.base)!;
       expect(base.background?.resolve(colors), colors.card);
       expect(base.borderColor?.resolve(colors), colors.border);
+      // `px-4 py-3` is stored as density multipliers, so the row itself only
+      // resolves to 16/12 at the default density (see `Alert`).
       expect(
-        base.padding,
+        resolveEdgeInsets(
+          base.padding!,
+          Density.defaultDensity.baseContentPadding,
+        ),
         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       );
       expect(base.gap, 12);

@@ -30,6 +30,7 @@ class ButtonPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Variants',
                   Wrap(
                     spacing: 8,
@@ -44,8 +45,9 @@ class ButtonPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Sizes',
                   Wrap(
                     spacing: 8,
@@ -61,8 +63,9 @@ class ButtonPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Leading / trailing',
                   Wrap(
                     spacing: 8,
@@ -91,8 +94,9 @@ class ButtonPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'States',
                   Wrap(
                     spacing: 8,
@@ -110,8 +114,9 @@ class ButtonPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Groups',
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,7 +140,7 @@ class ButtonPreview extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Gap(12),
+                      Gap(theme.spacing.md),
                       ButtonGroup.vertical(
                         children: <Widget>[
                           Button(
@@ -150,7 +155,7 @@ class ButtonPreview extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Gap(12),
+                      Gap(theme.spacing.md),
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: ButtonGroup(
@@ -171,8 +176,9 @@ class ButtonPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -213,7 +219,7 @@ class ButtonPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -221,7 +227,7 @@ class ButtonPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

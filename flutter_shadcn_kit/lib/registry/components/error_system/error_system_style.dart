@@ -8,6 +8,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Appearance of the error UI.
@@ -40,7 +41,8 @@ class ErrorSystemTheme extends ComponentThemeData
   /// Message text style; its colour falls back to `mutedForeground`.
   final TextStyle? messageStyle;
 
-  /// Padding inside the full-page card; null resolves 24.
+  /// Padding inside the full-page card; null resolves
+  /// [errorSystemDefaultCardPadding] (shadcn `p-6`, density-scaled).
   final EdgeInsetsGeometry? cardPadding;
 
   /// Banner fill; null resolves the `card` token.
@@ -49,7 +51,8 @@ class ErrorSystemTheme extends ComponentThemeData
   /// Banner border; null resolves the `destructive` token.
   final ThemedColor? bannerBorder;
 
-  /// Banner padding; null resolves 16/12.
+  /// Banner padding; null resolves [errorSystemDefaultBannerPadding]
+  /// (shadcn `px-4 py-3`, density-scaled).
   final EdgeInsetsGeometry? bannerPadding;
 
   /// First-non-null-wins merge; the receiver (higher-priority leg) wins.
@@ -111,14 +114,22 @@ class ErrorSystemTheme extends ComponentThemeData
   );
 }
 
+/// Card padding of the full-page error: shadcn `p-6` (24px), density-scaled.
+const EdgeInsetsGeometry errorSystemDefaultCardPadding =
+    EdgeInsetsDensity.pxAll(24);
+
+/// Banner padding: shadcn `px-4 py-3`, density-scaled.
+const EdgeInsetsGeometry errorSystemDefaultBannerPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 16, vertical: 12);
+
 /// Token-derived baseline.
 const ErrorSystemTheme errorSystemDefaults = ErrorSystemTheme(
   iconColor: ThemedColor.ref(ColorRef.destructive),
   iconSize: 36,
   titleStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
   messageStyle: TextStyle(fontSize: 14),
-  cardPadding: EdgeInsets.all(24),
+  cardPadding: errorSystemDefaultCardPadding,
   bannerBackground: ThemedColor.ref(ColorRef.card),
   bannerBorder: ThemedColor.ref(ColorRef.destructive),
-  bannerPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  bannerPadding: errorSystemDefaultBannerPadding,
 );

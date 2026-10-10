@@ -41,14 +41,20 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Always visible', _sample(thumbVisibility: true)),
-                const Gap(24),
                 _section(
+                  context,
+                  'Always visible',
+                  _sample(thumbVisibility: true),
+                ),
+                Gap(theme.spacing.xl),
+                _section(
+                  context,
                   'Track',
                   _sample(thumbVisibility: true, trackVisibility: true),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Themed',
                   ComponentTheme<ScrollbarTheme>(
                     data: const ScrollbarTheme(
@@ -58,8 +64,8 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
                     child: _sample(thumbVisibility: true),
                   ),
                 ),
-                const Gap(24),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -95,7 +101,7 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -103,7 +109,7 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

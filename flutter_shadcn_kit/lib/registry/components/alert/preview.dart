@@ -30,19 +30,19 @@ class AlertPreview extends StatelessWidget {
                   title: Text('Heads up'),
                   content: Text('You can install components from the CLI.'),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 const Alert(
                   variant: AlertVariant.destructive,
                   title: Text('Session expired'),
                   content: Text('Please log in again to continue.'),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 const Alert(
                   title: Text('Notification'),
                   content: Text('You have a new message.'),
                   trailing: Text('Now'),
                 ),
-                const Gap(32),
+                Gap(theme.spacing.xxl),
                 ShadcnTheme(
                   data: const ShadcnThemeData(
                     colors: ShadcnColors.darkFallback,

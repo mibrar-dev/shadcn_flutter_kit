@@ -142,8 +142,9 @@ demonstrate the wrong habit. Recommended as a mechanical follow-up: replace with
 | `layout_audit_no_stretch_test.dart` | intrinsic width in a loose `Row` and in a 600px wide parent; padding survival under a 48px tight host |
 | `layout_audit_support.dart` | the shared harness (3 densities, `looseHost`, `resolvedPaddingOf`, …) |
 
-Run: `cd flutter_shadcn_kit && flutter test test/registry/layout_audit` → **26 passing, 10 skipped**.
-Every skipped test is a FINDING below; the fix batches remove both the `skip: true` and its line in
+Run: `cd flutter_shadcn_kit && flutter test test/registry/layout_audit` → **36 passing, 0 skipped**
+(since P6-F1, see `P6-F1.md`: 26 passing + 10 skipped before the fix).
+Every skipped test was a FINDING below; P6-F1 removed both the `skip: true` and its line in
 `test/registry/layout_audit/failing_tests.txt`.
 
 ### The 10 failing tests

@@ -10,7 +10,7 @@
 //     (`theme.spacing.sm`, shadcn `gap-2`).
 //
 // A component whose icons are laid out outside the padding, or on the wrong
-// side, is a FINDING and is marked `skip: true` with the source line.
+// side, is a FINDING. P6-F1 fixed chip and badge, so every test here runs.
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/badge/badge.dart';
@@ -152,9 +152,9 @@ void main() {
       child: Text(_label),
     );
 
-    // FINDING: chip.dart:132-146 pads only `child`, so both `leading` and
-    // `trailing` are appended after the label in the row — the leading icon
-    // renders on the wrong side and the trailing icon touches the chip edge.
+    // Chip geometry: `chip.dart` pads the whole row and emits `leading`
+    // before the label, so the icon keeps `px-2` from the chip edge and
+    // `gap-2` from the label (shadcn `px-2 gap-2`).
     testWidgets('LTR: leading icon renders before the label', (tester) async {
       final Widget chip = build(TextDirection.ltr);
       await tester.pumpWidget(
@@ -183,9 +183,8 @@ void main() {
         leading: false,
         role: 'trailing icon',
       );
-    }, skip: true);
+    });
 
-    // FINDING: same root cause — the slot is not mirrored in RTL either.
     testWidgets('RTL mirrors the icon slots', (tester) async {
       final Widget chip = build(TextDirection.rtl);
       await tester.pumpWidget(
@@ -205,12 +204,12 @@ void main() {
         leading: true,
         role: 'leading icon',
       );
-    }, skip: true);
+    });
   });
 
   group('badge — shadcn `px-2 gap-2`', () {
-    // FINDING: badge.dart:157 wraps only `child` in the padding, so the
-    // leading icon starts at the badge edge (x = 0) and touches it.
+    // Badge geometry: `badge.dart` wraps the whole icon row in the padding,
+    // so the leading icon keeps `px-2` from the badge edge.
     testWidgets('LTR: leading icon sits inside the padding', (tester) async {
       final Widget badge = const Badge(
         leading: Icon(IconData(0x3), key: _lead),
@@ -232,7 +231,7 @@ void main() {
         leading: true,
         role: 'leading icon',
       );
-    }, skip: true);
+    });
   });
 
   group('gap token tracks the preset spacing base', () {

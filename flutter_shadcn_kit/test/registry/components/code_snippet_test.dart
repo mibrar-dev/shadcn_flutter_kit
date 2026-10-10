@@ -4,6 +4,10 @@
 // and dark tokens. Regression tests cover the retired pieces: the widget
 // is stateless (no stale state across rebuilds) and the actions row uses
 // the foundation gap.
+//
+// `_frame` supplies an `Overlay`: the code text renders inside a
+// `SelectableRegion` (so it can be selected and copied), and a region
+// asserts on that ancestor.
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/code_snippet/code_snippet.dart';
@@ -28,10 +32,34 @@ Widget _frame({
       themes: app,
       child: Directionality(
         textDirection: TextDirection.ltr,
-        child: Center(child: body),
+        child: _OverlayHost(builder: (_) => Center(child: body)),
       ),
     ),
   );
+}
+
+/// Hosts [builder] in a stable overlay entry, so the entry keeps tracking the
+/// latest child across pumps (`Overlay`'s `initialEntries` only applies once,
+/// which would freeze the subtree on the first pump).
+class _OverlayHost extends StatefulWidget {
+  const _OverlayHost({required this.builder});
+
+  final WidgetBuilder builder;
+
+  @override
+  State<_OverlayHost> createState() => _OverlayHostState();
+}
+
+class _OverlayHostState extends State<_OverlayHost> {
+  // `Builder` re-reads `widget.builder` per build, so the entry tracks the
+  // latest child instead of the one captured on the first pump.
+  late final OverlayEntry _entry = OverlayEntry(
+    builder: (BuildContext context) => Builder(builder: widget.builder),
+  );
+
+  @override
+  Widget build(BuildContext context) =>
+      Overlay(initialEntries: <OverlayEntry>[_entry]);
 }
 
 void main() {

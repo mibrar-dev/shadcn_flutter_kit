@@ -57,6 +57,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Bar',
                   NavigationBar(
                     index: _index,
@@ -65,8 +66,9 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     children: _items,
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Rail (labels as tooltips)',
                   SizedBox(
                     height: 280,
@@ -79,8 +81,9 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     ),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Sidebar (groups + collapsible)',
                   SizedBox(
                     height: 380,
@@ -118,8 +121,8 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
                     ),
                   ),
                 ),
-                const Gap(16),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.lg),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -141,7 +144,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -149,7 +152,7 @@ class _NavigationBarPreviewState extends State<NavigationBarPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

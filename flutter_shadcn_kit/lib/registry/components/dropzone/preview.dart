@@ -29,11 +29,13 @@ class DropzonePreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Idle',
                   Dropzone(onBrowse: () {}, hint: Text('Up to 10 MB each.')),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Drag over',
                   Dropzone(
                     isDragOver: true,
@@ -41,28 +43,41 @@ class DropzonePreview extends StatelessWidget {
                     onBrowse: () {},
                   ),
                 ),
-                const Gap(16),
-                _section('Uploading', Dropzone(state: DropzoneState.uploading)),
-                const Gap(16),
-                _section('Success', Dropzone(state: DropzoneState.success)),
-                const Gap(16),
-                _section('Error', Dropzone(state: DropzoneState.error)),
-                const Gap(16),
-                _section('Disabled', Dropzone(enabled: false)),
-                const Gap(16),
-                _section('No action', Dropzone(showAction: false)),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
+                  'Uploading',
+                  Dropzone(state: DropzoneState.uploading),
+                ),
+                Gap(theme.spacing.lg),
+                _section(
+                  context,
+                  'Success',
+                  Dropzone(state: DropzoneState.success),
+                ),
+                Gap(theme.spacing.lg),
+                _section(
+                  context,
+                  'Error',
+                  Dropzone(state: DropzoneState.error),
+                ),
+                Gap(theme.spacing.lg),
+                _section(context, 'Disabled', Dropzone(enabled: false)),
+                Gap(theme.spacing.lg),
+                _section(context, 'No action', Dropzone(showAction: false)),
+                Gap(theme.spacing.lg),
+                _section(
+                  context,
                   'Extra content',
                   Dropzone(
                     showAction: false,
                     content: Text('Drop a folder here to upload it whole.'),
                   ),
                 ),
-                const Gap(16),
-                _section('Focused', Dropzone(focused: true)),
-                const Gap(16),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.lg),
+                _section(context, 'Focused', Dropzone(focused: true)),
+                Gap(theme.spacing.lg),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -81,7 +96,7 @@ class DropzonePreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -89,7 +104,7 @@ class DropzonePreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

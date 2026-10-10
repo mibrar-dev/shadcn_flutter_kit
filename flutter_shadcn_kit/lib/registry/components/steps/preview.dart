@@ -28,13 +28,13 @@ class StepsPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Default', _flow()),
-                const Gap(24),
-                _section('Custom indicators', _custom()),
-                const Gap(24),
-                _section('Single step', _single()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Default', _flow()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Custom indicators', _custom()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Single step', _single()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -100,7 +100,7 @@ class StepsPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -108,7 +108,7 @@ class StepsPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

@@ -13,6 +13,7 @@ import 'package:flutter_shadcn_kit/registry/foundation/data.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/sheet_overlay.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -84,7 +85,16 @@ void main() {
       final Padding padding = tester.widget<Padding>(
         find.descendant(of: find.byType(Card), matching: find.byType(Padding)),
       );
-      expect(padding.padding, cardDefaultPadding);
+      // The default is stored as density multipliers, so the painted `Padding`
+      // carries the resolved value (24 at the default density).
+      expect(
+        padding.padding,
+        resolveEdgeInsets(
+          cardDefaultPadding,
+          const ShadcnThemeData().density.baseContentPadding,
+        ),
+      );
+      expect(padding.padding, const EdgeInsets.all(24));
     });
 
     testWidgets('widget overrides win over the theme', (tester) async {

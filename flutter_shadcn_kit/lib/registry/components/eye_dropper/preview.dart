@@ -30,15 +30,15 @@ class _EyeDropperPreviewState extends State<EyeDropperPreview> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Row(
+              Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _EyeDropperSwatch(Color(0xFF2563EB)),
-                  Gap(8),
+                  Gap(theme.spacing.sm),
                   _EyeDropperSwatch(Color(0xFF22C55E)),
                 ],
               ),
-              const Gap(16),
+              Gap(theme.spacing.lg),
               _FakeButton(
                 label: _picked == null ? 'Pick a colour' : 'Pick again',
                 onTap: () async {
@@ -48,7 +48,7 @@ class _EyeDropperPreviewState extends State<EyeDropperPreview> {
                   }
                 },
               ),
-              const Gap(16),
+              Gap(theme.spacing.lg),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -58,9 +58,12 @@ class _EyeDropperPreviewState extends State<EyeDropperPreview> {
                       border: Border.all(color: theme.colors.border),
                       borderRadius: theme.borderRadiusSm,
                     ),
-                    child: const SizedBox(width: 24, height: 24),
+                    child: SizedBox(
+                      width: theme.spacing.xl,
+                      height: theme.spacing.xl,
+                    ),
                   ),
-                  const Gap(8),
+                  Gap(theme.spacing.sm),
                   Text(
                     _picked == null ? 'no colour picked' : '#${_hex(_picked!)}',
                   ),

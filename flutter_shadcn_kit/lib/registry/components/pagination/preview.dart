@@ -35,15 +35,15 @@ class _PaginationPreviewState extends State<PaginationPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Labelled (interactive)', _labelled()),
-                const Gap(24),
-                _section('Icon only', _iconOnly()),
-                const Gap(24),
-                _section('First window', _firstWindow()),
-                const Gap(24),
-                _section('Last window', _lastWindow()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Labelled (interactive)', _labelled()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Icon only', _iconOnly()),
+                Gap(theme.spacing.xl),
+                _section(context, 'First window', _firstWindow()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Last window', _lastWindow()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -91,7 +91,7 @@ class _PaginationPreviewState extends State<PaginationPreview> {
 
   static void _noop(int page) {}
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -99,7 +99,7 @@ class _PaginationPreviewState extends State<PaginationPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

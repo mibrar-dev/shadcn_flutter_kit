@@ -61,9 +61,9 @@ class _ToastPreviewState extends State<ToastPreview> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _section('Placements', _placements()),
-                  const Gap(24),
-                  _section('Themed card', _themed()),
+                  _section(context, 'Placements', _placements()),
+                  Gap(theme.spacing.xl),
+                  _section(context, 'Themed card', _themed()),
                 ],
               ),
             ),
@@ -116,7 +116,7 @@ class _ToastPreviewState extends State<ToastPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -124,7 +124,7 @@ class _ToastPreviewState extends State<ToastPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

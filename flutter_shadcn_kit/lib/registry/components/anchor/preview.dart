@@ -62,7 +62,7 @@ class _AnchorPreviewState extends State<AnchorPreview> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(_report),
-            const SizedBox(height: 12),
+            SizedBox(height: ShadcnTheme.of(context).spacing.md),
             // Both rows register the same key; only their own scope resolves it.
             for (final String label in <String>['first', 'second'])
               Padding(
@@ -80,7 +80,7 @@ class _AnchorPreviewState extends State<AnchorPreview> {
                   ),
                 ),
               ),
-            const SizedBox(height: 12),
+            SizedBox(height: ShadcnTheme.of(context).spacing.md),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(

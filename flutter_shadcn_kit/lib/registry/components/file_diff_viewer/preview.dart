@@ -125,13 +125,13 @@ class _FileDiffViewerPreviewBody extends StatelessWidget {
                   FileDiffViewerPreview._renamed,
                 ],
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xl),
               FileDiffViewer(
                 layout: FileDiffLayout.split,
                 showCopyAction: false,
                 files: const <FileDiff>[FileDiffViewerPreview._patch],
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xl),
               ComponentTheme<FileDiffViewerTheme>(
                 data: const FileDiffViewerTheme(
                   additionColor: ThemedColor.value(Color(0xFF16A34A)),

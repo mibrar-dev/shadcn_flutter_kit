@@ -53,16 +53,18 @@ class _ErrorSystemPreviewState extends State<ErrorSystemPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Full page', ErrorState(error: _error)),
-                const Gap(24),
+                _section(context, 'Full page', ErrorState(error: _error)),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Inline',
                   const InlineError(message: 'This field is required.'),
                 ),
-                const Gap(24),
-                _section('Banner', AppErrorBanner(scope: _scope)),
-                const Gap(24),
+                Gap(theme.spacing.xl),
+                _section(context, 'Banner', AppErrorBanner(scope: _scope)),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -79,7 +81,7 @@ class _ErrorSystemPreviewState extends State<ErrorSystemPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -87,7 +89,7 @@ class _ErrorSystemPreviewState extends State<ErrorSystemPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

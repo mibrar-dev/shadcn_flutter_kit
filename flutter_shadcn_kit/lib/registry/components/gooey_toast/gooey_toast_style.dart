@@ -117,12 +117,12 @@ const TextStyle gooeyTitleTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-/// Expanded description style; the colour matches the default dark fill.
+/// Expanded description style; the colour comes from [GooeyToastTheme]
+/// `descriptionColor` (resolved per build), so it stays null here.
 const TextStyle gooeyDescriptionTextStyle = TextStyle(
   fontSize: 14,
   height: 1.43,
   fontWeight: FontWeight.w400,
-  color: Color(0xFFC0C5CB),
 );
 
 /// Visual and timing contract of a gooey toast.
@@ -130,8 +130,9 @@ const TextStyle gooeyDescriptionTextStyle = TextStyle(
 /// Every field is nullable: an override leg sets only what it changes and
 /// [merge] keeps the lower leg's remaining fields. The six `*Tone` fields
 /// are direct (Studio-editable) theme fields; shadcn has no
-/// success/warning/info tokens, so their defaults are literal accents that
-/// users can replace with a `ThemedColor.ref`.
+/// success/warning/info tokens, so their defaults point at the closest
+/// semantic token (`chart1..5`, `destructive`, `mutedForeground`) and follow
+/// preset switches.
 class GooeyToastTheme extends ComponentThemeData
     implements Mergeable<GooeyToastTheme> {
   const GooeyToastTheme({
@@ -143,6 +144,7 @@ class GooeyToastTheme extends ComponentThemeData
     this.roundness,
     this.titleStyle,
     this.descriptionStyle,
+    this.descriptionColor,
     this.duration,
     this.animationStyle,
     this.shapeStyle,
@@ -158,8 +160,7 @@ class GooeyToastTheme extends ComponentThemeData
 
   final double? width;
 
-  /// Surface fill. Default: literal `#0D1117`, the signature dark pill; a
-  /// `ThemedColor.ref` follows preset switches.
+  /// Surface fill. Default: the `popover` token.
   final ThemedColor? fill;
 
   final double? roundness;
@@ -169,6 +170,10 @@ class GooeyToastTheme extends ComponentThemeData
 
   /// Expanded description style; null uses `gooeyDescriptionTextStyle`.
   final TextStyle? descriptionStyle;
+
+  /// Expanded description colour, applied when the style carries none.
+  /// Default: the `popoverForeground` token.
+  final ThemedColor? descriptionColor;
 
   final Duration? duration;
 
@@ -180,22 +185,22 @@ class GooeyToastTheme extends ComponentThemeData
 
   final bool? enableGooeyBlur;
 
-  /// `success` accent. Default: literal `#63C65E`.
+  /// `success` accent. Default: the `chart1` token.
   final ThemedColor? successTone;
 
-  /// `loading` accent. Default: literal `#8A8F98`.
+  /// `loading` accent. Default: the `mutedForeground` token.
   final ThemedColor? loadingTone;
 
-  /// `error` accent. Default: literal `#EF5E5E`.
+  /// `error` accent. Default: the `destructive` token.
   final ThemedColor? errorTone;
 
-  /// `warning` accent. Default: literal `#EABB4B`.
+  /// `warning` accent. Default: the `chart4` token.
   final ThemedColor? warningTone;
 
-  /// `info` accent. Default: literal `#6EA8FF`.
+  /// `info` accent. Default: the `chart2` token.
   final ThemedColor? infoTone;
 
-  /// `action` accent. Default: literal `#7A8DFF`.
+  /// `action` accent. Default: the `chart5` token.
   final ThemedColor? actionTone;
 
   /// Returns a copy with the given fields replaced.
@@ -205,6 +210,7 @@ class GooeyToastTheme extends ComponentThemeData
     ValueGetter<double?>? roundness,
     ValueGetter<TextStyle?>? titleStyle,
     ValueGetter<TextStyle?>? descriptionStyle,
+    ValueGetter<ThemedColor?>? descriptionColor,
     ValueGetter<Duration?>? duration,
     ValueGetter<GooeyToastAnimationStyle?>? animationStyle,
     ValueGetter<GooeyToastShapeStyle?>? shapeStyle,
@@ -228,6 +234,9 @@ class GooeyToastTheme extends ComponentThemeData
       descriptionStyle: descriptionStyle == null
           ? this.descriptionStyle
           : descriptionStyle(),
+      descriptionColor: descriptionColor == null
+          ? this.descriptionColor
+          : descriptionColor(),
       duration: duration == null ? this.duration : duration(),
       animationStyle: animationStyle == null
           ? this.animationStyle
@@ -263,6 +272,7 @@ class GooeyToastTheme extends ComponentThemeData
       roundness: roundness ?? fallback.roundness,
       titleStyle: titleStyle ?? fallback.titleStyle,
       descriptionStyle: descriptionStyle ?? fallback.descriptionStyle,
+      descriptionColor: descriptionColor ?? fallback.descriptionColor,
       duration: duration ?? fallback.duration,
       animationStyle: animationStyle ?? fallback.animationStyle,
       shapeStyle: shapeStyle ?? fallback.shapeStyle,
@@ -292,6 +302,7 @@ class GooeyToastTheme extends ComponentThemeData
         b.descriptionStyle,
         t,
       ),
+      descriptionColor: t < 0.5 ? a.descriptionColor : b.descriptionColor,
       duration: t < 0.5 ? a.duration : b.duration,
       animationStyle: t < 0.5 ? a.animationStyle : b.animationStyle,
       shapeStyle: t < 0.5 ? a.shapeStyle : b.shapeStyle,
@@ -320,6 +331,7 @@ class GooeyToastTheme extends ComponentThemeData
         other.roundness == roundness &&
         other.titleStyle == titleStyle &&
         other.descriptionStyle == descriptionStyle &&
+        other.descriptionColor == descriptionColor &&
         other.duration == duration &&
         other.animationStyle == animationStyle &&
         other.shapeStyle == shapeStyle &&
@@ -343,6 +355,7 @@ class GooeyToastTheme extends ComponentThemeData
     roundness,
     titleStyle,
     descriptionStyle,
+    descriptionColor,
     duration,
     animationStyle,
     shapeStyle,
@@ -357,22 +370,27 @@ class GooeyToastTheme extends ComponentThemeData
   );
 }
 
-/// Token-derived baseline; every unset override field falls through here.
+/// Token-derived baseline; every unset override field falls through here. The
+/// six state tones map to the closest semantic tokens — success `chart1`,
+/// loading `mutedForeground`, error `destructive`, warning `chart4`, info
+/// `chart2`, action `chart5` — because shadcn ships no status tokens of its
+/// own; each `*Tone` field documents its mapping above.
 const GooeyToastTheme gooeyToastDefaults = GooeyToastTheme(
   width: 350,
-  fill: ThemedColor.value(Color(0xFF0D1117)),
+  fill: ThemedColor.ref(ColorRef.popover),
   roundness: 18,
   titleStyle: gooeyTitleTextStyle,
   descriptionStyle: gooeyDescriptionTextStyle,
+  descriptionColor: ThemedColor.ref(ColorRef.popoverForeground),
   duration: Duration(milliseconds: 6000),
   animationStyle: GooeyToastAnimationStyle.sileo,
   shapeStyle: GooeyToastShapeStyle.defaultShape,
   bodyAnimationStyle: GooeyToastBodyAnimationStyle.fade,
   enableGooeyBlur: true,
-  successTone: ThemedColor.value(Color(0xFF63C65E)),
-  loadingTone: ThemedColor.value(Color(0xFF8A8F98)),
-  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),
-  warningTone: ThemedColor.value(Color(0xFFEABB4B)),
-  infoTone: ThemedColor.value(Color(0xFF6EA8FF)),
-  actionTone: ThemedColor.value(Color(0xFF7A8DFF)),
+  successTone: ThemedColor.ref(ColorRef.chart1),
+  loadingTone: ThemedColor.ref(ColorRef.mutedForeground),
+  errorTone: ThemedColor.ref(ColorRef.destructive),
+  warningTone: ThemedColor.ref(ColorRef.chart4),
+  infoTone: ThemedColor.ref(ColorRef.chart2),
+  actionTone: ThemedColor.ref(ColorRef.chart5),
 );

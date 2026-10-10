@@ -9,7 +9,7 @@
   "tags": ["display", "dots", "carousel", "pager", "indicator"],
   "deps": {
     "foundation": ["constants"],
-    "theme": ["color_tokens", "theme"],
+    "theme": ["color_tokens", "theme", "density"],
     "primitives": ["clickable"],
     "components": []
   },
@@ -22,7 +22,7 @@
   "api": {
     "classes": ["DotIndicator", "DotIndicatorTheme", "DotStyle", "DotIndicatorDefaults"],
     "typedefs": ["DotBuilder"],
-    "constants": ["dotIndicatorDefaults", "dotIndicatorThemeOverrides"]
+    "constants": ["dotIndicatorDefaultPadding", "dotIndicatorDefaults", "dotIndicatorThemeOverrides"]
   },
   "theme": {
     "class": "DotIndicatorTheme",

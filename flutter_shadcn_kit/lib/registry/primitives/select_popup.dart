@@ -12,6 +12,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 import '../foundation/icons/lucide_icons.dart';
+import '../theme/density.dart';
+import '../theme/theme.dart';
 import 'menu_rows.dart';
 
 /// The selection state option rows read: enabled flag, whether any value is
@@ -67,21 +69,35 @@ class SelectRow extends StatelessWidget {
   /// Called on tap and on Enter/Space while focused.
   final VoidCallback? onPressed;
 
-  /// Row padding; null resolves the menu row default (px-2 py-1.5).
+  /// Row padding; null resolves the menu row default (shadcn `px-2 py-1.5`)
+  /// against the ambient density.
   final EdgeInsetsGeometry? padding;
 
   /// Minimum row height.
   final double minHeight;
 
+  /// Default row padding for a selectable row: shadcn `px-2 py-1.5`, as
+  /// density multipliers resolved at build.
+  static const EdgeInsetsGeometry defaultRowPadding =
+      EdgeInsetsDensity.pxSymmetric(horizontal: 8, vertical: 6);
+
   @override
   Widget build(BuildContext context) {
+    // 16 is shadcn `size-4`: the fixed box the check glyph and its reserved
+    // gutter live in, not spacing.
     final Widget? indicator = selected
         ? const Icon(LucideIcons.check, size: 16)
         : (reserveIndicator ? const SizedBox(width: 16, height: 16) : null);
+    // A select row owns its padding, so it resolves the density multipliers
+    // here (theme-free primitive, no component import).
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return RovingRow(
       enabled: enabled,
       onPressed: enabled ? onPressed : null,
-      padding: padding,
+      padding: resolveEdgeInsets(
+        padding ?? defaultRowPadding,
+        theme.density.baseContentPadding * theme.scaling,
+      ),
       minHeight: minHeight,
       trailing: indicator,
       child: child,
@@ -177,6 +193,7 @@ class _SelectPopupBodyState extends State<SelectPopupBody> {
                 future: resolved,
                 builder: (context, snapshot) =>
                     snapshot.connectionState == ConnectionState.waiting
+                    // Loading stub height: a layout cap, not padding.
                     ? const SizedBox(height: 48)
                     : _resolve(searching, snapshot.data ?? const <Widget>[]),
               );
@@ -190,6 +207,7 @@ class _SelectPopupBodyState extends State<SelectPopupBody> {
 
   /// The search field (optional) plus the resolved rows.
   Widget _resolve(bool searching, List<Widget> rows) {
+    // The 48 empty/loading stub is a layout cap, not component padding.
     final Widget resolvedRows = rows.isEmpty
         ? widget.emptyBuilder?.call(context) ?? const SizedBox(height: 48)
         : Column(

@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import '../foundation/data.dart';
 import '../foundation/icons/lucide_icons.dart';
 import '../theme/theme.dart';
+import '../theme/density.dart';
 import 'clickable.dart';
 import 'window_manager.dart';
 import 'window_snap.dart';
@@ -292,8 +293,11 @@ class WindowActions extends StatelessWidget {
         enabled: onPressed != null,
         onPressed: onPressed,
         focusOutline: false,
-        padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
-          EdgeInsets.all(6),
+        padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+          resolveEdgeInsets(
+            EdgeInsetsDensity.pxAll(6),
+            ambient.density.baseContentPadding * ambient.scaling,
+          ),
         ),
         decoration: WidgetStateProperty.resolveWith(
           (Set<WidgetState> states) => BoxDecoration(

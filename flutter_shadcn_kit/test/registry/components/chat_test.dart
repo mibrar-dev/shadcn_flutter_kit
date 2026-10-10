@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/chat/chat.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/overlap_layout.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -79,7 +80,12 @@ void main() {
     expect(style.variant, ChatBubbleVariant.tail);
     expect(style.widthFactor, 0.5);
     expect(
-      style.padding,
+      // Stored as density multipliers, so the row resolves to 12/8 at the
+      // default density (see `ChatBubble`).
+      resolveEdgeInsets(
+        style.padding!,
+        const ShadcnThemeData().density.baseContentPadding,
+      ),
       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     );
 

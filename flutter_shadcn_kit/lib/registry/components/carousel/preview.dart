@@ -62,7 +62,7 @@ class _CarouselPreviewState extends State<CarouselPreview> {
               'sliding, page $_index',
               style: TextStyle(color: colors.foreground),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             SizedBox(
               width: 320,
               height: 96,
@@ -73,16 +73,16 @@ class _CarouselPreviewState extends State<CarouselPreview> {
                 itemBuilder: (context, index) => _page(colors, _pages[index]),
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             DotIndicator(
               index: _index,
               length: _pages.length,
               onChanged: (int page) =>
                   _controller.animateTo(page.toDouble(), kDefaultDuration),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('fading, half viewport'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             SizedBox(
               width: 320,
               height: 96,
@@ -93,9 +93,9 @@ class _CarouselPreviewState extends State<CarouselPreview> {
                 itemBuilder: (context, index) => _page(colors, _pages[index]),
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('vertical, fixed 64px pages'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             SizedBox(
               height: 128,
               width: 320,
@@ -106,9 +106,9 @@ class _CarouselPreviewState extends State<CarouselPreview> {
                 itemBuilder: (context, index) => _page(colors, _pages[index]),
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('scoped theme leg (start aligned, no drag)'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             ComponentTheme<CarouselTheme>(
               data: const CarouselTheme(
                 alignment: CarouselAlignment.start,
@@ -126,7 +126,7 @@ class _CarouselPreviewState extends State<CarouselPreview> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: ShadcnTheme.of(context).spacing.lg),
             GestureDetector(
               onTap: _reset,
               child: Text('reset', style: TextStyle(color: colors.primary)),

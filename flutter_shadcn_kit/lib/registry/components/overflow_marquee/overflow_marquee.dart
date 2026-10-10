@@ -1,9 +1,8 @@
 // The `overflow_marquee` component: self-scrolling content with soft edge
 // fades. Fixes over the old copy: no Material import (the fade used
-// `Colors.white`), the vertical axis measured its overflow on `width`,
-// `fadePortion` was ignored by the painter (hardcoded 25px) while documented
-// as a 0..1 fraction, every tick rebuilt the subtree, and RTL never reversed
-// the scroll.
+// `Colors.white`), the fade is a `dstIn` mask toward the ambient `background`
+// token (the old white `modulate` stops faded nothing — `BlendMode.modulate`
+// never touches alpha), `fadePortion` was ignored, and RTL never reversed it.
 
 import 'dart:math' as math;
 
@@ -16,9 +15,6 @@ import '../../primitives/animation.dart';
 import 'overflow_marquee_style.dart';
 
 export 'overflow_marquee_style.dart';
-
-/// Identity modulator: multiplying by opaque white leaves content alone.
-const Color _kWhite = Color(0xFFFFFFFF);
 
 /// Scrolls [child] along [direction] when it overflows its container and
 /// stays still when it fits. The scroll ping-pongs — rest, one run of the
@@ -123,6 +119,7 @@ class _OverflowMarqueeState extends State<OverflowMarquee>
         curve: surface.curve,
         elapsed: _elapsed,
         textDirection: Directionality.of(context),
+        fadeColor: surface.fadeColor,
         child: widget.child,
       ),
     );
@@ -140,6 +137,7 @@ class _MarqueeLayout extends SingleChildRenderObjectWidget {
     required this.curve,
     required this.elapsed,
     required this.textDirection,
+    required this.fadeColor,
     required super.child,
   });
 
@@ -152,6 +150,9 @@ class _MarqueeLayout extends SingleChildRenderObjectWidget {
   final ValueListenable<Duration> elapsed;
   final TextDirection textDirection;
 
+  /// Colour the edge fade blends into.
+  final Color fadeColor;
+
   @override
   _RenderMarquee createRenderObject(BuildContext context) {
     return _RenderMarquee(
@@ -163,6 +164,7 @@ class _MarqueeLayout extends SingleChildRenderObjectWidget {
       curve: curve,
       elapsed: elapsed,
       textDirection: textDirection,
+      fadeColor: fadeColor,
     );
   }
 
@@ -181,6 +183,7 @@ class _MarqueeLayout extends SingleChildRenderObjectWidget {
       ..fadePortion = fadePortion
       ..curve = curve
       ..textDirection = textDirection
+      ..fadeColor = fadeColor
       ..elapsed = elapsed;
     geometryChanged
         ? renderObject.markNeedsLayout()
@@ -198,6 +201,7 @@ class _RenderMarquee extends RenderShiftedBox {
     required this.step,
     required this.fadePortion,
     required this.curve,
+    required this.fadeColor,
     required this._textDirection,
     required this._elapsed,
   }) : super(null);
@@ -210,6 +214,9 @@ class _RenderMarquee extends RenderShiftedBox {
   Curve curve;
   TextDirection _textDirection;
   ValueListenable<Duration> _elapsed;
+
+  /// Colour the edge fade blends into; a change repaints the mask.
+  Color fadeColor;
 
   double _overflow = 0;
 
@@ -248,7 +255,7 @@ class _RenderMarquee extends RenderShiftedBox {
   void _onTick() {
     // The scroll offset lives in the child's parent data, so a tick relayouts
     // (cheap: this render object is the relayout boundary and the child's
-    // constraints do not change). That keeps hit tests, transforms and
+    // constraints never change). That keeps hit tests, transforms and
     // semantics aligned with what is painted.
     if (_overflow > 0) markNeedsLayout();
   }
@@ -296,10 +303,12 @@ class _RenderMarquee extends RenderShiftedBox {
   double computeMinIntrinsicWidth(double height) => direction == Axis.vertical
       ? super.computeMinIntrinsicWidth(height)
       : super.computeMinIntrinsicWidth(double.infinity);
+
   @override
   double computeMaxIntrinsicWidth(double height) => direction == Axis.vertical
       ? super.computeMaxIntrinsicWidth(height)
       : super.computeMaxIntrinsicWidth(double.infinity);
+
   @override
   double computeMinIntrinsicHeight(double width) => direction == Axis.horizontal
       ? super.computeMinIntrinsicHeight(double.infinity)
@@ -335,12 +344,15 @@ class _RenderMarquee extends RenderShiftedBox {
   }
 
   /// Edge fade over the visible bounds; identity when nothing scrolls.
+  /// `dstIn` from transparent to the ambient `background` token, so clipped
+  /// edges dissolve into the surface the marquee sits on and stay correct in
+  /// dark mode (`BlendMode.modulate` never touches alpha — hence the old white
+  /// stops faded nothing).
   Shader _shader(Rect bounds) {
     final double portion = fadePortion.clamp(0.0, 0.5);
+    final Color fade = fadeColor;
     if (_overflow <= 0 || portion <= 0) {
-      return const LinearGradient(
-        colors: <Color>[_kWhite, _kWhite],
-      ).createShader(bounds);
+      return LinearGradient(colors: <Color>[fade, fade]).createShader(bounds);
     }
     final (Alignment begin, Alignment end) = direction == Axis.horizontal
         ? (
@@ -351,11 +363,11 @@ class _RenderMarquee extends RenderShiftedBox {
     return LinearGradient(
       begin: begin,
       end: end,
-      colors: const <Color>[
-        Color(0x00FFFFFF),
-        _kWhite,
-        _kWhite,
-        Color(0x00FFFFFF),
+      colors: <Color>[
+        fade.withValues(alpha: 0),
+        fade,
+        fade,
+        fade.withValues(alpha: 0),
       ],
       stops: <double>[0, portion, 1 - portion, 1],
     ).createShader(bounds);
@@ -371,7 +383,7 @@ class _RenderMarquee extends RenderShiftedBox {
     fade
       ..shader = _shader(offset & size)
       ..maskRect = offset & size
-      ..blendMode = BlendMode.modulate;
+      ..blendMode = BlendMode.dstIn;
     context.pushLayer(fade, _paintChild, offset);
   }
 

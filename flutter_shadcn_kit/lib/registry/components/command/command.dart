@@ -26,6 +26,7 @@ import '../../primitives/localizations/localizations.dart';
 import '../../primitives/subfocus_scope.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../dialog/dialog.dart';
@@ -235,8 +236,14 @@ class _CommandState extends State<Command> {
                     ),
                     features: <InputFeature>[
                       const InputLeadingFeature(
-                        Padding(
-                          padding: EdgeInsets.only(right: 8),
+                        // shadcn `mr-2` on the command search icon. Held as a
+                        // density multiplier; `DensityContentPadding` is the
+                        // widget that paints it, so it is the one that
+                        // resolves it (16 * 0.5 = 8 at the default density).
+                        DensityContentPadding(
+                          padding: EdgeInsetsDensity.only(
+                            right: 8 / Density.pxBase,
+                          ),
                           child: Icon(LucideIcons.search),
                         ),
                       ),
@@ -303,6 +310,8 @@ class _CommandResults extends StatelessWidget {
           return items.isEmpty ? empty() : _buildList(items);
         }
         if (!snapshot.hasData) {
+          // A loading cap, not a padding: shadcn's command list keeps its
+          // minimum height while the stream has not produced data.
           return loadingBuilder?.call(context) ?? const SizedBox(height: 48);
         }
         return _buildList(snapshot.data!);

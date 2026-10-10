@@ -11,6 +11,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// The surface a [FileUpload] renders.
@@ -57,7 +58,7 @@ class FileUploadTheme extends ComponentThemeData
   /// Corner radius; null resolves the ambient `radiusMd`.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Tile padding; null resolves 16x12.
+  /// Tile padding; null resolves `px-4 py-3` (16x12), density-scaled.
   final EdgeInsetsGeometry? padding;
 
   /// Tile minimum height; null resolves 48.
@@ -117,11 +118,15 @@ class FileUploadTheme extends ComponentThemeData
   );
 }
 
+/// Tile padding: shadcn `px-4 py-3`, density-scaled.
+const EdgeInsetsGeometry fileUploadDefaultPadding =
+    EdgeInsetsDensity.pxSymmetric(horizontal: 16, vertical: 12);
+
 /// Token-derived baseline values; unset override fields fall through here.
 const FileUploadTheme fileUploadDefaults = FileUploadTheme(
   borderColor: ThemedColor.ref(ColorRef.input),
   borderWidth: 1,
-  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  padding: fileUploadDefaultPadding,
   minHeight: 48,
   gap: 12,
 );

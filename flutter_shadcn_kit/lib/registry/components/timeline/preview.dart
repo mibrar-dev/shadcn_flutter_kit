@@ -61,7 +61,7 @@ class _TimelinePreviewBody extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xxl),
               ComponentTheme<TimelineTheme>(
                 data: const TimelineTheme(
                   dotSize: 8,

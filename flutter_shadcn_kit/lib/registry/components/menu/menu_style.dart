@@ -9,6 +9,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Item-row contract: shadcn `px-2 py-1.5 text-sm rounded-sm`, hover fill
@@ -355,6 +356,13 @@ const MenuTheme menuDefaults = MenuTheme(
     focused: ThemedColor.ref(ColorRef.accentForeground),
   ),
   textStyle: TextStyle(fontSize: 14),
+  itemPadding: menuItemDefaultPadding,
+);
+
+/// Default row padding: shadcn `px-2 py-1.5`, density-scaled.
+const EdgeInsetsGeometry menuItemDefaultPadding = EdgeInsetsDensity.pxSymmetric(
+  horizontal: 8,
+  vertical: 6,
 );
 
 /// Token-derived popup baseline.
@@ -363,7 +371,8 @@ const MenuPopupTheme menuPopupDefaults = MenuPopupTheme(
   foreground: ThemedColor.ref(ColorRef.popoverForeground),
   borderColor: ThemedColor.ref(ColorRef.border),
   borderWidth: 1,
-  padding: EdgeInsets.all(4),
+  // shadcn `p-1` around the row list, density-scaled.
+  padding: EdgeInsetsDensity.pxAll(4),
   minWidth: 192,
 );
 
@@ -373,6 +382,7 @@ const MenubarTheme menubarDefaults = MenubarTheme(
   background: ThemedColor.ref(ColorRef.background),
   borderColor: ThemedColor.ref(ColorRef.border),
   borderWidth: 1,
-  padding: EdgeInsets.all(4),
+  // shadcn `p-1` around the row list, density-scaled.
+  padding: EdgeInsetsDensity.pxAll(4),
   subMenuOffset: Offset(-4, 8),
 );

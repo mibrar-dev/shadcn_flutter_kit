@@ -17,6 +17,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../clickable.dart';
 import 'navigation_theme.dart';
@@ -95,7 +96,7 @@ class NavigationItemRow extends StatefulWidget {
   /// Border width used when [borderColor] resolves non-null.
   final double borderWidth;
 
-  /// Row padding; null resolves 12x8.
+  /// Row padding; null resolves `navigationItemDefaultPadding` (12x8).
   final EdgeInsetsGeometry? padding;
 
   /// Content box minimum height; null adds none.
@@ -194,13 +195,12 @@ class _NavigationItemRowState extends State<NavigationItemRow> {
         .copyWith(color: foreground);
     final double borderWidth = widget.borderWidth;
     final bool hasBorder = widget.borderColor != null && borderWidth > 0;
-    final EdgeInsets resolvedPadding =
-        (widget.padding ??
-                EdgeInsets.symmetric(
-                  horizontal: 12 * ambient.scaling,
-                  vertical: 8 * ambient.scaling,
-                ))
-            .resolve(Directionality.of(context));
+    // `navigationItemDefaults` stores density multipliers; the widget leg
+    // passes through `resolveEdgeInsets` unchanged, so both spellings work.
+    final EdgeInsets resolvedPadding = resolveEdgeInsets(
+      widget.padding ?? navigationItemDefaultPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    ).resolve(Directionality.of(context));
     // The border is decoration padding and adds layout; inset the row padding
     // by its width so a bordered row keeps its size-table height (F1).
     return Container(

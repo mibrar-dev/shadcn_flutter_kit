@@ -12,6 +12,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'divider_style.dart';
 
@@ -60,7 +61,10 @@ class Divider extends StatelessWidget {
   /// Optional label centred in the rule. Omit it for a plain rule.
   final Widget? label;
 
-  /// Padding around [label]; null falls back to `DividerTheme.labelPadding`.
+  /// Padding around [label]; null falls back to `DividerTheme.labelPadding`, a
+  /// density-scaled shadcn `px-2` that this widget resolves against
+  /// `density.baseContentPadding * scaling`. A literal override passes
+  /// through unchanged.
   final EdgeInsetsGeometry? labelPadding;
 
   /// Cross-axis placement of [label]; null falls back to
@@ -121,8 +125,10 @@ class Divider extends StatelessWidget {
 
     final TextStyle labelStyle = (style.labelStyle ?? dividerDefaultLabelStyle)
         .copyWith(color: ambient.colors.mutedForeground);
-    final EdgeInsetsGeometry padding =
-        labelPadding ?? style.labelPadding ?? dividerDefaultLabelPadding;
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      labelPadding ?? style.labelPadding ?? dividerDefaultLabelPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
     final DividerLabelAlignment alignment =
         labelAlignment ?? style.labelAlignment ?? DividerLabelAlignment.center;
     final Widget labelWidget = Padding(

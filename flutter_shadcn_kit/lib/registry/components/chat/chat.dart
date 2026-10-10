@@ -10,6 +10,7 @@ import '../../foundation/data.dart';
 import '../../primitives/fractional_align_box.dart';
 import '../../primitives/overlap_layout.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'chat_style.dart';
 
@@ -88,6 +89,12 @@ class ChatBubble extends StatelessWidget {
         ? source
         : source.resolve(direction);
     final bool sharp = style.variant == ChatBubbleVariant.sharpCorner;
+    // Density multipliers resolve where they paint; a literal override (widget
+    // or app leg) passes through unchanged.
+    final EdgeInsetsGeometry bubblePadding = resolveEdgeInsets(
+      style.padding!,
+      shadcn.density.baseContentPadding * shadcn.scaling,
+    );
     final Widget content = DecoratedBox(
       decoration: BoxDecoration(
         color: background,
@@ -100,7 +107,7 @@ class ChatBubble extends StatelessWidget {
               ),
       ),
       child: Padding(
-        padding: style.padding!,
+        padding: bubblePadding,
         child: DefaultTextStyle.merge(
           style: TextStyle(color: foreground),
           child: IconTheme.merge(data: icons, child: child),
@@ -310,13 +317,18 @@ class ChatReactionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChatTheme style = resolveChatStyle(context, widgetTheme: theme);
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
+    final ShadcnThemeData shadcn = ShadcnTheme.of(context);
+    final ShadcnColors colors = shadcn.colors;
     ThemedColor fill = style.reactionBackground!;
     ThemedColor label = style.reactionForeground!;
     if (selected) fill = style.reactionSelectedBackground!;
     if (selected) label = style.reactionSelectedForeground!;
+    final EdgeInsetsGeometry pillPadding = resolveEdgeInsets(
+      style.reactionPadding!,
+      shadcn.density.baseContentPadding * shadcn.scaling,
+    );
     final Widget pill = Container(
-      padding: style.reactionPadding!,
+      padding: pillPadding,
       decoration: BoxDecoration(
         color: fill.resolve(colors),
         border: Border.all(color: colors.border),

@@ -11,6 +11,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Visual state of a dropzone surface.
@@ -95,7 +96,7 @@ class DropzoneTheme extends ComponentThemeData
   /// Corner radius; null resolves the ambient `radiusLg`.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding; null resolves 24.
+  /// Inner padding; null resolves `p-6` (24), density-scaled.
   final EdgeInsetsGeometry? padding;
 
   /// Minimum height; null resolves 0 (the surface hugs its content).
@@ -227,6 +228,9 @@ class DropzoneTheme extends ComponentThemeData
 /// Default animation duration for the surface transitions.
 const Duration dropzoneDefaultDuration = Duration(milliseconds: 150);
 
+/// Surface padding: shadcn `p-6` (24px), density-scaled.
+const EdgeInsetsGeometry dropzoneDefaultPadding = EdgeInsetsDensity.pxAll(24);
+
 /// Token-derived baseline values; unset override fields fall through here.
 ///
 /// `borderColor` is set per state from the token table, so the `rest` entry is
@@ -241,7 +245,7 @@ const DropzoneTheme dropzoneDefaults = DropzoneTheme(
     disabled: ThemedColor.ref(ColorRef.border),
   ),
   borderWidth: 1,
-  padding: EdgeInsets.all(24),
+  padding: dropzoneDefaultPadding,
   iconColor: ThemedColor.ref(ColorRef.mutedForeground),
   iconSize: 28,
   statusStyle: TextStyle(fontSize: 14),

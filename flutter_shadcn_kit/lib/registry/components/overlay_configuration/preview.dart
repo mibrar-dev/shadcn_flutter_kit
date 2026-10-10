@@ -155,7 +155,7 @@ class _OverlayConfigBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text('Overlay content'),
-          const Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           Text(
             configuration == null
                 ? 'no configuration'

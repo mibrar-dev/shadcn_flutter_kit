@@ -45,7 +45,7 @@ class _ImagePreviewBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text('sizes and radii'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -54,14 +54,14 @@ class _ImagePreviewBody extends StatelessWidget {
                   width: 96,
                   aspectRatio: 1,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: ShadcnTheme.of(context).spacing.lg),
                 ShadcnImage(
                   image: const NetworkImage(ImagePreview._url),
                   width: 96,
                   aspectRatio: 1,
                   borderRadius: BorderRadius.zero,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: ShadcnTheme.of(context).spacing.lg),
                 ShadcnImage(
                   image: const NetworkImage(ImagePreview._url),
                   width: 96,
@@ -70,9 +70,9 @@ class _ImagePreviewBody extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('placeholder and error slots'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -86,7 +86,7 @@ class _ImagePreviewBody extends StatelessWidget {
                   errorBuilder: (context, error, stackTrace) =>
                       const Center(child: Icon(LucideIcons.imageOff)),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: ShadcnTheme.of(context).spacing.lg),
                 ShadcnImage(
                   image: const NetworkImage(
                     'https://example.invalid/missing.png',
@@ -96,9 +96,9 @@ class _ImagePreviewBody extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             const Text('theme legs'),
-            const SizedBox(height: 8),
+            SizedBox(height: ShadcnTheme.of(context).spacing.sm),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -113,7 +113,7 @@ class _ImagePreviewBody extends StatelessWidget {
                     aspectRatio: 1,
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: ShadcnTheme.of(context).spacing.lg),
                 ShadcnImage(
                   image: const NetworkImage(ImagePreview._url),
                   width: 96,
@@ -122,7 +122,7 @@ class _ImagePreviewBody extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(
@@ -138,7 +138,7 @@ class _ImagePreviewBody extends StatelessWidget {
                           width: 96,
                           aspectRatio: 1,
                         ),
-                        const SizedBox(width: 16),
+                        SizedBox(width: ShadcnTheme.of(context).spacing.lg),
                         const Text('dark tokens'),
                       ],
                     ),

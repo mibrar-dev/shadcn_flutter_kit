@@ -29,7 +29,7 @@ class SwiperPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 _label('Drawer — swipe right'),
-                const Gap(8),
+                Gap(theme.spacing.sm),
                 Expanded(
                   child: Swiper(
                     position: OverlayPosition.left,
@@ -40,9 +40,9 @@ class SwiperPreview extends StatelessWidget {
                     child: _SwipeSurface('Swipe right for a drawer'),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _label('Sheet — swipe up'),
-                const Gap(8),
+                Gap(theme.spacing.sm),
                 Expanded(
                   child: Swiper(
                     position: OverlayPosition.bottom,
@@ -109,7 +109,7 @@ class _Panel extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          const Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           Text(hint, style: TextStyle(color: colors.mutedForeground)),
         ],
       ),

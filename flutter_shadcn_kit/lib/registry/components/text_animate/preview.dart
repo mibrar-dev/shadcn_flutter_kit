@@ -65,6 +65,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Fade',
                   TextAnimate(
                     text: _text,
@@ -72,6 +73,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Slide',
                   TextAnimate(
                     text: _text,
@@ -79,6 +81,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Blur',
                   TextAnimate(
                     text: _text,
@@ -86,6 +89,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Scramble',
                   TextAnimate(
                     text: _text,
@@ -93,6 +97,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Words + cursor',
                   TextAnimate(
                     text: _text,
@@ -102,10 +107,12 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Markdown tail',
                   Markdown(data: _text).withTextStreaming(),
                 ),
                 _section(
+                  context,
                   'Themed override',
                   ComponentTheme<TextAnimateTheme>(
                     data: const TextAnimateTheme(
@@ -115,6 +122,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
                   ),
                 ),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -134,7 +142,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: Column(
@@ -144,7 +152,7 @@ class _TextAnimatePreviewState extends State<TextAnimatePreview> {
             title,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: ShadcnTheme.of(context).spacing.sm),
           child,
         ],
       ),

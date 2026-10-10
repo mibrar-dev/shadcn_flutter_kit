@@ -26,11 +26,11 @@ class StageContainerPreview extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
+              children: <Widget>[
                 _StageDemo(width: 480, label: 'Narrow (480)'),
-                Gap(24),
+                Gap(theme.spacing.xl),
                 _StageDemo(width: 800, label: 'Medium (800)'),
-                Gap(24),
+                Gap(theme.spacing.xl),
                 _StageDemo(width: 1200, label: 'Wide (1200)'),
               ],
             ),
@@ -57,7 +57,7 @@ class _StageDemo extends StatelessWidget {
           label,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         SizedBox(
           width: width,
           child: StageContainer(

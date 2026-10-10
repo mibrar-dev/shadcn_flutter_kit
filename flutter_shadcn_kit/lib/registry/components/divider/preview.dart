@@ -28,25 +28,27 @@ class DividerPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Horizontal', const Divider()),
-                const Gap(24),
+                _section(context, 'Horizontal', const Divider()),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Horizontal with label',
                   const Divider(label: Text('or continue with')),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Label alignment',
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Divider(
                         labelAlignment: DividerLabelAlignment.start,
                         label: Text('start'),
                       ),
-                      Gap(8),
+                      Gap(theme.spacing.sm),
                       Divider(label: Text('center')),
-                      Gap(8),
+                      Gap(theme.spacing.sm),
                       Divider(
                         labelAlignment: DividerLabelAlignment.end,
                         label: Text('end'),
@@ -54,12 +56,12 @@ class DividerPreview extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Gap(24),
-                _section('Indents and thickness', _custom()),
-                const Gap(24),
-                _section('Vertical', _vertical()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Indents and thickness', _custom(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Vertical', _vertical()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -68,14 +70,14 @@ class DividerPreview extends StatelessWidget {
     );
   }
 
-  Widget _custom() {
-    return const SizedBox(
+  Widget _custom(BuildContext context) {
+    return SizedBox(
       width: 320,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Divider(thickness: 3),
-          Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           Divider(indent: 40, endIndent: 40),
         ],
       ),
@@ -104,7 +106,7 @@ class DividerPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -112,7 +114,7 @@ class DividerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

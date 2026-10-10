@@ -40,14 +40,16 @@ class _AlertDialogPreviewState extends State<AlertDialogPreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Open',
                   Button(
                     onPressed: _show,
                     child: const Text('Show alert dialog'),
                   ),
                 ),
-                const Gap(24),
+                Gap(ShadcnTheme.of(context).spacing.xl),
                 _section(
+                  context,
                   'Composition',
                   Button(
                     size: ButtonSize.sm,
@@ -58,10 +60,10 @@ class _AlertDialogPreviewState extends State<AlertDialogPreview> {
                     ),
                   ),
                 ),
-                const Gap(24),
-                _section('Static body', _body()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                Gap(ShadcnTheme.of(context).spacing.xl),
+                _section(context, 'Static body', _body()),
+                Gap(ShadcnTheme.of(context).spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -154,7 +156,7 @@ class _AlertDialogPreviewState extends State<AlertDialogPreview> {
 
   static void _noop() {}
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -162,7 +164,7 @@ class _AlertDialogPreviewState extends State<AlertDialogPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

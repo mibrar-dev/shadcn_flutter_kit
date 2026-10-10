@@ -17,6 +17,7 @@ import '../../primitives/file_value/file_upload_items_view.dart';
 import '../../primitives/file_value/file_upload_row.dart';
 import '../../primitives/file_value/file_value.dart';
 import '../../primitives/localizations/localizations.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../dropzone/dropzone.dart';
@@ -377,7 +378,10 @@ class _FileUploadState extends State<FileUpload> {
               ? null
               : Border.all(color: border, width: style.borderWidth ?? 1),
         ),
-        padding: style.padding ?? fileUploadDefaults.padding!,
+        padding: resolveEdgeInsets(
+          style.padding ?? fileUploadDefaults.padding!,
+          ambient.density.baseContentPadding * ambient.scaling,
+        ),
         child: Row(
           children: <Widget>[
             Text(l10n.fileUploadChoose, style: name),

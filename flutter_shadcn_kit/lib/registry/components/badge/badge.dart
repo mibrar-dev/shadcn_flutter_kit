@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/gap.dart';
 import '../../primitives/clickable.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'badge_style.dart';
 
@@ -99,7 +100,10 @@ class Badge extends StatelessWidget {
     );
     final TextStyle textStyle =
         resolved.textStyle ?? container.textStyle ?? badgeDefaultTextStyle;
-    final EdgeInsetsGeometry padding = resolved.padding ?? badgeDefaultPadding;
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      resolved.padding ?? badgeDefaultPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
     final double iconSize = resolved.iconSize ?? 12;
     final double gap = ambient.spacing.sm;
 
@@ -154,19 +158,23 @@ class Badge extends StatelessWidget {
       );
     }
 
-    Widget content = Padding(padding: padding, child: child);
+    Widget content = child;
     if (leading != null || trailing != null) {
       content = Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ?leading,
           if (leading != null) Gap(gap),
-          content,
+          child,
           if (trailing != null) Gap(gap),
           ?trailing,
         ],
       );
     }
+    // The padding wraps the whole row, so a leading/trailing icon keeps the
+    // same edge distance as the label (shadcn `px-2`) and never touches it.
+    content = Padding(padding: padding, child: content);
 
     if (!isInteractive) {
       // The static badge still sets the variant text/icon style: without

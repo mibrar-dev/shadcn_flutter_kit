@@ -29,12 +29,12 @@ class BorderLoadingPreview extends StatelessWidget {
 class _BorderLoadingPreviewBody extends StatelessWidget {
   const _BorderLoadingPreviewBody();
 
-  Widget _card(String label, BorderLoading child) {
+  Widget _card(BuildContext context, String label, BorderLoading child) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         child,
-        const SizedBox(height: 8),
+        SizedBox(height: ShadcnTheme.of(context).spacing.sm),
         Text(label, style: const TextStyle(fontSize: 12)),
       ],
     );
@@ -52,10 +52,12 @@ class _BorderLoadingPreviewBody extends StatelessWidget {
           alignment: WrapAlignment.center,
           children: <Widget>[
             _card(
+              context,
               'sweep',
               const BorderLoading(child: SizedBox(width: 120, height: 48)),
             ),
             _card(
+              context,
               'tracer',
               const BorderLoading(
                 mode: BorderLoadingMode.tracer,
@@ -64,6 +66,7 @@ class _BorderLoadingPreviewBody extends StatelessWidget {
               ),
             ),
             _card(
+              context,
               'static',
               const BorderLoading(
                 mode: BorderLoadingMode.staticBorder,
@@ -71,6 +74,7 @@ class _BorderLoadingPreviewBody extends StatelessWidget {
               ),
             ),
             _card(
+              context,
               'theme leg',
               BorderLoading(
                 theme: const BorderLoadingTheme(

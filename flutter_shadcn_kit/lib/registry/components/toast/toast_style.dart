@@ -10,6 +10,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Visual and timing contract of a toast stack.
@@ -53,7 +54,7 @@ class ToastTheme extends ComponentThemeData implements Mergeable<ToastTheme> {
   /// Corner radius; null resolves the ambient `radiusMd` at build.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Inner padding. Default: `EdgeInsets.all(16)`.
+  /// Inner padding. Default: [toastDefaultPadding] (shadcn `p-4`).
   final EdgeInsetsGeometry? padding;
 
   /// Maximum card width. Default: `380`.
@@ -233,12 +234,18 @@ const ToastTheme toastDefaults = ToastTheme(
   foreground: ThemedColor.ref(ColorRef.popoverForeground),
   borderColor: ThemedColor.ref(ColorRef.border),
   borderWidth: 1,
-  padding: EdgeInsets.all(16),
+  padding: toastDefaultPadding,
   maxWidth: 380,
   duration: Duration(seconds: 3),
   animationDuration: Duration(milliseconds: 250),
   pauseOnHover: true,
   showCloseButton: true,
   gap: 8,
+  // The viewport inset the whole toast stack is placed with (the analogue of
+  // sonner's `<Toaster offset>`), not component padding, so it does not scale
+  // with density.
   offset: EdgeInsets.all(24),
 );
+
+/// Default toast card padding: shadcn `p-4`, density-scaled.
+const EdgeInsetsGeometry toastDefaultPadding = EdgeInsetsDensity.pxAll(16);

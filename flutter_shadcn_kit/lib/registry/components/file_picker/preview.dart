@@ -76,11 +76,13 @@ class FilePickerPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Dropzone',
                   FileUpload(pick: fakePick, onError: (_) {}),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Uploading list',
                   FileUpload(
                     pick: fakePick,
@@ -88,8 +90,9 @@ class FilePickerPreview extends StatelessWidget {
                     upload: (_) => const Stream<double>.empty(),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Failed row',
                   FileUpload(
                     pick: fakePick,
@@ -97,8 +100,9 @@ class FilePickerPreview extends StatelessWidget {
                     upload: (_) => const Stream<double>.empty(),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Tile',
                   FileUpload(
                     variant: FileUploadVariant.tile,
@@ -106,18 +110,20 @@ class FilePickerPreview extends StatelessWidget {
                     controller: _controller(),
                   ),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Mobile',
                   FileUpload(variant: FileUploadVariant.mobile, pick: fakePick),
                 ),
-                const Gap(16),
+                Gap(theme.spacing.lg),
                 _section(
+                  context,
                   'Disabled',
                   FileUpload(pick: fakePick, enabled: false),
                 ),
-                const Gap(16),
-                _section('Dark', _dark()),
+                Gap(theme.spacing.lg),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -140,7 +146,7 @@ class FilePickerPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -148,7 +154,7 @@ class FilePickerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

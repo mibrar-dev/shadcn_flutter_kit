@@ -16,9 +16,9 @@
   "deps": {
     "foundation": [],
     "theme": [
-      "color_tokens",
-      "density",
-      "theme"
+        "color_tokens",
+        "density",
+        "theme"
     ],
     "primitives": [
       "form_core",
@@ -39,8 +39,9 @@
       "InputTheme"
     ],
     "constants": [
-      "inputDefaults",
-      "inputThemeOverrides"
+        "inputDefaultPadding",
+        "inputDefaults",
+        "inputThemeOverrides"
     ],
     "providedByPrimitives": {
       "text_editing": [

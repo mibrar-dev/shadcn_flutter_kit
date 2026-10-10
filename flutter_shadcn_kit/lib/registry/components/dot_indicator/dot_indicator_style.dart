@@ -18,6 +18,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/constants.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// One dot's state-aware styling slice.
@@ -115,7 +116,8 @@ class DotIndicatorTheme extends ComponentThemeData
   /// Gap between two dots; null resolves `8 * scaling`.
   final double? spacing;
 
-  /// Padding around the run of dots; null resolves the density base gap.
+  /// Padding around the run of dots; null resolves [dotIndicatorDefaultPadding]
+  /// (shadcn `p-2`, density-scaled).
   final EdgeInsetsGeometry? padding;
 
   /// Duration of the active/inactive morph; null resolves 150 ms.
@@ -241,10 +243,15 @@ const DotStyle _dotIndicatorInactiveRow = DotStyle(
   ),
 );
 
+/// Padding of the run of dots: shadcn `p-2` (8px), density-scaled.
+const EdgeInsetsGeometry dotIndicatorDefaultPadding = EdgeInsetsDensity.pxAll(
+  8,
+);
+
 /// Token-derived baseline rows; every unset override field falls through here.
 const DotIndicatorTheme dotIndicatorDefaults = DotIndicatorTheme(
   active: _dotIndicatorActiveRow,
   inactive: _dotIndicatorInactiveRow,
-  padding: EdgeInsets.all(8),
+  padding: dotIndicatorDefaultPadding,
   duration: kDefaultDuration,
 );

@@ -35,11 +35,13 @@ class StepperPreview extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Circle, horizontal',
                   Stepper(currentStep: 1, steps: _steps()),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Circle, vertical',
                   Stepper(
                     currentStep: 2,
@@ -47,10 +49,10 @@ class StepperPreview extends StatelessWidget {
                     steps: _steps(),
                   ),
                 ),
-                const Gap(24),
-                _section('Sizes', _sizes()),
-                const Gap(24),
-                _section('Failed step', _failed()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Sizes', _sizes(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Failed step', _failed()),
               ],
             ),
           ),
@@ -59,14 +61,14 @@ class StepperPreview extends StatelessWidget {
     );
   }
 
-  Widget _sizes() {
+  Widget _sizes(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         for (final StepperSize size in StepperSize.values) ...<Widget>[
           Text('${size.name} (${size.indicatorSize}px)'),
           Stepper(currentStep: 1, size: size, steps: _steps()),
-          const Gap(12),
+          Gap(ShadcnTheme.of(context).spacing.md),
         ],
       ],
     );
@@ -78,12 +80,12 @@ class StepperPreview extends StatelessWidget {
     return Stepper(controller: controller, steps: _steps());
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

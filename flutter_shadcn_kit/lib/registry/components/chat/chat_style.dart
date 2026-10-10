@@ -9,6 +9,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Bubble style (the old `ChatBubbleType` class hierarchy, data per the
@@ -102,7 +103,8 @@ class ChatTheme extends ComponentThemeData implements Mergeable<ChatTheme> {
 
   final double? widthFactor;
 
-  /// Inner padding; null = `12` horizontal / `8` vertical.
+  /// Inner padding; null = the shadcn bubble's `px-3 py-2` (12/8) as an
+  /// [EdgeInsetsDensity].
   final EdgeInsetsGeometry? padding;
 
   /// Corner radius; null resolves the ambient `radiusLg`.
@@ -119,15 +121,19 @@ class ChatTheme extends ComponentThemeData implements Mergeable<ChatTheme> {
   /// Which bubble of a group carries the tail; null = [ChatTailBehavior.last].
   final ChatTailBehavior? tailBehavior;
 
-  /// Gap between a group's bubbles; null resolves `2`.
+  /// Gap between a group's bubbles; null resolves `2` (a `Row`/`Column`
+  /// spacing, so it cannot carry a density multiplier).
   final double? spacing;
 
-  /// Avatar gap / edge alignment; null = `8` / the group default.
+  /// Avatar gap / edge alignment; null = `8` / the group default. A raw
+  /// `double` (`Row.spacing`), so `8` stays a literal.
   final double? avatarSpacing;
   final AlignmentGeometry? avatarAlignment;
 
   /// Reaction chips: fill, label, selected fill, selected label and padding
   /// (`muted` / `foreground` / `primary` / `primaryForeground` / `6 x 4`).
+  ///
+  /// The padding is a pill `px-1.5 py-1` [EdgeInsetsDensity].
   final ThemedColor? reactionBackground;
 
   final ThemedColor? reactionForeground;
@@ -327,13 +333,17 @@ class ChatTheme extends ComponentThemeData implements Mergeable<ChatTheme> {
 }
 
 /// Token-derived baseline; unset override fields fall through here.
+///
+/// `padding` (bubble `px-3 py-2`, 12/8) and `reactionPadding` (pill
+/// `px-1.5 py-1`, 6/4) are density multipliers resolved by the widgets that
+/// paint them; `spacing`/`avatarSpacing` stay plain doubles (`Row` spacing).
 const ChatTheme chatDefaults = ChatTheme(
   background: ThemedColor.ref(ColorRef.primary),
   foreground: ThemedColor.ref(ColorRef.primaryForeground),
   variant: ChatBubbleVariant.tail,
   alignment: AlignmentDirectional.centerEnd,
   widthFactor: 0.5,
-  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  padding: EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8),
   tailSize: Size(8, 8),
   tailBehavior: ChatTailBehavior.last,
   spacing: 2,
@@ -343,7 +353,7 @@ const ChatTheme chatDefaults = ChatTheme(
   reactionForeground: ThemedColor.ref(ColorRef.foreground),
   reactionSelectedBackground: ThemedColor.ref(ColorRef.primary),
   reactionSelectedForeground: ThemedColor.ref(ColorRef.primaryForeground),
-  reactionPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+  reactionPadding: EdgeInsetsDensity.pxSymmetric(horizontal: 6, vertical: 4),
 );
 
 /// Resolves the four theme legs plus widget args into one non-null style.

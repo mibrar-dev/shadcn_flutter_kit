@@ -32,6 +32,7 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _section(
+                context,
                 'Stages',
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +53,9 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
                   ],
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Live (pull the list down)',
                 SizedBox(
                   height: 220,
@@ -69,8 +71,9 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
                   ),
                 ),
               ),
-              const Gap(24),
+              Gap(ShadcnTheme.of(context).spacing.xl),
               _section(
+                context,
                 'Stage switch',
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +87,7 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
                         false,
                       ),
                     ),
-                    const Gap(8),
+                    Gap(ShadcnTheme.of(context).spacing.sm),
                     Wrap(
                       spacing: 8,
                       children: <Widget>[
@@ -106,7 +109,7 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -114,7 +117,7 @@ class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

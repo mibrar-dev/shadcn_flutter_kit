@@ -46,23 +46,23 @@ class _MediaQueryPreviewState extends State<MediaQueryPreview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('viewport width: ${_width.round()}'),
-              const SizedBox(height: 8),
+              SizedBox(height: ShadcnTheme.of(context).spacing.sm),
               _widthSlider(),
-              const SizedBox(height: 24),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xl),
               _visibility(),
-              const SizedBox(height: 24),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xl),
               _visibility(
                 minWidth: 600,
                 alternateChild: const Text('below the min bound'),
                 child: const Text('at or above the min bound'),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               _visibility(
                 maxWidth: 400,
                 alternateChild: const Text('above the max bound'),
                 child: const Text('at or below the max bound'),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: ShadcnTheme.of(context).spacing.lg),
               const Text('scoped theme leg (min 600 / max 1000)'),
               ComponentTheme<MediaQueryVisibilityTheme>(
                 data: const MediaQueryVisibilityTheme(
@@ -74,7 +74,7 @@ class _MediaQueryPreviewState extends State<MediaQueryPreview> {
                   child: const Text('scoped: inside 600..1000'),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: ShadcnTheme.of(context).spacing.xl),
               ShadcnTheme(
                 data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
                 child: Builder(

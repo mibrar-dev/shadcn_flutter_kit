@@ -2,44 +2,19 @@
 //
 // The user reported that code blocks (including the expanded "View Code"
 // pane) are not selectable. `SelectableRegion` needs an `Overlay` ancestor,
-// so the harness supplies one.
+// which `pumpWithOverlay` (in `theme_audit_helpers.dart`) supplies.
 //
-// A failing assertion in this batch is a *finding*: the brief says such tests
-// carry a `skip:` with the reason here, and the fix batch removes the skip.
-// Each skip names the component and the proposal already made in
-// `rearch/reports/P6_THEME_AUDIT.md`.
+// The audit batch (`rearch/reports/P6_THEME_AUDIT.md` §3) recorded one
+// deliberately-failing case here: `code_snippet` rendered plain `Text` /
+// `Text.rich`. That placeholder is gone — the component now wraps its code
+// in `SelectableRegion` (audit option A), so the tests assert the fix.
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_shadcn_kit/registry/components/code_snippet/code_snippet.dart';
 import 'package:flutter_shadcn_kit/registry/components/markdown/markdown.dart';
-import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 
 import 'theme_audit_helpers.dart';
-
-/// Pumps [child] with the `Overlay` ancestor `SelectableRegion` requires.
-Future<void> pumpWithOverlay(
-  WidgetTester tester, {
-  required String presetId,
-  required Brightness brightness,
-  required Widget child,
-}) async {
-  final view = loadPreset(presetId).view(brightness);
-  await tester.pumpWidget(
-    ShadcnTheme(
-      data: ShadcnThemeData(
-        colors: view.colors,
-        tokens: view.tokens,
-        fonts: view.fonts,
-      ),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Overlay(initialEntries: [OverlayEntry(builder: (_) => child)]),
-      ),
-    ),
-  );
-  await tester.pump(kSettleDuration);
-}
 
 bool _isSelectable(Widget widget) {
   final type = widget.runtimeType.toString();
@@ -51,10 +26,11 @@ bool _isSelectable(Widget widget) {
 
 void main() {
   group('Selectability audit', () {
-    // FINDING: `code_snippet` renders plain `Text` / `Text.rich`, so code on
-    // the docs site (including the "View Code" pane) cannot be selected or
-    // copied. Fix in the fix batch: swap `Text` -> `SelectableText` and
-    // `Text.rich` -> `SelectableText.rich`, keeping the syntax colours.
+    // Regression: `code_snippet` used to render plain `Text` / `Text.rich` with
+    // no selection container, so code on the docs site (including the "View
+    // Code" pane) could not be selected or copied. The painted output now sits
+    // inside a `SelectableRegion`, which the `Text` widgets join automatically,
+    // so the syntax colours are unchanged.
     testWidgets('CodeSnippet text is selectable', (tester) async {
       await pumpWithOverlay(
         tester,
@@ -68,18 +44,13 @@ void main() {
           .evaluate()
           .isNotEmpty;
 
-      if (!hasSelectable) {
-        // Finding of this audit batch; the fix batch makes this pass and
-        // deletes the skip.
-        markTestSkipped(
-          'code_snippet renders plain Text/Text.rich - code is not '
-          'selectable. Fix batch: use SelectableText / SelectableText.rich '
-          'keeping syntax colours.',
-        );
-        return;
-      }
-
-      expect(hasSelectable, isTrue);
+      expect(
+        hasSelectable,
+        isTrue,
+        reason:
+            'code_snippet must wrap its code in a selection container so '
+            'code blocks can be selected and copied',
+      );
     });
 
     testWidgets('Markdown code blocks are selectable', (tester) async {

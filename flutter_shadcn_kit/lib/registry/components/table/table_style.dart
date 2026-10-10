@@ -11,6 +11,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// State-aware styling of one table cell.
@@ -269,12 +270,12 @@ class TableTheme extends ComponentThemeData implements Mergeable<TableTheme> {
   );
 }
 
-/// Shared cell padding: shadcn `p-2` (8 px all sides).
-const EdgeInsetsGeometry tableCellPadding = EdgeInsets.all(8);
+/// Shared cell padding: shadcn `p-2` (8 px all sides), density-scaled.
+const EdgeInsetsGeometry tableCellPadding = EdgeInsetsDensity.pxAll(8);
 
 /// Header/footer padding: shadcn `px-2` (the header height comes from
-/// [tableHeaderCellDefaults]' `minHeight`).
-const EdgeInsetsGeometry tableHeadCellPadding = EdgeInsets.symmetric(
+/// [tableHeaderCellDefaults]' `minHeight`), density-scaled.
+const EdgeInsetsGeometry tableHeadCellPadding = EdgeInsetsDensity.pxSymmetric(
   horizontal: 8,
 );
 

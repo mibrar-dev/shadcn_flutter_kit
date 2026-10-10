@@ -38,15 +38,15 @@ class _SliderPreviewState extends State<SliderPreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const Text('Single'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 Slider(
                   value: _single,
                   onChanged: (v) => setState(() => _single = v),
                   semanticLabel: 'Single',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: theme.spacing.lg),
                 const Text('Variants'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 for (final variant in SliderVariant.values)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -58,15 +58,15 @@ class _SliderPreviewState extends State<SliderPreview> {
                     ),
                   ),
                 const Text('Range'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 Slider.range(
                   value: _range,
                   onRangeChanged: (v) => setState(() => _range = v),
                   semanticLabel: 'Range',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: theme.spacing.lg),
                 const Text('Steps (0..4)'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 Slider(
                   value: _steps,
                   min: 0,
@@ -76,9 +76,9 @@ class _SliderPreviewState extends State<SliderPreview> {
                   onChanged: (v) => setState(() => _steps = v),
                   semanticLabel: 'Steps',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: theme.spacing.lg),
                 const Text('Wave'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 Slider(
                   value: _single,
                   variant: SliderVariant.wave,
@@ -86,18 +86,18 @@ class _SliderPreviewState extends State<SliderPreview> {
                   onChanged: (v) => setState(() => _single = v),
                   semanticLabel: 'Wave',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: theme.spacing.lg),
                 const Text('Disabled'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 const Slider(
                   value: 0.6,
                   enabled: false,
                   onChanged: null,
                   semanticLabel: 'Disabled',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: theme.spacing.lg),
                 const Text('Dark'),
-                const SizedBox(height: 8),
+                SizedBox(height: theme.spacing.sm),
                 ShadcnTheme(
                   data: ShadcnThemeData(colors: ShadcnColors.darkFallback),
                   child: Slider(

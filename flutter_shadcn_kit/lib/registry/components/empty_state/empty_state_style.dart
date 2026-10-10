@@ -11,6 +11,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// Presentation scale of an empty state.
@@ -56,7 +57,8 @@ class EmptyStateMetrics {
   /// Description text style.
   final TextStyle descriptionStyle;
 
-  /// Padding around the whole block.
+  /// Padding around the whole block; the size table stores density
+  /// multipliers, resolved by [emptyStateMetrics].
   final EdgeInsetsGeometry padding;
 
   /// Space between the icon block and the title.
@@ -78,7 +80,8 @@ class EmptyStateMetrics {
   final double descriptionMaxWidth;
 
   /// Padding inside the icon container; null falls through to the theme field
-  /// and then to the size table.
+  /// and then to the size table, whose value is a density multiplier resolved
+  /// by [emptyStateMetrics].
   final EdgeInsetsGeometry? iconContainerPadding;
 
   /// Corner radius of the icon container; null falls through to the theme field
@@ -260,14 +263,16 @@ const EmptyStateMetrics _compactMetrics = EmptyStateMetrics(
   iconSize: 28,
   titleStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
   descriptionStyle: TextStyle(fontSize: 14, height: 1.35),
-  padding: EdgeInsets.all(24),
+  // shadcn `p-6`, density-scaled.
+  padding: EdgeInsetsDensity.pxAll(24),
   contentGap: 16,
   titleGap: 8,
   actionGap: 16,
   actionSpacing: 12,
   maxWidth: 420,
   descriptionMaxWidth: 420,
-  iconContainerPadding: EdgeInsets.all(10),
+  // shadcn `p-2.5`, density-scaled.
+  iconContainerPadding: EdgeInsetsDensity.pxAll(10),
   iconContainerBorderRadius: BorderRadius.all(Radius.circular(14)),
 );
 
@@ -276,21 +281,18 @@ const EmptyStateMetrics _fullPageMetrics = EmptyStateMetrics(
   iconSize: 36,
   titleStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
   descriptionStyle: TextStyle(fontSize: 14, height: 1.35),
-  padding: EdgeInsets.all(32),
+  // shadcn `p-8`, density-scaled.
+  padding: EdgeInsetsDensity.pxAll(32),
   contentGap: 24,
   titleGap: 12,
   actionGap: 24,
   actionSpacing: 12,
   maxWidth: 520,
   descriptionMaxWidth: 560,
-  iconContainerPadding: EdgeInsets.all(12),
+  // shadcn `p-3`, density-scaled.
+  iconContainerPadding: EdgeInsetsDensity.pxAll(12),
   iconContainerBorderRadius: BorderRadius.all(Radius.circular(14)),
 );
-
-/// The uniform padding of [padding]; the size table only uses `all`, so this
-/// is exact rather than an approximation.
-double _uniform(EdgeInsetsGeometry padding) =>
-    padding.resolve(TextDirection.ltr).left;
 
 /// The uniform radius of [radius]; the size table only uses `all`, so this is
 /// exact rather than an approximation.
@@ -316,15 +318,19 @@ EmptyStateMetrics emptyStateMetrics(
     descriptionStyle: base.descriptionStyle.copyWith(
       color: theme.colors.mutedForeground,
     ),
-    padding: EdgeInsets.all(_uniform(base.padding) * theme.scaling),
+    padding: resolveEdgeInsets(
+      base.padding,
+      theme.density.baseContentPadding * theme.scaling,
+    ),
     contentGap: base.contentGap * theme.scaling,
     titleGap: base.titleGap * theme.scaling,
     actionGap: base.actionGap * theme.scaling,
     actionSpacing: base.actionSpacing * theme.scaling,
     maxWidth: base.maxWidth * theme.scaling,
     descriptionMaxWidth: base.descriptionMaxWidth * theme.scaling,
-    iconContainerPadding: EdgeInsets.all(
-      _uniform(base.iconContainerPadding!) * theme.scaling,
+    iconContainerPadding: resolveEdgeInsets(
+      base.iconContainerPadding!,
+      theme.density.baseContentPadding * theme.scaling,
     ),
     iconContainerBorderRadius: BorderRadius.circular(
       _radius(base.iconContainerBorderRadius!) * theme.scaling,

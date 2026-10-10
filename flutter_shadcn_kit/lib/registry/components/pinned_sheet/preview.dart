@@ -57,9 +57,9 @@ class _PinnedSheetPreviewState extends State<PinnedSheetPreview> {
                     SheetStage.fraction(0.4),
                     SheetStage.expanded(),
                   ],
-                  child: const DrawerContainer(
+                  child: DrawerContainer(
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.all(theme.spacing.lg),
                       child: Text('Sheet content'),
                     ),
                   ),
@@ -73,13 +73,13 @@ class _PinnedSheetPreviewState extends State<PinnedSheetPreview> {
                       label: 'Close',
                       onTap: () => _controller.close(),
                     ),
-                    const Gap(8),
+                    Gap(theme.spacing.sm),
                     _SnapButton(
                       label: 'Half',
                       onTap: () =>
                           _controller.animateTo(const SheetStage.fraction(0.4)),
                     ),
-                    const Gap(8),
+                    Gap(theme.spacing.sm),
                     _SnapButton(label: 'Open', onTap: () => _controller.open()),
                   ],
                 ),

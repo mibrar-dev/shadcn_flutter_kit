@@ -88,7 +88,7 @@ class _AsyncPreviewState extends State<AsyncPreview> {
               }),
               child: const Text('reload futures'),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: ShadcnTheme.of(context).spacing.xl),
             ShadcnTheme(
               data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
               child: Builder(

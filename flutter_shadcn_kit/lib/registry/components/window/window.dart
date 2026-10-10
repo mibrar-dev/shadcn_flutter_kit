@@ -21,6 +21,7 @@ import '../../primitives/animated_value_builder.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../primitives/window_host.dart';
 import '../../primitives/window_manager.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../card/card.dart';
 import '../outlined_container/outlined_container.dart';
@@ -178,7 +179,10 @@ class _WindowState extends State<Window> implements WindowHandle {
         child: SizedBox(
           height: titleBarHeight,
           child: Padding(
-            padding: style.titleBarPadding ?? EdgeInsets.zero,
+            padding: resolveEdgeInsets(
+              style.titleBarPadding ?? EdgeInsets.zero,
+              ambient.density.baseContentPadding * ambient.scaling,
+            ),
             child: Row(
               children: <Widget>[
                 Expanded(

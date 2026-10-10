@@ -49,7 +49,7 @@ class _ColorInputPreviewState extends State<ColorInputPreview> {
                   width: 240,
                   child: ColorInput(value: _value, onChanged: _set),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Dialog prompt with a title'),
                 SizedBox(
                   width: 240,
@@ -60,7 +60,7 @@ class _ColorInputPreviewState extends State<ColorInputPreview> {
                     onChanged: _set,
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Alpha + history'),
                 SizedBox(
                   width: 240,
@@ -71,10 +71,10 @@ class _ColorInputPreviewState extends State<ColorInputPreview> {
                     onChanged: _set,
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Disabled'),
                 SizedBox(width: 240, child: ColorInput(value: _value)),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Dark palette'),
                 ShadcnTheme(
                   data: const ShadcnThemeData(

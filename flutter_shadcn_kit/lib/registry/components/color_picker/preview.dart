@@ -48,7 +48,7 @@ class _ColorPickerPreviewState extends State<ColorPickerPreview> {
                   onChanging: (value) => setState(() => _value = value),
                   onChanged: (value) => setState(() => _value = value),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Horizontal, HSL'),
                 ColorPicker(
                   value: _value,
@@ -56,7 +56,7 @@ class _ColorPickerPreviewState extends State<ColorPickerPreview> {
                   showHistoryButton: false,
                   onChanged: (value) => setState(() => _value = value),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'HSV with alpha'),
                 ColorPicker(
                   value: _value,
@@ -65,7 +65,7 @@ class _ColorPickerPreviewState extends State<ColorPickerPreview> {
                   showHistoryButton: false,
                   onChanged: (value) => setState(() => _value = value),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'HEX'),
                 ColorPicker(
                   value: _value,
@@ -73,7 +73,7 @@ class _ColorPickerPreviewState extends State<ColorPickerPreview> {
                   showHistoryButton: false,
                   onChanged: (value) => setState(() => _value = value),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _label(theme, 'Dark palette'),
                 ShadcnTheme(
                   data: const ShadcnThemeData(

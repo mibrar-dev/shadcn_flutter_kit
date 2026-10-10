@@ -14,6 +14,7 @@ import 'package:flutter_shadcn_kit/registry/components/chip/chip.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
 import 'package:flutter_shadcn_kit/registry/components/menu/menu.dart';
 import 'package:flutter_shadcn_kit/registry/components/table/table.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'layout_audit_support.dart';
@@ -149,10 +150,25 @@ void main() {
     testWidgets('header cell padding matches its documented value', (
       tester,
     ) async {
-      // table_style.dart:277 `EdgeInsets.symmetric(horizontal: 8)`: shadcn's
-      // `TableHead` is `h-10 px-2` — horizontal padding only, the height comes
-      // from the cell's `minHeight`.
-      expect(tableHeadCellPadding, const EdgeInsets.symmetric(horizontal: 8));
+      // `tableHeadCellPadding` is shadcn `px-2` as density multipliers: at
+      // the default density it resolves to the documented 8px horizontal /
+      // 0 vertical (the cell height comes from its `minHeight`, not padding).
+      expect(
+        resolveEdgeInsets(
+          tableHeadCellPadding,
+          Density.defaultDensity.baseContentPadding,
+        ),
+        const EdgeInsets.symmetric(horizontal: 8),
+      );
+      // The header is deliberately asymmetric with the body cell's `p-2`:
+      // upstream `TableHead` is `h-10 px-2`, so vertical padding is 0.
+      expect(
+        resolveEdgeInsets(
+          tableCellPadding,
+          Density.defaultDensity.baseContentPadding,
+        ),
+        const EdgeInsets.all(8),
+      );
     });
   });
 

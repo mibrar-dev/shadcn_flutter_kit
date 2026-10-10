@@ -8,6 +8,7 @@ import '../../primitives/menu_nav.dart';
 import '../../primitives/menu_rows.dart';
 import '../../primitives/popover_controller.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'menu_style.dart';
 
@@ -203,10 +204,10 @@ RovingRow _plainRow(
     radius: (style.borderRadius ?? app.borderRadiusSm).resolve(
       Directionality.of(context),
     ),
-    padding:
-        (style.itemPadding ??
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 6))
-            .add(group?.itemPadding ?? EdgeInsets.zero),
+    padding: resolveEdgeInsets(
+      style.itemPadding ?? menuItemDefaultPadding,
+      app.density.baseContentPadding * app.scaling,
+    ).add(group?.itemPadding ?? EdgeInsets.zero),
     textStyle: style.textStyle,
     onOpen: onOpen,
     onClose: onClose,
@@ -264,6 +265,8 @@ class MenuCheckboxItem extends StatelessWidget implements MenuItem {
       theme: theme,
       enabled: enabled,
       onPressed: () => onChanged?.call(context, !value),
+      // The 16px check gutter is shadcn `size-4`, the fixed icon envelope
+      // the check glyph lives in — not spacing, so it does not scale.
       leading: value
           ? const Icon(LucideIcons.check, size: 16)
           : const SizedBox(width: 16, height: 16),
@@ -303,6 +306,8 @@ class MenuRadioItem<T> extends StatelessWidget implements MenuItem {
       theme: theme,
       enabled: enabled,
       onPressed: () => group?.onChanged?.call(context, value),
+      // 16 is the `size-4` radio gutter, the same fixed icon envelope the
+      // check row reserves.
       leading: group?.value == value
           ? const Icon(LucideIcons.dot, size: 16)
           : const SizedBox(width: 16, height: 16),
@@ -362,7 +367,10 @@ class MenuPopup extends StatelessWidget {
       borderRadius: (style.borderRadius ?? app.borderRadiusMd).resolve(
         Directionality.of(context),
       ),
-      padding: style.padding,
+      padding: resolveEdgeInsets(
+        style.padding ?? EdgeInsets.zero,
+        app.density.baseContentPadding * app.scaling,
+      ),
       minWidth: style.minWidth ?? 192,
       children: children,
     );

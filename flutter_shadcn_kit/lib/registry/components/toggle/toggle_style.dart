@@ -11,6 +11,7 @@ import 'dart:ui' show lerpDouble;
 import 'package:flutter/widgets.dart';
 
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 
 /// One toggle state's styling slice.
@@ -44,7 +45,8 @@ class ToggleStyle implements Mergeable<ToggleStyle> {
   /// Per-state [TextDecoration].
   final StateValue<TextDecoration>? decoration;
 
-  /// Padding override; null falls back to the toggle default padding.
+  /// Padding override; null falls back to the toggle default padding
+  /// (shadcn `px-2`, density-scaled).
   final EdgeInsetsGeometry? padding;
 
   /// Text style override; its color is ignored (taken from [foreground]).
@@ -206,8 +208,9 @@ class ToggleTheme extends ComponentThemeData implements Mergeable<ToggleTheme> {
 /// (vertical padding would stack on top of it, as with `Button`).
 enum ToggleSize { sm, md, lg }
 
-/// Default toggle padding before any override (shadcn px-2, border-box).
-const EdgeInsetsGeometry toggleDefaultPadding = EdgeInsets.symmetric(
+/// Default toggle padding before any override (shadcn px-2, border-box),
+/// density-scaled.
+const EdgeInsetsGeometry toggleDefaultPadding = EdgeInsetsDensity.pxSymmetric(
   horizontal: 8,
 );
 

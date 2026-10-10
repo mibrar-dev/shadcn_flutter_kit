@@ -45,6 +45,7 @@ class _TogglePreviewState extends State<TogglePreview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _section(
+                  context,
                   'Controlled',
                   Wrap(
                     spacing: 8,
@@ -80,8 +81,9 @@ class _TogglePreviewState extends State<TogglePreview> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Controller',
                   Wrap(
                     spacing: 8,
@@ -98,8 +100,9 @@ class _TogglePreviewState extends State<TogglePreview> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'States',
                   Wrap(
                     spacing: 8,
@@ -121,8 +124,9 @@ class _TogglePreviewState extends State<TogglePreview> {
                     ],
                   ),
                 ),
-                const Gap(24),
+                Gap(theme.spacing.xl),
                 _section(
+                  context,
                   'Dark',
                   ShadcnTheme(
                     data: const ShadcnThemeData(
@@ -160,7 +164,7 @@ class _TogglePreviewState extends State<TogglePreview> {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -168,7 +172,7 @@ class _TogglePreviewState extends State<TogglePreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

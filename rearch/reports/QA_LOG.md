@@ -565,3 +565,14 @@
 - Dominant root cause is the docs harness: `preview_stage.dart:98-128` gives previews unbounded width+height. 18 previews pin `ShadcnThemeData()` (ignore site theme/mode → likely cause of the user's black Calendar-class symptoms); 75 ignore light/dark overall; 25 overflow.
 - Registry bugs: chat IntrinsicHeight+Flexible overflow, eye_dropper notifier used after dispose, empty_state intrinsic width; preview bugs: file_diff_viewer, switch, image (remote SVG).
 - Classification 97 listed / 21 building blocks; preview examples proposed per component.
+
+## P6-F2 — theme colours + code selectability — ACCEPTED (pending joint commit with F1)
+- theme_audit +89 no skips; test/registry +2881; manifest --check ok; layers/owner/user-theme 0. Agent exit=1 was a no-op report edit after RESULT.
+- Real root cause found: edge fades used BlendMode.modulate with white transparent stops (modulate never multiplies alpha) → now fade to the surface token.
+- tracker fine/warning → chart2/chart4 (inferred); gooey_toast tones → chart1..5/destructive/mutedForeground; new GooeyToastTheme.descriptionColor accepted.
+- Orchestrator fix: CodeSnippet wraps SelectableRegion only when an Overlay exists (no assert in bare WidgetsApp).
+
+## P6-F1 — spacing/density/icon geometry — ACCEPTED
+- qa_gate: format 0, analyze 0, registry +2881, rearch +42, layers/owner/user-theme 0. layout_audit 36/36, theme_audit 89/89, 0 skips. Manifest --check ok.
+- Mechanism: EdgeInsetsDensity.pxSymmetric/pxAll + Density.scale (no new system). Impl findings 112→22 (all allowed, commented); raw literals 664→63; chip/badge icon geometry fixed (leading 8px from edge, gap-2 to label). 3 assertions corrected vs shadcn.
+- Follow-ups: 9 files over ~400 lines (chat×2, error_system, input_otp, object_input, refresh_trigger, time_picker, tree, window); double gap theme fields can't hold tokens in const defaults. Leftover BLOCKED sub-agent report discarded.

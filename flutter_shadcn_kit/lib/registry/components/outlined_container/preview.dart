@@ -29,17 +29,17 @@ class OutlinedContainerPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Default', _default()),
-                const Gap(24),
-                _section('Radius and padding', _rounded()),
-                const Gap(24),
-                _section('Translucent', _translucent()),
-                const Gap(24),
-                _section('Blur', _blurred()),
-                const Gap(24),
-                _section('Dashed', _dashed()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Default', _default(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Radius and padding', _rounded()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Translucent', _translucent()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Blur', _blurred()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dashed', _dashed(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -48,11 +48,11 @@ class OutlinedContainerPreview extends StatelessWidget {
     );
   }
 
-  Widget _default() {
-    return const SizedBox(
+  Widget _default(BuildContext context) {
+    return SizedBox(
       width: 320,
       child: OutlinedContainer(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
         child: Text('Outlined container'),
       ),
     );
@@ -93,33 +93,33 @@ class OutlinedContainerPreview extends StatelessWidget {
     );
   }
 
-  Widget _dashed() {
-    return const SizedBox(
+  Widget _dashed(BuildContext context) {
+    return SizedBox(
       width: 320,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           DashedContainer(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
               child: Text('Dashed container'),
             ),
           ),
-          Gap(16),
+          Gap(ShadcnTheme.of(context).spacing.lg),
           DashedLine(),
         ],
       ),
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: _default(),
+      child: _default(context),
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -127,7 +127,7 @@ class OutlinedContainerPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

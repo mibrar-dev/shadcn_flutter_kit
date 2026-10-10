@@ -30,13 +30,13 @@ class CardPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Composition', _composed()),
-                const Gap(24),
-                _section('Bare surface', _bare()),
-                const Gap(24),
-                _section('Clipped media', _clipped()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Composition', _composed(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Bare surface', _bare(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Clipped media', _clipped(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark(context)),
               ],
             ),
           ),
@@ -45,30 +45,30 @@ class CardPreview extends StatelessWidget {
     );
   }
 
-  Widget _composed() {
+  Widget _composed(BuildContext context) {
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const CardHeader(
+          CardHeader(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 CardTitle(child: Text('Deployments')),
-                Gap(4),
+                Gap(ShadcnTheme.of(context).spacing.xs),
                 CardDescription(child: Text('Ship a new build to production.')),
               ],
             ),
           ),
-          const Gap(16),
+          Gap(ShadcnTheme.of(context).spacing.lg),
           const CardContent(
             child: Text(
               'Every deploy is immutable; roll back from the history tab.',
             ),
           ),
-          const Gap(16),
+          Gap(ShadcnTheme.of(context).spacing.lg),
           CardFooter(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -79,7 +79,7 @@ class CardPreview extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('Cancel'),
                 ),
-                const Gap(8),
+                Gap(ShadcnTheme.of(context).spacing.sm),
                 Button(
                   size: ButtonSize.sm,
                   onPressed: () {},
@@ -93,21 +93,21 @@ class CardPreview extends StatelessWidget {
     );
   }
 
-  Widget _bare() {
-    return const Card(
+  Widget _bare(BuildContext context) {
+    return Card(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Icon(LucideIcons.circle, size: 16),
-          Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           Text('Bare card, default padding'),
         ],
       ),
     );
   }
 
-  Widget _clipped() {
-    return const SizedBox(
+  Widget _clipped(BuildContext context) {
+    return SizedBox(
       width: 220,
       child: Card(
         clipBehavior: Clip.antiAlias,
@@ -128,7 +128,7 @@ class CardPreview extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(ShadcnTheme.of(context).spacing.lg),
               child: Text('Media clipped to the card radius'),
             ),
           ],
@@ -137,16 +137,16 @@ class CardPreview extends StatelessWidget {
     );
   }
 
-  Widget _dark() {
+  Widget _dark(BuildContext context) {
     return ShadcnTheme(
       data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: const Card(
+      child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CardTitle(child: Text('Dark card')),
-            Gap(4),
+            Gap(ShadcnTheme.of(context).spacing.xs),
             CardDescription(child: Text('card / cardForeground tokens.')),
           ],
         ),
@@ -154,7 +154,7 @@ class CardPreview extends StatelessWidget {
     );
   }
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -162,7 +162,7 @@ class CardPreview extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

@@ -6,8 +6,9 @@
 // Density.defaultDensity.baseContentPadding`, so at the default density the
 // scale is exactly 1 and every component measures its shadcn value.
 //
-// A test whose assertion fails today is a FINDING and is marked `skip:` with
-// the file:line that must change; the fix batches remove the skip.
+// A test whose assertion fails today is a FINDING; the previous audit shipped
+// them with `skip: true` and the fix removed both. P6-F1 fixed them all, so
+// every test in this file runs for real.
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/badge/badge.dart';
@@ -208,143 +209,131 @@ void main() {
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 200));
         measured.add(cardPadding());
+        // Pop the route and settle the transition before the next density:
+        // a route left mid-transition keeps its focus scope attached to the
+        // focus manager and trips the next test's autofocus assertions.
+        Navigator.of(host).pop();
+        await tester.pump(const Duration(milliseconds: 400));
+        await tester.pump(const Duration(milliseconds: 400));
       }
       expectScaled(measured, horizontal: 24, vertical: 24, label: 'dialog');
       expectMonotonic(measured, 'dialog');
     });
   });
 
-  group('findings — the padding is a fixed literal', () {
-    testWidgets(
-      'chip: px-2 py-0.5 is fixed',
-      (tester) async {
-        // FINDING: chip_style.dart:29-32 `chipDefaultPadding` is a raw
-        // `EdgeInsets.symmetric(horizontal: 8, vertical: 2)` that never reads
-        // the density; fix -> derive it from `density.baseContentPadding`.
-        final List<EdgeInsets> measured = await measurePadding(
-          tester,
-          const Chip(child: Text('Chip')),
-          Chip,
-        );
-        expectScaled(measured, horizontal: 8, vertical: 2, label: 'chip');
-        expectMonotonic(measured, 'chip');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: chip_style.dart:29-32 chipDefaultPadding is a raw EdgeInsets.symmetric(horizontal: 8, vertical: 2); it never reads the density
-      skip: true,
-    );
-
-    testWidgets(
-      'badge: px-2 py-0.5 is fixed',
-      (tester) async {
-        // FINDING: badge_style.dart:273-276 `badgeDefaultPadding` is a raw
-        // `EdgeInsets.symmetric(horizontal: 8, vertical: 2)`.
-        final List<EdgeInsets> measured = await measurePadding(
-          tester,
-          const Badge(child: Text('New')),
-          Badge,
-        );
-        expectScaled(measured, horizontal: 8, vertical: 2, label: 'badge');
-        expectMonotonic(measured, 'badge');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: badge_style.dart:273-276 badgeDefaultPadding is a raw EdgeInsets.symmetric(horizontal: 8, vertical: 2)
-      skip: true,
-    );
-
-    testWidgets(
-      'input: px-3 py-2 is fixed',
-      (tester) async {
-        // FINDING: input_style.dart:209 `inputDefaults.padding` is a raw
-        // `EdgeInsets.symmetric(horizontal: 12, vertical: 8)`.
-        // An input is a full-width control: it needs a bounded host, not a
-        // shrink-wrapping one.
-        final List<EdgeInsets> measured = await measurePadding(
-          tester,
-          Input(),
-          Input,
-          host: (child) => SizedBox(width: 200, child: child),
-          // Index 1: an input's first `Padding` reserves its 1px border.
-          index: 1,
-        );
-        expectScaled(measured, horizontal: 12, vertical: 8, label: 'input');
-        expectMonotonic(measured, 'input');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: input_style.dart:209 inputDefaults.padding is a raw EdgeInsets.symmetric(horizontal: 12, vertical: 8)
-      skip: true,
-    );
-
-    testWidgets(
-      'table cell: p-2 is fixed',
-      (tester) async {
-        // FINDING: table_style.dart:273 `tableCellPadding` is
-        // `EdgeInsets.all(8)` and :278 `tableHeadCellPadding` likewise.
-        final List<EdgeInsets> measured = await measurePadding(
-          tester,
-          _cell(),
-          TableCellView,
-        );
-        expectScaled(measured, horizontal: 8, vertical: 8, label: 'table cell');
-        expectMonotonic(measured, 'table cell');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: table_style.dart:273 tableCellPadding and :278 tableHeadCellPadding are raw literals
-      skip: true,
-    );
-
-    testWidgets(
-      'select trigger: px-3 is fixed',
-      (tester) async {
-        // FINDING: select_style.dart:20-22 `selectDefaultTriggerPadding` is
-        // `EdgeInsets.symmetric(horizontal: 12)`; :26-29 the item row too.
-        final List<EdgeInsets> measured = await measurePadding(
-          tester,
-          _select(),
-          Select<String>,
-        );
-        // shadcn `px-3` is 12; the trigger's 1px border is reserved as padding,
-        // so the measured content padding is 11 before any density scaling.
-        expectScaled(
-          measured,
-          horizontal: 11,
-          vertical: 0,
-          label: 'select trigger (px-3 less its 1px border)',
-        );
-        expectMonotonic(measured, 'select');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: select_style.dart:20-22 selectDefaultTriggerPadding (and :26-29 the option rows) are raw literals
-      skip: true,
-    );
-
-    testWidgets(
-      'menu row: px-2 py-1.5 is fixed',
-      (tester) async {
-        // FINDING: menu.dart:206-209 inlines
-        // `EdgeInsets.symmetric(horizontal: 8, vertical: 6)` for every row.
-        final List<EdgeInsets> measured = <EdgeInsets>[];
-        for (final Density density in auditDensities) {
-          await tester.pumpWidget(
-            auditFrame(density: density, child: _menuRow()),
-          );
-          final RovingRow row = tester.widget<RovingRow>(
-            find.byType(RovingRow),
-          );
-          measured.add(row.padding!.resolve(TextDirection.ltr));
-        }
-        expectScaled(measured, horizontal: 8, vertical: 6, label: 'menu row');
-        expectMonotonic(measured, 'menu row');
-      },
-      // P6-D9b finding (why this test is skipped): P6-D9b finding: menu.dart:206-209 inlines a raw EdgeInsets.symmetric(horizontal: 8, vertical: 6) for every row
-      skip: true,
-    );
-
-    testWidgets('toast: p-4 is fixed', (tester) async {
-      // The toast renders inside `ToastLayer`; its padding default is
-      // `toast_style.dart:236` `EdgeInsets.all(16)`.
-      expect(toastDefaults.padding, const EdgeInsets.all(16));
+  group('density-derived padding (the P6-D9b findings, now fixed)', () {
+    testWidgets('chip: px-2 py-0.5 scales', (tester) async {
+      // chip_style.dart `chipDefaultPadding` is `EdgeInsetsDensity.pxSymmetric(
+      // horizontal: 8, vertical: 2)`, resolved by `chip.dart` against
+      // `density.baseContentPadding * scaling`.
+      final List<EdgeInsets> measured = await measurePadding(
+        tester,
+        const Chip(child: Text('Chip')),
+        Chip,
+      );
+      expectScaled(measured, horizontal: 8, vertical: 2, label: 'chip');
+      expectMonotonic(measured, 'chip');
     });
 
-    // FINDING: tabs_style.dart:247-248 `tabsDefaults` hard-codes
-    // `containerPadding: EdgeInsets.all(3)` and
-    // `tabPadding: EdgeInsets.symmetric(horizontal: 8)`.
-    testWidgets('tabs: p-[3px] strip and px-2 pills are fixed', (tester) async {
+    testWidgets('badge: px-2 py-0.5 scales', (tester) async {
+      // badge_style.dart `badgeDefaultPadding` is density-derived like the
+      // chip's.
+      final List<EdgeInsets> measured = await measurePadding(
+        tester,
+        const Badge(child: Text('New')),
+        Badge,
+      );
+      expectScaled(measured, horizontal: 8, vertical: 2, label: 'badge');
+      expectMonotonic(measured, 'badge');
+    });
+
+    testWidgets('input: px-3 py-2 scales', (tester) async {
+      // input_style.dart `inputDefaultPadding` is density-derived.
+      // An input is a full-width control: it needs a bounded host, not a
+      // shrink-wrapping one.
+      final List<EdgeInsets> measured = await measurePadding(
+        tester,
+        Input(),
+        Input,
+        host: (child) => SizedBox(width: 200, child: child),
+        // Index 1: an input's first `Padding` reserves its 1px border.
+        index: 1,
+      );
+      expectScaled(measured, horizontal: 12, vertical: 8, label: 'input');
+      expectMonotonic(measured, 'input');
+    });
+
+    testWidgets('table cell: p-2 scales', (tester) async {
+      // table_style.dart `tableCellPadding`/`tableHeadCellPadding` are
+      // density-derived and resolved by `TableCellView`.
+      final List<EdgeInsets> measured = await measurePadding(
+        tester,
+        _cell(),
+        TableCellView,
+      );
+      expectScaled(measured, horizontal: 8, vertical: 8, label: 'table cell');
+      expectMonotonic(measured, 'table cell');
+    });
+
+    testWidgets('select trigger: px-3 scales', (tester) async {
+      // select_style.dart `selectDefaultTriggerPadding` and
+      // `selectDefaultItemPadding` are density-derived.
+      final List<EdgeInsets> measured = await measurePadding(
+        tester,
+        _select(),
+        Select<String>,
+      );
+      // shadcn `px-3` is 12; the trigger's 1px border is a hairline that
+      // never scales with density, and it is inset from the content padding
+      // per side, so the measured padding is `12 * scale - 1` rather than
+      // `(12 - 1) * scale`.
+      for (int i = 0; i < auditDensities.length; i++) {
+        final Density density = auditDensities[i];
+        expect(
+          measured[i].left,
+          closeTo(12 * scaleAt(density) - 1, 0.001),
+          reason: '${auditDensityNames[i]} select trigger left',
+        );
+        expect(measured[i].top, 0, reason: 'vertical padding is none');
+      }
+      expectMonotonic(measured, 'select');
+    });
+
+    testWidgets('menu row: px-2 py-1.5 scales', (tester) async {
+      // menu_style.dart `menuItemDefaultPadding` is resolved by `menu.dart`.
+      final List<EdgeInsets> measured = <EdgeInsets>[];
+      for (final Density density in auditDensities) {
+        await tester.pumpWidget(
+          auditFrame(density: density, child: _menuRow()),
+        );
+        final RovingRow row = tester.widget<RovingRow>(find.byType(RovingRow));
+        measured.add(row.padding!.resolve(TextDirection.ltr));
+      }
+      expectScaled(measured, horizontal: 8, vertical: 6, label: 'menu row');
+      expectMonotonic(measured, 'menu row');
+    });
+
+    testWidgets('toast: p-4 is density-derived', (tester) async {
+      // The toast renders inside `ToastLayer`; its padding default is
+      // `toast_style.dart` `toastDefaultPadding`, an `EdgeInsetsDensity`
+      // that resolves to 16 at the default density.
+      expect(
+        toastDefaults.padding,
+        const EdgeInsetsDensity.pxAll(16),
+        reason: 'shadcn p-4',
+      );
+      expect(
+        resolveEdgeInsets(
+          toastDefaults.padding!,
+          Density.defaultDensity.baseContentPadding,
+        ),
+        const EdgeInsets.all(16),
+      );
+    });
+
+    // tabs_style.dart `tabsDefaults` derives `containerPadding` (p-[3px]) and
+    // `tabPadding` (px-2) from density; `tabs.dart` resolves both.
+    testWidgets('tabs: p-[3px] strip and px-2 pills scale', (tester) async {
       EdgeInsets stripPadding() =>
           (tester
                   .widget<Container>(
@@ -363,6 +352,6 @@ void main() {
         measured.add(stripPadding());
       }
       expectScaled(measured, horizontal: 3, vertical: 3, label: 'tabs strip');
-    }, skip: true);
+    });
   });
 }

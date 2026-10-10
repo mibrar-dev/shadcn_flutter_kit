@@ -13,6 +13,7 @@ import 'package:flutter_shadcn_kit/registry/components/button/button_style.dart'
 import 'package:flutter_shadcn_kit/registry/components/chip/chip.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -109,7 +110,15 @@ void main() {
       final ShadcnColors colors = ShadcnColors.lightFallback;
       expect(_staticDecoration(tester).color, colors.secondary);
       expect(_staticTextStyle(tester).color, colors.secondaryForeground);
-      expect(_staticPadding(tester), chipDefaultPadding);
+      // The default is density multipliers, so the rendered chip holds the shadcn
+      // value (px-2 py-0.5) resolved at the default density.
+      expect(
+        _staticPadding(tester),
+        resolveEdgeInsets(
+          chipDefaultPadding,
+          Density.defaultDensity.baseContentPadding,
+        ),
+      );
       expect(_staticTextStyle(tester).fontSize, 12);
     });
 
@@ -427,7 +436,15 @@ void main() {
         ),
       );
       expect(_staticDecoration(tester).color, custom);
-      expect(_staticPadding(tester), chipDefaultPadding);
+      // The default is density multipliers, so the rendered chip holds the shadcn
+      // value (px-2 py-0.5) resolved at the default density.
+      expect(
+        _staticPadding(tester),
+        resolveEdgeInsets(
+          chipDefaultPadding,
+          Density.defaultDensity.baseContentPadding,
+        ),
+      );
       expect(_staticTextStyle(tester).fontSize, 12);
     });
   });

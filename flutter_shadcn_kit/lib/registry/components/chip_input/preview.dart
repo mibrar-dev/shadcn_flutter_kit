@@ -36,19 +36,19 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _section('Controlled', _controlled()),
-                const Gap(24),
-                _section('Uncontrolled', _uncontrolled()),
-                const Gap(24),
-                _section('Read-only tokens', _readOnly()),
-                const Gap(24),
-                _section('Suggestions', _suggestions()),
-                const Gap(24),
-                _section('Validation', _validated()),
-                const Gap(24),
-                _section('Disabled', _disabled()),
-                const Gap(24),
-                _section('Dark', _dark()),
+                _section(context, 'Controlled', _controlled(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Uncontrolled', _uncontrolled(context)),
+                Gap(theme.spacing.xl),
+                _section(context, 'Read-only tokens', _readOnly()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Suggestions', _suggestions()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Validation', _validated()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Disabled', _disabled()),
+                Gap(theme.spacing.xl),
+                _section(context, 'Dark', _dark()),
               ],
             ),
           ),
@@ -57,7 +57,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
     );
   }
 
-  Widget _controlled() {
+  Widget _controlled(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -68,13 +68,13 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
               setState(() => _chips = chips),
           onChipSubmit: (String text) => text.trim().toLowerCase(),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         Text('value: ${_chips.join(', ')}'),
       ],
     );
   }
 
-  Widget _uncontrolled() {
+  Widget _uncontrolled(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -84,7 +84,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
           onChipSubmit: _reject,
           onChipsChanged: (_) => setState(() => _submits++),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         Text('changes reported: $_submits'),
       ],
     );
@@ -157,7 +157,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
   /// Rejects the word at the caret; used where the typed word is irrelevant.
   static String? _reject(String text) => null;
 
-  Widget _section(String title, Widget child) {
+  Widget _section(BuildContext context, String title, Widget child) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -165,7 +165,7 @@ class _ChipInputPreviewState extends State<ChipInputPreview> {
           title,
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        const Gap(8),
+        Gap(ShadcnTheme.of(context).spacing.sm),
         child,
       ],
     );

@@ -549,3 +549,8 @@
 
 ## P4-T5b syntax polish (step-5 free) — ACCEPTED (r2): scanners split (all ≤ 400), per-language goldens (c_like/markup/script) + fuzz over every registry .dart; r2 FIXED 2 bugs it had locked in goldens (YAML adjacent raw literals missing '|' → quoted values coloured; Dart ALL_CAPS → constant before type). theme.dart stays ~470 (moving more contradicts plan §6.5 — accepted). Gates: kit 2756 + 42, analyze 0, layers back to 8 known warnings.
 ## P6-D7 Theme Studio (space-bunny free) — CHECKPOINT (interrupted by inactivity during captures; no report yet): docs 123 tests, analyze 0; continuing for captures + report.
+
+## P6-D9c — theme-dependence audit — ACCEPTED (b198278)
+- 76 tests (+75 ~1), analyze clean after orchestrator fix (scanner: print→stdout, dropped undeclared `path` import).
+- Registry Calendar resolves `primary` correctly → user's "black selected day" is docs-side (theme propagation into previews / stale mirror); fix batch must reproduce in the docs app under `claude`.
+- 19 fix + 2 review literals (gooey_toast, gooey_surface, overflow_marquee, number_ticker, scrollable fades, tracker, feature_carousel); code_snippet is the non-selectable registry surface; docs View Code/Get Code/install blocks need their own pass.

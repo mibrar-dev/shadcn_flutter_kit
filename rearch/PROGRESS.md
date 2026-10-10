@@ -107,3 +107,8 @@ Tests: `flutter test test/registry_next` 106/106, `flutter test test/rearch` 33/
 - Home: many more, beautiful composed components with shadcn spacing → P6-H1 (after T1).
 - Blocks section (installable, with code) + categories for blocks and components → P6-B1 (registry), P6-B2 (CLI), P6-B3 (docs).
 - Queue: `rearch/chain_p6.sh` launches when QA markers `rearch/logs/.ok-<ID>` exist (create after each QA commit).
+
+### Status 2026-10-10 23:10 — Phase 6 complete, awaiting PR approval
+All P6 batches accepted (D7–D9, F1–F5, T1–T2, H1, B1–B3, P1–P3, Z1–Z2). Final QA green across kit (4005), docs (206 + build),
+CLI (522 + e2e); CLI reinstall into the docs app identical to the mirror. Report: rearch/reports/P6_FINAL_QA.md (includes PR
+summary draft). Next: ask Ibrar before opening PRs (kit + CLI) / merging to main.

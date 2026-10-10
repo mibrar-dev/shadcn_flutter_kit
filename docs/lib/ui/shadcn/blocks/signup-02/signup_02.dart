@@ -260,7 +260,6 @@ class Signup02Aside extends StatelessWidget {
             'All component categories',
             'Priority support',
           ]) ...<Widget>[_Signup02Bullet(line: line), Gap(spacing.md)],
-          Gap(spacing.sm),
           const Divider(),
           Gap(spacing.lg),
           const Progress(value: 1, height: 8),

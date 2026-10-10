@@ -62,14 +62,16 @@ class Login01 extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     Gap(spacing.md),
+                    // The label keeps its natural width; the link takes the
+                    // rest and end-aligns, so its right edge meets the
+                    // input's while narrow screens shrink the gap (never the
+                    // label) instead of overflowing.
                     Row(
                       children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            'Password',
-                            style: theme.typography.textSmall.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
+                        Text(
+                          'Password',
+                          style: theme.typography.textSmall.copyWith(
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         const Spacer(),

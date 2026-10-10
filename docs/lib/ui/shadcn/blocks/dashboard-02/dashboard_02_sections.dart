@@ -65,7 +65,8 @@ class Dashboard02Chart extends StatelessWidget {
                           Container(
                             height: 220 * series[i],
                             decoration: BoxDecoration(
-                              color: theme.colors.chartColors[i % 2],
+                              // One series, one token (see dashboard-01).
+                              color: theme.colors.chart1,
                               borderRadius: theme.borderRadiusSm,
                             ),
                           ),

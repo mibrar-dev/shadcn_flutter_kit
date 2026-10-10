@@ -169,9 +169,9 @@ class _Dashboard01StatCard extends StatelessWidget {
           Text(stat.value, style: theme.typography.h3),
           Gap(spacing.sm),
           Text(
-            stat.delta,
+            '${stat.delta} from last month',
             style: theme.typography.textSmall.copyWith(
-              color: theme.colors.primary,
+              color: theme.colors.mutedForeground,
             ),
           ),
         ],
@@ -187,8 +187,8 @@ class _Dashboard01Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
     final spacing = theme.spacing;
-    // Fixed relative heights: the block ships no data, so the chart is an
-    // illustration rather than a live plot.
+    // One series, one token: every bar uses `chart1`, the way the
+    // reference area chart fills a single series.
     const List<double> series = <double>[
       0.34,
       0.52,
@@ -229,7 +229,7 @@ class _Dashboard01Chart extends StatelessWidget {
                       child: Container(
                         height: 180 * series[i],
                         decoration: BoxDecoration(
-                          color: theme.colors.chartColors[i % 5],
+                          color: theme.colors.chart1,
                           borderRadius: theme.borderRadiusSm,
                         ),
                       ),

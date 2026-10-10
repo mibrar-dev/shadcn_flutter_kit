@@ -41,9 +41,25 @@ enum BlockViewport {
   final double? width;
 }
 
-/// Preview height of a block card (the reference's iframes are ~930 px; the
-/// blocks scroll internally, so 640 keeps the index page navigable).
+/// Preview height of a block card: tall blocks (dashboards, sidebars,
+/// pricing) scroll inside this cap, like the reference's iframes.
 const double kBlockPreviewHeight = 640;
+
+/// Shortest frame a block ever gets: short forms (login, otp) fit instead of
+/// floating in a 640 px box.
+const double kBlockPreviewMinHeight = 360;
+
+/// Natural frame heights of the single-card blocks, measured from the block
+/// widgets (card + inner scroll padding + 32 px frame padding, +40 px wrap
+/// margin so a 375 px phone never overflows; taller content scrolls inside
+/// the bounded frame). Every other block uses [kBlockPreviewHeight].
+const Map<String, double> kCompactBlockHeights = <String, double>{
+  'otp-01': 520,
+  'calendar-01': 520,
+  'login-01': 560,
+  'login-03': 600,
+  'signup-01': 620,
+};
 
 /// The device toggle group: three icon buttons, the active one filled.
 class BlockViewportToggle extends StatelessWidget {
@@ -89,7 +105,14 @@ class BlockViewportToggle extends StatelessWidget {
   }
 }
 
-/// The bordered frame that hosts the block preview at [viewport]'s width.
+/// The framed viewport that hosts the block preview at [viewport]'s width.
+///
+/// The frame sits *inside* the card's continuous border (the card clips it to
+/// the bottom radius): background-token fill, a full border + radius of its
+/// own, and the selected width centred — desktop fills the card, tablet and
+/// mobile render narrower. The height fits the block between
+/// [kBlockPreviewMinHeight] and [kBlockPreviewHeight]; taller content scrolls
+/// inside the bounded frame, so short forms never float in empty space.
 class BlockPreviewFrame extends StatelessWidget {
   /// Creates the frame.
   const BlockPreviewFrame({
@@ -104,36 +127,42 @@ class BlockPreviewFrame extends StatelessWidget {
   /// The selected viewport width.
   final BlockViewport viewport;
 
+  /// Frame height for [blockId]: the compact fit, or the full cap.
+  static double heightFor(String blockId) =>
+      kCompactBlockHeights[blockId] ?? kBlockPreviewHeight;
+
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return ClipRect(
-      child: Container(
-        height: kBlockPreviewHeight,
-        width: double.infinity,
-        color: theme.colors.muted.withValues(alpha: 0.4),
-        alignment: Alignment.topCenter,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final double available = constraints.maxWidth;
-            final double width = viewport.width == null
-                ? available
-                : (viewport.width! < available ? viewport.width! : available);
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                color: theme.colors.background,
-                border: Border.symmetric(
-                  vertical: BorderSide(color: theme.colors.border),
-                ),
-              ),
+    final double height = heightFor(blockId);
+    return Container(
+      width: double.infinity,
+      color: theme.colors.background,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(16),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double available = constraints.maxWidth;
+          final double width = viewport.width == null
+              ? available
+              : (viewport.width! < available ? viewport.width! : available);
+          return DecoratedBox(
+            key: ValueKey<String>('block-frame-$blockId'),
+            decoration: BoxDecoration(
+              color: theme.colors.background,
+              border: Border.all(color: theme.colors.border),
+              borderRadius: theme.borderRadiusLg,
+            ),
+            child: ClipRRect(
+              borderRadius: theme.borderRadiusLg,
               child: SizedBox(
                 width: width,
-                height: kBlockPreviewHeight,
+                height: height,
                 child: BlockPreviewLoader(blockId: blockId),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

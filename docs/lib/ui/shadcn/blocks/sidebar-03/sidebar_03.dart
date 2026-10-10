@@ -116,32 +116,48 @@ class _Sidebar03Header extends StatelessWidget {
         borderRadius: theme.borderRadiusLg,
         border: Border.all(color: theme.colors.border),
       ),
-      child: Row(
-        children: <Widget>[
-          Icon(LucideIcons.command, size: 18, color: theme.colors.foreground),
-          Gap(spacing.md),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Breadcrumb(
-                children: <Widget>[
-                  Text(
-                    'Acme',
-                    style: theme.typography.textSmall.copyWith(
-                      color: theme.colors.mutedForeground,
-                    ),
-                  ),
-                  const Gap(0, crossAxisExtent: 8),
-                  Text(_titles[selected], style: theme.typography.textSmall),
-                ],
+      // The 200 px search field collapses below 500 px (like the reference
+      // header), so the icon, breadcrumb and avatar always fit a phone.
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final bool showSearch = constraints.maxWidth >= 500;
+          return Row(
+            children: <Widget>[
+              Icon(
+                LucideIcons.command,
+                size: 18,
+                color: theme.colors.foreground,
               ),
-            ),
-          ),
-          Gap(spacing.md),
-          const SizedBox(width: 200, child: Input(hintText: 'Search')),
-          Gap(spacing.md),
-          const Avatar(initials: 'AC'),
-        ],
+              Gap(spacing.md),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Breadcrumb(
+                    children: <Widget>[
+                      Text(
+                        'Acme',
+                        style: theme.typography.textSmall.copyWith(
+                          color: theme.colors.mutedForeground,
+                        ),
+                      ),
+                      const Gap(0, crossAxisExtent: 8),
+                      Text(
+                        _titles[selected],
+                        style: theme.typography.textSmall,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              if (showSearch) ...<Widget>[
+                Gap(spacing.md),
+                const SizedBox(width: 200, child: Input(hintText: 'Search')),
+              ],
+              Gap(spacing.md),
+              const Avatar(initials: 'AC'),
+            ],
+          );
+        },
       ),
     );
   }

@@ -9,9 +9,14 @@ import 'package:docs/generated/docs_blocks.dart';
 import 'package:docs/generated/docs_data.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/ui/shadcn/components/input/input.dart';
+import 'package:docs/ui/shadcn/foundation/icons/lucide_icons.dart';
+import 'package:docs/ui/shadcn/theme/theme.dart';
 import 'package:docs/widgets/block_card.dart';
+import 'package:docs/widgets/block_viewport.dart';
 import 'package:docs/widgets/docs_sidebar.dart';
 import 'package:docs/widgets/palette.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
@@ -68,8 +73,8 @@ void main() {
         expect(find.text(category.id), findsWidgets, reason: category.id);
       }
       expect(find.byType(BlockCard), findsNWidgets(kBlocks.length));
-      // Every card shows its install command once the Code tab opens.
-      expect(find.text('flutter_shadcn add dashboard-01'), findsNothing);
+      // Every card shows its full install command in the toolbar chip.
+      expect(find.text('flutter_shadcn add dashboard-01'), findsOneWidget);
     });
 
     testWidgets('category route filters to that family', (
@@ -179,6 +184,132 @@ void main() {
       expect(find.text(unlistedName), findsNothing);
       await goTo(tester, delegate, '/docs');
       expect(find.text(unlistedName), findsNothing);
+    });
+  });
+
+  group('blocks polish (P6-P2)', () {
+    testWidgets('command chip shows the full install command (1400)', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks');
+      expect(find.text('flutter_shadcn add dashboard-01'), findsOneWidget);
+      // The chip text renders on one untruncated line at desktop width.
+      final RenderParagraph paragraph = tester.renderObject<RenderParagraph>(
+        find.text('flutter_shadcn add dashboard-01'),
+      );
+      expect(paragraph.didExceedMaxLines, isFalse);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('command chip survives 768 and collapses at 375', (
+      WidgetTester tester,
+    ) async {
+      DocsRouterDelegate delegate = await pumpDocsApp(
+        tester,
+        width: 768,
+        height: 900,
+      );
+      await goTo(tester, delegate, '/blocks');
+      expect(find.text('flutter_shadcn add dashboard-01'), findsOneWidget);
+      final RenderParagraph paragraph = tester.renderObject<RenderParagraph>(
+        find.text('flutter_shadcn add dashboard-01'),
+      );
+      expect(paragraph.didExceedMaxLines, isFalse);
+      expect(tester.takeException(), isNull);
+
+      delegate = await pumpDocsApp(tester, width: 375, height: 812);
+      await goTo(tester, delegate, '/blocks');
+      expect(find.text('flutter_shadcn add dashboard-01'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('block page keeps a single title and description', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks/dashboard-01');
+      expect(find.text('Dashboard 01'), findsOneWidget);
+      final DocsBlock block = kBlocks.firstWhere(
+        (DocsBlock b) => b.id == 'dashboard-01',
+      );
+      expect(find.text(block.description), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('viewport sizes change the centred frame width', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks/otp-01');
+      Finder frame() =>
+          find.byKey(const ValueKey<String>('block-frame-otp-01'));
+      double frameWidth() => tester.getSize(frame()).width;
+
+      final double desktop = frameWidth();
+      final double cardWidth = tester.getSize(find.byType(BlockCard)).width;
+      // Desktop fills the card (minus the 16 px frame padding each side).
+      expect(desktop, moreOrLessEquals(cardWidth - 32, epsilon: 1));
+
+      await tester.tap(find.byIcon(LucideIcons.smartphone));
+      await tester.pumpAndSettle();
+      expect(frameWidth(), moreOrLessEquals(375, epsilon: 1));
+
+      await tester.tap(find.byIcon(LucideIcons.tablet));
+      await tester.pumpAndSettle();
+      expect(frameWidth(), moreOrLessEquals(768, epsilon: 1));
+      expect(frameWidth(), lessThan(desktop));
+
+      // The narrowed frame stays centred in the card.
+      final double frameDx = tester.getCenter(frame()).dx;
+      final double cardDx = tester.getCenter(find.byType(BlockCard)).dx;
+      expect((frameDx - cardDx).abs(), lessThan(1));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('short blocks fit, tall blocks cap at the max height', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks/login-01');
+      final double loginHeight = tester
+          .getSize(find.byKey(const ValueKey<String>('block-frame-login-01')))
+          .height;
+      expect(loginHeight, moreOrLessEquals(560, epsilon: 1));
+
+      await goTo(tester, delegate, '/blocks/otp-01');
+      final double otpHeight = tester
+          .getSize(find.byKey(const ValueKey<String>('block-frame-otp-01')))
+          .height;
+      expect(otpHeight, moreOrLessEquals(520, epsilon: 1));
+
+      await goTo(tester, delegate, '/blocks/dashboard-01');
+      final double dashboardHeight = tester
+          .getSize(
+            find.byKey(const ValueKey<String>('block-frame-dashboard-01')),
+          )
+          .height;
+      expect(dashboardHeight, moreOrLessEquals(640, epsilon: 1));
+      expect(loginHeight, lessThan(dashboardHeight));
+      expect(otpHeight, greaterThanOrEqualTo(kBlockPreviewMinHeight));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('preview viewport uses the background token', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks/otp-01');
+      final Finder frame = find.byKey(
+        const ValueKey<String>('block-frame-otp-01'),
+      );
+      final DecoratedBox box = tester.widget<DecoratedBox>(frame);
+      final Color? fill = (box.decoration as BoxDecoration).color;
+      final Color background = ShadcnTheme.of(
+        tester.element(frame),
+      ).colors.background;
+      expect(fill, background);
+      expect(tester.takeException(), isNull);
     });
   });
 }

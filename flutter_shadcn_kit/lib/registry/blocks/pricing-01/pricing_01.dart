@@ -194,6 +194,9 @@ class _Pricing01Card extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
     final spacing = theme.spacing;
+    // The highlight is a 2 px primary border on the default card fill, so
+    // every text colour stays the card's own (primary-foreground on a card
+    // fill would be unreadable after a preset switch).
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: theme.borderRadiusXl,
@@ -211,37 +214,23 @@ class _Pricing01Card extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Text(
-                    plan.name,
-                    style: theme.typography.textLarge.copyWith(
-                      color: plan.highlighted
-                          ? theme.colors.primaryForeground
-                          : null,
-                    ),
-                  ),
+                  child: Text(plan.name, style: theme.typography.textLarge),
                 ),
                 if (plan.highlighted)
                   Icon(
                     LucideIcons.sparkles,
                     size: 16,
-                    color: theme.colors.primaryForeground,
+                    color: theme.colors.primary,
                   ),
               ],
             ),
             Gap(spacing.sm),
-            Text(
-              plan.price,
-              style: theme.typography.h1.copyWith(
-                color: plan.highlighted ? theme.colors.primaryForeground : null,
-              ),
-            ),
+            Text(plan.price, style: theme.typography.h1),
             Gap(spacing.xs),
             Text(
               plan.cadence,
               style: theme.typography.textSmall.copyWith(
-                color: plan.highlighted
-                    ? theme.colors.primaryForeground
-                    : theme.colors.mutedForeground,
+                color: theme.colors.mutedForeground,
               ),
             ),
             Gap(spacing.lg),
@@ -272,9 +261,7 @@ class _Pricing01Features extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
     final spacing = theme.spacing;
-    final foreground = plan.highlighted
-        ? theme.colors.primaryForeground
-        : theme.colors.foreground;
+    final foreground = theme.colors.foreground;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,7 +270,7 @@ class _Pricing01Features extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(LucideIcons.check, size: 16, color: foreground),
+              Icon(LucideIcons.check, size: 16, color: theme.colors.primary),
               Gap(spacing.sm),
               Expanded(
                 child: Text(

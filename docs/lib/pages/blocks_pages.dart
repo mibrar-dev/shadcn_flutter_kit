@@ -285,10 +285,13 @@ class BlockPage extends StatelessWidget {
               children: <Widget>[
                 _BlockPageHeader(block: block),
                 const Gap(24),
+                // The card header (name/description) stays hidden here: the
+                // page header above already shows the single title pair.
                 BlockCard(
                   key: ValueKey<String>('${block.id}-page'),
                   block: block,
                   showOpenInNewTab: false,
+                  showHeader: false,
                 ),
                 const Gap(32),
                 _Dependencies(block: block),

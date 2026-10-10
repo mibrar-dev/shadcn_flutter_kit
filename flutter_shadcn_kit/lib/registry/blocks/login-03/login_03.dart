@@ -171,11 +171,15 @@ class _Login03ForgotRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
+    // Right-aligned under the password field, on the field's right edge;
+    // the link wraps instead of overflowing on narrow screens.
     return Row(
       children: <Widget>[
+        const Spacer(),
         Flexible(
           child: Text(
             'Forgot your password?',
+            textAlign: TextAlign.end,
             style: theme.typography.textSmall.copyWith(
               color: theme.colors.mutedForeground,
               decoration: TextDecoration.underline,

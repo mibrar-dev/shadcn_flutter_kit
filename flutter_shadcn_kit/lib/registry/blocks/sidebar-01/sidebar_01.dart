@@ -95,6 +95,7 @@ class _Sidebar01Rail extends StatelessWidget {
       for (var i = 0; i < _items.length; i++)
         _Sidebar01RailButton(
           item: _items[i],
+          vertical: vertical,
           selected: i == selected,
           onPressed: () => onSelected(i),
         ),
@@ -124,11 +125,16 @@ class _Sidebar01Item {
 class _Sidebar01RailButton extends StatelessWidget {
   const _Sidebar01RailButton({
     required this.item,
+    required this.vertical,
     required this.selected,
     required this.onPressed,
   });
 
   final _Sidebar01Item item;
+
+  /// Whether the rail runs vertically (margin below) or horizontally.
+  final bool vertical;
+
   final bool selected;
   final VoidCallback onPressed;
 
@@ -144,7 +150,9 @@ class _Sidebar01RailButton extends StatelessWidget {
         child: Container(
           width: 40,
           height: 40,
-          margin: const EdgeInsets.only(bottom: 4),
+          margin: vertical
+              ? const EdgeInsets.only(bottom: 4)
+              : const EdgeInsets.only(right: 4),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: selected ? theme.colors.sidebarAccent : null,

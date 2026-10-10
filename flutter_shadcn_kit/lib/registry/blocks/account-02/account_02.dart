@@ -199,7 +199,6 @@ class _Account02Row extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(child: Text(title, style: theme.typography.textSmall)),
-        const Spacer(),
         Switch(value: value, onChanged: onChanged),
       ],
     );

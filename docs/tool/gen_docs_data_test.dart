@@ -19,6 +19,9 @@ import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/generated/docs_search.dart';
 import 'package:docs/generated/docs_snippets.dart';
 import 'package:docs/generated/docs_tables.dart';
+import 'package:docs/blocks/block_sources.dart';
+import 'package:docs/generated/docs_blocks.dart';
+import 'package:docs/previews/block_previews.dart';
 import 'package:docs/previews/component_previews.dart';
 import 'package:docs/state/docs_state.dart';
 import 'package:docs/ui/shadcn/theme/theme.dart';
@@ -791,6 +794,10 @@ void main() {
       '${temp.path}/gen',
       '--previews',
       '${temp.path}/previews/component_previews.dart',
+      '--block-sources',
+      '${temp.path}/blocks/block_sources.dart',
+      '--block-previews',
+      '${temp.path}/previews/block_previews.dart',
     ];
 
     final StringBuffer out1 = StringBuffer();
@@ -805,8 +812,12 @@ void main() {
       'lib/generated/docs_snippets.dart': '${temp.path}/gen/docs_snippets.dart',
       'lib/generated/docs_previews.dart': '${temp.path}/gen/docs_previews.dart',
       'lib/generated/app_theme.dart': '${temp.path}/gen/app_theme.dart',
+      'lib/generated/docs_blocks.dart': '${temp.path}/gen/docs_blocks.dart',
       'lib/previews/component_previews.dart':
           '${temp.path}/previews/component_previews.dart',
+      'lib/blocks/block_sources.dart': '${temp.path}/blocks/block_sources.dart',
+      'lib/previews/block_previews.dart':
+          '${temp.path}/previews/block_previews.dart',
     };
     for (final MapEntry<String, String> entry in checkedIn.entries) {
       expect(
@@ -836,5 +847,63 @@ void main() {
     );
     expect(driftOut.toString(), contains('out of date'));
     expect(driftErr.toString(), contains('1 generated file(s) out of date'));
+  });
+
+  group('blocks catalog (P6-B3)', () {
+    test('every manifest block is listed with files and sources', () {
+      expect(kBlocks.length, 16);
+      final DocsBlock login = kBlocks.firstWhere(
+        (DocsBlock b) => b.id == 'login-01',
+      );
+      expect(login.name, 'Login 01');
+      expect(login.category, 'Authentication');
+      expect(login.install, 'flutter_shadcn add login-01');
+      expect(login.files, isNotEmpty);
+      expect(login.files.first, 'lib/ui/shadcn/blocks/login-01/login_01.dart');
+      for (final DocsBlock block in kBlocks) {
+        expect(
+          kBlockFileSources[block.id],
+          isNotEmpty,
+          reason: 'sources for ${block.id}',
+        );
+        for (final DocsBlockFile file in kBlockFileSources[block.id]!) {
+          expect(file.code, isNotEmpty);
+          expect(file.tokenClasses.length, file.code.length);
+        }
+      }
+      expect(
+        kBlockCategories.map((DocsBlockCategory c) => c.id),
+        containsAll(<String>['Authentication', 'Dashboard', 'Sidebar']),
+      );
+      final int categorized = kBlockCategories.fold<int>(
+        0,
+        (int sum, DocsBlockCategory c) => sum + c.count,
+      );
+      expect(categorized, kBlocks.length);
+    });
+
+    test('block preview registry loads and rejects unknown ids', () async {
+      final Widget login = await loadBlockPreview('login-01');
+      expect(login, isA<Widget>());
+      expect(() => loadBlockPreview('not-a-block'), throwsArgumentError);
+    });
+
+    test('component categories exclude building blocks', () {
+      final Set<String> unlisted = <String>{
+        for (final DocsComponent c in kComponents)
+          if (!c.listed) c.id,
+      };
+      expect(unlisted, isNotEmpty);
+      for (final DocsComponentCategory group in kComponentCategoryGroups) {
+        for (final DocsComponentLink link in group.components) {
+          expect(unlisted, isNot(contains(link.id)), reason: link.id);
+        }
+      }
+      final int grouped = kComponentCategoryGroups.fold<int>(
+        0,
+        (int sum, DocsComponentCategory g) => sum + g.count,
+      );
+      expect(grouped, kComponents.where((DocsComponent c) => c.listed).length);
+    });
   });
 }

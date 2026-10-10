@@ -8,9 +8,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+export 'block_scan.dart';
+
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+
+import 'block_scan.dart';
 
 /// The registry tree does not look like the post-cutover layout.
 class RegistryScanException implements Exception {
@@ -68,6 +72,7 @@ class ComponentFacts {
     required this.apiMethods,
     required this.apiConstants,
     required this.apiFunctions,
+    required this.listed,
   });
 
   /// Registry id == directory name.
@@ -130,6 +135,12 @@ class ComponentFacts {
   /// Manifest `api.functions` (`constraintToNewText`).
   final List<String> apiFunctions;
 
+  /// Whether the docs site lists this component in the sidebar, index and
+  /// palette. `listed: false` marks the building blocks (P6-F3): they stay
+  /// installable and reachable through the component pager/API links, but are
+  /// hidden from the browsable surfaces.
+  final bool listed;
+
   /// Whether this component physically owns a `*_theme.dart`.
   bool get hasUserTheme => userOwned.isNotEmpty;
 
@@ -183,6 +194,7 @@ class RegistryScan {
     required this.root,
     required this.schemaVersion,
     required this.components,
+    required this.blocks,
     required this.presets,
     required this.themeTokens,
     required this.materialImports,
@@ -197,6 +209,9 @@ class RegistryScan {
 
   /// Components ordered by category, then id.
   final List<ComponentFacts> components;
+
+  /// Blocks ordered by category, then id (P6-B1 layer 4).
+  final List<BlockFacts> blocks;
 
   /// Presets in `themes/index.json` order.
   final List<PresetFacts> presets;
@@ -242,6 +257,9 @@ RegistryScan scanRegistry(String rootPath) {
     return byCategory != 0 ? byCategory : a.id.compareTo(b.id);
   });
 
+  final Map<String, Object?> blocksJson = _objectOrEmpty(manifest['blocks']);
+  final List<BlockFacts> blocks = scanBlocks(root, blocksJson);
+
   final List<PresetFacts> presets = _presets(root, themesJson);
   final List<ThemeTokenFacts> themeTokens = _themeTokens(root);
   final _ImportScan imports = _scanImports(root);
@@ -250,6 +268,7 @@ RegistryScan scanRegistry(String rootPath) {
     root: root.path,
     schemaVersion: (manifest['schemaVersion'] as num?)?.toInt() ?? 0,
     components: components,
+    blocks: blocks,
     presets: presets,
     themeTokens: themeTokens,
     materialImports: imports.materialImports,
@@ -314,6 +333,7 @@ ComponentFacts _componentFacts(
     apiMethods: _apiList(manifest, meta, 'methods'),
     apiConstants: _apiList(manifest, meta, 'constants'),
     apiFunctions: _apiList(manifest, meta, 'functions'),
+    listed: _bool(manifest['listed'] ?? meta['listed'], true),
   );
 }
 
@@ -537,6 +557,8 @@ Map<String, Object?> _objectOrEmpty(Object? value) =>
 
 String _string(Object? value, String fallback) =>
     value is String ? value : fallback;
+
+bool _bool(Object? value, bool fallback) => value is bool ? value : fallback;
 
 List<String> _strings(Object? value, String what) {
   if (value == null) {

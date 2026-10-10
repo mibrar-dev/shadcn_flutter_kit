@@ -15,6 +15,9 @@ enum DocsSearchKind {
   /// A component page.
   component,
 
+  /// A block page (`/blocks/<id>`).
+  block,
+
   /// A CLI command.
   command,
 
@@ -31,6 +34,7 @@ class DocsSearchEntry {
     required this.route,
     this.tag,
     this.keywords = const <String>[],
+    this.action,
   });
 
   /// Display label.
@@ -47,10 +51,141 @@ class DocsSearchEntry {
 
   /// Extra match terms (display name, tags).
   final List<String> keywords;
+
+  /// Footer action (`flutter_shadcn add <id>`), or null.
+  final String? action;
 }
 
 /// Static search index: components, CLI commands, presets.
 const List<DocsSearchEntry> kDocsSearchIndex = <DocsSearchEntry>[
+  DocsSearchEntry(
+    label: 'Login 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/login-01',
+    tag: 'block',
+    action: 'flutter_shadcn add login-01',
+    keywords: <String>['login-01', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Login 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/login-02',
+    tag: 'block',
+    action: 'flutter_shadcn add login-02',
+    keywords: <String>['login-02', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Login 03',
+    kind: DocsSearchKind.block,
+    route: '/blocks/login-03',
+    tag: 'block',
+    action: 'flutter_shadcn add login-03',
+    keywords: <String>['login-03', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Verify Email 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/otp-01',
+    tag: 'block',
+    action: 'flutter_shadcn add otp-01',
+    keywords: <String>['otp-01', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Signup 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/signup-01',
+    tag: 'block',
+    action: 'flutter_shadcn add signup-01',
+    keywords: <String>['signup-01', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Signup 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/signup-02',
+    tag: 'block',
+    action: 'flutter_shadcn add signup-02',
+    keywords: <String>['signup-02', 'Authentication'],
+  ),
+  DocsSearchEntry(
+    label: 'Calendar 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/calendar-01',
+    tag: 'block',
+    action: 'flutter_shadcn add calendar-01',
+    keywords: <String>['calendar-01', 'Calendar & Scheduling'],
+  ),
+  DocsSearchEntry(
+    label: 'Calendar 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/calendar-02',
+    tag: 'block',
+    action: 'flutter_shadcn add calendar-02',
+    keywords: <String>['calendar-02', 'Calendar & Scheduling'],
+  ),
+  DocsSearchEntry(
+    label: 'Dashboard 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/dashboard-01',
+    tag: 'block',
+    action: 'flutter_shadcn add dashboard-01',
+    keywords: <String>['dashboard-01', 'Dashboard'],
+  ),
+  DocsSearchEntry(
+    label: 'Dashboard 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/dashboard-02',
+    tag: 'block',
+    action: 'flutter_shadcn add dashboard-02',
+    keywords: <String>['dashboard-02', 'Dashboard'],
+  ),
+  DocsSearchEntry(
+    label: 'Pricing 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/pricing-01',
+    tag: 'block',
+    action: 'flutter_shadcn add pricing-01',
+    keywords: <String>['pricing-01', 'Marketing'],
+  ),
+  DocsSearchEntry(
+    label: 'Account 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/account-01',
+    tag: 'block',
+    action: 'flutter_shadcn add account-01',
+    keywords: <String>['account-01', 'Settings & Account'],
+  ),
+  DocsSearchEntry(
+    label: 'Account 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/account-02',
+    tag: 'block',
+    action: 'flutter_shadcn add account-02',
+    keywords: <String>['account-02', 'Settings & Account'],
+  ),
+  DocsSearchEntry(
+    label: 'Sidebar 01',
+    kind: DocsSearchKind.block,
+    route: '/blocks/sidebar-01',
+    tag: 'block',
+    action: 'flutter_shadcn add sidebar-01',
+    keywords: <String>['sidebar-01', 'Sidebar'],
+  ),
+  DocsSearchEntry(
+    label: 'Sidebar 02',
+    kind: DocsSearchKind.block,
+    route: '/blocks/sidebar-02',
+    tag: 'block',
+    action: 'flutter_shadcn add sidebar-02',
+    keywords: <String>['sidebar-02', 'Sidebar'],
+  ),
+  DocsSearchEntry(
+    label: 'Sidebar 03',
+    kind: DocsSearchKind.block,
+    route: '/blocks/sidebar-03',
+    tag: 'block',
+    action: 'flutter_shadcn add sidebar-03',
+    keywords: <String>['sidebar-03', 'Sidebar'],
+  ),
   DocsSearchEntry(
     label: 'border_loading',
     kind: DocsSearchKind.component,

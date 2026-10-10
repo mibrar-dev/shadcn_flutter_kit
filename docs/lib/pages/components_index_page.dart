@@ -1,7 +1,13 @@
 // `/docs/components` — the components index (spec §2.5): an H1 + description,
-// the "All Components" H2, the generated alphabetical link grid, a rule and a
-// closing sentence. The old search toolbar, category pills, cards and
-// mini-previews are deleted; search lives in the header palette only.
+// one H2 section per generated component category, the generated link grid in
+// each section, a rule and a closing sentence. The old search toolbar,
+// category pills, cards and mini-previews are deleted; search lives in the
+// header palette only.
+//
+// P6-B3: the single alphabetical "All Components" grid became category
+// sections (`Forms & Inputs`, `Data Display`, …), the same grouping the sidebar
+// and the palette use. Building blocks (`listed: false`) are not listed here;
+// they stay reachable through the component pager/API links.
 //
 // There is no "New Components" section: the registry has no new/date marker,
 // so inventing one would break the "facts come from the registry" rule.
@@ -23,7 +29,9 @@ class ComponentsIndexPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DocsComponentLink first = kComponentLinks.first;
+    final DocsComponentLink first = kComponentCategoryGroups
+        .expand((DocsComponentCategory group) => group.components)
+        .first;
     return DocsLayout(
       child: DocsArticle(
         title: 'Components',
@@ -36,8 +44,10 @@ class ComponentsIndexPage extends StatelessWidget {
           location: '/docs/components/${first.id}',
         ),
         children: <Widget>[
-          const HeadingAnchor(id: 'all-components', title: 'All Components'),
-          const ComponentLinkGrid(),
+          for (final DocsComponentCategory group in kComponentCategoryGroups)
+            HeadingAnchor(id: componentCategorySlug(group.id), title: group.id),
+          for (final DocsComponentCategory group in kComponentCategoryGroups)
+            ComponentLinkGrid(links: group.components),
           const TypesetRule(),
           const TypesetParagraph(
             'Can’t find what you need? Every component installs as editable '

@@ -1,11 +1,23 @@
 import 'package:flutter/widgets.dart';
 
+import '../generated/docs_blocks.dart';
 import '../motion/motion_scope.dart';
 import '../state/docs_state.dart';
 import '../ui/shadcn/components/page_route/page_route.dart';
 import 'palette_route.dart';
 
 export 'palette_route.dart';
+
+/// Whether [segment] names a block id (`dashboard-01`) rather than a family
+/// slug (`dashboard`) — both are valid second path segments of `/blocks/*`.
+bool isBlockId(String segment) {
+  return kBlocks.any((DocsBlock block) => block.id == segment);
+}
+
+/// Every block family slug (`dashboard`, `settings-account`).
+List<String> get blockCategorySlugs => <String>[
+  for (final DocsBlockCategory category in kBlockCategories) category.slug,
+];
 
 /// Logical pages of the docs site (shadcn-site sitemap, P6 spec §1).
 enum DocsRoute {
@@ -36,6 +48,15 @@ enum DocsRoute {
   /// `/themes` — preset rail + live preview.
   themes,
 
+  /// `/blocks` — the blocks index (hero + family pills + block cards).
+  blocks,
+
+  /// `/blocks/<category>` — one block family, filtered index.
+  blockCategory,
+
+  /// `/blocks/<id>` — one block, full-page view.
+  block,
+
   /// Anything else; rendered as a not-found page.
   notFound,
 }
@@ -43,13 +64,25 @@ enum DocsRoute {
 /// A parsed URL: the route plus its parameter.
 @immutable
 class DocsRouteConfiguration {
-  const DocsRouteConfiguration._(this.route, {this.componentId, this.raw});
+  const DocsRouteConfiguration._(
+    this.route, {
+    this.componentId,
+    this.blockCategorySlug,
+    this.blockId,
+    this.raw,
+  });
 
   /// The page to show.
   final DocsRoute route;
 
   /// Component id for [DocsRoute.component].
   final String? componentId;
+
+  /// Block family slug for [DocsRoute.blockCategory] (`settings-account`).
+  final String? blockCategorySlug;
+
+  /// Block id for [DocsRoute.block] (`dashboard-01`).
+  final String? blockId;
 
   /// Original location for [DocsRoute.notFound].
   final String? raw;
@@ -94,6 +127,22 @@ class DocsRouteConfiguration {
     DocsRoute.themes,
   );
 
+  /// `/blocks`.
+  static const DocsRouteConfiguration blocks = DocsRouteConfiguration._(
+    DocsRoute.blocks,
+  );
+
+  /// `/blocks/<category>`.
+  static DocsRouteConfiguration blockCategory(String slug) =>
+      DocsRouteConfiguration._(
+        DocsRoute.blockCategory,
+        blockCategorySlug: slug,
+      );
+
+  /// `/blocks/<id>`.
+  static DocsRouteConfiguration block(String id) =>
+      DocsRouteConfiguration._(DocsRoute.block, blockId: id);
+
   /// `/docs/components/<id>`.
   static DocsRouteConfiguration component(String id) =>
       DocsRouteConfiguration._(DocsRoute.component, componentId: id);
@@ -125,6 +174,21 @@ class DocsRouteConfiguration {
     }
     if (path.length == 1 && path[0] == 'themes') {
       return themes;
+    }
+    if (path[0] == 'blocks') {
+      if (path.length == 1) {
+        return blocks;
+      }
+      final String segment = path[1];
+      if (segment.isEmpty) {
+        return blocks;
+      }
+      if (isBlockId(segment)) {
+        return path.length == 2 ? block(segment) : notFound(location ?? '/');
+      }
+      return path.length == 2
+          ? blockCategory(segment)
+          : notFound(location ?? '/');
     }
     if (path[0] == 'docs') {
       if (path.length == 1) {
@@ -162,6 +226,9 @@ class DocsRouteConfiguration {
     DocsRoute.components => '/docs/components',
     DocsRoute.component => '/docs/components/$componentId',
     DocsRoute.themes => '/themes',
+    DocsRoute.blocks => '/blocks',
+    DocsRoute.blockCategory => '/blocks/$blockCategorySlug',
+    DocsRoute.block => '/blocks/$blockId',
     DocsRoute.notFound => raw ?? '/',
   };
 
@@ -176,6 +243,9 @@ class DocsRouteConfiguration {
     DocsRoute.components => 'Components',
     DocsRoute.component => componentId ?? 'Component',
     DocsRoute.themes => 'Themes',
+    DocsRoute.blocks => 'Blocks',
+    DocsRoute.blockCategory => blockCategorySlug ?? 'Blocks',
+    DocsRoute.block => blockId ?? 'Block',
     DocsRoute.notFound => 'Not found',
   };
 
@@ -184,10 +254,13 @@ class DocsRouteConfiguration {
       other is DocsRouteConfiguration &&
       other.route == route &&
       other.componentId == componentId &&
+      other.blockCategorySlug == blockCategorySlug &&
+      other.blockId == blockId &&
       other.raw == raw;
 
   @override
-  int get hashCode => Object.hash(route, componentId, raw);
+  int get hashCode =>
+      Object.hash(route, componentId, blockCategorySlug, blockId, raw);
 }
 
 /// Parses the browser URL into a [DocsRouteConfiguration].

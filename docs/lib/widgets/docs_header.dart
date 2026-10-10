@@ -96,13 +96,13 @@ class DocsHeader extends StatelessWidget {
               child: Text(mobileNavOpen ? 'Close' : 'Menu'),
             ),
           if (wide)
-            for (int i = 0; i < kHeaderNav.length; i++)
+            for (final DocsNavLink link in _headerNavFor(width))
               Padding(
                 padding: const EdgeInsets.only(right: 4),
                 child: _NavLink(
-                  link: kHeaderNav[i],
-                  active: _navActive(kHeaderNav[i].location, currentLocation),
-                  onPressed: () => delegate.go(context, kHeaderNav[i].location),
+                  link: link,
+                  active: _navActive(link.location, currentLocation),
+                  onPressed: () => delegate.go(context, link.location),
                 ),
               ),
           const Spacer(),
@@ -174,12 +174,33 @@ class DocsHeader extends StatelessWidget {
   }
 }
 
+/// The header nav items for [width].
+///
+/// The reference shows every nav item from `lg` (1024) up; with five items our
+/// bar overflows there by 11 px (the labels are measured with the fallback
+/// font in tests and with Geist in the browser), so `Blocks` joins the nav at
+/// `xl` — the same escalation that adds the GitHub label and the 256 px
+/// search. Blocks stays reachable below `xl` through the mobile popper (which
+/// renders the whole [kHeaderNav]) and the docs sidebar.
+List<DocsNavLink> _headerNavFor(double width) {
+  if (width >= 1280) {
+    return kHeaderNav;
+  }
+  return <DocsNavLink>[
+    for (final DocsNavLink link in kHeaderNav)
+      if (link.location != '/blocks') link,
+  ];
+}
+
 bool _navActive(String linkLocation, String current) {
   if (linkLocation == '/') {
     return current == '/';
   }
   if (linkLocation == '/docs/components') {
     return current.startsWith('/docs/components');
+  }
+  if (linkLocation == '/blocks') {
+    return current.startsWith('/blocks');
   }
   if (linkLocation == '/docs') {
     return current.startsWith('/docs') &&
@@ -239,6 +260,10 @@ class _NavLink extends StatelessWidget {
       variant: ButtonVariant.ghost,
       size: ButtonSize.sm,
       theme: ButtonVariantStyle(
+        // Spec §2.0 measures the reference nav link at `px-2.5` (10 px
+        // horizontal); the kit button's default padding is wider, which with
+        // five nav items overflows the 64 px bar at exactly 1024 px.
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         foreground: StateValue<ThemedColor>(
           rest: ThemedColor.value(
             active ? colors.foreground : colors.mutedForeground,

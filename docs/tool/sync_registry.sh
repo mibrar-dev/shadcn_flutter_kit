@@ -19,6 +19,12 @@
 # live previews load them through the deferred-import registry, and the
 # manifest hashes cover them.
 #
+# `blocks/` (P6-B1 layer 4) is mirrored too: the Blocks pages load each block's
+# public widget — which is its preview — from the deferred block registry.
+# The mirror keeps the registry's directory names, so a block id with a hyphen
+# (`dashboard-01`) lives in a hyphenated directory holding `dashboard_01.dart`
+# (the hyphenated file name is a `file_names` lint error).
+#
 # `theme/app_theme.dart` is excluded from deletion: the CLI generates that file
 # per project (from the chosen preset) and a re-sync must never clobber it.
 
@@ -51,7 +57,7 @@ FLAGS=(-a --delete -i --include='*/' --include='*.dart' --exclude='*'
   --exclude='app_theme.dart')
 
 status=0
-for dir in foundation theme primitives components; do
+for dir in foundation theme primitives components blocks; do
   if [[ "$MODE" == "check" ]]; then
     diff_output="$(rsync "${FLAGS[@]}" --dry-run "$SRC/$dir/" "$DEST/$dir/")"
     if [[ -n "$diff_output" ]]; then

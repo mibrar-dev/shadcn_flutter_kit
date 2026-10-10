@@ -16,6 +16,8 @@ class DocsModel {
     required this.keyboard,
     required this.snippets,
     required this.cliCommands,
+    required this.blockSources,
+    required this.blockClasses,
   });
 
   /// Registry facts (components, presets, stats inputs).
@@ -45,6 +47,13 @@ class DocsModel {
 
   /// Parsed `cli_snapshot.txt` sections.
   final List<CliCommandFacts> cliCommands;
+
+  /// Block files with their verbatim sources, keyed by block id (P6-B3).
+  final Map<String, List<BlockFileFacts>> blockSources;
+
+  /// Block widget class names keyed by block id, read with
+  /// `package:analyzer` from each block's entry file.
+  final Map<String, String> blockClasses;
 }
 
 /// `// GENERATED CODE …` banner shared by every generated file.

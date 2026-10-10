@@ -92,13 +92,16 @@ abstract final class DocsFocusOrder {
   static const NumericFocusOrder toc = NumericFocusOrder(2);
 }
 
-/// The three palette groups, in order (spec §5.3 D2 delta).
+/// The four palette groups, in order (spec §5.3 D2 delta + P6-B3 Blocks).
 enum PaletteGroup {
   /// Site pages and CLI command entries.
   pages,
 
-  /// Registry components.
+  /// Registry components, sub-grouped by category.
   components,
+
+  /// Installable blocks (`/blocks/<id>`).
+  blocks,
 
   /// Theme presets.
   presets,

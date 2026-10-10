@@ -15,6 +15,7 @@ import 'package:flutter/widgets.dart';
 
 import 'motion/ease.dart';
 import 'motion/motion_scope.dart';
+import 'pages/blocks_pages.dart' deferred as blocks_pages;
 import 'pages/cli_reference.dart';
 import 'pages/component_page.dart' deferred as component_page;
 import 'pages/components_index_page.dart';
@@ -187,8 +188,9 @@ const Map<ShortcutActivator, Intent> docsShortcuts =
 ///
 /// D3 provides the landing, introduction and components index; D4 provides
 /// the component template, themes customizer, installation and CLI reference;
-/// D4b provides theming and dark mode. Only unknown URLs fall through to the
-/// not-found page.
+/// D4b provides theming and dark mode; P6-B3 provides the Blocks index and
+/// block pages (one deferred library, so the block sources never ship with the
+/// landing route). Only unknown URLs fall through to the not-found page.
 Widget buildDocsPage(BuildContext context, DocsRouteConfiguration config) {
   return switch (config.route) {
     DocsRoute.landing => const LandingPage(),
@@ -204,6 +206,20 @@ Widget buildDocsPage(BuildContext context, DocsRouteConfiguration config) {
     DocsRoute.theming => const ThemingPage(),
     DocsRoute.darkMode => const DarkModePage(),
     DocsRoute.cli => const CliReferencePage(),
+    DocsRoute.blocks => DeferredPage(
+      load: blocks_pages.loadLibrary,
+      builder: (BuildContext context) => blocks_pages.BlocksIndexPage(),
+    ),
+    DocsRoute.blockCategory => DeferredPage(
+      load: blocks_pages.loadLibrary,
+      builder: (BuildContext context) =>
+          blocks_pages.BlocksIndexPage(categorySlug: config.blockCategorySlug),
+    ),
+    DocsRoute.block => DeferredPage(
+      load: blocks_pages.loadLibrary,
+      builder: (BuildContext context) =>
+          blocks_pages.BlockPage(blockId: config.blockId!),
+    ),
     _ => DocsPlaceholderPage(config: config),
   };
 }

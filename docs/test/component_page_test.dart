@@ -3,7 +3,9 @@
 // block shows the generated file lists, and the API/theme/keyboard tables
 // render from generated data. Golden tests cover light + dark.
 
+import 'package:docs/generated/docs_data.dart';
 import 'package:docs/generated/docs_previews.dart';
+import 'package:docs/routing/docs_nav.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/ui/shadcn/components/badge/badge.dart';
 import 'package:docs/ui/shadcn/components/button/button.dart';
@@ -105,8 +107,18 @@ void main() {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
-      // Button is first in the alphabetical list; only next exists.
-      expect(find.text('ClickDetector'), findsWidgets);
+      // Pager neighbors come from the generated alphabetical links.
+      final ({String? previousId, String? nextId}) neighbors =
+          componentNeighbors('button');
+      expect(neighbors.previousId, 'breadcrumb');
+      expect(neighbors.nextId, 'calendar');
+      expect(find.text('Breadcrumb'), findsWidgets);
+      expect(find.text('Calendar'), findsWidgets);
+      // The pager label comes from the generated links, not a hard-coded name.
+      final DocsComponentLink next = kComponentLinks.firstWhere(
+        (DocsComponentLink link) => link.id == neighbors.nextId,
+      );
+      expect(next.name, 'Calendar');
     });
 
     testWidgets('accessibility section hidden when no keyboard rows', (

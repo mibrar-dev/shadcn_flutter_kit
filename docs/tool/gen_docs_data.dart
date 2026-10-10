@@ -9,6 +9,10 @@
 //     --out <dir>            generated data dir (default: lib/generated)
 //     --previews <path>      deferred preview registry
 //                            (default: lib/previews/component_previews.dart)
+//     --block-sources <path> deferred block code sources
+//                            (default: lib/blocks/block_sources.dart)
+//     --block-previews <path> deferred block preview registry
+//                            (default: lib/previews/block_previews.dart)
 //     --theme-import <uri>   library exporting ShadcnThemeData for
 //                            app_theme.dart (default: the docs mirror)
 //     --check                regenerate into temp, format and diff against
@@ -32,12 +36,15 @@ import 'src/render_common.dart';
 export 'src/api_members.dart';
 export 'src/api_model.dart';
 export 'src/ast_docs.dart';
+export 'src/block_class.dart';
+export 'src/block_scan.dart';
 export 'src/dart_highlight.dart';
 export 'src/model_build.dart';
 export 'src/dart_scan.dart';
 export 'src/readme_scan.dart';
 export 'src/registry_scan.dart';
 export 'src/render_api.dart';
+export 'src/render_blocks.dart';
 export 'src/render_code.dart';
 export 'src/render_common.dart';
 export 'src/render_files.dart';
@@ -52,6 +59,10 @@ const String _usage =
     '  --out <dir>           generated data dir (default: lib/generated)\n'
     '  --previews <path>     deferred preview registry (default: '
     'lib/previews/component_previews.dart)\n'
+    '  --block-sources <path> deferred block code sources (default: '
+    'lib/blocks/block_sources.dart)\n'
+    '  --block-previews <path> deferred block preview registry (default: '
+    'lib/previews/block_previews.dart)\n'
     '  --theme-import <uri>  library exporting ShadcnThemeData '
     '(default: $kDocsThemeImport)\n'
     '  --check               verify checked-in files are fresh (exit 1 on '
@@ -109,6 +120,8 @@ int runDocsGen(List<String> args, {StringSink? out, StringSink? err}) {
       model,
       outDir: options.out,
       previewsPath: options.previews,
+      blockSourcesPath: options.blockSources,
+      blockPreviewsPath: options.blockPreviews,
       themeImport: options.themeImport,
     );
 
@@ -147,6 +160,8 @@ class _Options {
     this.registry,
     this.out = 'lib/generated',
     this.previews = 'lib/previews/component_previews.dart',
+    this.blockSources = 'lib/blocks/block_sources.dart',
+    this.blockPreviews = 'lib/previews/block_previews.dart',
     this.themeImport = kDocsThemeImport,
     this.check = false,
     this.help = false,
@@ -155,6 +170,8 @@ class _Options {
   final String? registry;
   final String out;
   final String previews;
+  final String blockSources;
+  final String blockPreviews;
   final String themeImport;
   final bool check;
   final bool help;
@@ -164,6 +181,8 @@ _Options? _parseArgs(List<String> args, StringSink err) {
   String? registry;
   String out = 'lib/generated';
   String previews = 'lib/previews/component_previews.dart';
+  String blockSources = 'lib/blocks/block_sources.dart';
+  String blockPreviews = 'lib/previews/block_previews.dart';
   String themeImport = kDocsThemeImport;
   bool check = false;
   bool help = false;
@@ -187,6 +206,10 @@ _Options? _parseArgs(List<String> args, StringSink err) {
         out = value(arg);
       case '--previews':
         previews = value(arg);
+      case '--block-sources':
+        blockSources = value(arg);
+      case '--block-previews':
+        blockPreviews = value(arg);
       case '--theme-import':
         themeImport = value(arg);
       case '--check':
@@ -207,6 +230,8 @@ _Options? _parseArgs(List<String> args, StringSink err) {
     registry: registry,
     out: out,
     previews: previews,
+    blockSources: blockSources,
+    blockPreviews: blockPreviews,
     themeImport: themeImport,
     check: check,
     help: help,

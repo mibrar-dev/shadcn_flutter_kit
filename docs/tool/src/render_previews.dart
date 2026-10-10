@@ -8,6 +8,8 @@ import 'literals.dart';
 import 'registry_scan.dart';
 import 'render_common.dart';
 
+export 'registry_scan.dart' show BlockFacts;
+
 /// Renders `lib/generated/docs_previews.dart`: the named-example labels
 /// (P6-F4) every component page shows in its `Select`.
 ///
@@ -142,3 +144,71 @@ String renderComponentPreviews(
 
 String _prefix(String id) =>
     'preview_${id.replaceAll(RegExp('[^A-Za-z0-9_]'), '_')}';
+
+/// Renders `lib/previews/block_previews.dart`: the deferred block-preview
+/// registry the Blocks pages load (P6-B3).
+///
+/// A block's public widget is its preview (P6-B1: there is no separate
+/// `preview.dart`), so one deferred import of the block's entry file per block
+/// is the whole registry. [blockClasses] maps block id → widget class name,
+/// read with `package:analyzer` from the entry file.
+String renderBlockPreviews(
+  RegistryScan scan,
+  Map<String, String> blockClasses,
+) {
+  final StringBuffer out = StringBuffer()
+    ..write(
+      banner(
+        sources: const <String>[
+          'flutter_shadcn_kit/lib/registry/blocks/<id>/<file>.dart',
+        ],
+        regenerate: kRegenerateCommand,
+        notes: <String>[
+          'One deferred import per block; the chunk is fetched when a Blocks',
+          'page asks for the preview. A block widget IS its preview, so the',
+          'class is the entry file\'s public widget class.',
+        ],
+      ),
+    )
+    ..writeln()
+    ..writeln("import 'package:flutter/widgets.dart';")
+    ..writeln();
+  for (final BlockFacts block in scan.blocks) {
+    out.writeln(
+      "import 'package:docs/ui/shadcn/blocks/${block.id}/${_blockFile(block)}' deferred as ${_blockPrefix(block.id)};",
+    );
+  }
+  out
+    ..writeln()
+    ..writeln(
+      '/// Loads the preview widget for [blockId], fetching its deferred',
+    )
+    ..writeln('/// chunk first. Throws [ArgumentError] for unknown ids.')
+    ..writeln('Future<Widget> loadBlockPreview(String blockId) =>')
+    ..writeln('    switch (blockId) {');
+  for (final BlockFacts block in scan.blocks) {
+    final String? className = blockClasses[block.id];
+    if (className == null) {
+      throw StateError('${block.id}: no block widget class resolved');
+    }
+    // Constructed through the deferred prefix (never `const`): a const
+    // constructor invocation requires the library at compile time, and the
+    // analyzer must resolve the class through the prefix because the docs
+    // analysis excludes the mirrored registry tree.
+    out.writeln(
+      "      ${dartString(block.id)} => ${_blockPrefix(block.id)}.loadLibrary().then((_) => ${_blockPrefix(block.id)}.$className()),",
+    );
+  }
+  out
+    ..writeln(
+      "      _ => throw ArgumentError.value(blockId, 'blockId', 'no registered preview'),",
+    )
+    ..writeln('    };');
+  return out.toString();
+}
+
+/// The block's entry file name (`dashboard_01.dart`).
+String _blockFile(BlockFacts block) => block.entry.split('/').last;
+
+String _blockPrefix(String id) =>
+    'block_${id.replaceAll(RegExp('[^A-Za-z0-9_]'), '_')}';

@@ -2,6 +2,7 @@
 // (+ 375) for the header, docs shell, article and footer, plus a
 // route × width smoke pass that fails on any layout exception.
 
+import 'package:docs/generated/docs_data.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/widgets/component_link_grid.dart';
 import 'package:docs/widgets/docs_footer.dart';
@@ -176,10 +177,11 @@ void main() {
   testWidgets('components index grid: 2 columns below md, 3 at md+', (
     WidgetTester tester,
   ) async {
+    // The index renders one grid per category (P6-B3); measure the first.
     int columns() => tester
         .widgetList(
           find.descendant(
-            of: find.byType(ComponentLinkGrid),
+            of: find.byType(ComponentLinkGrid).first,
             matching: find.byType(Expanded),
           ),
         )
@@ -191,6 +193,10 @@ void main() {
       height: 900,
     );
     await goTo(tester, wide, '/docs/components');
+    expect(
+      find.byType(ComponentLinkGrid),
+      findsNWidgets(kComponentCategoryGroups.length),
+    );
     expect(columns(), 3);
 
     final DocsRouterDelegate narrow = await pumpDocsApp(
@@ -215,6 +221,9 @@ void main() {
       '/docs/components',
       '/docs/components/button',
       '/themes',
+      '/blocks',
+      '/blocks/dashboard',
+      '/blocks/dashboard-01',
       '/not-found',
     ];
     for (final double width in <double>[375, 640, 768, 1024, 1280]) {

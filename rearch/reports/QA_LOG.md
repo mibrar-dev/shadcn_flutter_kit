@@ -619,3 +619,9 @@
 ## P6-B2 — CLI blocks + categories — ACCEPTED (CLI repo)
 - Re-ran: format 0 changed, analyze 0, dart test +522 (was 466; 3 pre-existing failures caused by B1's manifest fields fixed). Agent ran e2e acceptance (block install + analyze) and end-to-end against the real kit registry.
 - One id space for add; blocks to lib/ui/shadcn/blocks/<id>/ with closure; lock v2 blocks[]; update refreshes only files whose bytes match the lock; remove refuses deleting a component a block needs unless --force.
+
+## P6-B3 — docs Blocks section + categorized components — ACCEPTED (polish follow-up P6-P2)
+- Re-ran: docs format 0 / analyze 0 / +199 / codegen (12 files) + mirror --check; blocks suite 135; manifest regenerated (block hashes after B3's IntrinsicHeight fixes in dashboard-01/pricing-01).
+- /blocks with category pills, framed viewport (desktop/tablet/mobile), Preview|Code (file tree + highlighted selectable source), install, open-in-new-tab, /blocks/<id>; sidebar/index/⌘K grouped by category, building blocks hidden; header "Blocks".
+- Visual QA (p6b3 captures): install command truncated (id missing), viewport frame border stops under tabs, dashboard bars rainbow-cycled (shadcn uses chart-1), duplicated title on block page, login "Forgot password?" not edge-aligned → P6-P2.
+- Network drop mid-run resumed in-session; a hung probe test (pumpAndSettle) killed by orchestrator; ~35 orphaned flutter_tester processes cleaned.

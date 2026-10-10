@@ -6,7 +6,6 @@ import 'package:docs/ui/shadcn/components/button/button.dart';
 import 'package:docs/ui/shadcn/components/switch/switch.dart';
 import 'package:docs/ui/shadcn/foundation/icons/lucide_icons.dart';
 import 'package:docs/widgets/collage.dart';
-import 'package:docs/widgets/component_link_grid.dart';
 import 'package:docs/widgets/copy_button.dart';
 import 'package:docs/widgets/docs_footer.dart';
 import 'package:docs/widgets/docs_sidebar.dart';
@@ -82,18 +81,31 @@ void main() {
     expect(find.byType(DocsFooter), findsNothing);
   });
 
-  testWidgets('components index renders the generated alphabetical grid', (
+  testWidgets('components index renders one section per category', (
     WidgetTester tester,
   ) async {
     final DocsRouterDelegate delegate = await pumpDocsApp(tester);
     await goTo(tester, delegate, '/docs/components');
     expect(find.text('Components'), findsWidgets);
-    expect(find.text('All Components'), findsWidgets); // heading + TOC link
-    final ComponentLinkGrid grid = tester.widget<ComponentLinkGrid>(
-      find.byType(ComponentLinkGrid),
-    );
-    expect(grid.links.length, kComponentLinks.length);
-    expect(grid.links.first.name, 'Accordion');
+    // One H2 section per generated category, count descending.
+    final List<String> categories = kComponentCategoryGroups
+        .map((DocsComponentCategory group) => group.id)
+        .toList();
+    expect(categories.first, 'Forms & Inputs');
+    for (final String category in categories) {
+      expect(find.text(category), findsWidgets, reason: category);
+    }
+    // Every listed component is linked exactly once (heading + TOC links make
+    // the raw count > 1, so compare against the distinct labels).
+    for (final DocsComponentCategory group in kComponentCategoryGroups) {
+      for (final DocsComponentLink link in group.components) {
+        expect(find.text(link.name), findsWidgets, reason: link.id);
+      }
+    }
+    // The old single alphabetical grid is gone.
+    expect(find.text('All Components'), findsNothing);
+    // Building blocks are not listed in the index.
+    expect(find.text('ClickDetector'), findsNothing);
     // Link navigation itself is covered by `palette_test.dart` (Enter on the
     // Components page entry); this test stays on the D3-owned index page so it
     // does not depend on D4's component-page layout.

@@ -4,6 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 
+import '../generated/docs_blocks.dart';
 import '../generated/docs_data.dart';
 
 /// One navigation target (label + in-app location).
@@ -31,11 +32,13 @@ class DocsNavLink {
   int get hashCode => Object.hash(label, location);
 }
 
-/// Header items (Home, Docs, Components, Themes — spec §5.1).
+/// Header items (Home, Docs, Components, Blocks, Themes — spec §5.1 plus the
+/// P6-B3 Blocks section).
 const List<DocsNavLink> kHeaderNav = <DocsNavLink>[
   DocsNavLink(label: 'Home', location: '/'),
   DocsNavLink(label: 'Docs', location: '/docs'),
   DocsNavLink(label: 'Components', location: '/docs/components'),
+  DocsNavLink(label: 'Blocks', location: '/blocks'),
   DocsNavLink(label: 'Themes', location: '/themes'),
 ];
 
@@ -91,5 +94,18 @@ const List<DocsNavLink> kDocsPageChain = <DocsNavLink>[
     nextId: index < kComponentLinks.length - 1
         ? kComponentLinks[index + 1].id
         : null,
+  );
+}
+
+/// Previous/next block ids in [kBlocks] order (index-block adjacency, matching
+/// the reference's card order).
+({String? previousId, String? nextId}) blockNeighbors(String id) {
+  final int index = kBlocks.indexWhere((DocsBlock block) => block.id == id);
+  if (index < 0) {
+    return (previousId: null, nextId: null);
+  }
+  return (
+    previousId: index > 0 ? kBlocks[index - 1].id : null,
+    nextId: index < kBlocks.length - 1 ? kBlocks[index + 1].id : null,
   );
 }

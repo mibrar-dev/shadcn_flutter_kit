@@ -1,8 +1,13 @@
 // The docs sidebar (spec §2.2): 288 px column, 224 px scroll area with pl-10,
-// 1 px gradient right rule, scroll-fade mask, Sections + Components groups.
-// Items are 30 px rows (12.8/18.29 500) driven by the shared `Clickable`
-// primitive; the active item gets the accent fill + 1 px border (no ring, no
-// file-count badges, no palette button — spec §5.1).
+// 1 px gradient right rule, scroll-fade mask and the Sections / Components /
+// Blocks groups. Items are 30 px rows (12.8/18.29 500) driven by the shared
+// `Clickable` primitive; the active item gets the accent fill + 1 px border (no
+// ring, no file-count badges, no palette button — spec §5.1).
+//
+// P6-B3: the flat Components list became category sub-groups (`Forms &
+// Inputs`, …) and a Blocks group with the six block families. The row model
+// lives in `sidebar_groups.dart`; building blocks (`listed: false`) are not
+// listed here.
 //
 // The active item is centred in the scroll area on route changes (the
 // reference's longest-match auto-scroll). Session persistence is intentionally
@@ -10,10 +15,8 @@
 
 import 'package:flutter/widgets.dart';
 
-import '../generated/docs_data.dart';
 import '../motion/ease.dart';
 import '../motion/motion_scope.dart';
-import '../routing/docs_nav.dart';
 import '../routing/docs_router.dart';
 import '../ui/shadcn/foundation/gap.dart';
 import '../ui/shadcn/primitives/clickable.dart';
@@ -21,6 +24,7 @@ import '../ui/shadcn/theme/color_tokens.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
 import 'scroll_fade.dart';
+import 'sidebar_groups.dart';
 
 /// The documentation sidebar.
 class DocsSidebar extends StatefulWidget {
@@ -77,8 +81,8 @@ class _DocsSidebarState extends State<DocsSidebar> {
     });
   }
 
-  GlobalKey? _keyFor(String location) {
-    if (location != widget.activeLocation) {
+  GlobalKey? _keyFor(String? location) {
+    if (location == null || location != widget.activeLocation) {
       return null;
     }
     if (_activeKeyLocation != location) {
@@ -116,27 +120,7 @@ class _DocsSidebarState extends State<DocsSidebar> {
                       // content-wide, not the full 224 px menu width).
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const _GroupLabel('Sections'),
-                          for (final DocsNavLink link in kDocsSections)
-                            _SidebarItem(
-                              label: link.label,
-                              location: link.location,
-                              active: link.isActiveFor(widget.activeLocation),
-                              itemKey: _keyFor(link.location),
-                              spacing: 4,
-                            ),
-                          const Gap(24),
-                          const _GroupLabel('Components'),
-                          for (final DocsComponentLink link in kComponentLinks)
-                            _SidebarItem(
-                              label: link.name,
-                              location: '/docs/components/${link.id}',
-                              active: _isComponentActive(link),
-                              itemKey: _keyFor('/docs/components/${link.id}'),
-                              spacing: 2,
-                            ),
-                        ],
+                        children: _rows(context),
                       ),
                     ),
                   ),
@@ -148,18 +132,20 @@ class _DocsSidebarState extends State<DocsSidebar> {
               right: 8,
               bottom: 0,
               width: 1,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      theme.colors.border.withValues(alpha: 0),
-                      theme.colors.border,
-                      theme.colors.border,
-                      theme.colors.border.withValues(alpha: 0),
-                    ],
-                    stops: const <double>[0, 0.1, 0.9, 1],
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        theme.colors.border.withValues(alpha: 0),
+                        theme.colors.border,
+                        theme.colors.border,
+                        theme.colors.border.withValues(alpha: 0),
+                      ],
+                      stops: const <double>[0, 0.1, 0.9, 1],
+                    ),
                   ),
                 ),
               ),
@@ -170,8 +156,37 @@ class _DocsSidebarState extends State<DocsSidebar> {
     );
   }
 
-  bool _isComponentActive(DocsComponentLink link) {
-    return widget.activeLocation == '/docs/components/${link.id}';
+  List<Widget> _rows(BuildContext context) {
+    final List<Widget> rows = <Widget>[];
+    bool label = false;
+    for (final SidebarRow row in buildSidebarRows(widget.activeLocation)) {
+      if (row.isLabel) {
+        if (label) {
+          rows.add(const Gap(24));
+        }
+        rows.add(_GroupLabel(row.label));
+        label = true;
+        continue;
+      }
+      if (row.isSubLabel) {
+        rows.add(_SubGroupLabel(row.label));
+        continue;
+      }
+      final String? location = row.location;
+      if (location == null) {
+        continue;
+      }
+      rows.add(
+        _SidebarItem(
+          label: row.label,
+          location: location,
+          active: location == widget.activeLocation,
+          itemKey: _keyFor(location),
+          spacing: 2,
+        ),
+      );
+    }
+    return rows;
   }
 }
 
@@ -199,6 +214,35 @@ class _GroupLabel extends StatelessWidget {
               color: theme.colors.mutedForeground,
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A category sub-label (`Forms & Inputs`, `Sidebar`): the group label look,
+/// indented and lighter, matching the reference's nested lists.
+class _SubGroupLabel extends StatelessWidget {
+  const _SubGroupLabel(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 6, 8, 2),
+      child: Text(
+        label,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: docsText(
+          context,
+          size: 11,
+          weight: FontWeight.w500,
+          height: 16 / 11,
+          letterSpacing: 0.02,
+          color: theme.colors.mutedForeground.withValues(alpha: 0.8),
         ),
       ),
     );

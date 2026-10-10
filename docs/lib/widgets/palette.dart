@@ -250,6 +250,7 @@ class _DocsPaletteState extends State<DocsPalette> {
     final String heading = switch (group) {
       PaletteGroup.pages => 'Pages',
       PaletteGroup.components => 'Components',
+      PaletteGroup.blocks => 'Blocks',
       PaletteGroup.presets => 'Presets',
     };
     return <Widget>[
@@ -266,7 +267,11 @@ class _DocsPaletteState extends State<DocsPalette> {
           ),
         ),
       ),
-      for (final PaletteEntry item in groupItems)
+      for (final PaletteEntry item in groupItems) ...<Widget>[
+        if (item.category != null &&
+            group == PaletteGroup.components &&
+            item.category != _previousCategory(groupItems, item))
+          _SubHeading(item.category!),
         _PaletteRow(
           key: _keys.putIfAbsent(_keyFor(item), () => GlobalKey()),
           item: item,
@@ -277,7 +282,41 @@ class _DocsPaletteState extends State<DocsPalette> {
             delegate.go(context, item.route);
           },
         ),
+      ],
     ];
+  }
+
+  /// The category of the entry before [item] in its group, or null — drives
+  /// the one-sub-heading-per-category rendering of the Components group.
+  String? _previousCategory(List<PaletteEntry> groupItems, PaletteEntry item) {
+    final int index = groupItems.indexOf(item);
+    return index <= 0 ? null : groupItems[index - 1].category;
+  }
+}
+
+/// A category sub-heading inside the Components / Blocks groups.
+class _SubHeading extends StatelessWidget {
+  const _SubHeading(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 10, 12, 2),
+      child: Text(
+        label,
+        style: docsText(
+          context,
+          size: 11,
+          weight: FontWeight.w500,
+          height: 16 / 11,
+          letterSpacing: 0.02,
+          color: theme.colors.mutedForeground.withValues(alpha: 0.8),
+        ),
+      ),
+    );
   }
 }
 

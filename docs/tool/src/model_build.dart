@@ -5,9 +5,11 @@ import 'dart:io';
 
 import 'dart_scan.dart';
 import 'api_model.dart';
+import 'block_class.dart';
 import 'readme_scan.dart';
 import 'registry_scan.dart';
 import 'render_api.dart';
+import 'render_blocks.dart';
 import 'render_code.dart';
 import 'render_common.dart';
 import 'render_files.dart';
@@ -134,6 +136,25 @@ DocsModel buildDocsModel(String registryRoot) {
     );
   }
 
+  final Map<String, List<BlockFileFacts>> blockSources =
+      <String, List<BlockFileFacts>>{};
+  final Map<String, String> blockClasses = <String, String>{};
+  for (final BlockFacts block in scan.blocks) {
+    final List<BlockFileFacts> files = <BlockFileFacts>[];
+    for (final String file in block.files) {
+      final File source = File('${scan.root}/$file');
+      if (!source.existsSync()) {
+        throw RegistryScanException('${block.id}: missing file ${source.path}');
+      }
+      files.add(BlockFileFacts(path: file, code: source.readAsStringSync()));
+    }
+    blockSources[block.id] = files;
+    blockClasses[block.id] = findBlockWidgetClass(
+      source: files.first.code,
+      blockId: block.id,
+    );
+  }
+
   return DocsModel(
     scan: scan,
     api: api,
@@ -143,6 +164,8 @@ DocsModel buildDocsModel(String registryRoot) {
     keyboard: keyboard,
     snippets: snippets,
     cliCommands: cliCommands,
+    blockSources: blockSources,
+    blockClasses: blockClasses,
   );
 }
 
@@ -152,6 +175,8 @@ Map<String, String> renderBundle(
   required String outDir,
   required String previewsPath,
   required String themeImport,
+  String blockSourcesPath = 'lib/blocks/block_sources.dart',
+  String blockPreviewsPath = 'lib/previews/block_previews.dart',
 }) {
   return <String, String>{
     '$outDir/docs_data.dart': renderDocsData(model),
@@ -159,6 +184,7 @@ Map<String, String> renderBundle(
     '$outDir/docs_tables.dart': renderDocsTables(model),
     '$outDir/docs_search.dart': renderDocsSearch(model),
     '$outDir/docs_snippets.dart': renderDocsSnippets(model),
+    '$outDir/docs_blocks.dart': renderDocsBlocks(model),
     '$outDir/docs_preset_sources.dart': renderPresetSources(model.scan),
     '$outDir/docs_previews.dart': renderDocsPreviews(model),
     '$outDir/app_theme.dart': renderAppTheme(
@@ -170,6 +196,8 @@ Map<String, String> renderBundle(
       model.previewClasses,
       model.previewExamples,
     ),
+    blockSourcesPath: renderBlockSources(model.scan, model.blockSources),
+    blockPreviewsPath: renderBlockPreviews(model.scan, model.blockClasses),
   };
 }
 
@@ -211,9 +239,13 @@ String describeModel(DocsModel model) {
       ? ''
       : 'api members: $memberRows declared rows '
             '(${memberComponents.join(', ')})\n';
-  return 'components: ${model.scan.components.length}, '
+  return 'components: ${model.scan.components.length} '
+      '(${model.scan.components.where((ComponentFacts c) => c.listed).length} '
+      'listed), '
       'presets: ${model.scan.presets.length} '
-      '(+${model.scan.presets.length} json/dart sources)\n'
+      '(+${model.scan.presets.length} json/dart sources), '
+      'blocks: ${model.scan.blocks.length} '
+      '(${model.blockSources.values.fold<int>(0, (int sum, List<BlockFileFacts> f) => sum + f.length)} files)\n'
       'snippets: $snippetCount ($languages)\n'
       'api tables: $withApi with parameters, '
       '${model.scan.components.length - withApi} without\n'

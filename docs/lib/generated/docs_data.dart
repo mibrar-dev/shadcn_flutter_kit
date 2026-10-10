@@ -21,6 +21,7 @@ class DocsComponent {
     required this.import,
     required this.fileCount,
     required this.stability,
+    required this.listed,
   });
 
   /// Registry id / directory name.
@@ -47,6 +48,11 @@ class DocsComponent {
   /// `stable` for every component — the manifest has no stability
   /// field yet; this is a docs-site presentation constant.
   final String stability;
+
+  /// Whether the docs site lists this component (sidebar, index,
+  /// palette). `listed: false` marks the building blocks: installable
+  /// and reachable through API links, but not browsable.
+  final bool listed;
 }
 
 /// One theme preset, generated from `themes/index.json`.
@@ -137,6 +143,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/border_loading/border_loading.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'dot_indicator',
@@ -149,6 +156,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/dot_indicator/dot_indicator.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'text_animate',
@@ -161,6 +169,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/text_animate/text_animate.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'button',
@@ -173,6 +182,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/button/button.dart';",
     fileCount: 4,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'toggle',
@@ -185,6 +195,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/toggle/toggle.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'color_field',
@@ -197,6 +208,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/color_field/color_field.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'color_input',
@@ -209,6 +221,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'color_picker',
@@ -221,6 +234,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/color_picker/color_picker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'eye_dropper',
@@ -233,6 +247,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'avatar',
@@ -245,6 +260,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/avatar/avatar.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'badge',
@@ -257,6 +273,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/badge/badge.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'carousel',
@@ -269,6 +286,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/carousel/carousel.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'chat',
@@ -280,6 +298,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/chat/chat.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'chip',
@@ -291,6 +310,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/chip/chip.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'country_flag',
@@ -303,6 +323,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/country_flag/country_flag.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'divider',
@@ -315,6 +336,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/divider/divider.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'empty_state',
@@ -327,6 +349,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/empty_state/empty_state.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'feature_carousel',
@@ -339,6 +362,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/feature_carousel/feature_carousel.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'file_diff_viewer',
@@ -351,6 +375,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/file_diff_viewer/file_diff_viewer.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'keyboard_shortcut',
@@ -363,6 +388,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'number_ticker',
@@ -375,6 +401,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/number_ticker/number_ticker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'pinned_sheet',
@@ -387,6 +414,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/pinned_sheet/pinned_sheet.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'selectable',
@@ -399,6 +427,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'table',
@@ -411,6 +440,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/table/table.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'timeline',
@@ -423,6 +453,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/timeline/timeline.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'tracker',
@@ -435,6 +466,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/tracker/tracker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'tree',
@@ -446,6 +478,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/tree/tree.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'calendar',
@@ -458,6 +491,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/calendar/calendar.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'date_picker',
@@ -470,6 +504,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/date_picker/date_picker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'time_picker',
@@ -482,6 +517,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/time_picker/time_picker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'alert',
@@ -494,6 +530,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/alert/alert.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'progress',
@@ -506,6 +543,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/progress/progress.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'skeleton',
@@ -518,6 +556,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/skeleton/skeleton.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'spinner',
@@ -530,6 +569,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/spinner/spinner.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'toast',
@@ -542,6 +582,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/toast/toast.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'autocomplete',
@@ -554,6 +595,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/autocomplete/autocomplete.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'checkbox',
@@ -566,6 +608,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/checkbox/checkbox.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'chip_input',
@@ -578,6 +621,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/chip_input/chip_input.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'dropzone',
@@ -590,6 +634,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/dropzone/dropzone.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'file_picker',
@@ -602,6 +647,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/file_picker/file_picker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'form',
@@ -613,6 +659,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/form/form.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'formatted_input',
@@ -625,6 +672,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/formatted_input/formatted_input.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'input',
@@ -637,6 +685,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/input/input.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'input_otp',
@@ -649,6 +698,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/input_otp/input_otp.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'item_picker',
@@ -661,6 +711,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/item_picker/item_picker.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'multi_select',
@@ -673,6 +724,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/multi_select/multi_select.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'object_input',
@@ -685,6 +737,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/object_input/object_input.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'phone_input',
@@ -697,6 +750,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/phone_input/phone_input.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'radio_group',
@@ -709,6 +763,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/radio_group/radio_group.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'select',
@@ -721,6 +776,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/select/select.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'slider',
@@ -733,6 +789,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/slider/slider.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'star_rating',
@@ -745,6 +802,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/star_rating/star_rating.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'switch',
@@ -757,6 +815,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/switch/switch.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'text_area',
@@ -769,6 +828,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/text_area/text_area.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'accordion',
@@ -781,6 +841,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/accordion/accordion.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'card',
@@ -792,6 +853,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/card/card.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'card_image',
@@ -804,6 +866,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/card_image/card_image.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'collapsible',
@@ -816,6 +879,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/collapsible/collapsible.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'filter_bar',
@@ -828,6 +892,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/filter_bar/filter_bar.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'outlined_container',
@@ -840,6 +905,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'overflow_marquee',
@@ -852,6 +918,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/overflow_marquee/overflow_marquee.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'resizable',
@@ -864,6 +931,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/resizable/resizable.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'scaffold',
@@ -876,6 +944,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/scaffold/scaffold.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'scrollable',
@@ -888,6 +957,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'scrollbar',
@@ -900,6 +970,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'scrollview',
@@ -912,6 +983,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'sortable',
@@ -924,6 +996,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/sortable/sortable.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'stage_container',
@@ -936,6 +1009,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'steps',
@@ -947,6 +1021,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/steps/steps.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'window',
@@ -959,6 +1034,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/window/window.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'command',
@@ -971,6 +1047,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/command/command.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'context_menu',
@@ -983,6 +1060,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/context_menu/context_menu.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'dropdown_menu',
@@ -995,6 +1073,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/dropdown_menu/dropdown_menu.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'menu',
@@ -1006,6 +1085,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/menu/menu.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'menubar',
@@ -1018,6 +1098,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/menubar/menubar.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'triple_dots',
@@ -1029,6 +1110,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'breadcrumb',
@@ -1041,6 +1123,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/breadcrumb/breadcrumb.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'navigation_bar',
@@ -1053,6 +1136,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/navigation_bar/navigation_bar.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'navigation_menu',
@@ -1065,6 +1149,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/navigation_menu/navigation_menu.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'pagination',
@@ -1077,6 +1162,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/pagination/pagination.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'stepper',
@@ -1089,6 +1175,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/stepper/stepper.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'switcher',
@@ -1101,6 +1188,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/switcher/switcher.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'tabs',
@@ -1112,6 +1200,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/tabs/tabs.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'alert_dialog',
@@ -1124,6 +1213,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/alert_dialog/alert_dialog.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'dialog',
@@ -1135,6 +1225,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/dialog/dialog.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'drawer',
@@ -1147,6 +1238,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/drawer/drawer.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'drawer_container',
@@ -1159,6 +1251,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'gooey_toast',
@@ -1171,6 +1264,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/gooey_toast/gooey_toast.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'hover_card',
@@ -1183,6 +1277,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/hover_card/hover_card.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'popup',
@@ -1195,6 +1290,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/popup/popup.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'refresh_trigger',
@@ -1207,6 +1303,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/refresh_trigger/refresh_trigger.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'spell_check_suggestions_toolbar',
@@ -1219,6 +1316,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'swiper',
@@ -1230,6 +1328,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/swiper/swiper.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'tooltip',
@@ -1242,6 +1341,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/tooltip/tooltip.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'code_snippet',
@@ -1254,6 +1354,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/code_snippet/code_snippet.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'image',
@@ -1266,6 +1367,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/image/image.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'markdown',
@@ -1278,6 +1380,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/markdown/markdown.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: true,
   ),
   DocsComponent(
     id: 'alpha',
@@ -1289,6 +1392,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/alpha/alpha.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'anchor',
@@ -1301,6 +1405,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/anchor/anchor.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'app',
@@ -1312,6 +1417,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/app/app.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'async',
@@ -1324,6 +1430,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/async/async.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'backdrop_transform',
@@ -1336,6 +1443,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/backdrop_transform/backdrop_transform.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'color',
@@ -1348,6 +1456,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/color/color.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'error_system',
@@ -1360,6 +1469,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/error_system/error_system.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'formatter',
@@ -1372,6 +1482,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/formatter/formatter.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'group',
@@ -1384,6 +1495,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/group/group.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'history',
@@ -1395,6 +1507,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/history/history.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'hsl',
@@ -1406,6 +1519,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/hsl/hsl.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'hsv',
@@ -1417,6 +1531,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/hsv/hsv.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'icon',
@@ -1428,6 +1543,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import: "import 'package:<your_app>/ui/shadcn/components/icon/icon.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'locale_utils',
@@ -1440,6 +1556,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/locale_utils/locale_utils.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'media_query',
@@ -1452,6 +1569,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/media_query/media_query.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'multiple_choice',
@@ -1464,6 +1582,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/multiple_choice/multiple_choice.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'overlay_configuration',
@@ -1476,6 +1595,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/overlay_configuration/overlay_configuration.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'page_route',
@@ -1488,6 +1608,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/page_route/page_route.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'patch',
@@ -1500,6 +1621,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/patch/patch.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'scrollable_client',
@@ -1512,6 +1634,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/scrollable_client/scrollable_client.dart';",
     fileCount: 3,
     stability: 'stable',
+    listed: false,
   ),
   DocsComponent(
     id: 'timeline_animation',
@@ -1524,6 +1647,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
         "import 'package:<your_app>/ui/shadcn/components/timeline_animation/timeline_animation.dart';",
     fileCount: 1,
     stability: 'stable',
+    listed: false,
   ),
 ];
 
@@ -1909,3 +2033,195 @@ const DocsStats kStats = DocsStats(
   materialImports: 0, // registry import directives
   modes: 2, // distinct preset modes
 );
+
+/// One component category with its listed components.
+class DocsComponentCategory {
+  /// Creates a category group.
+  const DocsComponentCategory({required this.id, required this.components});
+
+  /// Category name as written in `meta.json` (`Forms & Inputs`).
+  final String id;
+
+  /// The category's listed components, alphabetical by name.
+  final List<DocsComponentLink> components;
+
+  /// Number of listed components in the category.
+  int get count => components.length;
+}
+
+/// Route slug of a component category (`forms-inputs`).
+String componentCategorySlug(String id) {
+  return id
+      .toLowerCase()
+      .replaceAll(RegExp('[^a-z0-9]+'), '-')
+      .replaceAll(RegExp(r'^-|-$'), '');
+}
+
+/// The 12 component categories with their listed components,
+/// count descending then id — the sidebar groups and the index sections.
+const List<DocsComponentCategory> kComponentCategoryGroups =
+    <DocsComponentCategory>[
+      DocsComponentCategory(
+        id: 'Forms & Inputs',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'autocomplete', name: 'AutoComplete'),
+          DocsComponentLink(id: 'checkbox', name: 'Checkbox'),
+          DocsComponentLink(id: 'chip_input', name: 'ChipInput'),
+          DocsComponentLink(id: 'dropzone', name: 'Dropzone'),
+          DocsComponentLink(id: 'file_picker', name: 'File Picker'),
+          DocsComponentLink(id: 'formatted_input', name: 'FormattedInput'),
+          DocsComponentLink(id: 'input', name: 'Input'),
+          DocsComponentLink(id: 'input_otp', name: 'InputOtp'),
+          DocsComponentLink(id: 'item_picker', name: 'ItemPicker'),
+          DocsComponentLink(id: 'multi_select', name: 'MultiSelect'),
+          DocsComponentLink(id: 'object_input', name: 'Object Input'),
+          DocsComponentLink(id: 'phone_input', name: 'PhoneInput'),
+          DocsComponentLink(id: 'radio_group', name: 'RadioGroup'),
+          DocsComponentLink(id: 'select', name: 'Select'),
+          DocsComponentLink(id: 'form', name: 'ShadcnForm'),
+          DocsComponentLink(id: 'slider', name: 'Slider'),
+          DocsComponentLink(id: 'star_rating', name: 'Star Rating'),
+          DocsComponentLink(id: 'switch', name: 'Switch'),
+          DocsComponentLink(id: 'text_area', name: 'TextArea'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Data Display',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'avatar', name: 'Avatar'),
+          DocsComponentLink(id: 'badge', name: 'Badge'),
+          DocsComponentLink(id: 'carousel', name: 'Carousel'),
+          DocsComponentLink(id: 'chat', name: 'Chat'),
+          DocsComponentLink(id: 'chip', name: 'Chip'),
+          DocsComponentLink(id: 'country_flag', name: 'CountryFlag'),
+          DocsComponentLink(id: 'divider', name: 'Divider'),
+          DocsComponentLink(id: 'empty_state', name: 'EmptyState'),
+          DocsComponentLink(id: 'feature_carousel', name: 'Feature Carousel'),
+          DocsComponentLink(id: 'file_diff_viewer', name: 'File Diff Viewer'),
+          DocsComponentLink(id: 'keyboard_shortcut', name: 'KeyboardShortcut'),
+          DocsComponentLink(id: 'number_ticker', name: 'NumberTicker'),
+          DocsComponentLink(id: 'pinned_sheet', name: 'Pinned Sheet'),
+          DocsComponentLink(id: 'selectable', name: 'SelectableText'),
+          DocsComponentLink(id: 'table', name: 'Table'),
+          DocsComponentLink(id: 'timeline', name: 'Timeline'),
+          DocsComponentLink(id: 'tracker', name: 'Tracker'),
+          DocsComponentLink(id: 'tree', name: 'Tree'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Layout',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'accordion', name: 'Accordion'),
+          DocsComponentLink(id: 'card', name: 'Card'),
+          DocsComponentLink(id: 'card_image', name: 'Card Image'),
+          DocsComponentLink(id: 'collapsible', name: 'Collapsible'),
+          DocsComponentLink(id: 'filter_bar', name: 'FilterBar'),
+          DocsComponentLink(
+            id: 'outlined_container',
+            name: 'Outlined Container',
+          ),
+          DocsComponentLink(id: 'overflow_marquee', name: 'Overflow Marquee'),
+          DocsComponentLink(id: 'resizable', name: 'Resizable'),
+          DocsComponentLink(id: 'scaffold', name: 'Scaffold'),
+          DocsComponentLink(id: 'scrollview', name: 'Scroll View Interceptor'),
+          DocsComponentLink(id: 'scrollable', name: 'Scrollable'),
+          DocsComponentLink(id: 'scrollbar', name: 'Scrollbar'),
+          DocsComponentLink(id: 'sortable', name: 'Sortable'),
+          DocsComponentLink(id: 'stage_container', name: 'Stage Container'),
+          DocsComponentLink(id: 'steps', name: 'Steps'),
+          DocsComponentLink(id: 'window', name: 'Window'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Overlays',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'alert_dialog', name: 'AlertDialog'),
+          DocsComponentLink(id: 'dialog', name: 'Dialog'),
+          DocsComponentLink(id: 'drawer', name: 'Drawer'),
+          DocsComponentLink(id: 'drawer_container', name: 'Drawer Container'),
+          DocsComponentLink(id: 'gooey_toast', name: 'Gooey Toast'),
+          DocsComponentLink(id: 'hover_card', name: 'HoverCard'),
+          DocsComponentLink(id: 'popup', name: 'Popup'),
+          DocsComponentLink(id: 'refresh_trigger', name: 'RefreshTrigger'),
+          DocsComponentLink(
+            id: 'spell_check_suggestions_toolbar',
+            name: 'SpellCheckSuggestionsToolbar',
+          ),
+          DocsComponentLink(id: 'swiper', name: 'Swiper'),
+          DocsComponentLink(id: 'tooltip', name: 'Tooltip'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Navigation',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'breadcrumb', name: 'Breadcrumb'),
+          DocsComponentLink(id: 'navigation_bar', name: 'Navigation Bar'),
+          DocsComponentLink(id: 'navigation_menu', name: 'NavigationMenu'),
+          DocsComponentLink(id: 'pagination', name: 'Pagination'),
+          DocsComponentLink(id: 'stepper', name: 'Stepper'),
+          DocsComponentLink(id: 'switcher', name: 'Switcher'),
+          DocsComponentLink(id: 'tabs', name: 'Tabs'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Menus',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'command', name: 'Command'),
+          DocsComponentLink(id: 'context_menu', name: 'ContextMenu'),
+          DocsComponentLink(id: 'dropdown_menu', name: 'DropdownMenu'),
+          DocsComponentLink(id: 'menu', name: 'Menu'),
+          DocsComponentLink(id: 'menubar', name: 'Menubar'),
+          DocsComponentLink(id: 'triple_dots', name: 'TripleDots'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Feedback',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'alert', name: 'Alert'),
+          DocsComponentLink(id: 'progress', name: 'Progress'),
+          DocsComponentLink(id: 'skeleton', name: 'Skeleton'),
+          DocsComponentLink(id: 'spinner', name: 'Spinner'),
+          DocsComponentLink(id: 'toast', name: 'Toast'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Color',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'color_field', name: 'Color Field'),
+          DocsComponentLink(id: 'color_input', name: 'ColorInput'),
+          DocsComponentLink(id: 'color_picker', name: 'ColorPicker'),
+          DocsComponentLink(id: 'eye_dropper', name: 'Eye Dropper'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Animation & Effects',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'border_loading', name: 'Border Loading'),
+          DocsComponentLink(id: 'dot_indicator', name: 'DotIndicator'),
+          DocsComponentLink(id: 'text_animate', name: 'TextAnimate'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Date & Time',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'calendar', name: 'Calendar'),
+          DocsComponentLink(id: 'date_picker', name: 'DatePicker'),
+          DocsComponentLink(id: 'time_picker', name: 'TimePicker'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Typography & Media',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'code_snippet', name: 'CodeSnippet'),
+          DocsComponentLink(id: 'markdown', name: 'Markdown'),
+          DocsComponentLink(id: 'image', name: 'ShadcnImage'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Buttons & Actions',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'button', name: 'Button'),
+          DocsComponentLink(id: 'toggle', name: 'Toggle'),
+        ],
+      ),
+    ];

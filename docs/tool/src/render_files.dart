@@ -35,6 +35,7 @@ String renderDocsData(DocsModel model) {
     ..writeln('    required this.import,')
     ..writeln('    required this.fileCount,')
     ..writeln('    required this.stability,')
+    ..writeln('    required this.listed,')
     ..writeln('  });')
     ..writeln()
     ..writeln('  /// Registry id / directory name.')
@@ -65,6 +66,15 @@ String renderDocsData(DocsModel model) {
     )
     ..writeln('  /// field yet; this is a docs-site presentation constant.')
     ..writeln('  final String stability;')
+    ..writeln()
+    ..writeln(
+      '  /// Whether the docs site lists this component (sidebar, index,',
+    )
+    ..writeln(
+      '  /// palette). `listed: false` marks the building blocks: installable',
+    )
+    ..writeln('  /// and reachable through API links, but not browsable.')
+    ..writeln('  final bool listed;')
     ..writeln('}')
     ..writeln()
     ..writeln('/// One theme preset, generated from `themes/index.json`.')
@@ -253,7 +263,9 @@ String renderDocsData(DocsModel model) {
       'directives',
     )
     ..writeln('  modes: ${_distinctModes(scan)}, // distinct preset modes')
-    ..writeln(');');
+    ..writeln(');')
+    ..writeln();
+  _writeCategoryGroups(out, scan);
   return out.toString();
 }
 
@@ -267,7 +279,107 @@ String _componentLiteral(ComponentFacts component) {
     'import: ${dartStringSmart(component.import)}',
     'fileCount: ${component.fileCount}',
     "stability: 'stable'",
+    'listed: ${component.listed}',
   ], indent: '  ');
+}
+
+/// One category group of the components index and the sidebar: the category id
+/// plus its listed components, alphabetical by name.
+class _CategoryGroup {
+  const _CategoryGroup(this.id, this.links);
+
+  final String id;
+  final List<ComponentFacts> links;
+}
+
+/// The listed components grouped by category, count descending then id (the
+/// order `kCategories` uses), each group alphabetical by name.
+List<_CategoryGroup> _componentCategoryGroups(RegistryScan scan) {
+  final Map<String, List<ComponentFacts>> byCategory =
+      <String, List<ComponentFacts>>{};
+  for (final ComponentFacts component in scan.components) {
+    if (!component.listed) {
+      continue;
+    }
+    byCategory
+        .putIfAbsent(component.category, () => <ComponentFacts>[])
+        .add(component);
+  }
+  final List<String> ordered = byCategory.keys.toList()
+    ..sort((String a, String b) {
+      final int byCount = byCategory[b]!.length.compareTo(
+        byCategory[a]!.length,
+      );
+      return byCount != 0 ? byCount : a.compareTo(b);
+    });
+  return <_CategoryGroup>[
+    for (final String category in ordered)
+      _CategoryGroup(
+        category,
+        byCategory[category]!..sort(
+          (ComponentFacts a, ComponentFacts b) =>
+              a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+        ),
+      ),
+  ];
+}
+
+void _writeCategoryGroups(StringBuffer out, RegistryScan scan) {
+  final List<_CategoryGroup> groups = _componentCategoryGroups(scan);
+  out
+    ..writeln('/// One component category with its listed components.')
+    ..writeln('class DocsComponentCategory {')
+    ..writeln('  /// Creates a category group.')
+    ..writeln(
+      '  const DocsComponentCategory({required this.id, required this.components});',
+    )
+    ..writeln()
+    ..writeln(
+      '  /// Category name as written in `meta.json` (`Forms & Inputs`).',
+    )
+    ..writeln('  final String id;')
+    ..writeln()
+    ..writeln('  /// The category\'s listed components, alphabetical by name.')
+    ..writeln('  final List<DocsComponentLink> components;')
+    ..writeln()
+    ..writeln('  /// Number of listed components in the category.')
+    ..writeln('  int get count => components.length;')
+    ..writeln('}')
+    ..writeln()
+    ..writeln('/// Route slug of a component category (`forms-inputs`).')
+    ..writeln('String componentCategorySlug(String id) {')
+    ..writeln(
+      '  return id.toLowerCase().replaceAll(RegExp(\'[^a-z0-9]+\'), \'-\')',
+    )
+    ..writeln("      .replaceAll(RegExp(r'^-|-\$'), '');")
+    ..writeln('}')
+    ..writeln()
+    ..writeln(
+      '/// The ${groups.length} component categories with their listed '
+      'components,',
+    )
+    ..writeln(
+      '/// count descending then id — the sidebar groups and the index '
+      'sections.',
+    )
+    ..writeln(
+      'const List<DocsComponentCategory> kComponentCategoryGroups = '
+      '<DocsComponentCategory>[',
+    );
+  for (final _CategoryGroup group in groups) {
+    out.writeln('  DocsComponentCategory(');
+    out.writeln('    id: ${dartString(group.id)},');
+    out.writeln('    components: <DocsComponentLink>[');
+    for (final ComponentFacts component in group.links) {
+      out.writeln(
+        '      DocsComponentLink(id: ${dartString(component.id)}, name: ${dartString(component.name)}),',
+      );
+    }
+    out
+      ..writeln('    ],')
+      ..writeln('  ),');
+  }
+  out.writeln('];');
 }
 
 int _distinctModes(RegistryScan scan) {
@@ -301,6 +413,9 @@ String renderDocsSearch(DocsModel model) {
     ..writeln('  /// A component page.')
     ..writeln('  component,')
     ..writeln()
+    ..writeln('  /// A block page (`/blocks/<id>`).')
+    ..writeln('  block,')
+    ..writeln()
     ..writeln('  /// A CLI command.')
     ..writeln('  command,')
     ..writeln()
@@ -317,6 +432,7 @@ String renderDocsSearch(DocsModel model) {
     ..writeln('    required this.route,')
     ..writeln('    this.tag,')
     ..writeln('    this.keywords = const <String>[],')
+    ..writeln('    this.action,')
     ..writeln('  });')
     ..writeln()
     ..writeln('  /// Display label.')
@@ -333,6 +449,9 @@ String renderDocsSearch(DocsModel model) {
     ..writeln()
     ..writeln('  /// Extra match terms (display name, tags).')
     ..writeln('  final List<String> keywords;')
+    ..writeln()
+    ..writeln('  /// Footer action (`flutter_shadcn add <id>`), or null.')
+    ..writeln('  final String? action;')
     ..writeln('}')
     ..writeln()
     ..writeln('/// Static search index: components, CLI commands, presets.')
@@ -341,6 +460,23 @@ String renderDocsSearch(DocsModel model) {
       '<DocsSearchEntry>[',
     );
 
+  for (final BlockFacts block in model.scan.blocks) {
+    out.writeln(
+      '  ${callExpr(
+        'DocsSearchEntry',
+        <String>[
+          'label: ${dartString(block.name)}',
+          'kind: DocsSearchKind.block',
+          'route: ${dartString('/blocks/${block.id}')}',
+          "tag: 'block'",
+          'action: ${dartString(block.install)}',
+          'keywords: ${stringList(<String>[block.id, block.category], indent: '    ', appended: 1)}',
+        ],
+        indent: '  ',
+        suffix: ',',
+      )}',
+    );
+  }
   for (final ComponentFacts component in model.scan.components) {
     final List<String> keywords = <String>[component.name, ...component.tags];
     out.writeln(

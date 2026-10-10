@@ -238,4 +238,34 @@ void main() {
     expect(state.brightness, Brightness.dark);
     expect(state.followsSystem, isFalse);
   });
+
+  test('preview example selection is kept per component', () {
+    final DocsState state = _state();
+    addTearDown(state.dispose);
+    expect(state.previewExampleFor('button'), isNull);
+    int notifications = 0;
+    state.addListener(() => notifications++);
+    state.setPreviewExample('button', 'Destructive');
+    expect(state.previewExampleFor('button'), 'Destructive');
+    expect(notifications, 1);
+    state.setPreviewExample('button', 'Destructive');
+    expect(notifications, 1, reason: 'same value does not notify');
+    // Other components are independent.
+    expect(state.previewExampleFor('badge'), isNull);
+  });
+
+  test('preview brightness toggle inverts only its own stage', () {
+    final DocsState state = _state();
+    addTearDown(state.dispose);
+    expect(state.isPreviewInverted('button'), isFalse);
+    int notifications = 0;
+    state.addListener(() => notifications++);
+    state.togglePreviewInverted('button');
+    expect(state.isPreviewInverted('button'), isTrue);
+    expect(notifications, 1);
+    state.togglePreviewInverted('button');
+    expect(state.isPreviewInverted('button'), isFalse);
+    expect(notifications, 2);
+    expect(state.isPreviewInverted('badge'), isFalse);
+  });
 }

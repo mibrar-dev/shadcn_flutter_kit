@@ -15,6 +15,7 @@ import 'package:docs/generated/app_theme.dart';
 import 'package:docs/generated/docs_api.dart';
 import 'package:docs/generated/docs_data.dart';
 import 'package:docs/generated/docs_preset_sources.dart';
+import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/generated/docs_search.dart';
 import 'package:docs/generated/docs_snippets.dart';
 import 'package:docs/generated/docs_tables.dart';
@@ -404,12 +405,12 @@ void main() {
       final List<String> withMembers = <String>[
         for (final DocsComponent component in kComponents)
           if (kApiTables[component.id]!.members.isNotEmpty) component.id,
-      ];
+      ]..sort();
       expect(withMembers, <String>[
-        'formatter',
         'anchor',
-        'overlay_configuration',
         'color',
+        'formatter',
+        'overlay_configuration',
       ]);
     });
   });
@@ -695,6 +696,60 @@ void main() {
     expect(() => loadComponentPreview('not-a-component'), throwsArgumentError);
   });
 
+  group('preview examples (P6-F4)', () {
+    test('every listed component has named examples; blocks have none', () {
+      expect(kComponentPreviews['button'], <String>[
+        'Default',
+        'Secondary',
+        'Outline',
+        'Ghost',
+        'Link',
+        'Destructive',
+        'Icon',
+        'With icon',
+        'Sizes',
+        'Loading',
+        'Disabled',
+      ]);
+      expect(kComponentPreviews['calendar'], <String>[
+        'Single',
+        'Range',
+        'Multi',
+        'Month grid',
+        'Year grid',
+        'Read-only',
+      ]);
+      expect(kComponentPreviewCounts['button'], 11);
+      expect(kComponentPreviewCounts['calendar'], 6);
+      // Building blocks keep the old gallery class: no named examples.
+      expect(kComponentPreviews['patch'], isEmpty);
+      expect(kComponentPreviewCounts['patch'], 0);
+      for (final DocsComponent component in kComponents) {
+        expect(
+          kComponentPreviews.containsKey(component.id),
+          isTrue,
+          reason: component.id,
+        );
+        expect(
+          kComponentPreviewCounts[component.id],
+          kComponentPreviews[component.id]!.length,
+          reason: component.id,
+        );
+      }
+    });
+
+    test('names match the registry preview sources', () {
+      final RegistryScan scan = scanRegistry(registry);
+      for (final ComponentFacts component in scan.components) {
+        final String source = File(
+          '${scan.root}/components/${component.id}/preview.dart',
+        ).readAsStringSync();
+        final List<String> names = findPreviewExamples(source: source);
+        expect(kComponentPreviews[component.id], names, reason: component.id);
+      }
+    });
+  });
+
   group('theme tokens', () {
     test('generated from the registry theme layer, camelCase + CSS var', () {
       // 32 ShadcnColors colour fields + the radius token.
@@ -748,6 +803,7 @@ void main() {
       'lib/generated/docs_tables.dart': '${temp.path}/gen/docs_tables.dart',
       'lib/generated/docs_search.dart': '${temp.path}/gen/docs_search.dart',
       'lib/generated/docs_snippets.dart': '${temp.path}/gen/docs_snippets.dart',
+      'lib/generated/docs_previews.dart': '${temp.path}/gen/docs_previews.dart',
       'lib/generated/app_theme.dart': '${temp.path}/gen/app_theme.dart',
       'lib/previews/component_previews.dart':
           '${temp.path}/previews/component_previews.dart',

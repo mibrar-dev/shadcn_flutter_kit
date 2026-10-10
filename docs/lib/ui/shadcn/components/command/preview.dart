@@ -1,19 +1,36 @@
-// Gallery preview for the `command` component.
+// Named examples for the `command` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../primitives/subfocus_list_item.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'command.dart';
 
-/// Shows an inline command palette with static results.
-class CommandPreview extends StatelessWidget {
-  /// Creates the preview.
-  const CommandPreview({super.key});
+/// Fruit list the palette filters over.
+const List<String> _commandValues = <String>[
+  'Calendar',
+  'Search Emoji',
+  'Launch',
+  'Profile',
+  'Mail',
+  'Settings',
+];
+
+/// The palette itself, sized to the stage.
+class _CommandPalette extends StatelessWidget {
+  const _CommandPalette({this.buildGroups = false});
+
+  final bool buildGroups;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final spacing = ShadcnTheme.of(context).spacing;
     return Center(
       child: SizedBox(
         width: 320,
@@ -21,27 +38,58 @@ class CommandPreview extends StatelessWidget {
         child: Command(
           debounceDuration: Duration.zero,
           builder: (context, query) async* {
-            const List<String> values = <String>[
-              'Calendar',
-              'Search Emoji',
-              'Launch',
-              'Profile',
-              'Mail',
-              'Settings',
-            ];
-            final List<Widget> items = <Widget>[
-              for (final String value in values)
+            final List<Widget> items = <Widget>[];
+            if (!buildGroups) {
+              for (final String value in _commandValues) {
                 if (query == null ||
-                    value.toLowerCase().contains(query.toLowerCase()))
-                  SubFocusListItem(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: theme.spacing.sm,
-                      vertical: theme.spacing.sm,
+                    value.toLowerCase().contains(query.toLowerCase())) {
+                  items.add(
+                    SubFocusListItem(
+                      padding: EdgeInsetsDensity.pxSymmetric(
+                        horizontal: 8,
+                        vertical: 8,
+                      ),
+                      title: Text(value),
+                      onTap: () {},
                     ),
-                    title: Text(value),
-                    onTap: () {},
+                  );
+                }
+              }
+            } else {
+              for (final String group in const <String>[
+                'Suggestions',
+                'Settings',
+              ]) {
+                items.add(
+                  Padding(
+                    padding: EdgeInsetsDensity.pxSymmetric(vertical: 4),
+                    child: Text(
+                      group,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: ShadcnTheme.of(context).colors.mutedForeground,
+                      ),
+                    ),
                   ),
-            ];
+                );
+                for (final String value in _commandValues) {
+                  if (query == null ||
+                      value.toLowerCase().contains(query.toLowerCase())) {
+                    items.add(
+                      SubFocusListItem(
+                        padding: EdgeInsetsDensity.pxSymmetric(
+                          horizontal: 8,
+                          vertical: 8,
+                        ),
+                        title: Text(value),
+                        onTap: () {},
+                      ),
+                    );
+                  }
+                }
+                items.add(SizedBox(height: spacing.sm));
+              }
+            }
             yield items;
           },
         ),
@@ -49,3 +97,16 @@ class CommandPreview extends StatelessWidget {
     );
   }
 }
+
+/// The default palette.
+Widget _commandDefault(BuildContext context) => const _CommandPalette();
+
+/// The palette with grouped results.
+Widget _commandWithGroups(BuildContext context) =>
+    const _CommandPalette(buildGroups: true);
+
+/// Named docs examples for `command`; the first entry is the default.
+const List<ComponentPreview> commandPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _commandDefault),
+  ComponentPreview('With groups', _commandWithGroups),
+];

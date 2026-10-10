@@ -14,6 +14,7 @@ import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
 import 'heading_anchor.dart';
+import 'selectable_code.dart';
 import 'typeset.dart';
 import 'typeset_tables.dart';
 
@@ -70,30 +71,32 @@ class _SnippetBlock extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Text.rich(
-                  TextSpan(
-                    children: snippet.spans(
-                      plain: theme.typography.mono.copyWith(
-                        fontSize: 14,
-                        height: 24.5 / 14,
-                        color: dark
-                            ? const Color(0xFFE5E5E5)
-                            : const Color(0xFF262626),
-                      ),
-                      comment: theme.typography.mono.copyWith(
-                        fontSize: 14,
-                        height: 24.5 / 14,
-                        color: site.codeNumber,
-                      ),
-                      keyword: theme.typography.mono.copyWith(
-                        fontSize: 14,
-                        height: 24.5 / 14,
-                        color: const Color(0xFF79C0FF),
-                      ),
-                      string: theme.typography.mono.copyWith(
-                        fontSize: 14,
-                        height: 24.5 / 14,
-                        color: const Color(0xFFA5D6FF),
+                child: SelectableCode(
+                  child: Text.rich(
+                    TextSpan(
+                      children: snippet.spans(
+                        plain: theme.typography.mono.copyWith(
+                          fontSize: 14,
+                          height: 24.5 / 14,
+                          color: dark
+                              ? const Color(0xFFE5E5E5)
+                              : const Color(0xFF262626),
+                        ),
+                        comment: theme.typography.mono.copyWith(
+                          fontSize: 14,
+                          height: 24.5 / 14,
+                          color: site.codeNumber,
+                        ),
+                        keyword: theme.typography.mono.copyWith(
+                          fontSize: 14,
+                          height: 24.5 / 14,
+                          color: const Color(0xFF79C0FF),
+                        ),
+                        string: theme.typography.mono.copyWith(
+                          fontSize: 14,
+                          height: 24.5 / 14,
+                          color: const Color(0xFFA5D6FF),
+                        ),
                       ),
                     ),
                   ),

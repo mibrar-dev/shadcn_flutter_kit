@@ -1,115 +1,94 @@
-// Widgets-only preview gallery for the `tooltip` component.
+// Named examples for the `tooltip` component (P6-F3 preview contract).
 //
-// Shows the default label, an instant tooltip, a standalone container, a
-// scoped theme leg and dark tokens.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'tooltip.dart';
 
-/// Preview entry point used by the docs gallery.
-class TooltipPreview extends StatelessWidget {
-  /// Creates the preview.
-  const TooltipPreview({super.key});
+/// Label tooltip after the default delay.
+Widget _default(BuildContext context) {
+  return _anchor(context, LucideIcons.info, 'Details');
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
-    );
-  }
+/// Label tooltip with no delay.
+Widget _instant(BuildContext context) {
+  return _anchor(
+    context,
+    LucideIcons.zap,
+    'Instant',
+    waitDuration: Duration.zero,
+  );
+}
 
-  Widget _body(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _row(
-              context,
-              label: 'hover me (500 ms delay)',
-              child: _anchor(context, LucideIcons.info, 'Details'),
-            ),
-            const SizedBox(height: 24),
-            _row(
-              context,
-              label: 'hover me (instant)',
-              child: _anchor(
-                context,
-                LucideIcons.zap,
-                'Instant',
-                waitDuration: Duration.zero,
-              ),
-            ),
-            const SizedBox(height: 24),
-            _row(
-              context,
-              label: 'scoped theme leg (accent surface)',
-              child: ComponentTheme<TooltipTheme>(
-                data: const TooltipTheme(
-                  background: ThemedColor.ref(ColorRef.accent),
-                  foreground: ThemedColor.ref(ColorRef.accentForeground),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                ),
-                child: _anchor(context, LucideIcons.star, 'Accent surface'),
-              ),
-            ),
-            const SizedBox(height: 24),
-            const Text('standalone TooltipContainer'),
-            const SizedBox(height: 8),
-            const TooltipContainer(child: Text('Primary surface')),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _row(
-    BuildContext context, {
-    required String label,
-    required Widget child,
-  }) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return Row(
-      children: <Widget>[
-        child,
-        const SizedBox(width: 12),
-        Text(label, style: TextStyle(color: colors.mutedForeground)),
+/// Title plus description in one tooltip.
+Widget _rich(BuildContext context) {
+  return Tooltip(
+    tooltip: (BuildContext context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const <Widget>[
+        Text('Deployment', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text('Ships when the checks pass.'),
       ],
-    );
-  }
+    ),
+    child: Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border.all(color: ShadcnTheme.of(context).colors.border),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Icon(
+        LucideIcons.rocket,
+        size: 16,
+        color: ShadcnTheme.of(context).colors.foreground,
+      ),
+    ),
+  );
+}
 
-  Widget _anchor(
-    BuildContext context,
-    IconData icon,
-    String label, {
-    Duration waitDuration = kTooltipWaitDuration,
-  }) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return Tooltip(
+/// The container on its own, without hover behaviour.
+Widget _container(BuildContext context) {
+  return const TooltipContainer(child: Text('Primary surface'));
+}
+
+Widget _anchor(
+  BuildContext context,
+  IconData icon,
+  String label, {
+  Duration waitDuration = kTooltipWaitDuration,
+}) {
+  final theme = ShadcnTheme.of(context);
+  return Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: Tooltip(
       waitDuration: waitDuration,
-      tooltip: (context) => Text(label),
+      tooltip: (BuildContext context) => Text(label),
       child: Container(
         width: 36,
         height: 36,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: Border.all(color: colors.border),
+          border: Border.all(color: theme.colors.border),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Icon(icon, size: 16, color: colors.foreground),
+        child: Icon(icon, size: 16, color: theme.colors.foreground),
       ),
-    );
-  }
+    ),
+  );
 }
+
+/// Named docs examples for `tooltip`; the first entry is the default.
+const List<ComponentPreview> tooltipPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Instant', _instant),
+  ComponentPreview('Rich content', _rich),
+  ComponentPreview('Container', _container),
+];

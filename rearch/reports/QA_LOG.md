@@ -587,3 +587,8 @@
 - 97 listed previews → `const List<ComponentPreview> <camel>Previews` (first = default); 21 building blocks `listed:false` in meta/manifest/schema. Root fixes: chat IntrinsicHeight+stretch overflow, SubFocusScope.detach setState during unmount. eye_dropper notifier = harness artefact.
 - Helpers on Muse Spark xhigh finished 19/19/12 previews in ~10 min each (vs Step 5 ~30 in 3.5h) → prefer Muse Spark for bulk mechanical work.
 - Known transient: docs app does not compile against the new preview lists until P6-F4 regenerates component_previews.dart; committed manifest already lists T1's masonry_layout (lands with T1).
+
+## P6-F4 — component pages (example Select, light/dark toggle, selectable code) — ACCEPTED
+- docs analyze 0, +171 tests, codegen/mirror --check, release build OK; render audit threw=0 overflow=0 (after orchestrator fix: navigation_menu Bar preview fixed 340px box → FittedBox scaleDown).
+- Codegen reads `const <camel>Previews`; bounded stage; per-stage light/dark; SelectableCode for every code surface; Calendar follows claude primary (pinned preview themes were the cause, removed in F3).
+- Follow-ups: dart_scan.dart 562 lines (split later); selection persistence in-memory only.

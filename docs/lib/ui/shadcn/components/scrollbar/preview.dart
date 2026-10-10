@@ -1,24 +1,30 @@
-// Gallery preview for the `scrollbar` component: default thumb, track
-// visibility, a themed bar and the dark palette.
-// Widgets-only; the docs app embeds [ScrollbarPreview] directly.
+// Named examples for the `scrollbar` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each example owns its scroll controller: the old
+// gallery shared one controller across four lists, which Flutter rejects with
+// "attached to more than one ScrollPosition".
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'scrollbar.dart';
 
-/// Renders the scrollbar gallery.
-class ScrollbarPreview extends StatefulWidget {
-  /// Creates the preview.
-  const ScrollbarPreview({super.key});
+/// A scrollable list; the controller lives in the example's own state.
+class _ScrollbarDemo extends StatefulWidget {
+  const _ScrollbarDemo({this.thumbVisibility, this.trackVisibility});
+
+  final bool? thumbVisibility;
+  final bool? trackVisibility;
 
   @override
-  State<ScrollbarPreview> createState() => _ScrollbarPreviewState();
+  State<_ScrollbarDemo> createState() => _ScrollbarDemoState();
 }
 
-class _ScrollbarPreviewState extends State<ScrollbarPreview> {
+class _ScrollbarDemoState extends State<_ScrollbarDemo> {
   final ScrollController _controller = ScrollController();
 
   @override
@@ -29,57 +35,17 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section('Always visible', _sample(thumbVisibility: true)),
-                const Gap(24),
-                _section(
-                  'Track',
-                  _sample(thumbVisibility: true, trackVisibility: true),
-                ),
-                const Gap(24),
-                _section(
-                  'Themed',
-                  ComponentTheme<ScrollbarTheme>(
-                    data: const ScrollbarTheme(
-                      color: ThemedColor.ref(ColorRef.primary),
-                      thickness: 10,
-                    ),
-                    child: _sample(thumbVisibility: true),
-                  ),
-                ),
-                const Gap(24),
-                _section('Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _sample({bool? thumbVisibility, bool? trackVisibility}) {
     return SizedBox(
       width: 320,
       height: 180,
       child: Scrollbar(
         controller: _controller,
-        thumbVisibility: thumbVisibility,
-        trackVisibility: trackVisibility,
+        thumbVisibility: widget.thumbVisibility,
+        trackVisibility: widget.trackVisibility,
         child: ListView.builder(
           controller: _controller,
           itemCount: 30,
-          itemBuilder: (context, index) => Padding(
+          itemBuilder: (BuildContext context, int index) => Padding(
             padding: const EdgeInsets.all(8),
             child: Text('Item ${index + 1}'),
           ),
@@ -87,25 +53,29 @@ class _ScrollbarPreviewState extends State<ScrollbarPreview> {
       ),
     );
   }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: _sample(thumbVisibility: true),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const Gap(8),
-        child,
-      ],
-    );
-  }
 }
+
+/// The default auto-hiding thumb.
+Widget _default(BuildContext context) => const _ScrollbarDemo();
+
+/// A permanently visible thumb over a track.
+Widget _alwaysVisible(BuildContext context) =>
+    const _ScrollbarDemo(thumbVisibility: true, trackVisibility: true);
+
+/// A thumb tinted from the theme tokens.
+Widget _themed(BuildContext context) {
+  return const ComponentTheme<ScrollbarTheme>(
+    data: ScrollbarTheme(
+      color: ThemedColor.ref(ColorRef.primary),
+      thickness: 10,
+    ),
+    child: _ScrollbarDemo(thumbVisibility: true),
+  );
+}
+
+/// Named docs examples for `scrollbar`; the first entry is the default.
+const List<ComponentPreview> scrollbarPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Always visible', _alwaysVisible),
+  ComponentPreview('Themed', _themed),
+];

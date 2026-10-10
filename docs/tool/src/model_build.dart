@@ -12,6 +12,7 @@ import 'render_code.dart';
 import 'render_common.dart';
 import 'render_files.dart';
 import 'render_presets.dart';
+import 'render_previews.dart';
 import 'render_tables.dart';
 
 /// Fenced languages that become `DocsSnippet`s.
@@ -44,7 +45,10 @@ String _findCliSnapshot() {
 DocsModel buildDocsModel(String registryRoot) {
   final RegistryScan scan = scanRegistry(registryRoot);
   final Map<String, ApiFacts> api = <String, ApiFacts>{};
-  final Map<String, String> previewClasses = <String, String>{};
+  final Map<String, String?> previewClasses = <String, String?>{};
+  final Map<String, String?> previewExamples = <String, String?>{};
+  final Map<String, List<String>> previewExampleNames =
+      <String, List<String>>{};
   final Map<String, List<KeyboardRowFacts>> keyboard =
       <String, List<KeyboardRowFacts>>{};
   final Map<String, List<ReadmeBlock>> snippets = <String, List<ReadmeBlock>>{};
@@ -81,11 +85,26 @@ DocsModel buildDocsModel(String registryRoot) {
         'registry needs it)',
       );
     }
+    // The P6-F3 preview contract swaps the single gallery class for a
+    // named-example list; both are supported, one of the two must exist.
+    final String previewSource = preview.readAsStringSync();
     previewClasses[component.id] = findPreviewClass(
-      source: preview.readAsStringSync(),
+      source: previewSource,
       componentId: component.id,
       displayName: component.name,
     );
+    final String? exampleList = findPreviewExampleList(source: previewSource);
+    previewExamples[component.id] = exampleList;
+    previewExampleNames[component.id] = findPreviewExamples(
+      source: previewSource,
+    );
+    if (previewClasses[component.id] == null &&
+        previewExamples[component.id] == null) {
+      throw DartScanException(
+        '${component.id}/preview.dart: neither a <name>Previews list nor one '
+        '*Preview widget class',
+      );
+    }
 
     final File readme = File(
       '${scan.root}/components/${component.id}/README.md',
@@ -119,6 +138,8 @@ DocsModel buildDocsModel(String registryRoot) {
     scan: scan,
     api: api,
     previewClasses: previewClasses,
+    previewExamples: previewExamples,
+    previewExampleNames: previewExampleNames,
     keyboard: keyboard,
     snippets: snippets,
     cliCommands: cliCommands,
@@ -139,11 +160,16 @@ Map<String, String> renderBundle(
     '$outDir/docs_search.dart': renderDocsSearch(model),
     '$outDir/docs_snippets.dart': renderDocsSnippets(model),
     '$outDir/docs_preset_sources.dart': renderPresetSources(model.scan),
+    '$outDir/docs_previews.dart': renderDocsPreviews(model),
     '$outDir/app_theme.dart': renderAppTheme(
       model.scan,
       themeImport: themeImport,
     ),
-    previewsPath: renderComponentPreviews(model.scan, model.previewClasses),
+    previewsPath: renderComponentPreviews(
+      model.scan,
+      model.previewClasses,
+      model.previewExamples,
+    ),
   };
 }
 

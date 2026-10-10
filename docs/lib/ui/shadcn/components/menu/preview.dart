@@ -1,129 +1,124 @@
-// Widgets-only preview gallery for the `menu` component.
+// Named examples for the `menu` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Menus render
+// inline through `MenuPopup` (no overlay is opened), so the examples are
+// shrink-wrapped with an exact popup width.
 
 import 'package:flutter/widgets.dart';
 
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
 import 'menu.dart';
 
-/// Preview entry point used by the docs gallery.
-class MenuPreview extends StatelessWidget {
-  /// Creates the preview.
-  const MenuPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: ColoredBox(
-          color: ShadcnTheme.of(context).colors.background,
-          child: const SingleChildScrollView(
-            padding: EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Menu rows'),
-                SizedBox(height: 8),
-                MenuPopup(children: <Widget>[_Rows()]),
-                SizedBox(height: 24),
-                Text('Menubar bar (horizontal group)'),
-                SizedBox(height: 8),
-                _Bar(),
-                SizedBox(height: 24),
-                Text('Checkbox, radio, label, shortcut'),
-                SizedBox(height: 8),
-                MenuPopup(children: <Widget>[_ValueRows()]),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Static rows (no overlay needed for the gallery).
-class _Rows extends StatelessWidget {
-  const _Rows();
-
-  @override
-  Widget build(BuildContext context) {
-    return MenuGroup(
-      autofocus: false,
-      builder: (context, children) => Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: children,
-      ),
-      children: <Widget>[
-        MenuButton(child: Text('Cut'), onPressed: (_) {}),
-        MenuButton(child: Text('Copy'), onPressed: (_) {}),
-        MenuButton(child: Text('Paste'), onPressed: (_) {}),
-        MenuSeparator(),
-        MenuButton(
-          subMenu: <Widget>[
-            MenuButton(child: Text('Email'), onPressed: (_) {}),
-            MenuButton(child: Text('Link'), onPressed: (_) {}),
-          ],
-          onPressed: (_) {},
-          child: Text('Share'),
-        ),
-        MenuButton(enabled: false, onPressed: null, child: Text('Delete')),
-      ],
-    );
-  }
-}
-
-/// Checkable, radio and static rows.
-class _ValueRows extends StatelessWidget {
-  const _ValueRows();
-
-  @override
-  Widget build(BuildContext context) {
-    return MenuGroup(
-      autofocus: false,
-      children: <Widget>[
-        const MenuLabel(child: Text('Options')),
-        const MenuCheckboxItem(
-          value: true,
-          onChanged: null,
-          trailing: MenuShortcut(shortcut: '⌘T'),
-          child: Text('Toolbar'),
-        ),
-        MenuRadioGroup<String>(
-          value: 'a',
-          onChanged: null,
-          child: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              MenuRadioItem<String>(value: 'a', child: Text('Left')),
-              MenuRadioItem<String>(value: 'b', child: Text('Right')),
+/// Menu rows with a submenu and a disabled row.
+Widget _default(BuildContext context) {
+  return MenuPopup(
+    width: 240,
+    children: <Widget>[
+      MenuGroup(
+        autofocus: false,
+        children: <Widget>[
+          MenuButton(child: const Text('Cut'), onPressed: (_) {}),
+          MenuButton(child: const Text('Copy'), onPressed: (_) {}),
+          MenuButton(child: const Text('Paste'), onPressed: (_) {}),
+          const MenuSeparator(),
+          MenuButton(
+            subMenu: <Widget>[
+              MenuButton(child: const Text('Email'), onPressed: (_) {}),
+              MenuButton(child: const Text('Link'), onPressed: (_) {}),
             ],
+            onPressed: (_) {},
+            child: const Text('Share'),
           ),
+          MenuButton(
+            enabled: false,
+            onPressed: null,
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+/// A labelled group with a live checkbox row.
+class _CheckboxExample extends StatefulWidget {
+  const _CheckboxExample();
+
+  @override
+  State<_CheckboxExample> createState() => _CheckboxExampleState();
+}
+
+class _CheckboxExampleState extends State<_CheckboxExample> {
+  bool _toolbar = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuPopup(
+      width: 240,
+      children: <Widget>[
+        MenuGroup(
+          autofocus: false,
+          children: <Widget>[
+            const MenuLabel(child: Text('Options')),
+            MenuCheckboxItem(
+              value: _toolbar,
+              onChanged: (BuildContext _, bool value) =>
+                  setState(() => _toolbar = value),
+              trailing: const MenuShortcut(shortcut: '⌘T'),
+              child: const Text('Toolbar'),
+            ),
+          ],
         ),
       ],
     );
   }
 }
 
-/// A horizontal menubar-style group.
-class _Bar extends StatelessWidget {
-  const _Bar();
+Widget _withCheckboxItem(BuildContext context) => const _CheckboxExample();
+
+/// A live radio group.
+class _RadioExample extends StatefulWidget {
+  const _RadioExample();
+
+  @override
+  State<_RadioExample> createState() => _RadioExampleState();
+}
+
+class _RadioExampleState extends State<_RadioExample> {
+  String _side = 'left';
 
   @override
   Widget build(BuildContext context) {
-    return MenuGroup(
-      autofocus: false,
-      direction: Axis.horizontal,
-      builder: (context, children) =>
-          Row(mainAxisSize: MainAxisSize.min, children: children),
-      children: <MenuItem>[
-        MenuButton(child: Text('File'), onPressed: (_) {}),
-        MenuButton(child: Text('Edit'), onPressed: (_) {}),
-        MenuButton(child: Text('View'), onPressed: (_) {}),
+    return MenuPopup(
+      width: 240,
+      children: <Widget>[
+        MenuGroup(
+          autofocus: false,
+          children: <Widget>[
+            MenuRadioGroup<String>(
+              value: _side,
+              onChanged: (BuildContext _, String value) =>
+                  setState(() => _side = value),
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  MenuRadioItem<String>(value: 'left', child: Text('Left')),
+                  MenuRadioItem<String>(value: 'right', child: Text('Right')),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
 }
+
+Widget _withRadioGroup(BuildContext context) => const _RadioExample();
+
+/// Named docs examples for `menu`; the first entry is the default.
+const List<ComponentPreview> menuPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('With checkbox item', _withCheckboxItem),
+  ComponentPreview('With radio group', _withRadioGroup),
+];

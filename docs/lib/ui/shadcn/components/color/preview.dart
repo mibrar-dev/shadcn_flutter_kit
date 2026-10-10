@@ -35,12 +35,12 @@ class ColorPreview extends StatelessWidget {
                   label: colorToHex(derivative.toColor()),
                   color: derivative.toColor(),
                 ),
-                const Gap(12),
+                Gap(theme.spacing.md),
                 _Swatch(
                   label: colorToHex(muted.toColor()),
                   color: muted.toColor(),
                 ),
-                const Gap(12),
+                Gap(theme.spacing.md),
                 _Swatch(
                   label: colorToHex(shifted.toColor()),
                   color: shifted.toColor(),
@@ -66,7 +66,7 @@ class _Swatch extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(width: 48, height: 48, color: color),
-        const Gap(4),
+        Gap(ShadcnTheme.of(context).spacing.xs),
         Text(label),
       ],
     );

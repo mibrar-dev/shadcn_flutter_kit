@@ -1,12 +1,13 @@
-// Static audit of every registry `preview.dart` (P6-D9a).
+// Static audit of every registry `preview.dart` (P6-D9a, P6-F4).
 //
 // Uses `package:analyzer` (a dev dependency) instead of regexes to answer,
 // per component:
-//   * does the preview hard-code a `ShadcnTheme` at its root and therefore
-//     ignore the docs site's light/dark mode?      -> `rootOverride` line
-//   * does it render a nested, hard-coded dark section? -> `darkSections`
-//   * does it dump every enum variant at once?       -> `variantDumps`
-//   * which named sections does it render today?      -> `sections`
+//   * does it export a named-example list (`const List<ComponentPreview>`)?
+//     -> `examples` (P6-F3 contract, first entry is the default)
+//   * does it still ship the old single gallery class? -> `previewClass`
+//   * does it hard-code a `ShadcnTheme` and therefore ignore the site mode?
+//     -> `rootOverride` line (must be 0)
+//   * does it dump every enum variant at once? -> `variantDumps` (must be empty)
 //
 // Run: flutter test test/audit/preview_static_audit_test.dart
 
@@ -27,11 +28,16 @@ class Row {
   /// Component id.
   final String id;
 
-  /// The exported preview class name.
+  /// The exported preview class name, or empty when the file ships the
+  /// P6-F3 named-example list instead.
   final String previewClass;
 
+  /// Named examples in declaration order (empty for old galleries).
+  List<String> examples = <String>[];
+
   /// The component's PascalCase stem (`Button` for `button`).
-  late final String stem = previewClass.replaceFirst('Preview', '');
+  String get stem =>
+      previewClass.isEmpty ? '' : previewClass.replaceFirst('Preview', '');
 
   /// Constructor-name histogram with counts >= 2, or matching [stem].
   Map<String, int> instanceHistogram = <String, int>{};
@@ -45,7 +51,7 @@ class Row {
   /// `X.values` loops that dump every variant at once.
   final List<String> variantDumps = <String>[];
 
-  /// Section labels in declaration order.
+  /// Section labels in declaration order (old galleries only).
   final List<String> sections = <String>[];
 
   /// Human-readable findings.
@@ -86,6 +92,7 @@ void main() {
         'ROW ${row.id}|${row.previewClass}|root=${row.rootOverride}'
         '|dark=${row.darkSections.length}'
         '|dumps=${row.variantDumps.join('+')}'
+        '|examples=${row.examples.join('~')}'
         '|sections=${row.sections.join('~')}'
         '|instances=${row.instanceHistogram.entries.map((MapEntry<String, int> e) => '${e.key}:${e.value}').join(',')}',
       );
@@ -93,9 +100,6 @@ void main() {
         out.writeln('ISSUE ${row.id} $issue');
       }
     }
-    // The test runner truncates long prints; write the full report to a
-    // gitignored file (override with PREVIEW_AUDIT_OUT) and assert on the
-    // aggregate so the test still fails when the audit regresses.
     final String path =
         Platform.environment['PREVIEW_AUDIT_OUT'] ??
         'build/audit/preview_static_audit.txt';
@@ -103,23 +107,28 @@ void main() {
     outFile.writeAsStringSync(out.toString());
     debugPrint('wrote $path (${rows.length} rows)');
     expect(rows.length, 118);
+    // P6-F4 contract gates: no pinned themes anywhere; no variant dumps in
+    // old galleries. Named examples may iterate `.values` inside ONE example
+    // (button Sizes, stepper sizes, toast placements): the page still shows
+    // one example at a time behind the Select, so the D2 gallery problem
+    // (one page-long dump of every variant) is gone.
+    final List<String> pinned = <String>[
+      for (final Row row in rows)
+        if (row.rootOverride > 0 || row.darkSections.isNotEmpty) row.id,
+    ];
+    expect(pinned, isEmpty, reason: 'previews pinning a theme: $pinned');
+    final List<String> dumps = <String>[
+      for (final Row row in rows)
+        if (row.variantDumps.isNotEmpty && row.examples.isEmpty) row.id,
+    ];
+    expect(dumps, isEmpty, reason: 'galleries dumping variants: $dumps');
   });
 }
 
 Row _analyse(String id, CompilationUnit unit) {
-  final Row row = Row(
-    id,
-    unit.declarations
-        .whereType<ClassDeclaration>()
-        .firstWhere(
-          (ClassDeclaration c) =>
-              !c.namePart.typeName.lexeme.startsWith('_') &&
-              c.namePart.typeName.lexeme.endsWith('Preview'),
-        )
-        .namePart
-        .typeName
-        .lexeme,
-  );
+  final String previewClass = _previewClassName(unit);
+  final Row row = Row(id, previewClass);
+  row.examples = _previewExamples(unit);
 
   final _ForVisitor forVisitor = _ForVisitor();
   unit.accept(forVisitor);
@@ -147,7 +156,11 @@ Row _analyse(String id, CompilationUnit unit) {
     final String name = ic.constructorName.type.name.lexeme;
     histogram[name] = (histogram[name] ?? 0) + 1;
   }
-  histogram.removeWhere((String k, int v) => v < 2 && !k.startsWith(row.stem));
+  if (row.stem.isNotEmpty) {
+    histogram.removeWhere(
+      (String k, int v) => v < 2 && !k.startsWith(row.stem),
+    );
+  }
   row.instanceHistogram = histogram;
 
   final _InvocationVisitor invVisitor = _InvocationVisitor();
@@ -172,16 +185,13 @@ Row _analyse(String id, CompilationUnit unit) {
     }
   }
 
-  final ClassDeclaration cls = unit.declarations
-      .whereType<ClassDeclaration>()
-      .firstWhere(
-        (ClassDeclaration c) =>
-            !c.namePart.typeName.lexeme.startsWith('_') &&
-            c.namePart.typeName.lexeme.endsWith('Preview'),
-      );
+  row.rootOverride = _rootOverrideLine(unit);
 
-  row.rootOverride = _rootOverrideLine(cls, unit);
-
+  if (row.previewClass.isEmpty && row.examples.isEmpty) {
+    row.issues.add(
+      'NO-PREVIEW — neither a <name>Previews list nor a *Preview class.',
+    );
+  }
   if (row.rootOverride > 0) {
     row.issues.add(
       'ROOT-THEME-HARD-CODED preview.dart:${row.rootOverride} — build() '
@@ -198,37 +208,124 @@ Row _analyse(String id, CompilationUnit unit) {
   if (row.variantDumps.isNotEmpty) {
     row.issues.add('VARIANT-DUMP ${row.variantDumps.join(',')}');
   }
-  if (row.sections.isEmpty && row.variantDumps.isEmpty) {
-    row.issues.add('NO-NAMED-SECTIONS — preview has no _section() labels.');
-  }
   return row;
 }
 
-/// Line of the `ShadcnThemeData(` constructor that the preview's `build`
-/// returns directly, or 0 when the preview reads the ambient theme.
-///
-/// A nested `ShadcnTheme` inside a section helper is reported separately as
-/// [Row.darkSections]; only a build method whose *returned* widget hard-codes
-/// the data ignores the site's light/dark mode.
-int _rootOverrideLine(ClassDeclaration cls, CompilationUnit unit) {
-  final MethodDeclaration? build = _method(cls, 'build');
-  if (build == null) return 0;
-  final Expression? body = _returnedExpression(build);
-  if (body == null) return 0;
-  final String src = body.toSource().trim();
-  final String bare = src.startsWith('const ')
-      ? src.substring('const '.length).trimLeft()
-      : src;
-  if (!bare.startsWith('ShadcnTheme(')) return 0;
-  int line = 0;
-  final _CreationVisitor v = _CreationVisitor();
-  body.accept(v);
-  for (final InstanceCreationExpression ic in v.nodes) {
-    if (ic.constructorName.type.name.lexeme == 'ShadcnThemeData') {
-      line = unit.lineInfo.getLocation(ic.offset).lineNumber;
-    }
+/// The old gallery class name, or empty when the file ships the named list.
+String _previewClassName(CompilationUnit unit) {
+  final List<ClassDeclaration> candidates = unit.declarations
+      .whereType<ClassDeclaration>()
+      .where(
+        (ClassDeclaration c) =>
+            !c.namePart.typeName.lexeme.startsWith('_') &&
+            c.namePart.typeName.lexeme.endsWith('Preview') &&
+            _isWidget(c),
+      )
+      .toList(growable: false);
+  if (candidates.isEmpty) {
+    return '';
   }
-  return line == 0 ? unit.lineInfo.getLocation(build.offset).lineNumber : line;
+  return candidates.first.namePart.typeName.lexeme;
+}
+
+/// Example names of the exported `const List<ComponentPreview>`, in order.
+List<String> _previewExamples(CompilationUnit unit) {
+  for (final Declaration declaration in unit.declarations) {
+    if (declaration is! TopLevelVariableDeclaration) {
+      continue;
+    }
+    final String type =
+        declaration.variables.type?.toSource().replaceAll(' ', '') ?? '';
+    if (type != 'List<ComponentPreview>') {
+      continue;
+    }
+    if (declaration.variables.variables.length != 1) {
+      continue;
+    }
+    final Expression? initializer =
+        declaration.variables.variables.first.initializer;
+    if (initializer is! ListLiteral) {
+      continue;
+    }
+    final List<String> names = <String>[];
+    for (final CollectionElement element in initializer.elements) {
+      if (element is! Expression) {
+        continue;
+      }
+      final String? constructor = switch (element) {
+        InstanceCreationExpression miles =>
+          miles.constructorName.type.name.lexeme,
+        MethodInvocation call => call.methodName.name,
+        _ => null,
+      };
+      if (constructor != 'ComponentPreview') {
+        continue;
+      }
+      final ArgumentList arguments = switch (element) {
+        InstanceCreationExpression miles => miles.argumentList,
+        MethodInvocation call => call.argumentList,
+        _ => throw StateError('unreachable'),
+      };
+      for (final Argument argument in arguments.arguments) {
+        if (argument is NamedArgument) {
+          continue;
+        }
+        if (argument is SimpleStringLiteral) {
+          names.add(argument.value);
+          break;
+        }
+        if (argument is AdjacentStrings) {
+          final String? value = argument.stringValue;
+          if (value != null) {
+            names.add(value);
+          }
+          break;
+        }
+        break;
+      }
+    }
+    return names;
+  }
+  return const <String>[];
+}
+
+bool _isWidget(ClassDeclaration declaration) {
+  final String base = declaration.extendsClause?.superclass.toSource() ?? '';
+  return base == 'StatelessWidget' || base == 'StatefulWidget';
+}
+
+/// Line of a `ShadcnThemeData(` constructor returned directly from any
+/// `build` method, or 0 when previews read the ambient theme.
+int _rootOverrideLine(CompilationUnit unit) {
+  for (final Declaration declaration in unit.declarations) {
+    if (declaration is! ClassDeclaration) {
+      continue;
+    }
+    final MethodDeclaration? build = _method(declaration, 'build');
+    if (build == null) {
+      continue;
+    }
+    final Expression? body = _returnedExpression(build);
+    if (body == null) {
+      continue;
+    }
+    final String src = body.toSource().trim();
+    final String bare = src.startsWith('const ')
+        ? src.substring('const '.length).trimLeft()
+        : src;
+    if (!bare.startsWith('ShadcnTheme(')) {
+      continue;
+    }
+    final _CreationVisitor v = _CreationVisitor();
+    body.accept(v);
+    for (final InstanceCreationExpression ic in v.nodes) {
+      if (ic.constructorName.type.name.lexeme == 'ShadcnThemeData') {
+        return unit.lineInfo.getLocation(ic.offset).lineNumber;
+      }
+    }
+    return unit.lineInfo.getLocation(build.offset).lineNumber;
+  }
+  return 0;
 }
 
 /// The expression after the first `return` in [m], unwrapping block bodies.

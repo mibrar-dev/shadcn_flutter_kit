@@ -11,6 +11,7 @@ import '../ui/shadcn/primitives/syntax_highlight/syntax_highlight.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
+import 'selectable_code.dart';
 
 /// A code figure with an optional language label and a copy button.
 class DocsCodeFigure extends StatelessWidget {
@@ -97,7 +98,7 @@ class DocsCodeFigure extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: codeBlock,
+                child: SelectableCode(child: codeBlock),
               ),
             ),
           ],

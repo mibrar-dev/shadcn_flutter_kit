@@ -1,17 +1,19 @@
-// Gallery preview for the `autocomplete` component: the three replacement
-// modes, a custom row builder and the dark palette.
-// Widgets-only; the docs app embeds [AutoCompletePreview] directly.
+// Named examples for the `autocomplete` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../primitives/input_features/input_features.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../input/input.dart';
 import 'autocomplete.dart';
 
-const List<String> _fruits = <String>[
+const List<String> _autocompleteFruits = <String>[
   'Apple',
   'Apricot',
   'Avocado',
@@ -29,142 +31,114 @@ const List<String> _fruits = <String>[
   'Watermelon',
 ];
 
-Iterable<String> _filter(String query) {
+Iterable<String> _autocompleteFilter(String query) {
   final String needle = query.toLowerCase();
   if (needle.isEmpty) {
     return const <String>[];
   }
-  return _fruits.where((fruit) => fruit.toLowerCase().contains(needle));
+  return _autocompleteFruits.where(
+    (fruit) => fruit.toLowerCase().contains(needle),
+  );
 }
 
-/// Renders the autocomplete gallery.
-class AutoCompletePreview extends StatefulWidget {
-  /// Creates the preview.
-  const AutoCompletePreview({super.key});
+/// One completion field, plus the example's own selection echo.
+class _AutocompleteAutoCompleteField extends StatefulWidget {
+  const _AutocompleteAutoCompleteField({
+    required this.hint,
+    this.mode,
+    this.completer,
+    this.itemBuilder,
+  });
+
+  final String hint;
+  final AutoCompleteMode? mode;
+  final AutoCompleteCompleter? completer;
+  final Widget Function(BuildContext context, String suggestion, bool selected)?
+  itemBuilder;
 
   @override
-  State<AutoCompletePreview> createState() => _AutoCompletePreviewState();
+  State<_AutocompleteAutoCompleteField> createState() =>
+      _AutocompleteAutoCompleteFieldState();
 }
 
-class _AutoCompletePreviewState extends State<AutoCompletePreview> {
-  String _lastSelected = '';
+class _AutocompleteAutoCompleteFieldState
+    extends State<_AutocompleteAutoCompleteField> {
+  String _selected = '';
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section(
-                  'Modes',
-                  SizedBox(
-                    width: 280,
-                    child: Column(
-                      children: <Widget>[
-                        for (final AutoCompleteMode mode
-                            in AutoCompleteMode.values)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: _field(hint: mode.name, mode: mode),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Gap(24),
-                _section('Completer + custom row', _custom()),
-                const Gap(24),
-                _section('Dark', _dark()),
-                const Gap(12),
-                Text(
-                  'Last selected: ${_lastSelected.isEmpty ? '-' : _lastSelected}',
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _field({
-    required String hint,
-    AutoCompleteMode? mode,
-    AutoCompleteCompleter? completer,
-    Widget Function(BuildContext context, String suggestion, bool selected)?
-    itemBuilder,
-  }) {
-    return Input(
-      hintText: 'Type a fruit... ($hint)',
-      features: <InputFeature>[
-        AutoCompleteFeature(
-          suggestions: _filter,
-          mode: mode,
-          completer: completer ?? (String suggestion) => suggestion,
-          itemBuilder: itemBuilder,
-          onSuggestionSelected: (String value) =>
-              setState(() => _lastSelected = value),
-        ),
-      ],
-    );
-  }
-
-  Widget _custom() {
+    final theme = ShadcnTheme.of(context);
     return SizedBox(
       width: 280,
-      child: _field(
-        hint: 'custom',
-        completer: (String suggestion) => '$suggestion ',
-        itemBuilder: (context, suggestion, selected) => Text(
-          suggestion,
-          style: TextStyle(
-            fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Input(
+            hintText: 'Type a fruit... (${widget.hint})',
+            features: <InputFeature>[
+              AutoCompleteFeature(
+                suggestions: _autocompleteFilter,
+                mode: widget.mode,
+                completer: widget.completer ?? (String s) => s,
+                itemBuilder: widget.itemBuilder,
+                onSuggestionSelected: (String value) =>
+                    setState(() => _selected = value),
+              ),
+            ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: SizedBox(
-          width: 280,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Input(
-              hintText: 'dark',
-              features: <InputFeature>[
-                AutoCompleteFeature(suggestions: _filter),
-              ],
-            ),
+          Gap(theme.spacing.md),
+          Text(
+            'Last selected: ${_selected.isEmpty ? '-' : _selected}',
+            style: TextStyle(fontSize: 12, color: theme.colors.mutedForeground),
           ),
-        ),
+        ],
       ),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const Gap(8),
-        child,
-      ],
     );
   }
 }
+
+/// The default replacement mode.
+Widget _autocompleteDefault(BuildContext context) =>
+    const _AutocompleteAutoCompleteField(hint: 'replaceWord');
+
+/// Append mode: the suggestion is inserted at the caret.
+Widget _autocompleteAppend(BuildContext context) =>
+    const _AutocompleteAutoCompleteField(
+      hint: 'append',
+      mode: AutoCompleteMode.append,
+    );
+
+/// Replace-all mode: the whole field is replaced.
+Widget _autocompleteReplaceAll(BuildContext context) =>
+    const _AutocompleteAutoCompleteField(
+      hint: 'replaceAll',
+      mode: AutoCompleteMode.replaceAll,
+    );
+
+/// A custom completer plus a custom row builder.
+Widget _autocompleteCustomRow(BuildContext context) =>
+    const _AutocompleteAutoCompleteField(
+      hint: 'custom',
+      completer: _autocompletePad,
+      itemBuilder: _autocompleteBoldWhenSelected,
+    );
+
+String _autocompletePad(String suggestion) => '$suggestion ';
+
+Widget _autocompleteBoldWhenSelected(
+  BuildContext context,
+  String suggestion,
+  bool selected,
+) => Text(
+  suggestion,
+  style: TextStyle(fontWeight: selected ? FontWeight.w600 : FontWeight.w400),
+);
+
+/// Named docs examples for `autocomplete`; the first entry is the default.
+const List<ComponentPreview> autocompletePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _autocompleteDefault),
+  ComponentPreview('Append', _autocompleteAppend),
+  ComponentPreview('Replace all', _autocompleteReplaceAll),
+  ComponentPreview('Custom row', _autocompleteCustomRow),
+];

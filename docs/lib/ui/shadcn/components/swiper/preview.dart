@@ -1,71 +1,45 @@
-// Gallery preview for the `swiper` component: drag a pane towards the panel
-// edge to reveal a drawer or a sheet. Widgets-only; the docs app embeds
-// [SwiperPreview] inside a `Navigator`.
+// Named examples for the `swiper` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each example bounds the swipe surface because the
+// panel extent is measured from the laid-out child.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'swiper.dart';
 
-/// Renders the swiper gallery.
-class SwiperPreview extends StatelessWidget {
-  /// Creates the preview.
-  const SwiperPreview({super.key});
+/// Drag towards the panel edge to reveal a drawer.
+Widget _drawer(BuildContext context) {
+  return SizedBox(
+    width: 320,
+    height: 200,
+    child: Swiper(
+      position: OverlayPosition.left,
+      builder: (BuildContext context) =>
+          const _Panel(title: 'Drawer', hint: 'Swipe it away to dismiss'),
+      child: const _SwipeSurface('Swipe right for a drawer'),
+    ),
+  );
+}
 
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _label('Drawer — swipe right'),
-                const Gap(8),
-                Expanded(
-                  child: Swiper(
-                    position: OverlayPosition.left,
-                    builder: (BuildContext context) => _Panel(
-                      title: 'Drawer',
-                      hint: 'Swipe it away to dismiss',
-                    ),
-                    child: _SwipeSurface('Swipe right for a drawer'),
-                  ),
-                ),
-                const Gap(16),
-                _label('Sheet — swipe up'),
-                const Gap(8),
-                Expanded(
-                  child: Swiper(
-                    position: OverlayPosition.bottom,
-                    variant: SwiperVariant.sheet,
-                    builder: (BuildContext context) =>
-                        _Panel(title: 'Sheet', hint: 'Drag down to dismiss'),
-                    child: _SwipeSurface('Swipe up for a sheet'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _label(String text) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-    );
-  }
+/// Drag up to reveal a sheet.
+Widget _sheet(BuildContext context) {
+  return SizedBox(
+    width: 320,
+    height: 200,
+    child: Swiper(
+      position: OverlayPosition.bottom,
+      variant: SwiperVariant.sheet,
+      builder: (BuildContext context) =>
+          const _Panel(title: 'Sheet', hint: 'Drag down to dismiss'),
+      child: const _SwipeSurface('Swipe up for a sheet'),
+    ),
+  );
 }
 
 /// A tappable-looking surface that carries the swipe hint.
@@ -109,10 +83,16 @@ class _Panel extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          const Gap(8),
+          Gap(ShadcnTheme.of(context).spacing.sm),
           Text(hint, style: TextStyle(color: colors.mutedForeground)),
         ],
       ),
     );
   }
 }
+
+/// Named docs examples for `swiper`; the first entry is the default.
+const List<ComponentPreview> swiperPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _drawer),
+  ComponentPreview('Sheet', _sheet),
+];

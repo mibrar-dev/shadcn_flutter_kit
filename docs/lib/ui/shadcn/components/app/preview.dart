@@ -33,7 +33,7 @@ class AppPreview extends StatelessWidget {
                       color: theme.colors.foreground,
                     ),
                   ),
-                  const Gap(8),
+                  Gap(theme.spacing.sm),
                   Text(
                     ShadcnLocalizations.of(context).dialogDismiss,
                     style: theme.typography.small.copyWith(

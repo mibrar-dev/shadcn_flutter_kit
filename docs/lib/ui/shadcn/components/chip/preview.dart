@@ -1,90 +1,81 @@
-// Gallery preview for the `chip` component: static, pressable and removable
-// chips plus the inner `ChipButton`, in light and dark.
-// Widgets-only; the docs app embeds [ChipPreview] directly.
+// Named examples for the `chip` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'chip.dart';
 
-/// Renders the chip gallery.
-class ChipPreview extends StatefulWidget {
-  /// Creates the preview.
-  const ChipPreview({super.key});
-
-  @override
-  State<ChipPreview> createState() => _ChipPreviewState();
+/// Static chips with and without slot icons.
+Widget _chipStatic(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.sm,
+    runSpacing: spacing.sm,
+    children: const <Widget>[
+      Chip(child: Text('static')),
+      Chip(leading: Icon(LucideIcons.star, size: 12), child: Text('leading')),
+      Chip(
+        trailing: Icon(LucideIcons.chevronRight, size: 12),
+        child: Text('trailing'),
+      ),
+    ],
+  );
 }
 
-class _ChipPreviewState extends State<ChipPreview> {
-  final List<String> _tags = <String>['flutter', 'shadcn', 'widgets'];
+/// Pressable chip counting its presses.
+class _ChipPressableChip extends StatefulWidget {
+  const _ChipPressableChip();
+
+  @override
+  State<_ChipPressableChip> createState() => _ChipPressableChipState();
+}
+
+class _ChipPressableChipState extends State<_ChipPressableChip> {
   int _presses = 0;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section('Static', _static()),
-                const Gap(24),
-                _section('Pressable', _pressable()),
-                const Gap(24),
-                _section('Removable', _removable()),
-                const Gap(24),
-                _section('Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _static() {
-    return const Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: <Widget>[
-        Chip(child: Text('static')),
-        Chip(leading: Icon(LucideIcons.star, size: 12), child: Text('leading')),
-        Chip(trailing: Icon(LucideIcons.x, size: 12), child: Text('trailing')),
-      ],
-    );
-  }
-
-  Widget _pressable() {
+    final spacing = ShadcnTheme.of(context).spacing;
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: spacing.sm,
+      runSpacing: spacing.sm,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
         Chip(
           onPressed: () => setState(() => _presses++),
           child: const Text('pressable'),
         ),
-        Text('pressed $_presses times'),
+        Text('pressed $_presses'),
       ],
     );
   }
+}
 
-  Widget _removable() {
+/// Chips that remove themselves from the example's own list.
+class _ChipRemovableChips extends StatefulWidget {
+  const _ChipRemovableChips();
+
+  @override
+  State<_ChipRemovableChips> createState() => _ChipRemovableChipsState();
+}
+
+class _ChipRemovableChipsState extends State<_ChipRemovableChips> {
+  final List<String> _tags = <String>['flutter', 'shadcn', 'widgets'];
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
     return Wrap(
-      spacing: 8,
-      runSpacing: 8,
+      spacing: spacing.sm,
+      runSpacing: spacing.sm,
       children: <Widget>[
-        for (final String tag in _tags)
+        for (final tag in _tags)
           Chip(
             trailing: ChipButton(
               onPressed: () => setState(() => _tags.remove(tag)),
@@ -92,34 +83,19 @@ class _ChipPreviewState extends State<ChipPreview> {
             ),
             child: Text(tag),
           ),
-      ],
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: ColoredBox(
-        color: ShadcnColors.darkFallback.background,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
-          child: Chip(child: Text('dark chip')),
-        ),
-      ),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const Gap(8),
-        child,
+        if (_tags.isEmpty) const Chip(child: Text('all removed')),
       ],
     );
   }
 }
+
+Widget _chipPressable(BuildContext context) => const _ChipPressableChip();
+
+Widget _chipRemovable(BuildContext context) => const _ChipRemovableChips();
+
+/// Named docs examples for `chip`; the first entry is the default.
+const List<ComponentPreview> chipPreviews = <ComponentPreview>[
+  ComponentPreview('Static', _chipStatic),
+  ComponentPreview('Pressable', _chipPressable),
+  ComponentPreview('Removable', _chipRemovable),
+];

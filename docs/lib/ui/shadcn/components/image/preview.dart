@@ -1,154 +1,103 @@
-// Widgets-only preview gallery for the `image` component.
+// Named examples for the `image` component (P6-F3 preview contract).
 //
-// No prefix needed: the component is `ShadcnImage`, which does not collide
-// with Flutter's `Image`.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
+
+import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'image.dart';
 
-/// Preview entry point used by the docs gallery.
-class ImagePreview extends StatelessWidget {
-  /// Creates the preview.
-  const ImagePreview({super.key});
+/// A 48x48 PNG decoded from memory: the preview never hits the network, so it
+/// renders identically offline and inside a widget test.
+const String _imagePhotoBase64 =
+    'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAAWElEQVR42u3OoRGAMBBFwdPURBHoFIaj'
+    'KTS9hBL+ROTUzjz/ts7xxZ73js1x5eqIFRAQEBAQ0CKoczarYkBAQEBAQKugzhkQEBAQENAWUOMMCAgIC'
+    'AhoQz/vbpR28UARAAAAAABJRU5ErkJggg==';
 
-  static const String _url =
-      'https://raw.githubusercontent.com/facebook/react/main/fixtures/dom/public/react-logo.svg';
+/// Local photo provider shared by the examples.
+final ImageProvider _imagePhoto = MemoryImage(base64Decode(_imagePhotoBase64));
 
-  @override
-  Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _ImagePreviewBody(),
-      ),
-    );
-  }
+/// The default square avatar-shaped image.
+Widget _imageDefault(BuildContext context) {
+  return Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: ShadcnImage(
+      image: _imagePhoto,
+      width: 96,
+      height: 96,
+      aspectRatio: 1,
+    ),
+  );
 }
 
-class _ImagePreviewBody extends StatelessWidget {
-  const _ImagePreviewBody();
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text('sizes and radii'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ShadcnImage(
-                  image: const NetworkImage(ImagePreview._url),
-                  width: 96,
-                  aspectRatio: 1,
-                ),
-                const SizedBox(width: 16),
-                ShadcnImage(
-                  image: const NetworkImage(ImagePreview._url),
-                  width: 96,
-                  aspectRatio: 1,
-                  borderRadius: BorderRadius.zero,
-                ),
-                const SizedBox(width: 16),
-                ShadcnImage(
-                  image: const NetworkImage(ImagePreview._url),
-                  width: 96,
-                  aspectRatio: 1,
-                  borderRadius: BorderRadius.circular(48),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            const Text('placeholder and error slots'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ShadcnImage(
-                  image: const NetworkImage(
-                    'https://example.invalid/missing.png',
-                  ),
-                  width: 96,
-                  aspectRatio: 1,
-                  placeholder: const Center(child: Icon(LucideIcons.loader)),
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Center(child: Icon(LucideIcons.imageOff)),
-                ),
-                const SizedBox(width: 16),
-                ShadcnImage(
-                  image: const NetworkImage(
-                    'https://example.invalid/missing.png',
-                  ),
-                  width: 96,
-                  aspectRatio: 1,
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            const Text('theme legs'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ComponentTheme<ImageTheme>(
-                  data: const ImageTheme(
-                    background: ThemedColor.ref(ColorRef.accent, alpha: 0.5),
-                    borderRadius: BorderRadius.zero,
-                  ),
-                  child: ShadcnImage(
-                    image: const NetworkImage(ImagePreview._url),
-                    width: 96,
-                    aspectRatio: 1,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                ShadcnImage(
-                  image: const NetworkImage(ImagePreview._url),
-                  width: 96,
-                  aspectRatio: 1,
-                  theme: const ImageTheme(borderRadius: BorderRadius.zero),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            ShadcnTheme(
-              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-              child: Builder(
-                builder: (context) => ColoredBox(
-                  color: ShadcnTheme.of(context).colors.background,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        ShadcnImage(
-                          image: const NetworkImage(ImagePreview._url),
-                          width: 96,
-                          aspectRatio: 1,
-                        ),
-                        const SizedBox(width: 16),
-                        const Text('dark tokens'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+/// The placeholder and error slots, and the theme legs.
+Widget _imageSlots(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      ShadcnImage(
+        image: _imagePhoto,
+        width: 96,
+        height: 96,
+        aspectRatio: 1,
+        placeholder: const Center(
+          child: Icon(LucideIcons.loaderCircle, size: 20),
+        ),
+        errorBuilder: (context, error, stackTrace) =>
+            const Center(child: Icon(LucideIcons.imageOff, size: 20)),
+      ),
+      Gap(spacing.lg),
+      ShadcnImage(
+        image: _imagePhoto,
+        width: 96,
+        height: 96,
+        aspectRatio: 1,
+        theme: const ImageTheme(borderRadius: BorderRadius.zero),
+      ),
+      Gap(spacing.lg),
+      ComponentTheme<ImageTheme>(
+        data: const ImageTheme(
+          background: ThemedColor.ref(ColorRef.accent, alpha: 0.5),
+        ),
+        child: ShadcnImage(
+          image: _imagePhoto,
+          width: 96,
+          height: 96,
+          aspectRatio: 1,
         ),
       ),
-    );
-  }
+    ],
+  );
 }
+
+/// The default image with the theme border radius.
+Widget _imageRounded(BuildContext context) {
+  final theme = ShadcnTheme.of(context);
+  return Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: ShadcnImage(
+      image: _imagePhoto,
+      width: 96,
+      height: 96,
+      aspectRatio: 1,
+      borderRadius: theme.borderRadiusMd,
+    ),
+  );
+}
+
+/// Named docs examples for `image`; the first entry is the default.
+const List<ComponentPreview> imagePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _imageDefault),
+  ComponentPreview('Rounded', _imageRounded),
+  ComponentPreview('Slots', _imageSlots),
+];

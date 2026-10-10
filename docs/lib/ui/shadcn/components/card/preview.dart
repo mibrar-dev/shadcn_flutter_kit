@@ -1,52 +1,25 @@
-// Gallery preview for the `card` component: the full shadcn slot composition,
-// a bare surface, the clipped variant and the dark palette.
-// Widgets-only; the docs app embeds [CardPreview] directly.
+// Named examples for the `card` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
-import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
 import 'card.dart';
 
-/// Renders the card gallery.
-class CardPreview extends StatelessWidget {
-  /// Creates the preview.
-  const CardPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section('Composition', _composed()),
-                const Gap(24),
-                _section('Bare surface', _bare()),
-                const Gap(24),
-                _section('Clipped media', _clipped()),
-                const Gap(24),
-                _section('Dark', _dark()),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _composed() {
-    return Card(
+/// The full shadcn slot composition.
+Widget _cardDefault(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return SizedBox(
+    width: 320,
+    child: Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -57,18 +30,17 @@ class CardPreview extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 CardTitle(child: Text('Deployments')),
-                Gap(4),
                 CardDescription(child: Text('Ship a new build to production.')),
               ],
             ),
           ),
-          const Gap(16),
+          Gap(spacing.lg),
           const CardContent(
             child: Text(
               'Every deploy is immutable; roll back from the history tab.',
             ),
           ),
-          const Gap(16),
+          Gap(spacing.lg),
           CardFooter(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -79,7 +51,7 @@ class CardPreview extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('Cancel'),
                 ),
-                const Gap(8),
+                Gap(spacing.sm),
                 Button(
                   size: ButtonSize.sm,
                   onPressed: () {},
@@ -90,81 +62,87 @@ class CardPreview extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _bare() {
-    return const Card(
-      child: Row(
+/// A card whose header carries a clipped media band.
+Widget _cardWithMedia(BuildContext context) {
+  final theme = ShadcnTheme.of(context);
+  return SizedBox(
+    width: 320,
+    child: Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Icon(LucideIcons.circle, size: 16),
-          Gap(8),
-          Text('Bare card, default padding'),
-        ],
-      ),
-    );
-  }
-
-  Widget _clipped() {
-    return const SizedBox(
-      width: 220,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: 72,
-              child: ColoredBox(
-                color: Color(0xFF334155),
-                child: Center(
-                  child: Icon(
-                    LucideIcons.star,
-                    size: 24,
-                    color: Color(0xFFCBD5E1),
-                  ),
+          SizedBox(
+            height: 96,
+            child: ColoredBox(
+              color: theme.colors.muted,
+              child: Center(
+                child: Icon(
+                  LucideIcons.image,
+                  size: 24,
+                  color: theme.colors.mutedForeground,
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Text('Media clipped to the card radius'),
+          ),
+          const CardHeader(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CardTitle(child: Text('Cover art')),
+                CardDescription(
+                  child: Text('Generated from the preset palette.'),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: const Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            CardTitle(child: Text('Dark card')),
-            Gap(4),
-            CardDescription(child: Text('card / cardForeground tokens.')),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const Gap(8),
-        child,
-      ],
-    );
-  }
+    ),
+  );
 }
+
+/// A bare surface with only the footer slot filled.
+Widget _cardWithFooter(BuildContext context) {
+  final theme = ShadcnTheme.of(context);
+  return SizedBox(
+    width: 320,
+    child: Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const CardTitle(child: Text('Billing')),
+          Gap(theme.spacing.xs),
+          Text(
+            'Bare card, default padding',
+            style: TextStyle(color: theme.colors.mutedForeground),
+          ),
+          Gap(theme.spacing.lg),
+          CardFooter(
+            padding: EdgeInsetsDensity.pxAll(0),
+            child: Button(
+              size: ButtonSize.sm,
+              variant: ButtonVariant.outline,
+              onPressed: () {},
+              child: const Text('Manage plan'),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+/// Named docs examples for `card`; the first entry is the default.
+const List<ComponentPreview> cardPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _cardDefault),
+  ComponentPreview('With media', _cardWithMedia),
+  ComponentPreview('With footer', _cardWithFooter),
+];

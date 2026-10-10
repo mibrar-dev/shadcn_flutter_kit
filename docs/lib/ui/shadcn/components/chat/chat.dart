@@ -229,31 +229,35 @@ class ChatGroup extends StatelessWidget {
     );
     return ComponentTheme<ChatTheme>(
       data: theme?.merge(group) ?? group,
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: style.avatarSpacing!,
-          children: <Widget>[
-            if (avatarPrefix != null)
-              Align(alignment: style.avatarAlignment!, child: avatarPrefix!),
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: style.spacing!,
-                children: <Widget>[
-                  for (int i = 0; i < children.length; i++)
-                    Data<ChatBubbleData>.inherit(
-                      data: ChatBubbleData(index: i, length: children.length),
-                      child: children[i],
-                    ),
-                ],
-              ),
+      // No IntrinsicHeight + CrossAxisAlignment.stretch here: a stretch Row
+      // has no intrinsic height, so IntrinsicHeight had to invent one from the
+      // avatars (32px) and then forced the Flexible bubble column into it,
+      // overflowing by the whole column (P6-F3). The row now sizes itself to
+      // the tallest child - the bubble column - and the avatars keep their
+      // own size, positioned by `avatarAlignment`.
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: style.avatarSpacing!,
+        children: <Widget>[
+          if (avatarPrefix != null)
+            Align(alignment: style.avatarAlignment!, child: avatarPrefix!),
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: style.spacing!,
+              children: <Widget>[
+                for (int i = 0; i < children.length; i++)
+                  Data<ChatBubbleData>.inherit(
+                    data: ChatBubbleData(index: i, length: children.length),
+                    child: children[i],
+                  ),
+              ],
             ),
-            if (avatarSuffix != null)
-              Align(alignment: style.avatarAlignment!, child: avatarSuffix!),
-          ],
-        ),
+          ),
+          if (avatarSuffix != null)
+            Align(alignment: style.avatarAlignment!, child: avatarSuffix!),
+        ],
       ),
     );
   }

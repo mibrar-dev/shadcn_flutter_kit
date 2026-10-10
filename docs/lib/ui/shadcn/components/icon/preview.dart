@@ -17,12 +17,9 @@ class IconPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _IconPreviewBody(),
-      ),
+    return const Directionality(
+      textDirection: TextDirection.ltr,
+      child: _IconPreviewBody(),
     );
   }
 }
@@ -40,19 +37,19 @@ class _IconPreviewBody extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const Icon(LucideIcons.star).iconX3Small(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const Icon(LucideIcons.star).iconXSmall(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const Icon(LucideIcons.star).iconSmall(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const Icon(LucideIcons.star).iconMedium(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const Icon(LucideIcons.star).iconLarge(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const Icon(LucideIcons.star).iconSmall().iconMutedForeground(),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             const IconContainer(icon: Icon(LucideIcons.check)),
-            const SizedBox(width: 24),
+            SizedBox(width: ShadcnTheme.of(context).spacing.xl),
             ComponentTheme<IconContainerTheme>(
               data: const IconContainerTheme(
                 backgroundColor: ThemedColor.ref(ColorRef.secondary),

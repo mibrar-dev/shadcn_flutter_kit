@@ -24,6 +24,7 @@
 import 'dart:io';
 
 import 'package:docs/generated/docs_data.dart';
+import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/previews/component_previews.dart';
 import 'package:docs/ui/shadcn/components/app/app.dart';
 import 'package:docs/widgets/preview_stage.dart';
@@ -81,8 +82,11 @@ void main() {
 
     final List<String> rows = <String>[];
     final StringBuffer out = StringBuffer('=== PREVIEW RENDER AUDIT ===\n');
+    // P6-F4: only listed components (named examples) are audited; building
+    // blocks keep maintainer galleries outside the docs chrome.
     final List<String> ids = <String>[
-      for (final DocsComponent c in kComponents) c.id,
+      for (final DocsComponent c in kComponents)
+        if ((kComponentPreviews[c.id] ?? const <String>[]).isNotEmpty) c.id,
     ]..sort();
     // The deferred preview chunks resolve on the real event loop; the
     // FakeAsync zone of `testWidgets` can never complete them.
@@ -126,11 +130,11 @@ void main() {
       'per-component root causes.',
     );
 
-    // Baseline pinned from the P6-D9a audit. Every fix batch that repairs a
-    // preview MUST lower these numbers; the goal is 0/0/0. Anything that
-    // *raises* them is a regression.
-    const int baselineThrew = 25; // 24 both modes + eye_dropper light only
-    const int baselineOverflow = 25;
+    // P6-F4 baseline: the bounded stage plus one-example-at-a-time previews
+    // reach 0/0/0 for every listed component in light + dark. Anything above
+    // zero is a regression.
+    const int baselineThrew = 0;
+    const int baselineOverflow = 0;
     const int baselineZeroSize = 0;
     final int threw = rows
         .where(

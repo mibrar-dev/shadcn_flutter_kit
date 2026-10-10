@@ -1,109 +1,95 @@
-// Gallery preview for the `color_input` component: the trigger in light and
-// dark, popover and dialog prompts, alpha/history, disabled and themed rows.
-// Widgets-only.
+// Named examples for the `color_input` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
+//
+// The trigger is wrapped in the colour scopes it needs to work in the docs
+// stage: `EyeDropperLayer` and `RecentColorsScope`.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
+import '../../foundation/component_preview.dart';
 import '../../primitives/form_core/object_form_field.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import '../color/color.dart';
 import '../eye_dropper/eye_dropper.dart';
 import '../history/history.dart';
 import 'color_input.dart';
 
-/// Renders the colour-input gallery.
-class ColorInputPreview extends StatefulWidget {
-  /// Creates the preview.
-  const ColorInputPreview({super.key});
+/// One trigger, with the scopes the colour machinery needs.
+class _ColorInputColorInputExample extends StatefulWidget {
+  const _ColorInputColorInputExample({
+    this.mode,
+    this.dialogTitle,
+    this.showAlpha = false,
+    this.showHistory = false,
+    this.enabled = true,
+  });
+
+  final PromptMode? mode;
+  final Widget? dialogTitle;
+  final bool showAlpha;
+  final bool showHistory;
+  final bool enabled;
 
   @override
-  State<ColorInputPreview> createState() => _ColorInputPreviewState();
+  State<_ColorInputColorInputExample> createState() =>
+      _ColorInputColorInputExampleState();
 }
 
-class _ColorInputPreviewState extends State<ColorInputPreview> {
+class _ColorInputColorInputExampleState
+    extends State<_ColorInputColorInputExample> {
   ColorDerivative _value = ColorDerivative.fromColor(const Color(0xFF2563EB));
-
-  void _set(ColorDerivative next) => setState(() => _value = next);
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return ColoredBox(
-      color: theme.colors.background,
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: EyeDropperLayer(
-          child: RecentColorsScope(
-            initialRecentColors: const <Color>[
-              Color(0xFF2563EB),
-              Color(0xFF22C55E),
-              Color(0xFFE11D48),
-            ],
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _label(theme, 'Basic (popover on desktop widths)'),
-                SizedBox(
-                  width: 240,
-                  child: ColorInput(value: _value, onChanged: _set),
-                ),
-                const Gap(24),
-                _label(theme, 'Dialog prompt with a title'),
-                SizedBox(
-                  width: 240,
-                  child: ColorInput(
-                    value: _value,
-                    mode: PromptMode.dialog,
-                    dialogTitle: const Text('Select a colour'),
-                    onChanged: _set,
-                  ),
-                ),
-                const Gap(24),
-                _label(theme, 'Alpha + history'),
-                SizedBox(
-                  width: 240,
-                  child: ColorInput(
-                    value: _value,
-                    showAlpha: true,
-                    showHistory: true,
-                    onChanged: _set,
-                  ),
-                ),
-                const Gap(24),
-                _label(theme, 'Disabled'),
-                SizedBox(width: 240, child: ColorInput(value: _value)),
-                const Gap(24),
-                _label(theme, 'Dark palette'),
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: SizedBox(
-                    width: 240,
-                    child: ColorInput(value: _value, onChanged: _set),
-                  ),
-                ),
-              ],
-            ),
+    return EyeDropperLayer(
+      child: RecentColorsScope(
+        initialRecentColors: const <Color>[
+          Color(0xFF2563EB),
+          Color(0xFF22C55E),
+          Color(0xFFE11D48),
+        ],
+        child: SizedBox(
+          width: 240,
+          child: ColorInput(
+            value: _value,
+            mode: widget.mode,
+            dialogTitle: widget.dialogTitle,
+            showAlpha: widget.showAlpha,
+            showHistory: widget.showHistory,
+            enabled: widget.enabled,
+            onChanged: (ColorDerivative next) => setState(() => _value = next),
           ),
         ),
       ),
     );
   }
-
-  Widget _label(ShadcnThemeData theme, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: theme.colors.foreground,
-        ),
-      ),
-    );
-  }
 }
+
+/// The default trigger, with the popover prompt.
+Widget _colorInputDefault(BuildContext context) =>
+    const _ColorInputColorInputExample();
+
+/// The dialog prompt with a title.
+Widget _colorInputDialog(BuildContext context) =>
+    const _ColorInputColorInputExample(
+      mode: PromptMode.dialog,
+      dialogTitle: Text('Select a colour'),
+    );
+
+/// Alpha plus the recent-colour history.
+Widget _colorInputAlphaHistory(BuildContext context) =>
+    const _ColorInputColorInputExample(showAlpha: true, showHistory: true);
+
+/// The disabled trigger.
+Widget _colorInputDisabled(BuildContext context) =>
+    const _ColorInputColorInputExample(enabled: false);
+
+/// Named docs examples for `color_input`; the first entry is the default.
+const List<ComponentPreview> colorInputPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _colorInputDefault),
+  ComponentPreview('Dialog prompt', _colorInputDialog),
+  ComponentPreview('Alpha + history', _colorInputAlphaHistory),
+  ComponentPreview('Disabled', _colorInputDisabled),
+];

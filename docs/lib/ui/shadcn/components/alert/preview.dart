@@ -1,64 +1,70 @@
-// Gallery preview for the `alert` component: both variants, a dark palette
-// and a themed override. Widgets-only.
+// Named examples for the `alert` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
+import '../../foundation/icons/lucide_icons.dart';
 import 'alert.dart';
 
-/// Renders the alert gallery.
-class AlertPreview extends StatelessWidget {
-  /// Creates the preview.
-  const AlertPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return ColoredBox(
-      color: theme.colors.background,
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: SizedBox(
-            width: 512,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                const Alert(
-                  title: Text('Heads up'),
-                  content: Text('You can install components from the CLI.'),
-                ),
-                const Gap(16),
-                const Alert(
-                  variant: AlertVariant.destructive,
-                  title: Text('Session expired'),
-                  content: Text('Please log in again to continue.'),
-                ),
-                const Gap(16),
-                const Alert(
-                  title: Text('Notification'),
-                  content: Text('You have a new message.'),
-                  trailing: Text('Now'),
-                ),
-                const Gap(32),
-                ShadcnTheme(
-                  data: const ShadcnThemeData(
-                    colors: ShadcnColors.darkFallback,
-                  ),
-                  child: Builder(
-                    builder: (context) => const Alert(
-                      title: Text('Dark palette'),
-                      content: Text('Token colours follow the preset.'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+/// One alert, stretched to the stage width.
+Widget _alert(
+  BuildContext context,
+  AlertVariant variant,
+  String title,
+  String content,
+) {
+  return SizedBox(
+    width: 512,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Alert(
+          variant: variant,
+          leading: const Icon(LucideIcons.info, size: 16),
+          title: Text(title),
+          content: Text(content),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
 }
+
+/// Default variant.
+Widget _alertDefault(BuildContext context) => _alert(
+  context,
+  AlertVariant.base,
+  'Heads up',
+  'You can install components from the CLI.',
+);
+
+/// Destructive variant.
+Widget _alertDestructive(BuildContext context) => _alert(
+  context,
+  AlertVariant.destructive,
+  'Session expired',
+  'Please log in again to continue.',
+);
+
+/// A compact alert with a trailing action and no leading icon.
+Widget _alertCompact(BuildContext context) {
+  return const SizedBox(
+    width: 512,
+    child: Alert(
+      title: Text('Notification'),
+      content: Text('You have a new message.'),
+      trailing: Text('Now'),
+    ),
+  );
+}
+
+/// Named docs examples for `alert`; the first entry is the default.
+const List<ComponentPreview> alertPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _alertDefault),
+  ComponentPreview('Destructive', _alertDestructive),
+  ComponentPreview('Compact', _alertCompact),
+];

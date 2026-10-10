@@ -15,6 +15,7 @@ import '../ui/shadcn/theme/color_tokens.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
+import 'selectable_code.dart';
 
 /// The collapsed/expanded code pane.
 class CodeTeaser extends StatefulWidget {
@@ -60,8 +61,10 @@ class _CodeTeaserState extends State<CodeTeaser> {
         children: <Widget>[
           Positioned.fill(
             child: _expanded
-                ? SingleChildScrollView(child: widget.code)
-                : ClipRect(child: widget.code),
+                ? SingleChildScrollView(
+                    child: SelectableCode(child: widget.code),
+                  )
+                : ClipRect(child: SelectableCode(child: widget.code)),
           ),
           if (!_expanded)
             Positioned(

@@ -1,58 +1,65 @@
-// Widgets-only preview gallery for the `hover_card` component.
+// Named examples for the `hover_card` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
 import 'hover_card.dart';
 
-/// Preview entry point used by the docs gallery.
-class HoverCardPreview extends StatelessWidget {
-  /// Creates the preview.
-  const HoverCardPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: ColoredBox(
-          color: const ShadcnThemeData().colors.background,
-          child: const SingleChildScrollView(
-            padding: EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Hover the name (500 ms delay)'),
-                SizedBox(height: 8),
-                HoverCard(hoverBuilder: _card, child: Text('@shadcn')),
-                SizedBox(height: 24),
-                Text('Instant card'),
-                SizedBox(height: 8),
-                HoverCard(
-                  wait: Duration.zero,
-                  hoverBuilder: _card,
-                  child: Text('@fast'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 /// Sample card content.
 Widget _card(BuildContext context) {
-  return const Column(
+  final theme = ShadcnTheme.of(context);
+  return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Text('@shadcn'),
-      SizedBox(height: 4),
-      Text('Beautifully designed components.'),
+      const Text('@shadcn'),
+      Gap(theme.spacing.xs),
+      Text(
+        'Beautifully designed components.',
+        style: TextStyle(color: theme.colors.mutedForeground),
+      ),
     ],
   );
 }
+
+/// The default card after the hover delay.
+Widget _default(BuildContext context) {
+  return HoverCard(hoverBuilder: _card, child: const Text('@shadcn'));
+}
+
+/// Rich content: title, bio and follower count.
+Widget _richContent(BuildContext context) {
+  final theme = ShadcnTheme.of(context);
+  return HoverCard(
+    hoverBuilder: (BuildContext context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Text('@shadcn'),
+        Gap(theme.spacing.xs),
+        Text(
+          'Beautifully designed components that you can copy and paste.',
+          style: TextStyle(color: theme.colors.mutedForeground),
+        ),
+        Gap(theme.spacing.sm),
+        Text(
+          '12k followers',
+          style: TextStyle(color: theme.colors.mutedForeground, fontSize: 12),
+        ),
+      ],
+    ),
+    child: const Text('@shadcn (rich)'),
+  );
+}
+
+/// Named docs examples for `hover_card`; the first entry is the default.
+const List<ComponentPreview> hoverCardPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Rich content', _richContent),
+];

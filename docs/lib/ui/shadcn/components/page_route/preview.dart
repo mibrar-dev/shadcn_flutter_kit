@@ -19,12 +19,9 @@ class PageRoutePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _PageRoutePreviewBody(),
-      ),
+    return const Directionality(
+      textDirection: TextDirection.ltr,
+      child: _PageRoutePreviewBody(),
     );
   }
 }

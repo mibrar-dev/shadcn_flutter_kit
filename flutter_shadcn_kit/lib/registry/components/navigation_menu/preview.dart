@@ -12,8 +12,9 @@ import 'navigation_menu.dart';
 
 /// A menu bar with plain, dropdown and popover items.
 Widget _bar(BuildContext context) {
-  return const SizedBox(
-    width: 340,
+  // Intrinsic width: a fixed box clipped the bar under real text metrics.
+  return const FittedBox(
+    fit: BoxFit.scaleDown,
     child: NavigationMenu(
       children: <Widget>[
         NavigationMenuItem(onPressed: _noop, child: Text('Home')),

@@ -1,116 +1,101 @@
-// Gallery preview for the `slider` component: single and range sliders in
-// every variant, plus snap and disabled states, in light and dark.
-// Widgets-only; the docs app embeds [SliderPreview] directly.
+// Named examples for the `slider` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Each slider
+// carries its own bounded width because the track measures its extent, and
+// its own state: the old gallery looped every variant through one value.
+// Spacing comes from the ambient theme.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../primitives/slider_value.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
 import 'slider.dart';
 
-/// Renders the slider gallery.
-class SliderPreview extends StatefulWidget {
-  /// Creates the preview.
-  const SliderPreview({super.key});
+/// A single-value slider; the value lives in this example's state.
+class _SingleSlider extends StatefulWidget {
+  const _SingleSlider();
 
   @override
-  State<SliderPreview> createState() => _SliderPreviewState();
+  State<_SingleSlider> createState() => _SingleSliderState();
 }
 
-class _SliderPreviewState extends State<SliderPreview> {
-  double _single = 0.4;
-  double _steps = 2;
-  SliderValue _range = const SliderValue.ranged(0.2, 0.7);
+class _SingleSliderState extends State<_SingleSlider> {
+  double _value = 0.4;
 
   @override
   Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text('Single'),
-                const SizedBox(height: 8),
-                Slider(
-                  value: _single,
-                  onChanged: (v) => setState(() => _single = v),
-                  semanticLabel: 'Single',
-                ),
-                const SizedBox(height: 16),
-                const Text('Variants'),
-                const SizedBox(height: 8),
-                for (final variant in SliderVariant.values)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: Slider(
-                      value: _single,
-                      variant: variant,
-                      onChanged: (v) => setState(() => _single = v),
-                      semanticLabel: variant.name,
-                    ),
-                  ),
-                const Text('Range'),
-                const SizedBox(height: 8),
-                Slider.range(
-                  value: _range,
-                  onRangeChanged: (v) => setState(() => _range = v),
-                  semanticLabel: 'Range',
-                ),
-                const SizedBox(height: 16),
-                const Text('Steps (0..4)'),
-                const SizedBox(height: 8),
-                Slider(
-                  value: _steps,
-                  min: 0,
-                  max: 4,
-                  snap: const SliderSnap.steps(4),
-                  variant: SliderVariant.dots,
-                  onChanged: (v) => setState(() => _steps = v),
-                  semanticLabel: 'Steps',
-                ),
-                const SizedBox(height: 16),
-                const Text('Wave'),
-                const SizedBox(height: 8),
-                Slider(
-                  value: _single,
-                  variant: SliderVariant.wave,
-                  snap: const SliderSnap.steps(24),
-                  onChanged: (v) => setState(() => _single = v),
-                  semanticLabel: 'Wave',
-                ),
-                const SizedBox(height: 16),
-                const Text('Disabled'),
-                const SizedBox(height: 8),
-                const Slider(
-                  value: 0.6,
-                  enabled: false,
-                  onChanged: null,
-                  semanticLabel: 'Disabled',
-                ),
-                const SizedBox(height: 16),
-                const Text('Dark'),
-                const SizedBox(height: 8),
-                ShadcnTheme(
-                  data: ShadcnThemeData(colors: ShadcnColors.darkFallback),
-                  child: Slider(
-                    value: 0.5,
-                    onChanged: null,
-                    semanticLabel: 'Dark',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    return SizedBox(
+      width: 320,
+      child: Slider(
+        value: _value,
+        onChanged: (double value) => setState(() => _value = value),
+        semanticLabel: 'Single',
       ),
     );
   }
 }
+
+/// A ranged slider; the range lives in this example's state.
+class _RangeSlider extends StatefulWidget {
+  const _RangeSlider();
+
+  @override
+  State<_RangeSlider> createState() => _RangeSliderState();
+}
+
+class _RangeSliderState extends State<_RangeSlider> {
+  SliderValue _range = const SliderValue.ranged(0.2, 0.7);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 320,
+      child: Slider.range(
+        value: _range,
+        onRangeChanged: (SliderValue value) => setState(() => _range = value),
+        semanticLabel: 'Range',
+      ),
+    );
+  }
+}
+
+/// A stepped slider with dot marks; the value lives in this example's state.
+class _StepsSlider extends StatefulWidget {
+  const _StepsSlider();
+
+  @override
+  State<_StepsSlider> createState() => _StepsSliderState();
+}
+
+class _StepsSliderState extends State<_StepsSlider> {
+  double _value = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 320,
+      child: Slider(
+        value: _value,
+        min: 0,
+        max: 4,
+        snap: const SliderSnap.steps(4),
+        variant: SliderVariant.dots,
+        onChanged: (double value) => setState(() => _value = value),
+        semanticLabel: 'Steps',
+      ),
+    );
+  }
+}
+
+Widget _default(BuildContext context) => const _SingleSlider();
+
+Widget _range(BuildContext context) => const _RangeSlider();
+
+Widget _steps(BuildContext context) => const _StepsSlider();
+
+/// Named docs examples for `slider`; the first entry is the default.
+const List<ComponentPreview> sliderPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Range', _range),
+  ComponentPreview('Steps', _steps),
+];

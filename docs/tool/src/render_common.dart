@@ -11,6 +11,8 @@ class DocsModel {
     required this.scan,
     required this.api,
     required this.previewClasses,
+    required this.previewExamples,
+    required this.previewExampleNames,
     required this.keyboard,
     required this.snippets,
     required this.cliCommands,
@@ -22,8 +24,18 @@ class DocsModel {
   /// API tables keyed by component id (all components present).
   final Map<String, ApiFacts> api;
 
-  /// Preview widget class names keyed by component id (all present).
-  final Map<String, String> previewClasses;
+  /// Preview widget class names keyed by component id (null when the file
+  /// ships the P6-F3 named-example list instead).
+  final Map<String, String?> previewClasses;
+
+  /// Named-example list names keyed by component id (`<name>Previews`);
+  /// null when the file ships the old single gallery class.
+  final Map<String, String?> previewExamples;
+
+  /// Named-example labels keyed by component id, in declaration order
+  /// (P6-F4, read with `package:analyzer`); empty when the file ships the
+  /// old single gallery class.
+  final Map<String, List<String>> previewExampleNames;
 
   /// Keyboard rows keyed by component id (empty lists for gaps).
   final Map<String, List<KeyboardRowFacts>> keyboard;

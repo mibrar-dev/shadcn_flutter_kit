@@ -127,105 +127,9 @@ class DocsThemeToken {
 /// All 118 installable components, ordered by category then id.
 const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
-    id: 'button',
-    name: 'Button',
-    category: 'control',
-    description:
-        'Pressable action control with seven variants and five fixed sizes, plus a connected ButtonGroup.',
-    install: 'flutter_shadcn add button',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/button/button.dart';",
-    fileCount: 4,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'command',
-    name: 'Command',
-    category: 'control',
-    description:
-        'Command palette with a debounced async result stream, keyboard navigation and a dialog entry point.',
-    install: 'flutter_shadcn add command',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/command/command.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'patch',
-    name: 'ClickDetector',
-    category: 'control',
-    description:
-        'Counts consecutive taps inside a time and distance window for double/triple-click gestures.',
-    install: 'flutter_shadcn add patch',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/patch/patch.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'scrollbar',
-    name: 'Scrollbar',
-    category: 'control',
-    description:
-        "Themeable scrollbar wrapper around Flutter's RawScrollbar with token-derived thumb, thickness and radius.",
-    install: 'flutter_shadcn add scrollbar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'scrollview',
-    name: 'Scroll View Interceptor',
-    category: 'control',
-    description:
-        'Middle-button drag-to-scroll interceptor for desktop and web pointer devices.',
-    install: 'flutter_shadcn add scrollview',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'toggle',
-    name: 'Toggle',
-    category: 'control',
-    description:
-        'On/off button with a controlled and a controller-driven mode, plus form participation.',
-    install: 'flutter_shadcn add toggle',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/toggle/toggle.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'avatar',
-    name: 'Avatar',
-    category: 'display',
-    description:
-        'Image or initials tile with an optional badge and overlapping group.',
-    install: 'flutter_shadcn add avatar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/avatar/avatar.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'badge',
-    name: 'Badge',
-    category: 'display',
-    description:
-        'Small rounded label or status dot with four variants, optionally pressable.',
-    install: 'flutter_shadcn add badge',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/badge/badge.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'border_loading',
     name: 'Border Loading',
-    category: 'display',
+    category: 'Animation & Effects',
     description:
         'Animated gradient border around a child: sweep ring, travelling tracers, determinate progress or a static outline.',
     install: 'flutter_shadcn add border_loading',
@@ -235,91 +139,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'calendar',
-    name: 'Calendar',
-    category: 'display',
-    description:
-        'Date, month and year grids with single, range and multi selection, roving-tabindex keyboard navigation and per-day semantic dates; the selection value types live in the date_math primitive.',
-    install: 'flutter_shadcn add calendar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/calendar/calendar.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'carousel',
-    name: 'Carousel',
-    category: 'display',
-    description:
-        'Paged carousel with a sliding or fading transition, drag, autoplay and a controller that drives the dot row.',
-    install: 'flutter_shadcn add carousel',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/carousel/carousel.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'chat',
-    name: 'Chat',
-    category: 'display',
-    description:
-        'Chat bubbles and groups: plain, tailed or sharp-corner bubbles aligned to their side of the row, with optional avatars.',
-    install: 'flutter_shadcn add chat',
-    import: "import 'package:<your_app>/ui/shadcn/components/chat/chat.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'chip',
-    name: 'Chip',
-    category: 'display',
-    description:
-        'Compact deletable-token control plus the borderless control embedded inside a chip.',
-    install: 'flutter_shadcn add chip',
-    import: "import 'package:<your_app>/ui/shadcn/components/chip/chip.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'code_snippet',
-    name: 'CodeSnippet',
-    category: 'display',
-    description:
-        'Scrollable code block with optional top-right action buttons.',
-    install: 'flutter_shadcn add code_snippet',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/code_snippet/code_snippet.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'country_flag',
-    name: 'CountryFlag',
-    category: 'display',
-    description:
-        'Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.',
-    install: 'flutter_shadcn add country_flag',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/country_flag/country_flag.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'divider',
-    name: 'Divider',
-    category: 'display',
-    description:
-        'Themed rule in either orientation, optionally carrying a centred label.',
-    install: 'flutter_shadcn add divider',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/divider/divider.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'dot_indicator',
     name: 'DotIndicator',
-    category: 'display',
+    category: 'Animation & Effects',
     description:
         'Animated row or column of dots showing the active index of a carousel, stepper or pager.',
     install: 'flutter_shadcn add dot_indicator',
@@ -329,164 +151,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'empty_state',
-    name: 'EmptyState',
-    category: 'display',
-    description:
-        'A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.',
-    install: 'flutter_shadcn add empty_state',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/empty_state/empty_state.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'feature_carousel',
-    name: 'Feature Carousel',
-    category: 'display',
-    description:
-        'Animated feature-card carousel with autoplay, swipe, keyboard navigation, nav arrows and a call to action.',
-    install: 'flutter_shadcn add feature_carousel',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/feature_carousel/feature_carousel.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'file_diff_viewer',
-    name: 'File Diff Viewer',
-    category: 'display',
-    description:
-        'Renders unified or split file diffs with line gutters, coloured additions/deletions, collapsible unchanged hunks and a copy-patch action.',
-    install: 'flutter_shadcn add file_diff_viewer',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/file_diff_viewer/file_diff_viewer.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'icon',
-    name: 'Icon',
-    category: 'display',
-    description:
-        'Theme-driven icon size/colour modifiers and a filled icon container.',
-    install: 'flutter_shadcn add icon',
-    import: "import 'package:<your_app>/ui/shadcn/components/icon/icon.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'image',
-    name: 'ShadcnImage',
-    category: 'display',
-    description:
-        'Themed rounded image slot with a placeholder while loading and a caller-supplied error slot on failure.',
-    install: 'flutter_shadcn add image',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/image/image.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'keyboard_shortcut',
-    name: 'KeyboardShortcut',
-    category: 'display',
-    description:
-        'Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.',
-    install: 'flutter_shadcn add keyboard_shortcut',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'markdown',
-    name: 'Markdown',
-    category: 'display',
-    description:
-        'Text-only markdown renderer with a shadcn theme, tap callbacks and an image preview overlay.',
-    install: 'flutter_shadcn add markdown',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/markdown/markdown.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'number_ticker',
-    name: 'NumberTicker',
-    category: 'display',
-    description:
-        'Animated number with a formatter or custom builder, plus flip-clock character rollers.',
-    install: 'flutter_shadcn add number_ticker',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/number_ticker/number_ticker.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'pinned_sheet',
-    name: 'Pinned Sheet',
-    category: 'display',
-    description:
-        'In-tree sheet that slides in from an edge, drags, and snaps between snap stages.',
-    install: 'flutter_shadcn add pinned_sheet',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/pinned_sheet/pinned_sheet.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'progress',
-    name: 'Progress',
-    category: 'display',
-    description:
-        'Determinate and indeterminate linear progress bar, widgets-only.',
-    install: 'flutter_shadcn add progress',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/progress/progress.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'selectable',
-    name: 'SelectableText',
-    category: 'display',
-    description:
-        'Read-only selectable text with widgets-only selection controls.',
-    install: 'flutter_shadcn add selectable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'skeleton',
-    name: 'Skeleton',
-    category: 'display',
-    description:
-        'Widgets-only loading placeholder with a repeating shimmer sweep; replaces the banned skeletonizer package.',
-    install: 'flutter_shadcn add skeleton',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/skeleton/skeleton.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'spinner',
-    name: 'Spinner',
-    category: 'display',
-    description:
-        'Indeterminate circular indicator with a rotating arc, widgets-only.',
-    install: 'flutter_shadcn add spinner',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/spinner/spinner.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'text_animate',
     name: 'TextAnimate',
-    category: 'display',
+    category: 'Animation & Effects',
     description:
         'Stream-aware animated text renderer for incremental updates, plus a streaming markdown tail.',
     install: 'flutter_shadcn add text_animate',
@@ -496,79 +163,33 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'tracker',
-    name: 'Tracker',
-    category: 'display',
+    id: 'button',
+    name: 'Button',
+    category: 'Buttons & Actions',
     description:
-        'A row of coloured activity segments, each with a hover tooltip.',
-    install: 'flutter_shadcn add tracker',
+        'Pressable action control with seven variants and five fixed sizes, plus a connected ButtonGroup.',
+    install: 'flutter_shadcn add button',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/tracker/tracker.dart';",
-    fileCount: 3,
+        "import 'package:<your_app>/ui/shadcn/components/button/button.dart';",
+    fileCount: 4,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'tree',
-    name: 'Tree',
-    category: 'display',
+    id: 'toggle',
+    name: 'Toggle',
+    category: 'Buttons & Actions',
     description:
-        'Immutable hierarchical list with expand/collapse, selection and themed indent guides.',
-    install: 'flutter_shadcn add tree',
-    import: "import 'package:<your_app>/ui/shadcn/components/tree/tree.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'triple_dots',
-    name: 'TripleDots',
-    category: 'display',
-    description: 'Row or column of small round dots, used as an ellipsis.',
-    install: 'flutter_shadcn add triple_dots',
+        'On/off button with a controlled and a controller-driven mode, plus form participation.',
+    install: 'flutter_shadcn add toggle',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'autocomplete',
-    name: 'AutoComplete',
-    category: 'form',
-    description:
-        'Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.',
-    install: 'flutter_shadcn add autocomplete',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/autocomplete/autocomplete.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'checkbox',
-    name: 'Checkbox',
-    category: 'form',
-    description:
-        'Tri-state form checkbox with controlled and controller-driven modes, keyboard activation and form participation.',
-    install: 'flutter_shadcn add checkbox',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/checkbox/checkbox.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'chip_input',
-    name: 'ChipInput',
-    category: 'form',
-    description:
-        'Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.',
-    install: 'flutter_shadcn add chip_input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/chip_input/chip_input.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/toggle/toggle.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
     id: 'color_field',
     name: 'Color Field',
-    category: 'form',
+    category: 'Color',
     description:
         'Custom-painted HSV/HSL gradient area with an optional transparency checkerboard and a themed ring.',
     install: 'flutter_shadcn add color_field',
@@ -580,7 +201,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'color_input',
     name: 'ColorInput',
-    category: 'form',
+    category: 'Color',
     description:
         'Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.',
     install: 'flutter_shadcn add color_input',
@@ -592,7 +213,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'color_picker',
     name: 'ColorPicker',
-    category: 'form',
+    category: 'Color',
     description:
         'Full colour picker: HSV/HSL pad, hue/alpha bars, RGB/HSL/HSV/HEX fields, optional alpha, colour history and screen sampling.',
     install: 'flutter_shadcn add color_picker',
@@ -602,494 +223,187 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'date_picker',
-    name: 'DatePicker',
-    category: 'form',
+    id: 'eye_dropper',
+    name: 'Eye Dropper',
+    category: 'Color',
     description:
-        'Single-date and date-span fields opening a calendar sheet (DatePickerDialog with month/year stepper) in a dialog or a popover, wired into the form system.',
-    install: 'flutter_shadcn add date_picker',
+        'Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).',
+    install: 'flutter_shadcn add eye_dropper',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/date_picker/date_picker.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'dropzone',
-    name: 'Dropzone',
-    category: 'form',
+    id: 'avatar',
+    name: 'Avatar',
+    category: 'Data Display',
     description:
-        'An upload surface: outline, upload icon, localized status line, optional hint and a browse button. Presentational — it takes a state, it does not listen to a drag stream.',
-    install: 'flutter_shadcn add dropzone',
+        'Image or initials tile with an optional badge and overlapping group.',
+    install: 'flutter_shadcn add avatar',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/dropzone/dropzone.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/avatar/avatar.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'file_picker',
-    name: 'File Picker',
-    category: 'form',
+    id: 'badge',
+    name: 'Badge',
+    category: 'Data Display',
     description:
-        'File selection surface (dropzone, tile or compact trigger) with validation, a concurrent upload queue and the FileUploadRow list — list or grid layout, caller-keyed groups, per-file icons.',
-    install: 'flutter_shadcn add file_picker',
+        'Small rounded label or status dot with four variants, optionally pressable.',
+    install: 'flutter_shadcn add badge',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/file_picker/file_picker.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/badge/badge.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'form',
-    name: 'ShadcnForm',
-    category: 'form',
+    id: 'carousel',
+    name: 'Carousel',
+    category: 'Data Display',
     description:
-        'ShadcnForm scope, labelled field layouts, validators, controller and submission flow.',
-    install: 'flutter_shadcn add form',
-    import: "import 'package:<your_app>/ui/shadcn/components/form/form.dart';",
+        'Paged carousel with a sliding or fading transition, drag, autoplay and a controller that drives the dot row.',
+    install: 'flutter_shadcn add carousel',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/carousel/carousel.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'formatted_input',
-    name: 'FormattedInput',
-    category: 'form',
+    id: 'chat',
+    name: 'Chat',
+    category: 'Data Display',
     description:
-        'Masked/segmented field (phone, date, card) built from static separators and small editable parts.',
-    install: 'flutter_shadcn add formatted_input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/formatted_input/formatted_input.dart';",
+        'Chat bubbles and groups: plain, tailed or sharp-corner bubbles aligned to their side of the row, with optional avatars.',
+    install: 'flutter_shadcn add chat',
+    import: "import 'package:<your_app>/ui/shadcn/components/chat/chat.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'formatter',
-    name: 'Formatter',
-    category: 'form',
+    id: 'chip',
+    name: 'Chip',
+    category: 'Data Display',
     description:
-        'Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, time) plus selection clipping helpers.',
-    install: 'flutter_shadcn add formatter',
+        'Compact deletable-token control plus the borderless control embedded inside a chip.',
+    install: 'flutter_shadcn add chip',
+    import: "import 'package:<your_app>/ui/shadcn/components/chip/chip.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'country_flag',
+    name: 'CountryFlag',
+    category: 'Data Display',
+    description:
+        'Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.',
+    install: 'flutter_shadcn add country_flag',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/formatter/formatter.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/country_flag/country_flag.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'divider',
+    name: 'Divider',
+    category: 'Data Display',
+    description:
+        'Themed rule in either orientation, optionally carrying a centred label.',
+    install: 'flutter_shadcn add divider',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/divider/divider.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'empty_state',
+    name: 'EmptyState',
+    category: 'Data Display',
+    description:
+        'A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.',
+    install: 'flutter_shadcn add empty_state',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/empty_state/empty_state.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'feature_carousel',
+    name: 'Feature Carousel',
+    category: 'Data Display',
+    description:
+        'Animated feature-card carousel with autoplay, swipe, keyboard navigation, nav arrows and a call to action.',
+    install: 'flutter_shadcn add feature_carousel',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/feature_carousel/feature_carousel.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'file_diff_viewer',
+    name: 'File Diff Viewer',
+    category: 'Data Display',
+    description:
+        'Renders unified or split file diffs with line gutters, coloured additions/deletions, collapsible unchanged hunks and a copy-patch action.',
+    install: 'flutter_shadcn add file_diff_viewer',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/file_diff_viewer/file_diff_viewer.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'keyboard_shortcut',
+    name: 'KeyboardShortcut',
+    category: 'Data Display',
+    description:
+        'Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.',
+    install: 'flutter_shadcn add keyboard_shortcut',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'number_ticker',
+    name: 'NumberTicker',
+    category: 'Data Display',
+    description:
+        'Animated number with a formatter or custom builder, plus flip-clock character rollers.',
+    install: 'flutter_shadcn add number_ticker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/number_ticker/number_ticker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'pinned_sheet',
+    name: 'Pinned Sheet',
+    category: 'Data Display',
+    description:
+        'In-tree sheet that slides in from an edge, drags, and snaps between snap stages.',
+    install: 'flutter_shadcn add pinned_sheet',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/pinned_sheet/pinned_sheet.dart';",
     fileCount: 1,
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'history',
-    name: 'Color History',
-    category: 'form',
-    description: 'Recent-colour storage plus the swatch grid that reuses them.',
-    install: 'flutter_shadcn add history',
+    id: 'selectable',
+    name: 'SelectableText',
+    category: 'Data Display',
+    description:
+        'Read-only selectable text with widgets-only selection controls.',
+    install: 'flutter_shadcn add selectable',
     import:
-        "import 'package:<your_app>/ui/shadcn/components/history/history.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'hsl',
-    name: 'HSL Color Slider',
-    category: 'form',
-    description:
-        'Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.',
-    install: 'flutter_shadcn add hsl',
-    import: "import 'package:<your_app>/ui/shadcn/components/hsl/hsl.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'hsv',
-    name: 'HSV Color Slider',
-    category: 'form',
-    description:
-        'Gradient slider that controls hue, saturation, value, or alpha for HSV colours.',
-    install: 'flutter_shadcn add hsv',
-    import: "import 'package:<your_app>/ui/shadcn/components/hsv/hsv.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'input',
-    name: 'Input',
-    category: 'form',
-    description:
-        'Widgets-only text field wrapping EditableText, with a pluggable feature system, form participation and a widgets-only selection menu.',
-    install: 'flutter_shadcn add input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/input/input.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'input_otp',
-    name: 'InputOtp',
-    category: 'form',
-    description:
-        'One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.',
-    install: 'flutter_shadcn add input_otp',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/input_otp/input_otp.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'item_picker',
-    name: 'ItemPicker',
-    category: 'form',
-    description:
-        'Field that edits a value by picking one item from a grid or list, in a dialog or popover.',
-    install: 'flutter_shadcn add item_picker',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/item_picker/item_picker.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'multi_select',
-    name: 'MultiSelect',
-    category: 'form',
-    description:
-        'A multi-selection dropdown built on select: checkbox popup rows (menu MenuCheckboxItem) that stay open while toggling, and removable chips in the trigger.',
-    install: 'flutter_shadcn add multi_select',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/multi_select/multi_select.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'multiple_choice',
-    name: 'Multiple Choice',
-    category: 'form',
-    description:
-        'Selection scopes for single-choice and multi-choice trees, controlled or controller-driven.',
-    install: 'flutter_shadcn add multiple_choice',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/multiple_choice/multiple_choice.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'object_input',
-    name: 'Object Input',
-    category: 'form',
-    description:
-        'Typed date, time and duration fields: locale-ordered numeric segments with a calendar dialog behind the date field.',
-    install: 'flutter_shadcn add object_input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/object_input/object_input.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'phone_input',
-    name: 'PhoneInput',
-    category: 'form',
-    description:
-        'Searchable country selector (flag + dial code) with a national-number field, wired into the form system.',
-    install: 'flutter_shadcn add phone_input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/phone_input/phone_input.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'radio_group',
-    name: 'RadioGroup',
-    category: 'form',
-    description:
-        'Single-select group with controlled and controller-driven modes, row and card item shapes, roving arrow-key traversal and form participation.',
-    install: 'flutter_shadcn add radio_group',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/radio_group/radio_group.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'select',
-    name: 'Select',
-    category: 'form',
-    description:
-        "A single-selection dropdown picker. The trigger reuses the button variant table and the popover primitive; the popup is the menu component's surface and rows; the search field is the input component.",
-    install: 'flutter_shadcn add select',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/select/select.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'slider',
-    name: 'Slider',
-    category: 'form',
-    description:
-        'Single- and range-value sliders with snap strategies, four visual variants, and keyboard/form support. Built on widgets gestures and CustomPaint — no Material Slider.',
-    install: 'flutter_shadcn add slider',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/slider/slider.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'star_rating',
-    name: 'Star Rating',
-    category: 'form',
-    description:
-        'Interactive star rating with half-star snapping, keyboard stepping, drag preview and form participation.',
-    install: 'flutter_shadcn add star_rating',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/star_rating/star_rating.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'switch',
-    name: 'Switch',
-    category: 'form',
-    description:
-        'Boolean form switch with controlled and controller-driven modes, sliding thumb, keyboard activation and form participation.',
-    install: 'flutter_shadcn add switch',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/switch/switch.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'text_area',
-    name: 'TextArea',
-    category: 'form',
-    description:
-        'Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.',
-    install: 'flutter_shadcn add text_area',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/text_area/text_area.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'time_picker',
-    name: 'TimePicker',
-    category: 'form',
-    description:
-        'Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.',
-    install: 'flutter_shadcn add time_picker',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/time_picker/time_picker.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'accordion',
-    name: 'Accordion',
-    category: 'layout',
-    description:
-        'Single-expansion accordion with animated items, themed dividers and a keyboard-accessible trigger.',
-    install: 'flutter_shadcn add accordion',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/accordion/accordion.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'alert',
-    name: 'Alert',
-    category: 'layout',
-    description:
-        'Bordered callout banner with base and destructive variants, a leading slot, title, content and trailing slot.',
-    install: 'flutter_shadcn add alert',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/alert/alert.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'app',
-    name: 'App',
-    category: 'layout',
-    description:
-        'App shell over WidgetsApp that installs ShadcnTheme, ComponentThemes, the overlay manager and shadcn localizations, plus the ShadcnUI default text/icon scope.',
-    install: 'flutter_shadcn add app',
-    import: "import 'package:<your_app>/ui/shadcn/components/app/app.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'card',
-    name: 'Card',
-    category: 'layout',
-    description:
-        'Rounded bordered surface with the shadcn header, title, description, content and footer slots.',
-    install: 'flutter_shadcn add card',
-    import: "import 'package:<your_app>/ui/shadcn/components/card/card.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'card_image',
-    name: 'Card Image',
-    category: 'layout',
-    description:
-        'A pressable card pairing an image with a leading/title/subtitle/trailing text block.',
-    install: 'flutter_shadcn add card_image',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/card_image/card_image.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'collapsible',
-    name: 'Collapsible',
-    category: 'layout',
-    description:
-        'Expandable section with a trigger, hidden content panes and controlled or uncontrolled expansion.',
-    install: 'flutter_shadcn add collapsible',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/collapsible/collapsible.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'filter_bar',
-    name: 'FilterBar',
-    category: 'layout',
-    description:
-        'Search, sort, date-range, custom filters and chips in one bar, with a clear action and a mobile sheet presentation; backed by a typed filter engine.',
-    install: 'flutter_shadcn add filter_bar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/filter_bar/filter_bar.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'group',
-    name: 'Group',
-    category: 'layout',
-    description:
-        'Absolute-position layout surface that places children at explicit offsets and sizes.',
-    install: 'flutter_shadcn add group',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/group/group.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'media_query',
-    name: 'MediaQueryVisibility',
-    category: 'layout',
-    description:
-        'Shows one child while the viewport width is inside a range and another when it is not.',
-    install: 'flutter_shadcn add media_query',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/media_query/media_query.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'outlined_container',
-    name: 'Outlined Container',
-    category: 'layout',
-    description:
-        'Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.',
-    install: 'flutter_shadcn add outlined_container',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'overflow_marquee',
-    name: 'Overflow Marquee',
-    category: 'layout',
-    description:
-        'Auto-scrolls content that overflows its container, horizontally or vertically, with soft edge fades and reduced-motion support.',
-    install: 'flutter_shadcn add overflow_marquee',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/overflow_marquee/overflow_marquee.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'resizable',
-    name: 'Resizable',
-    category: 'layout',
-    description:
-        'Split panes with draggable dividers, absolute or flexible sizing, min/max constraints, collapse and external controllers.',
-    install: 'flutter_shadcn add resizable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/resizable/resizable.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'scaffold',
-    name: 'Scaffold',
-    category: 'layout',
-    description:
-        'App screen shell with header/footer bars, a loading bar and keyboard avoidance, plus the AppBar title bar.',
-    install: 'flutter_shadcn add scaffold',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scaffold/scaffold.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'scrollable',
-    name: 'Scrollable',
-    category: 'layout',
-    description:
-        'Notification-driven edge-fade viewport for any scrollable subtree.',
-    install: 'flutter_shadcn add scrollable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'scrollable_client',
-    name: 'Scrollable Client',
-    category: 'layout',
-    description:
-        'Two-dimensional scroll surface with a builder that receives the current offset and viewport size.',
-    install: 'flutter_shadcn add scrollable_client',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollable_client/scrollable_client.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'sortable',
-    name: 'Sortable',
-    category: 'layout',
-    description:
-        'Drag-and-drop reordering primitives: a SortableLayer coordinates pan-driven sessions and renders the ghost, while Sortable<T> reports per-edge drop intents.',
-    install: 'flutter_shadcn add sortable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/sortable/sortable.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'stage_container',
-    name: 'Stage Container',
-    category: 'layout',
-    description:
-        'Responsive container that snaps content to breakpoint widths.',
-    install: 'flutter_shadcn add stage_container',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'steps',
-    name: 'Steps',
-    category: 'layout',
-    description: 'Vertical numbered step list joined by a connector line.',
-    install: 'flutter_shadcn add steps',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/steps/steps.dart';",
+        "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
     fileCount: 3,
     stability: 'stable',
   ),
   DocsComponent(
     id: 'table',
     name: 'Table',
-    category: 'layout',
+    category: 'Data Display',
     description:
         'Themed data grid with span-aware cells, frozen rows/columns, scrolling and optional column/row resizing.',
     install: 'flutter_shadcn add table',
@@ -1101,7 +415,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'timeline',
     name: 'Timeline',
-    category: 'layout',
+    category: 'Data Display',
     description:
         'Vertical three-column event timeline: time label, indicator dot with connector, title and content.',
     install: 'flutter_shadcn add timeline',
@@ -1111,9 +425,533 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'tracker',
+    name: 'Tracker',
+    category: 'Data Display',
+    description:
+        'A row of coloured activity segments, each with a hover tooltip.',
+    install: 'flutter_shadcn add tracker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/tracker/tracker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'tree',
+    name: 'Tree',
+    category: 'Data Display',
+    description:
+        'Immutable hierarchical list with expand/collapse, selection and themed indent guides.',
+    install: 'flutter_shadcn add tree',
+    import: "import 'package:<your_app>/ui/shadcn/components/tree/tree.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'calendar',
+    name: 'Calendar',
+    category: 'Date & Time',
+    description:
+        'Date, month and year grids with single, range and multi selection, roving-tabindex keyboard navigation and per-day semantic dates; the selection value types live in the date_math primitive.',
+    install: 'flutter_shadcn add calendar',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/calendar/calendar.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'date_picker',
+    name: 'DatePicker',
+    category: 'Date & Time',
+    description:
+        'Single-date and date-span fields opening a calendar sheet (DatePickerDialog with month/year stepper) in a dialog or a popover, wired into the form system.',
+    install: 'flutter_shadcn add date_picker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/date_picker/date_picker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'time_picker',
+    name: 'TimePicker',
+    category: 'Date & Time',
+    description:
+        'Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.',
+    install: 'flutter_shadcn add time_picker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/time_picker/time_picker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'alert',
+    name: 'Alert',
+    category: 'Feedback',
+    description:
+        'Bordered callout banner with base and destructive variants, a leading slot, title, content and trailing slot.',
+    install: 'flutter_shadcn add alert',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/alert/alert.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'progress',
+    name: 'Progress',
+    category: 'Feedback',
+    description:
+        'Determinate and indeterminate linear progress bar, widgets-only.',
+    install: 'flutter_shadcn add progress',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/progress/progress.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'skeleton',
+    name: 'Skeleton',
+    category: 'Feedback',
+    description:
+        'Widgets-only loading placeholder with a repeating shimmer sweep; replaces the banned skeletonizer package.',
+    install: 'flutter_shadcn add skeleton',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/skeleton/skeleton.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'spinner',
+    name: 'Spinner',
+    category: 'Feedback',
+    description:
+        'Indeterminate circular indicator with a rotating arc, widgets-only.',
+    install: 'flutter_shadcn add spinner',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/spinner/spinner.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'toast',
+    name: 'Toast',
+    category: 'Feedback',
+    description:
+        'Transient, non-blocking notifications anchored to a screen edge.',
+    install: 'flutter_shadcn add toast',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/toast/toast.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'autocomplete',
+    name: 'AutoComplete',
+    category: 'Forms & Inputs',
+    description:
+        'Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.',
+    install: 'flutter_shadcn add autocomplete',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/autocomplete/autocomplete.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'checkbox',
+    name: 'Checkbox',
+    category: 'Forms & Inputs',
+    description:
+        'Tri-state form checkbox with controlled and controller-driven modes, keyboard activation and form participation.',
+    install: 'flutter_shadcn add checkbox',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/checkbox/checkbox.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'chip_input',
+    name: 'ChipInput',
+    category: 'Forms & Inputs',
+    description:
+        'Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.',
+    install: 'flutter_shadcn add chip_input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/chip_input/chip_input.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'dropzone',
+    name: 'Dropzone',
+    category: 'Forms & Inputs',
+    description:
+        'An upload surface: outline, upload icon, localized status line, optional hint and a browse button. Presentational — it takes a state, it does not listen to a drag stream.',
+    install: 'flutter_shadcn add dropzone',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/dropzone/dropzone.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'file_picker',
+    name: 'File Picker',
+    category: 'Forms & Inputs',
+    description:
+        'File selection surface (dropzone, tile or compact trigger) with validation, a concurrent upload queue and the FileUploadRow list — list or grid layout, caller-keyed groups, per-file icons.',
+    install: 'flutter_shadcn add file_picker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/file_picker/file_picker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'form',
+    name: 'ShadcnForm',
+    category: 'Forms & Inputs',
+    description:
+        'ShadcnForm scope, labelled field layouts, validators, controller and submission flow.',
+    install: 'flutter_shadcn add form',
+    import: "import 'package:<your_app>/ui/shadcn/components/form/form.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'formatted_input',
+    name: 'FormattedInput',
+    category: 'Forms & Inputs',
+    description:
+        'Masked/segmented field (phone, date, card) built from static separators and small editable parts.',
+    install: 'flutter_shadcn add formatted_input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/formatted_input/formatted_input.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'input',
+    name: 'Input',
+    category: 'Forms & Inputs',
+    description:
+        'Widgets-only text field wrapping EditableText, with a pluggable feature system, form participation and a widgets-only selection menu.',
+    install: 'flutter_shadcn add input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/input/input.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'input_otp',
+    name: 'InputOtp',
+    category: 'Forms & Inputs',
+    description:
+        'One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.',
+    install: 'flutter_shadcn add input_otp',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/input_otp/input_otp.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'item_picker',
+    name: 'ItemPicker',
+    category: 'Forms & Inputs',
+    description:
+        'Field that edits a value by picking one item from a grid or list, in a dialog or popover.',
+    install: 'flutter_shadcn add item_picker',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/item_picker/item_picker.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'multi_select',
+    name: 'MultiSelect',
+    category: 'Forms & Inputs',
+    description:
+        'A multi-selection dropdown built on select: checkbox popup rows (menu MenuCheckboxItem) that stay open while toggling, and removable chips in the trigger.',
+    install: 'flutter_shadcn add multi_select',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/multi_select/multi_select.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'object_input',
+    name: 'Object Input',
+    category: 'Forms & Inputs',
+    description:
+        'Typed date, time and duration fields: locale-ordered numeric segments with a calendar dialog behind the date field.',
+    install: 'flutter_shadcn add object_input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/object_input/object_input.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'phone_input',
+    name: 'PhoneInput',
+    category: 'Forms & Inputs',
+    description:
+        'Searchable country selector (flag + dial code) with a national-number field, wired into the form system.',
+    install: 'flutter_shadcn add phone_input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/phone_input/phone_input.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'radio_group',
+    name: 'RadioGroup',
+    category: 'Forms & Inputs',
+    description:
+        'Single-select group with controlled and controller-driven modes, row and card item shapes, roving arrow-key traversal and form participation.',
+    install: 'flutter_shadcn add radio_group',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/radio_group/radio_group.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'select',
+    name: 'Select',
+    category: 'Forms & Inputs',
+    description:
+        "A single-selection dropdown picker. The trigger reuses the button variant table and the popover primitive; the popup is the menu component's surface and rows; the search field is the input component.",
+    install: 'flutter_shadcn add select',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/select/select.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'slider',
+    name: 'Slider',
+    category: 'Forms & Inputs',
+    description:
+        'Single- and range-value sliders with snap strategies, four visual variants, and keyboard/form support. Built on widgets gestures and CustomPaint — no Material Slider.',
+    install: 'flutter_shadcn add slider',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/slider/slider.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'star_rating',
+    name: 'Star Rating',
+    category: 'Forms & Inputs',
+    description:
+        'Interactive star rating with half-star snapping, keyboard stepping, drag preview and form participation.',
+    install: 'flutter_shadcn add star_rating',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/star_rating/star_rating.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'switch',
+    name: 'Switch',
+    category: 'Forms & Inputs',
+    description:
+        'Boolean form switch with controlled and controller-driven modes, sliding thumb, keyboard activation and form participation.',
+    install: 'flutter_shadcn add switch',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/switch/switch.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'text_area',
+    name: 'TextArea',
+    category: 'Forms & Inputs',
+    description:
+        'Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.',
+    install: 'flutter_shadcn add text_area',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/text_area/text_area.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'accordion',
+    name: 'Accordion',
+    category: 'Layout',
+    description:
+        'Single-expansion accordion with animated items, themed dividers and a keyboard-accessible trigger.',
+    install: 'flutter_shadcn add accordion',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/accordion/accordion.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'card',
+    name: 'Card',
+    category: 'Layout',
+    description:
+        'Rounded bordered surface with the shadcn header, title, description, content and footer slots.',
+    install: 'flutter_shadcn add card',
+    import: "import 'package:<your_app>/ui/shadcn/components/card/card.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'card_image',
+    name: 'Card Image',
+    category: 'Layout',
+    description:
+        'A pressable card pairing an image with a leading/title/subtitle/trailing text block.',
+    install: 'flutter_shadcn add card_image',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/card_image/card_image.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'collapsible',
+    name: 'Collapsible',
+    category: 'Layout',
+    description:
+        'Expandable section with a trigger, hidden content panes and controlled or uncontrolled expansion.',
+    install: 'flutter_shadcn add collapsible',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/collapsible/collapsible.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'filter_bar',
+    name: 'FilterBar',
+    category: 'Layout',
+    description:
+        'Search, sort, date-range, custom filters and chips in one bar, with a clear action and a mobile sheet presentation; backed by a typed filter engine.',
+    install: 'flutter_shadcn add filter_bar',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/filter_bar/filter_bar.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'outlined_container',
+    name: 'Outlined Container',
+    category: 'Layout',
+    description:
+        'Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.',
+    install: 'flutter_shadcn add outlined_container',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'overflow_marquee',
+    name: 'Overflow Marquee',
+    category: 'Layout',
+    description:
+        'Auto-scrolls content that overflows its container, horizontally or vertically, with soft edge fades and reduced-motion support.',
+    install: 'flutter_shadcn add overflow_marquee',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/overflow_marquee/overflow_marquee.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'resizable',
+    name: 'Resizable',
+    category: 'Layout',
+    description:
+        'Split panes with draggable dividers, absolute or flexible sizing, min/max constraints, collapse and external controllers.',
+    install: 'flutter_shadcn add resizable',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/resizable/resizable.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'scaffold',
+    name: 'Scaffold',
+    category: 'Layout',
+    description:
+        'App screen shell with header/footer bars, a loading bar and keyboard avoidance, plus the AppBar title bar.',
+    install: 'flutter_shadcn add scaffold',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scaffold/scaffold.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'scrollable',
+    name: 'Scrollable',
+    category: 'Layout',
+    description:
+        'Notification-driven edge-fade viewport for any scrollable subtree.',
+    install: 'flutter_shadcn add scrollable',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'scrollbar',
+    name: 'Scrollbar',
+    category: 'Layout',
+    description:
+        "Themeable scrollbar wrapper around Flutter's RawScrollbar with token-derived thumb, thickness and radius.",
+    install: 'flutter_shadcn add scrollbar',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'scrollview',
+    name: 'Scroll View Interceptor',
+    category: 'Layout',
+    description:
+        'Middle-button drag-to-scroll interceptor for desktop and web pointer devices.',
+    install: 'flutter_shadcn add scrollview',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'sortable',
+    name: 'Sortable',
+    category: 'Layout',
+    description:
+        'Drag-and-drop reordering primitives: a SortableLayer coordinates pan-driven sessions and renders the ghost, while Sortable<T> reports per-edge drop intents.',
+    install: 'flutter_shadcn add sortable',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/sortable/sortable.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'stage_container',
+    name: 'Stage Container',
+    category: 'Layout',
+    description:
+        'Responsive container that snaps content to breakpoint widths.',
+    install: 'flutter_shadcn add stage_container',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'steps',
+    name: 'Steps',
+    category: 'Layout',
+    description: 'Vertical numbered step list joined by a connector line.',
+    install: 'flutter_shadcn add steps',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/steps/steps.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'window',
     name: 'Window',
-    category: 'layout',
+    category: 'Layout',
     description:
         'Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.',
     install: 'flutter_shadcn add window',
@@ -1123,9 +961,79 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'command',
+    name: 'Command',
+    category: 'Menus',
+    description:
+        'Command palette with a debounced async result stream, keyboard navigation and a dialog entry point.',
+    install: 'flutter_shadcn add command',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/command/command.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'context_menu',
+    name: 'ContextMenu',
+    category: 'Menus',
+    description:
+        'A menu shown at the pointer on right-click (long-press on touch platforms), plus the showShadcnContextMenu helper. Rows, traversal and the popup surface come from the menu component.',
+    install: 'flutter_shadcn add context_menu',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/context_menu/context_menu.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'dropdown_menu',
+    name: 'DropdownMenu',
+    category: 'Menus',
+    description:
+        'A menu surface anchored below the widget that opened it, plus the showShadcnDropdown helper. Rows, traversal and the popup surface come from the menu component.',
+    install: 'flutter_shadcn add dropdown_menu',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/dropdown_menu/dropdown_menu.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'menu',
+    name: 'Menu',
+    category: 'Menus',
+    description:
+        'Keyboard-navigable menu family: MenuGroup with roving focus and typeahead; MenuButton, MenuCheckboxItem, MenuRadioItem, MenuLabel, MenuShortcut, MenuSeparator and MenuSub rows; showShadcnMenu helper; MenuPopup surface. Owns MenuPopupTheme and MenubarTheme for the wave-D menu consumers.',
+    install: 'flutter_shadcn add menu',
+    import: "import 'package:<your_app>/ui/shadcn/components/menu/menu.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'menubar',
+    name: 'Menubar',
+    category: 'Menus',
+    description:
+        "A horizontal bar of menu triggers whose submenus open below the bar. Rows, keyboard traversal and popup surfaces are the menu component's; MenubarTheme is owned by menu and resolved here.",
+    install: 'flutter_shadcn add menubar',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/menubar/menubar.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'triple_dots',
+    name: 'TripleDots',
+    category: 'Menus',
+    description: 'Row or column of small round dots, used as an ellipsis.',
+    install: 'flutter_shadcn add triple_dots',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'breadcrumb',
     name: 'Breadcrumb',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Horizontal trail of crumbs with a chevron or slash separator.',
     install: 'flutter_shadcn add breadcrumb',
@@ -1137,7 +1045,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'navigation_bar',
     name: 'Navigation Bar',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Navigation container for bars, rails and sidebars: selectable items with labels, groups, collapsibles, dividers, slots and arrow-key roving.',
     install: 'flutter_shadcn add navigation_bar',
@@ -1149,7 +1057,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'navigation_menu',
     name: 'NavigationMenu',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Horizontal navigation bar whose entries open themed popover content on hover or press.',
     install: 'flutter_shadcn add navigation_menu',
@@ -1159,21 +1067,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'page_route',
-    name: 'ShadcnPageRoute',
-    category: 'navigation',
-    description:
-        'Widgets-only page route and declarative Page with the shadcn fade + slide transition.',
-    install: 'flutter_shadcn add page_route',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/page_route/page_route.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'pagination',
     name: 'Pagination',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Previous/next controls with a clamped window of page buttons.',
     install: 'flutter_shadcn add pagination',
@@ -1185,7 +1081,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'stepper',
     name: 'Stepper',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Multi-step flow with numbered indicators and connectors, horizontal or vertical, controlled or controller-driven.',
     install: 'flutter_shadcn add stepper',
@@ -1197,7 +1093,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'switcher',
     name: 'Switcher',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Swipeable view that animates between child widgets along a chosen axis.',
     install: 'flutter_shadcn add switcher',
@@ -1209,7 +1105,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'tabs',
     name: 'Tabs',
-    category: 'navigation',
+    category: 'Navigation',
     description:
         'Pill tab strip with roving arrow-key navigation, plus a sortable IDE-style tab pane over a content card.',
     install: 'flutter_shadcn add tabs',
@@ -1220,7 +1116,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'alert_dialog',
     name: 'AlertDialog',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Shadcn alert dialog: icon, title, description and an action footer on top of the dialog route.',
     install: 'flutter_shadcn add alert_dialog',
@@ -1230,45 +1126,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'anchor',
-    name: 'Anchor',
-    category: 'overlay',
-    description:
-        'Describes the point an overlay positions itself against and tracks it while it moves.',
-    install: 'flutter_shadcn add anchor',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/anchor/anchor.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'backdrop_transform',
-    name: 'BackdropTransform',
-    category: 'overlay',
-    description:
-        'Strategy describing how the content behind a sheet or drawer is transformed while it opens.',
-    install: 'flutter_shadcn add backdrop_transform',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/backdrop_transform/backdrop_transform.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'context_menu',
-    name: 'ContextMenu',
-    category: 'overlay',
-    description:
-        'A menu shown at the pointer on right-click (long-press on touch platforms), plus the showShadcnContextMenu helper. Rows, traversal and the popup surface come from the menu component.',
-    install: 'flutter_shadcn add context_menu',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/context_menu/context_menu.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'dialog',
     name: 'Dialog',
-    category: 'overlay',
+    category: 'Overlays',
     description: 'Modal dialog route and themed card shell.',
     install: 'flutter_shadcn add dialog',
     import:
@@ -1279,7 +1139,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'drawer',
     name: 'Drawer',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Modal panel that slides in from a screen edge, plus an expanding sheet variant.',
     install: 'flutter_shadcn add drawer',
@@ -1291,7 +1151,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'drawer_container',
     name: 'Drawer Container',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.',
     install: 'flutter_shadcn add drawer_container',
@@ -1301,33 +1161,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'dropdown_menu',
-    name: 'DropdownMenu',
-    category: 'overlay',
-    description:
-        'A menu surface anchored below the widget that opened it, plus the showShadcnDropdown helper. Rows, traversal and the popup surface come from the menu component.',
-    install: 'flutter_shadcn add dropdown_menu',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/dropdown_menu/dropdown_menu.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'eye_dropper',
-    name: 'Eye Dropper',
-    category: 'overlay',
-    description:
-        'Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).',
-    install: 'flutter_shadcn add eye_dropper',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'gooey_toast',
     name: 'Gooey Toast',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Gooey-style transient notifications: a compact pill whose metaball silhouette morphs into an expanded body, built on the shared toast queue.',
     install: 'flutter_shadcn add gooey_toast',
@@ -1339,7 +1175,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'hover_card',
     name: 'HoverCard',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Rich preview card shown while the pointer rests on its child, presented through the popover machinery with themed timing and placement.',
     install: 'flutter_shadcn add hover_card',
@@ -1349,44 +1185,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'menu',
-    name: 'Menu',
-    category: 'overlay',
-    description:
-        'Keyboard-navigable menu family: MenuGroup with roving focus and typeahead; MenuButton, MenuCheckboxItem, MenuRadioItem, MenuLabel, MenuShortcut, MenuSeparator and MenuSub rows; showShadcnMenu helper; MenuPopup surface. Owns MenuPopupTheme and MenubarTheme for the wave-D menu consumers.',
-    install: 'flutter_shadcn add menu',
-    import: "import 'package:<your_app>/ui/shadcn/components/menu/menu.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'menubar',
-    name: 'Menubar',
-    category: 'overlay',
-    description:
-        "A horizontal bar of menu triggers whose submenus open below the bar. Rows, keyboard traversal and popup surfaces are the menu component's; MenubarTheme is owned by menu and resolved here.",
-    install: 'flutter_shadcn add menubar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/menubar/menubar.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
-    id: 'overlay_configuration',
-    name: 'Overlay Configuration',
-    category: 'overlay',
-    description:
-        'Describe what overlay to show and how (popover, drawer, sheet, dialog, tooltip) behind one configuration object, plus showOverlay and OverlayController.',
-    install: 'flutter_shadcn add overlay_configuration',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/overlay_configuration/overlay_configuration.dart';",
-    fileCount: 1,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'popup',
     name: 'Popup',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         "An anchored floating surface for arbitrary content: the menu component's MenuPopup (re-exported) plus showShadcnPopup, a generic helper with Escape/outside-tap dismissal.",
     install: 'flutter_shadcn add popup',
@@ -1398,7 +1199,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'refresh_trigger',
     name: 'RefreshTrigger',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Pull-to-refresh wrapper for any scrollable, with a themed indicator pill and programmatic refresh.',
     install: 'flutter_shadcn add refresh_trigger',
@@ -1410,7 +1211,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'spell_check_suggestions_toolbar',
     name: 'SpellCheckSuggestionsToolbar',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Menu-backed toolbar for the spell check replacements of the misspelled word under an editable text cursor: up to three suggestion rows in the menu popup surface.',
     install: 'flutter_shadcn add spell_check_suggestions_toolbar',
@@ -1422,7 +1223,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'swiper',
     name: 'Swiper',
-    category: 'overlay',
+    category: 'Overlays',
     description: 'Swipe-to-open wrapper that reveals a drawer or sheet panel.',
     install: 'flutter_shadcn add swiper',
     import:
@@ -1431,21 +1232,9 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
-    id: 'toast',
-    name: 'Toast',
-    category: 'overlay',
-    description:
-        'Transient, non-blocking notifications anchored to a screen edge.',
-    install: 'flutter_shadcn add toast',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/toast/toast.dart';",
-    fileCount: 3,
-    stability: 'stable',
-  ),
-  DocsComponent(
     id: 'tooltip',
     name: 'Tooltip',
-    category: 'overlay',
+    category: 'Overlays',
     description:
         'Delayed hover label presented through the popover machinery, plus the themed TooltipContainer surface and the tooltip overlay handler.',
     install: 'flutter_shadcn add tooltip',
@@ -1455,9 +1244,45 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'code_snippet',
+    name: 'CodeSnippet',
+    category: 'Typography & Media',
+    description:
+        'Scrollable code block with optional top-right action buttons.',
+    install: 'flutter_shadcn add code_snippet',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/code_snippet/code_snippet.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'image',
+    name: 'ShadcnImage',
+    category: 'Typography & Media',
+    description:
+        'Themed rounded image slot with a placeholder while loading and a caller-supplied error slot on failure.',
+    install: 'flutter_shadcn add image',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/image/image.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'markdown',
+    name: 'Markdown',
+    category: 'Typography & Media',
+    description:
+        'Text-only markdown renderer with a shadcn theme, tap callbacks and an image preview overlay.',
+    install: 'flutter_shadcn add markdown',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/markdown/markdown.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'alpha',
     name: 'Alpha',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description: 'Checkerboard painter for transparency indicators.',
     install: 'flutter_shadcn add alpha',
     import:
@@ -1466,9 +1291,32 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'anchor',
+    name: 'Anchor',
+    category: 'Utilities (building blocks)',
+    description:
+        'Describes the point an overlay positions itself against and tracks it while it moves.',
+    install: 'flutter_shadcn add anchor',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/anchor/anchor.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'app',
+    name: 'App',
+    category: 'Utilities (building blocks)',
+    description:
+        'App shell over WidgetsApp that installs ShadcnTheme, ComponentThemes, the overlay manager and shadcn localizations, plus the ShadcnUI default text/icon scope.',
+    install: 'flutter_shadcn add app',
+    import: "import 'package:<your_app>/ui/shadcn/components/app/app.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'async',
     name: 'FutureOrBuilder',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description:
         'Renders a value that may already be available or may still be loading through one builder.',
     install: 'flutter_shadcn add async',
@@ -1478,9 +1326,21 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'backdrop_transform',
+    name: 'BackdropTransform',
+    category: 'Utilities (building blocks)',
+    description:
+        'Strategy describing how the content behind a sheet or drawer is transformed while it opens.',
+    install: 'flutter_shadcn add backdrop_transform',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/backdrop_transform/backdrop_transform.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'color',
     name: 'Color',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description:
         'The ColorDerivative colour model shared by the colour components: space-preserving RGB/HSV/HSL edits and hex parsing.',
     install: 'flutter_shadcn add color',
@@ -1492,7 +1352,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   DocsComponent(
     id: 'error_system',
     name: 'Error System',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description:
         'Structured error models, rule-based mapping, app/screen error channels and the matching UI surfaces.',
     install: 'flutter_shadcn add error_system',
@@ -1502,9 +1362,77 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'formatter',
+    name: 'Formatter',
+    category: 'Utilities (building blocks)',
+    description:
+        'Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, time) plus selection clipping helpers.',
+    install: 'flutter_shadcn add formatter',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/formatter/formatter.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'group',
+    name: 'Group',
+    category: 'Utilities (building blocks)',
+    description:
+        'Absolute-position layout surface that places children at explicit offsets and sizes.',
+    install: 'flutter_shadcn add group',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/group/group.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'history',
+    name: 'Color History',
+    category: 'Utilities (building blocks)',
+    description: 'Recent-colour storage plus the swatch grid that reuses them.',
+    install: 'flutter_shadcn add history',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/history/history.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'hsl',
+    name: 'HSL Color Slider',
+    category: 'Utilities (building blocks)',
+    description:
+        'Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.',
+    install: 'flutter_shadcn add hsl',
+    import: "import 'package:<your_app>/ui/shadcn/components/hsl/hsl.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'hsv',
+    name: 'HSV Color Slider',
+    category: 'Utilities (building blocks)',
+    description:
+        'Gradient slider that controls hue, saturation, value, or alpha for HSV colours.',
+    install: 'flutter_shadcn add hsv',
+    import: "import 'package:<your_app>/ui/shadcn/components/hsv/hsv.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'icon',
+    name: 'Icon',
+    category: 'Utilities (building blocks)',
+    description:
+        'Theme-driven icon size/colour modifiers and a filled icon container.',
+    install: 'flutter_shadcn add icon',
+    import: "import 'package:<your_app>/ui/shadcn/components/icon/icon.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'locale_utils',
     name: 'Locale Utils',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description:
         'Byte-size formatting against a configurable unit table (decimal, binary or custom).',
     install: 'flutter_shadcn add locale_utils',
@@ -1514,9 +1442,81 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     stability: 'stable',
   ),
   DocsComponent(
+    id: 'media_query',
+    name: 'MediaQueryVisibility',
+    category: 'Utilities (building blocks)',
+    description:
+        'Shows one child while the viewport width is inside a range and another when it is not.',
+    install: 'flutter_shadcn add media_query',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/media_query/media_query.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'multiple_choice',
+    name: 'Multiple Choice',
+    category: 'Utilities (building blocks)',
+    description:
+        'Selection scopes for single-choice and multi-choice trees, controlled or controller-driven.',
+    install: 'flutter_shadcn add multiple_choice',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/multiple_choice/multiple_choice.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'overlay_configuration',
+    name: 'Overlay Configuration',
+    category: 'Utilities (building blocks)',
+    description:
+        'Describe what overlay to show and how (popover, drawer, sheet, dialog, tooltip) behind one configuration object, plus showOverlay and OverlayController.',
+    install: 'flutter_shadcn add overlay_configuration',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/overlay_configuration/overlay_configuration.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'page_route',
+    name: 'ShadcnPageRoute',
+    category: 'Utilities (building blocks)',
+    description:
+        'Widgets-only page route and declarative Page with the shadcn fade + slide transition.',
+    install: 'flutter_shadcn add page_route',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/page_route/page_route.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'patch',
+    name: 'ClickDetector',
+    category: 'Utilities (building blocks)',
+    description:
+        'Counts consecutive taps inside a time and distance window for double/triple-click gestures.',
+    install: 'flutter_shadcn add patch',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/patch/patch.dart';",
+    fileCount: 1,
+    stability: 'stable',
+  ),
+  DocsComponent(
+    id: 'scrollable_client',
+    name: 'Scrollable Client',
+    category: 'Utilities (building blocks)',
+    description:
+        'Two-dimensional scroll surface with a builder that receives the current offset and viewport size.',
+    install: 'flutter_shadcn add scrollable_client',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollable_client/scrollable_client.dart';",
+    fileCount: 3,
+    stability: 'stable',
+  ),
+  DocsComponent(
     id: 'timeline_animation',
     name: 'Timeline Animation',
-    category: 'utility',
+    category: 'Utilities (building blocks)',
     description:
         "Typed keyframe timeline: turns an AnimationController's 0..1 progress into values segment by segment.",
     install: 'flutter_shadcn add timeline_animation',
@@ -1887,13 +1887,19 @@ const List<DocsComponentLink> kComponentLinks = <DocsComponentLink>[
 
 /// Catalog categories, count descending then id.
 const List<DocsCategory> kCategories = <DocsCategory>[
-  DocsCategory(id: 'form', count: 29),
-  DocsCategory(id: 'display', count: 28),
-  DocsCategory(id: 'layout', count: 21),
-  DocsCategory(id: 'overlay', count: 20),
-  DocsCategory(id: 'navigation', count: 8),
-  DocsCategory(id: 'control', count: 6),
-  DocsCategory(id: 'utility', count: 6),
+  DocsCategory(id: 'Utilities (building blocks)', count: 21),
+  DocsCategory(id: 'Forms & Inputs', count: 19),
+  DocsCategory(id: 'Data Display', count: 18),
+  DocsCategory(id: 'Layout', count: 16),
+  DocsCategory(id: 'Overlays', count: 11),
+  DocsCategory(id: 'Navigation', count: 7),
+  DocsCategory(id: 'Menus', count: 6),
+  DocsCategory(id: 'Feedback', count: 5),
+  DocsCategory(id: 'Color', count: 4),
+  DocsCategory(id: 'Animation & Effects', count: 3),
+  DocsCategory(id: 'Date & Time', count: 3),
+  DocsCategory(id: 'Typography & Media', count: 3),
+  DocsCategory(id: 'Buttons & Actions', count: 2),
 ];
 
 /// Stats band values, each with its derivation.

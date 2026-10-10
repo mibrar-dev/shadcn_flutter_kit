@@ -366,6 +366,109 @@ int _functionRank(String name) {
   return 2;
 }
 
+/// The named-example list for one component (`<camelName>Previews`), found in
+/// its `preview.dart` under the P6-F3 preview contract.
+///
+/// Returns null when the file still ships the old single gallery class.
+String? findPreviewExampleList({required String source}) {
+  final ParseStringResult result = parseString(
+    content: source,
+    throwIfDiagnostics: false,
+  );
+  for (final Declaration declaration in result.unit.declarations) {
+    if (declaration is! TopLevelVariableDeclaration) {
+      continue;
+    }
+    for (final VariableDeclaration variable
+        in declaration.variables.variables) {
+      final String name = variable.name.lexeme;
+      if (!name.endsWith('Previews')) {
+        continue;
+      }
+      return name;
+    }
+  }
+  return null;
+}
+
+/// The example names of the `const List<ComponentPreview>` export in
+/// [source], in declaration order (P6-F4).
+///
+/// Uses `package:analyzer` (unresolved AST, no regex): finds the top-level
+/// variable whose type is `List<ComponentPreview>`, then reads the first
+/// positional string of every `ComponentPreview('Name', ...)` element.
+/// Returns an empty list when the file ships the old single gallery class.
+List<String> findPreviewExamples({required String source}) {
+  final ParseStringResult result = parseString(
+    content: source,
+    throwIfDiagnostics: false,
+  );
+  for (final Declaration declaration in result.unit.declarations) {
+    if (declaration is! TopLevelVariableDeclaration) {
+      continue;
+    }
+    final VariableDeclarationList list = declaration.variables;
+    final String type = list.type?.toSource().replaceAll(' ', '') ?? '';
+    if (type != 'List<ComponentPreview>') {
+      continue;
+    }
+    if (list.variables.length != 1) {
+      continue;
+    }
+    final Expression? initializer = list.variables.first.initializer;
+    if (initializer is! ListLiteral) {
+      continue;
+    }
+    final List<String> names = <String>[];
+    for (final CollectionElement element in initializer.elements) {
+      if (element is! Expression) {
+        continue;
+      }
+      final String? name = _previewElementName(element);
+      if (name != null) {
+        names.add(name);
+      }
+    }
+    return names;
+  }
+  return const <String>[];
+}
+
+/// The first positional string of `ComponentPreview('Name', ...)`, or null.
+///
+/// The unresolved AST parses the element as a `MethodInvocation`
+/// (`ComponentPreview('Default', ...)` with no `const` keyword, implicitly
+/// const inside the list); a `const`-prefixed element parses as an
+/// `InstanceCreationExpression`. Both are accepted.
+String? _previewElementName(Expression expression) {
+  final String? constructor = switch (expression) {
+    InstanceCreationExpression miles => miles.constructorName.type.name.lexeme,
+    MethodInvocation call => call.methodName.name,
+    _ => null,
+  };
+  if (constructor != 'ComponentPreview') {
+    return null;
+  }
+  final ArgumentList arguments = switch (expression) {
+    InstanceCreationExpression miles => miles.argumentList,
+    MethodInvocation call => call.argumentList,
+    _ => throw StateError('unreachable'),
+  };
+  for (final Argument argument in arguments.arguments) {
+    if (argument is NamedArgument) {
+      continue;
+    }
+    if (argument is SimpleStringLiteral) {
+      return argument.value;
+    }
+    if (argument is AdjacentStrings) {
+      return argument.stringValue;
+    }
+    return null;
+  }
+  return null;
+}
+
 /// The preview widget class for one component, found in its `preview.dart`.
 ///
 /// Preference: `<DisplayName>Preview`, `<componentId>Preview`, then a single
@@ -373,7 +476,7 @@ int _functionRank(String name) {
 /// deferred-preview registry can never point at a missing class (`hsl` ->
 /// `HSLPreview`, `autocomplete` -> `AutoCompletePreview` are the known
 /// irregular names).
-String findPreviewClass({
+String? findPreviewClass({
   required String source,
   required String componentId,
   required String displayName,
@@ -405,10 +508,9 @@ String findPreviewClass({
   if (widgetPreviews.length == 1) {
     return widgetPreviews.single.namePart.typeName.lexeme;
   }
-  throw DartScanException(
-    '$componentId/preview.dart: cannot pick one preview class from '
-    '${names.toList()..sort()}',
-  );
+  // Nothing suitable in this file. The caller falls back to the P6-F3
+  // named-example list, or fails with its own message.
+  return null;
 }
 
 /// `amber-minimal` -> `AmberMinimal`; `AutoComplete` stays `AutoComplete`.

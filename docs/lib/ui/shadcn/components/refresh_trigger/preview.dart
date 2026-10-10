@@ -1,165 +1,47 @@
-// Gallery preview for the `refresh_trigger` component: the default pill in
-// every stage plus a live trigger around a list. Widgets-only; the docs app
-// embeds [RefreshTriggerPreview] directly.
+// Named examples for the `refresh_trigger` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each example carries its own bounded box because
+// the pull viewport cannot lay out under unbounded constraints.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
 import 'refresh_trigger.dart';
 
-/// Renders the refresh trigger gallery.
-class RefreshTriggerPreview extends StatefulWidget {
-  /// Creates the preview.
-  const RefreshTriggerPreview({super.key});
-
-  @override
-  State<RefreshTriggerPreview> createState() => _RefreshTriggerPreviewState();
-}
-
-class _RefreshTriggerPreviewState extends State<RefreshTriggerPreview> {
-  TriggerStage _stage = TriggerStage.pulling;
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 13),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _section(
-                'Stages',
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    for (final TriggerStage stage in TriggerStage.values)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: DefaultRefreshIndicator(
-                          stage: RefreshTriggerStage(
-                            stage,
-                            const AlwaysStoppedAnimation<double>(0.5),
-                            Axis.vertical,
-                            false,
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              const Gap(24),
-              _section(
-                'Live (pull the list down)',
-                SizedBox(
-                  height: 220,
-                  child: RefreshTrigger(
-                    onRefresh: () async {},
-                    child: ListView.builder(
-                      itemCount: 30,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Text('Row $index'),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const Gap(24),
-              _section(
-                'Stage switch',
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    DefaultRefreshIndicator(
-                      stage: RefreshTriggerStage(
-                        _stage,
-                        const AlwaysStoppedAnimation<double>(0.8),
-                        Axis.vertical,
-                        false,
-                      ),
-                    ),
-                    const Gap(8),
-                    Wrap(
-                      spacing: 8,
-                      children: <Widget>[
-                        for (final TriggerStage stage in TriggerStage.values)
-                          _StageButton(
-                            stage: stage,
-                            selected: stage == _stage,
-                            onPressed: () => setState(() => _stage = stage),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+/// A live pull-to-refresh list in a bounded box.
+Widget _default(BuildContext context) {
+  return SizedBox(
+    width: 320,
+    height: 200,
+    child: RefreshTrigger(
+      onRefresh: () async {},
+      child: ListView.builder(
+        itemCount: 30,
+        itemBuilder: (BuildContext context, int index) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Text('Row $index'),
         ),
       ),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-        ),
-        const Gap(8),
-        child,
-      ],
-    );
-  }
+    ),
+  );
 }
 
-/// Stage selector button for the preview.
-class _StageButton extends StatelessWidget {
-  /// Creates a stage button.
-  const _StageButton({
-    required this.stage,
-    required this.selected,
-    required this.onPressed,
-  });
-
-  /// Stage selecting this button reports.
-  final TriggerStage stage;
-
-  /// Whether this stage is active.
-  final bool selected;
-
-  /// Called on tap.
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData ambient = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          color: selected ? ambient.colors.primary : ambient.colors.secondary,
-          borderRadius: ambient.borderRadiusMd,
-        ),
-        child: Text(
-          stage.name,
-          style: TextStyle(
-            fontSize: 12,
-            color: selected
-                ? ambient.colors.primaryForeground
-                : ambient.colors.secondaryForeground,
-          ),
-        ),
-      ),
-    );
-  }
+/// The pill indicator frozen in its refreshing stage.
+Widget _refreshing(BuildContext context) {
+  return const DefaultRefreshIndicator(
+    stage: RefreshTriggerStage(
+      TriggerStage.refreshing,
+      AlwaysStoppedAnimation<double>(0.8),
+      Axis.vertical,
+      false,
+    ),
+  );
 }
+
+/// Named docs examples for `refresh_trigger`; the first entry is the default.
+const List<ComponentPreview> refreshTriggerPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Refreshing', _refreshing),
+];

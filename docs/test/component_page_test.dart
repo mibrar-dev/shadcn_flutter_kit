@@ -1,10 +1,12 @@
 // D4 component page tests: the template renders for button/dialog/command,
-// the deferred preview loads, the install block shows the generated file
-// lists, and the API/theme/keyboard tables render from generated data.
-// Golden tests cover light + dark for the three sample components.
+// the deferred preview loads one named example at a time (P6-F4), the install
+// block shows the generated file lists, and the API/theme/keyboard tables
+// render from generated data. Golden tests cover light + dark.
 
+import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/ui/shadcn/components/badge/badge.dart';
+import 'package:docs/ui/shadcn/components/button/button.dart';
 import 'package:docs/widgets/preview_stage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,9 +23,20 @@ void main() {
       expect(find.text('Button'), findsWidgets);
       expect(find.byType(Badge), findsWidgets);
       expect(find.byType(PreviewStage), findsOneWidget);
-      // Deferred preview loads (button preview shows variant sections).
+      // P6-F4: one named example at a time behind a Select, plus the
+      // per-preview light/dark toggle. The deferred chunk loads async.
       await tester.pumpAndSettle();
-      expect(find.text('Variants'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey<String>('preview-example-select')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+        findsOneWidget,
+      );
+      // The default example (button "Default") paints a Button.
+      expect(find.byType(Button), findsWidgets);
+      expect(find.text('Button'), findsWidgets);
       // Install block.
       expect(find.text('Installation'), findsWidgets);
       expect(find.text('Command'), findsWidgets);
@@ -114,6 +127,82 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Accessibility'), findsWidgets);
       expect(find.textContaining('ArrowLeft / ArrowRight'), findsWidgets);
+    });
+
+    testWidgets('example Select lists every named example', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
+      final List<String> names = kComponentPreviews['button']!;
+      expect(names.length, 11);
+      // The trigger shows the default example.
+      expect(find.text(names.first), findsWidgets);
+      // Opening the Select reveals every example name.
+      await tester.tap(
+        find.byKey(const ValueKey<String>('preview-example-select')),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      for (final String name in names) {
+        expect(find.text(name), findsWidgets);
+      }
+    });
+
+    testWidgets('switching examples re-renders the stage', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
+      // Default example shows the primary button label.
+      expect(find.text('Button'), findsWidgets);
+      // Switch to the Destructive example through DocsState (the Select
+      // writes here too; the state path is what the stage reads). The
+      // deferred chunk reload needs a second settle: the first completes
+      // the `loadLibrary` future, the second builds the new example.
+      docsState.setPreviewExample('button', 'Destructive');
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      expect(find.text('Delete'), findsOneWidget);
+      // The selection survives navigation away and back.
+      await goTo(tester, delegate, '/docs/components/badge');
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      expect(find.text('Delete'), findsOneWidget);
+    });
+
+    testWidgets('per-preview toggle inverts only the stage', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(
+        tester,
+        platformBrightness: Brightness.light,
+      );
+      await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
+      expect(docsState.brightness, Brightness.light);
+      // Site is light; the stage toggle starts following the site.
+      expect(find.text('Light'), findsWidgets);
+      await tester.tap(
+        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+      );
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(docsState.isPreviewInverted('button'), isTrue);
+      expect(find.text('Dark'), findsWidgets);
+      // The site itself stays light: only the stage flipped.
+      expect(docsState.brightness, Brightness.light);
+      await tester.tap(
+        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+      );
+      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(docsState.isPreviewInverted('button'), isFalse);
     });
   });
 

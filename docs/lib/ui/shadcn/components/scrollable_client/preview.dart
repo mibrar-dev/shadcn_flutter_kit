@@ -66,7 +66,7 @@ class ScrollableClientPreview extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Gap(12),
+                Gap(theme.spacing.md),
                 const Text('Drag on either axis'),
               ],
             ),

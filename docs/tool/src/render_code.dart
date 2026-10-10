@@ -1,7 +1,7 @@
 // Renderers for the code-shaped generated files:
-// `docs_snippets.dart` (highlight maps + install file lists),
-// `app_theme.dart` (all 43 presets, assembled from the kit generator) and
-// `component_previews.dart` (deferred preview registry for D4).
+// `docs_snippets.dart` (highlight maps + install file lists) and
+// `app_theme.dart` (all 43 presets, assembled from the kit generator).
+// Preview renderers live in `render_previews.dart` (P6-F4).
 
 import 'dart_highlight.dart';
 import 'literals.dart';
@@ -319,60 +319,3 @@ String _factoryName(String id) {
       : prefix[0].toUpperCase() + prefix.substring(1);
   return 'build${capitalized}Theme';
 }
-
-/// Renders `lib/previews/component_previews.dart`: the deferred preview
-/// registry D4's component pages load. Preview files arrive in the docs app
-/// through the registry mirror (`lib/ui/shadcn/components/<id>/preview.dart`,
-/// synced by `tool/sync_registry.sh` and hash-covered by the manifest).
-String renderComponentPreviews(
-  RegistryScan scan,
-  Map<String, String> previewClasses,
-) {
-  final StringBuffer out = StringBuffer()
-    ..write(
-      banner(
-        sources: const <String>[
-          'flutter_shadcn_kit/lib/registry/components/<id>/preview.dart',
-        ],
-        regenerate: 'dart run tool/gen_docs_data.dart',
-        notes: <String>[
-          'One deferred import per component; the chunk is fetched when a',
-          'component page asks for its preview. Class names are read from',
-          'the preview sources with package:analyzer.',
-        ],
-      ),
-    )
-    ..writeln()
-    ..writeln("import 'package:flutter/widgets.dart';")
-    ..writeln();
-  for (final ComponentFacts component in scan.components) {
-    out.writeln(
-      "import 'package:docs/ui/shadcn/components/${component.id}/preview.dart' deferred as ${_prefix(component.id)};",
-    );
-  }
-  out
-    ..writeln()
-    ..writeln(
-      '/// Loads the preview widget for [componentId], fetching its deferred',
-    )
-    ..writeln('/// chunk first. Throws [ArgumentError] for unknown ids.')
-    ..writeln('Future<Widget> loadComponentPreview(String componentId) =>')
-    ..writeln('    switch (componentId) {');
-  for (final ComponentFacts component in scan.components) {
-    final String prefix = _prefix(component.id);
-    final String className = previewClasses[component.id]!;
-    out.writeln(
-      "      ${dartString(component.id)} => $prefix.loadLibrary().then((_) => $prefix.$className()),",
-    );
-  }
-  out
-    ..writeln(
-      "      _ => throw ArgumentError.value(componentId, 'componentId', "
-      "'no registered preview'),",
-    )
-    ..writeln('    };');
-  return out.toString();
-}
-
-String _prefix(String id) =>
-    'preview_${id.replaceAll(RegExp('[^A-Za-z0-9_]'), '_')}';

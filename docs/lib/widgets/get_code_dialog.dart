@@ -19,6 +19,7 @@ import '../ui/shadcn/primitives/syntax_highlight/syntax_highlight.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
+import 'selectable_code.dart';
 
 /// The three payloads of the dialog.
 enum GetCodeTab {
@@ -165,16 +166,18 @@ class _CodePaneState extends State<_CodePane> {
               scrollDirection: Axis.horizontal,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: language == null
-                    ? Text(widget.code, style: base)
-                    : Text.rich(
-                        syntaxTextSpan(
-                          code: widget.code,
-                          language: language,
-                          base: base,
-                          colors: theme.syntaxColors,
+                child: SelectableCode(
+                  child: language == null
+                      ? Text(widget.code, style: base)
+                      : Text.rich(
+                          syntaxTextSpan(
+                            code: widget.code,
+                            language: language,
+                            base: base,
+                            colors: theme.syntaxColors,
+                          ),
                         ),
-                      ),
+                ),
               ),
             ),
           ),

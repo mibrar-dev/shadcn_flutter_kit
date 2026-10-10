@@ -1,23 +1,91 @@
-// Gallery preview for `pinned_sheet`: closed/peek/open stages driven by a
-// [SheetController], plus the dark palette. Widgets-only.
+// Named examples for the `pinned_sheet` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle. Each sheet carries its own bounded box (and its own
+// controller): the sheet stack requires bounded constraints, and the old
+// gallery's `Expanded` under the unbounded docs stage could not lay out.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
-import '../drawer_container/drawer_container.dart';
 import 'pinned_sheet.dart';
 
-/// Renders the pinned sheet gallery.
-class PinnedSheetPreview extends StatefulWidget {
-  /// Creates the preview.
-  const PinnedSheetPreview({super.key});
+/// Compact sheet content in theme tokens.
+class _SheetBody extends StatelessWidget {
+  const _SheetBody();
 
   @override
-  State<PinnedSheetPreview> createState() => _PinnedSheetPreviewState();
+  Widget build(BuildContext context) {
+    final theme = ShadcnTheme.of(context);
+    return Container(
+      padding: EdgeInsets.all(theme.spacing.lg),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Sheet content',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          ),
+          Gap(theme.spacing.sm),
+          Text(
+            'Drag the sheet to move between stages.',
+            style: TextStyle(color: theme.colors.mutedForeground),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _PinnedSheetPreviewState extends State<PinnedSheetPreview> {
+/// A sheet resting at its middle stage; the controller is this example's own.
+class _DefaultSheet extends StatefulWidget {
+  const _DefaultSheet();
+
+  @override
+  State<_DefaultSheet> createState() => _DefaultSheetState();
+}
+
+class _DefaultSheetState extends State<_DefaultSheet> {
+  final SheetController _controller = SheetController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 320,
+      height: 280,
+      child: PinnedSheet(
+        controller: _controller,
+        initialStage: const SheetStage.fraction(0.4),
+        stages: const <SheetStage>[
+          SheetStage.closed(),
+          SheetStage.fraction(0.4),
+          SheetStage.expanded(),
+        ],
+        child: const _SheetBody(),
+      ),
+    );
+  }
+}
+
+/// A sheet snapped between stages with buttons; the controller is local.
+class _SnappingSheet extends StatefulWidget {
+  const _SnappingSheet();
+
+  @override
+  State<_SnappingSheet> createState() => _SnappingSheetState();
+}
+
+class _SnappingSheetState extends State<_SnappingSheet> {
   final SheetController _controller = SheetController();
 
   @override
@@ -29,69 +97,42 @@ class _PinnedSheetPreviewState extends State<PinnedSheetPreview> {
   @override
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 14),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  'Drag the sheet, or snap it with the buttons',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: PinnedSheet(
-                  controller: _controller,
-                  initialStage: const SheetStage.fraction(0.4),
-                  stages: const [
-                    SheetStage.closed(),
-                    SheetStage.fraction(0.4),
-                    SheetStage.expanded(),
-                  ],
-                  child: const DrawerContainer(
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text('Sheet content'),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Row(
-                  children: [
-                    _SnapButton(
-                      label: 'Close',
-                      onTap: () => _controller.close(),
-                    ),
-                    const Gap(8),
-                    _SnapButton(
-                      label: 'Half',
-                      onTap: () =>
-                          _controller.animateTo(const SheetStage.fraction(0.4)),
-                    ),
-                    const Gap(8),
-                    _SnapButton(label: 'Open', onTap: () => _controller.open()),
-                  ],
-                ),
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(
+          width: 320,
+          height: 240,
+          child: PinnedSheet(
+            controller: _controller,
+            initialStage: const SheetStage.fraction(0.4),
+            stages: const <SheetStage>[
+              SheetStage.closed(),
+              SheetStage.fraction(0.4),
+              SheetStage.expanded(),
             ],
+            child: const _SheetBody(),
           ),
         ),
-      ),
+        Gap(theme.spacing.sm),
+        Wrap(
+          spacing: theme.spacing.sm,
+          children: <Widget>[
+            _SnapButton(label: 'Close', onTap: () => _controller.close()),
+            _SnapButton(
+              label: 'Half',
+              onTap: () =>
+                  _controller.animateTo(const SheetStage.fraction(0.4)),
+            ),
+            _SnapButton(label: 'Open', onTap: () => _controller.open()),
+          ],
+        ),
+      ],
     );
   }
 }
 
+/// A small stage button in theme tokens.
 class _SnapButton extends StatelessWidget {
   const _SnapButton({required this.label, required this.onTap});
 
@@ -114,3 +155,13 @@ class _SnapButton extends StatelessWidget {
     );
   }
 }
+
+Widget _default(BuildContext context) => const _DefaultSheet();
+
+Widget _snapping(BuildContext context) => const _SnappingSheet();
+
+/// Named docs examples for `pinned_sheet`; the first entry is the default.
+const List<ComponentPreview> pinnedSheetPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Snapping', _snapping),
+];

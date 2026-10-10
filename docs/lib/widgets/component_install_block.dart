@@ -15,6 +15,7 @@ import '../ui/shadcn/theme/theme.dart';
 import 'copy_button.dart';
 import 'docs_tokens.dart';
 import 'heading_anchor.dart';
+import 'selectable_code.dart';
 
 /// The install block: line tabs + pill tabs + code figure.
 class ComponentInstallBlock extends StatefulWidget {
@@ -195,12 +196,14 @@ class _InstallBody extends StatelessWidget {
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16),
-        child: Text.rich(
-          syntaxTextSpan(
-            code: command,
-            language: SyntaxLanguage.bash,
-            base: style,
-            colors: theme.syntaxColors,
+        child: SelectableCode(
+          child: Text.rich(
+            syntaxTextSpan(
+              code: command,
+              language: SyntaxLanguage.bash,
+              base: style,
+              colors: theme.syntaxColors,
+            ),
           ),
         ),
       );
@@ -208,47 +211,49 @@ class _InstallBody extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          for (final String file in files.files)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Text(
-                file,
-                style: theme.typography.mono.copyWith(fontSize: 13),
+      child: SelectableCode(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            for (final String file in files.files)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Text(
+                  file,
+                  style: theme.typography.mono.copyWith(fontSize: 13),
+                ),
               ),
-            ),
-          for (final String file in files.userOwned)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      file,
-                      style: theme.typography.mono.copyWith(fontSize: 13),
-                      overflow: TextOverflow.ellipsis,
+            for (final String file in files.userOwned)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        file,
+                        style: theme.typography.mono.copyWith(fontSize: 13),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  const Gap(8),
-                  Badge(
-                    variant: BadgeVariant.outline,
-                    child: const Text('user-owned'),
-                  ),
-                ],
+                    const Gap(8),
+                    Badge(
+                      variant: BadgeVariant.outline,
+                      child: const Text('user-owned'),
+                    ),
+                  ],
+                ),
+              ),
+            const Gap(8),
+            Text(
+              kUserOwnedNote,
+              style: docsText(
+                context,
+                size: 12,
+                color: theme.colors.mutedForeground,
               ),
             ),
-          const Gap(8),
-          Text(
-            kUserOwnedNote,
-            style: docsText(
-              context,
-              size: 12,
-              color: theme.colors.mutedForeground,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

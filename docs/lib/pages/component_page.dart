@@ -3,24 +3,22 @@
 // an install block, then typeset H2 sections: Usage (snippets), API
 // Reference, Theme, and Accessibility (keyboard rows, hidden when empty).
 // Prev/next pager at the bottom. Every fact comes from the generated data.
+//
+// The preview card itself lives in `widgets/component_preview_card.dart`
+// (P6-F4: one named example behind a `Select` plus a per-preview toggle).
 
 import 'package:flutter/widgets.dart';
 
 import '../generated/docs_api.dart';
 import '../generated/docs_data.dart';
-import '../generated/docs_snippets.dart';
 import '../generated/docs_tables.dart';
-import '../previews/component_previews.dart';
 import '../routing/docs_nav.dart';
 import '../ui/shadcn/components/badge/badge.dart';
-import '../ui/shadcn/theme/theme.dart';
-import '../widgets/code_teaser.dart';
 import '../widgets/component_install_block.dart';
+import '../widgets/component_preview_card.dart';
 import '../widgets/component_sections.dart';
 import '../widgets/docs_article.dart';
 import '../widgets/docs_shell.dart';
-import '../widgets/docs_tokens.dart';
-import '../widgets/preview_stage.dart';
 
 /// `/docs/components/<id>` — the component template.
 class ComponentPage extends StatefulWidget {
@@ -35,21 +33,6 @@ class ComponentPage extends StatefulWidget {
 }
 
 class _ComponentPageState extends State<ComponentPage> {
-  Widget? _preview;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadPreview();
-  }
-
-  Future<void> _loadPreview() async {
-    final Widget preview = await loadComponentPreview(widget.componentId);
-    if (mounted) {
-      setState(() => _preview = preview);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final DocsComponent component = kComponents.firstWhere(
@@ -93,7 +76,7 @@ class _ComponentPageState extends State<ComponentPage> {
           ),
         ],
         children: <Widget>[
-          _PreviewCard(componentId: widget.componentId, preview: _preview),
+          ComponentPreviewCard(componentId: widget.componentId),
           ComponentInstallBlock(componentId: widget.componentId),
           ComponentUsageSection(componentId: widget.componentId),
           ComponentApiSection(componentId: widget.componentId),
@@ -119,84 +102,5 @@ class _ComponentPageState extends State<ComponentPage> {
 
   static bool _hasKeyboardRows(String id) {
     return (kKeyboardRows[id] ?? const <DocsKeyboardRow>[]).isNotEmpty;
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Preview card
-// ---------------------------------------------------------------------------
-
-class _PreviewCard extends StatelessWidget {
-  const _PreviewCard({required this.componentId, required this.preview});
-
-  final String componentId;
-  final Widget? preview;
-
-  @override
-  Widget build(BuildContext context) {
-    final DocsComponent component = kComponents.firstWhere(
-      (DocsComponent c) => c.id == componentId,
-    );
-    final List<DocsSnippet> snippets =
-        kDocsSnippets[componentId] ?? const <DocsSnippet>[];
-    return PreviewFrame(
-      child: Column(
-        children: <Widget>[
-          PreviewStage(child: preview),
-          if (preview != null && snippets.isNotEmpty)
-            CodeTeaser(
-              code: _SnippetCode(snippet: snippets.first),
-              copyText: component.install,
-              language: snippets.first.language,
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SnippetCode extends StatelessWidget {
-  const _SnippetCode({required this.snippet});
-
-  final DocsSnippet snippet;
-
-  @override
-  Widget build(BuildContext context) {
-    final DocsSiteColors site = DocsSiteColors.of(context);
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    final bool dark = site.codeSurface == const Color(0xFF161616);
-    return Container(
-      color: site.codeSurface,
-      padding: const EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Text.rich(
-          TextSpan(
-            children: snippet.spans(
-              plain: theme.typography.mono.copyWith(
-                fontSize: 14,
-                height: 24.5 / 14,
-                color: dark ? const Color(0xFFE5E5E5) : const Color(0xFF262626),
-              ),
-              comment: theme.typography.mono.copyWith(
-                fontSize: 14,
-                height: 24.5 / 14,
-                color: site.codeNumber,
-              ),
-              keyword: theme.typography.mono.copyWith(
-                fontSize: 14,
-                height: 24.5 / 14,
-                color: const Color(0xFF79C0FF),
-              ),
-              string: theme.typography.mono.copyWith(
-                fontSize: 14,
-                height: 24.5 / 14,
-                color: const Color(0xFFA5D6FF),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

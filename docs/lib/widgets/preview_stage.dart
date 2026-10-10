@@ -89,42 +89,38 @@ class PreviewStage extends StatelessWidget {
     if (chromeless) {
       return child ?? const SizedBox.shrink();
     }
-    // Desktop previews are galleries, not responsive widgets: at 375 they can
-    // be wider than the 327 px article, so the stage scrolls horizontally
-    // instead of overflowing (the reference `preview` clips/scrolls too).
-    // `ConstrainedBox` keeps the child centred whenever it fits, and the
-    // stage grows past the 288 px minimum instead of slicing a heading off
-    // (the reference's single-demo previews always fit in 288 px).
-    return Container(
-      width: double.infinity,
-      color: theme.colors.background,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minHeight: DocsMetrics.previewStageHeight,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) =>
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(40),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minWidth: constraints.maxWidth - 80,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: child ?? const SizedBox.shrink(),
-                      ),
-                    ),
-                  ),
+    // P6-F4: the stage hands the preview a *bounded* box. The old harness
+    // put a horizontal `SingleChildScrollView` outside the width constraint,
+    // so the preview saw unbounded width (and, through the `Column`, unbounded
+    // height): every `SizedBox(width: double.infinity)` / `Expanded` /
+    // `EditableText` preview threw or painted blank (audit D4/D5/D6). The new
+    // examples shrink-wrap (no `Expanded`, no outer fixed box, no infinite
+    // width), so the stage only needs a bounded width and a minimum height.
+    // Wide leftovers overflow loudly instead of vanishing, which is what the
+    // render audit asserts against.
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double viewport = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : DocsMetrics.articleWidth;
+        final double maxContent = viewport - 80 > 0 ? viewport - 80 : 0;
+        return Container(
+          width: double.infinity,
+          constraints: const BoxConstraints(
+            minHeight: DocsMetrics.previewStageHeight,
+          ),
+          color: theme.colors.background,
+          padding: const EdgeInsets.all(40),
+          alignment: Alignment.center,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: maxContent),
+            child: Align(
+              alignment: Alignment.center,
+              child: child ?? const SizedBox.shrink(),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

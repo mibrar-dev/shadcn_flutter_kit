@@ -1,61 +1,53 @@
-// Gallery preview for the `triple_dots` component.
+// Named examples for the `triple_dots` component (P6-F3 preview contract).
 //
-// Widgets-only, like the component itself. Shows counts, directions, sizes,
-// colours, a scoped theme leg and dark tokens.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/component_preview.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'triple_dots.dart';
 
-/// Preview entry point used by the docs gallery.
-class TripleDotsPreview extends StatelessWidget {
-  /// Creates the preview.
-  const TripleDotsPreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const ShadcnTheme(
-      data: ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _TripleDotsPreviewBody(),
-      ),
-    );
-  }
+/// Counts, sizes and strokes in one row.
+Widget _tripleDotsDefault(BuildContext context) {
+  final spacing = ShadcnTheme.of(context).spacing;
+  return Wrap(
+    spacing: spacing.xxl,
+    runSpacing: spacing.md,
+    alignment: WrapAlignment.center,
+    children: const <Widget>[
+      TripleDots(),
+      TripleDots(count: 4, spacing: 4),
+      TripleDots(size: 6),
+    ],
+  );
 }
 
-class _TripleDotsPreviewBody extends StatelessWidget {
-  const _TripleDotsPreviewBody();
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const TripleDots(),
-            const SizedBox(width: 32),
-            const TripleDots(count: 4, spacing: 4),
-            const SizedBox(width: 32),
-            const TripleDots(size: 6, color: Color(0xFFE7000B)),
-            const SizedBox(width: 32),
-            const TripleDots(direction: Axis.vertical),
-            const SizedBox(width: 32),
-            ComponentTheme<TripleDotsTheme>(
-              data: const TripleDotsTheme(
-                color: ThemedColor.ref(ColorRef.foreground),
-                size: 5,
-              ),
-              child: const TripleDots(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+/// The dots stacked vertically.
+Widget _tripleDotsVertical(BuildContext context) {
+  return const Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: TripleDots(direction: Axis.vertical),
+  );
 }
+
+/// A scoped theme leg: coloured, smaller dots.
+Widget _tripleDotsThemed(BuildContext context) {
+  return ComponentTheme<TripleDotsTheme>(
+    data: const TripleDotsTheme(
+      color: ThemedColor.ref(ColorRef.primary),
+      size: 5,
+    ),
+    child: const TripleDots(),
+  );
+}
+
+/// Named docs examples for `triple_dots`; the first entry is the default.
+const List<ComponentPreview> tripleDotsPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _tripleDotsDefault),
+  ComponentPreview('Vertical', _tripleDotsVertical),
+  ComponentPreview('Themed dots', _tripleDotsThemed),
+];

@@ -36,7 +36,7 @@ class LocaleUtilsPreview extends StatelessWidget {
           const Text('fileBytes').small.muted,
           for (final int size in localeUtilsPreviewSizes)
             Text('${SizeUnitLocale.fileBytes.format(size)}  ($size)'),
-          const SizedBox(height: 12),
+          SizedBox(height: theme.spacing.md),
           const Text('binaryBytes').small.muted,
           for (final int size in localeUtilsPreviewSizes)
             Text('${SizeUnitLocale.binaryBytes.format(size)}  ($size)'),

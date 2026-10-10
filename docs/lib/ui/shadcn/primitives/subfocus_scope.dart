@@ -77,7 +77,15 @@ class _SubFocusScopeState extends State<SubFocusScope> with SubFocusScopeState {
     _attachedStates.remove(state);
     if (_currentState == state) {
       _currentState = null;
-      if (widget.autofocus) findFirstFocus();
+      // Handing the focus on rebuilds another item, which calls setState on
+      // it. When the focused item is the one being unmounted - swapping two
+      // screens, a docs page replacing one example with the next - that runs
+      // while the framework is tearing the old tree down, where markNeedsBuild
+      // is illegal. Deferring to the next frame keeps the hand-over and
+      // removes the "widget tree was locked" error (P6-F3).
+      if (widget.autofocus) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => findFirstFocus());
+      }
     }
   }
 

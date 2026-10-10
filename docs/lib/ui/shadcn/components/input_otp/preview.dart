@@ -1,94 +1,77 @@
-// Widgets-only preview gallery for the `input_otp` component.
+// Named examples for the `input_otp` component (P6-F3 preview contract).
 //
-// Shows a plain code, a separator, an obscured code, a disabled one and a
-// scoped theme leg.
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../theme/color_tokens.dart';
+import '../../foundation/component_preview.dart';
+import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
 import 'input_otp.dart';
 
-/// Preview entry point used by the docs gallery.
-class InputOtpPreview extends StatefulWidget {
-  /// Creates the preview.
-  const InputOtpPreview({super.key});
+/// The six-slot code field.
+class _InputOtpOtp extends StatefulWidget {
+  const _InputOtpOtp({
+    this.length = 6,
+    this.separatorEvery,
+    this.obscureText = false,
+  });
+
+  final int length;
+  final int? separatorEvery;
+  final bool obscureText;
 
   @override
-  State<InputOtpPreview> createState() => _InputOtpPreviewState();
+  State<_InputOtpOtp> createState() => _InputOtpOtpState();
 }
 
-class _InputOtpPreviewState extends State<InputOtpPreview> {
+class _InputOtpOtpState extends State<_InputOtpOtp> {
   String _code = '';
-  String _grouped = '';
-  String _obscured = '';
 
   @override
   Widget build(BuildContext context) {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: _body(context),
-      ),
-    );
-  }
-
-  Widget _body(BuildContext context) {
-    final ShadcnColors colors = ShadcnTheme.of(context).colors;
-    return ColoredBox(
-      color: colors.background,
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('code: "$_code"'),
-            const SizedBox(height: 8),
-            InputOtp(
-              length: 6,
-              onChanged: (code) => setState(() => _code = code),
-            ),
-            const SizedBox(height: 24),
-            Text('grouped: "$_grouped"'),
-            const SizedBox(height: 8),
-            InputOtp(
-              length: 6,
-              separatorEvery: 3,
-              separator: const Text('-'),
-              onChanged: (code) => setState(() => _grouped = code),
-            ),
-            const SizedBox(height: 24),
-            Text('obscured: "$_obscured"'),
-            const SizedBox(height: 8),
-            InputOtp(
-              length: 6,
-              obscureText: true,
-              initialValue: '4242',
-              onChanged: (code) => setState(() => _obscured = code),
-            ),
-            const SizedBox(height: 24),
-            const Text('read-only'),
-            const SizedBox(height: 8),
-            const InputOtp(length: 4, readOnly: true, initialValue: '1234'),
-            const SizedBox(height: 24),
-            const Text('scoped theme leg (taller, rounded slots)'),
-            const SizedBox(height: 8),
-            ComponentTheme<InputOtpTheme>(
-              data: const InputOtpTheme(
-                boxSize: 48,
-                spacing: 12,
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                background: StateValue(
-                  rest: ThemedColor.ref(ColorRef.accent, alpha: 0.3),
-                ),
-              ),
-              child: const InputOtp(length: 4),
-            ),
-          ],
+    final theme = ShadcnTheme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        InputOtp(
+          length: widget.length,
+          separatorEvery: widget.separatorEvery,
+          obscureText: widget.obscureText,
+          onChanged: (String code) => setState(() => _code = code),
         ),
-      ),
+        Gap(theme.spacing.md),
+        Text(
+          'code: "$_code"',
+          style: TextStyle(fontSize: 12, color: theme.colors.mutedForeground),
+        ),
+      ],
     );
   }
 }
+
+/// The default field.
+Widget _inputOtpDefault(BuildContext context) => const _InputOtpOtp();
+
+/// A grouped field: a separator every three slots.
+Widget _inputOtpSeparated(BuildContext context) =>
+    const _InputOtpOtp(separatorEvery: 3);
+
+/// An obscured field pre-filled with a sample code.
+Widget _inputOtpObscured(BuildContext context) =>
+    const _InputOtpOtp(obscureText: true);
+
+/// The shorter four-slot field.
+Widget _inputOtpFourSlots(BuildContext context) =>
+    const _InputOtpOtp(length: 4);
+
+/// Named docs examples for `input_otp`; the first entry is the default.
+const List<ComponentPreview> inputOtpPreviews = <ComponentPreview>[
+  ComponentPreview('Default', _inputOtpDefault),
+  ComponentPreview('Separated', _inputOtpSeparated),
+  ComponentPreview('Obscured', _inputOtpObscured),
+  ComponentPreview('Four slots', _inputOtpFourSlots),
+];

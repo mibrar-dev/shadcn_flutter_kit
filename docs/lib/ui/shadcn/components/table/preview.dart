@@ -1,126 +1,75 @@
-// Gallery preview for the `table` component: a data grid with a header, a
-// spanning cell and a footer, a resizable table and the dark palette.
-// Widgets-only; the docs app embeds [TablePreview] directly.
+// Named examples for the `table` component (P6-F3 preview contract).
+//
+// One focused demo per example; the first entry is the default. Spacing comes
+// from the ambient theme, so the examples follow the selected preset and the
+// site light/dark toggle.
 
 import 'package:flutter/widgets.dart';
 
-import '../../foundation/gap.dart';
-import '../../theme/color_tokens.dart';
-import '../../theme/theme.dart';
+import '../../foundation/component_preview.dart';
 import 'table.dart';
 
-/// Renders the table gallery.
-class TablePreview extends StatelessWidget {
-  /// Creates the preview.
-  const TablePreview({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: DefaultTextStyle(
-        style: TextStyle(color: theme.colors.foreground, fontSize: 13),
-        child: ColoredBox(
-          color: theme.colors.background,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _section('Data grid', _grid()),
-                const Gap(24),
-                _section('Resizable', const _ResizableDemo()),
-                const Gap(24),
-                _section('Dark', _dark()),
-              ],
-            ),
-          ),
+/// A data grid with a header, a selected row and a footer.
+Widget _default(BuildContext context) {
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 460),
+    child: ShadcnTable(
+      columnWidths: const <int, TableSize>{
+        0: FlexTableSize(flex: 2),
+        1: FlexTableSize(),
+        2: FixedTableSize(90),
+      },
+      rows: <ShadcnTableRow>[
+        const ShadcnTableHeader(
+          cells: <ShadcnTableCell>[
+            ShadcnTableCell(child: Text('Name')),
+            ShadcnTableCell(child: Text('Role')),
+            ShadcnTableCell(child: Text('Status')),
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget _grid() {
-    return SizedBox(
-      width: 460,
-      child: ShadcnTable(
-        columnWidths: const <int, TableSize>{
-          0: FlexTableSize(flex: 2),
-          1: FlexTableSize(),
-          2: FixedTableSize(90),
-        },
-        rows: <ShadcnTableRow>[
-          const ShadcnTableHeader(
-            cells: <ShadcnTableCell>[
-              ShadcnTableCell(child: Text('Name')),
-              ShadcnTableCell(child: Text('Role')),
-              ShadcnTableCell(child: Text('Status')),
-            ],
-          ),
-          const ShadcnTableRow(
-            cells: <ShadcnTableCell>[
-              ShadcnTableCell(child: Text('Avery')),
-              ShadcnTableCell(child: Text('Designer')),
-              ShadcnTableCell(child: Text('Active')),
-            ],
-          ),
-          const ShadcnTableRow(
-            cells: <ShadcnTableCell>[
-              ShadcnTableCell(child: Text('Jordan')),
-              ShadcnTableCell(child: Text('Engineer')),
-              ShadcnTableCell(child: Text('Active')),
-            ],
-          ),
-          const ShadcnTableRow(
-            selected: true,
-            cells: <ShadcnTableCell>[
-              ShadcnTableCell(child: Text('Casey')),
-              ShadcnTableCell(child: Text('PM')),
-              ShadcnTableCell(child: Text('Away')),
-            ],
-          ),
-          ShadcnTableFooter(
-            cells: <ShadcnTableCell>[
-              ShadcnTableCell(columnSpan: 2, child: const Text('3 people')),
-              const ShadcnTableCell(child: Text('—')),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _dark() {
-    return ShadcnTheme(
-      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),
-      child: Builder(builder: (context) => _grid()),
-    );
-  }
-
-  Widget _section(String title, Widget child) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        const ShadcnTableRow(
+          cells: <ShadcnTableCell>[
+            ShadcnTableCell(child: Text('Avery')),
+            ShadcnTableCell(child: Text('Designer')),
+            ShadcnTableCell(child: Text('Active')),
+          ],
         ),
-        const Gap(8),
-        child,
+        const ShadcnTableRow(
+          cells: <ShadcnTableCell>[
+            ShadcnTableCell(child: Text('Jordan')),
+            ShadcnTableCell(child: Text('Engineer')),
+            ShadcnTableCell(child: Text('Active')),
+          ],
+        ),
+        const ShadcnTableRow(
+          selected: true,
+          cells: <ShadcnTableCell>[
+            ShadcnTableCell(child: Text('Casey')),
+            ShadcnTableCell(child: Text('PM')),
+            ShadcnTableCell(child: Text('Away')),
+          ],
+        ),
+        ShadcnTableFooter(
+          cells: <ShadcnTableCell>[
+            ShadcnTableCell(columnSpan: 2, child: const Text('3 people')),
+            const ShadcnTableCell(child: Text('—')),
+          ],
+        ),
       ],
-    );
-  }
+    ),
+  );
 }
 
-class _ResizableDemo extends StatefulWidget {
-  const _ResizableDemo();
+/// A resizable table; owns its resize and scroll controllers. The fixed box
+/// is inherent: the table scrolls internally.
+class _ResizableTable extends StatefulWidget {
+  const _ResizableTable();
 
   @override
-  State<_ResizableDemo> createState() => _ResizableDemoState();
+  State<_ResizableTable> createState() => _ResizableTableState();
 }
 
-class _ResizableDemoState extends State<_ResizableDemo> {
+class _ResizableTableState extends State<_ResizableTable> {
   final ResizableTableController _controller = ResizableTableController(
     defaultColumnWidth: 120,
     defaultRowHeight: 40,
@@ -139,28 +88,28 @@ class _ResizableDemoState extends State<_ResizableDemo> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 420,
+      width: 340,
       height: 170,
       child: ShadcnTable(
         resizeController: _controller,
         verticalController: _vertical,
         horizontalController: _horizontal,
-        rows: <ShadcnTableRow>[
-          const ShadcnTableHeader(
+        rows: const <ShadcnTableRow>[
+          ShadcnTableHeader(
             cells: <ShadcnTableCell>[
               ShadcnTableCell(child: Text('Drag a divider')),
               ShadcnTableCell(child: Text('Column')),
               ShadcnTableCell(child: Text('Row')),
             ],
           ),
-          const ShadcnTableRow(
+          ShadcnTableRow(
             cells: <ShadcnTableCell>[
               ShadcnTableCell(child: Text('One')),
               ShadcnTableCell(child: Text('Two')),
               ShadcnTableCell(child: Text('Three')),
             ],
           ),
-          const ShadcnTableRow(
+          ShadcnTableRow(
             cells: <ShadcnTableCell>[
               ShadcnTableCell(child: Text('Four')),
               ShadcnTableCell(child: Text('Five')),
@@ -172,3 +121,11 @@ class _ResizableDemoState extends State<_ResizableDemo> {
     );
   }
 }
+
+Widget _resizable(BuildContext context) => const _ResizableTable();
+
+/// Named docs examples for `table`; the first entry is the default.
+const List<ComponentPreview> tablePreviews = <ComponentPreview>[
+  ComponentPreview('Default', _default),
+  ComponentPreview('Resizable', _resizable),
+];

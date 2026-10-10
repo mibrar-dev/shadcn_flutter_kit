@@ -615,3 +615,7 @@
 - qa_gate analyze 0 / registry +3959 / rearch +42 / layers 0 errors; manifest + gen_blocks_test --check; blocks suite 135 (375/768/1440 × light/dark × neutral/claude). Agent exit=1 after RESULT.
 - 13 component categories + 6 block families (single source tool/registry/src/categories.dart, enforced by generator, check_layers, schema). blocks/ = layer 4 (imports down only; nothing imports a block). 16 blocks (dashboard×2, sidebar×3, login×3, signup×2, otp, calendar×2, account×2, pricing), 0 hard-coded colours/spacing literals found in spot scan.
 - Follow-ups noted by agent: Badge semantic variants, Input label slot, mobile block family.
+
+## P6-B2 — CLI blocks + categories — ACCEPTED (CLI repo)
+- Re-ran: format 0 changed, analyze 0, dart test +522 (was 466; 3 pre-existing failures caused by B1's manifest fields fixed). Agent ran e2e acceptance (block install + analyze) and end-to-end against the real kit registry.
+- One id space for add; blocks to lib/ui/shadcn/blocks/<id>/ with closure; lock v2 blocks[]; update refreshes only files whose bytes match the lock; remove refuses deleting a component a block needs unless --force.

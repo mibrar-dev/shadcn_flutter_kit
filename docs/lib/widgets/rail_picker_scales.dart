@@ -10,7 +10,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../state/site_theme_model.dart';
 import '../../ui/shadcn/components/button/button.dart';
-import '../../ui/shadcn/components/slider/slider.dart';
 import '../../ui/shadcn/components/tooltip/tooltip.dart';
 import '../../ui/shadcn/foundation/gap.dart';
 import '../../ui/shadcn/theme/syntax_colors.dart';
@@ -19,12 +18,14 @@ import '../../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
 import 'rail_picker_rows.dart';
 import 'rail_picker_scroll.dart';
+import 'rail_picker_slider.dart';
 import 'rail_pickers.dart';
 
-/// Shows the family list popup for [slot]; hovering or picking applies live.
+/// Shows the family list popup for [slot]; only a pick commits.
 ///
-/// [onChanged] runs for every highlight and pick ('' clears the slot), so
-/// the whole site follows while the popup is open. Closing keeps the value.
+/// [onChanged] runs exactly once per committed pick ('' clears the slot);
+/// hovering, scrolling and arrow-key focus movement stay local. Closing
+/// without picking keeps the current value.
 Future<void> showFontPicker(
   BuildContext context,
   String slot,
@@ -35,9 +36,8 @@ Future<void> showFontPicker(
     ...kDocsFontOptions,
     if (current case final String spec) spec,
   }.toList()..sort();
-  String live = current ?? '';
-  Widget row(
-    StateSetter setState, {
+  final String committed = current ?? '';
+  Widget row({
     required String label,
     required String detail,
     required String spec,
@@ -46,52 +46,39 @@ Future<void> showFontPicker(
     final Widget line = RailPickerRow(
       label: label,
       detail: detail,
-      selected: live == spec,
-      onHighlight: () {
-        setState(() => live = spec);
-        onChanged(spec);
-      },
+      selected: committed == spec,
       onPick: () {
-        setState(() => live = spec);
         onChanged(spec);
         closeOverlay(context);
       },
       trailing: trailing,
     );
-    return revealSelectedOnMount(selected: live == spec, child: line);
+    return revealSelectedOnMount(selected: committed == spec, child: line);
   }
 
   return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          row(label: 'Default', detail: 'bundled Geist stack', spec: ''),
+          for (final String option in options)
             row(
-              setState,
-              label: 'Default',
-              detail: 'bundled Geist stack',
-              spec: '',
-            ),
-            for (final String option in options)
-              row(
-                setState,
-                label: railFirstFamily(option),
-                detail: option,
-                spec: option,
-                trailing: Text(
-                  'Aa',
-                  style: docsText(
-                    context,
-                    size: 16,
-                    color: ShadcnTheme.of(context).colors.mutedForeground,
-                  ).copyWith(fontFamily: railFirstFamily(option)),
-                ),
+              label: railFirstFamily(option),
+              detail: option,
+              spec: option,
+              trailing: Text(
+                'Aa',
+                style: docsText(
+                  context,
+                  size: 16,
+                  color: ShadcnTheme.of(context).colors.mutedForeground,
+                ).copyWith(fontFamily: railFirstFamily(option)),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     ),
     title: '$slot family',
@@ -118,21 +105,32 @@ const List<(String, double)> kSpacingPresets = <(String, double)>[
 
 /// Shows the radius popup: presets plus the fine slider (0–16 px).
 ///
-/// Every interaction applies live through [onChanged]; `Done` only closes.
+/// Preset taps commit immediately (the popup stays open for fine-tuning).
+/// Slider drags show locally in the popup and commit once on release
+/// ([DraftSlider]); `Done` flushes a keyboard-edited draft, then closes.
+/// Escape closes without committing.
 Future<void> showRadiusPicker(
   BuildContext context,
   double radiusPx, {
   required ValueChanged<double> onChanged,
 }) {
-  double value = radiusPx.clamp(0, 16);
-  bool near(double preset) => (value - preset).abs() < 0.25;
+  double applied = radiusPx.clamp(0, 16);
+  double shown = applied;
+  final GlobalKey<DraftSliderState> sliderKey = GlobalKey<DraftSliderState>();
+  bool near(double preset) => (applied - preset).abs() < 0.25;
   return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
       child: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          void apply(double next) {
-            setState(() => value = next);
+          void commit(double next) {
+            if (next == applied) {
+              return;
+            }
+            setState(() {
+              applied = next;
+              shown = next;
+            });
             onChanged(next);
           }
 
@@ -145,15 +143,14 @@ Future<void> showRadiusPicker(
                   label: label,
                   detail: '${px.round()} px',
                   selected: near(px),
-                  onHighlight: () => apply(px),
-                  onPick: () => apply(px),
+                  onPick: () => commit(px),
                 ),
               const Gap(8),
               Row(
                 children: <Widget>[
                   Flexible(
                     child: Text(
-                      '${value.round()} px',
+                      '${shown.round()} px',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: docsText(
@@ -166,7 +163,7 @@ Future<void> showRadiusPicker(
                   const Spacer(),
                   Flexible(
                     child: Text(
-                      'radius ${(value / 16).toStringAsFixed(3)}',
+                      'radius ${(shown / 16).toStringAsFixed(3)}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: docsText(
@@ -181,13 +178,23 @@ Future<void> showRadiusPicker(
               const Gap(8),
               SizedBox(
                 width: kDocsPickerWidth - 24,
-                child: Slider(value: value, min: 0, max: 16, onChanged: apply),
+                child: DraftSlider(
+                  key: sliderKey,
+                  value: applied,
+                  min: 0,
+                  max: 16,
+                  onCommit: commit,
+                  onDraft: (double draft) => setState(() => shown = draft),
+                ),
               ),
               const Gap(4),
               Button(
                 variant: ButtonVariant.secondary,
                 size: ButtonSize.sm,
-                onPressed: () => closeOverlay(context),
+                onPressed: () {
+                  sliderKey.currentState?.flush();
+                  closeOverlay(context);
+                },
                 child: const Text('Done'),
               ),
             ],
@@ -200,21 +207,30 @@ Future<void> showRadiusPicker(
 
 /// Shows the spacing popup: presets plus the fine slider.
 ///
-/// Every interaction applies live through [onChanged]; `Done` only closes.
+/// Same commit contract as the radius popup: preset taps commit, slider
+/// drags stay local until release, `Done` flushes then closes.
 Future<void> showSpacingPicker(
   BuildContext context,
   double rem, {
   required ValueChanged<double> onChanged,
 }) {
-  double value = rem.clamp(0.15, 0.35);
-  bool near(double preset) => (value - preset).abs() < 0.005;
+  double applied = rem.clamp(0.15, 0.35);
+  double shown = applied;
+  final GlobalKey<DraftSliderState> sliderKey = GlobalKey<DraftSliderState>();
+  bool near(double preset) => (applied - preset).abs() < 0.005;
   return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
       child: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          void apply(double next) {
-            setState(() => value = next);
+          void commit(double next) {
+            if (next == applied) {
+              return;
+            }
+            setState(() {
+              applied = next;
+              shown = next;
+            });
             onChanged(next);
           }
 
@@ -227,15 +243,14 @@ Future<void> showSpacingPicker(
                   label: label,
                   detail: '${(preset * 16).toStringAsFixed(1)} px base',
                   selected: near(preset),
-                  onHighlight: () => apply(preset),
-                  onPick: () => apply(preset),
+                  onPick: () => commit(preset),
                 ),
               const Gap(8),
               Row(
                 children: <Widget>[
                   Flexible(
                     child: Text(
-                      '${(value * 16).toStringAsFixed(1)} px base',
+                      '${(shown * 16).toStringAsFixed(1)} px base',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: docsText(
@@ -248,7 +263,7 @@ Future<void> showSpacingPicker(
                   const Spacer(),
                   Flexible(
                     child: Text(
-                      'spacing ${value.toStringAsFixed(2)}',
+                      'spacing ${shown.toStringAsFixed(2)}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: docsText(
@@ -263,18 +278,23 @@ Future<void> showSpacingPicker(
               const Gap(8),
               SizedBox(
                 width: kDocsPickerWidth - 24,
-                child: Slider(
-                  value: value,
+                child: DraftSlider(
+                  value: applied,
+                  key: sliderKey,
                   min: 0.15,
                   max: 0.35,
-                  onChanged: apply,
+                  onCommit: commit,
+                  onDraft: (double draft) => setState(() => shown = draft),
                 ),
               ),
               const Gap(4),
               Button(
                 variant: ButtonVariant.secondary,
                 size: ButtonSize.sm,
-                onPressed: () => closeOverlay(context),
+                onPressed: () {
+                  sliderKey.currentState?.flush();
+                  closeOverlay(context);
+                },
                 child: const Text('Done'),
               ),
             ],

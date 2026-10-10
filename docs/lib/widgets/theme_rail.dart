@@ -61,8 +61,10 @@ class _ThemeRailState extends State<ThemeRail> {
   /// against it, so every picker opens beside its row instead of at the rail's
   /// corner.
   ///
-  /// Every picker applies live to [_model] while it is open (hover, pick or
-  /// drag); closing keeps the current value, so the callers ignore results.
+  /// Apply-on-select: every picker commits to [_model] exactly once per pick
+  /// (tap, Enter/Space, slider release, `Done`); hovering, scrolling or
+  /// moving keyboard focus never touches the model, so browsing options costs
+  /// zero site rebuilds. Closing without picking discards the draft.
   void _pickPreset(BuildContext anchor) {
     showPresetPicker(anchor, _model.presetId, onChanged: _model.selectPreset);
   }

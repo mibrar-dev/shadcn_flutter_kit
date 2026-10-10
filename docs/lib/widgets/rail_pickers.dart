@@ -5,11 +5,11 @@
 // The bodies are the reference's: a preset list, a colour grid, a font list,
 // a slider and a shadow panel.
 //
-// Every control applies LIVE to the site theme while it is interacted with
-// (hovering or picking a preset/colour/font, dragging a slider): the popup
-// reports edits through [onChanged] callbacks as they happen, `Done` only
-// closes, and Escape keeps whatever value is current. A separate `Reset`
-// action in the rail header restores the default preset.
+// Every control commits ON SELECT (tap, Enter/Space): hovering, scrolling or
+// moving keyboard focus never touches the theme model, so browsing options
+// costs zero site rebuilds. [onChanged] runs exactly once per committed pick;
+// closing without picking (Escape, outside tap, `Done`) keeps the old value.
+// A separate `Reset` action in the rail header restores the default preset.
 
 import 'dart:math' as math;
 
@@ -48,102 +48,88 @@ const List<Color> kDocsSeedSwatches = <Color>[
   Color(0xFFEC4899),
 ];
 
-/// Shows the preset list popup; hovering or picking applies live.
+/// Shows the preset list popup; only a pick commits.
 ///
-/// [onChanged] runs for every highlight and pick, so the whole site follows
-/// while the popup is open. Closing (pick, `Done`, Escape, outside tap)
-/// keeps the current value.
+/// [onChanged] runs exactly once per committed pick (tap or Enter/Space);
+/// hovering, scrolling and arrow-key focus movement stay local to the popup.
+/// Closing without picking keeps the current value.
 Future<void> showPresetPicker(
   BuildContext context,
   String current, {
   required ValueChanged<String> onChanged,
 }) {
-  String live = current;
   return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            for (final DocsPreset preset in kPresets)
-              revealSelectedOnMount(
-                selected: preset.id == live,
-                child: RailPickerRow(
-                  label: preset.name,
-                  detail: preset.id,
-                  selected: preset.id == live,
-                  onHighlight: () {
-                    setState(() => live = preset.id);
-                    onChanged(preset.id);
-                  },
-                  onPick: () {
-                    setState(() => live = preset.id);
-                    onChanged(preset.id);
-                    closeOverlay(context);
-                  },
-                  trailing: RailPresetSwatch(
-                    colors: _presetSwatches(preset.id, Brightness.light),
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          for (final DocsPreset preset in kPresets)
+            revealSelectedOnMount(
+              selected: preset.id == current,
+              child: RailPickerRow(
+                label: preset.name,
+                detail: preset.id,
+                selected: preset.id == current,
+                onPick: () {
+                  onChanged(preset.id);
+                  closeOverlay(context);
+                },
+                trailing: RailPresetSwatch(
+                  colors: _presetSwatches(preset.id, Brightness.light),
                 ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     ),
   );
 }
 
-/// Shows the colour seed grid for [label]; hovering or picking applies live.
+/// Shows the colour seed grid for [label]; only a pick commits.
 ///
-/// [onChanged] runs for every highlight and pick, so the whole site follows
-/// while the popup is open. Closing keeps the current value.
+/// [onChanged] runs exactly once per committed pick (a swatch tap/activation
+/// or a submitted hex); hovering and typing stay local to the popup. Closing
+/// keeps the current value.
 Future<void> showColorPicker(
   BuildContext context,
   Color current, {
   required ValueChanged<Color> onChanged,
 }) {
-  int live = current.toARGB32();
+  final int committed = current.toARGB32();
   return showShadcnPicker<void>(
     context: context,
     builder: (BuildContext context) => RailPickerPanel(
-      child: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: <Widget>[
-                for (final Color seed in kDocsSeedSwatches)
-                  RailSeedSwatch(
-                    color: seed,
-                    name: docsColorName(seed),
-                    selected: seed.toARGB32() == live,
-                    onHighlight: () {
-                      setState(() => live = seed.toARGB32());
-                      onChanged(seed);
-                    },
-                    onPick: () {
-                      setState(() => live = seed.toARGB32());
-                      onChanged(seed);
-                      closeOverlay(context);
-                    },
-                  ),
-              ],
-            ),
-            const Gap(12),
-            RailHexField(
-              initial: current,
-              onPick: (Color color) {
-                onChanged(color);
-                closeOverlay(context);
-              },
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              for (final Color seed in kDocsSeedSwatches)
+                RailSeedSwatch(
+                  color: seed,
+                  name: docsColorName(seed),
+                  selected: seed.toARGB32() == committed,
+                  onPick: () {
+                    onChanged(seed);
+                    closeOverlay(context);
+                  },
+                ),
+            ],
+          ),
+          const Gap(12),
+          RailHexField(
+            initial: current,
+            onPick: (Color color) {
+              onChanged(color);
+              closeOverlay(context);
+            },
+          ),
+        ],
       ),
     ),
   );

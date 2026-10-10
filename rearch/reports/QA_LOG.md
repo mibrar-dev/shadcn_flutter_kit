@@ -638,3 +638,7 @@
 - Kit: format 0, analyze 0, registry 4005, rearch 42, layers 0 errors (27 warnings), owner 0, user-theme 0, banned empty. Docs: analyze 0, 206 tests, codegen/mirror --check, release build. CLI: analyze 0, 522 tests (re-run by orchestrator), e2e pass. No material/cupertino imports.
 - CLI reinstall into a docs copy (118 components + 16 blocks): identical to the mirror except the per-project theme/app_theme.dart (expected). Two CLI fixes (add --all ships every primitive; preflight ignores providedBy/re-export keys). Markdown tests made hermetic. Pilot screenshot baselines refreshed to current visuals.
 - Follow-ups: drawer_container meta lists re-exports as owned; extensions/label primitives unused; 9 files over ~400 lines.
+
+## P7-U3 — Theme Studio apply-on-select — ACCEPTED
+- docs analyze 0, full docs 208, rail/themes suites 33 (re-run). Hover/focus/arrow browsing is popup-local; model touched once per select; DraftSlider commits on release; one notification per commit, persistence after. Agent exit=1 after RESULT.
+- Note: releasing a slider outside its strip now waits for Done (auto-commit would need a popup dismissal signal from P7-U1's popup API).

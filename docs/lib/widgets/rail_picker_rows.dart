@@ -4,6 +4,11 @@
 // panel, one selectable row, one colour swatch and the hex field. The popup
 // chrome (`showShadcnPicker`) and the scroll area (`RailPickerScroll`) live
 // in their own files.
+//
+// Apply-on-select: hovering, scrolling or moving keyboard focus never touches
+// the theme model. The hover/focus fill is local visual state (the registry
+// `Clickable` states); only a tap or Enter/Space activation calls [onPick],
+// and the caller commits it to the model exactly once.
 
 import 'package:flutter/widgets.dart';
 
@@ -41,7 +46,6 @@ class RailPickerRow extends StatelessWidget {
     required this.detail,
     required this.selected,
     required this.onPick,
-    this.onHighlight,
     this.trailing,
   });
 
@@ -51,14 +55,11 @@ class RailPickerRow extends StatelessWidget {
   /// The option value.
   final String detail;
 
-  /// Whether the row is the live value.
+  /// Whether the row is the committed value.
   final bool selected;
 
-  /// Applies and closes.
+  /// Commits the option (tap or Enter/Space); the caller closes the popup.
   final VoidCallback onPick;
-
-  /// Applies without closing (hover and keyboard focus).
-  final VoidCallback? onHighlight;
 
   /// The trailing glyph.
   final Widget? trailing;
@@ -70,15 +71,7 @@ class RailPickerRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Clickable(
         onPressed: onPick,
-        onHover: (bool hovered) {
-          if (hovered) onHighlight?.call();
-        },
-        onFocus: (bool focused) {
-          if (focused) {
-            onHighlight?.call();
-            revealOnFocus(context, focused);
-          }
-        },
+        onFocus: (bool focused) => revealOnFocus(context, focused),
         behavior: HitTestBehavior.opaque,
         decoration: WidgetStateProperty.resolveWith<Decoration?>((
           Set<WidgetState> states,
@@ -136,7 +129,6 @@ class RailSeedSwatch extends StatelessWidget {
     required this.name,
     required this.selected,
     required this.onPick,
-    this.onHighlight,
   });
 
   /// The swatch fill.
@@ -145,14 +137,11 @@ class RailSeedSwatch extends StatelessWidget {
   /// The accessible name.
   final String name;
 
-  /// Whether the swatch is the live value.
+  /// Whether the swatch is the committed value.
   final bool selected;
 
-  /// Applies and closes.
+  /// Commits the colour (tap or Enter/Space); the caller closes the popup.
   final VoidCallback onPick;
-
-  /// Applies without closing (hover and keyboard focus).
-  final VoidCallback? onHighlight;
 
   @override
   Widget build(BuildContext context) {
@@ -161,15 +150,7 @@ class RailSeedSwatch extends StatelessWidget {
       tooltip: (BuildContext context) => Text(name),
       child: Clickable(
         onPressed: onPick,
-        onHover: (bool hovered) {
-          if (hovered) onHighlight?.call();
-        },
-        onFocus: (bool focused) {
-          if (focused) {
-            onHighlight?.call();
-            revealOnFocus(context, focused);
-          }
-        },
+        onFocus: (bool focused) => revealOnFocus(context, focused),
         decoration: const WidgetStatePropertyAll<Decoration?>(null),
         child: Container(
           width: 40,
@@ -222,15 +203,10 @@ class RailHexFieldState extends State<RailHexField> {
       controller: _controller,
       hintText: '#RRGGBB',
       maxLength: 9,
+      // Submit-only: typing a hex must not rebuild the site per keystroke.
       onSubmitted: (String value) {
         if (kDocsHexColorPattern.hasMatch(value.trim())) {
           widget.onPick(docsColorOf(value.trim()));
-        }
-      },
-      onChanged: (String value) {
-        final String trimmed = value.trim();
-        if (kDocsHexColorPattern.hasMatch(trimmed)) {
-          widget.onPick(docsColorOf(trimmed));
         }
       },
     );

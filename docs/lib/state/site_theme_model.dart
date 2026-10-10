@@ -174,12 +174,18 @@ class SiteThemeModel extends ChangeNotifier {
   }
 
   void _assign(ThemeDocument next) {
-    if (next.json == _document.json) {
+    // Encode once: the JSON is the equality check, the persisted value and
+    // (through the document) the rebuilt theme.
+    final String encoded = next.json;
+    if (encoded == _document.json) {
       return;
     }
     _document = next;
-    _storage.write(kDocsThemeDocumentKey, next.json);
+    // One commit, one notification, one rebuild. The persistence write
+    // notifies nothing and runs after the listeners, so it can neither
+    // delay the frame's rebuild nor trigger a second one.
     notifyListeners();
+    _storage.write(kDocsThemeDocumentKey, encoded);
   }
 }
 

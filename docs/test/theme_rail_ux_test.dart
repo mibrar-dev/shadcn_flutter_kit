@@ -1,6 +1,8 @@
-// P6-T2 Theme Studio rail UX tests: the alpha-only scroll fade, bounded
-// scrolling dropdowns with the selected row in view, radius/spacing/shadow
-// presets, live apply during interaction, and Escape keeping the value.
+// P6-T2 Theme Studio rail UX tests, updated by P7-U3 to apply-on-select:
+// the alpha-only scroll fade, bounded scrolling dropdowns with the selected
+// row in view, radius/spacing/shadow presets, browsing (hover, arrows) with
+// zero site rebuilds, single-notify commits, draft-until-release sliders and
+// Escape discarding without change.
 
 import 'dart:ui';
 
@@ -9,6 +11,7 @@ import 'package:docs/ui/shadcn/components/menu/menu.dart';
 import 'package:docs/ui/shadcn/components/slider/slider.dart';
 import 'package:docs/ui/shadcn/primitives/fade_scroll.dart';
 import 'package:docs/widgets/rail_picker_scales.dart';
+import 'package:docs/widgets/rail_picker_slider.dart';
 import 'package:docs/widgets/theme_rail.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -44,6 +47,22 @@ Future<void> _closeWithEscape(WidgetTester tester) async {
 
 Finder _inPopup(Finder finder) =>
     find.descendant(of: find.byType(MenuPopup), matching: finder);
+
+/// Whether [context] belongs to a widget inside the open popup.
+bool _isInPopup(BuildContext? context) {
+  if (context == null) {
+    return false;
+  }
+  bool found = false;
+  (context as Element).visitAncestorElements((Element ancestor) {
+    if (ancestor.widget is MenuPopup) {
+      found = true;
+      return false;
+    }
+    return true;
+  });
+  return found;
+}
 
 /// Advances frames without settling: open popovers run a follow ticker, so
 /// `pumpAndSettle` never completes while one is open (pre-existing).
@@ -172,38 +191,8 @@ void main() {
     });
   });
 
-  group('live apply', () {
-    testWidgets('dragging the radius slider re-themes before Done', (
-      tester,
-    ) async {
-      await _themes(tester);
-      final double before = docsState.themeModel.radiusPx;
-      await _openRow(tester, 'rail-row-radius');
-      await tester.drag(_inPopup(find.byType(Slider)), const Offset(60, 0));
-      await _pumpFrames(tester);
-      // Applied while dragging: no Done press yet, popup still open.
-      expect(find.byType(MenuPopup), findsOneWidget);
-      expect((docsState.themeModel.radiusPx - before).abs(), greaterThan(0.5));
-      await tester.tap(_inPopup(find.text('Done')));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(find.byType(MenuPopup), findsNothing);
-    });
-
-    testWidgets('Escape keeps the dragged value', (tester) async {
-      await _themes(tester);
-      await _openRow(tester, 'rail-row-radius');
-      await tester.drag(_inPopup(find.byType(Slider)), const Offset(60, 0));
-      await _pumpFrames(tester);
-      final double dragged = docsState.themeModel.radiusPx;
-      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(find.byType(MenuPopup), findsNothing);
-      expect(docsState.themeModel.radiusPx, dragged);
-    });
-
-    testWidgets('hovering a preset re-themes without picking', (tester) async {
+  group('apply on select', () {
+    testWidgets('hovering options never touches the theme', (tester) async {
       await _themes(tester);
       // Widget tests start in touch highlight mode (no mouse connected),
       // which suppresses hover highlights; desktop browsers with a mouse
@@ -214,6 +203,8 @@ void main() {
       );
       FocusManager.instance.highlightStrategy =
           FocusHighlightStrategy.alwaysTraditional;
+      int rebuilds = 0;
+      docsState.addListener(() => rebuilds++);
       final String before = docsState.presetId;
       await _openRow(tester, 'rail-row-preset');
       final TestGesture mouse = await tester.createGesture(
@@ -221,18 +212,136 @@ void main() {
       );
       addTearDown(mouse.removePointer);
       await mouse.addPointer(location: Offset.zero);
-      // The list opens scrolled to the current preset; reveal the first
-      // option before hovering it.
-      final Finder firstOption = _inPopup(find.text('Amber Minimal'));
-      Scrollable.ensureVisible(tester.element(firstOption));
-      await _pumpFrames(tester);
-      await mouse.moveTo(tester.getCenter(firstOption));
-      await _pumpFrames(tester);
-      expect(docsState.presetId, 'amber-minimal');
-      expect(docsState.presetId, isNot(before));
+      // Browse across several options: hover is popup-local only.
+      for (final String name in <String>[
+        'Amber Minimal',
+        'Bubblegum',
+        'Caffeine',
+        'Neutral',
+      ]) {
+        final Finder option = _inPopup(find.text(name));
+        Scrollable.ensureVisible(tester.element(option));
+        await _pumpFrames(tester);
+        await mouse.moveTo(tester.getCenter(option));
+        await _pumpFrames(tester);
+      }
+      expect(docsState.presetId, before);
+      expect(rebuilds, 0, reason: 'hover must not rebuild the site');
       await _closeWithEscape(tester);
-      // Escape keeps the hovered value; Reset restores the default.
+      expect(docsState.presetId, before);
+      expect(rebuilds, 0);
+    });
+
+    testWidgets('arrow keys move without change; Enter commits once', (
+      tester,
+    ) async {
+      await _themes(tester);
+      int rebuilds = 0;
+      docsState.addListener(() => rebuilds++);
+      final String before = docsState.presetId;
+      await _openRow(tester, 'rail-row-preset');
+      // The popup opens with its container focused; Tab enters the list.
+      await tester.sendKeyEvent(LogicalKeyboardKey.tab);
+      await _pumpFrames(tester);
+      final FocusNode? focused = FocusManager.instance.primaryFocus;
+      expect(focused, isNotNull);
+      expect(
+        _isInPopup(focused!.context),
+        isTrue,
+        reason: 'Tab enters the popup list',
+      );
+      for (int i = 0; i < 6; i++) {
+        await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);
+        await _pumpFrames(tester);
+      }
+      expect(docsState.presetId, before);
+      expect(rebuilds, 0, reason: 'arrow navigation must not rebuild');
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await _pumpFrames(tester);
+      expect(find.byType(MenuPopup), findsNothing);
+      expect(docsState.presetId, isNot(before));
+      expect(rebuilds, 1, reason: 'one commit is one notification');
+    });
+
+    testWidgets('click commits exactly once', (tester) async {
+      await _themes(tester);
+      int rebuilds = 0;
+      docsState.addListener(() => rebuilds++);
+      await _openRow(tester, 'rail-row-preset');
+      final Finder option = _inPopup(find.text('Amber Minimal'));
+      Scrollable.ensureVisible(tester.element(option));
+      await _pumpFrames(tester);
+      await tester.tap(option);
+      await _pumpFrames(tester);
       expect(docsState.presetId, 'amber-minimal');
+      expect(rebuilds, 1, reason: 'one commit is one notification');
+      // A pick closes the popup.
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.byType(MenuPopup), findsNothing);
+      expect(rebuilds, 1);
+    });
+
+    testWidgets('slider drags stay local until release, then commit once', (
+      tester,
+    ) async {
+      await _themes(tester);
+      int rebuilds = 0;
+      docsState.addListener(() => rebuilds++);
+      final double before = docsState.themeModel.radiusPx;
+      await _openRow(tester, 'rail-row-radius');
+      final Finder slider = _inPopup(find.byType(Slider));
+      final Offset center = tester.getCenter(slider);
+      final TestGesture gesture = await tester.startGesture(center);
+      // Incremental moves like `tester.drag` uses: the first move wins the
+      // drag arena (a single jump to exactly the slop boundary may not), the
+      // second produces drag updates.
+      await gesture.moveBy(const Offset(30, 0));
+      await gesture.moveBy(const Offset(30, 0));
+      await _pumpFrames(tester);
+      // Mid-drag: the popup thumb follows, the theme model is untouched.
+      final DraftSliderState draft = tester.state<DraftSliderState>(
+        _inPopup(find.byType(DraftSlider)),
+      );
+      expect((draft.draft - before).abs(), greaterThan(0.5));
+      expect(docsState.themeModel.radiusPx, before);
+      expect(rebuilds, 0, reason: 'drag frames must not rebuild the site');
+      await gesture.up();
+      await _pumpFrames(tester);
+      expect((docsState.themeModel.radiusPx - before).abs(), greaterThan(0.5));
+      expect(rebuilds, 1, reason: 'release commits exactly once');
+      // No timers or follow-ups commit again: quiescence stays at one.
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 200));
+      expect(rebuilds, 1);
+      await tester.tap(_inPopup(find.text('Done')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.byType(MenuPopup), findsNothing);
+    });
+
+    testWidgets('Escape discards an uncommitted slider draft', (tester) async {
+      await _themes(tester);
+      int rebuilds = 0;
+      docsState.addListener(() => rebuilds++);
+      final double before = docsState.themeModel.radiusPx;
+      await _openRow(tester, 'rail-row-radius');
+      final Finder slider = _inPopup(find.byType(Slider));
+      final Offset center = tester.getCenter(slider);
+      final TestGesture gesture = await tester.startGesture(center);
+      await gesture.moveBy(const Offset(30, 0));
+      await gesture.moveBy(const Offset(30, 0));
+      await _pumpFrames(tester);
+      expect(docsState.themeModel.radiusPx, before);
+      await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      // Release the pointer without synthesizing an up (the popup is gone;
+      // an up would hit-test a disposed subtree).
+      await gesture.removePointer();
+      await _pumpFrames(tester);
+      expect(find.byType(MenuPopup), findsNothing);
+      expect(docsState.themeModel.radiusPx, before);
+      expect(rebuilds, 0, reason: 'a discarded draft never rebuilds');
     });
 
     testWidgets('spacing and shadow presets apply on tap', (tester) async {

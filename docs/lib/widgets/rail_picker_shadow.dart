@@ -1,19 +1,19 @@
 // The shadow picker of the Theme Studio rail.
 //
 // Split out of `rail_picker_scales.dart` for the ~400-line rule: shadow
-// presets plus the fine sliders. Every interaction applies live; `Done`
-// only closes.
+// presets plus the fine sliders. Preset taps commit; slider drags stay local
+// until release; `Done` flushes keyboard-edited drafts, then closes.
 
 import 'package:flutter/widgets.dart';
 
 import '../../theme/theme_document.dart';
 import '../../ui/shadcn/components/button/button.dart';
-import '../../ui/shadcn/components/slider/slider.dart';
 import '../../ui/shadcn/foundation/gap.dart';
 import '../../ui/shadcn/primitives/overlay.dart';
 import '../../ui/shadcn/theme/theme.dart';
 import 'docs_tokens.dart';
 import 'rail_picker_rows.dart';
+import 'rail_picker_slider.dart';
 import 'rail_pickers.dart';
 
 /// Shadow presets, as adjustments over the current atoms (colour and
@@ -34,20 +34,27 @@ DocsShadowAtoms _shadowPreset(DocsShadowAtoms base, String name) {
 
 /// Shows the shadow panel: presets plus opacity/blur sliders.
 ///
-/// Every interaction applies live through [onChanged]; `Done` only closes.
+/// Preset taps commit immediately (the popup stays open for fine-tuning).
+/// Slider drags show locally and commit once on release; `Done` flushes
+/// keyboard-edited drafts, then closes. Escape closes without committing.
 Future<void> showShadowPicker(
   BuildContext context,
   DocsShadowAtoms atoms, {
   required bool dark,
   required ValueChanged<DocsShadowAtoms> onChanged,
 }) {
-  DocsShadowAtoms value = atoms;
+  DocsShadowAtoms applied = atoms;
+  DocsShadowAtoms shown = atoms;
+  final List<GlobalKey<DraftSliderState>> sliderKeys =
+      <GlobalKey<DraftSliderState>>[
+        for (int i = 0; i < 4; i++) GlobalKey<DraftSliderState>(),
+      ];
   bool nearPreset(String name) {
     final DocsShadowAtoms preset = _shadowPreset(atoms, name);
-    return (value.opacity - preset.opacity).abs() < 0.005 &&
-        (value.blur - preset.blur).abs() < 0.25 &&
-        (value.spread - preset.spread).abs() < 0.25 &&
-        (value.offsetY - preset.offsetY).abs() < 0.25;
+    return (applied.opacity - preset.opacity).abs() < 0.005 &&
+        (applied.blur - preset.blur).abs() < 0.25 &&
+        (applied.spread - preset.spread).abs() < 0.25 &&
+        (applied.offsetY - preset.offsetY).abs() < 0.25;
   }
 
   return showShadcnPicker<void>(
@@ -55,10 +62,39 @@ Future<void> showShadowPicker(
     builder: (BuildContext context) => RailPickerPanel(
       child: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          void update(DocsShadowAtoms next) {
-            setState(() => value = next);
+          void commit(DocsShadowAtoms next) {
+            setState(() {
+              applied = next;
+              shown = next;
+            });
             onChanged(next);
           }
+
+          double fieldOf(DocsShadowAtoms a, String field) => switch (field) {
+            'Opacity' => a.opacity,
+            'Blur' => a.blur,
+            'Spread' => a.spread,
+            _ => a.offsetY,
+          };
+
+          DocsShadowAtoms withField(
+            DocsShadowAtoms a,
+            String field,
+            double next,
+          ) => switch (field) {
+            'Opacity' => a.copyWith(opacity: next),
+            'Blur' => a.copyWith(blur: next),
+            'Spread' => a.copyWith(spread: next),
+            _ => a.copyWith(offsetY: next),
+          };
+
+          const List<(String, double, double)> sliderFields =
+              <(String, double, double)>[
+                ('Opacity', 0, 0.4),
+                ('Blur', 0, 40),
+                ('Spread', -20, 10),
+                ('Offset Y', 0, 12),
+              ];
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,27 +112,22 @@ Future<void> showShadowPicker(
                       ? 'no shadow'
                       : 'opacity ${_shadowPreset(atoms, name).opacity.toStringAsFixed(2)}',
                   selected: nearPreset(name),
-                  onHighlight: () => update(_shadowPreset(atoms, name)),
-                  onPick: () => update(_shadowPreset(atoms, name)),
+                  onPick: () => commit(_shadowPreset(atoms, name)),
                 ),
               const Gap(8),
-              for (final (String label, double value, double min, double max)
-                  row
-                  in <(String, double, double, double)>[
-                    ('Opacity', value.opacity, 0, 0.4),
-                    ('Blur', value.blur, 0, 40),
-                    ('Spread', value.spread, -20, 10),
-                    ('Offset Y', value.offsetY, 0, 12),
-                  ])
+              for (int i = 0; i < sliderFields.length; i++)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Text(row.$1, style: docsText(context, size: 12)),
+                        Text(
+                          sliderFields[i].$1,
+                          style: docsText(context, size: 12),
+                        ),
                         const Spacer(),
                         Text(
-                          row.$2.toStringAsFixed(2),
+                          fieldOf(shown, sliderFields[i].$1).toStringAsFixed(2),
                           style: docsText(
                             context,
                             size: 12,
@@ -109,16 +140,23 @@ Future<void> showShadowPicker(
                     ),
                     SizedBox(
                       width: kDocsPickerWidth - 24,
-                      child: Slider(
-                        value: row.$2.clamp(row.$3, row.$4),
-                        min: row.$3,
-                        max: row.$4,
-                        onChanged: (double next) => update(switch (row.$1) {
-                          'Opacity' => value.copyWith(opacity: next),
-                          'Blur' => value.copyWith(blur: next),
-                          'Spread' => value.copyWith(spread: next),
-                          _ => value.copyWith(offsetY: next),
-                        }),
+                      child: DraftSlider(
+                        key: sliderKeys[i],
+                        value: fieldOf(applied, sliderFields[i].$1)
+                            .clamp(sliderFields[i].$2, sliderFields[i].$3)
+                            .toDouble(),
+                        min: sliderFields[i].$2,
+                        max: sliderFields[i].$3,
+                        onCommit: (double next) => commit(
+                          withField(applied, sliderFields[i].$1, next),
+                        ),
+                        onDraft: (double next) => setState(
+                          () => shown = withField(
+                            shown,
+                            sliderFields[i].$1,
+                            next,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -136,7 +174,12 @@ Future<void> showShadowPicker(
               Button(
                 variant: ButtonVariant.secondary,
                 size: ButtonSize.sm,
-                onPressed: () => closeOverlay(context),
+                onPressed: () {
+                  for (final GlobalKey<DraftSliderState> key in sliderKeys) {
+                    key.currentState?.flush();
+                  }
+                  closeOverlay(context);
+                },
                 child: const Text('Done'),
               ),
             ],

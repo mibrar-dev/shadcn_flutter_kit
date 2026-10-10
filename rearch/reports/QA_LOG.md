@@ -592,3 +592,8 @@
 - docs analyze 0, +171 tests, codegen/mirror --check, release build OK; render audit threw=0 overflow=0 (after orchestrator fix: navigation_menu Bar preview fixed 340px box → FittedBox scaleDown).
 - Codegen reads `const <camel>Previews`; bounded stage; per-stage light/dark; SelectableCode for every code surface; Calendar follows claude primary (pinned preview themes were the cause, removed in F3).
 - Follow-ups: dart_scan.dart 562 lines (split later); selection persistence in-memory only.
+
+## P6-T1 — Theme Studio masonry canvas — ACCEPTED
+- Combined tree after F4: docs format/analyze 0, +171, codegen + mirror --check OK; agent ran qa_gate (+3794) + release build. Agent exit=1 after writing its final report.
+- Registry primitive masonry_layout (shortest column, RTL, responsive 3/2/1 cols; 13 tests); canvas + home collage on it, ~40 content-height blocks (money/forms/settings/media/lists/stats/tabs), 7 canvas tests, captures at 1440/375 light/dark.
+- Follow-ups: Pagination/Calendar/InputOtp can't shrink to a column (blocks scroll them) → registry min-width fix; canvas gap 24px (ref 40px on wider wall).

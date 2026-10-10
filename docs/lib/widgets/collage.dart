@@ -1,13 +1,15 @@
-// The landing collage (spec §2.1): a full-bleed live grid of registry
+// The landing collage (spec §2.1): a full-bleed live wall of registry
 // components — 4 columns at `1400`, 3 at `1024`, 2 at `768`, gap 24 — with a
-// bottom gradient fade and a light-mode-only top fade. Below 768 the grid is
-// replaced by a non-interactive static stack clipped to 140vw (the reference
-// uses a baked screenshot image; we ship the composed static fallback instead
-// of a binary asset — see the D3 report).
+// bottom gradient fade and a light-mode-only top fade. The wall is a
+// `MasonryLayout`, so every card keeps its natural height and the columns
+// pack into the shortest gap. Below 768 the wall is replaced by a
+// non-interactive static stack clipped to 140vw (the reference uses a baked
+// screenshot image; we ship the composed static fallback instead of a binary
+// asset — see the D3 report).
 
 import 'package:flutter/widgets.dart';
 
-import '../ui/shadcn/foundation/gap.dart';
+import '../ui/shadcn/primitives/masonry_layout.dart';
 import '../ui/shadcn/theme/theme.dart';
 import 'collage_cards.dart';
 import 'collage_cards_controls.dart';
@@ -73,9 +75,8 @@ class _CollageBody extends StatelessWidget {
     final double bottomFade = width >= 1280 ? 256 : (width >= 1024 ? 320 : 192);
     final List<Widget> effectiveCards =
         cards ??
-        // Deliberate round-robin order: with 12 cards the 4/3/2-column grids
-        // each get balanced stacks (no short leftover column), matching the
-        // reference's multi-column card wall instead of a ragged masonry.
+        // The masonry packs each card into the shortest column, so the
+        // build order is the reading order, not a stack assignment.
         <Widget>[
           const CollageButtonsCard(),
           const CollageInputsCard(),
@@ -123,32 +124,11 @@ class _CollageBody extends StatelessWidget {
             child: Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1600),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    for (
-                      int column = 0;
-                      column < columns;
-                      column++
-                    ) ...<Widget>[
-                      if (column > 0) const Gap(24),
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            for (
-                              int i = column;
-                              i < effectiveCards.length;
-                              i += columns
-                            )
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 24),
-                                child: effectiveCards[i],
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ],
+                child: MasonryLayout.fixed(
+                  crossAxisCount: columns,
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 24,
+                  children: effectiveCards,
                 ),
               ),
             ),

@@ -15,6 +15,7 @@
   ],
   "deps": {
     "foundation": [
+      "data",
       "gap",
       "icons/lucide_icons"
     ],
@@ -24,7 +25,8 @@
     ],
     "primitives": [
       "clickable",
-      "form_core"
+      "form_core",
+      "widget_states"
     ],
     "components": []
   },

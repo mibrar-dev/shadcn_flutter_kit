@@ -184,13 +184,25 @@ class InputTheme extends ComponentThemeData implements Mergeable<InputTheme> {
 // ---------------------------------------------------------------------------
 // Defaults (registry-owned, tokens only).
 //
-// Disabled is an explicit a0 fill: unlike `Button`, the input is not dimmed
-// with a whole-control opacity, so the disabled surface itself fades out.
-// Error state is not a field: the widget synthesises a destructive
-// `borderColor` leg while `errorText` is set (design §2.3).
+// shadcn v4 input: `bg-transparent` in light, `bg-input/30` in dark, always
+// with a `border-input` border. The fill is token-based (input @0 in light)
+// so overrides can still hook the row. Disabled is an explicit a0 fill:
+// unlike `Button`, the input is not dimmed with a whole-control opacity, so
+// the disabled surface itself fades out. Error state is not a field: the
+// widget synthesises a destructive `borderColor` leg while `errorText` is set
+// (design §2.3).
 // ---------------------------------------------------------------------------
 
-const StateValue<ThemedColor> _inputBackground = StateValue<ThemedColor>(
+/// Light fill: transparent (input @0 rest/hovered/focused, a0 disabled).
+const StateValue<ThemedColor> _inputLightBackground = StateValue<ThemedColor>(
+  rest: ThemedColor.ref(ColorRef.input, alpha: 0),
+  hovered: ThemedColor.ref(ColorRef.input, alpha: 0),
+  focused: ThemedColor.ref(ColorRef.input, alpha: 0),
+  disabled: ThemedColor.ref(ColorRef.input, alpha: 0),
+);
+
+/// Dark fill: `bg-input/30` (input token is 15% white, @0.3 ≈ 4.5% white).
+const StateValue<ThemedColor> _inputDarkBackground = StateValue<ThemedColor>(
   rest: ThemedColor.ref(ColorRef.input, alpha: 0.3),
   hovered: ThemedColor.ref(ColorRef.input, alpha: 0.5),
   focused: ThemedColor.ref(ColorRef.input, alpha: 0.3),
@@ -208,8 +220,21 @@ const EdgeInsetsGeometry inputDefaultPadding = EdgeInsetsDensity.pxSymmetric(
 );
 
 /// Token-derived baseline; every unset override field falls through here.
+///
+/// Light baseline (`bg-transparent`); dark uses [inputDarkDefaults].
 const InputTheme inputDefaults = InputTheme(
-  background: _inputBackground,
+  background: _inputLightBackground,
+  borderColor: _inputBorder,
+  borderWidth: 1,
+  padding: inputDefaultPadding,
+  cursorColor: ThemedColor.ref(ColorRef.primary),
+  height: 36,
+);
+
+/// Dark baseline (`bg-input/30`); picked by [resolveInputSurface] when the
+/// ambient brightness is dark.
+const InputTheme inputDarkDefaults = InputTheme(
+  background: _inputDarkBackground,
   borderColor: _inputBorder,
   borderWidth: 1,
   padding: inputDefaultPadding,
@@ -301,11 +326,16 @@ InputSurface resolveInputSurface(
       ),
     ).merge(widgetLeg);
   }
+  // shadcn v4: transparent in light, input/30 in dark. The per-brightness
+  // baseline keeps user overrides working in both modes.
+  final InputTheme effectiveDefaults = colors.brightness == Brightness.dark
+      ? inputDarkDefaults
+      : inputDefaults;
   final resolved = resolveComponentStyle<InputTheme, InputTheme>(
     context,
     widget: widgetLeg,
     select: (t) => t,
-    defaults: inputDefaults,
+    defaults: effectiveDefaults,
   );
 
   Color? colorFor(StateValue<ThemedColor>? value) =>

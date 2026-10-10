@@ -90,12 +90,15 @@ class Login01 extends StatelessWidget {
                     Gap(spacing.sm),
                     const Input(hintText: '••••••••', obscureText: true),
                     Gap(spacing.md),
-                    const Checkbox(
+                    Checkbox(
                       value: CheckboxValue.checked,
-                      label: Text('Remember me'),
+                      // Demo keeps the control enabled; the block is static.
+                      onChanged: (_) {},
+                      label: const Text('Remember me'),
                     ),
                     Gap(spacing.xl),
-                    const Button(child: Text('Sign in')),
+                    // Demo keeps the primary action enabled (not disabled).
+                    Button(onPressed: () {}, child: const Text('Sign in')),
                     Gap(spacing.lg),
                     const Divider(),
                     Gap(spacing.lg),

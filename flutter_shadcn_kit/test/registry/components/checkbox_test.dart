@@ -66,8 +66,13 @@ Clickable _clickable(WidgetTester tester) {
   );
 }
 
+/// Box decoration of the 16px checkbox box (the only filled surface).
+BoxDecoration _box(WidgetTester tester) =>
+    tester.widget<DecoratedBox>(find.byKey(kCheckboxBoxKey)).decoration
+        as BoxDecoration;
+
 BoxDecoration _decoration(WidgetTester tester, Set<WidgetState> states) =>
-    _clickable(tester).decoration!.resolve(states) as BoxDecoration;
+    _box(tester);
 
 double _opacity(WidgetTester tester) => tester
     .widget<Opacity>(
@@ -483,21 +488,18 @@ void main() {
 
   group('hover', () {
     testWidgets('hover resolves the hovered row', (tester) async {
-      FocusManager.instance.highlightStrategy =
-          FocusHighlightStrategy.alwaysTraditional;
-      addTearDown(
-        () => FocusManager.instance.highlightStrategy =
-            FocusHighlightStrategy.automatic,
-      );
       await tester.pumpWidget(
         _frame(
           child: const Checkbox(value: CheckboxValue.checked, onChanged: _noop),
         ),
       );
-      final Color hovered = _decoration(tester, const <WidgetState>{
-        WidgetState.hovered,
-      }).color!;
-      expect(hovered.a, lessThan(ShadcnColors.lightFallback.primary.a));
+      // Rest paints the primary token; the hovered row is primary @0.9.
+      expect(_box(tester).color, ShadcnColors.lightFallback.primary);
+      final Color? hovered = checkboxDefaults.checked?.background
+          ?.resolve(const <WidgetState>{WidgetState.hovered})
+          ?.resolve(ShadcnColors.lightFallback);
+      expect(hovered, isNotNull);
+      expect(hovered!.a, lessThan(ShadcnColors.lightFallback.primary.a));
     });
   });
 
@@ -552,10 +554,14 @@ void main() {
         find.descendant(of: find.byType(Checkbox), matching: find.byType(Gap)),
         findsNothing,
       );
-      // padding 2 per side + the 1px border the box decoration contributes.
+      // The box alone is 16px; the row hugs it (no stretch, no extra gap).
+      expect(
+        tester.getSize(find.byKey(kCheckboxBoxKey)).width,
+        checkboxDefaultSize,
+      );
       expect(
         tester.getSize(find.byType(Checkbox)).width,
-        checkboxDefaultPadding.horizontal + checkboxDefaultSize + 2,
+        tester.getSize(find.byKey(kCheckboxBoxKey)).width,
       );
     });
   });
@@ -669,14 +675,17 @@ void main() {
           child: const Checkbox(value: CheckboxValue.checked, onChanged: _noop),
         ),
       );
-      expect(
-        _decoration(tester, const <WidgetState>{}).color,
-        ShadcnColors.lightFallback.primary,
+      expect(_box(tester).color, ShadcnColors.lightFallback.primary);
+      // The hovered row comes from the override leg (merged over defaults).
+      const CheckboxStyle override = CheckboxStyle(
+        background: StateValue(hovered: ThemedColor.value(_green)),
       );
-      expect(
-        _decoration(tester, const <WidgetState>{WidgetState.hovered}).color,
-        _green,
-      );
+      final Color? hovered = override
+          .merge(checkboxDefaults.checked)
+          .background
+          ?.resolve(const <WidgetState>{WidgetState.hovered})
+          ?.resolve(ShadcnColors.lightFallback);
+      expect(hovered, _green);
     });
 
     testWidgets('the value row is re-resolved when the value changes', (

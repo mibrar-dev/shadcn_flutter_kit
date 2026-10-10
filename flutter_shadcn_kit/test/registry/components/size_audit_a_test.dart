@@ -68,11 +68,10 @@ void main() {
         tester.getSize(find.byType(SizedBox).first),
         const Size.square(16),
       );
-      // Outer is the 16 box plus the 1px border ring: `Container` reserves
-      // the decoration border as padding, so a bordered box always measures
-      // 2px more than shadcn border-box (16). The old all(2) padding made it
-      // 22; only the border ring remains.
-      expect(tester.getSize(find.byType(Checkbox)).width, 18);
+      // The box is border-box 16 (shadcn size-4): the 1px border paints
+      // inside the 16, so the control measures exactly 16 (the old Clickable
+      // container reserved the border as padding and measured 18).
+      expect(tester.getSize(find.byType(Checkbox)).width, 16);
     });
   });
 

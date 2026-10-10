@@ -250,7 +250,7 @@ class _Calendar02Booking extends StatelessWidget {
           ),
         ),
         Gap(theme.spacing.lg),
-        const Button(child: Text('Book a meeting')),
+        Button(onPressed: () {}, child: const Text('Book a meeting')),
       ],
     );
   }

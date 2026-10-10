@@ -9,15 +9,22 @@
 
 import 'package:flutter/widgets.dart';
 
+import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/clickable.dart';
 import '../../primitives/form_core/form_value.dart';
+import '../../primitives/widget_states.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import 'checkbox_style.dart';
 
 export 'checkbox_style.dart';
+
+/// Lookup key of the 16px checkbox box surface (fill/border live here only).
+const ValueKey<String> kCheckboxBoxKey = ValueKey<String>(
+  'shadcn.checkbox.box',
+);
 
 /// Opacity applied to the whole checkbox while disabled (shadcn
 /// `opacity-50`).
@@ -268,25 +275,114 @@ class _CheckboxState extends State<Checkbox>
               color: resolved.labelStyle?.color ?? theme.colors.foreground,
             );
 
-    Color? colorFor(StateValue<ThemedColor>? entry, Set<WidgetState> states) =>
-        entry?.resolve(states)?.resolve(theme.colors);
-
-    BoxDecoration decorationFor(Set<WidgetState> states) {
-      final Color? background = colorFor(resolved.background, states);
-      final Color? border = colorFor(resolved.borderColor, states);
-      return BoxDecoration(
-        color: background,
-        borderRadius: radius,
-        border: border == null || borderWidth <= 0
-            ? null
-            : Border.all(color: border, width: borderWidth),
-      );
-    }
-
     final Color? indicatorColor = resolved.indicatorColor?.resolve(
       theme.colors,
     );
-    final Widget box = AnimatedOpacity(
+    final Widget box = _CheckboxBox(
+      size: size,
+      indicatorSize: indicatorSize,
+      borderWidth: borderWidth,
+      radius: radius,
+      background: resolved.background,
+      borderColor: resolved.borderColor,
+      indicatorColor: indicatorColor,
+      value: value,
+      colors: theme.colors,
+    );
+
+    final Widget row = Row(
+      key: const ValueKey<String>('shadcn.checkbox.row'),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        box,
+        if (widget.label != null) ...<Widget>[
+          Gap(gap),
+          Flexible(
+            child: DefaultTextStyle.merge(
+              style: labelStyle,
+              child: widget.label!,
+            ),
+          ),
+        ],
+      ],
+    );
+
+    // The Clickable paints no surface of its own — the 16px box alone
+    // carries the fill/border, the label sits beside it uncoloured (shadcn
+    // checkbox). The row hugs its content (MainAxisSize.min); under a stretch
+    // parent the transparent Clickable may fill the width, but no fill is
+    // ever painted outside the box.
+    final Widget padded = Padding(padding: padding, child: row);
+
+    return Semantics(
+      checked: value == CheckboxValue.checked,
+      mixed: value == CheckboxValue.indeterminate,
+      enabled: enabled,
+      label: widget.label is Text ? (widget.label! as Text).data : null,
+      child: Opacity(
+        opacity: enabled ? 1 : _checkboxDisabledOpacity,
+        child: Clickable(
+          enabled: enabled,
+          onPressed: enabled ? _handleTap : null,
+          onHover: widget.onHover,
+          onFocus: widget.onFocusChange,
+          focusNode: _focusNode,
+          mouseCursor: _checkboxMouseCursor,
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry?>(null),
+          decoration: const WidgetStatePropertyAll<Decoration?>(null),
+          child: padded,
+        ),
+      ),
+    );
+  }
+}
+
+/// The 16px checkbox box: the only surface that carries fill/border.
+///
+/// Reads the states `Clickable` publishes so hover/press/focus rows reach the
+/// box without the clickable's own decoration (the row carries the label,
+/// which must not be filled).
+class _CheckboxBox extends StatelessWidget {
+  const _CheckboxBox({
+    required this.size,
+    required this.indicatorSize,
+    required this.borderWidth,
+    required this.radius,
+    required this.background,
+    required this.borderColor,
+    required this.indicatorColor,
+    required this.value,
+    required this.colors,
+  });
+
+  final double size;
+  final double indicatorSize;
+  final double borderWidth;
+  final BorderRadiusGeometry radius;
+  final StateValue<ThemedColor>? background;
+  final StateValue<ThemedColor>? borderColor;
+  final Color? indicatorColor;
+  final CheckboxValue value;
+  final ShadcnColors colors;
+
+  @override
+  Widget build(BuildContext context) {
+    final Set<WidgetState> states =
+        Data.maybeOf<WidgetStatesData>(context)?.states ??
+        const <WidgetState>{};
+    Color? colorFor(StateValue<ThemedColor>? entry) =>
+        entry?.resolve(states)?.resolve(colors);
+    final Color? fill = colorFor(background);
+    final Color? border = colorFor(borderColor);
+    final BoxDecoration decoration = BoxDecoration(
+      color: fill,
+      borderRadius: radius,
+      border: border == null || borderWidth <= 0
+          ? null
+          : Border.all(color: border, width: borderWidth),
+    );
+    final Widget indicator = AnimatedOpacity(
       duration: _checkboxIndicatorDuration,
       opacity: indicatorColor == null ? 0 : 1,
       child: SizedBox.fromSize(
@@ -305,42 +401,12 @@ class _CheckboxState extends State<Checkbox>
               ),
       ),
     );
-
-    final Widget row = Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox.fromSize(size: Size.square(size), child: box),
-        if (widget.label != null) ...<Widget>[
-          Gap(gap),
-          Flexible(
-            child: DefaultTextStyle.merge(
-              style: labelStyle,
-              child: widget.label!,
-            ),
-          ),
-        ],
-      ],
-    );
-
-    return Semantics(
-      checked: value == CheckboxValue.checked,
-      mixed: value == CheckboxValue.indeterminate,
-      enabled: enabled,
-      label: widget.label is Text ? (widget.label! as Text).data : null,
-      child: Opacity(
-        opacity: enabled ? 1 : _checkboxDisabledOpacity,
-        child: Clickable(
-          enabled: enabled,
-          onPressed: enabled ? _handleTap : null,
-          onHover: widget.onHover,
-          onFocus: widget.onFocusChange,
-          focusNode: _focusNode,
-          decoration: WidgetStateProperty.resolveWith(decorationFor),
-          mouseCursor: _checkboxMouseCursor,
-          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(padding),
-          child: row,
-        ),
+    return DecoratedBox(
+      key: kCheckboxBoxKey,
+      decoration: decoration,
+      child: SizedBox.fromSize(
+        size: Size.square(size),
+        child: Center(child: indicator),
       ),
     );
   }

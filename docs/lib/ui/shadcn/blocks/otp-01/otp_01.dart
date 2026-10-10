@@ -57,7 +57,7 @@ class _Otp01State extends State<Otp01> {
                       onResend: () => setState(() => _secondsLeft = 47),
                     ),
                     Gap(spacing.xl),
-                    const Button(child: Text('Verify')),
+                    Button(onPressed: () {}, child: const Text('Verify')),
                     Gap(spacing.lg),
                     const Divider(),
                     Gap(spacing.lg),

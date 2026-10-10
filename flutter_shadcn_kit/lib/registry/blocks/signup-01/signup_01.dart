@@ -56,7 +56,10 @@ class Signup01 extends StatelessWidget {
                     Gap(spacing.lg),
                     const _Signup01Terms(),
                     Gap(spacing.xl),
-                    const Button(child: Text('Create account')),
+                    Button(
+                      onPressed: () {},
+                      child: const Text('Create account'),
+                    ),
                   ],
                 ),
               ),
@@ -110,7 +113,7 @@ class _Signup01Terms extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Checkbox(value: CheckboxValue.unchecked),
+        Checkbox(value: CheckboxValue.unchecked, onChanged: (_) {}),
         Gap(spacing.sm),
         Expanded(
           child: Text(

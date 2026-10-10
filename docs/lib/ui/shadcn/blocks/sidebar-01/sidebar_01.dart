@@ -224,12 +224,13 @@ class Sidebar01Content extends StatelessWidget {
         Wrap(
           spacing: spacing.md,
           runSpacing: spacing.md,
-          children: const <Widget>[
+          children: <Widget>[
             Button(
               variant: ButtonVariant.outline,
-              child: Text('Mark all read'),
+              onPressed: () {},
+              child: const Text('Mark all read'),
             ),
-            Button(child: Text('Compose')),
+            Button(onPressed: () {}, child: const Text('Compose')),
           ],
         ),
       ],

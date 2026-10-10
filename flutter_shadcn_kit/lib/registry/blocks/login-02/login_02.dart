@@ -66,7 +66,7 @@ class Login02 extends StatelessWidget {
                     Gap(spacing.sm),
                     const Input(hintText: 'Password', obscureText: true),
                     Gap(spacing.xl),
-                    const Button(child: Text('Sign in')),
+                    Button(onPressed: () {}, child: const Text('Sign in')),
                     Gap(spacing.lg),
                     const _Login02Footer(),
                   ],

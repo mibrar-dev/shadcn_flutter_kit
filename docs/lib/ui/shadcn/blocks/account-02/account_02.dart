@@ -231,7 +231,7 @@ class _Account02QuietHours extends StatelessWidget {
           ),
         ),
         Gap(spacing.md),
-        const Checkbox(value: CheckboxValue.checked),
+        Checkbox(value: CheckboxValue.checked, onChanged: (_) {}),
       ],
     );
   }
@@ -272,9 +272,13 @@ class _Account02Actions extends StatelessWidget {
     return Wrap(
       spacing: spacing.md,
       runSpacing: spacing.md,
-      children: const <Widget>[
-        Button(child: Text('Save preferences')),
-        Button(variant: ButtonVariant.outline, child: Text('Reset')),
+      children: <Widget>[
+        Button(onPressed: () {}, child: const Text('Save preferences')),
+        Button(
+          variant: ButtonVariant.outline,
+          onPressed: () {},
+          child: const Text('Reset'),
+        ),
       ],
     );
   }

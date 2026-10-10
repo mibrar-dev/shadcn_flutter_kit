@@ -218,9 +218,13 @@ class _Calendar01Footer extends StatelessWidget {
           ),
         ),
         Gap(spacing.md),
-        const Button(variant: ButtonVariant.outline, child: Text('Clear')),
+        Button(
+          variant: ButtonVariant.outline,
+          onPressed: () {},
+          child: const Text('Clear'),
+        ),
         Gap(spacing.sm),
-        const Button(child: Text('Apply')),
+        Button(onPressed: () {}, child: const Text('Apply')),
       ],
     );
   }

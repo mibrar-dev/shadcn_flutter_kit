@@ -311,5 +311,47 @@ void main() {
       expect(fill, background);
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets('the card is one continuous bordered card (P6-P3)', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/blocks');
+      final Finder card = find.byType(BlockCard).first;
+      final DocsBlock first = kBlocks.first;
+      final Finder header = find.descendant(
+        of: card,
+        matching: find.text(first.name),
+      );
+      final Finder frame = find.descendant(
+        of: card,
+        matching: find.byKey(ValueKey<String>('block-frame-${first.id}')),
+      );
+      expect(header, findsOneWidget);
+      expect(frame, findsOneWidget);
+      final Offset headerCenter = tester.getCenter(header);
+      final Offset frameCenter = tester.getCenter(frame);
+      int containing = 0;
+      for (final Element element
+          in find
+              .descendant(of: card, matching: find.byType(DecoratedBox))
+              .evaluate()) {
+        final Decoration decoration =
+            (element.widget as DecoratedBox).decoration;
+        if (decoration is! BoxDecoration || decoration.border == null) {
+          continue;
+        }
+        final Rect rect = tester.getRect(find.byWidget(element.widget));
+        if (rect.contains(headerCenter) && rect.contains(frameCenter)) {
+          containing++;
+        }
+      }
+      expect(
+        containing,
+        1,
+        reason: 'one continuous border wraps header and viewport',
+      );
+      expect(tester.takeException(), isNull);
+    });
   });
 }

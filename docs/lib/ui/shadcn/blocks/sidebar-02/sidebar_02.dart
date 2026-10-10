@@ -308,7 +308,7 @@ class Sidebar02Content extends StatelessWidget {
               Gap(spacing.lg),
               const Divider(),
               Gap(spacing.lg),
-              const Button(child: Text('Upgrade plan')),
+              Button(onPressed: () {}, child: const Text('Upgrade plan')),
             ],
           ),
         ),

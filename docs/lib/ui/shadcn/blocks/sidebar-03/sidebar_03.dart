@@ -384,7 +384,11 @@ class Sidebar03ProjectCard extends StatelessWidget {
             ),
           ),
           Gap(spacing.lg),
-          const Button(variant: ButtonVariant.outline, child: Text('Open')),
+          Button(
+            variant: ButtonVariant.outline,
+            onPressed: () {},
+            child: const Text('Open'),
+          ),
         ],
       ),
     );

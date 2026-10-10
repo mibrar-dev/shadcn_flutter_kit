@@ -268,7 +268,11 @@ class _Dashboard01Activity extends StatelessWidget {
           Gap(spacing.lg),
           const Divider(),
           Gap(spacing.lg),
-          const Button(variant: ButtonVariant.outline, child: Text('View all')),
+          Button(
+            variant: ButtonVariant.outline,
+            onPressed: () {},
+            child: const Text('View all'),
+          ),
         ],
       ),
     );

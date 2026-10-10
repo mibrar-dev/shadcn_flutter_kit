@@ -115,7 +115,7 @@ class Signup02Form extends StatelessWidget {
         Gap(spacing.lg),
         const _Signup02Consent(),
         Gap(spacing.xl),
-        const Button(child: Text('Start free trial')),
+        Button(onPressed: () {}, child: const Text('Start free trial')),
         Gap(spacing.lg),
         const Divider(),
         Gap(spacing.lg),
@@ -209,7 +209,7 @@ class _Signup02Consent extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Checkbox(value: CheckboxValue.unchecked),
+        Checkbox(value: CheckboxValue.unchecked, onChanged: (_) {}),
         Gap(spacing.sm),
         Expanded(
           child: RichText(

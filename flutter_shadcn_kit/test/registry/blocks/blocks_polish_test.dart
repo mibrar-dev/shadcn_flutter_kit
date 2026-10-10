@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/blocks/dashboard-01/dashboard_01.dart';
 import 'package:flutter_shadcn_kit/registry/blocks/dashboard-02/dashboard_02.dart';
 import 'package:flutter_shadcn_kit/registry/blocks/login-01/login_01.dart';
+import 'package:flutter_shadcn_kit/registry/blocks/login-03/login_03.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -83,6 +84,20 @@ void main() {
       final theme = blockTheme('neutral', Brightness.light);
       await pumpBlock(tester, const Login01(), theme, 375);
       final Rect forgot = tester.getRect(find.text('Forgot password?'));
+      final Rect field = tester.getRect(find.byType(Input).at(1));
+      expect(
+        (forgot.right - field.right).abs(),
+        lessThan(1.5),
+        reason: 'forgot $forgot vs field $field',
+      );
+    });
+
+    testWidgets('login-03 forgot link aligns to the field right edge', (
+      WidgetTester tester,
+    ) async {
+      final theme = blockTheme('neutral', Brightness.light);
+      await pumpBlock(tester, const Login03(), theme, 375);
+      final Rect forgot = tester.getRect(find.text('Forgot your password?'));
       final Rect field = tester.getRect(find.byType(Input).at(1));
       expect(
         (forgot.right - field.right).abs(),

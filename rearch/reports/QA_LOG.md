@@ -625,3 +625,7 @@
 - /blocks with category pills, framed viewport (desktop/tablet/mobile), Preview|Code (file tree + highlighted selectable source), install, open-in-new-tab, /blocks/<id>; sidebar/index/⌘K grouped by category, building blocks hidden; header "Blocks".
 - Visual QA (p6b3 captures): install command truncated (id missing), viewport frame border stops under tabs, dashboard bars rainbow-cycled (shadcn uses chart-1), duplicated title on block page, login "Forgot password?" not edge-aligned → P6-P2.
 - Network drop mid-run resumed in-session; a hung probe test (pumpAndSettle) killed by orchestrator; ~35 orphaned flutter_tester processes cleaned.
+
+## P6-P2 + P6-P3 — blocks polish + defects — ACCEPTED
+- P3: registry +3997, docs gates green (agent). Visual check p6p3-login-1440-light: Sign in = primary + enabled, checkbox is a 16px box with label beside (root fix: labelled controls no longer let Clickable paint over the label), inputs transparent+border (shadcn v4, per-brightness), all 16 blocks interactive (generated test).
+- Remaining (final polish): "Forgot password?" ~30px short of the input's right edge (link Button padding; shadcn uses a plain ml-auto anchor); the block viewport area still shows no frame under the tab row despite the agent's continuous-card test → verify visually in final polish; calendar steppers use '<'/'>' glyphs.

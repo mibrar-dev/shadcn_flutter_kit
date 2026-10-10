@@ -734,6 +734,8 @@ const Map<String, List<DocsDep>> kComponentDeps = <String, List<DocsDep>>{
   'checkbox': <DocsDep>[
     DocsDep(id: 'clickable', kind: DocsDepKind.primitive),
     DocsDep(id: 'form_core', kind: DocsDepKind.primitive),
+    DocsDep(id: 'widget_states', kind: DocsDepKind.primitive),
+    DocsDep(id: 'data', kind: DocsDepKind.foundation),
     DocsDep(id: 'gap', kind: DocsDepKind.foundation),
     DocsDep(id: 'icons/lucide_icons', kind: DocsDepKind.foundation),
     DocsDep(id: 'color_tokens', kind: DocsDepKind.theme),

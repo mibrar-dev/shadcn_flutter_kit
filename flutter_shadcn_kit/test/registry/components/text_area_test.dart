@@ -254,7 +254,8 @@ void main() {
     testWidgets('paints the input tokens', (tester) async {
       await tester.pumpWidget(_frame(const TextArea()));
       final BoxDecoration surface = _surface(tester);
-      expect(surface.color, _alpha(colors.input, 0.3));
+      // shadcn v4: transparent in light (input @0).
+      expect(surface.color, _alpha(colors.input, 0));
       expect(surface.border, Border.all(color: colors.input));
       expect(surface.borderRadius, const ShadcnThemeData().borderRadiusMd);
     });
@@ -365,7 +366,9 @@ void main() {
         await tester.pumpWidget(
           _frame(const TextArea(), data: ShadcnThemeData(colors: palette)),
         );
-        expect(_surface(tester).color, _alpha(palette.input, 0.3));
+        // shadcn v4: transparent in light, input/30 in dark.
+        final double alpha = name == 'dark' ? 0.3 : 0;
+        expect(_surface(tester).color, _alpha(palette.input, alpha));
         expect(_surface(tester).border, Border.all(color: palette.input));
       });
 

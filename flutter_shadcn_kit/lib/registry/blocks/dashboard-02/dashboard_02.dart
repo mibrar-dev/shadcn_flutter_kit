@@ -103,15 +103,17 @@ class _Dashboard02Filters extends StatelessWidget {
               width: 240,
               child: Input(hintText: 'Search reports'),
             ),
-            const Button(
+            Button(
               variant: ButtonVariant.outline,
-              child: Text('Last 30 days'),
+              onPressed: () {},
+              child: const Text('Last 30 days'),
             ),
-            const Button(
+            Button(
               variant: ButtonVariant.outline,
-              child: Text('All devices'),
+              onPressed: () {},
+              child: const Text('All devices'),
             ),
-            const Button(child: Text('Download')),
+            Button(onPressed: () {}, child: const Text('Download')),
           ],
         ),
       ],

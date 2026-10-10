@@ -236,19 +236,27 @@ class _Dashboard02DeviceRow extends StatelessWidget {
   }
 }
 
-/// A non-interactive tab strip; the block is a static screen.
-class Dashboard02Tabs extends StatelessWidget {
+/// A demo tab strip; the selection is local so taps visibly switch tabs.
+class Dashboard02Tabs extends StatefulWidget {
   const Dashboard02Tabs({super.key});
+
+  @override
+  State<Dashboard02Tabs> createState() => _Dashboard02TabsState();
+}
+
+class _Dashboard02TabsState extends State<Dashboard02Tabs> {
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
     // `Tabs` measures its strip at natural width; on a phone the three labels
     // do not fit, so the strip scrolls instead of overflowing.
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Tabs(
-        index: 0,
-        children: <TabItem>[
+        index: _index,
+        onChanged: (int value) => setState(() => _index = value),
+        children: const <TabItem>[
           TabItem(child: Text('Overview')),
           TabItem(child: Text('Sessions')),
           TabItem(child: Text('Conversions')),

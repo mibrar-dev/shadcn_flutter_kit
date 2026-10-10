@@ -39,19 +39,21 @@ class Login03 extends StatelessWidget {
                   children: <Widget>[
                     _Login03Title(),
                     Gap(spacing.xl),
-                    const Row(
+                    Row(
                       children: <Widget>[
                         Expanded(
                           child: Button(
                             variant: ButtonVariant.outline,
-                            child: _Login03ProviderButton('GitHub'),
+                            onPressed: () {},
+                            child: const _Login03ProviderButton('GitHub'),
                           ),
                         ),
                         Gap(0, crossAxisExtent: 12),
                         Expanded(
                           child: Button(
                             variant: ButtonVariant.outline,
-                            child: _Login03ProviderButton('Google'),
+                            onPressed: () {},
+                            child: const _Login03ProviderButton('Google'),
                           ),
                         ),
                       ],
@@ -65,7 +67,10 @@ class Login03 extends StatelessWidget {
                     Gap(spacing.md),
                     const _Login03ForgotRow(),
                     Gap(spacing.xl),
-                    const Button(child: Text('Sign in with email')),
+                    Button(
+                      onPressed: () {},
+                      child: const Text('Sign in with email'),
+                    ),
                     Gap(spacing.lg),
                     const _Login03Signup(),
                   ],

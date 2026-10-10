@@ -162,7 +162,8 @@ void main() {
     expect(find.text('Email'), findsOneWidget);
 
     final surface = _surface(tester);
-    expect(surface.color, _alpha(colors.input, 0.3));
+    // shadcn v4: transparent in light (input @0), input/30 in dark.
+    expect(surface.color, _alpha(colors.input, 0));
     expect(surface.border, Border.all(color: colors.input));
     expect(surface.borderRadius, const ShadcnThemeData().borderRadiusMd);
   });
@@ -409,7 +410,7 @@ void main() {
     final blue = StateValue<ThemedColor>(rest: ThemedColor.value(_blue));
 
     await tester.pumpWidget(_frame(child: const Input(hintText: 'x')));
-    expect(_surface(tester).color, _alpha(colors.input, 0.3));
+    expect(_surface(tester).color, _alpha(colors.input, 0));
 
     await tester.pumpWidget(
       _frame(

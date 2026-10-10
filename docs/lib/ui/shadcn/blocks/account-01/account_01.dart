@@ -65,16 +65,24 @@ class _Account01State extends State<Account01> {
   }
 }
 
-class _Account01Tabs extends StatelessWidget {
+class _Account01Tabs extends StatefulWidget {
   const _Account01Tabs();
 
   @override
+  State<_Account01Tabs> createState() => _Account01TabsState();
+}
+
+class _Account01TabsState extends State<_Account01Tabs> {
+  int _index = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Tabs(
-        index: 0,
-        children: <TabItem>[
+        index: _index,
+        onChanged: (int value) => setState(() => _index = value),
+        children: const <TabItem>[
           TabItem(child: Text('Profile')),
           TabItem(child: Text('Password')),
           TabItem(child: Text('Team')),
@@ -118,9 +126,10 @@ class _Account01Profile extends StatelessWidget {
                   children: <Widget>[
                     Text('Your avatar', style: theme.typography.textSmall),
                     Gap(spacing.sm),
-                    const Button(
+                    Button(
                       variant: ButtonVariant.outline,
-                      child: Text('Upload image'),
+                      onPressed: () {},
+                      child: const Text('Upload image'),
                     ),
                   ],
                 ),
@@ -259,7 +268,7 @@ class _Account01SaveRow extends StatelessWidget {
           ),
         ),
         Gap(spacing.lg),
-        const Button(child: Text('Save changes')),
+        Button(onPressed: () {}, child: const Text('Save changes')),
       ],
     );
   }

@@ -123,8 +123,7 @@ const Size _stageSize = Size(720, 420);
 const double _phoneWidth = 375;
 
 /// Preset directory of the registry theme layer.
-String get _themesDir =>
-    '/Users/ibrar/Desktop/infinora.noworkspace/shadcn_copy_paste/shadcn_flutter_kit/flutter_shadcn_kit/lib/registry/themes';
+String get _themesDir => '${Directory.current.path}/lib/registry/themes';
 
 /// Presets every example is pumped under.
 const List<String> _presets = <String>['neutral', 'claude'];

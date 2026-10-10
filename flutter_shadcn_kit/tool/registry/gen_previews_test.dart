@@ -189,7 +189,7 @@ const double _phoneWidth = 375;
 
 /// Preset directory of the registry theme layer.
 String get _themesDir =>
-    '${Directory.current.path}/lib/registry/themes';
+    '\${Directory.current.path}/lib/registry/themes';
 
 /// Presets every example is pumped under.
 const List<String> _presets = <String>['neutral', 'claude'];

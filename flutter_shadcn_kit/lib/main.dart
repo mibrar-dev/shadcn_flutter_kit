@@ -12,9 +12,9 @@ class _RegistryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ShadcnApp(
+    return ShadcnApp(
       title: 'File Diff Viewer Preview',
-      home: FileDiffViewerPreview(),
+      home: Builder(builder: fileDiffViewerPreviews.first.builder),
     );
   }
 }

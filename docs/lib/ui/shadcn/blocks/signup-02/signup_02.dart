@@ -119,7 +119,35 @@ class Signup02Form extends StatelessWidget {
         Gap(spacing.lg),
         const Divider(),
         Gap(spacing.lg),
-        const Center(child: Text('Already have an account? Sign in')),
+        const _Signup02Signin(),
+      ],
+    );
+  }
+}
+
+class _Signup02Signin extends StatelessWidget {
+  const _Signup02Signin();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = ShadcnTheme.of(context);
+    // Was plain text with no handler; static text plus a real link button.
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 4,
+      children: <Widget>[
+        Text(
+          'Already have an account?',
+          style: theme.typography.textSmall.copyWith(
+            color: theme.colors.mutedForeground,
+          ),
+        ),
+        Button(
+          variant: ButtonVariant.link,
+          onPressed: () {},
+          child: const Text('Sign in'),
+        ),
       ],
     );
   }
@@ -211,26 +239,42 @@ class _Signup02Consent extends StatelessWidget {
       children: <Widget>[
         Checkbox(value: CheckboxValue.unchecked, onChanged: (_) {}),
         Gap(spacing.sm),
+        // Was a RichText with underlined spans and no handlers; inline
+        // plain-anchor link buttons keep the sentence shape and stay tappable.
         Expanded(
-          child: RichText(
-            text: TextSpan(
-              style: theme.typography.textSmall.copyWith(
-                color: theme.colors.mutedForeground,
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 0,
+            children: <Widget>[
+              Text(
+                'I agree to the ',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
+                ),
               ),
-              children: <TextSpan>[
-                const TextSpan(text: 'I agree to the '),
-                TextSpan(
-                  text: 'terms',
-                  style: TextStyle(decoration: TextDecoration.underline),
+              Button(
+                variant: ButtonVariant.link,
+                onPressed: () {},
+                child: const Text('terms'),
+              ),
+              Text(
+                ' and the ',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
                 ),
-                const TextSpan(text: ' and the '),
-                TextSpan(
-                  text: 'privacy policy',
-                  style: TextStyle(decoration: TextDecoration.underline),
+              ),
+              Button(
+                variant: ButtonVariant.link,
+                onPressed: () {},
+                child: const Text('privacy policy'),
+              ),
+              Text(
+                '.',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
                 ),
-                const TextSpan(text: '.'),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],

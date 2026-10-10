@@ -11,6 +11,7 @@ import '../../components/calendar/calendar.dart';
 import '../../components/card/card.dart';
 import '../../components/divider/divider.dart';
 import '../../foundation/gap.dart';
+import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/date_math.dart';
 import '../../theme/theme.dart';
 
@@ -118,9 +119,17 @@ class _Calendar02Header extends StatelessWidget {
           ),
         ),
         Gap(spacing.md),
-        _Calendar02Step(label: '<', tooltip: 'Previous', onPressed: onPrevious),
+        _Calendar02Step(
+          icon: LucideIcons.chevronLeft,
+          tooltip: 'Previous',
+          onPressed: onPrevious,
+        ),
         Gap(spacing.sm),
-        _Calendar02Step(label: '>', tooltip: 'Next', onPressed: onNext),
+        _Calendar02Step(
+          icon: LucideIcons.chevronRight,
+          tooltip: 'Next',
+          onPressed: onNext,
+        ),
       ],
     );
   }
@@ -128,34 +137,23 @@ class _Calendar02Header extends StatelessWidget {
 
 class _Calendar02Step extends StatelessWidget {
   const _Calendar02Step({
-    required this.label,
+    required this.icon,
     required this.tooltip,
     required this.onPressed,
   });
 
-  final String label;
+  final IconData icon;
   final String tooltip;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: 28,
-        height: 28,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.colors.border),
-          borderRadius: theme.borderRadiusSm,
-        ),
-        child: Text(
-          label,
-          style: theme.typography.textSmall,
-          textAlign: TextAlign.center,
-        ),
-      ),
+    // shadcn month stepper: a ghost icon button (was a raw '<'/'>' glyph).
+    return Button(
+      variant: ButtonVariant.ghost,
+      size: ButtonSize.icon,
+      onPressed: onPressed,
+      child: Icon(icon, size: 16),
     );
   }
 }

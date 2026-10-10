@@ -138,14 +138,12 @@ class _Otp01ChangeEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
+    // Was plain underlined text with no handler; a real link button now.
     return Center(
-      child: Text(
-        'Use a different email',
-        style: theme.typography.textSmall.copyWith(
-          color: theme.colors.mutedForeground,
-          decoration: TextDecoration.underline,
-        ),
+      child: Button(
+        variant: ButtonVariant.link,
+        onPressed: () {},
+        child: const Text('Use a different email'),
       ),
     );
   }

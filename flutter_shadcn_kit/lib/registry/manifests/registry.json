@@ -84,7 +84,8 @@
           "divider"
         ],
         "foundation": [
-          "gap"
+          "gap",
+          "icons"
         ],
         "primitives": [
           "date_math"
@@ -120,7 +121,8 @@
           "divider"
         ],
         "foundation": [
-          "gap"
+          "gap",
+          "icons"
         ],
         "primitives": [
           "date_math"
@@ -8537,9 +8539,9 @@
     "blocks/account-02/README.md": "15f45652c46c962c6797dd630c8b839118fcedb6a3f00859f0dbfbef0d7d19f2",
     "blocks/account-02/account_02.dart": "fd5942035bd653876c03a19eab758a6540f21adb1e6dc3b89e29bf94517237e6",
     "blocks/calendar-01/README.md": "381b43d8099ed61a16406d92c1b4a5910bc29584a6b263b5dd9fafc790fc92da",
-    "blocks/calendar-01/calendar_01.dart": "8f0e8ecedb52e62b5be5329edf984a9c65ed856512fac158236cc136f0449924",
+    "blocks/calendar-01/calendar_01.dart": "18d98ecf5ad66c8d0283fad7dcb26b04a838c8e9d03b87a5ca8fc8808328c0b4",
     "blocks/calendar-02/README.md": "1117184d74a4b8a34c022319ebd4ada3350addf2c8564eb3a5a8a61c63380952",
-    "blocks/calendar-02/calendar_02.dart": "e04b573900d2bafc8af0a33aec1e1298e9ebe3edab17265c7458d2d8313e6601",
+    "blocks/calendar-02/calendar_02.dart": "c3dbad6197e188fe418487b43da72166923c2a182452f8e064cd636e15cbc430",
     "blocks/dashboard-01/README.md": "aeccb8c340f53f00018d26852b57e8a4e28b5f42c4568fe8d92672a557141486",
     "blocks/dashboard-01/dashboard_01.dart": "6c0acf954ab31b27775109b17f5943eca2b574527a1055babdc1a921a6399514",
     "blocks/dashboard-01/dashboard_01_table.dart": "026d84081ed1abe74c4217e1ecd5e2ad3d984ae2d197493072ad1ca6ce468f36",
@@ -8547,13 +8549,13 @@
     "blocks/dashboard-02/dashboard_02.dart": "0244c792adfdba263c457ae10965ad39e6dba6c060f36368edde9d9a2441a923",
     "blocks/dashboard-02/dashboard_02_sections.dart": "e61ca6fdff7aefbb2104991aeb1f4a0d3633c3699d45ea078a3ae2cc8ecbb413",
     "blocks/login-01/README.md": "4376dbaaf87c1e95dd6ca3330ba1dea1a4b13ac88015b87356d9c5420aceb411",
-    "blocks/login-01/login_01.dart": "6fceb332d61127b317e5154289c88e259aec37ae6aa9adfc11bba6ca4dbb9bf8",
+    "blocks/login-01/login_01.dart": "a14443181af2652afa05c26b7ce376ba4bde79b0b08e1fc1631c29114ac597f9",
     "blocks/login-02/README.md": "630d6de8f8c2f490c8e5ba1359409e1480ff3a72e2901676ae07f6806de08c60",
     "blocks/login-02/login_02.dart": "f8d57378095c58fc5e02f3dd51e6f205f6f224f4401d5a8cb0bbb31a6506bcb4",
     "blocks/login-03/README.md": "f4c3cd09af55d9aa7cf72af3b7f8340ec041c277770c0f02771e200755c0d47a",
-    "blocks/login-03/login_03.dart": "d2eb79181adb08c6e12f92e60ee7b3a3695fd6eab9cfc40be050d41aaf949f15",
+    "blocks/login-03/login_03.dart": "757147330ee2450f4cc75a515fa9a8d8cf381fbf1dee6b05531a15893ba27e07",
     "blocks/otp-01/README.md": "0931062e21fa8b4dc96da75e9518515fe49be8dbb4c85ea93a8ebdb5ab3af07f",
-    "blocks/otp-01/otp_01.dart": "d7755967c5e8e13b06302c635b943c337ed2d1203e12041e6f79ce14ef29cf47",
+    "blocks/otp-01/otp_01.dart": "d035551586a4193a8abc9a2346fdfb007baf30299770fb1b25a0081b12b4390b",
     "blocks/pricing-01/README.md": "a681ca45f41325aadb679971cd8ea085b422e22dd06f17c9b19bc87106bc6872",
     "blocks/pricing-01/pricing_01.dart": "b7bed5fb1ca4cc977e4b4658af1038dadf8a340c2a1a70c372cffe73736265e5",
     "blocks/sidebar-01/README.md": "902a8223a6ccfcdffa95b0652f46ef39e038069cebd7c931fe0900f68bcf0443",
@@ -8563,9 +8565,9 @@
     "blocks/sidebar-03/README.md": "65c5e678d05db4a930fe315c993950b7fbbea4e1cd5d1023470b19bb5e41910b",
     "blocks/sidebar-03/sidebar_03.dart": "d41e6f01a8afb3e2612ae14b2719b041575e94ab8226713e0e2f8bfe637fd377",
     "blocks/signup-01/README.md": "3c3fcb7eeaaa2e33c9cf0989e15212cf2182a72b9a4da9ae82395bbbad620359",
-    "blocks/signup-01/signup_01.dart": "e8275bcd2f1030cf3e9a69fb8144b03b60caddb8a1a694359b5b4a82a8a78b43",
+    "blocks/signup-01/signup_01.dart": "82822d22008ac6e358301e364dcd97899e07caeea3f736bcd816f6fa3721881f",
     "blocks/signup-02/README.md": "6d573310bc0b2019bdec5b45155aa5ae8216997e2532a17a71fdba93b2128531",
-    "blocks/signup-02/signup_02.dart": "4f2e17e22abc97f15ff0ec3bc7a9b47d8805e0432d59770f8ede5e6bb3c9fcdf",
+    "blocks/signup-02/signup_02.dart": "c01dfdc3cf2ff84fa86adc5ab1acde34c7db01c61338f2e380b82acb716f5e34",
     "components/accordion/accordion.dart": "8da15791c76a3caa08377f58b480bca7aa29e81eb8baa4628f098a141633b239",
     "components/accordion/accordion_style.dart": "6ddd2b1620d842b2ab9d0059d921a0a2cb5adc25f679ef1932b3be8876742e71",
     "components/accordion/accordion_theme.dart": "375e4ee1d09dc4179fb48a9bd374f882d4a41ca77b68be7a357302767072aab1",
@@ -8610,7 +8612,7 @@
     "components/breadcrumb/preview.dart": "7145e1252949596a859d1b6095d93eef723a9730e2eefadbd028a13d9ffd56b4",
     "components/button/button.dart": "93c3754a40a2ea514b0ed2bfe86345e7f7d2d871a0a2f8a5c50b3d3aa7dd1e2f",
     "components/button/button_group.dart": "9b6f20f7d3fd9fb30b144d7f6f14ee3451ed273ee55853f0e01b7612b7461d40",
-    "components/button/button_style.dart": "0f2a6f2a10bc80aecb6c2c4e628166a9e9997af1488c9c347e38a3535c6a2667",
+    "components/button/button_style.dart": "f0bed4c644577cfd7bdf733d82e0df841fdeeb5621cc89fb0051dac9a570a758",
     "components/button/button_theme.dart": "99e0fd2148c98f7b98c8581733daf2a6f60e22069defacd5ca5bfc5233262b4c",
     "components/button/preview.dart": "522cfcbf95c23341962a49cfc62328ee50370dc238511b066033277dea121eda",
     "components/calendar/calendar.dart": "2cf0583ca46903d0d3898f0496bae72ce05375c92c766be91d18e48bc63ba86f",
@@ -8672,7 +8674,7 @@
     "components/command/command_theme.dart": "4f52d4bc8da3ccdf42c17d971afc1a95715097dce7a1ba0a8885d9e0c3bffe60",
     "components/command/preview.dart": "5a84fee6345c83b8b53b03a6c2a90357d3c309ccad9ec1fd4c9cc0ac38bae480",
     "components/context_menu/context_menu.dart": "cdcb03d007354047acb27bf680e71f796924ae312724194ca254045af6eb9ecb",
-    "components/context_menu/preview.dart": "5cf8290d0d88d3fc0caa2ea6f283d98197b57e288b3ffd005917569d13edcf30",
+    "components/context_menu/preview.dart": "995f0a049880d4104e9b65e5ed740841fb7896786a7176e25ec10be5d23cdc6c",
     "components/country_flag/country_flag.dart": "dc5f952002941db88f0764d92a7e8886c60f448c9837dff36a4d105518f03081",
     "components/country_flag/country_flag_style.dart": "a37d73e15798fc1ab3a3529e0be6225965952a8d915ad67a954c3b09a1fc8a2e",
     "components/country_flag/country_flag_theme.dart": "7f90d6328b6b707afca974525591185ffa7e72bf3b0fe01ead9ec669cae54477",
@@ -8867,7 +8869,7 @@
     "components/resizable/resizable.dart": "29202bfbf4f28185d849358b004b466c50cba7b807ed233611f19185b73b25ed",
     "components/resizable/resizable_style.dart": "10dd16c9aa688cb1f1119784f7692d47aadbbf0834b2616ca35f196b831e2e52",
     "components/resizable/resizable_theme.dart": "532fb9cdd2bcc70b3fcc7d11759939e6620602e202d32aa35a65fab4cdc10021",
-    "components/scaffold/preview.dart": "d6ecc075874c51da5cb56d303efea4e79eca38d66da3c774ef7a2873f2bd06cd",
+    "components/scaffold/preview.dart": "4c3ddf7df7048f893b55c320e49aa57d78b2e50fb69d44dc4ad9a5dab12ffa83",
     "components/scaffold/scaffold.dart": "388f3bfa90370177886952b779d48070d300f2266fe2388e1411404ef0637c77",
     "components/scaffold/scaffold_style.dart": "c1d8e7cc5a0a827665b206440137d09177146e2edd7d3fd8a4e867aa95df6bd0",
     "components/scaffold/scaffold_theme.dart": "9c82e055e139b3ac032dacc83706c26905ae39502056c07773a7bd55ef1b93ae",

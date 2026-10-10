@@ -11,6 +11,7 @@ import '../../components/calendar/calendar.dart';
 import '../../components/card/card.dart';
 import '../../components/divider/divider.dart';
 import '../../foundation/gap.dart';
+import '../../foundation/icons/lucide_icons.dart';
 import '../../primitives/date_math.dart';
 import '../../theme/theme.dart';
 
@@ -128,13 +129,13 @@ class _Calendar01Header extends StatelessWidget {
         Expanded(child: Text(months, style: theme.typography.textLarge)),
         Gap(spacing.md),
         _Calendar01Step(
-          label: '<',
+          icon: LucideIcons.chevronLeft,
           tooltip: 'Previous month',
           onPressed: () => onShift(-1),
         ),
         Gap(spacing.sm),
         _Calendar01Step(
-          label: '>',
+          icon: LucideIcons.chevronRight,
           tooltip: 'Next month',
           onPressed: () => onShift(1),
         ),
@@ -145,34 +146,23 @@ class _Calendar01Header extends StatelessWidget {
 
 class _Calendar01Step extends StatelessWidget {
   const _Calendar01Step({
-    required this.label,
+    required this.icon,
     required this.tooltip,
     required this.onPressed,
   });
 
-  final String label;
+  final IconData icon;
   final String tooltip;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: 28,
-        height: 28,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.colors.border),
-          borderRadius: theme.borderRadiusSm,
-        ),
-        child: Text(
-          label,
-          style: theme.typography.textSmall,
-          textAlign: TextAlign.center,
-        ),
-      ),
+    // shadcn month stepper: a ghost icon button (was a raw '<'/'>' glyph).
+    return Button(
+      variant: ButtonVariant.ghost,
+      size: ButtonSize.icon,
+      onPressed: onPressed,
+      child: Icon(icon, size: 16),
     );
   }
 }

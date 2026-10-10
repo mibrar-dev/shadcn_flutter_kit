@@ -64,13 +64,13 @@ void main() {
       ],
     },
     'calendar-01': <String, List<String>>{
-      'foundation': <String>['gap'],
+      'foundation': <String>['gap', 'icons'],
       'theme': <String>['theme'],
       'primitives': <String>['date_math'],
       'components': <String>['button', 'calendar', 'card', 'divider'],
     },
     'calendar-02': <String, List<String>>{
-      'foundation': <String>['gap'],
+      'foundation': <String>['gap', 'icons'],
       'theme': <String>['theme'],
       'primitives': <String>['date_math'],
       'components': <String>['button', 'calendar', 'card', 'divider'],

@@ -629,3 +629,7 @@
 ## P6-P2 + P6-P3 — blocks polish + defects — ACCEPTED
 - P3: registry +3997, docs gates green (agent). Visual check p6p3-login-1440-light: Sign in = primary + enabled, checkbox is a 16px box with label beside (root fix: labelled controls no longer let Clickable paint over the label), inputs transparent+border (shadcn v4, per-brightness), all 16 blocks interactive (generated test).
 - Remaining (final polish): "Forgot password?" ~30px short of the input's right edge (link Button padding; shadcn uses a plain ml-auto anchor); the block viewport area still shows no frame under the tab row despite the agent's continuous-card test → verify visually in final polish; calendar steppers use '<'/'>' glyphs.
+
+## P6-Z1 — final polish — ACCEPTED (+ orchestrator fix)
+- Trailing links (Forgot password? etc.) end at the input's right edge; calendar block steppers use chevron icon buttons; disabled-looking controls swept. Agent gates green (docs +206, blocks/rearch +208, build).
+- Orchestrator root-caused the frame bug the agents' tests missed: BlockCard's border was a background decoration, so the opaque edge-to-edge viewport painted over it → border now DecorationPosition.foreground. Verified in a release build capture (continuous card around header, tabs and preview).

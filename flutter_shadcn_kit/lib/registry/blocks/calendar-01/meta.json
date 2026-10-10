@@ -12,7 +12,8 @@
   ],
   "deps": {
     "foundation": [
-      "gap"
+      "gap",
+      "icons"
     ],
     "theme": [
       "theme"

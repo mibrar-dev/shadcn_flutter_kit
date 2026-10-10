@@ -107,12 +107,14 @@ class BlockViewportToggle extends StatelessWidget {
 
 /// The framed viewport that hosts the block preview at [viewport]'s width.
 ///
-/// The frame sits *inside* the card's continuous border (the card clips it to
-/// the bottom radius): background-token fill, a full border + radius of its
-/// own, and the selected width centred — desktop fills the card, tablet and
-/// mobile render narrower. The height fits the block between
-/// [kBlockPreviewMinHeight] and [kBlockPreviewHeight]; taller content scrolls
-/// inside the bounded frame, so short forms never float in empty space.
+/// The viewport sits *inside* the card's one continuous border (the card clips
+/// it to the bottom radius): desktop fills the card edge to edge with no inner
+/// border of its own, so header + tabs + viewport read as a single framed card
+/// (shadcn `/blocks`); tablet and mobile render narrower in a bordered device
+/// frame of their own, centred on the card background. The height fits the
+/// block between [kBlockPreviewMinHeight] and [kBlockPreviewHeight]; taller
+/// content scrolls inside the bounded frame, so short forms never float in
+/// empty space.
 class BlockPreviewFrame extends StatelessWidget {
   /// Creates the frame.
   const BlockPreviewFrame({
@@ -135,17 +137,33 @@ class BlockPreviewFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final double height = heightFor(blockId);
+    final bool fill = viewport.width == null;
     return Container(
       width: double.infinity,
       color: theme.colors.background,
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(16),
+      padding: fill ? EdgeInsets.zero : const EdgeInsets.all(16),
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           final double available = constraints.maxWidth;
-          final double width = viewport.width == null
+          final double width = fill
               ? available
               : (viewport.width! < available ? viewport.width! : available);
+          final Widget stage = SizedBox(
+            width: width,
+            height: height,
+            child: BlockPreviewLoader(blockId: blockId),
+          );
+          // Desktop fills the card: background fill only, no inner border, so
+          // the card's own border is the single continuous frame. Narrower
+          // viewports keep their bordered device frame.
+          if (fill) {
+            return DecoratedBox(
+              key: ValueKey<String>('block-frame-$blockId'),
+              decoration: BoxDecoration(color: theme.colors.background),
+              child: stage,
+            );
+          }
           return DecoratedBox(
             key: ValueKey<String>('block-frame-$blockId'),
             decoration: BoxDecoration(
@@ -153,14 +171,7 @@ class BlockPreviewFrame extends StatelessWidget {
               border: Border.all(color: theme.colors.border),
               borderRadius: theme.borderRadiusLg,
             ),
-            child: ClipRRect(
-              borderRadius: theme.borderRadiusLg,
-              child: SizedBox(
-                width: width,
-                height: height,
-                child: BlockPreviewLoader(blockId: blockId),
-              ),
-            ),
+            child: ClipRRect(borderRadius: theme.borderRadiusLg, child: stage),
           );
         },
       ),

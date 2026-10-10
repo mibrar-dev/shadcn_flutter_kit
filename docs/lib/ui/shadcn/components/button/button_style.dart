@@ -352,6 +352,9 @@ const _linkRow = ButtonVariantStyle(
     hovered: TextDecoration.underline,
     pressed: TextDecoration.underline,
   ),
+  // shadcn link is a plain anchor (ml-auto): no horizontal padding, so an
+  // end-aligned link's text meets the field's right edge.
+  padding: EdgeInsets.zero,
 );
 
 const _textRow = ButtonVariantStyle(
@@ -360,6 +363,8 @@ const _textRow = ButtonVariantStyle(
     hovered: ThemedColor.ref(ColorRef.primary),
     pressed: ThemedColor.ref(ColorRef.primary),
   ),
+  // Same plain-anchor shape as link: no horizontal padding.
+  padding: EdgeInsets.zero,
 );
 
 const _destructiveBg = StateValue(

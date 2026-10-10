@@ -62,10 +62,12 @@ class Login01 extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     Gap(spacing.md),
-                    // The label keeps its natural width; the link takes the
-                    // rest and end-aligns, so its right edge meets the
-                    // input's while narrow screens shrink the gap (never the
-                    // label) instead of overflowing.
+                    // The label keeps its natural width; the link is a plain
+                    // anchor (zero horizontal padding) pushed to the end, so
+                    // its text's right edge meets the input's. The link side is
+                    // Expanded + right-aligned (never a loose Flexible): in the
+                    // Ahem test font the text wraps instead of overflowing, and
+                    // the wrapped lines stay end-aligned.
                     Row(
                       children: <Widget>[
                         Text(
@@ -74,14 +76,17 @@ class Login01 extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const Spacer(),
-                        Flexible(
-                          child: Text(
-                            'Forgot password?',
-                            textAlign: TextAlign.end,
-                            style: theme.typography.textSmall.copyWith(
-                              color: theme.colors.mutedForeground,
-                              decoration: TextDecoration.underline,
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Button(
+                              variant: ButtonVariant.link,
+                              onPressed: () {},
+                              child: const Text(
+                                'Forgot password?',
+                                textAlign: TextAlign.end,
+                                softWrap: true,
+                              ),
                             ),
                           ),
                         ),

@@ -115,12 +115,42 @@ class _Signup01Terms extends StatelessWidget {
       children: <Widget>[
         Checkbox(value: CheckboxValue.unchecked, onChanged: (_) {}),
         Gap(spacing.sm),
+        // Was a RichText with underlined spans and no handlers; inline
+        // plain-anchor link buttons keep the sentence shape and stay tappable.
         Expanded(
-          child: Text(
-            'I agree to the terms of service and the privacy policy.',
-            style: theme.typography.textSmall.copyWith(
-              color: theme.colors.mutedForeground,
-            ),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 0,
+            children: <Widget>[
+              Text(
+                'I agree to the ',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
+                ),
+              ),
+              Button(
+                variant: ButtonVariant.link,
+                onPressed: () {},
+                child: const Text('terms'),
+              ),
+              Text(
+                ' and the ',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
+                ),
+              ),
+              Button(
+                variant: ButtonVariant.link,
+                onPressed: () {},
+                child: const Text('privacy policy'),
+              ),
+              Text(
+                '.',
+                style: theme.typography.textSmall.copyWith(
+                  color: theme.colors.mutedForeground,
+                ),
+              ),
+            ],
           ),
         ),
       ],

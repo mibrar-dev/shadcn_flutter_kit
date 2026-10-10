@@ -8,6 +8,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/component_preview.dart';
+import '../../foundation/icons/lucide_icons.dart';
 import 'scaffold.dart';
 
 /// A shell with a header bar, a footer bar and body content.
@@ -18,10 +19,10 @@ Widget _default(BuildContext context) {
     child: Scaffold(
       headers: <Widget>[
         AppBar(
-          leading: <Widget>[Text('<')],
+          leading: <Widget>[Icon(LucideIcons.chevronLeft, size: 16)],
           title: Text('My Application'),
           subtitle: Text('Dashboard'),
-          trailing: <Widget>[Text('...')],
+          trailing: <Widget>[Icon(LucideIcons.ellipsis, size: 16)],
         ),
       ],
       footers: <Widget>[

@@ -68,42 +68,50 @@ class _BlockCardState extends State<BlockCard> {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
+    // The border is painted in the foreground: the edge-to-edge viewport is
+    // opaque and would otherwise cover it below the tab row.
     return DecoratedBox(
+      position: DecorationPosition.foreground,
       decoration: BoxDecoration(
-        color: theme.colors.background,
         borderRadius: theme.borderRadiusXl,
         border: Border.all(color: theme.colors.border),
       ),
-      child: ClipRRect(
-        borderRadius: theme.borderRadiusXl,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            if (widget.showHeader)
-              _HeaderRow(
-                block: widget.block,
-                viewport: _viewport,
-                showOpenInNewTab: widget.showOpenInNewTab,
-                onViewport: (BlockViewport value) =>
-                    setState(() => _viewport = value),
-              )
-            else
-              _CompactToolbar(
-                viewport: _viewport,
-                onViewport: (BlockViewport value) =>
-                    setState(() => _viewport = value),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: theme.colors.background,
+          borderRadius: theme.borderRadiusXl,
+        ),
+        child: ClipRRect(
+          borderRadius: theme.borderRadiusXl,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              if (widget.showHeader)
+                _HeaderRow(
+                  block: widget.block,
+                  viewport: _viewport,
+                  showOpenInNewTab: widget.showOpenInNewTab,
+                  onViewport: (BlockViewport value) =>
+                      setState(() => _viewport = value),
+                )
+              else
+                _CompactToolbar(
+                  viewport: _viewport,
+                  onViewport: (BlockViewport value) =>
+                      setState(() => _viewport = value),
+                ),
+              _TabRow(
+                tab: _tab,
+                command: widget.block.install,
+                onTab: (BlockCardTab value) => setState(() => _tab = value),
               ),
-            _TabRow(
-              tab: _tab,
-              command: widget.block.install,
-              onTab: (BlockCardTab value) => setState(() => _tab = value),
-            ),
-            const Divider(thickness: 1),
-            if (_tab == BlockCardTab.preview)
-              BlockPreviewFrame(blockId: widget.block.id, viewport: _viewport)
-            else
-              BlockCodePanel(block: widget.block),
-          ],
+              const Divider(thickness: 1),
+              if (_tab == BlockCardTab.preview)
+                BlockPreviewFrame(blockId: widget.block.id, viewport: _viewport)
+              else
+                BlockCodePanel(block: widget.block),
+            ],
+          ),
         ),
       ),
     );

@@ -175,19 +175,23 @@ class _Login03ForgotRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    // Right-aligned under the password field, on the field's right edge;
-    // the link wraps instead of overflowing on narrow screens.
+    // Right-aligned under the password field, on the field's right edge: a
+    // plain anchor (zero horizontal padding) pushed to the end. Expanded +
+    // right-aligned (never a loose Flexible): the text wraps instead of
+    // overflowing, and wrapped lines stay end-aligned.
     return Row(
       children: <Widget>[
-        const Spacer(),
-        Flexible(
-          child: Text(
-            'Forgot your password?',
-            textAlign: TextAlign.end,
-            style: theme.typography.textSmall.copyWith(
-              color: theme.colors.mutedForeground,
-              decoration: TextDecoration.underline,
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Button(
+              variant: ButtonVariant.link,
+              onPressed: () {},
+              child: const Text(
+                'Forgot your password?',
+                textAlign: TextAlign.end,
+                softWrap: true,
+              ),
             ),
           ),
         ),
@@ -202,17 +206,23 @@ class _Login03Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ShadcnTheme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    // Centered footer: static text plus a real link button (was plain text
+    // with no handler); wraps on narrow screens.
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 4,
       children: <Widget>[
-        Flexible(
-          child: Text(
-            "Don't have an account? Sign up",
-            textAlign: TextAlign.center,
-            style: theme.typography.textSmall.copyWith(
-              color: theme.colors.mutedForeground,
-            ),
+        Text(
+          "Don't have an account?",
+          style: theme.typography.textSmall.copyWith(
+            color: theme.colors.mutedForeground,
           ),
+        ),
+        Button(
+          variant: ButtonVariant.link,
+          onPressed: () {},
+          child: const Text('Sign up'),
         ),
       ],
     );

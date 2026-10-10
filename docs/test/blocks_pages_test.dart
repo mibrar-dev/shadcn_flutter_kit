@@ -248,8 +248,9 @@ void main() {
 
       final double desktop = frameWidth();
       final double cardWidth = tester.getSize(find.byType(BlockCard)).width;
-      // Desktop fills the card (minus the 16 px frame padding each side).
-      expect(desktop, moreOrLessEquals(cardWidth - 32, epsilon: 1));
+      // Desktop fills the card edge to edge (no inner padding): the card's
+      // own border is the single continuous frame.
+      expect(desktop, moreOrLessEquals(cardWidth, epsilon: 1));
 
       await tester.tap(find.byIcon(LucideIcons.smartphone));
       await tester.pumpAndSettle();
@@ -312,26 +313,32 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('the card is one continuous bordered card (P6-P3)', (
+    testWidgets('the card is one continuous bordered card (P6-Z1)', (
       WidgetTester tester,
     ) async {
+      // P6-P3 checked header text + frame key, which passes even when the
+      // visible border stops at the tab row: find the DecoratedBox border that
+      // actually paints and assert it wraps BOTH the tab row and the block
+      // content itself.
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
-      await goTo(tester, delegate, '/blocks');
-      final Finder card = find.byType(BlockCard).first;
-      final DocsBlock first = kBlocks.first;
-      final Finder header = find.descendant(
+      await goTo(tester, delegate, '/blocks/login-01');
+      final Finder card = find.byType(BlockCard);
+      expect(card, findsOneWidget);
+      final Finder tab = find.descendant(
         of: card,
-        matching: find.text(first.name),
+        matching: find.text('Preview'),
       );
-      final Finder frame = find.descendant(
+      final Finder content = find.descendant(
         of: card,
-        matching: find.byKey(ValueKey<String>('block-frame-${first.id}')),
+        matching: find.text('Forgot password?'),
       );
-      expect(header, findsOneWidget);
-      expect(frame, findsOneWidget);
-      final Offset headerCenter = tester.getCenter(header);
-      final Offset frameCenter = tester.getCenter(frame);
+      expect(tab, findsOneWidget);
+      expect(content, findsOneWidget);
+      final Offset tabCenter = tester.getCenter(tab);
+      final Offset contentCenter = tester.getCenter(content);
+      final Rect cardRect = tester.getRect(card);
       int containing = 0;
+      Rect? winner;
       for (final Element element
           in find
               .descendant(of: card, matching: find.byType(DecoratedBox))
@@ -342,15 +349,22 @@ void main() {
           continue;
         }
         final Rect rect = tester.getRect(find.byWidget(element.widget));
-        if (rect.contains(headerCenter) && rect.contains(frameCenter)) {
+        if (rect.contains(tabCenter) && rect.contains(contentCenter)) {
           containing++;
+          winner = rect;
         }
       }
       expect(
         containing,
         1,
-        reason: 'one continuous border wraps header and viewport',
+        reason: 'one continuous border wraps the tab row and the block content',
       );
+      // The winning painter is the card itself, not an inner device frame.
+      if (winner == null) {
+        fail('no continuous border wraps the tab row and the block content');
+      }
+      expect(winner.top, moreOrLessEquals(cardRect.top, epsilon: 1));
+      expect(winner.bottom, moreOrLessEquals(cardRect.bottom, epsilon: 1));
       expect(tester.takeException(), isNull);
     });
   });

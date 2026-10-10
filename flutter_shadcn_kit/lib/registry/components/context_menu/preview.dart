@@ -7,6 +7,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/component_preview.dart';
+import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../menu/menu.dart';
@@ -33,7 +34,7 @@ class _ContextMenuSurface extends StatelessWidget {
           ),
           const MenuSeparator(),
           MenuButton(
-            trailing: const Text('>'),
+            trailing: const Icon(LucideIcons.chevronRight, size: 14),
             enabled: withSubmenu,
             child: const Text('More tools'),
             onPressed: (_) {},

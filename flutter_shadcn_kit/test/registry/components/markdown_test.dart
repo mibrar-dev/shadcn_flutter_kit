@@ -6,12 +6,23 @@
 // hardcoded link blue, `GeistMono`, the throwing `%` slug, the static
 // failed-image cache and every Material import.
 
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/markdown/markdown.dart';
 import 'package:flutter_shadcn_kit/registry/foundation/icons/lucide_icons.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// Fails every HTTP request immediately so network-image tests never touch
+/// the sandbox network (hermetic; the fallback path still runs through
+/// Image.network's errorBuilder).
+class _FailingHttpClient extends Fake implements HttpClient {
+  @override
+  Future<HttpClientRequest> getUrl(Uri url) =>
+      Future.error(const SocketException('hermetic test'));
+}
 
 Widget _frame({
   required Widget child,
@@ -144,13 +155,15 @@ void main() {
     });
 
     testWidgets('failed network image falls back to alt text', (tester) async {
-      await tester.pumpWidget(
-        _frame(
-          child: const Markdown(data: '![oops](https://example.com/x.png)'),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.text('oops', findRichText: true), findsWidgets);
+      await HttpOverrides.runZoned(() async {
+        await tester.pumpWidget(
+          _frame(
+            child: const Markdown(data: '![oops](https://example.com/x.png)'),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.text('oops', findRichText: true), findsWidgets);
+      }, createHttpClient: (_) => _FailingHttpClient());
     });
   });
 
@@ -455,16 +468,18 @@ void main() {
 
   group('restored scope (QA round 2)', () {
     testWidgets('R1 network image has loading and error slots', (tester) async {
-      await tester.pumpWidget(
-        _frame(
-          child: const Markdown(data: '![alt](https://example.com/x.png)'),
-        ),
-      );
-      final image = tester.widget<Image>(find.byType(Image));
-      expect(image.loadingBuilder, isNotNull);
-      expect(image.errorBuilder, isNotNull);
-      await tester.pumpAndSettle();
-      expect(find.text('alt', findRichText: true), findsWidgets);
+      await HttpOverrides.runZoned(() async {
+        await tester.pumpWidget(
+          _frame(
+            child: const Markdown(data: '![alt](https://example.com/x.png)'),
+          ),
+        );
+        final image = tester.widget<Image>(find.byType(Image));
+        expect(image.loadingBuilder, isNotNull);
+        expect(image.errorBuilder, isNotNull);
+        await tester.pumpAndSettle();
+        expect(find.text('alt', findRichText: true), findsWidgets);
+      }, createHttpClient: (_) => _FailingHttpClient());
     });
 
     testWidgets('R2 reference links resolve and fire taps', (tester) async {

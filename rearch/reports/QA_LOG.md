@@ -633,3 +633,8 @@
 ## P6-Z1 — final polish — ACCEPTED (+ orchestrator fix)
 - Trailing links (Forgot password? etc.) end at the input's right edge; calendar block steppers use chevron icon buttons; disabled-looking controls swept. Agent gates green (docs +206, blocks/rearch +208, build).
 - Orchestrator root-caused the frame bug the agents' tests missed: BlockCard's border was a background decoration, so the opaque edge-to-edge viewport painted over it → border now DecorationPosition.foreground. Verified in a release build capture (continuous card around header, tabs and preview).
+
+## P6-Z2 — CLI reinstall + final QA — ACCEPTED
+- Kit: format 0, analyze 0, registry 4005, rearch 42, layers 0 errors (27 warnings), owner 0, user-theme 0, banned empty. Docs: analyze 0, 206 tests, codegen/mirror --check, release build. CLI: analyze 0, 522 tests (re-run by orchestrator), e2e pass. No material/cupertino imports.
+- CLI reinstall into a docs copy (118 components + 16 blocks): identical to the mirror except the per-project theme/app_theme.dart (expected). Two CLI fixes (add --all ships every primitive; preflight ignores providedBy/re-export keys). Markdown tests made hermetic. Pilot screenshot baselines refreshed to current visuals.
+- Follow-ups: drawer_container meta lists re-exports as owned; extensions/label primitives unused; 9 files over ~400 lines.

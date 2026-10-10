@@ -1,7 +1,7 @@
 {
   "id": "collapsible",
   "name": "Collapsible",
-  "category": "layout",
+  "category": "Layout",
   "description": "Expandable section with a trigger, hidden content panes and controlled or uncontrolled expansion.",
   "tier": "component",
   "install": "flutter_shadcn add collapsible",

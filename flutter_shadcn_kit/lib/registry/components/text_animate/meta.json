@@ -1,7 +1,7 @@
 {
   "id": "text_animate",
   "name": "TextAnimate",
-  "category": "display",
+  "category": "Animation & Effects",
   "description": "Stream-aware animated text renderer for incremental updates, plus a streaming markdown tail.",
   "tier": "component",
   "install": "flutter_shadcn add text_animate",

@@ -1,7 +1,7 @@
 {
   "id": "card_image",
   "name": "Card Image",
-  "category": "layout",
+  "category": "Layout",
   "description": "A pressable card pairing an image with a leading/title/subtitle/trailing text block.",
   "tier": "component",
   "install": "flutter_shadcn add card_image",

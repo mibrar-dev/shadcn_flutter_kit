@@ -1,7 +1,7 @@
 {
   "id": "button",
   "name": "Button",
-  "category": "control",
+  "category": "Buttons & Actions",
   "description": "Pressable action control with seven variants and five fixed sizes, plus a connected ButtonGroup.",
   "tier": "component",
   "install": "flutter_shadcn add button",

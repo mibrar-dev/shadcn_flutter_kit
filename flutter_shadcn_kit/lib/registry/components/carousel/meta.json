@@ -1,7 +1,7 @@
 {
   "id": "carousel",
   "name": "Carousel",
-  "category": "display",
+  "category": "Data Display",
   "description": "Paged carousel with a sliding or fading transition, drag, autoplay and a controller that drives the dot row.",
   "tier": "component",
   "install": "flutter_shadcn add carousel",

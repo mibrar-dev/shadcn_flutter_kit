@@ -1,7 +1,7 @@
 {
   "id": "icon",
   "name": "Icon",
-  "category": "display",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Theme-driven icon size/colour modifiers and a filled icon container.",
   "tier": "component",

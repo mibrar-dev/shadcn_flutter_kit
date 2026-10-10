@@ -1,7 +1,7 @@
 {
   "id": "badge",
   "name": "Badge",
-  "category": "display",
+  "category": "Data Display",
   "description": "Small rounded label or status dot with four variants, optionally pressable.",
   "tier": "component",
   "install": "flutter_shadcn add badge",

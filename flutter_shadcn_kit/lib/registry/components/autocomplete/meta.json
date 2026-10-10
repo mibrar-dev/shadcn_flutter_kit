@@ -1,7 +1,7 @@
 {
   "id": "autocomplete",
   "name": "AutoComplete",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.",
   "tier": "component",
   "install": "flutter_shadcn add autocomplete",

@@ -1,7 +1,7 @@
 {
   "id": "filter_bar",
   "name": "FilterBar",
-  "category": "layout",
+  "category": "Layout",
   "description": "Search, sort, date-range, custom filters and chips in one bar, with a clear action and a mobile sheet presentation; backed by a typed filter engine.",
   "tier": "component",
   "install": "flutter_shadcn add filter_bar",

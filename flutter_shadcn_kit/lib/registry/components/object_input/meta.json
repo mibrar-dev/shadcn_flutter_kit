@@ -1,7 +1,7 @@
 {
   "id": "object_input",
   "name": "Object Input",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Typed date, time and duration fields: locale-ordered numeric segments with a calendar dialog behind the date field.",
   "tier": "component",
   "install": "flutter_shadcn add object_input",

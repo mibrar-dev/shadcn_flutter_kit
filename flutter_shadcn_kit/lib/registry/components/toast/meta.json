@@ -1,7 +1,7 @@
 {
   "id": "toast",
   "name": "Toast",
-  "category": "overlay",
+  "category": "Feedback",
   "description": "Transient, non-blocking notifications anchored to a screen edge.",
   "tier": "component",
   "install": "flutter_shadcn add toast",

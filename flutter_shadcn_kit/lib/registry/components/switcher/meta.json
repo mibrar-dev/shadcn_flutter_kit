@@ -1,7 +1,7 @@
 {
   "id": "switcher",
   "name": "Switcher",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Swipeable view that animates between child widgets along a chosen axis.",
   "tier": "component",
   "install": "flutter_shadcn add switcher",

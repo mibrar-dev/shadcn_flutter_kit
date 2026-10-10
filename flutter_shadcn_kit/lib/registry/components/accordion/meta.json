@@ -1,7 +1,7 @@
 {
   "id": "accordion",
   "name": "Accordion",
-  "category": "layout",
+  "category": "Layout",
   "description": "Single-expansion accordion with animated items, themed dividers and a keyboard-accessible trigger.",
   "tier": "component",
   "install": "flutter_shadcn add accordion",

@@ -1,7 +1,7 @@
 {
   "id": "toggle",
   "name": "Toggle",
-  "category": "control",
+  "category": "Buttons & Actions",
   "description": "On/off button with a controlled and a controller-driven mode, plus form participation.",
   "tier": "component",
   "install": "flutter_shadcn add toggle",

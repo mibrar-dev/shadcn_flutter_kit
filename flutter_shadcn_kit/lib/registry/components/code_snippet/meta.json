@@ -1,7 +1,7 @@
 {
   "id": "code_snippet",
   "name": "CodeSnippet",
-  "category": "display",
+  "category": "Typography & Media",
   "description": "Scrollable code block with optional top-right action buttons.",
   "tier": "component",
   "install": "flutter_shadcn add code_snippet",

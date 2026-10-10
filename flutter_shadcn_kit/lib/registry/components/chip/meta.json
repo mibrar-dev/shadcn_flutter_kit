@@ -1,7 +1,7 @@
 {
   "id": "chip",
   "name": "Chip",
-  "category": "display",
+  "category": "Data Display",
   "description": "Compact deletable-token control plus the borderless control embedded inside a chip.",
   "tier": "component",
   "install": "flutter_shadcn add chip",

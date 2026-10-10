@@ -1,7 +1,7 @@
 {
   "id": "card",
   "name": "Card",
-  "category": "layout",
+  "category": "Layout",
   "description": "Rounded bordered surface with the shadcn header, title, description, content and footer slots.",
   "tier": "component",
   "install": "flutter_shadcn add card",

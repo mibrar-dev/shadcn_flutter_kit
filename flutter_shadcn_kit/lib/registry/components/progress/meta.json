@@ -1,7 +1,7 @@
 {
   "id": "progress",
   "name": "Progress",
-  "category": "display",
+  "category": "Feedback",
   "description": "Determinate and indeterminate linear progress bar, widgets-only.",
   "tier": "component",
   "install": "flutter_shadcn add progress",

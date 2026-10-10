@@ -1,7 +1,7 @@
 {
   "id": "border_loading",
   "name": "Border Loading",
-  "category": "display",
+  "category": "Animation & Effects",
   "description": "Animated gradient border around a child: sweep ring, travelling tracers, determinate progress or a static outline.",
   "tier": "component",
   "install": "flutter_shadcn add border_loading",

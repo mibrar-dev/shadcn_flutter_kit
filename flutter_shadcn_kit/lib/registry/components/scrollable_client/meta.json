@@ -1,7 +1,7 @@
 {
   "id": "scrollable_client",
   "name": "Scrollable Client",
-  "category": "layout",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Two-dimensional scroll surface with a builder that receives the current offset and viewport size.",
   "tier": "component",

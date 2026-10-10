@@ -1,7 +1,7 @@
 {
   "id": "tracker",
   "name": "Tracker",
-  "category": "display",
+  "category": "Data Display",
   "description": "A row of coloured activity segments, each with a hover tooltip.",
   "tier": "component",
   "install": "flutter_shadcn add tracker",

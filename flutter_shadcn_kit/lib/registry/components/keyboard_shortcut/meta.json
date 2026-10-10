@@ -1,7 +1,7 @@
 {
   "id": "keyboard_shortcut",
   "name": "KeyboardShortcut",
-  "category": "display",
+  "category": "Data Display",
   "description": "Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.",
   "tier": "component",
   "install": "flutter_shadcn add keyboard_shortcut",

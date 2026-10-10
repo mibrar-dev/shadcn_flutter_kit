@@ -1,7 +1,7 @@
 {
   "id": "backdrop_transform",
   "name": "BackdropTransform",
-  "category": "overlay",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Strategy describing how the content behind a sheet or drawer is transformed while it opens.",
   "tier": "component",

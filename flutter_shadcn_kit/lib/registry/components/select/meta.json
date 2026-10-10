@@ -1,7 +1,7 @@
 {
   "id": "select",
   "name": "Select",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "A single-selection dropdown picker. The trigger reuses the button variant table and the popover primitive; the popup is the menu component's surface and rows; the search field is the input component.",
   "tier": "component",
   "install": "flutter_shadcn add select",

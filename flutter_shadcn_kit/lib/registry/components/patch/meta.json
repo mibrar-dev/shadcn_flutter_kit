@@ -1,7 +1,7 @@
 {
   "id": "patch",
   "name": "ClickDetector",
-  "category": "control",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Counts consecutive taps inside a time and distance window for double/triple-click gestures.",
   "tier": "component",

@@ -610,3 +610,8 @@
 - qa_gate analyze 0 / registry 3831; docs analyze 0 / 188 tests / codegen + mirror --check / release build. Agent exit=1 after RESULT.
 - RovingGroup no longer autofocuses by default (overlays opt in; inline menus never steal focus) → docs FocusScope workarounds removed. Scroll workarounds around pagination/calendar/otp removed; 6-slot OTP restored; calendar cell floor 20px so the 768 studio column (~196px) fits. View Analytics variant + slider label alignment fixed; collage_cards split.
 - registry.json not committed here (B1 regenerates with categories).
+
+## P6-B1 — component categories + installable blocks — ACCEPTED
+- qa_gate analyze 0 / registry +3959 / rearch +42 / layers 0 errors; manifest + gen_blocks_test --check; blocks suite 135 (375/768/1440 × light/dark × neutral/claude). Agent exit=1 after RESULT.
+- 13 component categories + 6 block families (single source tool/registry/src/categories.dart, enforced by generator, check_layers, schema). blocks/ = layer 4 (imports down only; nothing imports a block). 16 blocks (dashboard×2, sidebar×3, login×3, signup×2, otp, calendar×2, account×2, pricing), 0 hard-coded colours/spacing literals found in spot scan.
+- Follow-ups noted by agent: Badge semantic variants, Input label slot, mobile block family.

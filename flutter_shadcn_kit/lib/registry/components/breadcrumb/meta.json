@@ -1,7 +1,7 @@
 {
   "id": "breadcrumb",
   "name": "Breadcrumb",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Horizontal trail of crumbs with a chevron or slash separator.",
   "tier": "component",
   "install": "flutter_shadcn add breadcrumb",

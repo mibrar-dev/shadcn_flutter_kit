@@ -1,7 +1,7 @@
 {
   "id": "image",
   "name": "ShadcnImage",
-  "category": "display",
+  "category": "Typography & Media",
   "description": "Themed rounded image slot with a placeholder while loading and a caller-supplied error slot on failure.",
   "tier": "component",
   "install": "flutter_shadcn add image",

@@ -1,7 +1,7 @@
 {
   "id": "overlay_configuration",
   "name": "Overlay Configuration",
-  "category": "overlay",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Describe what overlay to show and how (popover, drawer, sheet, dialog, tooltip) behind one configuration object, plus showOverlay and OverlayController.",
   "tier": "component",

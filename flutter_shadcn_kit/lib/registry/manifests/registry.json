@@ -1,4 +1,581 @@
 {
+  "blocks": {
+    "account-01": {
+      "category": "Settings & Account",
+      "deps": {
+        "components": [
+          "alert",
+          "avatar",
+          "button",
+          "card",
+          "divider",
+          "input",
+          "tabs",
+          "text_area"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "An account settings screen with a tab strip and a profile form.",
+      "docs": [
+        "blocks/account-01/README.md"
+      ],
+      "entry": "blocks/account-01/account_01.dart",
+      "files": [
+        "blocks/account-01/account_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/account-01/account_01.dart';",
+      "install": "flutter_shadcn add account-01",
+      "name": "Account 01",
+      "tags": [
+        "account01",
+        "account"
+      ],
+      "viewport": "desktop"
+    },
+    "account-02": {
+      "category": "Settings & Account",
+      "deps": {
+        "components": [
+          "breadcrumb",
+          "button",
+          "card",
+          "checkbox",
+          "divider",
+          "switch"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A notifications preferences screen with per-channel switches.",
+      "docs": [
+        "blocks/account-02/README.md"
+      ],
+      "entry": "blocks/account-02/account_02.dart",
+      "files": [
+        "blocks/account-02/account_02.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/account-02/account_02.dart';",
+      "install": "flutter_shadcn add account-02",
+      "name": "Account 02",
+      "tags": [
+        "account02",
+        "account"
+      ],
+      "viewport": "desktop"
+    },
+    "calendar-01": {
+      "category": "Calendar & Scheduling",
+      "deps": {
+        "components": [
+          "button",
+          "calendar",
+          "card",
+          "divider"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [
+          "date_math"
+        ],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A date-range picker card with a two-month calendar and footer actions.",
+      "docs": [
+        "blocks/calendar-01/README.md"
+      ],
+      "entry": "blocks/calendar-01/calendar_01.dart",
+      "files": [
+        "blocks/calendar-01/calendar_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/calendar-01/calendar_01.dart';",
+      "install": "flutter_shadcn add calendar-01",
+      "name": "Calendar 01",
+      "tags": [
+        "calendar01",
+        "calendar"
+      ],
+      "viewport": "desktop"
+    },
+    "calendar-02": {
+      "category": "Calendar & Scheduling",
+      "deps": {
+        "components": [
+          "button",
+          "calendar",
+          "card",
+          "divider"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [
+          "date_math"
+        ],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A scheduling panel: a month calendar beside the selected day's slots.",
+      "docs": [
+        "blocks/calendar-02/README.md"
+      ],
+      "entry": "blocks/calendar-02/calendar_02.dart",
+      "files": [
+        "blocks/calendar-02/calendar_02.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/calendar-02/calendar_02.dart';",
+      "install": "flutter_shadcn add calendar-02",
+      "name": "Calendar 02",
+      "tags": [
+        "calendar02",
+        "calendar"
+      ],
+      "viewport": "desktop"
+    },
+    "dashboard-01": {
+      "category": "Dashboard",
+      "deps": {
+        "components": [
+          "avatar",
+          "button",
+          "card",
+          "divider",
+          "input",
+          "table"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A dashboard with stat tiles, a bar chart and a recent transactions table.",
+      "docs": [
+        "blocks/dashboard-01/README.md"
+      ],
+      "entry": "blocks/dashboard-01/dashboard_01.dart",
+      "files": [
+        "blocks/dashboard-01/dashboard_01.dart",
+        "blocks/dashboard-01/dashboard_01_table.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/dashboard-01/dashboard_01.dart';",
+      "install": "flutter_shadcn add dashboard-01",
+      "name": "Dashboard 01",
+      "tags": [
+        "dashboard01",
+        "dashboard"
+      ],
+      "viewport": "desktop"
+    },
+    "dashboard-02": {
+      "category": "Dashboard",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "divider",
+          "input",
+          "progress",
+          "tabs"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "An analytics workspace with a visitors chart, a device split and traffic sources.",
+      "docs": [
+        "blocks/dashboard-02/README.md"
+      ],
+      "entry": "blocks/dashboard-02/dashboard_02.dart",
+      "files": [
+        "blocks/dashboard-02/dashboard_02.dart",
+        "blocks/dashboard-02/dashboard_02_sections.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/dashboard-02/dashboard_02.dart';",
+      "install": "flutter_shadcn add dashboard-02",
+      "name": "Dashboard 02",
+      "tags": [
+        "dashboard02",
+        "dashboard"
+      ],
+      "viewport": "desktop"
+    },
+    "login-01": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "checkbox",
+          "divider",
+          "input"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A centred sign-in card with email, password and a create-account link.",
+      "docs": [
+        "blocks/login-01/README.md"
+      ],
+      "entry": "blocks/login-01/login_01.dart",
+      "files": [
+        "blocks/login-01/login_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/login-01/login_01.dart';",
+      "install": "flutter_shadcn add login-01",
+      "name": "Login 01",
+      "tags": [
+        "login01",
+        "login"
+      ],
+      "viewport": "desktop"
+    },
+    "login-02": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "image",
+          "input"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A split sign-in page: the form beside a full-bleed image panel.",
+      "docs": [
+        "blocks/login-02/README.md"
+      ],
+      "entry": "blocks/login-02/login_02.dart",
+      "files": [
+        "blocks/login-02/login_02.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/login-02/login_02.dart';",
+      "install": "flutter_shadcn add login-02",
+      "name": "Login 02",
+      "tags": [
+        "login02",
+        "login"
+      ],
+      "viewport": "desktop"
+    },
+    "login-03": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "divider",
+          "input"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A sign-in card with social provider buttons and an email form.",
+      "docs": [
+        "blocks/login-03/README.md"
+      ],
+      "entry": "blocks/login-03/login_03.dart",
+      "files": [
+        "blocks/login-03/login_03.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/login-03/login_03.dart';",
+      "install": "flutter_shadcn add login-03",
+      "name": "Login 03",
+      "tags": [
+        "login03",
+        "login"
+      ],
+      "viewport": "desktop"
+    },
+    "otp-01": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "divider",
+          "input_otp"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A one-time-code verification card with a resend countdown.",
+      "docs": [
+        "blocks/otp-01/README.md"
+      ],
+      "entry": "blocks/otp-01/otp_01.dart",
+      "files": [
+        "blocks/otp-01/otp_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/otp-01/otp_01.dart';",
+      "install": "flutter_shadcn add otp-01",
+      "name": "Verify Email 01",
+      "tags": [
+        "otp01",
+        "otp"
+      ],
+      "viewport": "desktop"
+    },
+    "pricing-01": {
+      "category": "Marketing",
+      "deps": {
+        "components": [
+          "badge",
+          "button",
+          "card",
+          "divider",
+          "input_otp"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A pricing section with three plans and a highlighted middle tier.",
+      "docs": [
+        "blocks/pricing-01/README.md"
+      ],
+      "entry": "blocks/pricing-01/pricing_01.dart",
+      "files": [
+        "blocks/pricing-01/pricing_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/pricing-01/pricing_01.dart';",
+      "install": "flutter_shadcn add pricing-01",
+      "name": "Pricing 01",
+      "tags": [
+        "pricing01",
+        "pricing"
+      ],
+      "viewport": "desktop"
+    },
+    "sidebar-01": {
+      "category": "Sidebar",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "divider"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A navigation rail that collapses to icons beside a sample mailbox screen.",
+      "docs": [
+        "blocks/sidebar-01/README.md"
+      ],
+      "entry": "blocks/sidebar-01/sidebar_01.dart",
+      "files": [
+        "blocks/sidebar-01/sidebar_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-01/sidebar_01.dart';",
+      "install": "flutter_shadcn add sidebar-01",
+      "name": "Sidebar 01",
+      "tags": [
+        "sidebar01",
+        "sidebar"
+      ],
+      "viewport": "desktop"
+    },
+    "sidebar-02": {
+      "category": "Sidebar",
+      "deps": {
+        "components": [
+          "avatar",
+          "badge",
+          "button",
+          "card",
+          "divider",
+          "input",
+          "progress"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "An inset sidebar whose navigation is grouped by section, above a sample screen.",
+      "docs": [
+        "blocks/sidebar-02/README.md"
+      ],
+      "entry": "blocks/sidebar-02/sidebar_02.dart",
+      "files": [
+        "blocks/sidebar-02/sidebar_02.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
+      "install": "flutter_shadcn add sidebar-02",
+      "name": "Sidebar 02",
+      "tags": [
+        "sidebar02",
+        "sidebar"
+      ],
+      "viewport": "desktop"
+    },
+    "sidebar-03": {
+      "category": "Sidebar",
+      "deps": {
+        "components": [
+          "avatar",
+          "badge",
+          "breadcrumb",
+          "button",
+          "card",
+          "divider",
+          "input",
+          "progress"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A full app shell: header with breadcrumb and search, grouped sidebar and content.",
+      "docs": [
+        "blocks/sidebar-03/README.md"
+      ],
+      "entry": "blocks/sidebar-03/sidebar_03.dart",
+      "files": [
+        "blocks/sidebar-03/sidebar_03.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-03/sidebar_03.dart';",
+      "install": "flutter_shadcn add sidebar-03",
+      "name": "Sidebar 03",
+      "tags": [
+        "sidebar03",
+        "sidebar"
+      ],
+      "viewport": "desktop"
+    },
+    "signup-01": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "checkbox",
+          "input"
+        ],
+        "foundation": [
+          "gap"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A create-account card with name, email, password and a terms checkbox.",
+      "docs": [
+        "blocks/signup-01/README.md"
+      ],
+      "entry": "blocks/signup-01/signup_01.dart",
+      "files": [
+        "blocks/signup-01/signup_01.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/signup-01/signup_01.dart';",
+      "install": "flutter_shadcn add signup-01",
+      "name": "Signup 01",
+      "tags": [
+        "signup01",
+        "signup"
+      ],
+      "viewport": "desktop"
+    },
+    "signup-02": {
+      "category": "Authentication",
+      "deps": {
+        "components": [
+          "button",
+          "card",
+          "checkbox",
+          "divider",
+          "input",
+          "progress"
+        ],
+        "foundation": [
+          "gap",
+          "icons"
+        ],
+        "primitives": [],
+        "theme": [
+          "theme"
+        ]
+      },
+      "description": "A two-column sign-up with a plan summary and a password strength meter.",
+      "docs": [
+        "blocks/signup-02/README.md"
+      ],
+      "entry": "blocks/signup-02/signup_02.dart",
+      "files": [
+        "blocks/signup-02/signup_02.dart"
+      ],
+      "import": "import 'package:<your_app>/ui/shadcn/blocks/signup-02/signup_02.dart';",
+      "install": "flutter_shadcn add signup-02",
+      "name": "Signup 02",
+      "tags": [
+        "signup02",
+        "signup"
+      ],
+      "viewport": "desktop"
+    }
+  },
   "components": {
     "accordion": {
       "api": {
@@ -15,7 +592,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [
@@ -86,7 +663,7 @@
           "AlertVariant"
         ]
       },
-      "category": "layout",
+      "category": "Feedback",
       "deps": {
         "components": [],
         "foundation": [],
@@ -154,7 +731,7 @@
           "showAlertDialog"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "dialog"
@@ -212,7 +789,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -252,7 +829,7 @@
           "anchorTransformRelativeTo"
         ]
       },
-      "category": "overlay",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [
@@ -289,7 +866,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [
@@ -337,7 +914,7 @@
           "builder: AsyncWidgetBuilder<T> (Flutter's own typedef)"
         ]
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -389,7 +966,7 @@
           "SuggestionRowBuilder"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "card"
@@ -477,7 +1054,7 @@
           "Avatar.getInitials(String name) -> String"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [],
@@ -539,7 +1116,7 @@
           "BackdropTransform.none"
         ]
       },
-      "category": "overlay",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -584,7 +1161,7 @@
           "BadgeVariant"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [
@@ -657,7 +1234,7 @@
           "BorderGradientType"
         ]
       },
-      "category": "display",
+      "category": "Animation & Effects",
       "deps": {
         "components": [],
         "foundation": [],
@@ -716,7 +1293,7 @@
           "Breadcrumb.slashSeparator"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [],
         "foundation": [
@@ -778,7 +1355,7 @@
           "ButtonSize"
         ]
       },
-      "category": "control",
+      "category": "Buttons & Actions",
       "deps": {
         "components": [],
         "foundation": [
@@ -864,7 +1441,7 @@
           ]
         }
       },
-      "category": "display",
+      "category": "Date & Time",
       "deps": {
         "components": [],
         "foundation": [],
@@ -938,7 +1515,7 @@
           "cardThemeOverrides"
         ]
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -999,7 +1576,7 @@
           "cardImageThemeOverrides"
         ]
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [
           "button",
@@ -1082,7 +1659,7 @@
           "CarouselItemBuilder"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [
@@ -1158,7 +1735,7 @@
           "ChatBubbleCornerDirectional"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [
@@ -1237,7 +1814,7 @@
           "CheckboxValue"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [
@@ -1311,7 +1888,7 @@
           "chipThemeOverrides"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "button"
@@ -1394,7 +1971,7 @@
           "ChipSubmitCallback"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "autocomplete",
@@ -1461,7 +2038,7 @@
           "codeSnippetThemeOverrides"
         ]
       },
-      "category": "display",
+      "category": "Typography & Media",
       "deps": {
         "components": [],
         "foundation": [
@@ -1525,7 +2102,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [
           "button"
@@ -1608,7 +2185,7 @@
         ],
         "typedefs": []
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -1654,7 +2231,7 @@
           ]
         }
       },
-      "category": "form",
+      "category": "Color",
       "deps": {
         "components": [
           "alpha"
@@ -1714,7 +2291,7 @@
           "colorInputTrigger"
         ]
       },
-      "category": "form",
+      "category": "Color",
       "deps": {
         "components": [
           "color",
@@ -1801,7 +2378,7 @@
           "colorPickerFields"
         ]
       },
-      "category": "form",
+      "category": "Color",
       "deps": {
         "components": [
           "button",
@@ -1883,7 +2460,7 @@
           "CommandErrorBuilder"
         ]
       },
-      "category": "control",
+      "category": "Menus",
       "deps": {
         "components": [
           "button",
@@ -1956,7 +2533,7 @@
           "showShadcnContextMenu"
         ]
       },
-      "category": "overlay",
+      "category": "Menus",
       "deps": {
         "components": [
           "menu"
@@ -2011,7 +2588,7 @@
           "CountryFlagBuilder"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [],
@@ -2069,7 +2646,7 @@
           "datePickerThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Date & Time",
       "deps": {
         "components": [
           "calendar"
@@ -2139,7 +2716,7 @@
           "showShadcnDialog"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [],
         "foundation": [
@@ -2211,7 +2788,7 @@
           "DividerLabelAlignment"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [],
@@ -2274,7 +2851,7 @@
           "DotBuilder"
         ]
       },
-      "category": "display",
+      "category": "Animation & Effects",
       "deps": {
         "components": [],
         "foundation": [
@@ -2352,7 +2929,7 @@
           "closeSheet"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [],
         "foundation": [
@@ -2426,7 +3003,7 @@
           "OverlayPosition"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "drawer"
@@ -2469,7 +3046,7 @@
           "showShadcnDropdown"
         ]
       },
-      "category": "overlay",
+      "category": "Menus",
       "deps": {
         "components": [
           "menu"
@@ -2538,7 +3115,7 @@
           ]
         }
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "button"
@@ -2628,7 +3205,7 @@
           "EmptyStateTheme.metricsFor"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "button",
@@ -2742,7 +3319,7 @@
           "ErrorBuild"
         ]
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "alert_dialog",
@@ -2819,7 +3396,7 @@
           "PreviewLabelBuilder"
         ]
       },
-      "category": "overlay",
+      "category": "Color",
       "deps": {
         "components": [
           "history"
@@ -2905,7 +3482,7 @@
           "FeatureCarouselIconBuilder"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [
@@ -2976,7 +3553,7 @@
           "FileDiffLineType"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "button"
@@ -3069,7 +3646,7 @@
           "FileUploadItemBuilder"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "button",
@@ -3165,7 +3742,7 @@
           ]
         }
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [
           "button",
@@ -3252,7 +3829,7 @@
           "ObjectFormField<T> / ObjectFormHandler<T> / PromptMode / ObjectFormFieldDialogResult<T>"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [
@@ -3331,7 +3908,7 @@
           ]
         }
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [],
@@ -3415,7 +3992,7 @@
         ],
         "typedefs": []
       },
-      "category": "form",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -3474,7 +4051,7 @@
           "showGooeyToast"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [],
         "foundation": [
@@ -3544,7 +4121,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -3582,7 +4159,7 @@
         ],
         "enums": []
       },
-      "category": "form",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "alpha",
@@ -3640,7 +4217,7 @@
           "hoverCardThemeOverrides"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [],
         "foundation": [],
@@ -3703,7 +4280,7 @@
           "HSLColorSliderType"
         ]
       },
-      "category": "form",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "alpha"
@@ -3765,7 +4342,7 @@
           "HSVColorSliderType"
         ]
       },
-      "category": "form",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "alpha"
@@ -3828,7 +4405,7 @@
           "IconExtension on Widget: iconX3Small(), iconXSmall(), iconSmall(), iconMedium(), iconLarge(), iconMutedForeground()"
         ]
       },
-      "category": "display",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -3884,7 +4461,7 @@
           "ImageErrorBuilder"
         ]
       },
-      "category": "display",
+      "category": "Typography & Media",
       "deps": {
         "components": [],
         "foundation": [
@@ -3983,7 +4560,7 @@
           "SuggestionBuilder"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [],
@@ -4047,7 +4624,7 @@
           "inputOtpThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [],
@@ -4127,7 +4704,7 @@
           "ItemPickerBuilder"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "button",
@@ -4210,7 +4787,7 @@
           ]
         }
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "card"
@@ -4275,7 +4852,7 @@
           "SizeUnitLocale.format"
         ]
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -4321,7 +4898,7 @@
           ]
         }
       },
-      "category": "display",
+      "category": "Typography & Media",
       "deps": {
         "components": [
           "collapsible"
@@ -4392,7 +4969,7 @@
           "mediaQueryVisibilityThemeOverrides"
         ]
       },
-      "category": "layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -4481,7 +5058,7 @@
           "MenuChangedCallback"
         ]
       },
-      "category": "overlay",
+      "category": "Menus",
       "deps": {
         "components": [],
         "foundation": [
@@ -4573,7 +5150,7 @@
           ]
         }
       },
-      "category": "overlay",
+      "category": "Menus",
       "deps": {
         "components": [
           "menu"
@@ -4631,7 +5208,7 @@
           "multiSelectPredicate"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "chip",
@@ -4692,7 +5269,7 @@
           "Choice<T>"
         ]
       },
-      "category": "form",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [
@@ -4768,7 +5345,7 @@
           ]
         }
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [
           "overflow_marquee",
@@ -4843,7 +5420,7 @@
           "navigationMenuThemeOverrides"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [
           "button",
@@ -4917,7 +5494,7 @@
           "NumberTickerFormatted"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [],
@@ -4970,7 +5547,7 @@
         "constants": [],
         "typedefs": []
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "calendar",
@@ -5026,7 +5603,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5085,7 +5662,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5147,7 +5724,7 @@
           "showOverlay"
         ]
       },
-      "category": "overlay",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "anchor",
@@ -5199,7 +5776,7 @@
           "buildTransitions ignores secondaryAnimation: a covered page does not animate out"
         ]
       },
-      "category": "navigation",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5234,7 +5811,7 @@
           "paginationThemeOverrides"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [
           "button",
@@ -5290,7 +5867,7 @@
           "ClickCallback<T>"
         ]
       },
-      "category": "control",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5327,7 +5904,7 @@
           "phoneInputThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "country_flag",
@@ -5404,7 +5981,7 @@
         ],
         "constants": []
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "backdrop_transform",
@@ -5453,7 +6030,7 @@
           ]
         }
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "menu"
@@ -5503,7 +6080,7 @@
           "Progress({value, height, borderRadius, color, backgroundColor, showSparks, disableAnimation, semanticsLabel, semanticsValue, theme})"
         ]
       },
-      "category": "display",
+      "category": "Feedback",
       "deps": {
         "components": [],
         "foundation": [
@@ -5593,7 +6170,7 @@
           ]
         }
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "card"
@@ -5662,7 +6239,7 @@
           "RefreshIndicatorBuilder"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "card"
@@ -5733,7 +6310,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [
@@ -5799,7 +6376,7 @@
           "appBarThemeOverrides"
         ]
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [
           "progress"
@@ -5871,7 +6448,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5926,7 +6503,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5984,7 +6561,7 @@
         ],
         "enums": []
       },
-      "category": "control",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6037,7 +6614,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "control",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6079,7 +6656,7 @@
           "SelectItemsBuilder"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "button",
@@ -6154,7 +6731,7 @@
           "SelectableText.rich(TextSpan textSpan, {...})"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6215,7 +6792,7 @@
           "skeletonThemeOverrides"
         ]
       },
-      "category": "display",
+      "category": "Feedback",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6279,7 +6856,7 @@
           "SliderThumbShape"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6345,7 +6922,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [
@@ -6385,7 +6962,7 @@
           "kMaxSpellCheckSuggestions"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "menu"
@@ -6432,7 +7009,7 @@
           "Spinner({size, strokeWidth, color, semanticsLabel, theme})"
         ]
       },
-      "category": "display",
+      "category": "Feedback",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6491,7 +7068,7 @@
           "StageContainerBuilder"
         ]
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6543,7 +7120,7 @@
           "starRatingThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [
@@ -6619,7 +7196,7 @@
           "firstFailedStep"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [],
         "foundation": [
@@ -6687,7 +7264,7 @@
           "stepsThemeOverrides"
         ]
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6751,7 +7328,7 @@
           "swiperDefaults"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [
           "drawer"
@@ -6820,7 +7397,7 @@
           "switchThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [],
         "foundation": [
@@ -6888,7 +7465,7 @@
           "switcherThemeOverrides"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [],
         "foundation": [
@@ -6976,7 +7553,7 @@
           "TableCellResizeMode"
         ]
       },
-      "category": "layout",
+      "category": "Data Display",
       "deps": {
         "components": [
           "scrollable_client"
@@ -7066,7 +7643,7 @@
           "TabPaneItemBuilder"
         ]
       },
-      "category": "navigation",
+      "category": "Navigation",
       "deps": {
         "components": [
           "sortable"
@@ -7156,7 +7733,7 @@
           ]
         }
       },
-      "category": "display",
+      "category": "Animation & Effects",
       "deps": {
         "components": [
           "markdown"
@@ -7219,7 +7796,7 @@
           ]
         }
       },
-      "category": "form",
+      "category": "Forms & Inputs",
       "deps": {
         "components": [
           "input"
@@ -7269,7 +7846,7 @@
           "timePickerThemeOverrides"
         ]
       },
-      "category": "form",
+      "category": "Date & Time",
       "deps": {
         "components": [
           "button",
@@ -7339,7 +7916,7 @@
         ],
         "enums": []
       },
-      "category": "layout",
+      "category": "Data Display",
       "deps": {
         "components": [],
         "foundation": [
@@ -7400,7 +7977,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "utility",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -7447,7 +8024,7 @@
           "ToastBuilder"
         ]
       },
-      "category": "overlay",
+      "category": "Feedback",
       "deps": {
         "components": [],
         "foundation": [
@@ -7521,7 +8098,7 @@
           "ToggleSize"
         ]
       },
-      "category": "control",
+      "category": "Buttons & Actions",
       "deps": {
         "components": [],
         "foundation": [
@@ -7589,7 +8166,7 @@
           "tooltipThemeOverrides"
         ]
       },
-      "category": "overlay",
+      "category": "Overlays",
       "deps": {
         "components": [],
         "foundation": [],
@@ -7655,7 +8232,7 @@
           "TrackerLevel"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "tooltip"
@@ -7748,7 +8325,7 @@
           "TreeNodeExpandedChanged"
         ]
       },
-      "category": "display",
+      "category": "Data Display",
       "deps": {
         "components": [
           "icon"
@@ -7817,7 +8394,7 @@
           "TripleDots({count, direction, size, spacing, color, padding, theme})"
         ]
       },
-      "category": "display",
+      "category": "Menus",
       "deps": {
         "components": [],
         "foundation": [],
@@ -7891,7 +8468,7 @@
           ]
         }
       },
-      "category": "layout",
+      "category": "Layout",
       "deps": {
         "components": [
           "card",
@@ -7953,6 +8530,40 @@
     }
   },
   "fileHashes": {
+    "blocks/account-01/README.md": "9f72489455f38f108e2ccd975bca9109bc559a8d997c210be2a7580cabc5d82e",
+    "blocks/account-01/account_01.dart": "65294d256539632f7611768d6eb5ba72f260974903a4a7e4cd02d022d937b642",
+    "blocks/account-02/README.md": "15f45652c46c962c6797dd630c8b839118fcedb6a3f00859f0dbfbef0d7d19f2",
+    "blocks/account-02/account_02.dart": "b374c1c0ce43fb4706e7fd023b550c62e2363d25dac27012cb068bd922a711a4",
+    "blocks/calendar-01/README.md": "381b43d8099ed61a16406d92c1b4a5910bc29584a6b263b5dd9fafc790fc92da",
+    "blocks/calendar-01/calendar_01.dart": "edcd6d7dcbe28c63ad28ef2ffb315096880e10d2cf82d5ecaca5552a55f6a1ce",
+    "blocks/calendar-02/README.md": "1117184d74a4b8a34c022319ebd4ada3350addf2c8564eb3a5a8a61c63380952",
+    "blocks/calendar-02/calendar_02.dart": "08dea95909bfd4730a2121c1decb984999c6ad8d8a3fc35e7e992ab5378c89ea",
+    "blocks/dashboard-01/README.md": "aeccb8c340f53f00018d26852b57e8a4e28b5f42c4568fe8d92672a557141486",
+    "blocks/dashboard-01/dashboard_01.dart": "9ad3eb2751021f764b9a0180ffa2c1b88e7d8367ec191b9dfd752e676025862b",
+    "blocks/dashboard-01/dashboard_01_table.dart": "026d84081ed1abe74c4217e1ecd5e2ad3d984ae2d197493072ad1ca6ce468f36",
+    "blocks/dashboard-02/README.md": "d61a3f8d3909a36988b88803b564c701dc96e5c6450a23f176baf811ad7bd8ce",
+    "blocks/dashboard-02/dashboard_02.dart": "908df392cc38a89834034ba4d59c662179c17db41079df2e002efb6bb6f982a5",
+    "blocks/dashboard-02/dashboard_02_sections.dart": "96c03655be09e9807293f98f9a92d7e113b806f8d7155db177ff72e9162df10c",
+    "blocks/login-01/README.md": "4376dbaaf87c1e95dd6ca3330ba1dea1a4b13ac88015b87356d9c5420aceb411",
+    "blocks/login-01/login_01.dart": "484593bb64b812995c53a8bd567142ed20c257ca79288cfadc52bc7366283dc6",
+    "blocks/login-02/README.md": "630d6de8f8c2f490c8e5ba1359409e1480ff3a72e2901676ae07f6806de08c60",
+    "blocks/login-02/login_02.dart": "387071366b78124d8b4c25cbec4599422d6a6e034200270e246732ba1f973a15",
+    "blocks/login-03/README.md": "f4c3cd09af55d9aa7cf72af3b7f8340ec041c277770c0f02771e200755c0d47a",
+    "blocks/login-03/login_03.dart": "9e630a53c10cd0daba53241960bd3e27a23bab6cd2b4f2de3017b1636ada5829",
+    "blocks/otp-01/README.md": "0931062e21fa8b4dc96da75e9518515fe49be8dbb4c85ea93a8ebdb5ab3af07f",
+    "blocks/otp-01/otp_01.dart": "2b43db98c514f75a5f2452bc0a410106bf689fa89d7d252ffdf3414916b31a80",
+    "blocks/pricing-01/README.md": "a681ca45f41325aadb679971cd8ea085b422e22dd06f17c9b19bc87106bc6872",
+    "blocks/pricing-01/pricing_01.dart": "97ff08f2718a6425421031cd522fe0480dc3b8277ab6858b28968c7957b10901",
+    "blocks/sidebar-01/README.md": "902a8223a6ccfcdffa95b0652f46ef39e038069cebd7c931fe0900f68bcf0443",
+    "blocks/sidebar-01/sidebar_01.dart": "d4415de53e4c1256dc7647bf2624b81effb7fb7b431d20ef8730d2e75ed4214a",
+    "blocks/sidebar-02/README.md": "4c5a9f481d3f845b1619f4d76a9632155f03c42b5fc80baca1f140531c855558",
+    "blocks/sidebar-02/sidebar_02.dart": "0b8139f2a582e2a0a19cf0190b2f20c642766eed985aa3bb2147f2e713f85b8a",
+    "blocks/sidebar-03/README.md": "65c5e678d05db4a930fe315c993950b7fbbea4e1cd5d1023470b19bb5e41910b",
+    "blocks/sidebar-03/sidebar_03.dart": "caee97835ba84ae2732173d9eef812b2069008ca7dabd3b41adc24289784c5c5",
+    "blocks/signup-01/README.md": "3c3fcb7eeaaa2e33c9cf0989e15212cf2182a72b9a4da9ae82395bbbad620359",
+    "blocks/signup-01/signup_01.dart": "d41fa1d6ce8dc9400a903869a3999eb4ecee66bf2940b3526b521319c3f82ac3",
+    "blocks/signup-02/README.md": "6d573310bc0b2019bdec5b45155aa5ae8216997e2532a17a71fdba93b2128531",
+    "blocks/signup-02/signup_02.dart": "affaf6482ed89959c1b94e9c0c5a64ff312f7c16442e83490b583c1dd88196f1",
     "components/accordion/accordion.dart": "8da15791c76a3caa08377f58b480bca7aa29e81eb8baa4628f098a141633b239",
     "components/accordion/accordion_style.dart": "6ddd2b1620d842b2ab9d0059d921a0a2cb5adc25f679ef1932b3be8876742e71",
     "components/accordion/accordion_theme.dart": "375e4ee1d09dc4179fb48a9bd374f882d4a41ca77b68be7a357302767072aab1",
@@ -8000,7 +8611,7 @@
     "components/button/button_style.dart": "0f2a6f2a10bc80aecb6c2c4e628166a9e9997af1488c9c347e38a3535c6a2667",
     "components/button/button_theme.dart": "99e0fd2148c98f7b98c8581733daf2a6f60e22069defacd5ca5bfc5233262b4c",
     "components/button/preview.dart": "522cfcbf95c23341962a49cfc62328ee50370dc238511b066033277dea121eda",
-    "components/calendar/calendar.dart": "c14f9145464ec451d93276649a0a6bfaca37ab0469e4d1f1774a3928ba93473f",
+    "components/calendar/calendar.dart": "2cf0583ca46903d0d3898f0496bae72ce05375c92c766be91d18e48bc63ba86f",
     "components/calendar/calendar_style.dart": "e3c734dcffc5540d4ca8a9661fcac09e3e2b8cb58a3b95f7748de2c9ceb7ea1b",
     "components/calendar/calendar_theme.dart": "53f9eedd84485f6043f6f5384f025265dcfbf42a21653a8931b504fcdf2e1a03",
     "components/calendar/preview.dart": "bb6351e869e515ea251a489e6f194fd0bcf972a43c24dc4e5ada1f05ca6efb47",
@@ -8058,7 +8669,7 @@
     "components/command/command_style.dart": "b118eb3648e90a58cb95e698c416afb06de6b481ca30bda9a3af54fb95c6989e",
     "components/command/command_theme.dart": "4f52d4bc8da3ccdf42c17d971afc1a95715097dce7a1ba0a8885d9e0c3bffe60",
     "components/command/preview.dart": "5a84fee6345c83b8b53b03a6c2a90357d3c309ccad9ec1fd4c9cc0ac38bae480",
-    "components/context_menu/context_menu.dart": "12914f8cbaa2f61581d085a795205de964edf8da69a03296b9c4f69384181e7f",
+    "components/context_menu/context_menu.dart": "cdcb03d007354047acb27bf680e71f796924ae312724194ca254045af6eb9ecb",
     "components/context_menu/preview.dart": "5cf8290d0d88d3fc0caa2ea6f283d98197b57e288b3ffd005917569d13edcf30",
     "components/country_flag/country_flag.dart": "dc5f952002941db88f0764d92a7e8886c60f448c9837dff36a4d105518f03081",
     "components/country_flag/country_flag_style.dart": "a37d73e15798fc1ab3a3529e0be6225965952a8d915ad67a954c3b09a1fc8a2e",
@@ -8086,7 +8697,7 @@
     "components/drawer/preview.dart": "9744d1c557b48726cabadb21867caff61c42ce551db8329d2e1d55e85920a003",
     "components/drawer_container/drawer_container.dart": "55b7ddc7101d064c3ba7f028f5d971ee0964431e3f83f0e9e551957ae0a1be64",
     "components/drawer_container/preview.dart": "5017ae85d85f26048e0538f4919a165fb3ecf4520d618da984254dedc6122db8",
-    "components/dropdown_menu/dropdown_menu.dart": "42693605ebd7f01b51112a37e45bbd4a1256530ae85916d4c23dcb136388d06b",
+    "components/dropdown_menu/dropdown_menu.dart": "5250b23ccc624db0f932024b3b1a02b7e448dee3536ea29a48b1e68f2d5972f8",
     "components/dropdown_menu/preview.dart": "8c778fffffa2504fd35c491a8da6d6a9e3ef0b4c49f932f62e4b1b8760c7a824",
     "components/dropzone/dropzone.dart": "b4b099354e7b3dfbea5fb7196e1a838ec348893e4bd7b04ab345d48bd18ff415",
     "components/dropzone/dropzone_style.dart": "45b1ead2f882f0b1f820d03761f77dcf53423fa29ab178218e5b30eb126e02a9",
@@ -8164,7 +8775,7 @@
     "components/input/input_style.dart": "3674fecaf01942e1d4e2608b478a389f1f16ac6319320bd5b8ca83e409b132df",
     "components/input/input_theme.dart": "d3ea4501f6b2e86b77eecc28516ad149fae31ab6dd3b9e6242a1b39fd2a3af08",
     "components/input/preview.dart": "dde1fffdd670804e91d16175ec85fae038ffa8e5369f00630d4a75b38d0ed2ba",
-    "components/input_otp/input_otp.dart": "b73cdeb802b05b5c9d83ba14c99bacac930545765bc639e973f543ba696c50ad",
+    "components/input_otp/input_otp.dart": "2af28e0d8754e2785e363f5c8fd1207702899e3ea2cfed78357385143a4f06f6",
     "components/input_otp/input_otp_style.dart": "7ca55622d4dcbd97eee1e97366994b5ae0603247ce3d63d88881f680ee9c1be1",
     "components/input_otp/input_otp_theme.dart": "5e2f3b0c3147a60ebbe931876111b31eaa1be5dd116f07fa5622b8dfc59fe218",
     "components/input_otp/preview.dart": "cdd701a0339d8f1346890a385732f5b4e9f336d9dc9073772212fab25caddee0",
@@ -8186,7 +8797,7 @@
     "components/media_query/media_query_style.dart": "0eaf6ac048ef55eafbe8c4a0c602372f427101cb379d0a6d29d9006a59c949cd",
     "components/media_query/media_query_theme.dart": "0531f36504a3f2a8a8cc218fbce6bee9a9f26b66d0092566a9aece8bdfa43229",
     "components/media_query/preview.dart": "945f07ac68db5fc9d931f238813f1681bdbb4d38a9717fb41df5ac114300d24b",
-    "components/menu/menu.dart": "669ba4e32ff515bb21c07b37fc777f51e85fb5e008d2b3887a33df23a2f6143b",
+    "components/menu/menu.dart": "a53dc503f15088116ae4b943f09e9898f52720edbf47167fc5c34359001a1d49",
     "components/menu/menu_style.dart": "e481848fac6b19cd7afb219f9a9114486bcae83932d22f25cd316496464250bc",
     "components/menu/menu_theme.dart": "9d4391f0a637e365ab4b85c6aefb1820230a22cf06938373a75994d21c1d9a9e",
     "components/menu/preview.dart": "4208d68423f1a0f4ea1fcdad36d0facc424bb796dabdffc3056bd90af7ce2fce",
@@ -8205,7 +8816,7 @@
     "components/navigation_menu/navigation_menu.dart": "0bfd3cf60dc0d963b44643be5df75d13fddf6f0d34faeb5b2ff11cc6cb10a86d",
     "components/navigation_menu/navigation_menu_style.dart": "9e1b20951271247f529d9ade9086507d945d4fbf3fafeaedc496294e05159e11",
     "components/navigation_menu/navigation_menu_theme.dart": "b095750a07d777e23133d8afc9004c2e5a58d3149520df7bf3f762a72102a28c",
-    "components/navigation_menu/preview.dart": "8b0d21dcd12858ede3cffdc980a4bbf53cbca225df3a6c30ee772ea69c8948c4",
+    "components/navigation_menu/preview.dart": "3f36ebfa3966c5166d7371909070498dae6c48c29a96e0ebdd7219c716550b51",
     "components/number_ticker/number_ticker.dart": "3b96d3b608963a0ff82485a6b0b7a82219a3f026dad9aed4360e731ec9d50eb9",
     "components/number_ticker/number_ticker_style.dart": "bb8a5c47ce5870a3c4f4c489577c7359c11bf63e019bd167b9b1b6c4f2d6edeb",
     "components/number_ticker/number_ticker_theme.dart": "fdd67ef5889f39faf7aba3153494e2004852fdd9f9c759399fefd5423fb498b0",
@@ -8224,10 +8835,10 @@
     "components/overlay_configuration/preview.dart": "e31a81e736839fe92299554729a96430d3fb280daecea9987f8ff82b7e722a4e",
     "components/page_route/page_route.dart": "a8d896ebef5881a9f3408b801f34e948e06ce58a48df94d188d9725dee2d3459",
     "components/page_route/preview.dart": "d4e2ee48e7bd2f2ca1a03f2d5ef0d1edfd74cbbc1cf066634335a264b9b5d6e8",
-    "components/pagination/pagination.dart": "e3de40fd6cd7a7ffd1f43f6444874f4dcab8be1563fa1c09bcd3766a1d106ef7",
+    "components/pagination/pagination.dart": "f06f77565396a07d0db43cd8ac41f9353609182e3793e06fedc207432435e8df",
     "components/pagination/pagination_style.dart": "13bf5f6290cbac7cd20fb5576430bdfb510c032394c0932df585c9f081a0c821",
     "components/pagination/pagination_theme.dart": "17b65829b531827964005ee34f5768479cb6269a7ef31b7a51459ede2df4360b",
-    "components/pagination/preview.dart": "dad52887b6558e450d5665c06cbee9313669cc24b4809dd404f13264ad7a2953",
+    "components/pagination/preview.dart": "a4c7c95dc1af5e961fc60d2c0be940b42133cc56ef64a5bf99069dfae4a24919",
     "components/patch/patch.dart": "78e478cc888ef1f9d9693592b56cc97353fe3ef3661122846545061afe5028f6",
     "components/patch/preview.dart": "e6e91af8c7269066ec2e6568b1e829c4133fc70eda10c31b067ca9837bcb77c0",
     "components/phone_input/phone_input.dart": "d768a393e5a57f5eef4b69c68cf0912c48e2ab812113b864160c165a9fd0c615",
@@ -8520,7 +9131,7 @@
     "primitives/markdown_parser/media.dart": "1bd6889ffafabc19ffa34c715cdc194868659f4ace1767bf651d28cb945d8057",
     "primitives/markdown_parser/view.dart": "6d23739e33cc09a30426e7990be79819ef6e0e7c940f5e9c5ca18e4c77284f01",
     "primitives/masonry_layout.dart": "12ceeef658a8374e4868fa63dc275dab73c7389b2f6de1e1abb7c447f63a0e79",
-    "primitives/menu_nav.dart": "b837930119cbfef24fe879c5c8390f9076c73502a4e648826d0a329781c19dd8",
+    "primitives/menu_nav.dart": "7d5c61d4f8f50020f1377f1c434e741d48abf16f4c4ff82487fee72e668d2723",
     "primitives/menu_rows.dart": "885f51866324c85dc38b5b50b55eed480b406835377cba775a02d980e7683c9f",
     "primitives/navigation/navigation_item_row.dart": "18241273410fd88dd5030c6793a9d8e86fb67270d30abfcd6ea77c19fbb09764",
     "primitives/navigation/navigation_items.dart": "c54a691d45a501dee715526115ca67842e55a3ddfe53509579d0fb7012289d98",
@@ -8764,6 +9375,7 @@
     }
   },
   "install": {
+    "blocksDir": "blocks",
     "componentsDir": "components",
     "layerDirs": {
       "foundation": "foundation",

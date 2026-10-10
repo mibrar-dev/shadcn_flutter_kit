@@ -1,7 +1,7 @@
 {
   "id": "number_ticker",
   "name": "NumberTicker",
-  "category": "display",
+  "category": "Data Display",
   "description": "Animated number with a formatter or custom builder, plus flip-clock character rollers.",
   "tier": "component",
   "install": "flutter_shadcn add number_ticker",

@@ -1,7 +1,7 @@
 {
   "id": "scrollable",
   "name": "Scrollable",
-  "category": "layout",
+  "category": "Layout",
   "description": "Notification-driven edge-fade viewport for any scrollable subtree.",
   "tier": "component",
   "install": "flutter_shadcn add scrollable",

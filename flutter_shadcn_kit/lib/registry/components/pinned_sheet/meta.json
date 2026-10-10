@@ -1,7 +1,7 @@
 {
   "id": "pinned_sheet",
   "name": "Pinned Sheet",
-  "category": "display",
+  "category": "Data Display",
   "description": "In-tree sheet that slides in from an edge, drags, and snaps between snap stages.",
   "tier": "component",
   "install": "flutter_shadcn add pinned_sheet",

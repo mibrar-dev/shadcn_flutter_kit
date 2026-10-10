@@ -1,0 +1,34 @@
+{
+  "id": "calendar-01",
+  "name": "Calendar 01",
+  "category": "Calendar & Scheduling",
+  "description": "A date-range picker card with a two-month calendar and footer actions.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add calendar-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/calendar-01/calendar_01.dart';",
+  "tags": [
+    "calendar01",
+    "calendar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "date_math"
+    ],
+    "components": [
+      "button",
+      "calendar",
+      "card",
+      "divider"
+    ]
+  },
+  "files": [
+    "calendar_01.dart",
+    "README.md"
+  ]
+}

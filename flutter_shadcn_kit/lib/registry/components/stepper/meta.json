@@ -1,7 +1,7 @@
 {
   "id": "stepper",
   "name": "Stepper",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Multi-step flow with numbered indicators and connectors, horizontal or vertical, controlled or controller-driven.",
   "tier": "component",
   "install": "flutter_shadcn add stepper",

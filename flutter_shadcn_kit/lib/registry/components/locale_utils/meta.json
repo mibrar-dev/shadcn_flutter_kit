@@ -1,7 +1,7 @@
 {
   "id": "locale_utils",
   "name": "Locale Utils",
-  "category": "utility",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Byte-size formatting against a configurable unit table (decimal, binary or custom).",
   "tier": "component",

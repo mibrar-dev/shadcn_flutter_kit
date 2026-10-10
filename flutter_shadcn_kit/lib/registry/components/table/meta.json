@@ -1,7 +1,7 @@
 {
   "id": "table",
   "name": "Table",
-  "category": "layout",
+  "category": "Data Display",
   "description": "Themed data grid with span-aware cells, frozen rows/columns, scrolling and optional column/row resizing.",
   "tier": "component",
   "install": "flutter_shadcn add table",

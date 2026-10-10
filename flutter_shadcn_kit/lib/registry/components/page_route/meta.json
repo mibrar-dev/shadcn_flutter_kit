@@ -1,7 +1,7 @@
 {
   "id": "page_route",
   "name": "ShadcnPageRoute",
-  "category": "navigation",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Widgets-only page route and declarative Page with the shadcn fade + slide transition.",
   "tier": "component",

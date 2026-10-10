@@ -1,7 +1,7 @@
 {
   "id": "selectable",
   "name": "SelectableText",
-  "category": "display",
+  "category": "Data Display",
   "description": "Read-only selectable text with widgets-only selection controls.",
   "tier": "component",
   "install": "flutter_shadcn add selectable",

@@ -1,7 +1,7 @@
 {
   "id": "timeline",
   "name": "Timeline",
-  "category": "layout",
+  "category": "Data Display",
   "description": "Vertical three-column event timeline: time label, indicator dot with connector, title and content.",
   "tier": "component",
   "install": "flutter_shadcn add timeline",

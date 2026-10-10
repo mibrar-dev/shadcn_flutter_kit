@@ -1,7 +1,7 @@
 {
   "id": "spell_check_suggestions_toolbar",
   "name": "SpellCheckSuggestionsToolbar",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Menu-backed toolbar for the spell check replacements of the misspelled word under an editable text cursor: up to three suggestion rows in the menu popup surface.",
   "tier": "component",
   "install": "flutter_shadcn add spell_check_suggestions_toolbar",

@@ -1,7 +1,7 @@
 {
   "id": "menubar",
   "name": "Menubar",
-  "category": "overlay",
+  "category": "Menus",
   "description": "A horizontal bar of menu triggers whose submenus open below the bar. Rows, keyboard traversal and popup surfaces are the menu component's; MenubarTheme is owned by menu and resolved here.",
   "tier": "component",
   "install": "flutter_shadcn add menubar",

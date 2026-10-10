@@ -19,6 +19,7 @@ import 'package:crypto/crypto.dart';
 import 'package:yaml/yaml.dart';
 
 import '../../rearch/src/json_utils.dart';
+import 'categories.dart';
 import 'dart_imports.dart';
 import 'layer_scan.dart';
 import 'manifest_error.dart';
@@ -30,8 +31,12 @@ String buildRegistryManifest(String appRoot) {
   return stableJsonEncode(_Builder(appRoot).build());
 }
 
+/// Dart file name of the block [id]: Dart files must satisfy the `file_names`
+/// lint, so the hyphenated id maps to an underscored stem.
+String blockStem(String id) => id.replaceAll('-', '_');
+
 /// A component directory as read from its meta.json.
-class _Component {
+class _Component implements _Buildable {
   _Component({
     required this.id,
     required this.meta,
@@ -40,6 +45,7 @@ class _Component {
     required this.preview,
   });
 
+  @override
   final String id;
   final Map<String, dynamic> meta;
   final List<String> metaFiles;
@@ -50,7 +56,36 @@ class _Component {
   /// `preview.dart` when listed in meta files.
   final String? preview;
 
+  @override
   Map<String, dynamic> get deps => meta['deps'] as Map<String, dynamic>;
+
+  @override
+  String get kindLabel => 'component';
+}
+
+/// The shared shape of a `meta.json` unit that declares layer dependencies.
+abstract class _Buildable {
+  Map<String, dynamic> get deps;
+
+  String get id;
+
+  String get kindLabel;
+}
+
+/// A block directory as read from its meta.json.
+class _Block implements _Buildable {
+  _Block({required this.id, required this.meta, required this.metaFiles});
+
+  @override
+  final String id;
+  final Map<String, dynamic> meta;
+  final List<String> metaFiles;
+
+  @override
+  Map<String, dynamic> get deps => meta['deps'] as Map<String, dynamic>;
+
+  @override
+  String get kindLabel => 'block';
 }
 
 class _Builder {
@@ -79,11 +114,13 @@ class _Builder {
 
   Map<String, Object?> build() {
     final components = _readComponents();
-    final declared = _declaredLayerIds(components);
+    final blocks = _readBlocks();
+    final declared = _declaredLayerIds(components, blocks);
     final foundation = scanLayer(root, 'foundation', declared['foundation']!);
     final theme = scanLayer(root, 'theme', declared['theme']!);
     final primitives = scanLayer(root, 'primitives', declared['primitives']!);
     _validateComponentDeps(components, foundation, theme, primitives);
+    _validateBlocks(blocks, components, foundation, theme, primitives);
 
     final deps = primitiveDeps(primitives);
     final hashes = <String, String>{};
@@ -91,6 +128,10 @@ class _Builder {
     final componentJson = <String, Object?>{};
     for (final id in components.keys.toList()..sort()) {
       componentJson[id] = _componentJson(components[id]!, hashes);
+    }
+    final blockJson = <String, Object?>{};
+    for (final id in blocks.keys.toList()..sort()) {
+      blockJson[id] = _blockJson(blocks[id]!, hashes);
     }
     // Theme presets are hashed too: `themes/<id>.json` is the input the CLI
     // renders into `<installRoot>/theme/app_theme.dart`, so a consumer that
@@ -119,6 +160,7 @@ class _Builder {
       'install': <String, Object?>{
         'root': 'lib/ui/shadcn',
         'componentsDir': 'components',
+        'blocksDir': 'blocks',
         'layerDirs': <String, Object?>{
           'foundation': 'foundation',
           'theme': 'theme',
@@ -130,6 +172,7 @@ class _Builder {
       'theme': _unitsJson(theme),
       'primitives': _primitivesJson(primitives, deps),
       'components': componentJson,
+      'blocks': blockJson,
       'themes': themesJson,
       'fileHashes': hashes,
     };
@@ -172,23 +215,124 @@ class _Builder {
     return components;
   }
 
+  Map<String, _Block> _readBlocks() {
+    final dir = Directory('$root/blocks');
+    if (!dir.existsSync()) {
+      return const <String, _Block>{};
+    }
+    final blocks = <String, _Block>{};
+    for (final entity in dir.listSync()) {
+      if (entity is! Directory) continue;
+      final id = _baseName(entity.path);
+      final metaFile = File('${entity.path}/meta.json');
+      if (!metaFile.existsSync()) {
+        throw ManifestBuildException("block '$id' has no meta.json");
+      }
+      final meta =
+          jsonDecode(metaFile.readAsStringSync()) as Map<String, dynamic>;
+      if (meta['id'] != id) {
+        throw ManifestBuildException("block '$id' meta.id is '${meta['id']}'");
+      }
+      final files = meta['files'];
+      if (files is! List) {
+        throw ManifestBuildException("block '$id' has no files list");
+      }
+      blocks[id] = _Block(
+        id: id,
+        meta: meta,
+        metaFiles: files.whereType<String>().toList(),
+      );
+    }
+    return blocks;
+  }
+
+  void _validateBlocks(
+    Map<String, _Block> blocks,
+    Map<String, _Component> components,
+    LayerScan foundation,
+    LayerScan theme,
+    LayerScan primitives,
+  ) {
+    for (final block in blocks.values) {
+      final meta = block.meta;
+      final id = block.id;
+      if (meta['name'] is! String || (meta['name'] as String).isEmpty) {
+        throw ManifestBuildException("block '$id' has no name");
+      }
+      final description = meta['description'];
+      if (description is! String || description.isEmpty) {
+        throw ManifestBuildException("block '$id' has no description");
+      }
+      final category = meta['category'];
+      if (category is! String || !isBlockCategory(category)) {
+        throw ManifestBuildException(
+          "block '$id' category '$category' is not one of the block "
+          'categories (${blockCategories.join(', ')})',
+        );
+      }
+      final viewport = meta['viewport'];
+      if (viewport is! String || !blockViewports.contains(viewport)) {
+        throw ManifestBuildException(
+          "block '$id' viewport '$viewport' is not one of "
+          '${blockViewports.join(', ')}',
+        );
+      }
+      if (!File('$root/blocks/$id/README.md').existsSync()) {
+        throw ManifestBuildException("block '$id' has no README.md");
+      }
+      final deps = block.deps;
+      const expectedKeys = <String>{
+        'foundation',
+        'theme',
+        'primitives',
+        'components',
+      };
+      if (deps.length != expectedKeys.length ||
+          !expectedKeys.every(deps.containsKey)) {
+        throw ManifestBuildException(
+          "block '$id' deps must have exactly "
+          'foundation, theme, primitives, components',
+        );
+      }
+      _checkLayerDeps(block, 'foundation', foundation.units.keys.toSet());
+      _checkLayerDeps(block, 'theme', theme.units.keys.toSet());
+      _checkLayerDeps(block, 'primitives', primitives.units.keys.toSet());
+      for (final entry in (deps['components'] as List).whereType<String>()) {
+        if (entry == id) {
+          throw ManifestBuildException("block '$id' depends on itself");
+        }
+      }
+      _checkLayerDeps(block, 'components', components.keys.toSet());
+      for (final file in block.metaFiles) {
+        if (!File('$root/blocks/$id/$file').existsSync()) {
+          throw ManifestBuildException(
+            "block '$id' files entry '$file' does not exist",
+          );
+        }
+      }
+    }
+  }
+
   Map<String, Set<String>> _declaredLayerIds(
     Map<String, _Component> components,
+    Map<String, _Block> blocks,
   ) {
     final declared = <String, Set<String>>{
       'foundation': <String>{},
       'theme': <String>{},
       'primitives': <String>{},
     };
-    for (final component in components.values) {
-      for (final layer in declared.keys) {
-        final list = component.deps[layer];
-        if (list is! List) {
-          throw ManifestBuildException(
-            "component '${component.id}' deps.$layer is missing",
-          );
+    for (final owner in <Map<String, _Buildable>>[components, blocks]) {
+      for (final unit in owner.values) {
+        for (final layer in declared.keys) {
+          final list = unit.deps[layer];
+          if (list is! List) {
+            throw ManifestBuildException(
+              "${unit.kindLabel} '${unit.id}' deps.$layer is missing",
+            );
+          }
+          declared[layer]!.addAll(list.whereType<String>());
         }
-        declared[layer]!.addAll(list.whereType<String>());
       }
     }
     return declared;
@@ -213,6 +357,13 @@ class _Builder {
         throw ManifestBuildException(
           "component '${component.id}' deps must have exactly "
           'foundation, theme, primitives, components',
+        );
+      }
+      final category = component.meta['category'];
+      if (category is! String || !isComponentCategory(category)) {
+        throw ManifestBuildException(
+          "component '${component.id}' category '$category' is not one of "
+          'the component categories (${componentCategories.join(', ')})',
         );
       }
       _checkLayerDeps(component, 'foundation', foundation.units.keys.toSet());
@@ -259,15 +410,12 @@ class _Builder {
     }
   }
 
-  void _checkLayerDeps(
-    _Component component,
-    String layer,
-    Set<String> unitIds,
-  ) {
-    for (final entry in (component.deps[layer] as List).whereType<String>()) {
+  void _checkLayerDeps(_Buildable unit, String layer, Set<String> unitIds) {
+    for (final entry in (unit.deps[layer] as List).whereType<String>()) {
       if (!unitIds.contains(entry)) {
         throw ManifestBuildException(
-          "component '${component.id}' deps.$layer entry '$entry' does not exist",
+          "${unit.kindLabel} '${unit.id}' deps.$layer entry '$entry' does "
+          'not exist',
         );
       }
     }
@@ -352,6 +500,47 @@ class _Builder {
     if (component.preview != null) {
       final preview = 'components/$id/${component.preview}';
       hashes[preview] = _sha256(preview);
+    }
+    return json;
+  }
+
+  Map<String, Object?> _blockJson(_Block block, Map<String, String> hashes) {
+    final id = block.id;
+    // The entry file is the install target; the README is documentation, so
+    // it is hashed but never copied into the app.
+    final files = <String>[
+      for (final file in block.metaFiles)
+        if (file.endsWith('.dart')) 'blocks/$id/$file',
+    ]..sort();
+    final docs = <String>[
+      if (File('$root/blocks/$id/README.md').existsSync())
+        'blocks/$id/README.md',
+    ];
+    final json = <String, Object?>{
+      'name': block.meta['name'],
+      'category': block.meta['category'],
+      'description': block.meta['description'],
+      'viewport': block.meta['viewport'],
+      'entry': 'blocks/$id/${blockStem(id)}.dart',
+      'files': files,
+      'docs': docs,
+      'deps': block.meta['deps'],
+      'tags': block.meta['tags'] ?? const <String>[],
+      'install': block.meta['install'],
+      'import': block.meta['import'],
+    };
+    final packages = _packagesFor(<String>[
+      for (final file in block.metaFiles)
+        if (file.endsWith('.dart')) 'blocks/$id/$file',
+    ]);
+    if (packages.isNotEmpty) {
+      json['packages'] = packages;
+    }
+    for (final file in files) {
+      hashes[file] = _sha256(file);
+    }
+    for (final file in docs) {
+      hashes[file] = _sha256(file);
     }
     return json;
   }

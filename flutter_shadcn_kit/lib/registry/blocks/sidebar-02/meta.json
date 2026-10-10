@@ -1,0 +1,36 @@
+{
+  "id": "sidebar-02",
+  "name": "Sidebar 02",
+  "category": "Sidebar",
+  "description": "An inset sidebar whose navigation is grouped by section, above a sample screen.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add sidebar-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
+  "tags": [
+    "sidebar02",
+    "sidebar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "avatar",
+      "badge",
+      "button",
+      "card",
+      "divider",
+      "input",
+      "progress"
+    ]
+  },
+  "files": [
+    "sidebar_02.dart",
+    "README.md"
+  ]
+}

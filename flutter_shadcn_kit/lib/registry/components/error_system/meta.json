@@ -1,7 +1,7 @@
 {
   "id": "error_system",
   "name": "Error System",
-  "category": "utility",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Structured error models, rule-based mapping, app/screen error channels and the matching UI surfaces.",
   "tier": "component",

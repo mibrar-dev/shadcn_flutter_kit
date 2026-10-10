@@ -1,7 +1,7 @@
 {
   "id": "refresh_trigger",
   "name": "RefreshTrigger",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Pull-to-refresh wrapper for any scrollable, with a themed indicator pill and programmatic refresh.",
   "tier": "component",
   "install": "flutter_shadcn add refresh_trigger",

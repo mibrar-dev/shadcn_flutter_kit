@@ -1,7 +1,7 @@
 {
   "id": "hover_card",
   "name": "HoverCard",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Rich preview card shown while the pointer rests on its child, presented through the popover machinery with themed timing and placement.",
   "tier": "component",
   "install": "flutter_shadcn add hover_card",

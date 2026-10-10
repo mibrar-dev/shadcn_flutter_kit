@@ -1,7 +1,7 @@
 {
   "id": "feature_carousel",
   "name": "Feature Carousel",
-  "category": "display",
+  "category": "Data Display",
   "description": "Animated feature-card carousel with autoplay, swipe, keyboard navigation, nav arrows and a call to action.",
   "tier": "component",
   "install": "flutter_shadcn add feature_carousel",

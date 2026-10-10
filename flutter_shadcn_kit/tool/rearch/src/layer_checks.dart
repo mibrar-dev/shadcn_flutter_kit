@@ -303,7 +303,47 @@ void checkLayerFile({
         dependencies: dependencies,
       );
     }
+    if (enabled.contains('block-imports')) {
+      final LayerFinding? finding = _blockImportFinding(
+        owner: owner,
+        targetRelPath: targetRelPath,
+        line: line,
+      );
+      if (finding != null) {
+        findings.add(finding);
+      }
+    }
   }
+}
+
+/// The block a `meta.json`-owning directory belongs to, or null when it is a
+/// component.
+String? blockIdOf(ComponentInfo component) =>
+    component.relDir.startsWith('blocks/') ? component.id : null;
+
+/// `block-imports` rule: a block may import foundation/theme/primitives and
+/// components, never another block.
+LayerFinding? _blockImportFinding({
+  required OwnerUnit owner,
+  required String targetRelPath,
+  required int line,
+}) {
+  if (owner.kind != 'component') return null;
+  final String? selfId = blockIdOf(owner.component!);
+  if (selfId == null) return null;
+  final List<String> segments = targetRelPath.split('/');
+  if (segments.length < 3 || segments.first != 'blocks') return null;
+  final String targetId = segments[1];
+  if (targetId == selfId) return null;
+  return LayerFinding(
+    rule: 'block-imports',
+    file: owner.component!.relDir,
+    line: line,
+    message:
+        'block \'$selfId\' imports block \'$targetId\'; blocks may only '
+        'import foundation, theme, primitives and components',
+    details: <String, Object?>{'block': selfId, 'target': targetId},
+  );
 }
 
 /// Records the import target so the `unused-dependency` rule can later
@@ -528,7 +568,7 @@ bool _isMaterialUri(String uri) =>
 ///   * legacy tree — `shared/**` is the special `shared` layer and
 ///     `components/<category>/<name>` files are `components` (layer 3);
 ///   * new tree (`registry_next`) — `foundation`=0, `theme`=1,
-///     `primitives`=2 at the root, `components/<name>`=3.
+///     `primitives`=2, `components/<name>`=3 and `blocks/<id>`=4.
 /// Files without a layer segment (manifests, tools, previews outside the
 /// tree) return null.
 _Layer? _layerOfRelPath(String relPath) {
@@ -545,6 +585,8 @@ _Layer? _layerOfRelPath(String relPath) {
       return const _Layer(2);
     case 'components':
       return const _Layer(3);
+    case 'blocks':
+      return const _Layer(4);
     case 'shared':
       return const _Layer.shared();
   }

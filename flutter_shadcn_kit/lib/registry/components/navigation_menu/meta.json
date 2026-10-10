@@ -1,7 +1,7 @@
 {
   "id": "navigation_menu",
   "name": "NavigationMenu",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Horizontal navigation bar whose entries open themed popover content on hover or press.",
   "tier": "component",
   "install": "flutter_shadcn add navigation_menu",

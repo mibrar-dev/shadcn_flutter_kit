@@ -1,7 +1,7 @@
 {
   "id": "overflow_marquee",
   "name": "Overflow Marquee",
-  "category": "layout",
+  "category": "Layout",
   "description": "Auto-scrolls content that overflows its container, horizontally or vertically, with soft edge fades and reduced-motion support.",
   "tier": "component",
   "install": "flutter_shadcn add overflow_marquee",

@@ -1,7 +1,7 @@
 {
   "id": "file_picker",
   "name": "File Picker",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "File selection surface (dropzone, tile or compact trigger) with validation, a concurrent upload queue and the FileUploadRow list \u2014 list or grid layout, caller-keyed groups, per-file icons.",
   "tier": "component",
   "install": "flutter_shadcn add file_picker",

@@ -1,7 +1,7 @@
 {
   "id": "divider",
   "name": "Divider",
-  "category": "display",
+  "category": "Data Display",
   "description": "Themed rule in either orientation, optionally carrying a centred label.",
   "tier": "component",
   "install": "flutter_shadcn add divider",

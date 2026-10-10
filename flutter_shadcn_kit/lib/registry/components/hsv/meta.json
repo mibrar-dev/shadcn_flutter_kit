@@ -1,7 +1,7 @@
 {
   "id": "hsv",
   "name": "HSV Color Slider",
-  "category": "form",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Gradient slider that controls hue, saturation, value, or alpha for HSV colours.",
   "tier": "component",

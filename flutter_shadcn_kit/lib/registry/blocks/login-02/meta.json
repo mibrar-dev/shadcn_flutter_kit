@@ -1,0 +1,31 @@
+{
+  "id": "login-02",
+  "name": "Login 02",
+  "category": "Authentication",
+  "description": "A split sign-in page: the form beside a full-bleed image panel.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add login-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/login-02/login_02.dart';",
+  "tags": [
+    "login02",
+    "login"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "button",
+      "image",
+      "input"
+    ]
+  },
+  "files": [
+    "login_02.dart",
+    "README.md"
+  ]
+}

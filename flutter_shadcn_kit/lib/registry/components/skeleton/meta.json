@@ -1,7 +1,7 @@
 {
   "id": "skeleton",
   "name": "Skeleton",
-  "category": "display",
+  "category": "Feedback",
   "description": "Widgets-only loading placeholder with a repeating shimmer sweep; replaces the banned skeletonizer package.",
   "tier": "component",
   "install": "flutter_shadcn add skeleton",

@@ -1,7 +1,7 @@
 {
   "id": "markdown",
   "name": "Markdown",
-  "category": "display",
+  "category": "Typography & Media",
   "description": "Text-only markdown renderer with a shadcn theme, tap callbacks and an image preview overlay.",
   "tier": "component",
   "install": "flutter_shadcn add markdown",

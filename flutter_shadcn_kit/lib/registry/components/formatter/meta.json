@@ -1,7 +1,7 @@
 {
   "id": "formatter",
   "name": "Formatter",
-  "category": "form",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Reusable text input formatters (uppercase/lowercase, numeric, math, HEX, time) plus selection clipping helpers.",
   "tier": "component",

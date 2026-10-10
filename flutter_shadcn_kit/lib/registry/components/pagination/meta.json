@@ -1,7 +1,7 @@
 {
   "id": "pagination",
   "name": "Pagination",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Previous/next controls with a clamped window of page buttons.",
   "tier": "component",
   "install": "flutter_shadcn add pagination",

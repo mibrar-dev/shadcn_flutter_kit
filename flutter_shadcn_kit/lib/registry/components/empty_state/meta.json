@@ -1,7 +1,7 @@
 {
   "id": "empty_state",
   "name": "EmptyState",
-  "category": "display",
+  "category": "Data Display",
   "description": "A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.",
   "tier": "component",
   "install": "flutter_shadcn add empty_state",

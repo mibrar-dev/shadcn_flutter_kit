@@ -1,7 +1,7 @@
 {
   "id": "scrollbar",
   "name": "Scrollbar",
-  "category": "control",
+  "category": "Layout",
   "description": "Themeable scrollbar wrapper around Flutter's RawScrollbar with token-derived thumb, thickness and radius.",
   "tier": "component",
   "install": "flutter_shadcn add scrollbar",

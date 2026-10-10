@@ -1,7 +1,7 @@
 {
   "id": "app",
   "name": "App",
-  "category": "layout",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "App shell over WidgetsApp that installs ShadcnTheme, ComponentThemes, the overlay manager and shadcn localizations, plus the ShadcnUI default text/icon scope.",
   "tier": "component",

@@ -1,7 +1,7 @@
 {
   "id": "gooey_toast",
   "name": "Gooey Toast",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Gooey-style transient notifications: a compact pill whose metaball silhouette morphs into an expanded body, built on the shared toast queue.",
   "tier": "component",
   "install": "flutter_shadcn add gooey_toast",

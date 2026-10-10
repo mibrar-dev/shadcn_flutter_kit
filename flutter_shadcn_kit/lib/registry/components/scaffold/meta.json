@@ -1,7 +1,7 @@
 {
   "id": "scaffold",
   "name": "Scaffold",
-  "category": "layout",
+  "category": "Layout",
   "description": "App screen shell with header/footer bars, a loading bar and keyboard avoidance, plus the AppBar title bar.",
   "tier": "component",
   "install": "flutter_shadcn add scaffold",

@@ -1,7 +1,7 @@
 {
   "id": "file_diff_viewer",
   "name": "File Diff Viewer",
-  "category": "display",
+  "category": "Data Display",
   "description": "Renders unified or split file diffs with line gutters, coloured additions/deletions, collapsible unchanged hunks and a copy-patch action.",
   "tier": "component",
   "install": "flutter_shadcn add file_diff_viewer",

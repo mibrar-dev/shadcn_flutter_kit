@@ -1,7 +1,7 @@
 {
   "id": "color_field",
   "name": "Color Field",
-  "category": "form",
+  "category": "Color",
   "description": "Custom-painted HSV/HSL gradient area with an optional transparency checkerboard and a themed ring.",
   "tier": "component",
   "install": "flutter_shadcn add color_field",

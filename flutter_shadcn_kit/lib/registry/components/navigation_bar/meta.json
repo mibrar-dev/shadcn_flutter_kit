@@ -1,7 +1,7 @@
 {
   "id": "navigation_bar",
   "name": "Navigation Bar",
-  "category": "navigation",
+  "category": "Navigation",
   "description": "Navigation container for bars, rails and sidebars: selectable items with labels, groups, collapsibles, dividers, slots and arrow-key roving.",
   "tier": "component",
   "install": "flutter_shadcn add navigation_bar",

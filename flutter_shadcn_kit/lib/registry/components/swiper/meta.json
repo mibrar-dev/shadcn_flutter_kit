@@ -1,7 +1,7 @@
 {
   "id": "swiper",
   "name": "Swiper",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Swipe-to-open wrapper that reveals a drawer or sheet panel.",
   "tier": "component",
   "install": "flutter_shadcn add swiper",

@@ -1,7 +1,7 @@
 {
   "id": "alpha",
   "name": "Alpha",
-  "category": "utility",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Checkerboard painter for transparency indicators.",
   "tier": "component",

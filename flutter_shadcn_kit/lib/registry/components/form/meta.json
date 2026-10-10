@@ -1,7 +1,7 @@
 {
   "id": "form",
   "name": "ShadcnForm",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "ShadcnForm scope, labelled field layouts, validators, controller and submission flow.",
   "tier": "component",
   "install": "flutter_shadcn add form",

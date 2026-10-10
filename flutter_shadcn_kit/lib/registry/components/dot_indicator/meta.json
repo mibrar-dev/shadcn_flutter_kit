@@ -1,7 +1,7 @@
 {
   "id": "dot_indicator",
   "name": "DotIndicator",
-  "category": "display",
+  "category": "Animation & Effects",
   "description": "Animated row or column of dots showing the active index of a carousel, stepper or pager.",
   "tier": "component",
   "install": "flutter_shadcn add dot_indicator",

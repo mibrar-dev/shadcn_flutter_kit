@@ -1,7 +1,7 @@
 {
   "id": "alert",
   "name": "Alert",
-  "category": "layout",
+  "category": "Feedback",
   "description": "Bordered callout banner with base and destructive variants, a leading slot, title, content and trailing slot.",
   "tier": "component",
   "install": "flutter_shadcn add alert",

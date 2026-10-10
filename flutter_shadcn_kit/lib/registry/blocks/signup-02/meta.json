@@ -1,0 +1,35 @@
+{
+  "id": "signup-02",
+  "name": "Signup 02",
+  "category": "Authentication",
+  "description": "A two-column sign-up with a plan summary and a password strength meter.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add signup-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/signup-02/signup_02.dart';",
+  "tags": [
+    "signup02",
+    "signup"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "button",
+      "card",
+      "checkbox",
+      "divider",
+      "input",
+      "progress"
+    ]
+  },
+  "files": [
+    "signup_02.dart",
+    "README.md"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "id": "async",
   "name": "FutureOrBuilder",
-  "category": "utility",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Renders a value that may already be available or may still be loading through one builder.",
   "tier": "component",

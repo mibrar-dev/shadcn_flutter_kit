@@ -1,7 +1,7 @@
 {
   "id": "time_picker",
   "name": "TimePicker",
-  "category": "form",
+  "category": "Date & Time",
   "description": "Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.",
   "tier": "component",
   "install": "flutter_shadcn add time_picker",

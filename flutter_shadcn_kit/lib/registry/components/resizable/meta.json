@@ -1,7 +1,7 @@
 {
   "id": "resizable",
   "name": "Resizable",
-  "category": "layout",
+  "category": "Layout",
   "description": "Split panes with draggable dividers, absolute or flexible sizing, min/max constraints, collapse and external controllers.",
   "tier": "component",
   "install": "flutter_shadcn add resizable",

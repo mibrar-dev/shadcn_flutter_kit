@@ -1,7 +1,7 @@
 {
   "id": "star_rating",
   "name": "Star Rating",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Interactive star rating with half-star snapping, keyboard stepping, drag preview and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add star_rating",

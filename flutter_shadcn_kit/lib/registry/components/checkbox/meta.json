@@ -1,7 +1,7 @@
 {
   "id": "checkbox",
   "name": "Checkbox",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Tri-state form checkbox with controlled and controller-driven modes, keyboard activation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add checkbox",

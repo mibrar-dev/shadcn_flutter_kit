@@ -1,7 +1,7 @@
 {
   "id": "avatar",
   "name": "Avatar",
-  "category": "display",
+  "category": "Data Display",
   "description": "Image or initials tile with an optional badge and overlapping group.",
   "tier": "component",
   "install": "flutter_shadcn add avatar",

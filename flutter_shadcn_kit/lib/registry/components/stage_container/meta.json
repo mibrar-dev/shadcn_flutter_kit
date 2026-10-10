@@ -1,7 +1,7 @@
 {
   "id": "stage_container",
   "name": "Stage Container",
-  "category": "layout",
+  "category": "Layout",
   "description": "Responsive container that snaps content to breakpoint widths.",
   "tier": "component",
   "install": "flutter_shadcn add stage_container",

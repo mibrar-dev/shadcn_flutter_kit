@@ -1,7 +1,7 @@
 {
   "id": "country_flag",
   "name": "CountryFlag",
-  "category": "display",
+  "category": "Data Display",
   "description": "Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.",
   "tier": "component",
   "install": "flutter_shadcn add country_flag",

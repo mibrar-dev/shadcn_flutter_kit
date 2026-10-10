@@ -1,7 +1,7 @@
 {
   "id": "eye_dropper",
   "name": "Eye Dropper",
-  "category": "overlay",
+  "category": "Color",
   "description": "Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).",
   "tier": "component",
   "install": "flutter_shadcn add eye_dropper",

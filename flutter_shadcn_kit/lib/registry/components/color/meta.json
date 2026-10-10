@@ -1,7 +1,7 @@
 {
   "id": "color",
   "name": "Color",
-  "category": "utility",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "The ColorDerivative colour model shared by the colour components: space-preserving RGB/HSV/HSL edits and hex parsing.",
   "tier": "component",

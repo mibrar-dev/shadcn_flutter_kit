@@ -1,7 +1,7 @@
 {
   "id": "item_picker",
   "name": "ItemPicker",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Field that edits a value by picking one item from a grid or list, in a dialog or popover.",
   "tier": "component",
   "install": "flutter_shadcn add item_picker",

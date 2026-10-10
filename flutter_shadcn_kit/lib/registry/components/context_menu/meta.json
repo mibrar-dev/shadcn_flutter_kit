@@ -1,7 +1,7 @@
 {
   "id": "context_menu",
   "name": "ContextMenu",
-  "category": "overlay",
+  "category": "Menus",
   "description": "A menu shown at the pointer on right-click (long-press on touch platforms), plus the showShadcnContextMenu helper. Rows, traversal and the popup surface come from the menu component.",
   "tier": "component",
   "install": "flutter_shadcn add context_menu",

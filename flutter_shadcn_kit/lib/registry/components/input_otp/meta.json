@@ -1,7 +1,7 @@
 {
   "id": "input_otp",
   "name": "InputOtp",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add input_otp",

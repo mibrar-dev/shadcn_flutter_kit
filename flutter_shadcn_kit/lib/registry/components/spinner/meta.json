@@ -1,7 +1,7 @@
 {
   "id": "spinner",
   "name": "Spinner",
-  "category": "display",
+  "category": "Feedback",
   "description": "Indeterminate circular indicator with a rotating arc, widgets-only.",
   "tier": "component",
   "install": "flutter_shadcn add spinner",

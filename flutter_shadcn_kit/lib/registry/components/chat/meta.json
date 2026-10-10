@@ -1,7 +1,7 @@
 {
   "id": "chat",
   "name": "Chat",
-  "category": "display",
+  "category": "Data Display",
   "description": "Chat bubbles and groups: plain, tailed or sharp-corner bubbles aligned to their side of the row, with optional avatars.",
   "tier": "component",
   "install": "flutter_shadcn add chat",

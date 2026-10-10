@@ -1,7 +1,7 @@
 {
   "id": "switch",
   "name": "Switch",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Boolean form switch with controlled and controller-driven modes, sliding thumb, keyboard activation and form participation.",
   "tier": "component",
   "install": "flutter_shadcn add switch",

@@ -1,7 +1,7 @@
 {
   "id": "drawer_container",
   "name": "Drawer Container",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.",
   "tier": "component",
   "install": "flutter_shadcn add drawer_container",

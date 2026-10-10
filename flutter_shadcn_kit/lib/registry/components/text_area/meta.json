@@ -1,7 +1,7 @@
 {
   "id": "text_area",
   "name": "TextArea",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.",
   "tier": "component",
   "install": "flutter_shadcn add text_area",

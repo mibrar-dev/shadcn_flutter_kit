@@ -1,7 +1,7 @@
 {
   "id": "input",
   "name": "Input",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Widgets-only text field wrapping EditableText, with a pluggable feature system, form participation and a widgets-only selection menu.",
   "tier": "component",
   "install": "flutter_shadcn add input",

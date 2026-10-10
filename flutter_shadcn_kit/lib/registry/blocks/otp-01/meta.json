@@ -1,0 +1,32 @@
+{
+  "id": "otp-01",
+  "name": "Verify Email 01",
+  "category": "Authentication",
+  "description": "A one-time-code verification card with a resend countdown.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add otp-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/otp-01/otp_01.dart';",
+  "tags": [
+    "otp01",
+    "otp"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "button",
+      "card",
+      "divider",
+      "input_otp"
+    ]
+  },
+  "files": [
+    "otp_01.dart",
+    "README.md"
+  ]
+}

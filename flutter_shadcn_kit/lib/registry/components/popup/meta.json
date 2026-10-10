@@ -1,7 +1,7 @@
 {
   "id": "popup",
   "name": "Popup",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "An anchored floating surface for arbitrary content: the menu component's MenuPopup (re-exported) plus showShadcnPopup, a generic helper with Escape/outside-tap dismissal.",
   "tier": "component",
   "install": "flutter_shadcn add popup",

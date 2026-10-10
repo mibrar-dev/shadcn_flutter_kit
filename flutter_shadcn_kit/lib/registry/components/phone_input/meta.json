@@ -1,7 +1,7 @@
 {
   "id": "phone_input",
   "name": "PhoneInput",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Searchable country selector (flag + dial code) with a national-number field, wired into the form system.",
   "tier": "component",
   "install": "flutter_shadcn add phone_input",

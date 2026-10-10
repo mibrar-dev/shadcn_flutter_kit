@@ -1,7 +1,7 @@
 {
   "id": "formatted_input",
   "name": "FormattedInput",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Masked/segmented field (phone, date, card) built from static separators and small editable parts.",
   "tier": "component",
   "install": "flutter_shadcn add formatted_input",

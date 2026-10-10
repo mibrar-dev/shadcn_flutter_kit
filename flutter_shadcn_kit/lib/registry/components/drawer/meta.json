@@ -1,7 +1,7 @@
 {
   "id": "drawer",
   "name": "Drawer",
-  "category": "overlay",
+  "category": "Overlays",
   "description": "Modal panel that slides in from a screen edge, plus an expanding sheet variant.",
   "tier": "component",
   "install": "flutter_shadcn add drawer",

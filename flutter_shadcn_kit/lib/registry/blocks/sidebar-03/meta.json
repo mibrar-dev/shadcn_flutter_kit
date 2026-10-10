@@ -1,0 +1,37 @@
+{
+  "id": "sidebar-03",
+  "name": "Sidebar 03",
+  "category": "Sidebar",
+  "description": "A full app shell: header with breadcrumb and search, grouped sidebar and content.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add sidebar-03",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-03/sidebar_03.dart';",
+  "tags": [
+    "sidebar03",
+    "sidebar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "avatar",
+      "badge",
+      "breadcrumb",
+      "button",
+      "card",
+      "divider",
+      "input",
+      "progress"
+    ]
+  },
+  "files": [
+    "sidebar_03.dart",
+    "README.md"
+  ]
+}

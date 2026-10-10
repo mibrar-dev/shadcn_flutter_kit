@@ -1,7 +1,7 @@
 {
   "id": "color_picker",
   "name": "ColorPicker",
-  "category": "form",
+  "category": "Color",
   "description": "Full colour picker: HSV/HSL pad, hue/alpha bars, RGB/HSL/HSV/HEX fields, optional alpha, colour history and screen sampling.",
   "tier": "component",
   "install": "flutter_shadcn add color_picker",

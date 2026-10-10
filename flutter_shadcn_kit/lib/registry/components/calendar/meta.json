@@ -1,7 +1,7 @@
 {
   "id": "calendar",
   "name": "Calendar",
-  "category": "display",
+  "category": "Date & Time",
   "description": "Date, month and year grids with single, range and multi selection, roving-tabindex keyboard navigation and per-day semantic dates; the selection value types live in the date_math primitive.",
   "tier": "component",
   "install": "flutter_shadcn add calendar",

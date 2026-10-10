@@ -1,7 +1,7 @@
 {
   "id": "steps",
   "name": "Steps",
-  "category": "layout",
+  "category": "Layout",
   "description": "Vertical numbered step list joined by a connector line.",
   "tier": "component",
   "install": "flutter_shadcn add steps",

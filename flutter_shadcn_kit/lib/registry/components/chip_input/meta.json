@@ -1,7 +1,7 @@
 {
   "id": "chip_input",
   "name": "ChipInput",
-  "category": "form",
+  "category": "Forms & Inputs",
   "description": "Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.",
   "tier": "component",
   "install": "flutter_shadcn add chip_input",

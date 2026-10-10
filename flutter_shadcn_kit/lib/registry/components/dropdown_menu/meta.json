@@ -1,7 +1,7 @@
 {
   "id": "dropdown_menu",
   "name": "DropdownMenu",
-  "category": "overlay",
+  "category": "Menus",
   "description": "A menu surface anchored below the widget that opened it, plus the showShadcnDropdown helper. Rows, traversal and the popup surface come from the menu component.",
   "tier": "component",
   "install": "flutter_shadcn add dropdown_menu",

@@ -1,7 +1,7 @@
 {
   "id": "tree",
   "name": "Tree",
-  "category": "display",
+  "category": "Data Display",
   "description": "Immutable hierarchical list with expand/collapse, selection and themed indent guides.",
   "tier": "component",
   "install": "flutter_shadcn add tree",

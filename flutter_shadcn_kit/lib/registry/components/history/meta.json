@@ -1,7 +1,7 @@
 {
   "id": "history",
   "name": "Color History",
-  "category": "form",
+  "category": "Utilities (building blocks)",
   "listed": false,
   "description": "Recent-colour storage plus the swatch grid that reuses them.",
   "tier": "component",

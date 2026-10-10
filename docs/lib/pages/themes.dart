@@ -71,8 +71,8 @@ class ThemesPage extends StatelessWidget {
   Future<void> _openRail(BuildContext context, DocsState state) {
     return showShadcnPopup<void>(
       context: context,
-      alignment: Alignment.bottomCenter,
-      anchorAlignment: Alignment.topLeft,
+      alignment: Alignment.topRight,
+      anchorAlignment: Alignment.bottomRight,
       widthConstraint: PopoverConstraint.intrinsic,
       heightConstraint: PopoverConstraint.intrinsic,
       builder: (BuildContext context) => SizedBox(

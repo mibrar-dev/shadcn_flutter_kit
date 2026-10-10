@@ -31,7 +31,11 @@ class RailRow extends StatelessWidget {
   final String value;
 
   /// Opens the row's picker.
-  final VoidCallback onPressed;
+  ///
+  /// Takes the row's own [BuildContext]: the registry `popup` anchors to it,
+  /// so a picker must not be anchored to the whole rail (which would place it
+  /// at the rail's corner instead of beside its row).
+  final ValueChanged<BuildContext> onPressed;
 
   /// The right-hand swatch or glyph; omitted when a row is text-only.
   final Widget? trailing;
@@ -45,7 +49,7 @@ class RailRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: ClickableCard(
-        onPressed: onPressed,
+        onPressed: () => onPressed(context),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
@@ -136,26 +140,34 @@ class RailPresetSwatch extends StatelessWidget {
   final List<Color> colors;
 
   @override
-  Widget build(BuildContext context) => ClipRRect(
-    borderRadius: BorderRadius.circular(3),
-    child: SizedBox.expand(
-      child: Column(
-        children: <Widget>[
-          for (int row = 0; row < 2; row++)
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  for (int column = 0; column < 2; column++)
-                    Expanded(
-                      child: ColoredBox(color: colors[row * 2 + column]),
-                    ),
-                ],
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(3),
+        child: Column(
+          children: <Widget>[
+            for (int row = 0; row < 2; row++)
+              Expanded(
+                child: Row(
+                  // `stretch`: a childless `ColoredBox` under the default
+                  // `center` alignment gets loose constraints and collapses
+                  // to zero height.
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    for (int column = 0; column < 2; column++)
+                      Expanded(
+                        child: ColoredBox(color: colors[row * 2 + column]),
+                      ),
+                  ],
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /// A card-shaped clickable with the reference's 150 ms hover colour change.

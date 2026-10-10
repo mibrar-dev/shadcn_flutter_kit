@@ -102,23 +102,35 @@ class DocsRouteConfiguration {
   static DocsRouteConfiguration notFound(String location) =>
       DocsRouteConfiguration._(DocsRoute.notFound, raw: location);
 
+  /// The base-href the site is deployed under (GitHub Pages:
+  /// `/shadcn_flutter_kit/`).
+  static const String kDocsBasePath = 'shadcn_flutter_kit';
+
   /// Parses [location] (query/fragment ignored).
+  ///
+  /// Accepts an in-app location (`/themes`), an absolute URL (a deep link from
+  /// search results) and a location carrying the deploy base-href
+  /// (`/shadcn_flutter_kit/docs/cli`); all three resolve to the same page.
   static DocsRouteConfiguration parse(String? location) {
     final Uri uri = Uri.parse(location ?? '/');
     final List<String> segments = uri.pathSegments
         .where((String s) => s.isNotEmpty)
         .toList(growable: false);
-    if (segments.isEmpty) {
+    final List<String> path =
+        segments.isNotEmpty && segments.first == kDocsBasePath
+        ? segments.sublist(1)
+        : segments;
+    if (path.isEmpty) {
       return landing;
     }
-    if (segments.length == 1 && segments[0] == 'themes') {
+    if (path.length == 1 && path[0] == 'themes') {
       return themes;
     }
-    if (segments[0] == 'docs') {
-      if (segments.length == 1) {
+    if (path[0] == 'docs') {
+      if (path.length == 1) {
         return introduction;
       }
-      switch (segments[1]) {
+      switch (path[1]) {
         case 'installation':
           return installation;
         case 'theming':
@@ -128,11 +140,11 @@ class DocsRouteConfiguration {
         case 'cli':
           return cli;
         case 'components':
-          if (segments.length == 2) {
+          if (path.length == 2) {
             return components;
           }
-          if (segments.length == 3 && segments[2].isNotEmpty) {
-            return component(segments[2]);
+          if (path.length == 3 && path[2].isNotEmpty) {
+            return component(path[2]);
           }
       }
     }

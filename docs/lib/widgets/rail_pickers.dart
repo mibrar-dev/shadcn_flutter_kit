@@ -109,6 +109,12 @@ Future<T?> showShadcnPicker<T>({
 }) {
   return showShadcnPopup<T>(
     context: context,
+    // Open below the row (like the reference's popovers) and keep the panel
+    // inside the 192 px rail: the anchor is the row, so the default
+    // top-centre placement would push the panel off the top of the viewport.
+    alignment: Alignment.topLeft,
+    anchorAlignment: Alignment.bottomLeft,
+    offset: const Offset(0, 4),
     builder: (BuildContext context) => ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: kDocsPickerWidth + 24,

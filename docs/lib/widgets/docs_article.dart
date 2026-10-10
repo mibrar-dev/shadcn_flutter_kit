@@ -53,6 +53,21 @@ class DocsArticleController extends ChangeNotifier {
 
   final List<DocsHeadingEntry> _headings = <DocsHeadingEntry>[];
   String? _activeId;
+  bool _disposed = false;
+
+  /// Notifies after the frame, unless the controller was disposed meanwhile.
+  ///
+  /// Registration happens during build, so the notification has to wait for
+  /// the frame to end — but a route change (a deep link replacing the page
+  /// stack, or two navigations inside one frame) can dispose the controller
+  /// first, and `notifyListeners` after `dispose` throws.
+  void _notifyAfterFrame() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!_disposed) {
+        notifyListeners();
+      }
+    });
+  }
 
   /// Registered headings in document order.
   List<DocsHeadingEntry> get headings =>
@@ -68,7 +83,7 @@ class DocsArticleController extends ChangeNotifier {
     }
     _headings.add(entry);
     // Registration happens during build; notify after the frame instead.
-    SchedulerBinding.instance.addPostFrameCallback((_) => notifyListeners());
+    _notifyAfterFrame();
   }
 
   /// Removes a heading (route change / rebuild).
@@ -76,7 +91,7 @@ class DocsArticleController extends ChangeNotifier {
     final int before = _headings.length;
     _headings.removeWhere((DocsHeadingEntry h) => h.id == id);
     if (_headings.length != before) {
-      SchedulerBinding.instance.addPostFrameCallback((_) => notifyListeners());
+      _notifyAfterFrame();
     }
   }
 
@@ -91,6 +106,7 @@ class DocsArticleController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     scroll.dispose();
     super.dispose();
   }

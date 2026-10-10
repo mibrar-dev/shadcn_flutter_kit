@@ -34,6 +34,13 @@ class _DeferredPageState extends State<DeferredPage> {
     return FutureBuilder<void>(
       future: _loaded,
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+        if (snapshot.hasError) {
+          // A failed chunk (stale service worker, dropped request) used to
+          // build the page anyway, which then threw inside the router and
+          // surfaced as a blank page plus "Could not navigate to initial
+          // route". Say what happened instead.
+          return const _DeferredPageError();
+        }
         if (snapshot.connectionState == ConnectionState.done) {
           return widget.builder(context);
         }
@@ -44,6 +51,31 @@ class _DeferredPageState extends State<DeferredPage> {
           child: const SizedBox.expand(),
         );
       },
+    );
+  }
+}
+
+/// Shown when the deferred chunk fails to load.
+class _DeferredPageError extends StatelessWidget {
+  const _DeferredPageError();
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(color: theme.colors.background),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            'This page could not be loaded. Reload to fetch the latest bundle.',
+            style: theme.typography.small.copyWith(
+              color: theme.colors.mutedForeground,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
     );
   }
 }

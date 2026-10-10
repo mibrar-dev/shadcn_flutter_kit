@@ -54,16 +54,24 @@ class _ThemeRailState extends State<ThemeRail> {
 
   SiteThemeModel get _model => widget.state.themeModel;
 
-  Future<void> _pickPreset() async {
-    final String? id = await showPresetPicker(context, _model.presetId);
+  /// Opens a picker anchored to the row that was tapped.
+  ///
+  /// [anchor] is the row's context; the registry `popup` positions the panel
+  /// against it, so every picker opens beside its row instead of at the rail's
+  /// corner.
+  Future<void> _pickPreset(BuildContext anchor) async {
+    final String? id = await showPresetPicker(anchor, _model.presetId);
     if (id != null) {
       _model.selectPreset(id);
     }
   }
 
-  Future<void> _pickColor(void Function(Color seed) apply) async {
+  Future<void> _pickColor(
+    BuildContext anchor,
+    void Function(Color seed) apply,
+  ) async {
     final Color? seed = await showColorPicker(
-      context,
+      anchor,
       docsColorOf(_model.document.light['primary']!),
     );
     if (seed != null) {
@@ -71,9 +79,9 @@ class _ThemeRailState extends State<ThemeRail> {
     }
   }
 
-  Future<void> _pickFont(String slot) async {
+  Future<void> _pickFont(BuildContext anchor, String slot) async {
     final String? spec = await showFontPicker(
-      context,
+      anchor,
       slot,
       _model.document.fontOf(slot),
     );
@@ -82,16 +90,16 @@ class _ThemeRailState extends State<ThemeRail> {
     }
   }
 
-  Future<void> _pickRadius() async {
-    final double? px = await showRadiusPicker(context, _model.radiusPx);
+  Future<void> _pickRadius(BuildContext anchor) async {
+    final double? px = await showRadiusPicker(anchor, _model.radiusPx);
     if (px != null) {
       _model.setRadiusPx(px);
     }
   }
 
-  Future<void> _pickSpacing() async {
+  Future<void> _pickSpacing(BuildContext anchor) async {
     final double? rem = await showSpacingPicker(
-      context,
+      anchor,
       _model.document.spacing,
     );
     if (rem != null) {
@@ -99,10 +107,10 @@ class _ThemeRailState extends State<ThemeRail> {
     }
   }
 
-  Future<void> _pickShadow() async {
+  Future<void> _pickShadow(BuildContext anchor) async {
     final bool dark = widget.state.brightness == Brightness.dark;
     final DocsShadowAtoms? atoms = await showShadowPicker(
-      context,
+      anchor,
       _model.document.shadowOf(widget.state.brightness),
       dark: dark,
     );
@@ -110,6 +118,24 @@ class _ThemeRailState extends State<ThemeRail> {
       _model.setShadow(widget.state.brightness, atoms);
     }
   }
+
+  void _pickColorBase(BuildContext row) => _pickColor(row, _model.setBaseColor);
+
+  void _pickColorAccent(BuildContext row) =>
+      _pickColor(row, _model.setAccentColor);
+
+  void _pickColorChart(BuildContext row) =>
+      _pickColor(row, _model.setChartColors);
+
+  void _pickHeadingFont(BuildContext row) => _pickFont(row, 'sans');
+
+  void _pickBodyFont(BuildContext row) => _pickFont(row, 'mono');
+
+  Future<void> _showSyntax(BuildContext row) => showShadcnPicker<void>(
+    context: row,
+    builder: (BuildContext context) => const SyntaxPalettePreview(),
+    title: 'Syntax colours',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +238,7 @@ class _ThemeRailState extends State<ThemeRail> {
                             value: docsColorName(
                               docsColorOf(document.light['background']!),
                             ),
-                            onPressed: () => _pickColor(model.setBaseColor),
+                            onPressed: _pickColorBase,
                             trailing: RailSwatch(
                               color: docsColorOf(document.light['background']!),
                             ),
@@ -223,7 +249,7 @@ class _ThemeRailState extends State<ThemeRail> {
                             value: docsColorName(
                               docsColorOf(document.light['primary']!),
                             ),
-                            onPressed: () => _pickColor(model.setAccentColor),
+                            onPressed: _pickColorAccent,
                             trailing: RailSwatch(
                               color: docsColorOf(document.light['primary']!),
                             ),
@@ -234,9 +260,12 @@ class _ThemeRailState extends State<ThemeRail> {
                             value: docsColorName(
                               docsColorOf(document.light['chart1']!),
                             ),
-                            onPressed: () => _pickColor(model.setChartColors),
+                            onPressed: _pickColorChart,
                             trailing: SizedBox.expand(
                               child: Row(
+                                // `stretch`, so the childless `ColoredBox`
+                                // strips fill the 20 px row height.
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   for (final String token
                                       in kDocsChartTokenKeys)
@@ -255,7 +284,7 @@ class _ThemeRailState extends State<ThemeRail> {
                             key: const ValueKey<String>('rail-row-heading'),
                             label: 'Heading font',
                             value: railFamilyLabel(document.fontOf('sans')),
-                            onPressed: () => _pickFont('sans'),
+                            onPressed: _pickHeadingFont,
                             trailing: RailAaGlyph(
                               family: document.fontOf('sans'),
                             ),
@@ -264,7 +293,7 @@ class _ThemeRailState extends State<ThemeRail> {
                             key: const ValueKey<String>('rail-row-body'),
                             label: 'Body font',
                             value: railFamilyLabel(document.fontOf('mono')),
-                            onPressed: () => _pickFont('mono'),
+                            onPressed: _pickBodyFont,
                             trailing: RailAaGlyph(
                               family: document.fontOf('mono'),
                             ),
@@ -298,12 +327,7 @@ class _ThemeRailState extends State<ThemeRail> {
                             key: const ValueKey<String>('rail-row-syntax'),
                             label: 'Syntax colours',
                             value: 'shiki · ${dark ? 'dark' : 'light'}',
-                            onPressed: () => showShadcnPicker<void>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  const SyntaxPalettePreview(),
-                              title: 'Syntax colours',
-                            ),
+                            onPressed: _showSyntax,
                             trailing: const Icon(LucideIcons.code, size: 16),
                           ),
                         ],

@@ -91,19 +91,19 @@ class StudioOtpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudioCard(
       title: 'Verify your phone',
-      subtitle: 'Enter the 4-digit code we texted to ···· 1192.',
+      subtitle: 'Enter the 6-digit code we texted to ···· 1192.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: const <Widget>[
-          InputOtp(length: 4),
+          InputOtp(length: 6),
           Gap(16),
           Row(
             children: <Widget>[
               Expanded(
                 child: Button(
                   variant: ButtonVariant.outline,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Resend'),
                 ),
               ),
@@ -111,7 +111,7 @@ class StudioOtpCard extends StatelessWidget {
               Expanded(
                 child: Button(
                   variant: ButtonVariant.primary,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Verify'),
                 ),
               ),

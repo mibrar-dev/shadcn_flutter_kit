@@ -16,6 +16,9 @@ import '../../ui/shadcn/theme/theme.dart';
 /// The default inner padding of a canvas card.
 const EdgeInsets kStudioCardPadding = EdgeInsets.all(20);
 
+/// No-op callback for showcase buttons that must render enabled.
+void studioNoop() {}
+
 /// A canvas card: `card` fill, themed border and radius, and a header.
 ///
 /// Deliberately free of `height`, `Expanded`, `Flexible` and any cross-axis
@@ -172,7 +175,7 @@ class StudioRow extends StatelessWidget {
             ),
           ),
           const Gap(12),
-          Flexible(
+          Expanded(
             child: Text(
               value,
               maxLines: 1,

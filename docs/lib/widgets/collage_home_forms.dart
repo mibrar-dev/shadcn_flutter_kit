@@ -79,7 +79,7 @@ class _HomePayoutCardState extends State<HomePayoutCard> {
         ),
         Row(
           children: <Widget>[
-            Flexible(
+            Expanded(
               child: Text(
                 r'$50 (MIN)',
                 maxLines: 1,
@@ -89,8 +89,7 @@ class _HomePayoutCardState extends State<HomePayoutCard> {
                 ),
               ),
             ),
-            const Spacer(),
-            Flexible(
+            Expanded(
               child: Text(
                 r'$10,000 (MAX)',
                 maxLines: 1,
@@ -175,7 +174,7 @@ class _HomeReportCardState extends State<HomeReportCard> {
             const Expanded(
               child: Button(
                 variant: ButtonVariant.outline,
-                onPressed: null,
+                onPressed: collageNoop,
                 child: Text('Cancel'),
               ),
             ),

@@ -605,3 +605,8 @@
 ## P6-H1 — home showcase — ACCEPTED
 - docs analyze 0, +180, codegen + mirror --check (after orchestrator synced F5), release build. 55 composed cards (live shadcn home has 42), 4/3/2/1 masonry columns, no overflow light/dark. Visual check of home-v2-dark-1440: shadcn-like.
 - Polish follow-ups: "View Analytics" button reads as disabled grey; payout slider min/max labels not edge-aligned; collage_cards.dart 500 lines (split). Registry bug: MenuGroup autofocuses its RovingGroup on mount (docs works around with FocusScope(canRequestFocus:false)) → fix in registry.
+
+## P6-P1 — polish — ACCEPTED
+- qa_gate analyze 0 / registry 3831; docs analyze 0 / 188 tests / codegen + mirror --check / release build. Agent exit=1 after RESULT.
+- RovingGroup no longer autofocuses by default (overlays opt in; inline menus never steal focus) → docs FocusScope workarounds removed. Scroll workarounds around pagination/calendar/otp removed; 6-slot OTP restored; calendar cell floor 20px so the 768 studio column (~196px) fits. View Analytics variant + slider label alignment fixed; collage_cards split.
+- registry.json not committed here (B1 regenerates with categories).

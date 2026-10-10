@@ -168,7 +168,7 @@ class _HomePreferencesCardState extends State<HomePreferencesCard> {
             const Expanded(
               child: Button(
                 variant: ButtonVariant.outline,
-                onPressed: null,
+                onPressed: collageNoop,
                 child: Text('Reset'),
               ),
             ),

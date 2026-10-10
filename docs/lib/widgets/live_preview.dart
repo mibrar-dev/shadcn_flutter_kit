@@ -10,8 +10,9 @@ import '../state/docs_state.dart';
 import '../ui/shadcn/theme/theme.dart';
 import '../motion/ease.dart';
 import '../motion/motion_scope.dart';
-import 'collage_cards.dart';
 import 'collage_cards_controls.dart';
+import 'collage_cards_forms.dart';
+import 'collage_cards_info.dart';
 
 /// The live preview area: registry components re-theming live.
 class LivePreview extends StatelessWidget {

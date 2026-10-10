@@ -86,6 +86,7 @@ class ContextMenu extends StatelessWidget {
 ///
 /// The menu opens just right of the pointer, is non-modal, keeps submenu
 /// levels working and completes when a row closes it or a tap lands outside.
+/// The opened menu takes focus so keyboard traversal works immediately.
 Future<T?> showShadcnContextMenu<T>({
   required BuildContext context,
   required Offset position,
@@ -114,6 +115,7 @@ Future<T?> showShadcnContextMenu<T>({
           ComponentTheme<MenuTheme>(
             data: theme,
             child: MenuGroup(
+              autofocus: true,
               direction: direction,
               itemPadding: itemPadding,
               subMenuOffset: const Offset(8, -4),

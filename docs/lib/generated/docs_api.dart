@@ -5469,6 +5469,14 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc: 'Widget-leg surface override, merged over the popup theme legs.',
       ),
+      DocsApiParam(
+        name: 'autofocus',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+        doc:
+            'Whether the group takes focus on mount; true for opened overlays.',
+      ),
     ],
     members: <DocsApiMember>[],
   ),

@@ -1199,7 +1199,7 @@ void main() {
       ),
     );
 
-    for (final double width in <double>[240, 300, 375]) {
+    for (final double width in <double>[196, 240, 300, 375]) {
       testWidgets('a date grid fits at $width px, cells stay tappable', (
         tester,
       ) async {
@@ -1220,7 +1220,8 @@ void main() {
         expect(tester.takeException(), isNull);
         final Size grid = tester.getSize(find.byType(Calendar));
         expect(grid.width, lessThanOrEqualTo(width));
-        // 300 px and up hold the nominal 32 px cells; 240 px shrinks them.
+        // 300 px and up hold the nominal 32 px cells; narrower columns
+        // shrink them (P6-P1: the studio canvas leaves ~196 px at 768 px).
         final double cellWidth = tester
             .getSize(_cellFinder(tester, '14'))
             .width;
@@ -1228,7 +1229,7 @@ void main() {
           expect(cellWidth, 32);
         } else {
           expect(cellWidth, lessThan(32));
-          expect(cellWidth, greaterThanOrEqualTo(28));
+          expect(cellWidth, greaterThanOrEqualTo(20));
         }
         // The weekday header keeps the shrunken pitch.
         expect(tester.getRect(find.text('Mon')).width, cellWidth);

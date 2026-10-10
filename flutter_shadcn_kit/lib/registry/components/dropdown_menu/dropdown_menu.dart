@@ -13,17 +13,25 @@ import '../menu/menu.dart';
 /// A menu surface for a dropdown: the menu's rows inside a [MenuPopup],
 /// dismissing the overlay it is shown in when a row closes the menu.
 ///
-/// [showShadcnDropdown] builds one for you; build it directly when you
-/// present the menu with your own overlay plumbing.
+/// Inline surfaces never take focus on mount; overlay helpers pass
+/// `autofocus: true` for the opened menu.
 class DropdownMenu extends StatelessWidget {
   /// Creates a dropdown menu surface.
-  const DropdownMenu({super.key, required this.children, this.theme});
+  const DropdownMenu({
+    super.key,
+    required this.children,
+    this.theme,
+    this.autofocus = false,
+  });
 
   /// The menu rows.
   final List<Widget> children;
 
   /// Widget-leg surface override, merged over the popup theme legs.
   final MenuPopupTheme? theme;
+
+  /// Whether the group takes focus on mount; true for opened overlays.
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,7 @@ class DropdownMenu extends StatelessWidget {
       theme: theme,
       children: <Widget>[
         MenuGroup(
+          autofocus: autofocus,
           itemPadding: itemPadding,
           subMenuOffset: const Offset(8, -4),
           onDismissed: () => closeOverlay(context),
@@ -50,7 +59,8 @@ class DropdownMenu extends StatelessWidget {
 ///
 /// The menu is non-modal: tapping outside closes it, taps do not reach the
 /// content behind it while it is open, and submenu levels keep working
-/// through the menu's own traversal engine. Completes with the value passed
+/// through the menu's own traversal engine. The opened menu takes focus so
+/// keyboard traversal works immediately. Completes with the value passed
 /// to [closeOverlay] or `null` when dismissed.
 Future<T?> showShadcnDropdown<T>({
   required BuildContext context,
@@ -73,6 +83,7 @@ Future<T?> showShadcnDropdown<T>({
     modal: false,
     consumeOutsideTaps: false,
     dismissBackdropFocus: false,
-    builder: (context) => DropdownMenu(theme: theme, children: children),
+    builder: (context) =>
+        DropdownMenu(autofocus: true, theme: theme, children: children),
   ).future;
 }

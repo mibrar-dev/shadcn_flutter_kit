@@ -60,7 +60,7 @@ class StudioTransactionsCard extends StatelessWidget {
       trailing: const Button(
         variant: ButtonVariant.ghost,
         size: ButtonSize.sm,
-        onPressed: null,
+        onPressed: studioNoop,
         child: Text('View All'),
       ),
       child: Column(
@@ -192,7 +192,7 @@ class StudioTeamMembersCard extends StatelessWidget {
           const Button(
             variant: ButtonVariant.outline,
             size: ButtonSize.sm,
-            onPressed: null,
+            onPressed: studioNoop,
             child: Text('Invite teammate'),
           ),
         ],

@@ -83,7 +83,7 @@ class _StudioPayoutCardState extends State<StudioPayoutCard> {
           ),
           Row(
             children: <Widget>[
-              Flexible(
+              Expanded(
                 child: Text(
                   r'$50 (MIN)',
                   maxLines: 1,
@@ -93,8 +93,7 @@ class _StudioPayoutCardState extends State<StudioPayoutCard> {
                   ),
                 ),
               ),
-              const Spacer(),
-              Flexible(
+              Expanded(
                 child: Text(
                   r'$10,000 (MAX)',
                   maxLines: 1,
@@ -272,7 +271,7 @@ class _StudioReportIssueCardState extends State<StudioReportIssueCard> {
               const Expanded(
                 child: Button(
                   variant: ButtonVariant.outline,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Cancel'),
                 ),
               ),
@@ -304,6 +303,7 @@ class StudioCreateAccountCard extends StatefulWidget {
 
 class _StudioCreateAccountCardState extends State<StudioCreateAccountCard> {
   bool _sameAddress = true;
+  String _payout = 'Bank Transfer';
 
   @override
   Widget build(BuildContext context) {
@@ -333,8 +333,9 @@ class _StudioCreateAccountCardState extends State<StudioCreateAccountCard> {
           const StudioFieldLabel('Payout Method'),
           const Gap(6),
           Select<String>(
-            value: 'Bank Transfer',
-            onChanged: null,
+            value: _payout,
+            onChanged: (String? next) =>
+                setState(() => _payout = next ?? _payout),
             items: const <Widget>[
               SelectItem<String>(
                 value: 'Bank Transfer',

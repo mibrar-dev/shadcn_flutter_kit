@@ -229,7 +229,7 @@ class RovingGroup extends StatefulWidget {
     this.itemPadding = EdgeInsets.zero,
     this.subMenuOffset,
     this.onDismissed,
-    this.autofocus = true,
+    this.autofocus = false,
     this.onEscape,
   });
 
@@ -258,6 +258,9 @@ class RovingGroup extends StatefulWidget {
   final VoidCallback? onDismissed;
 
   /// Whether the group takes focus on mount.
+  ///
+  /// Defaults to false so inline surfaces never steal the page's initial
+  /// focus; overlay helpers pass true for the opened menu.
   final bool autofocus;
 
   /// Escape handler; null closes one level (all of them at the root).

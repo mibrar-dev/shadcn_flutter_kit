@@ -33,55 +33,39 @@ class HomeMenubarCard extends StatelessWidget {
         // `Menubar` sizes its window intrinsically and cannot shrink below
         // its widest row. Clip-free horizontal scroll keeps it reachable in
         // a narrow column instead of overflowing.
-        //
-        // The bar must not steal the page's initial focus: `MenuGroup`
-        // autofocuses its roving-tabindex scope on mount, which would pull
-        // the first Tab (and `Ctrl+K`) into this card instead of the
-        // header. The scope blocks focus requests; the mouse still works.
-        FocusScope(
-          canRequestFocus: false,
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(
-              context,
-            ).copyWith(scrollbars: false),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Menubar(
-                children: <Widget>[
-                  MenuButton(
-                    subMenu: <Widget>[
-                      MenuButton(
-                        onPressed: _menuNoop,
-                        child: Text('New release'),
-                      ),
-                      MenuButton(onPressed: _menuNoop, child: Text('Open…')),
-                      MenuSeparator(),
-                      MenuButton(
-                        onPressed: _menuNoop,
-                        child: Text('Export CSV'),
-                      ),
-                    ],
-                    child: Text('File'),
-                  ),
-                  MenuButton(
-                    subMenu: <Widget>[
-                      MenuButton(onPressed: _menuNoop, child: Text('Undo')),
-                      MenuButton(onPressed: _menuNoop, child: Text('Redo')),
-                    ],
-                    child: Text('Edit'),
-                  ),
-                  MenuButton(
-                    subMenu: <Widget>[
-                      MenuButton(
-                        onPressed: _menuNoop,
-                        child: Text('Dashboard'),
-                      ),
-                      MenuButton(onPressed: _menuNoop, child: Text('Reports')),
-                    ],
-                    child: Text('View'),
-                  ),
-                ],
-              ),
+        ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Menubar(
+              children: <Widget>[
+                MenuButton(
+                  subMenu: <Widget>[
+                    MenuButton(
+                      onPressed: _menuNoop,
+                      child: Text('New release'),
+                    ),
+                    MenuButton(onPressed: _menuNoop, child: Text('Open…')),
+                    MenuSeparator(),
+                    MenuButton(onPressed: _menuNoop, child: Text('Export CSV')),
+                  ],
+                  child: Text('File'),
+                ),
+                MenuButton(
+                  subMenu: <Widget>[
+                    MenuButton(onPressed: _menuNoop, child: Text('Undo')),
+                    MenuButton(onPressed: _menuNoop, child: Text('Redo')),
+                  ],
+                  child: Text('Edit'),
+                ),
+                MenuButton(
+                  subMenu: <Widget>[
+                    MenuButton(onPressed: _menuNoop, child: Text('Dashboard')),
+                    MenuButton(onPressed: _menuNoop, child: Text('Reports')),
+                  ],
+                  child: Text('View'),
+                ),
+              ],
             ),
           ),
         ),
@@ -105,24 +89,19 @@ class HomeDropdownCard extends StatelessWidget {
       title: 'Quick actions',
       subtitle: 'The menu surface, opened.',
       children: <Widget>[
-        // Same focus guard as the menubar: the inline surface must not
-        // steal the page's initial focus on mount.
-        FocusScope(
-          canRequestFocus: false,
-          child: SizedBox(
-            width: 220,
-            child: DropdownMenu(
-              children: <Widget>[
-                MenuButton(onPressed: _menuNoop, child: Text('Profile')),
-                MenuButton(onPressed: _menuNoop, child: Text('Settings')),
-                MenuSeparator(),
-                MenuButton(
-                  trailing: MenuShortcut(shortcut: '⌘Q'),
-                  onPressed: _menuNoop,
-                  child: Text('Sign out'),
-                ),
-              ],
-            ),
+        SizedBox(
+          width: 220,
+          child: DropdownMenu(
+            children: <Widget>[
+              MenuButton(onPressed: _menuNoop, child: Text('Profile')),
+              MenuButton(onPressed: _menuNoop, child: Text('Settings')),
+              MenuSeparator(),
+              MenuButton(
+                trailing: MenuShortcut(shortcut: '⌘Q'),
+                onPressed: _menuNoop,
+                child: Text('Sign out'),
+              ),
+            ],
           ),
         ),
       ],

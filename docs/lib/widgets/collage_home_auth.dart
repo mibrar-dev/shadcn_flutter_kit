@@ -28,6 +28,7 @@ class HomeCreateAccountCard extends StatefulWidget {
 
 class _HomeCreateAccountCardState extends State<HomeCreateAccountCard> {
   bool _sameAddress = true;
+  String _payout = 'Bank Transfer';
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +55,9 @@ class _HomeCreateAccountCardState extends State<HomeCreateAccountCard> {
         const StudioFieldLabel('Payout Method'),
         const Gap(6),
         Select<String>(
-          value: 'Bank Transfer',
-          onChanged: null,
+          value: _payout,
+          onChanged: (String? next) =>
+              setState(() => _payout = next ?? _payout),
           items: const <Widget>[
             SelectItem<String>(
               value: 'Bank Transfer',
@@ -114,7 +116,7 @@ class HomeLoginCard extends StatelessWidget {
         Gap(16),
         Button(
           variant: ButtonVariant.primary,
-          onPressed: null,
+          onPressed: collageNoop,
           child: SizedBox(
             width: double.infinity,
             child: Text('Sign In', textAlign: TextAlign.center),
@@ -125,7 +127,7 @@ class HomeLoginCard extends StatelessWidget {
         Gap(12),
         Button(
           variant: ButtonVariant.outline,
-          onPressed: null,
+          onPressed: collageNoop,
           child: SizedBox(
             width: double.infinity,
             child: Text('Continue with SSO', textAlign: TextAlign.center),
@@ -147,16 +149,16 @@ class HomeOtpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CollageCard(
       title: 'Verify your phone',
-      subtitle: 'Enter the 4-digit code we texted to ···· 1192.',
+      subtitle: 'Enter the 6-digit code we texted to ···· 1192.',
       children: <Widget>[
-        InputOtp(length: 4),
+        InputOtp(length: 6),
         Gap(16),
         Row(
           children: <Widget>[
             Expanded(
               child: Button(
                 variant: ButtonVariant.outline,
-                onPressed: null,
+                onPressed: collageNoop,
                 child: Text('Resend'),
               ),
             ),
@@ -164,7 +166,7 @@ class HomeOtpCard extends StatelessWidget {
             Expanded(
               child: Button(
                 variant: ButtonVariant.primary,
-                onPressed: null,
+                onPressed: collageNoop,
                 child: Text('Verify'),
               ),
             ),

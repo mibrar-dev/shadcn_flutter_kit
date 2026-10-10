@@ -126,19 +126,10 @@ class _HomeBrowseCardState extends State<HomeBrowseCard> {
         const Gap(12),
         StudioHelper('Page $_page of 8'),
         const Gap(8),
-        // `Pagination` measures its window with an intrinsic width, so it
-        // cannot shrink below its widest row. Clip-free horizontal scroll
-        // keeps it reachable in a narrow column instead of overflowing.
-        ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Pagination(
-              page: _page,
-              totalPages: 8,
-              onPageChanged: (int next) => setState(() => _page = next),
-            ),
-          ),
+        Pagination(
+          page: _page,
+          totalPages: 8,
+          onPageChanged: (int next) => setState(() => _page = next),
         ),
       ],
     );

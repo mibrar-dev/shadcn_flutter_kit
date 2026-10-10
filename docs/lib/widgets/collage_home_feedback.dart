@@ -122,7 +122,7 @@ class HomeLoadingCard extends StatelessWidget {
         const Button(
           variant: ButtonVariant.outline,
           size: ButtonSize.sm,
-          onPressed: null,
+          onPressed: collageNoop,
           child: Text('Manage storage'),
         ),
       ],

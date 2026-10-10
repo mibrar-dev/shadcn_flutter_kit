@@ -40,6 +40,9 @@ MenuTheme _menuThemeOf(BuildContext context, MenuTheme? widget) =>
 
 /// A keyboard-navigable list of rows over [RovingGroup] (headers and
 /// separators render without taking focus).
+///
+/// Inline surfaces never take focus on mount; pass `autofocus: true` for an
+/// opened overlay menu (the `show*` helpers do this for you).
 class MenuGroup extends RovingGroup {
   MenuGroup({
     super.key,
@@ -50,7 +53,7 @@ class MenuGroup extends RovingGroup {
     super.itemPadding = EdgeInsets.zero,
     super.subMenuOffset,
     super.onDismissed,
-    super.autofocus,
+    super.autofocus = false,
   }) : super(hasLeading: children.any((c) => c is MenuItem && c.hasLeading));
 }
 
@@ -402,6 +405,9 @@ class MenuPopup extends StatelessWidget {
 }
 
 /// Shows [children] as a root menu popover; Escape closes the root group.
+///
+/// The opened menu takes focus so keyboard traversal works immediately;
+/// inline [MenuGroup] surfaces stay unfocused unless `autofocus` is true.
 Future<T?> showShadcnMenu<T>({
   required BuildContext context,
   required List<Widget> children,
@@ -423,7 +429,11 @@ Future<T?> showShadcnMenu<T>({
       children: <Widget>[
         ComponentTheme<MenuTheme>(
           data: theme,
-          child: MenuGroup(onDismissed: controller.close, children: children),
+          child: MenuGroup(
+            autofocus: true,
+            onDismissed: controller.close,
+            children: children,
+          ),
         ),
       ],
     ),

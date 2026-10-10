@@ -76,25 +76,14 @@ class _StudioCalendarCardState extends State<StudioCalendarCard> {
   @override
   Widget build(BuildContext context) {
     return StudioCard(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       title: 'Release date',
       subtitle: _subtitle(_selected),
-      // `Calendar` pitches its 7 columns off a fixed cell height, so its
-      // minimum width is ~280 px. One canvas column is narrower than that,
-      // so the grid scrolls horizontally rather than overflowing.
-      child: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Calendar(
-            view: _view,
-            value: _selected,
-            selectionMode: CalendarSelectionMode.single,
-            onViewChanged: (CalendarView view) => setState(() => _view = view),
-            onChanged: (CalendarValue? value) =>
-                setState(() => _selected = value),
-          ),
-        ),
+      child: Calendar(
+        view: _view,
+        value: _selected,
+        selectionMode: CalendarSelectionMode.single,
+        onViewChanged: (CalendarView view) => setState(() => _view = view),
+        onChanged: (CalendarValue? value) => setState(() => _selected = value),
       ),
     );
   }
@@ -226,7 +215,7 @@ class _StudioPreferencesCardState extends State<StudioPreferencesCard> {
               const Expanded(
                 child: Button(
                   variant: ButtonVariant.outline,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Reset'),
                 ),
               ),

@@ -38,23 +38,13 @@ class _HomeCalendarCardState extends State<HomeCalendarCard> {
       subtitle: _subtitle(_selected),
       trailing: const Icon(LucideIcons.calendarDays, size: 16),
       children: <Widget>[
-        // `Calendar` pitches its 7 columns off a fixed cell height, so its
-        // minimum width is ~280 px. Narrow columns scroll horizontally
-        // rather than overflowing.
-        ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Calendar(
-              view: _view,
-              value: _selected,
-              selectionMode: CalendarSelectionMode.single,
-              onViewChanged: (CalendarView view) =>
-                  setState(() => _view = view),
-              onChanged: (CalendarValue? value) =>
-                  setState(() => _selected = value),
-            ),
-          ),
+        Calendar(
+          view: _view,
+          value: _selected,
+          selectionMode: CalendarSelectionMode.single,
+          onViewChanged: (CalendarView view) => setState(() => _view = view),
+          onChanged: (CalendarValue? value) =>
+              setState(() => _selected = value),
         ),
       ],
     );

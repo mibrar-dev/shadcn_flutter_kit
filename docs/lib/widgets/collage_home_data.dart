@@ -62,7 +62,7 @@ class HomeTransactionsCard extends StatelessWidget {
       trailing: const Button(
         variant: ButtonVariant.ghost,
         size: ButtonSize.sm,
-        onPressed: null,
+        onPressed: collageNoop,
         child: Text('View All'),
       ),
       children: <Widget>[
@@ -187,7 +187,7 @@ class HomeTeamCard extends StatelessWidget {
         const Button(
           variant: ButtonVariant.outline,
           size: ButtonSize.sm,
-          onPressed: null,
+          onPressed: collageNoop,
           child: Text('Invite teammate'),
         ),
       ],

@@ -180,7 +180,7 @@ class StudioGoalCard extends StatelessWidget {
               Expanded(
                 child: Button(
                   variant: ButtonVariant.outline,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Cancel'),
                 ),
               ),
@@ -188,7 +188,7 @@ class StudioGoalCard extends StatelessWidget {
               Expanded(
                 child: Button(
                   variant: ButtonVariant.primary,
-                  onPressed: null,
+                  onPressed: studioNoop,
                   child: Text('Create Goal'),
                 ),
               ),
@@ -349,7 +349,7 @@ class StudioUpcomingPaymentsCard extends StatelessWidget {
                     child: Text('Scheduled'),
                   ),
                   const Gap(8),
-                  Flexible(
+                  Expanded(
                     child: Text(
                       rows[i].$3,
                       maxLines: 1,

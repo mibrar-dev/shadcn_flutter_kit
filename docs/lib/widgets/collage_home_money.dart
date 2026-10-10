@@ -34,8 +34,9 @@ class HomeAnalyticsCard extends StatelessWidget {
         StudioHelper('+10.2% vs last quarter'),
         Gap(12),
         Button(
+          variant: ButtonVariant.primary,
           size: ButtonSize.sm,
-          onPressed: null,
+          onPressed: collageNoop,
           child: Text('View Analytics'),
         ),
       ],
@@ -56,7 +57,7 @@ class HomeSavingsCard extends StatelessWidget {
       trailing: Button(
         variant: ButtonVariant.outline,
         size: ButtonSize.sm,
-        onPressed: null,
+        onPressed: collageNoop,
         child: Text('New Goal'),
       ),
       children: <Widget>[
@@ -193,7 +194,7 @@ class HomeCardBalanceCard extends StatelessWidget {
         const Button(
           variant: ButtonVariant.outline,
           size: ButtonSize.sm,
-          onPressed: null,
+          onPressed: collageNoop,
           child: Text('Pay Early'),
         ),
       ],

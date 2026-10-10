@@ -76,7 +76,7 @@ class StudioSavingsCard extends StatelessWidget {
       trailing: Button(
         variant: ButtonVariant.outline,
         size: ButtonSize.sm,
-        onPressed: null,
+        onPressed: studioNoop,
         child: Text('New Goal'),
       ),
       child: Column(
@@ -178,7 +178,7 @@ class StudioCardBalanceCard extends StatelessWidget {
           const Button(
             variant: ButtonVariant.outline,
             size: ButtonSize.sm,
-            onPressed: null,
+            onPressed: studioNoop,
             child: Text('Pay Early'),
           ),
         ],

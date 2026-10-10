@@ -11,8 +11,9 @@ import 'package:flutter/widgets.dart';
 
 import '../ui/shadcn/primitives/masonry_layout.dart';
 import '../ui/shadcn/theme/theme.dart';
-import 'collage_cards.dart';
 import 'collage_cards_controls.dart';
+import 'collage_cards_forms.dart';
+import 'collage_cards_info.dart';
 import 'collage_home_auth.dart';
 import 'collage_home_data.dart';
 import 'collage_home_feedback.dart';

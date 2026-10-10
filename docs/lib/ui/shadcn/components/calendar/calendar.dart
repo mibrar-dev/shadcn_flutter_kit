@@ -296,9 +296,15 @@ typedef _Slot = ({
   VoidCallback? onTap,
 });
 
-/// Narrowest a shrunken cell gets: 7 x 28 + 6 x 4 = 220 px, the brief's
-/// ~7x32 px minimum footprint, so the 240 px column test still fits.
-const double _kMinCalendarCell = 28;
+/// Narrowest a shrunken cell gets: 7 x 20 + 6 x 4 = 164 px.
+///
+/// P6-F5 set 28 (220 px min), which fits its 240/300/375 px column tests but
+/// overflows the Theme Studio canvas at 768 px (two columns leave ~196 px
+/// for the card body; P6-P1 measured RenderFlex overflow 24 px). 20 px still
+/// shows two-digit days at the 14 px day size, so the grid fits every tested
+/// viewport (home, studio and component pages at 375/768/1440) with no
+/// horizontal scroll.
+const double _kMinCalendarCell = 20;
 
 /// A nominal cell width fitted into [maxWidth]: the nominal size when it fits,
 /// otherwise an even share of the row, floored at [_kMinCalendarCell].

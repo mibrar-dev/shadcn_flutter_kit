@@ -1,0 +1,3471 @@
+{
+  "unit": "P6-D9c",
+  "date": "2026-10-10",
+  "method": {
+    "static_scan": "tool/theme_audit.dart line-based scanner (package:analyzer ^14 fragment AST has no NamedType.name / VariableDeclaration.type / AstNode.getAncestor)",
+    "live_tests": "test/registry/theme_audit, 3 presets x light/dark",
+    "presets": [
+      "neutral",
+      "claude",
+      "tangerine"
+    ]
+  },
+  "hardcoded": [
+    {
+      "file": "lib/registry/foundation/icons/lucide_icons.dart",
+      "line": 16,
+      "type": "Colors.*",
+      "value": "Colors.red",
+      "context": "///   LucideIcons.heart,\n///   size: 24,\n///   color: Colors.red,\n/// )\n/// ```",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 132,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "      widgetValue: this.gradient,\n      themeValue: componentTheme.gradient,\n      defaultValue: const [Colors.white, Colors.transparent],\n    );\n    return ListenableBuilder(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 132,
+      "type": "Colors.*",
+      "value": "Colors.transparent",
+      "context": "      widgetValue: this.gradient,\n      themeValue: componentTheme.gradient,\n      defaultValue: const [Colors.white, Colors.transparent],\n    );\n    return ListenableBuilder(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 186,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "            colors: [\n              if (shouldFadeStart) ...gradient,\n              Colors.white,\n              Colors.white,\n              if (shouldFadeEnd) ...gradient.reversed,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 187,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "              if (shouldFadeStart) ...gradient,\n              Colors.white,\n              Colors.white,\n              if (shouldFadeEnd) ...gradient.reversed,\n            ],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 207,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "  static Shader _identityShader(Rect bounds) {\n    return const LinearGradient(\n      colors: [Colors.white, Colors.white],\n    ).createShader(bounds);\n  }",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/fade_scroll.dart",
+      "line": 207,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "  static Shader _identityShader(Rect bounds) {\n    return const LinearGradient(\n      colors: [Colors.white, Colors.white],\n    ).createShader(bounds);\n  }",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/form_core/object_form_field.dart",
+      "line": 196,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "      barrierDismissible: true,\n      barrierLabel: ShadcnLocalizations.of(context).dialogDismiss,\n      barrierColor: const Color(0x80000000),\n      transitionDuration: const Duration(milliseconds: 150),\n      pageBuilder: (context, animation, secondaryAnimation) {",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/drawer_route/drawer_panel.dart",
+      "line": 14,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "import 'drawer_shell.dart';\n\nconst Color kDrawerFallbackBarrierColor = Color(0x80000000);\n\nclass ShadcnDrawerRoute<T> extends ModalRoute<T> {",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/drawer_route/drawer_panel.dart",
+      "line": 14,
+      "type": "const Color default",
+      "value": "const Color kDrawerFallbackBarrierColor = Color(0x80000000)",
+      "context": "import 'drawer_shell.dart';\n\nconst Color kDrawerFallbackBarrierColor = Color(0x80000000);\n\nclass ShadcnDrawerRoute<T> extends ModalRoute<T> {",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 34,
+      "type": "Color(0x...)",
+      "value": "0xFFFF0000",
+      "context": "/// approximating it.\nconst List<Color> _hueSpectrum = <Color>[\n  Color(0xFFFF0000),\n  Color(0xFFFFFF00),\n  Color(0xFF00FF00),",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 35,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFF00",
+      "context": "const List<Color> _hueSpectrum = <Color>[\n  Color(0xFFFF0000),\n  Color(0xFFFFFF00),\n  Color(0xFF00FF00),\n  Color(0xFF00FFFF),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 36,
+      "type": "Color(0x...)",
+      "value": "0xFF00FF00",
+      "context": "  Color(0xFFFF0000),\n  Color(0xFFFFFF00),\n  Color(0xFF00FF00),\n  Color(0xFF00FFFF),\n  Color(0xFF0000FF),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 37,
+      "type": "Color(0x...)",
+      "value": "0xFF00FFFF",
+      "context": "  Color(0xFFFFFF00),\n  Color(0xFF00FF00),\n  Color(0xFF00FFFF),\n  Color(0xFF0000FF),\n  Color(0xFFFF00FF),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 38,
+      "type": "Color(0x...)",
+      "value": "0xFF0000FF",
+      "context": "  Color(0xFF00FF00),\n  Color(0xFF00FFFF),\n  Color(0xFF0000FF),\n  Color(0xFFFF00FF),\n  Color(0xFFFF0000),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 39,
+      "type": "Color(0x...)",
+      "value": "0xFFFF00FF",
+      "context": "  Color(0xFF00FFFF),\n  Color(0xFF0000FF),\n  Color(0xFFFF00FF),\n  Color(0xFFFF0000),\n];",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 40,
+      "type": "Color(0x...)",
+      "value": "0xFFFF0000",
+      "context": "  Color(0xFF0000FF),\n  Color(0xFFFF00FF),\n  Color(0xFFFF0000),\n];\n",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 43,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "];\n\nconst Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 43,
+      "type": "const Color default",
+      "value": "const Color _opaqueWhite = Color(0xFFFFFFFF)",
+      "context": "];\n\nconst Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 44,
+      "type": "Color(0x...)",
+      "value": "0x00FFFFFF",
+      "context": "\nconst Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);\nconst Color _clearBlack = Color(0x00000000);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 44,
+      "type": "const Color default",
+      "value": "const Color _clearWhite = Color(0x00FFFFFF)",
+      "context": "\nconst Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);\nconst Color _clearBlack = Color(0x00000000);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 45,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "const Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);\nconst Color _clearBlack = Color(0x00000000);\nconst Color _opaqueGrey = Color.from(alpha: 1, red: 0.5, green: 0.5, blue: 0.5);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 45,
+      "type": "const Color default",
+      "value": "const Color _opaqueBlack = Color(0xFF000000)",
+      "context": "const Color _opaqueWhite = Color(0xFFFFFFFF);\nconst Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);\nconst Color _clearBlack = Color(0x00000000);\nconst Color _opaqueGrey = Color.from(alpha: 1, red: 0.5, green: 0.5, blue: 0.5);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 46,
+      "type": "const Color default",
+      "value": "const Color _clearBlack = Color(0x00000000)",
+      "context": "const Color _clearWhite = Color(0x00FFFFFF);\nconst Color _opaqueBlack = Color(0xFF000000);\nconst Color _clearBlack = Color(0x00000000);\nconst Color _opaqueGrey = Color.from(alpha: 1, red: 0.5, green: 0.5, blue: 0.5);\nconst Color _clearGrey = Color.from(alpha: 0, red: 0.5, green: 0.5, blue: 0.5);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/markdown_parser/media.dart",
+      "line": 234,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "    barrierDismissible: true,\n    barrierLabel: style.dismissLabel,\n    barrierColor: const Color(0x80000000),\n    transitionDuration: const Duration(milliseconds: 150),\n    pageBuilder: (dialogContext, animation, secondaryAnimation) {",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_math.dart",
+      "line": 56,
+      "type": "Color.fromARGB",
+      "value": "Color.fromARGB(255, r * 17, g * 17, b * 17)",
+      "context": "  final g = (value >> 4) & 0xF;\n  final b = value & 0xF;\n  return Color.fromARGB(255, r * 17, g * 17, b * 17);\n}\n",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_math.dart",
+      "line": 76,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "Color pickContrastingColor(\n  Color background, {\n  Color light = const Color(0xFFFFFFFF),\n  Color dark = const Color(0xFF000000),\n}) {",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/color_math.dart",
+      "line": 77,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "  Color background, {\n  Color light = const Color(0xFFFFFFFF),\n  Color dark = const Color(0xFF000000),\n}) {\n  return contrastRatio(background, light) >= contrastRatio(background, dark)",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/gooey/gooey_surface.dart",
+      "line": 43,
+      "type": "Color(0x...)",
+      "value": "0xFF0D1117",
+      "context": "    this.expandable = true,\n    this.width = 350,\n    this.fill = const Color(0xFF0D1117),\n    this.fillAlpha = 1,\n    this.roundness = 18,",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.popover)"
+    },
+    {
+      "file": "lib/registry/primitives/syntax_highlight/syntax_token.dart",
+      "line": 16,
+      "type": "Colors.*",
+      "value": "Colors.colorFor",
+      "context": "  const SyntaxToken(this.kind, this.start, this.end);\n\n  /// The token kind (picked up by [SyntaxColors.colorFor]).\n  final SyntaxTokenKind kind;\n",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/primitives/text/list.dart",
+      "line": 41,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "  void paint(Canvas canvas, Size size) {\n    final paint = Paint()\n      ..color = color ?? const Color(0xFF000000)\n      ..style = PaintingStyle.fill;\n    switch (depth % 3) {",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/country_flag/preview.dart",
+      "line": 80,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: Wrap(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/tabs/preview.dart",
+      "line": 90,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: Tabs(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/tree/preview.dart",
+      "line": 108,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget build(BuildContext context) {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: const TreePreview(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/timeline_animation/preview.dart",
+      "line": 42,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "        const AbsoluteKeyframe<Color?>(\n          Duration(milliseconds: 800),\n          Color(0xFF2563EB),\n          Color(0xFF16A34A),\n        ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/timeline_animation/preview.dart",
+      "line": 43,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "          Duration(milliseconds: 800),\n          Color(0xFF2563EB),\n          Color(0xFF16A34A),\n        ),\n        const RelativeKeyframe<Color?>(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/timeline_animation/preview.dart",
+      "line": 47,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "        const RelativeKeyframe<Color?>(\n          Duration(milliseconds: 700),\n          Color(0xFF2563EB),\n        ),\n      ],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/drawer/drawer_style.dart",
+      "line": 248,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "  borderWidth: 1,\n  padding: EdgeInsets.all(24),\n  barrierColor: ThemedColor.value(Color(0x80000000)),\n  maxSize: 320,\n  showDragHandle: true,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/pagination/preview.dart",
+      "line": 82,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return const ShadcnTheme(\n      data: ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: Pagination(\n        page: 3,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 51,
+      "type": "Color(0x...)",
+      "value": "0xFF334155",
+      "context": "      width: 220,\n      child: CardImage(\n        image: _thumb(const Color(0xFF334155), const Color(0xFF94A3B8)),\n        title: const Text('Sunset'),\n        subtitle: const Text('18:42 \u00b7 Lisbon'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 51,
+      "type": "Color(0x...)",
+      "value": "0xFF94A3B8",
+      "context": "      width: 220,\n      child: CardImage(\n        image: _thumb(const Color(0xFF334155), const Color(0xFF94A3B8)),\n        title: const Text('Sunset'),\n        subtitle: const Text('18:42 \u00b7 Lisbon'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 64,
+      "type": "Color(0x...)",
+      "value": "0xFF1D4ED8",
+      "context": "      image: SizedBox(\n        width: 96,\n        child: _thumb(const Color(0xFF1D4ED8), const Color(0xFFFFFFFF)),\n      ),\n      title: const Text('Track'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 64,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "      image: SizedBox(\n        width: 96,\n        child: _thumb(const Color(0xFF1D4ED8), const Color(0xFFFFFFFF)),\n      ),\n      title: const Text('Track'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 76,
+      "type": "Color(0x...)",
+      "value": "0xFF475569",
+      "context": "      width: 220,\n      child: CardImage(\n        image: _thumb(const Color(0xFF475569), const Color(0xFFCBD5E1)),\n        title: const Text('Disabled'),\n        subtitle: const Text('onPressed is null'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 76,
+      "type": "Color(0x...)",
+      "value": "0xFFCBD5E1",
+      "context": "      width: 220,\n      child: CardImage(\n        image: _thumb(const Color(0xFF475569), const Color(0xFFCBD5E1)),\n        title: const Text('Disabled'),\n        subtitle: const Text('onPressed is null'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 85,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: SizedBox(\n        width: 220,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 89,
+      "type": "Color(0x...)",
+      "value": "0xFF1E293B",
+      "context": "        width: 220,\n        child: CardImage(\n          image: _thumb(const Color(0xFF1E293B), const Color(0xFF64748B)),\n          title: const Text('Dark'),\n          subtitle: const Text('card / cardForeground tokens'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/preview.dart",
+      "line": 89,
+      "type": "Color(0x...)",
+      "value": "0xFF64748B",
+      "context": "        width: 220,\n        child: CardImage(\n          image: _thumb(const Color(0xFF1E293B), const Color(0xFF64748B)),\n          title: const Text('Dark'),\n          subtitle: const Text('card / cardForeground tokens'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card_image/card_image_style.dart",
+      "line": 162,
+      "type": "Colors.*",
+      "value": "Colors.transparent",
+      "context": "\n// A fully transparent token (alpha 0 of `muted`) rather than the literal\n// `Colors.transparent`: it is still a token, so a themed override can replace\n// it, and the old code's `Colors.transparent` default is preserved visually.\nconst ThemedColor _cardImageTransparent = ThemedColor.ref(",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/card_image/card_image_style.dart",
+      "line": 163,
+      "type": "Colors.*",
+      "value": "Colors.transparent",
+      "context": "// A fully transparent token (alpha 0 of `muted`) rather than the literal\n// `Colors.transparent`: it is still a token, so a themed override can replace\n// it, and the old code's `Colors.transparent` default is preserved visually.\nconst ThemedColor _cardImageTransparent = ThemedColor.ref(\n  ColorRef.muted,",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 17,
+      "type": "Color(0x...)",
+      "value": "0xFFBFDBFE",
+      "context": "\n  static const List<Color> _tileColors = <Color>[\n    Color(0xFFBFDBFE),\n    Color(0xFFA7F3D0),\n    Color(0xFFFDE68A),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 18,
+      "type": "Color(0x...)",
+      "value": "0xFFA7F3D0",
+      "context": "  static const List<Color> _tileColors = <Color>[\n    Color(0xFFBFDBFE),\n    Color(0xFFA7F3D0),\n    Color(0xFFFDE68A),\n    Color(0xFFFECACA),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 19,
+      "type": "Color(0x...)",
+      "value": "0xFFFDE68A",
+      "context": "    Color(0xFFBFDBFE),\n    Color(0xFFA7F3D0),\n    Color(0xFFFDE68A),\n    Color(0xFFFECACA),\n    Color(0xFFE9D5FF),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 20,
+      "type": "Color(0x...)",
+      "value": "0xFFFECACA",
+      "context": "    Color(0xFFA7F3D0),\n    Color(0xFFFDE68A),\n    Color(0xFFFECACA),\n    Color(0xFFE9D5FF),\n    Color(0xFFBAE6FD),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 21,
+      "type": "Color(0x...)",
+      "value": "0xFFE9D5FF",
+      "context": "    Color(0xFFFDE68A),\n    Color(0xFFFECACA),\n    Color(0xFFE9D5FF),\n    Color(0xFFBAE6FD),\n  ];",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 22,
+      "type": "Color(0x...)",
+      "value": "0xFFBAE6FD",
+      "context": "    Color(0xFFFECACA),\n    Color(0xFFE9D5FF),\n    Color(0xFFBAE6FD),\n  ];\n",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable_client/preview.dart",
+      "line": 60,
+      "type": "Colors.*",
+      "value": "Colors.length",
+      "context": "                              height: 64,\n                              child: ColoredBox(\n                                color: _tileColors[index % _tileColors.length],\n                                child: Center(child: Text('Tile ${index + 1}')),\n                              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/border_loading/border_loading.dart",
+      "line": 320,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    if (style.opacity! < 1) {\n      paint.colorFilter = ColorFilter.mode(\n        Color(0xFFFFFFFF).withValues(alpha: style.opacity!),\n        BlendMode.modulate,\n      );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/swiper/swiper.dart",
+      "line": 29,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "\n/// Fallback barrier colour (black at 50%).\nconst ThemedColor kSwiperFallbackBarrier = ThemedColor.value(Color(0x80000000));\n\n/// Programmatic control of a [Swiper]'s panel: [open] / [close] animate it and",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/calendar/preview.dart",
+      "line": 182,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "\n  Widget _dark() => ShadcnTheme(\n    data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n    child: Calendar(\n      view: _view,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card/preview.dart",
+      "line": 120,
+      "type": "Color(0x...)",
+      "value": "0xFF334155",
+      "context": "              height: 72,\n              child: ColoredBox(\n                color: Color(0xFF334155),\n                child: Center(\n                  child: Icon(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card/preview.dart",
+      "line": 125,
+      "type": "Color(0x...)",
+      "value": "0xFFCBD5E1",
+      "context": "                    LucideIcons.star,\n                    size: 24,\n                    color: Color(0xFFCBD5E1),\n                  ),\n                ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/card/preview.dart",
+      "line": 142,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: const Card(\n        child: Column(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/overflow_marquee/overflow_marquee.dart",
+      "line": 3,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "// The `overflow_marquee` component: self-scrolling content with soft edge\n// fades. Fixes over the old copy: no Material import (the fade used\n// `Colors.white`), the vertical axis measured its overflow on `width`,\n// `fadePortion` was ignored by the painter (hardcoded 25px) while documented\n// as a 0..1 fraction, every tick rebuilt the subtree, and RTL never reversed",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/overflow_marquee/overflow_marquee.dart",
+      "line": 21,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "\n/// Identity modulator: multiplying by opaque white leaves content alone.\nconst Color _kWhite = Color(0xFFFFFFFF);\n\n/// Scrolls [child] along [direction] when it overflows its container and",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background",
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/overflow_marquee/overflow_marquee.dart",
+      "line": 21,
+      "type": "const Color default",
+      "value": "const Color _kWhite = Color(0xFFFFFFFF)",
+      "context": "\n/// Identity modulator: multiplying by opaque white leaves content alone.\nconst Color _kWhite = Color(0xFFFFFFFF);\n\n/// Scrolls [child] along [direction] when it overflows its container and",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background",
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/overflow_marquee/overflow_marquee.dart",
+      "line": 355,
+      "type": "Color(0x...)",
+      "value": "0x00FFFFFF",
+      "context": "      end: end,\n      colors: const <Color>[\n        Color(0x00FFFFFF),\n        _kWhite,\n        _kWhite,",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/overflow_marquee/overflow_marquee.dart",
+      "line": 358,
+      "type": "Color(0x...)",
+      "value": "0x00FFFFFF",
+      "context": "        _kWhite,\n        _kWhite,\n        Color(0x00FFFFFF),\n      ],\n      stops: <double>[0, portion, 1 - portion, 1],",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/chip_input/preview.dart",
+      "line": 132,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/chip_input/preview.dart",
+      "line": 134,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: Padding(\n          padding: const EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/autocomplete/preview.dart",
+      "line": 138,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/autocomplete/preview.dart",
+      "line": 140,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: SizedBox(\n          width: 280,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/star_rating/star_rating_theme.dart",
+      "line": 11,
+      "type": "Color(0x...)",
+      "value": "0xFFF59E0B",
+      "context": "//   const StarRatingTheme starRatingThemeOverrides = StarRatingTheme(\n//     style: StarRatingStyle(\n//       activeColor: ThemedColor.value(Color(0xFFF59E0B)),\n//       size: 28,\n//     ),",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/star_rating/preview.dart",
+      "line": 55,
+      "type": "Color(0x...)",
+      "value": "0xFFF59E0B",
+      "context": "            onChanged: _ignore,\n            theme: StarRatingStyle(\n              activeColor: ThemedColor.value(Color(0xFFF59E0B)),\n              inactiveColor: ThemedColor.value(Color(0xFFE5E7EB)),\n              size: 30,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/star_rating/preview.dart",
+      "line": 56,
+      "type": "Color(0x...)",
+      "value": "0xFFE5E7EB",
+      "context": "            theme: StarRatingStyle(\n              activeColor: ThemedColor.value(Color(0xFFF59E0B)),\n              inactiveColor: ThemedColor.value(Color(0xFFE5E7EB)),\n              size: 30,\n              spacing: 8,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/star_rating/star_rating.dart",
+      "line": 7,
+      "type": "Colors.*",
+      "value": "Colors.white",
+      "context": "// The old module had two widgets (`StarRating` + `ControlledStarRating`), a\n// controller, two intents and a `StarBorder`-based paint that pulled\n// `package:flutter/material.dart` and hard-coded `Colors.white`. The adapter\n// is folded into the widget, the colours/size/shape live in the mergeable\n// [StarRatingStyle], and the stars paint through `StarBorder` from",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/star_rating/star_rating.dart",
+      "line": 371,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "            // The paint colour only supplies coverage; the mask recolours it.\n            decoration: ShapeDecoration(\n              color: const Color(0xFFFFFFFF),\n              shape: StarBorder(\n                points: style.points ?? 5,",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/progress/preview.dart",
+      "line": 58,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "              const Progress(\n                value: 0.7,\n                color: Color(0xFF16A34A),\n                backgroundColor: Color(0x3316A34A),\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/progress/preview.dart",
+      "line": 59,
+      "type": "Color(0x...)",
+      "value": "0x3316A34A",
+      "context": "                value: 0.7,\n                color: Color(0xFF16A34A),\n                backgroundColor: Color(0x3316A34A),\n              ),\n              const SizedBox(height: 16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/text_animate/preview.dart",
+      "line": 121,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: TextAnimate(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/empty_state/preview.dart",
+      "line": 98,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/empty_state/preview.dart",
+      "line": 100,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const SizedBox(\n          height: 320,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/text_area/preview.dart",
+      "line": 87,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "              const SizedBox(height: 8),\n              ShadcnTheme(\n                data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n                child: const TextArea(\n                  placeholder: Text('Dark surface'),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/switcher/preview.dart",
+      "line": 120,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 16),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/input/preview.dart",
+      "line": 117,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            _Section('Dark tokens'),\n            ShadcnTheme(\n              data: theme.copyWith(colors: () => ShadcnColors.darkFallback),\n              child: const Column(\n                crossAxisAlignment: CrossAxisAlignment.stretch,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/group/preview.dart",
+      "line": 76,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark(ShadcnThemeData theme) {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: Builder(builder: (context) => _stage(ShadcnTheme.of(context))),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/alert/preview.dart",
+      "line": 48,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: Builder(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/accordion/preview.dart",
+      "line": 74,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: _stack(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/markdown/preview.dart",
+      "line": 118,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: Markdown(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/navigation_menu/preview.dart",
+      "line": 84,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: NavigationMenu(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/formatted_input/preview.dart",
+      "line": 141,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: const DatePreview(),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/media_query/preview.dart",
+      "line": 79,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "              const SizedBox(height: 24),\n              ShadcnTheme(\n                data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n                child: Builder(\n                  builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/media_query/preview.dart",
+      "line": 101,
+      "type": "Colors.*",
+      "value": "Colors.lightFallback",
+      "context": "    onHorizontalDragUpdate: (details) =>\n        setState(() => _width = (_width + details.delta.dx).clamp(240, 1200)),\n    child: Container(height: 8, color: ShadcnColors.lightFallback.muted),\n  );\n",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/eye_dropper/preview.dart",
+      "line": 36,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "                mainAxisSize: MainAxisSize.min,\n                children: <Widget>[\n                  _EyeDropperSwatch(Color(0xFF2563EB)),\n                  Gap(8),\n                  _EyeDropperSwatch(Color(0xFF22C55E)),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/eye_dropper/preview.dart",
+      "line": 38,
+      "type": "Color(0x...)",
+      "value": "0xFF22C55E",
+      "context": "                  _EyeDropperSwatch(Color(0xFF2563EB)),\n                  Gap(8),\n                  _EyeDropperSwatch(Color(0xFF22C55E)),\n                ],\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color/preview.dart",
+      "line": 19,
+      "type": "Color(0x...)",
+      "value": "0xFF0080FF",
+      "context": "  Widget build(BuildContext context) {\n    final ShadcnThemeData theme = ShadcnTheme.of(context);\n    const base = Color(0xFF0080FF);\n    final derivative = ColorDerivative.fromColor(base);\n    final muted = derivative.changeToHSVSaturation(0.5);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color/color.dart",
+      "line": 29,
+      "type": "Color(0x...)",
+      "value": "0xFF0080FF",
+      "context": "///\n/// ```dart\n/// final derivative = ColorDerivative.fromColor(const Color(0xFF0080FF));\n/// final muted = derivative.changeToHSVSaturation(0.5);\n/// return muted.toColor();",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/chip/preview.dart",
+      "line": 101,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/chip/preview.dart",
+      "line": 103,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const Padding(\n          padding: EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/async/preview.dart",
+      "line": 93,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 24),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/drawer_container/preview.dart",
+      "line": 110,
+      "type": "Color(0x...)",
+      "value": "0x40000000",
+      "context": "          isSheet: true,\n          fadeAnimation: const AlwaysStoppedAnimation<double>(1),\n          barrierColor: const Color(0x40000000),\n          child: const Center(child: Text('With barrier')),\n        ),",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/drawer_container/preview.dart",
+      "line": 139,
+      "type": "Color(0x...)",
+      "value": "0x11000000",
+      "context": "  Widget _frame(Widget child) {\n    return DecoratedBox(\n      decoration: const BoxDecoration(color: Color(0x11000000)),\n      child: Padding(padding: const EdgeInsets.all(8), child: child),\n    );",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/feature_carousel/preview.dart",
+      "line": 127,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: SizedBox(\n        width: 420,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/feature_carousel/feature_carousel_style.dart",
+      "line": 324,
+      "type": "Color(0x...)",
+      "value": "0x8C000000",
+      "context": "          boxShadow: const <BoxShadow>[\n            BoxShadow(\n              color: Color(0x8C000000),\n              blurRadius: 28,\n              offset: Offset(0, 10),",
+      "classification": "preview-or-demo",
+      "should_be": "shadow token scale (theme.shadows)"
+    },
+    {
+      "file": "lib/registry/components/checkbox/preview.dart",
+      "line": 123,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/checkbox/preview.dart",
+      "line": 125,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const Padding(\n          padding: EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/hsv/hsv.dart",
+      "line": 222,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    final double cursorWidth = resolved.cursorWidth ?? 2;\n    final Color cursorColor =\n        resolved.cursorColor?.resolve(theme.colors) ?? const Color(0xFFFFFFFF);\n    final offset = _cursorOffset;\n    final a = _hsvAxes(widget.sliderType, widget.reverse);",
+      "classification": "allowed",
+      "reason": "eyedropper cursor drawn over arbitrary user colour must stay constant",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/hsv/hsv_style.dart",
+      "line": 84,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "const HSVSliderTheme hsvSliderDefaults = HSVSliderTheme(\n  slider: HSVSliderStyle(\n    cursorColor: ThemedColor.value(Color(0xFFFFFFFF)),\n    cursorSize: 16,\n    cursorWidth: 2,",
+      "classification": "allowed",
+      "reason": "eyedropper cursor drawn over arbitrary user colour must stay constant",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_picker/preview.dart",
+      "line": 24,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "\nclass _ColorPickerPreviewState extends State<ColorPickerPreview> {\n  ColorDerivative _value = ColorDerivative.fromColor(const Color(0xFF2563EB));\n\n  @override",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_picker/preview.dart",
+      "line": 36,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "          child: RecentColorsScope(\n            initialRecentColors: const <Color>[\n              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_picker/preview.dart",
+      "line": 37,
+      "type": "Color(0x...)",
+      "value": "0xFF22C55E",
+      "context": "            initialRecentColors: const <Color>[\n              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),\n            ],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_picker/preview.dart",
+      "line": 38,
+      "type": "Color(0x...)",
+      "value": "0xFFE11D48",
+      "context": "              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),\n            ],\n            child: Column(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_picker/preview.dart",
+      "line": 80,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: ColorPicker(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/slider/preview.dart",
+      "line": 102,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                const SizedBox(height: 8),\n                ShadcnTheme(\n                  data: ShadcnThemeData(colors: ShadcnColors.darkFallback),\n                  child: Slider(\n                    value: 0.5,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/triple_dots/preview.dart",
+      "line": 45,
+      "type": "Color(0x...)",
+      "value": "0xFFE7000B",
+      "context": "            const TripleDots(count: 4, spacing: 4),\n            const SizedBox(width: 32),\n            const TripleDots(size: 6, color: Color(0xFFE7000B)),\n            const SizedBox(width: 32),\n            const TripleDots(direction: Axis.vertical),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/stepper/preview.dart",
+      "line": 101,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget build(BuildContext context) {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: const StepperPreview(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/tracker/preview.dart",
+      "line": 90,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: const Tracker(\n        data: <TrackerData>[",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker.dart",
+      "line": 8,
+      "type": "Colors.*",
+      "value": "Colors.green",
+      "context": "//   * `tracker.dart` imported `package:flutter/material.dart` for `Colors` \u2014\n//     banned; the four level colours now live in `TrackerTheme`.\n//   * The levels were `static const` literals (`Colors.green`, `Colors.orange`,\n//     `Colors.red`, `Colors.grey`), so no preset could restyle them. They are\n//     `ThemedColor` rows now.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker.dart",
+      "line": 8,
+      "type": "Colors.*",
+      "value": "Colors.orange",
+      "context": "//   * `tracker.dart` imported `package:flutter/material.dart` for `Colors` \u2014\n//     banned; the four level colours now live in `TrackerTheme`.\n//   * The levels were `static const` literals (`Colors.green`, `Colors.orange`,\n//     `Colors.red`, `Colors.grey`), so no preset could restyle them. They are\n//     `ThemedColor` rows now.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker.dart",
+      "line": 9,
+      "type": "Colors.*",
+      "value": "Colors.red",
+      "context": "//     banned; the four level colours now live in `TrackerTheme`.\n//   * The levels were `static const` literals (`Colors.green`, `Colors.orange`,\n//     `Colors.red`, `Colors.grey`), so no preset could restyle them. They are\n//     `ThemedColor` rows now.\n//   * `TrackerThemeDefaults` (radius 6 / gap 2 / height 32) was never read: the",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker.dart",
+      "line": 9,
+      "type": "Colors.*",
+      "value": "Colors.grey",
+      "context": "//     banned; the four level colours now live in `TrackerTheme`.\n//   * The levels were `static const` literals (`Colors.green`, `Colors.orange`,\n//     `Colors.red`, `Colors.grey`), so no preset could restyle them. They are\n//     `ThemedColor` rows now.\n//   * `TrackerThemeDefaults` (radius 6 / gap 2 / height 32) was never read: the",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker_style.dart",
+      "line": 5,
+      "type": "Colors.*",
+      "value": "Colors.green",
+      "context": "//\n// The old `TrackerLevel` was an abstract class with four `static const`\n// instances, each carrying its own literal `Color` (`Colors.green` etc.). The\n// colour moves into [TrackerTheme] (one `ThemedColor` per level) so a preset\n// switch restyles the tracker, and the four levels become one enum (PLAN \u00a74",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker_style.dart",
+      "line": 176,
+      "type": "Color(0x...)",
+      "value": "0xFF22C55E",
+      "context": "// are literals (same precedent as `gooey_toast`'s status rows); `critical`\n// and `unknown` follow tokens so a preset switch restyles them.\nconst _trackerFine = ThemedColor.value(Color(0xFF22C55E));\nconst _trackerWarning = ThemedColor.value(Color(0xFFF59E0B));\nconst _trackerCritical = ThemedColor.ref(ColorRef.destructive);",
+      "classification": "review",
+      "should_be": "ThemedColor.value defensible as semantic status - owner call",
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/tracker/tracker_style.dart",
+      "line": 177,
+      "type": "Color(0x...)",
+      "value": "0xFFF59E0B",
+      "context": "// and `unknown` follow tokens so a preset switch restyles them.\nconst _trackerFine = ThemedColor.value(Color(0xFF22C55E));\nconst _trackerWarning = ThemedColor.value(Color(0xFFF59E0B));\nconst _trackerCritical = ThemedColor.ref(ColorRef.destructive);\nconst _trackerUnknown = ThemedColor.ref(ColorRef.mutedForeground);",
+      "classification": "review",
+      "should_be": "ThemedColor.value defensible as semantic status - owner call",
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/spinner/preview.dart",
+      "line": 49,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "            const Spinner(strokeWidth: 2),\n            const Spinner(strokeWidth: 6),\n            const Spinner(color: Color(0xFF16A34A)),\n            const Spinner(color: Color(0xFFE7000B)),\n            ComponentTheme<SpinnerTheme>(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/spinner/preview.dart",
+      "line": 50,
+      "type": "Color(0x...)",
+      "value": "0xFFE7000B",
+      "context": "            const Spinner(strokeWidth: 6),\n            const Spinner(color: Color(0xFF16A34A)),\n            const Spinner(color: Color(0xFFE7000B)),\n            ComponentTheme<SpinnerTheme>(\n              data: const SpinnerTheme(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/hsl/hsl_style.dart",
+      "line": 84,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "const HSLSliderTheme hslSliderDefaults = HSLSliderTheme(\n  slider: HSLSliderStyle(\n    cursorColor: ThemedColor.value(Color(0xFFFFFFFF)),\n    cursorSize: 16,\n    cursorWidth: 2,",
+      "classification": "allowed",
+      "reason": "eyedropper cursor drawn over arbitrary user colour must stay constant",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/hsl/hsl.dart",
+      "line": 222,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    final double cursorWidth = resolved.cursorWidth ?? 2;\n    final Color cursorColor =\n        resolved.cursorColor?.resolve(theme.colors) ?? const Color(0xFFFFFFFF);\n    final offset = _cursorOffset;\n    final a = _hslAxes(widget.sliderType, widget.reverse);",
+      "classification": "allowed",
+      "reason": "eyedropper cursor drawn over arbitrary user colour must stay constant",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/image/preview.dart",
+      "line": 127,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 24),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/toggle/preview.dart",
+      "line": 129,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/toggle/preview.dart",
+      "line": 132,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                    ),\n                    child: ColoredBox(\n                      color: ShadcnColors.darkFallback.background,\n                      child: Padding(\n                        padding: const EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dialog/preview.dart",
+      "line": 135,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            ShadcnTheme(\n              data: ShadcnThemeData(\n                colors: ShadcnColors.darkFallback,\n                tokens: ShadcnTokens(radius: 1.0),\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dialog/dialog.dart",
+      "line": 18,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "\n/// Barrier color used when neither the call nor any theme leg sets one.\nconst Color kDialogFallbackBarrierColor = Color(0x80000000);\n\n/// Resolves the dialog theme for [context]: defaults, app, scoped, widget leg.",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dialog/dialog.dart",
+      "line": 18,
+      "type": "const Color default",
+      "value": "const Color kDialogFallbackBarrierColor = Color(0x80000000)",
+      "context": "\n/// Barrier color used when neither the call nor any theme leg sets one.\nconst Color kDialogFallbackBarrierColor = Color(0x80000000);\n\n/// Resolves the dialog theme for [context]: defaults, app, scoped, widget leg.",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dialog/dialog_style.dart",
+      "line": 195,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "  padding: EdgeInsetsDensity.all(padMd),\n  insetPadding: EdgeInsetsDensity.all(padSm),\n  barrierColor: ThemedColor.value(Color(0x80000000)),\n  // shadcn `sm:max-w-lg` = 512.\n  maxWidth: 512.0,",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/alert_dialog/preview.dart",
+      "line": 130,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: DecoratedBox(\n        decoration: BoxDecoration(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/alert_dialog/preview.dart",
+      "line": 133,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      child: DecoratedBox(\n        decoration: BoxDecoration(\n          color: ShadcnColors.darkFallback.background,\n          borderRadius: ShadcnTheme.of(context).borderRadiusLg,\n        ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/overlay_configuration/overlay_configuration.dart",
+      "line": 312,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "    this.alignment = Alignment.center,\n    this.barrierDismissible = true,\n    this.barrierColor = const Color(0x80000000),\n  });\n",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/object_input/preview.dart",
+      "line": 73,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: DateInput(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/radio_group/preview.dart",
+      "line": 168,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/radio_group/preview.dart",
+      "line": 170,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: ShadcnRadioGroup<String>(\n          value: 'pro',",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 125,
+      "type": "Color(0x...)",
+      "value": "0xFFC0C5CB",
+      "context": "  height: 1.43,\n  fontWeight: FontWeight.w400,\n  color: Color(0xFFC0C5CB),\n);\n",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.popoverForeground)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 363,
+      "type": "Color(0x...)",
+      "value": "0xFF0D1117",
+      "context": "const GooeyToastTheme gooeyToastDefaults = GooeyToastTheme(\n  width: 350,\n  fill: ThemedColor.value(Color(0xFF0D1117)),\n  roundness: 18,\n  titleStyle: gooeyTitleTextStyle,",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.popover)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 372,
+      "type": "Color(0x...)",
+      "value": "0xFF63C65E",
+      "context": "  bodyAnimationStyle: GooeyToastBodyAnimationStyle.fade,\n  enableGooeyBlur: true,\n  successTone: ThemedColor.value(Color(0xFF63C65E)),\n  loadingTone: ThemedColor.value(Color(0xFF8A8F98)),\n  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.chart1)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 373,
+      "type": "Color(0x...)",
+      "value": "0xFF8A8F98",
+      "context": "  enableGooeyBlur: true,\n  successTone: ThemedColor.value(Color(0xFF63C65E)),\n  loadingTone: ThemedColor.value(Color(0xFF8A8F98)),\n  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),\n  warningTone: ThemedColor.value(Color(0xFFEABB4B)),",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.mutedForeground)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 374,
+      "type": "Color(0x...)",
+      "value": "0xFFEF5E5E",
+      "context": "  successTone: ThemedColor.value(Color(0xFF63C65E)),\n  loadingTone: ThemedColor.value(Color(0xFF8A8F98)),\n  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),\n  warningTone: ThemedColor.value(Color(0xFFEABB4B)),\n  infoTone: ThemedColor.value(Color(0xFF6EA8FF)),",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.destructive)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 375,
+      "type": "Color(0x...)",
+      "value": "0xFFEABB4B",
+      "context": "  loadingTone: ThemedColor.value(Color(0xFF8A8F98)),\n  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),\n  warningTone: ThemedColor.value(Color(0xFFEABB4B)),\n  infoTone: ThemedColor.value(Color(0xFF6EA8FF)),\n  actionTone: ThemedColor.value(Color(0xFF7A8DFF)),",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.chart4)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 376,
+      "type": "Color(0x...)",
+      "value": "0xFF6EA8FF",
+      "context": "  errorTone: ThemedColor.value(Color(0xFFEF5E5E)),\n  warningTone: ThemedColor.value(Color(0xFFEABB4B)),\n  infoTone: ThemedColor.value(Color(0xFF6EA8FF)),\n  actionTone: ThemedColor.value(Color(0xFF7A8DFF)),\n);",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.chart2)"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast_style.dart",
+      "line": 377,
+      "type": "Color(0x...)",
+      "value": "0xFF7A8DFF",
+      "context": "  warningTone: ThemedColor.value(Color(0xFFEABB4B)),\n  infoTone: ThemedColor.value(Color(0xFF6EA8FF)),\n  actionTone: ThemedColor.value(Color(0xFF7A8DFF)),\n);\n",
+      "classification": "fix",
+      "should_be": "ThemedColor.ref(ColorRef.chart5)"
+    },
+    {
+      "file": "lib/registry/components/button/preview.dart",
+      "line": 179,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/button/preview.dart",
+      "line": 182,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                    ),\n                    child: ColoredBox(\n                      color: ShadcnColors.darkFallback.background,\n                      child: Padding(\n                        padding: const EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/steps/preview.dart",
+      "line": 93,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return const ShadcnTheme(\n      data: ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: Steps(\n        children: <Widget>[",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dropzone/preview.dart",
+      "line": 76,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dropzone/preview.dart",
+      "line": 78,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const Dropzone(state: DropzoneState.error),\n      ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dropzone/dropzone_theme.dart",
+      "line": 12,
+      "type": "Color(0x...)",
+      "value": "0xFFD97706",
+      "context": "//     borderColor: StateValue(\n//       rest: ThemedColor.ref(ColorRef.border),\n//       selected: ThemedColor.value(Color(0xFFD97706)),\n//     ),\n//     borderRadius: BorderRadius.all(Radius.circular(4)),",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 31,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "              height: 140,\n              child: ColorField(\n                color: const Color(0xFF2563EB),\n                saturationAxis: ColorFieldAxis.horizontal,\n                valueAxis: ColorFieldAxis.vertical,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 41,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "              height: 24,\n              child: ColorField(\n                color: Color(0xFF2563EB),\n                hueAxis: ColorFieldAxis.horizontal,\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 51,
+      "type": "Color(0x...)",
+      "value": "0x8022C55E",
+      "context": "              height: 140,\n              child: ColorField(\n                color: Color(0x8022C55E),\n                mode: ColorFieldMode.hsl,\n                saturationAxis: ColorFieldAxis.horizontal,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 62,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "              height: 24,\n              child: ColorField(\n                color: Color(0xFF2563EB),\n                alphaAxis: ColorFieldAxis.horizontal,\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 69,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            _label(theme, 'Dark palette'),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: const SizedBox(\n                width: 240,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/preview.dart",
+      "line": 74,
+      "type": "Color(0x...)",
+      "value": "0xFF22C55E",
+      "context": "                height: 80,\n                child: ColorField(\n                  color: Color(0xFF22C55E),\n                  hueAxis: ColorFieldAxis.horizontal,\n                  saturationAxis: ColorFieldAxis.vertical,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_field/color_field.dart",
+      "line": 43,
+      "type": "Color(0x...)",
+      "value": "0xFF0000FF",
+      "context": "///   height: 160,\n///   child: ColorField(\n///     color: const Color(0xFF0000FF),\n///     saturationAxis: ColorFieldAxis.horizontal,\n///     valueAxis: ColorFieldAxis.vertical,",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/table/preview.dart",
+      "line": 96,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: Builder(builder: (context) => _grid()),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/table/table.dart",
+      "line": 128,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "  TextDirection _textDirection = TextDirection.ltr;\n  double _resizerThickness = 4;\n  Color _resizerColor = const Color(0xFF000000);\n  final ValueNotifier<TableCellRange?> _hoveredCellNotifier = ValueNotifier(\n    null,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/collapsible/preview.dart",
+      "line": 102,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: _uncontrolled(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/window/preview.dart",
+      "line": 43,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "        height: 460,\n        child: ShadcnTheme(\n          data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n          child: Builder(\n            builder: (BuildContext context) => WindowNavigator(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/navigation_bar/preview.dart",
+      "line": 133,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/navigation_bar/preview.dart",
+      "line": 135,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: NavigationBar(\n          labelType: NavigationLabelType.all,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/preview.dart",
+      "line": 26,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "\nclass _ColorInputPreviewState extends State<ColorInputPreview> {\n  ColorDerivative _value = ColorDerivative.fromColor(const Color(0xFF2563EB));\n\n  void _set(ColorDerivative next) => setState(() => _value = next);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/preview.dart",
+      "line": 40,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "          child: RecentColorsScope(\n            initialRecentColors: const <Color>[\n              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/preview.dart",
+      "line": 41,
+      "type": "Color(0x...)",
+      "value": "0xFF22C55E",
+      "context": "            initialRecentColors: const <Color>[\n              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),\n            ],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/preview.dart",
+      "line": 42,
+      "type": "Color(0x...)",
+      "value": "0xFFE11D48",
+      "context": "              Color(0xFF2563EB),\n              Color(0xFF22C55E),\n              Color(0xFFE11D48),\n            ],\n            child: Column(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/preview.dart",
+      "line": 81,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: SizedBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/color_input.dart",
+      "line": 49,
+      "type": "Color(0x...)",
+      "value": "0xFF2563EB",
+      "context": "/// ```dart\n/// ColorInput(\n///   value: ColorDerivative.fromColor(const Color(0xFF2563EB)),\n///   showAlpha: true,\n///   onChanged: (value) => setState(() => _color = value),",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/color_input/color_input.dart",
+      "line": 219,
+      "type": "Color(0x...)",
+      "value": "0x80000000",
+      "context": "      barrierDismissible: true,\n      barrierLabel: ShadcnLocalizations.of(context).dialogDismiss,\n      barrierColor: const Color(0x80000000),\n      transitionDuration: const Duration(milliseconds: 150),\n      pageBuilder:",
+      "classification": "allowed",
+      "reason": "modal barrier colour defined by the spec",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/divider/preview.dart",
+      "line": 102,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: const SizedBox(width: 320, child: Divider(label: Text('dark'))),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/preview.dart",
+      "line": 26,
+      "type": "Color(0x...)",
+      "value": "0xFF2196F3",
+      "context": "            child: RecentColorsScope(\n              initialRecentColors: const <Color>[\n                Color(0xFF2196F3),\n                Color(0xFF9C27B0),\n                Color(0x80FF5722),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/preview.dart",
+      "line": 27,
+      "type": "Color(0x...)",
+      "value": "0xFF9C27B0",
+      "context": "              initialRecentColors: const <Color>[\n                Color(0xFF2196F3),\n                Color(0xFF9C27B0),\n                Color(0x80FF5722),\n              ],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/preview.dart",
+      "line": 28,
+      "type": "Color(0x...)",
+      "value": "0x80FF5722",
+      "context": "                Color(0xFF2196F3),\n                Color(0xFF9C27B0),\n                Color(0x80FF5722),\n              ],\n              child: Builder(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/preview.dart",
+      "line": 34,
+      "type": "Color(0x...)",
+      "value": "0xFF2196F3",
+      "context": "                  return ColorHistoryGrid(\n                    storage: ColorHistoryStorage.of(context),\n                    selectedColor: const Color(0xFF2196F3),\n                    crossAxisCount: 5,\n                  );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 93,
+      "type": "Colors.*",
+      "value": "Colors.addAll",
+      "context": "  void initState() {\n    super.initState();\n    _recentColors.addAll(\n      widget.initialRecentColors.take(widget.maxRecentColors),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 94,
+      "type": "Colors.*",
+      "value": "Colors.take",
+      "context": "    super.initState();\n    _recentColors.addAll(\n      widget.initialRecentColors.take(widget.maxRecentColors),\n    );\n  }",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 107,
+      "type": "Colors.*",
+      "value": "Colors.removeWhere",
+      "context": "  void addHistory(Color color) {\n    final value = color.toARGB32();\n    _recentColors.removeWhere((c) => c.toARGB32() == value);\n    _recentColors.insert(0, color);\n    if (_recentColors.length > capacity) {",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 108,
+      "type": "Colors.*",
+      "value": "Colors.insert",
+      "context": "    final value = color.toARGB32();\n    _recentColors.removeWhere((c) => c.toARGB32() == value);\n    _recentColors.insert(0, color);\n    if (_recentColors.length > capacity) {\n      _recentColors.removeRange(capacity, _recentColors.length);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 109,
+      "type": "Colors.*",
+      "value": "Colors.length",
+      "context": "    _recentColors.removeWhere((c) => c.toARGB32() == value);\n    _recentColors.insert(0, color);\n    if (_recentColors.length > capacity) {\n      _recentColors.removeRange(capacity, _recentColors.length);\n    }",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 110,
+      "type": "Colors.*",
+      "value": "Colors.removeRange",
+      "context": "    _recentColors.insert(0, color);\n    if (_recentColors.length > capacity) {\n      _recentColors.removeRange(capacity, _recentColors.length);\n    }\n    widget.onRecentColorsChanged?.call(recentColors);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 110,
+      "type": "Colors.*",
+      "value": "Colors.length",
+      "context": "    _recentColors.insert(0, color);\n    if (_recentColors.length > capacity) {\n      _recentColors.removeRange(capacity, _recentColors.length);\n    }\n    widget.onRecentColorsChanged?.call(recentColors);",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 118,
+      "type": "Colors.*",
+      "value": "Colors.clear",
+      "context": "  @override\n  void clear() {\n    _recentColors.clear();\n    widget.onRecentColorsChanged?.call(recentColors);\n    _notifier.notify();",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/history/history.dart",
+      "line": 256,
+      "type": "Colors.*",
+      "value": "Colors.length",
+      "context": "            for (int j = 0; j < crossAxisCount; j++) {\n              final index = i + j;\n              final Color? color = index < storage.recentColors.length\n                  ? storage.recentColors[index]\n                  : null;",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/avatar/avatar_theme.dart",
+      "line": 11,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "//   const AvatarTheme avatarThemeOverrides = AvatarTheme(\n//     backgroundColor: ThemedColor.ref(ColorRef.secondary),\n//     badgeColor: ThemedColor.value(Color(0xFF16A34A)),\n//   );\n",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/scrollable/preview.dart",
+      "line": 79,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: _vertical(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollable/scrollable.dart",
+      "line": 152,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "            colors: const <Color>[\n              Color(0x00000000),\n              Color(0xFF000000),\n              Color(0xFF000000),\n              Color(0x00000000),",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/scrollable/scrollable.dart",
+      "line": 153,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "              Color(0x00000000),\n              Color(0xFF000000),\n              Color(0xFF000000),\n              Color(0x00000000),\n            ],",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/item_picker/preview.dart",
+      "line": 69,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: ItemPickerDialog<String>(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/item_picker/preview.dart",
+      "line": 115,
+      "type": "Color(0x...)",
+      "value": "0xFFDC2626",
+      "context": "  Widget build(BuildContext context) {\n    final Color color = switch (name) {\n      'Red' => const Color(0xFFDC2626),\n      'Green' => const Color(0xFF16A34A),\n      _ => const Color(0xFF6B7280),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/item_picker/preview.dart",
+      "line": 116,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "    final Color color = switch (name) {\n      'Red' => const Color(0xFFDC2626),\n      'Green' => const Color(0xFF16A34A),\n      _ => const Color(0xFF6B7280),\n    };",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/item_picker/preview.dart",
+      "line": 117,
+      "type": "Color(0x...)",
+      "value": "0xFF6B7280",
+      "context": "      'Red' => const Color(0xFFDC2626),\n      'Green' => const Color(0xFF16A34A),\n      _ => const Color(0xFF6B7280),\n    };\n    return SizedBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/switch/preview.dart",
+      "line": 95,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/switch/preview.dart",
+      "line": 97,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const Padding(\n          padding: EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/resizable/preview.dart",
+      "line": 125,
+      "type": "Color(0x...)",
+      "value": "0x11000000",
+      "context": "      alignment: Alignment.center,\n      padding: const EdgeInsets.all(8),\n      color: const Color(0x11000000),\n      child: Text(label, textAlign: TextAlign.center),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/resizable/preview.dart",
+      "line": 172,
+      "type": "Color(0x...)",
+      "value": "0x11000000",
+      "context": "            child: Container(\n              alignment: Alignment.center,\n              color: const Color(0x11000000),\n              child: Text('size ${_controller.value.round()}'),\n            ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/resizable/preview.dart",
+      "line": 181,
+      "type": "Color(0x...)",
+      "value": "0x08000000",
+      "context": "            child: Container(\n              alignment: Alignment.center,\n              color: const Color(0x08000000),\n              child: const Text('flex'),\n            ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/dot_indicator/preview.dart",
+      "line": 105,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 16),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/anchor/preview.dart",
+      "line": 85,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 12),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/outlined_container/preview.dart",
+      "line": 117,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: _default(),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/error_system/preview.dart",
+      "line": 69,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                  ShadcnTheme(\n                    data: const ShadcnThemeData(\n                      colors: ShadcnColors.darkFallback,\n                    ),\n                    child: ErrorState(error: _error),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/number_ticker/number_ticker.dart",
+      "line": 323,
+      "type": "Color(0x...)",
+      "value": "0x00FFFFFF",
+      "context": "          end: Alignment.bottomCenter,\n          colors: const <Color>[\n            Color(0x00FFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0xFFFFFFFF),",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/number_ticker/number_ticker.dart",
+      "line": 324,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "          colors: const <Color>[\n            Color(0x00FFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0x00FFFFFF),",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/number_ticker/number_ticker.dart",
+      "line": 325,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "            Color(0x00FFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0x00FFFFFF),\n          ],",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/number_ticker/number_ticker.dart",
+      "line": 326,
+      "type": "Color(0x...)",
+      "value": "0x00FFFFFF",
+      "context": "            Color(0xFFFFFFFF),\n            Color(0xFFFFFFFF),\n            Color(0x00FFFFFF),\n          ],\n          stops: <double>[0, edge, 1 - edge, 1],",
+      "classification": "fix",
+      "should_be": "resolve from ShadcnTheme.of(context).colors.background"
+    },
+    {
+      "file": "lib/registry/components/number_ticker/preview.dart",
+      "line": 69,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: NumberTicker(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/number_ticker/preview.dart",
+      "line": 90,
+      "type": "Color(0x...)",
+      "value": "0xFF888888",
+      "context": "                        ),\n                        decoration: BoxDecoration(\n                          border: Border.all(color: const Color(0xFF888888)),\n                          borderRadius: BorderRadius.circular(6),\n                        ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/breadcrumb/preview.dart",
+      "line": 78,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return const ShadcnTheme(\n      data: ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: Breadcrumb(\n        children: <Widget>[Text('Home'), Text('Account'), Text('Security')],",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/backdrop_transform/preview.dart",
+      "line": 102,
+      "type": "Color(0x...)",
+      "value": "0x22000000",
+      "context": "              child: BackdropTransform.none.wrapBackdrop(\n                context,\n                const ColoredBox(color: Color(0x22000000)),\n                _t,\n              ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/backdrop_transform/preview.dart",
+      "line": 108,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            const SizedBox(height: 16),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: Builder(\n                builder: (context) => ColoredBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/phone_input/preview.dart",
+      "line": 70,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            _label(theme, 'Dark palette'),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: PhoneInput(\n                initialValue: _value,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scaffold/preview.dart",
+      "line": 79,
+      "type": "Color(0x...)",
+      "value": "0xFF334155",
+      "context": "                    ],\n                    child: const ColoredBox(\n                      color: Color(0xFF334155),\n                      child: Center(child: Text('Full-bleed body')),\n                    ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scaffold/preview.dart",
+      "line": 90,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: SizedBox(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/file_picker/preview.dart",
+      "line": 131,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/file_picker/preview.dart",
+      "line": 133,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: FileUpload(\n          variant: FileUploadVariant.tile,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/file_diff_viewer/preview.dart",
+      "line": 137,
+      "type": "Color(0x...)",
+      "value": "0xFF16A34A",
+      "context": "              ComponentTheme<FileDiffViewerTheme>(\n                data: const FileDiffViewerTheme(\n                  additionColor: ThemedColor.value(Color(0xFF16A34A)),\n                  borderRadius: BorderRadius.all(Radius.circular(4)),\n                ),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/timeline/preview.dart",
+      "line": 55,
+      "type": "Color(0x...)",
+      "value": "0xFFE7000B",
+      "context": "                    title: Text('Design review'),\n                    content: Text('Review the first concept batch.'),\n                    color: ThemedColor.value(Color(0xFFE7000B)),\n                  ),\n                  TimelineData(",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/alpha/alpha.dart",
+      "line": 20,
+      "type": "Color(0x...)",
+      "value": "0xFFE0E0E0",
+      "context": "\n  /// Primary color used in the checkerboard pattern.\n  static const Color checkboardPrimary = Color(0xFFE0E0E0);\n\n  /// Secondary color used in the checkerboard pattern.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/alpha/alpha.dart",
+      "line": 20,
+      "type": "const Color default",
+      "value": "const Color checkboardPrimary = Color(0xFFE0E0E0)",
+      "context": "\n  /// Primary color used in the checkerboard pattern.\n  static const Color checkboardPrimary = Color(0xFFE0E0E0);\n\n  /// Secondary color used in the checkerboard pattern.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/alpha/alpha.dart",
+      "line": 23,
+      "type": "Color(0x...)",
+      "value": "0xFFB0B0B0",
+      "context": "\n  /// Secondary color used in the checkerboard pattern.\n  static const Color checkboardSecondary = Color(0xFFB0B0B0);\n\n  /// Size of each square in the checkerboard pattern.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/alpha/alpha.dart",
+      "line": 23,
+      "type": "const Color default",
+      "value": "const Color checkboardSecondary = Color(0xFFB0B0B0)",
+      "context": "\n  /// Secondary color used in the checkerboard pattern.\n  static const Color checkboardSecondary = Color(0xFFB0B0B0);\n\n  /// Size of each square in the checkerboard pattern.",
+      "classification": "allowed",
+      "should_be": null,
+      "reason": "doc-comment reference, not painted code"
+    },
+    {
+      "file": "lib/registry/components/keyboard_shortcut/preview.dart",
+      "line": 81,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/keyboard_shortcut/preview.dart",
+      "line": 83,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: const Padding(\n          padding: EdgeInsets.all(12),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/scrollbar/preview.dart",
+      "line": 93,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: _sample(thumbVisibility: true),\n    );",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/code_snippet/preview.dart",
+      "line": 58,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "                ShadcnTheme(\n                  data: const ShadcnThemeData(\n                    colors: ShadcnColors.darkFallback,\n                  ),\n                  child: const CodeSnippet(code: Text('dark = true;')),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/badge/preview.dart",
+      "line": 95,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "  Widget _dark() {\n    return ShadcnTheme(\n      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/badge/preview.dart",
+      "line": 97,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "      data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n      child: ColoredBox(\n        color: ShadcnColors.darkFallback.background,\n        child: Padding(\n          padding: const EdgeInsets.all(16),",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/components/filter_bar/preview.dart",
+      "line": 163,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "            _label(theme, 'Dark palette'),\n            ShadcnTheme(\n              data: const ShadcnThemeData(colors: ShadcnColors.darkFallback),\n              child: SizedBox(\n                width: 720,",
+      "classification": "preview-or-demo",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 35,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "class Colors {\n  /// Pure black.\n  static const Color black = Color(0xFF000000);\n\n  /// Pure white.",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 35,
+      "type": "const Color default",
+      "value": "const Color black = Color(0xFF000000)",
+      "context": "class Colors {\n  /// Pure black.\n  static const Color black = Color(0xFF000000);\n\n  /// Pure white.",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 38,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "\n  /// Pure white.\n  static const Color white = Color(0xFFFFFFFF);\n\n  /// Fully transparent.",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 38,
+      "type": "const Color default",
+      "value": "const Color white = Color(0xFFFFFFFF)",
+      "context": "\n  /// Pure white.\n  static const Color white = Color(0xFFFFFFFF);\n\n  /// Fully transparent.",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 41,
+      "type": "const Color default",
+      "value": "const Color transparent = Color(0x00000000)",
+      "context": "\n  /// Fully transparent.\n  static const Color transparent = Color(0x00000000);\n}\n",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 117,
+      "type": "Color(0x...)",
+      "value": "0xFF000000",
+      "context": "  /// vs 0x61 \u2014 halving/doubling an even byte cannot hit odd remainders).\n  factory ShadowScale.derive({\n    Color color = const Color(0xFF000000),\n    double opacity = 0.15,\n    double blur = 25.5,",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 231,
+      "type": "Color(0x...)",
+      "value": "0x12000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x12000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 239,
+      "type": "Color(0x...)",
+      "value": "0x12000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x12000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 247,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x26000000),\n    ),\n    BoxShadow(",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 253,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 2,\n      spreadRadius: -31,\n      color: Color(0x26000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 261,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x26000000),\n    ),\n    BoxShadow(",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 267,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 2,\n      spreadRadius: -31,\n      color: Color(0x26000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 275,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x26000000),\n    ),\n    BoxShadow(",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 281,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 4,\n      spreadRadius: -31,\n      color: Color(0x26000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 289,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x26000000),\n    ),\n    BoxShadow(",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 295,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 6,\n      spreadRadius: -31,\n      color: Color(0x26000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 303,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x26000000),\n    ),\n    BoxShadow(",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 309,
+      "type": "Color(0x...)",
+      "value": "0x26000000",
+      "context": "      blurRadius: 10,\n      spreadRadius: -31,\n      color: Color(0x26000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/tokens.dart",
+      "line": 317,
+      "type": "Color(0x...)",
+      "value": "0x61000000",
+      "context": "      blurRadius: 25.5,\n      spreadRadius: -30,\n      color: Color(0x61000000),\n    ),\n  ],",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 124,
+      "type": "Color(0x...)",
+      "value": "0xFF24292F",
+      "context": "  /// github-light palette.\n  static const SyntaxColors light = SyntaxColors(\n    plain: Color(0xFF24292F),\n    keyword: Color(0xFFCF222E),\n    type: Color(0xFF953800),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 125,
+      "type": "Color(0x...)",
+      "value": "0xFFCF222E",
+      "context": "  static const SyntaxColors light = SyntaxColors(\n    plain: Color(0xFF24292F),\n    keyword: Color(0xFFCF222E),\n    type: Color(0xFF953800),\n    function: Color(0xFF8250DF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 126,
+      "type": "Color(0x...)",
+      "value": "0xFF953800",
+      "context": "    plain: Color(0xFF24292F),\n    keyword: Color(0xFFCF222E),\n    type: Color(0xFF953800),\n    function: Color(0xFF8250DF),\n    string: Color(0xFF0A3069),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 127,
+      "type": "Color(0x...)",
+      "value": "0xFF8250DF",
+      "context": "    keyword: Color(0xFFCF222E),\n    type: Color(0xFF953800),\n    function: Color(0xFF8250DF),\n    string: Color(0xFF0A3069),\n    number: Color(0xFF0550AE),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 128,
+      "type": "Color(0x...)",
+      "value": "0xFF0A3069",
+      "context": "    type: Color(0xFF953800),\n    function: Color(0xFF8250DF),\n    string: Color(0xFF0A3069),\n    number: Color(0xFF0550AE),\n    comment: Color(0xFF6E7781),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 129,
+      "type": "Color(0x...)",
+      "value": "0xFF0550AE",
+      "context": "    function: Color(0xFF8250DF),\n    string: Color(0xFF0A3069),\n    number: Color(0xFF0550AE),\n    comment: Color(0xFF6E7781),\n    operator: Color(0xFF57606A),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 130,
+      "type": "Color(0x...)",
+      "value": "0xFF6E7781",
+      "context": "    string: Color(0xFF0A3069),\n    number: Color(0xFF0550AE),\n    comment: Color(0xFF6E7781),\n    operator: Color(0xFF57606A),\n    annotation: Color(0xFF953800),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 131,
+      "type": "Color(0x...)",
+      "value": "0xFF57606A",
+      "context": "    number: Color(0xFF0550AE),\n    comment: Color(0xFF6E7781),\n    operator: Color(0xFF57606A),\n    annotation: Color(0xFF953800),\n    variable: Color(0xFF24292F),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 132,
+      "type": "Color(0x...)",
+      "value": "0xFF953800",
+      "context": "    comment: Color(0xFF6E7781),\n    operator: Color(0xFF57606A),\n    annotation: Color(0xFF953800),\n    variable: Color(0xFF24292F),\n    constant: Color(0xFF0550AE),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 133,
+      "type": "Color(0x...)",
+      "value": "0xFF24292F",
+      "context": "    operator: Color(0xFF57606A),\n    annotation: Color(0xFF953800),\n    variable: Color(0xFF24292F),\n    constant: Color(0xFF0550AE),\n    tag: Color(0xFF116329),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 134,
+      "type": "Color(0x...)",
+      "value": "0xFF0550AE",
+      "context": "    annotation: Color(0xFF953800),\n    variable: Color(0xFF24292F),\n    constant: Color(0xFF0550AE),\n    tag: Color(0xFF116329),\n    attribute: Color(0xFF0550AE),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 135,
+      "type": "Color(0x...)",
+      "value": "0xFF116329",
+      "context": "    variable: Color(0xFF24292F),\n    constant: Color(0xFF0550AE),\n    tag: Color(0xFF116329),\n    attribute: Color(0xFF0550AE),\n  );",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 136,
+      "type": "Color(0x...)",
+      "value": "0xFF0550AE",
+      "context": "    constant: Color(0xFF0550AE),\n    tag: Color(0xFF116329),\n    attribute: Color(0xFF0550AE),\n  );\n",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 141,
+      "type": "Color(0x...)",
+      "value": "0xFFE6EDF3",
+      "context": "  /// github-dark palette.\n  static const SyntaxColors dark = SyntaxColors(\n    plain: Color(0xFFE6EDF3),\n    keyword: Color(0xFFFF7B72),\n    type: Color(0xFFFFA657),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 142,
+      "type": "Color(0x...)",
+      "value": "0xFFFF7B72",
+      "context": "  static const SyntaxColors dark = SyntaxColors(\n    plain: Color(0xFFE6EDF3),\n    keyword: Color(0xFFFF7B72),\n    type: Color(0xFFFFA657),\n    function: Color(0xFFD2A8FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 143,
+      "type": "Color(0x...)",
+      "value": "0xFFFFA657",
+      "context": "    plain: Color(0xFFE6EDF3),\n    keyword: Color(0xFFFF7B72),\n    type: Color(0xFFFFA657),\n    function: Color(0xFFD2A8FF),\n    string: Color(0xFFA5D6FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 144,
+      "type": "Color(0x...)",
+      "value": "0xFFD2A8FF",
+      "context": "    keyword: Color(0xFFFF7B72),\n    type: Color(0xFFFFA657),\n    function: Color(0xFFD2A8FF),\n    string: Color(0xFFA5D6FF),\n    number: Color(0xFF79C0FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 145,
+      "type": "Color(0x...)",
+      "value": "0xFFA5D6FF",
+      "context": "    type: Color(0xFFFFA657),\n    function: Color(0xFFD2A8FF),\n    string: Color(0xFFA5D6FF),\n    number: Color(0xFF79C0FF),\n    comment: Color(0xFF8B949E),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 146,
+      "type": "Color(0x...)",
+      "value": "0xFF79C0FF",
+      "context": "    function: Color(0xFFD2A8FF),\n    string: Color(0xFFA5D6FF),\n    number: Color(0xFF79C0FF),\n    comment: Color(0xFF8B949E),\n    operator: Color(0xFFC9D1D9),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 147,
+      "type": "Color(0x...)",
+      "value": "0xFF8B949E",
+      "context": "    string: Color(0xFFA5D6FF),\n    number: Color(0xFF79C0FF),\n    comment: Color(0xFF8B949E),\n    operator: Color(0xFFC9D1D9),\n    annotation: Color(0xFFFFA657),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 148,
+      "type": "Color(0x...)",
+      "value": "0xFFC9D1D9",
+      "context": "    number: Color(0xFF79C0FF),\n    comment: Color(0xFF8B949E),\n    operator: Color(0xFFC9D1D9),\n    annotation: Color(0xFFFFA657),\n    variable: Color(0xFFE6EDF3),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 149,
+      "type": "Color(0x...)",
+      "value": "0xFFFFA657",
+      "context": "    comment: Color(0xFF8B949E),\n    operator: Color(0xFFC9D1D9),\n    annotation: Color(0xFFFFA657),\n    variable: Color(0xFFE6EDF3),\n    constant: Color(0xFF79C0FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 150,
+      "type": "Color(0x...)",
+      "value": "0xFFE6EDF3",
+      "context": "    operator: Color(0xFFC9D1D9),\n    annotation: Color(0xFFFFA657),\n    variable: Color(0xFFE6EDF3),\n    constant: Color(0xFF79C0FF),\n    tag: Color(0xFF7EE787),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 151,
+      "type": "Color(0x...)",
+      "value": "0xFF79C0FF",
+      "context": "    annotation: Color(0xFFFFA657),\n    variable: Color(0xFFE6EDF3),\n    constant: Color(0xFF79C0FF),\n    tag: Color(0xFF7EE787),\n    attribute: Color(0xFF79C0FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 152,
+      "type": "Color(0x...)",
+      "value": "0xFF7EE787",
+      "context": "    variable: Color(0xFFE6EDF3),\n    constant: Color(0xFF79C0FF),\n    tag: Color(0xFF7EE787),\n    attribute: Color(0xFF79C0FF),\n  );",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 153,
+      "type": "Color(0x...)",
+      "value": "0xFF79C0FF",
+      "context": "    constant: Color(0xFF79C0FF),\n    tag: Color(0xFF7EE787),\n    attribute: Color(0xFF79C0FF),\n  );\n",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/syntax_colors.dart",
+      "line": 157,
+      "type": "Colors.*",
+      "value": "Colors.forBrightness",
+      "context": "\n  /// The palette for [brightness].\n  factory SyntaxColors.forBrightness(Brightness brightness) =>\n      brightness == Brightness.dark ? dark : light;\n",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 288,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "  static const ShadcnColors lightFallback = ShadcnColors(\n    brightness: Brightness.light,\n    background: Color(0xFFFFFFFF),\n    foreground: Color(0xFF0A0A0A),\n    card: Color(0xFFFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 289,
+      "type": "Color(0x...)",
+      "value": "0xFF0A0A0A",
+      "context": "    brightness: Brightness.light,\n    background: Color(0xFFFFFFFF),\n    foreground: Color(0xFF0A0A0A),\n    card: Color(0xFFFFFFFF),\n    cardForeground: Color(0xFF0A0A0A),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 290,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    background: Color(0xFFFFFFFF),\n    foreground: Color(0xFF0A0A0A),\n    card: Color(0xFFFFFFFF),\n    cardForeground: Color(0xFF0A0A0A),\n    popover: Color(0xFFFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 291,
+      "type": "Color(0x...)",
+      "value": "0xFF0A0A0A",
+      "context": "    foreground: Color(0xFF0A0A0A),\n    card: Color(0xFFFFFFFF),\n    cardForeground: Color(0xFF0A0A0A),\n    popover: Color(0xFFFFFFFF),\n    popoverForeground: Color(0xFF0A0A0A),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 292,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    card: Color(0xFFFFFFFF),\n    cardForeground: Color(0xFF0A0A0A),\n    popover: Color(0xFFFFFFFF),\n    popoverForeground: Color(0xFF0A0A0A),\n    primary: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 293,
+      "type": "Color(0x...)",
+      "value": "0xFF0A0A0A",
+      "context": "    cardForeground: Color(0xFF0A0A0A),\n    popover: Color(0xFFFFFFFF),\n    popoverForeground: Color(0xFF0A0A0A),\n    primary: Color(0xFF171717),\n    primaryForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 294,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    popover: Color(0xFFFFFFFF),\n    popoverForeground: Color(0xFF0A0A0A),\n    primary: Color(0xFF171717),\n    primaryForeground: Color(0xFFFAFAFA),\n    secondary: Color(0xFFF5F5F5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 295,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    popoverForeground: Color(0xFF0A0A0A),\n    primary: Color(0xFF171717),\n    primaryForeground: Color(0xFFFAFAFA),\n    secondary: Color(0xFFF5F5F5),\n    secondaryForeground: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 296,
+      "type": "Color(0x...)",
+      "value": "0xFFF5F5F5",
+      "context": "    primary: Color(0xFF171717),\n    primaryForeground: Color(0xFFFAFAFA),\n    secondary: Color(0xFFF5F5F5),\n    secondaryForeground: Color(0xFF171717),\n    muted: Color(0xFFF5F5F5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 297,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    primaryForeground: Color(0xFFFAFAFA),\n    secondary: Color(0xFFF5F5F5),\n    secondaryForeground: Color(0xFF171717),\n    muted: Color(0xFFF5F5F5),\n    mutedForeground: Color(0xFF737373),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 298,
+      "type": "Color(0x...)",
+      "value": "0xFFF5F5F5",
+      "context": "    secondary: Color(0xFFF5F5F5),\n    secondaryForeground: Color(0xFF171717),\n    muted: Color(0xFFF5F5F5),\n    mutedForeground: Color(0xFF737373),\n    accent: Color(0xFFF5F5F5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 299,
+      "type": "Color(0x...)",
+      "value": "0xFF737373",
+      "context": "    secondaryForeground: Color(0xFF171717),\n    muted: Color(0xFFF5F5F5),\n    mutedForeground: Color(0xFF737373),\n    accent: Color(0xFFF5F5F5),\n    accentForeground: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 300,
+      "type": "Color(0x...)",
+      "value": "0xFFF5F5F5",
+      "context": "    muted: Color(0xFFF5F5F5),\n    mutedForeground: Color(0xFF737373),\n    accent: Color(0xFFF5F5F5),\n    accentForeground: Color(0xFF171717),\n    destructive: Color(0xFFE7000B),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 301,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    mutedForeground: Color(0xFF737373),\n    accent: Color(0xFFF5F5F5),\n    accentForeground: Color(0xFF171717),\n    destructive: Color(0xFFE7000B),\n    destructiveForeground: Color(0xFFFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 302,
+      "type": "Color(0x...)",
+      "value": "0xFFE7000B",
+      "context": "    accent: Color(0xFFF5F5F5),\n    accentForeground: Color(0xFF171717),\n    destructive: Color(0xFFE7000B),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0xFFE5E5E5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 303,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    accentForeground: Color(0xFF171717),\n    destructive: Color(0xFFE7000B),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0xFFE5E5E5),\n    input: Color(0xFFE5E5E5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 304,
+      "type": "Color(0x...)",
+      "value": "0xFFE5E5E5",
+      "context": "    destructive: Color(0xFFE7000B),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0xFFE5E5E5),\n    input: Color(0xFFE5E5E5),\n    ring: Color(0xFFA1A1A1),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 305,
+      "type": "Color(0x...)",
+      "value": "0xFFE5E5E5",
+      "context": "    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0xFFE5E5E5),\n    input: Color(0xFFE5E5E5),\n    ring: Color(0xFFA1A1A1),\n    chart1: Color(0xFFF54900),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 306,
+      "type": "Color(0x...)",
+      "value": "0xFFA1A1A1",
+      "context": "    border: Color(0xFFE5E5E5),\n    input: Color(0xFFE5E5E5),\n    ring: Color(0xFFA1A1A1),\n    chart1: Color(0xFFF54900),\n    chart2: Color(0xFF009689),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 307,
+      "type": "Color(0x...)",
+      "value": "0xFFF54900",
+      "context": "    input: Color(0xFFE5E5E5),\n    ring: Color(0xFFA1A1A1),\n    chart1: Color(0xFFF54900),\n    chart2: Color(0xFF009689),\n    chart3: Color(0xFF104E64),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 308,
+      "type": "Color(0x...)",
+      "value": "0xFF009689",
+      "context": "    ring: Color(0xFFA1A1A1),\n    chart1: Color(0xFFF54900),\n    chart2: Color(0xFF009689),\n    chart3: Color(0xFF104E64),\n    chart4: Color(0xFFFFB900),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 309,
+      "type": "Color(0x...)",
+      "value": "0xFF104E64",
+      "context": "    chart1: Color(0xFFF54900),\n    chart2: Color(0xFF009689),\n    chart3: Color(0xFF104E64),\n    chart4: Color(0xFFFFB900),\n    chart5: Color(0xFFFE9A00),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 310,
+      "type": "Color(0x...)",
+      "value": "0xFFFFB900",
+      "context": "    chart2: Color(0xFF009689),\n    chart3: Color(0xFF104E64),\n    chart4: Color(0xFFFFB900),\n    chart5: Color(0xFFFE9A00),\n    sidebar: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 311,
+      "type": "Color(0x...)",
+      "value": "0xFFFE9A00",
+      "context": "    chart3: Color(0xFF104E64),\n    chart4: Color(0xFFFFB900),\n    chart5: Color(0xFFFE9A00),\n    sidebar: Color(0xFFFAFAFA),\n    sidebarForeground: Color(0xFF0A0A0A),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 312,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    chart4: Color(0xFFFFB900),\n    chart5: Color(0xFFFE9A00),\n    sidebar: Color(0xFFFAFAFA),\n    sidebarForeground: Color(0xFF0A0A0A),\n    sidebarPrimary: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 313,
+      "type": "Color(0x...)",
+      "value": "0xFF0A0A0A",
+      "context": "    chart5: Color(0xFFFE9A00),\n    sidebar: Color(0xFFFAFAFA),\n    sidebarForeground: Color(0xFF0A0A0A),\n    sidebarPrimary: Color(0xFF171717),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 314,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    sidebar: Color(0xFFFAFAFA),\n    sidebarForeground: Color(0xFF0A0A0A),\n    sidebarPrimary: Color(0xFF171717),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFFF5F5F5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 315,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    sidebarForeground: Color(0xFF0A0A0A),\n    sidebarPrimary: Color(0xFF171717),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFFF5F5F5),\n    sidebarAccentForeground: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 316,
+      "type": "Color(0x...)",
+      "value": "0xFFF5F5F5",
+      "context": "    sidebarPrimary: Color(0xFF171717),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFFF5F5F5),\n    sidebarAccentForeground: Color(0xFF171717),\n    sidebarBorder: Color(0xFFE5E5E5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 317,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFFF5F5F5),\n    sidebarAccentForeground: Color(0xFF171717),\n    sidebarBorder: Color(0xFFE5E5E5),\n    sidebarRing: Color(0xFFA1A1A1),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 318,
+      "type": "Color(0x...)",
+      "value": "0xFFE5E5E5",
+      "context": "    sidebarAccent: Color(0xFFF5F5F5),\n    sidebarAccentForeground: Color(0xFF171717),\n    sidebarBorder: Color(0xFFE5E5E5),\n    sidebarRing: Color(0xFFA1A1A1),\n  );",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 319,
+      "type": "Color(0x...)",
+      "value": "0xFFA1A1A1",
+      "context": "    sidebarAccentForeground: Color(0xFF171717),\n    sidebarBorder: Color(0xFFE5E5E5),\n    sidebarRing: Color(0xFFA1A1A1),\n  );\n",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 326,
+      "type": "Color(0x...)",
+      "value": "0xFF0A0A0A",
+      "context": "  static const ShadcnColors darkFallback = ShadcnColors(\n    brightness: Brightness.dark,\n    background: Color(0xFF0A0A0A),\n    foreground: Color(0xFFFAFAFA),\n    card: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 327,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    brightness: Brightness.dark,\n    background: Color(0xFF0A0A0A),\n    foreground: Color(0xFFFAFAFA),\n    card: Color(0xFF171717),\n    cardForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 328,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    background: Color(0xFF0A0A0A),\n    foreground: Color(0xFFFAFAFA),\n    card: Color(0xFF171717),\n    cardForeground: Color(0xFFFAFAFA),\n    popover: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 329,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    foreground: Color(0xFFFAFAFA),\n    card: Color(0xFF171717),\n    cardForeground: Color(0xFFFAFAFA),\n    popover: Color(0xFF171717),\n    popoverForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 330,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    card: Color(0xFF171717),\n    cardForeground: Color(0xFFFAFAFA),\n    popover: Color(0xFF171717),\n    popoverForeground: Color(0xFFFAFAFA),\n    primary: Color(0xFFE5E5E5),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 331,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    cardForeground: Color(0xFFFAFAFA),\n    popover: Color(0xFF171717),\n    popoverForeground: Color(0xFFFAFAFA),\n    primary: Color(0xFFE5E5E5),\n    primaryForeground: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 332,
+      "type": "Color(0x...)",
+      "value": "0xFFE5E5E5",
+      "context": "    popover: Color(0xFF171717),\n    popoverForeground: Color(0xFFFAFAFA),\n    primary: Color(0xFFE5E5E5),\n    primaryForeground: Color(0xFF171717),\n    secondary: Color(0xFF262626),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 333,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    popoverForeground: Color(0xFFFAFAFA),\n    primary: Color(0xFFE5E5E5),\n    primaryForeground: Color(0xFF171717),\n    secondary: Color(0xFF262626),\n    secondaryForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 334,
+      "type": "Color(0x...)",
+      "value": "0xFF262626",
+      "context": "    primary: Color(0xFFE5E5E5),\n    primaryForeground: Color(0xFF171717),\n    secondary: Color(0xFF262626),\n    secondaryForeground: Color(0xFFFAFAFA),\n    muted: Color(0xFF262626),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 335,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    primaryForeground: Color(0xFF171717),\n    secondary: Color(0xFF262626),\n    secondaryForeground: Color(0xFFFAFAFA),\n    muted: Color(0xFF262626),\n    mutedForeground: Color(0xFFA1A1A1),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 336,
+      "type": "Color(0x...)",
+      "value": "0xFF262626",
+      "context": "    secondary: Color(0xFF262626),\n    secondaryForeground: Color(0xFFFAFAFA),\n    muted: Color(0xFF262626),\n    mutedForeground: Color(0xFFA1A1A1),\n    accent: Color(0xFF262626),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 337,
+      "type": "Color(0x...)",
+      "value": "0xFFA1A1A1",
+      "context": "    secondaryForeground: Color(0xFFFAFAFA),\n    muted: Color(0xFF262626),\n    mutedForeground: Color(0xFFA1A1A1),\n    accent: Color(0xFF262626),\n    accentForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 338,
+      "type": "Color(0x...)",
+      "value": "0xFF262626",
+      "context": "    muted: Color(0xFF262626),\n    mutedForeground: Color(0xFFA1A1A1),\n    accent: Color(0xFF262626),\n    accentForeground: Color(0xFFFAFAFA),\n    destructive: Color(0xFFFF6467),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 339,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    mutedForeground: Color(0xFFA1A1A1),\n    accent: Color(0xFF262626),\n    accentForeground: Color(0xFFFAFAFA),\n    destructive: Color(0xFFFF6467),\n    destructiveForeground: Color(0xFFFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 340,
+      "type": "Color(0x...)",
+      "value": "0xFFFF6467",
+      "context": "    accent: Color(0xFF262626),\n    accentForeground: Color(0xFFFAFAFA),\n    destructive: Color(0xFFFF6467),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0x1AFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 341,
+      "type": "Color(0x...)",
+      "value": "0xFFFFFFFF",
+      "context": "    accentForeground: Color(0xFFFAFAFA),\n    destructive: Color(0xFFFF6467),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0x1AFFFFFF),\n    input: Color(0x26FFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 342,
+      "type": "Color(0x...)",
+      "value": "0x1AFFFFFF",
+      "context": "    destructive: Color(0xFFFF6467),\n    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0x1AFFFFFF),\n    input: Color(0x26FFFFFF),\n    ring: Color(0xFF737373),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 343,
+      "type": "Color(0x...)",
+      "value": "0x26FFFFFF",
+      "context": "    destructiveForeground: Color(0xFFFFFFFF),\n    border: Color(0x1AFFFFFF),\n    input: Color(0x26FFFFFF),\n    ring: Color(0xFF737373),\n    chart1: Color(0xFF1447E6),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 344,
+      "type": "Color(0x...)",
+      "value": "0xFF737373",
+      "context": "    border: Color(0x1AFFFFFF),\n    input: Color(0x26FFFFFF),\n    ring: Color(0xFF737373),\n    chart1: Color(0xFF1447E6),\n    chart2: Color(0xFF00BC7D),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 345,
+      "type": "Color(0x...)",
+      "value": "0xFF1447E6",
+      "context": "    input: Color(0x26FFFFFF),\n    ring: Color(0xFF737373),\n    chart1: Color(0xFF1447E6),\n    chart2: Color(0xFF00BC7D),\n    chart3: Color(0xFFFE9A00),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 346,
+      "type": "Color(0x...)",
+      "value": "0xFF00BC7D",
+      "context": "    ring: Color(0xFF737373),\n    chart1: Color(0xFF1447E6),\n    chart2: Color(0xFF00BC7D),\n    chart3: Color(0xFFFE9A00),\n    chart4: Color(0xFFAD46FF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 347,
+      "type": "Color(0x...)",
+      "value": "0xFFFE9A00",
+      "context": "    chart1: Color(0xFF1447E6),\n    chart2: Color(0xFF00BC7D),\n    chart3: Color(0xFFFE9A00),\n    chart4: Color(0xFFAD46FF),\n    chart5: Color(0xFFFF2056),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 348,
+      "type": "Color(0x...)",
+      "value": "0xFFAD46FF",
+      "context": "    chart2: Color(0xFF00BC7D),\n    chart3: Color(0xFFFE9A00),\n    chart4: Color(0xFFAD46FF),\n    chart5: Color(0xFFFF2056),\n    sidebar: Color(0xFF171717),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 349,
+      "type": "Color(0x...)",
+      "value": "0xFFFF2056",
+      "context": "    chart3: Color(0xFFFE9A00),\n    chart4: Color(0xFFAD46FF),\n    chart5: Color(0xFFFF2056),\n    sidebar: Color(0xFF171717),\n    sidebarForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 350,
+      "type": "Color(0x...)",
+      "value": "0xFF171717",
+      "context": "    chart4: Color(0xFFAD46FF),\n    chart5: Color(0xFFFF2056),\n    sidebar: Color(0xFF171717),\n    sidebarForeground: Color(0xFFFAFAFA),\n    sidebarPrimary: Color(0xFF1447E6),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 351,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    chart5: Color(0xFFFF2056),\n    sidebar: Color(0xFF171717),\n    sidebarForeground: Color(0xFFFAFAFA),\n    sidebarPrimary: Color(0xFF1447E6),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 352,
+      "type": "Color(0x...)",
+      "value": "0xFF1447E6",
+      "context": "    sidebar: Color(0xFF171717),\n    sidebarForeground: Color(0xFFFAFAFA),\n    sidebarPrimary: Color(0xFF1447E6),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFF262626),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 353,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    sidebarForeground: Color(0xFFFAFAFA),\n    sidebarPrimary: Color(0xFF1447E6),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFF262626),\n    sidebarAccentForeground: Color(0xFFFAFAFA),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 354,
+      "type": "Color(0x...)",
+      "value": "0xFF262626",
+      "context": "    sidebarPrimary: Color(0xFF1447E6),\n    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFF262626),\n    sidebarAccentForeground: Color(0xFFFAFAFA),\n    sidebarBorder: Color(0x1AFFFFFF),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 355,
+      "type": "Color(0x...)",
+      "value": "0xFFFAFAFA",
+      "context": "    sidebarPrimaryForeground: Color(0xFFFAFAFA),\n    sidebarAccent: Color(0xFF262626),\n    sidebarAccentForeground: Color(0xFFFAFAFA),\n    sidebarBorder: Color(0x1AFFFFFF),\n    sidebarRing: Color(0xFF737373),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 356,
+      "type": "Color(0x...)",
+      "value": "0x1AFFFFFF",
+      "context": "    sidebarAccent: Color(0xFF262626),\n    sidebarAccentForeground: Color(0xFFFAFAFA),\n    sidebarBorder: Color(0x1AFFFFFF),\n    sidebarRing: Color(0xFF737373),\n  );",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 357,
+      "type": "Color(0x...)",
+      "value": "0xFF737373",
+      "context": "    sidebarAccentForeground: Color(0xFFFAFAFA),\n    sidebarBorder: Color(0x1AFFFFFF),\n    sidebarRing: Color(0xFF737373),\n  );\n}",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/theme.dart",
+      "line": 16,
+      "type": "Colors.*",
+      "value": "Colors.lightFallback",
+      "context": "class ShadcnThemeData {\n  const ShadcnThemeData({\n    this.colors = ShadcnColors.lightFallback,\n    this.tokens = const ShadcnTokens(),\n    this.fonts = ShadcnFonts.empty,",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/theme.dart",
+      "line": 77,
+      "type": "Colors.*",
+      "value": "Colors.forBrightness",
+      "context": "  /// Effective syntax-highlight palette for the current brightness.\n  SyntaxColors get syntaxColors =>\n      syntax ?? SyntaxColors.forBrightness(colors.brightness);\n\n  /// Effective platform (override or ambient default).",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/theme.dart",
+      "line": 155,
+      "type": "Colors.*",
+      "value": "Colors.lerp",
+      "context": "  static ShadcnThemeData lerp(ShadcnThemeData a, ShadcnThemeData b, double t) {\n    return ShadcnThemeData(\n      colors: ShadcnColors.lerp(a.colors, b.colors, t),\n      tokens: ShadcnTokens.lerp(a.tokens, b.tokens, t),\n      fonts: ShadcnFonts.lerp(a.fonts, b.fonts, t),",
+      "classification": "allowed",
+      "should_be": null
+    },
+    {
+      "file": "lib/registry/theme/theme.dart",
+      "line": 233,
+      "type": "Colors.*",
+      "value": "Colors.darkFallback",
+      "context": "    if (scheme.brightness != Brightness.dark) return data;\n    if (scheme.background.computeLuminance() >= 0.5) return data;\n    const defaults = ShadcnColors.darkFallback;\n    Color readable(Color color, Color fallback, double minLuminance) {\n      return color.computeLuminance() < minLuminance ? fallback : color;",
+      "classification": "allowed",
+      "should_be": null
+    }
+  ],
+  "stale_capture": [],
+  "alpha_handling": [
+    {
+      "file": "lib/registry/primitives/form_core/object_form_prompt.dart",
+      "line": 259,
+      "method": "withValues",
+      "value": ".withValues(alpha: theme.colors.input.a * 0.3)",
+      "context": "    final Color background = primary\n        ? theme.colors.primary\n        : theme.colors.input.withValues(alpha: theme.colors.input.a * 0.3);\n    final Color foreground = primary\n        ? theme.colors.primaryForeground",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/primitives/drawer_route/drawer_panel.dart",
+      "line": 104,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0)",
+      "context": "          // across a light/dark or preset switch.\n          return AnimatedModalBarrier(\n            color: ColorTween(begin: color.withValues(alpha: 0), end: color)\n                .animate(\n                  CurvedAnimation(",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 112,
+      "method": "withValues",
+      "value": ".withValues(alpha: constantOpacity.clamp(0, 1)",
+      "context": "    if (constantOpacity <= 0) return;\n    paint.shader = null;\n    paint.color = opaque.withValues(alpha: constantOpacity.clamp(0, 1));\n  } else {\n    paint.color = _opaqueWhite;",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/color_field_paint.dart",
+      "line": 134,
+      "method": "withValues",
+      "value": ".withValues(alpha: constantAlpha.clamp(0, 1)",
+      "context": "  if (axis == ColorFieldAxis.none) {\n    paint.shader = null;\n    paint.color = _opaqueBlack.withValues(alpha: constantAlpha.clamp(0, 1));\n  } else {\n    paint.color = _opaqueWhite;",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/slider/slider_painter.dart",
+      "line": 118,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.8)",
+      "context": "          canvas.drawRRect(\n            RRect.fromRectAndRadius(rect, const Radius.circular(1)),\n            Paint()..color = color.withValues(alpha: 0.8),\n          );\n        }",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/subfocus_list_item.dart",
+      "line": 130,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0)",
+      "context": "                color: focus.isFocused\n                    ? highlight\n                    : highlight.withValues(alpha: 0),\n                borderRadius: radius,\n              ),",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/gooey/gooey_content.dart",
+      "line": 278,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.2)",
+      "context": "      child: DecoratedBox(\n        decoration: BoxDecoration(\n          color: color.withValues(alpha: 0.2),\n          shape: BoxShape.circle,\n        ),",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/gooey/gooey_content.dart",
+      "line": 335,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.15)",
+      "context": "            alignment: Alignment.center,\n            decoration: BoxDecoration(\n              color: color.withValues(alpha: 0.15),\n              borderRadius: BorderRadius.circular(999),\n              border: Border.all(color: color.withValues(alpha: 0.26)),",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/gooey/gooey_content.dart",
+      "line": 337,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.26)",
+      "context": "              color: color.withValues(alpha: 0.15),\n              borderRadius: BorderRadius.circular(999),\n              border: Border.all(color: color.withValues(alpha: 0.26)),\n            ),\n            child: Text(",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/primitives/gooey/gooey_shape.dart",
+      "line": 190,
+      "method": "withValues",
+      "value": ".withValues(alpha: (color.a * bodyAlpha)",
+      "context": "      final bodyAlpha = geometry.bodyScaleY.clamp(0.0, 1.0).toDouble();\n      final bodyPaint = Paint()\n        ..color = color.withValues(alpha: (color.a * bodyAlpha).clamp(0.0, 1.0))\n        ..isAntiAlias = true;\n      canvas.drawPath(geometry.buildBodyPath(size), bodyPaint);",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/border_loading/border_loading.dart",
+      "line": 320,
+      "method": "withValues",
+      "value": ".withValues(alpha: style.opacity!)",
+      "context": "    if (style.opacity! < 1) {\n      paint.colorFilter = ColorFilter.mode(\n        Color(0xFFFFFFFF).withValues(alpha: style.opacity!),\n        BlendMode.modulate,\n      );",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/swiper/swiper.dart",
+      "line": 389,
+      "method": "withValues",
+      "value": ".withValues(alpha: barrier.a * t)",
+      "context": "              onTap: dismissible ? () => _settle(open: false) : null,\n              child: ColoredBox(\n                color: barrier.withValues(alpha: barrier.a * t),\n              ),\n            ),",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/progress/progress_style.dart",
+      "line": 220,
+      "method": "withValues",
+      "value": ".withValues(alpha: fill.a * 0.2)",
+      "context": "      backgroundColor ??\n      resolved.backgroundColor?.resolve(colors) ??\n      fill.withValues(alpha: fill.a * 0.2);\n  return ProgressSurface(\n    color: fill,",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/progress/progress.dart",
+      "line": 202,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0)",
+      "context": "      final double radius = size.height * 2;\n      paint.shader = RadialGradient(\n        colors: <Color>[color, color.withValues(alpha: 0)],\n        stops: const <double>[0, 1],\n      ).createShader(Rect.fromCircle(center: center, radius: radius));",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/input/input_style.dart",
+      "line": 352,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.2)",
+      "context": "    selectionColor:\n        DefaultSelectionStyle.of(context).selectionColor ??\n        colors.primary.withValues(alpha: 0.2),\n    errorStyle: theme.typography.xSmall.copyWith(color: colors.destructive),\n    minHeight: resolved.height ?? 36,",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/markdown/markdown_style.dart",
+      "line": 386,
+      "method": "withValues",
+      "value": ".withValues(alpha: colors.primary.a * 0.2)",
+      "context": "    selection:\n        DefaultSelectionStyle.of(context).selectionColor ??\n        colors.primary.withValues(alpha: colors.primary.a * 0.2),\n    references: references,\n    footnoteOrder: footnoteOrder,",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/formatted_input/formatted_input.dart",
+      "line": 381,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.2)",
+      "context": "          textAlign: TextAlign.center,\n          obscureText: part.obscureText,\n          backgroundCursorColor: surface.cursorColor.withValues(alpha: 0.2),\n          inputFormatters: part.segment.formatters(),\n          style: surface.textStyle,",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/dialog/preview.dart",
+      "line": 199,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.5)",
+      "context": "            decoration: BoxDecoration(\n              color: _activated\n                  ? colors.accent.withValues(alpha: 0.5)\n                  : colors.primary,\n              borderRadius: const BorderRadius.all(Radius.circular(6)),",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/dialog/dialog.dart",
+      "line": 248,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0)",
+      "context": "        ? AlwaysStoppedAnimation<Color?>(resolved)\n        : ColorTween(\n            begin: resolved.withValues(alpha: 0),\n            end: resolved,\n          ).chain(CurveTween(curve: curve)).animate(animation!);",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/selectable/selectable.dart",
+      "line": 323,
+      "method": "withValues",
+      "value": ".withValues(alpha: colors.primary.a * 0.2)",
+      "context": "    final Color selectionColor =\n        DefaultSelectionStyle.of(context).selectionColor ??\n        colors.primary.withValues(alpha: colors.primary.a * 0.2);\n\n    final Widget editable = EditableText(",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/gooey_toast/gooey_toast.dart",
+      "line": 369,
+      "method": "withValues",
+      "value": ".withValues(alpha: 1.0)",
+      "context": "      expandable: !loading,\n      width: theme.width!,\n      fill: baseFill.withValues(alpha: 1.0),\n      fillAlpha: fillAlpha,\n      roundness: theme.shapeStyle!.roundness(",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/scaffold/scaffold.dart",
+      "line": 343,
+      "method": "withValues",
+      "value": ".withValues(alpha: base.a * opacity)",
+      "context": "          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),\n          child: ColoredBox(\n            color: base.withValues(alpha: base.a * opacity),\n            child: Align(\n              alignment: alignment,",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/file_diff_viewer/file_diff_viewer_style.dart",
+      "line": 332,
+      "method": "withValues",
+      "value": ".withValues(alpha: addition.a * 0.18)",
+      "context": "  /// Fill for a line of [type]; null for context/hunk rows.\n  Color? lineFill(FileDiffLineType type) => switch (type) {\n    FileDiffLineType.addition => addition.withValues(alpha: addition.a * 0.18),\n    FileDiffLineType.deletion => deletion.withValues(alpha: deletion.a * 0.18),\n    FileDiffLineType.context || FileDiffLineType.hunk => null,",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/file_diff_viewer/file_diff_viewer_style.dart",
+      "line": 333,
+      "method": "withValues",
+      "value": ".withValues(alpha: deletion.a * 0.18)",
+      "context": "  Color? lineFill(FileDiffLineType type) => switch (type) {\n    FileDiffLineType.addition => addition.withValues(alpha: addition.a * 0.18),\n    FileDiffLineType.deletion => deletion.withValues(alpha: deletion.a * 0.18),\n    FileDiffLineType.context || FileDiffLineType.hunk => null,\n  };",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/file_diff_viewer/file_diff_viewer_style.dart",
+      "line": 379,
+      "method": "withValues",
+      "value": ".withValues(alpha: colors.muted.a * 0.36)",
+      "context": "        EdgeInsets.symmetric(horizontal: base * 0.5, vertical: base * 0.35),\n    gutterWidth: 52 * theme.scaling,\n    gutterFill: colors.muted.withValues(alpha: colors.muted.a * 0.36),\n    codeStyle: TextStyle(\n      fontFamily: theme.typography.mono.fontFamily,",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/file_diff_viewer/file_diff_viewer.dart",
+      "line": 218,
+      "method": "withValues",
+      "value": ".withValues(alpha: color.a * 0.14)",
+      "context": "      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),\n      decoration: BoxDecoration(\n        color: color.withValues(alpha: color.a * 0.14),\n        borderRadius: BorderRadius.circular(999),\n      ),",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/components/alpha/preview.dart",
+      "line": 32,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.5)",
+      "context": "                    child: CustomPaint(painter: AlphaPainter()),\n                  ),\n                  Container(color: theme.colors.primary.withValues(alpha: 0.5)),\n                  const Center(child: Text('Alpha grid')),\n                ],",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/components/keyboard_shortcut/keyboard_shortcut.dart",
+      "line": 153,
+      "method": "withValues",
+      "value": ".withValues(alpha: 0.7)",
+      "context": "        background ??\n        container.keyBackground ??\n        ThemedColor.value(shadcnTheme.colors.background.withValues(alpha: 0.7));\n    final ThemedColor ink =\n        foreground ??",
+      "verdict": "review"
+    },
+    {
+      "file": "lib/registry/theme/color_utils.dart",
+      "line": 279,
+      "method": "withValues",
+      "value": ".withValues(alpha: (c.a * opacity)",
+      "context": "  @override\n  Color withOpacity(double opacity) => ColorShades._direct(\n    _mapped((c) => c.withValues(alpha: (c.a * opacity).clamp(0.0, 1.0))),\n  );\n",
+      "verdict": "multiplies-token-alpha"
+    },
+    {
+      "file": "lib/registry/theme/color_tokens.dart",
+      "line": 504,
+      "method": "withValues",
+      "value": ".withValues(alpha: (base.a * alpha)",
+      "context": "    final base = ref.resolve(colors);\n    if (alpha == 1.0) return base;\n    return base.withValues(alpha: (base.a * alpha).clamp(0.0, 1.0));\n  }\n",
+      "verdict": "multiplies-token-alpha"
+    }
+  ],
+  "failing_tests": [
+    {
+      "file": "test/registry/theme_audit/selectability_audit_test.dart",
+      "test": "CodeSnippet text is selectable",
+      "reason": "code_snippet renders plain Text/Text.rich - code is not selectable",
+      "status": "skipped-with-reason",
+      "skipped_in_this_batch_only": true,
+      "fix": "wrap painted code in SelectableRegion (see P6_THEME_AUDIT.md section 3)"
+    }
+  ],
+  "passing_tests": 75,
+  "total_tests": 76,
+  "selectable": [
+    {
+      "id": "code_snippet",
+      "path": "lib/registry/components/code_snippet/code_snippet.dart",
+      "selectable": false,
+      "copyable": false,
+      "mechanism": "plain Text / Text.rich (lines 127, 135)",
+      "fix": "SelectableRegion around the painted output; keeps Text.rich syntax colours"
+    },
+    {
+      "id": "markdown_fenced_code",
+      "path": "lib/registry/components/markdown/markdown.dart",
+      "selectable": true,
+      "copyable": true,
+      "mechanism": "SelectableRegion (lines 279-286) + selectionRegistrar in blocks.dart:83"
+    },
+    {
+      "id": "file_diff_viewer",
+      "path": "lib/registry/components/file_diff_viewer/file_diff_viewer.dart",
+      "selectable": true,
+      "copyable": true,
+      "mechanism": "SelectableRegion (lines 86-88) with ShadcnSelectionControls"
+    },
+    {
+      "id": "selectable",
+      "path": "lib/registry/components/selectable/selectable.dart",
+      "selectable": true,
+      "copyable": true,
+      "mechanism": "standalone SelectableText / SelectableText.rich"
+    }
+  ],
+  "gates": {
+    "flutter_analyze": "flutter analyze test/registry/theme_audit -> \"No issues found!\" (0 errors, 0 warnings)",
+    "flutter_test": "flutter test test/registry/theme_audit -> 76 tests, +75 ~1, \"All tests passed!\"",
+    "dart_format": "dart format test/registry/theme_audit/ -> clean",
+    "repo_wide_analyze": "remaining errors/warnings are all in test/registry/layout_audit/ (P6-D9b unit, not this unit)"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "drawer_container",
+  "name": "Drawer Container",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.",
+  "tier": "component",
+  "install": "flutter_shadcn add drawer_container",
+  "import": "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
+  "tags": [
+    "overlay",
+    "drawer",
+    "sheet",
+    "container",
+    "pinned"
+  ],
+  "deps": {
+    "foundation": [
+      "data"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "axis_size"
+    ],
+    "components": [
+      "drawer"
+    ]
+  },
+  "files": [
+    "drawer_container.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "DrawerRawContainer",
+      "DrawerContainerData",
+      "DrawerContainer",
+      "AxisSize",
+      "FixedAxisSize",
+      "FractionAxisSize",
+      "AdditiveAxisSize",
+      "SubtractedAxisSize",
+      "MultipliedAxisSize",
+      "DividedAxisSize"
+    ],
+    "enums": [
+      "OverlayPosition"
+    ],
+    "constants": []
+  }
+}

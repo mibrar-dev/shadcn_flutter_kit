@@ -1,0 +1,34 @@
+{
+  "id": "timeline_animation",
+  "name": "Timeline Animation",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Typed keyframe timeline: turns an AnimationController's 0..1 progress into values segment by segment.",
+  "tier": "component",
+  "install": "flutter_shadcn add timeline_animation",
+  "import": "import 'package:<your_app>/ui/shadcn/components/timeline_animation/timeline_animation.dart';",
+  "tags": ["utility", "animation", "timeline", "keyframes"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "timeline_animation.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "TimelineAnimation",
+      "TimelineAnimatable",
+      "Keyframe",
+      "AbsoluteKeyframe",
+      "RelativeKeyframe",
+      "StillKeyframe",
+      "Transformers"
+    ],
+    "enums": [],
+    "constants": []
+  }
+}

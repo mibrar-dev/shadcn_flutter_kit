@@ -1,0 +1,36 @@
+{
+  "id": "login-01",
+  "name": "Login 01",
+  "category": "Authentication",
+  "description": "A centred sign-in card with email, password and a create-account link.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add login-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/login-01/login_01.dart';",
+  "tags": [
+    "login01",
+    "login"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alert",
+      "button",
+      "card",
+      "checkbox",
+      "divider",
+      "form",
+      "input",
+      "spinner"
+    ]
+  },
+  "files": [
+    "login_01.dart",
+    "README.md"
+  ]
+}

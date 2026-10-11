@@ -1,0 +1,79 @@
+{
+  "id": "formatted_input",
+  "name": "FormattedInput",
+  "category": "Forms & Inputs",
+  "description": "Masked/segmented field (phone, date, card) built from static separators and small editable parts.",
+  "tier": "component",
+  "install": "flutter_shadcn add formatted_input",
+  "import": "import 'package:<your_app>/ui/shadcn/components/formatted_input/formatted_input.dart';",
+  "tags": [
+    "form",
+    "input",
+    "mask",
+    "phone",
+    "date"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "density",
+      "theme"
+    ],
+    "primitives": [
+      "focus_outline",
+      "form_core",
+      "text_editing"
+    ],
+    "components": []
+  },
+  "files": [
+    "formatted_input.dart",
+    "formatted_input_style.dart",
+    "formatted_input_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "FormattedInput",
+      "FormattedInputController",
+      "FormattedInputTheme",
+      "FormattedInputSurface"
+    ],
+    "providedByPrimitives": {
+      "text_editing": [
+        "SegmentPart",
+        "SegmentedValue",
+        "TextSegment",
+        "SegmentedTextController"
+      ]
+    },
+    "constants": [
+        "formattedInputDefaultPadding",
+        "formattedInputDefaults",
+        "formattedInputThemeOverrides"
+    ],
+    "functions": [
+      "resolveFormattedInputSurface"
+    ]
+  },
+  "theme": {
+    "class": "FormattedInputTheme",
+    "userFile": "formatted_input_theme.dart",
+    "defaults": "formattedInputDefaults",
+    "fields": {
+      "background": "ThemedColor? - field fill, input at 30%",
+      "hoveredBackground": "ThemedColor? - field fill while hovered, input at 50%",
+      "borderColor": "ThemedColor? - field border, the input token",
+      "borderWidth": "double? - border width, 1",
+      "borderRadius": "BorderRadiusGeometry? - default theme.borderRadiusMd",
+      "padding": "EdgeInsetsGeometry? - inner padding, 8 x 4 (scaled)",
+      "height": "double? - field height, 36",
+      "textStyle": "TextStyle? - segment style, theme mono at text-sm",
+      "placeholderStyle": "TextStyle? - default text-sm muted",
+      "separatorStyle": "TextStyle? - default the text style in mutedForeground",
+      "leadingGap": "double? - space around leading/trailing, 8 (scaled)",
+      "partGap": "double? - space between parts, 0"
+    }
+  }
+}

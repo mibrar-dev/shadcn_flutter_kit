@@ -1,0 +1,82 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "category": "Date & Time",
+  "description": "Date, month and year grids with single, range and multi selection, roving-tabindex keyboard navigation and per-day semantic dates; the selection value types live in the date_math primitive.",
+  "tier": "component",
+  "install": "flutter_shadcn add calendar",
+  "import": "import 'package:<your_app>/ui/shadcn/components/calendar/calendar.dart';",
+  "tags": ["display", "date", "picker", "calendar", "schedule", "keyboard", "a11y"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["date_math", "focus_outline", "localizations", "menu_nav"],
+    "components": []
+  },
+  "files": [
+    "calendar.dart",
+    "calendar_style.dart",
+    "calendar_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Calendar", "CalendarTheme", "DateStateBuilder", "CalendarGridMoveIntent"],
+    "enums": ["CalendarSelectionMode", "CalendarViewType", "DateState", "CalendarGridMove"],
+    "providedByPrimitives": {
+      "date_math": [
+        "CalendarView",
+        "CalendarValueLookup",
+        "CalendarValue",
+        "SingleCalendarValue",
+        "RangeCalendarValue",
+        "MultiCalendarValue",
+        "monthGrid",
+        "DateGridCell"
+      ]
+    }
+  },
+  "theme": {
+    "class": "CalendarTheme",
+    "userFile": "calendar_theme.dart",
+    "defaults": "calendarDefaults",
+    "fields": {
+      "cellBackground": "StateValue<ThemedColor>? - per-state fill of an unselected cell; rest = transparent, hovered = accent",
+      "cellForeground": "StateValue<ThemedColor>? - per-state label colour; null = foreground",
+      "todayBackground": "ThemedColor? - fill of today's cell; null = secondary",
+      "selectedBackground": "ThemedColor? - fill of a selected cell; null = primary",
+      "selectedForeground": "ThemedColor? - label of a selected cell; null = primaryForeground",
+      "rangeBackground": "ThemedColor? - fill inside a range; null = secondary",
+      "cellBorderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
+      "cellWidth": "double? - 32 for days, 56 for months and years",
+      "cellHeight": "double? - 32 for days, 40 for months and years",
+      "gap": "double? - cell and row gap; null = 4",
+      "weekdayTextStyle": "TextStyle? - weekday header; its colour is muted",
+      "cellTextStyle": "TextStyle? - cell label; its colour is ignored"
+    }
+  },
+  "accessibility": {
+    "keyboard": "one tab stop per grid (roving tabindex): ArrowLeft/Right a day and wrapping at the row edge, ArrowUp/Down a week, Home/End the ends of the week, PageUp/PageDown a month, Shift plus those a year, Enter/Space select; a disabled cell is skipped by every move and an arrow off the edge leaves the focus put",
+    "onViewChanged": "reported when a page or year move leaves the shown month, carrying the focused day across",
+    "semantics": "each cell is a button node labelled with the full localized date, marked enabled and selected; the painted day number is ExcludeSemantics-wrapped so a screen reader hears the date once",
+    "focusRing": "the focused cell alone is wrapped in FocusOutline, so the ring token paints exactly one ring"
+  },
+  "sizes": {
+    "dayCell": "32x32 (shadcn size-8)",
+    "monthCell": "56x40",
+    "yearCell": "56x40",
+    "weekdayHeader": "32 wide, the same box as a day cell"
+  },
+  "notes": [
+    "`DatePickerDialog` (501 LOC in `_date_picker_dialog_state.dart` plus 99 in `date_picker_dialog.dart`) is NOT migrated: it needs the popover/overlay stack batch B13 owns, and shipping half of it would leave a dialog with no anchor. Batch B13 builds `date_picker` on this component.",
+    "`CalendarView`, `CalendarValue` and the three value classes moved to `primitives/date_math.dart`, the batch's named primitive: `date_picker` (B13) and `object_input` (B21) read the same values, so they are data, not component API.",
+    "The old `CalendarGridData` re-implemented month arithmetic and always started the grid on a Monday; the port uses the `monthGrid` primitive, so `firstDayOfWeek` is now a parameter and a Sunday-first locale is one argument away.",
+    "The old grid wrote `prevMonthLastDay.add(Duration(days: i))` across a DST boundary, which lands on the same day twice in half the world; `monthGrid` builds every cell from `DateTime(y, m, d + i)` instead.",
+    "`CalendarItemType` had ten cases for six visual rows (four of them `*RangeSelectedShort` variants no caller ever set) and a 341-line switch; the port has one cell painter driven by `CalendarValueLookup` plus `today`.",
+    "`isDateEnabled` and `stateBuilder` were two knobs for one job (`stateBuilder` won); only `stateBuilder` is kept.",
+    "`CalendarGridItem.isToday` called `DateTime.now()` from inside the widget, so a grid could not be rendered for any other day; `Calendar.now` is injected instead.",
+    "`MonthCalendar` and `YearCalendar` are private now: they were reachable only through `DatePickerDialog`, and the month/year grids are one `viewType` away.",
+    "`Clickable` is deliberately not used per cell: it owns a *traversable* focus node per cell, so a 35-cell day grid would be 35 tab stops. The focus lives on the grid instead, and the ring is drawn by the cell from the `ring` token.",
+    "`rangeTrackColor` was dropped: the port paints no band behind a range, so the row was dead. `rangeBackground` covers start, end and in-between cells.",
+    "`CalendarTheme.copyWith` and `lerp` were dropped as dead code (nothing in the registry calls either, and the calendar has no animated theme change); `==`/`hashCode` read one field list so a new row cannot drift out of them."
+  ]
+}

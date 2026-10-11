@@ -1,0 +1,42 @@
+{
+  "id": "icon",
+  "name": "Icon",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Theme-driven icon size/colour modifiers and a filled icon container.",
+  "tier": "component",
+  "install": "flutter_shadcn add icon",
+  "import": "import 'package:<your_app>/ui/shadcn/components/icon/icon.dart';",
+  "tags": ["display", "icon", "modifier", "container"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["icon.dart", "icon_style.dart", "icon_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["IconContainer", "IconContainerTheme"],
+    "extensions": [
+      "IconExtension on Widget: iconX3Small(), iconXSmall(), iconSmall(), iconMedium(), iconLarge(), iconMutedForeground()"
+    ],
+    "constructors": [
+      "IconContainer({icon, backgroundColor, iconColor, padding, borderRadius, theme})"
+    ],
+    "constants": [
+      "iconContainerDefaults",
+      "iconContainerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "IconContainerTheme",
+    "userFile": "icon_theme.dart",
+    "defaults": "iconContainerDefaults",
+    "fields": {
+      "backgroundColor": "ThemedColor? - primary token",
+      "iconColor": "ThemedColor? - primaryForeground token",
+      "padding": "EdgeInsetsGeometry? - padXs x container density",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusMd"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "bad_unused",
+  "deps": {
+    "foundation": ["data", "gap"],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "dependencies": {"components": []},
+  "files": ["bad_unused.dart"]
+}

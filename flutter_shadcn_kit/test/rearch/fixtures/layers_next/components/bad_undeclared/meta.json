@@ -1,0 +1,11 @@
+{
+  "id": "bad_undeclared",
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "dependencies": {"components": []},
+  "files": ["bad_undeclared.dart"]
+}

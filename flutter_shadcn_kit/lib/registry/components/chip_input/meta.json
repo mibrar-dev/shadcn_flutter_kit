@@ -1,0 +1,90 @@
+{
+  "id": "chip_input",
+  "name": "ChipInput",
+  "category": "Forms & Inputs",
+  "description": "Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.",
+  "tier": "component",
+  "install": "flutter_shadcn add chip_input",
+  "import": "import 'package:<your_app>/ui/shadcn/components/chip_input/chip_input.dart';",
+  "tags": [
+    "form",
+    "input",
+    "chip",
+    "tag",
+    "token",
+    "autocomplete"
+  ],
+  "deps": {
+    "foundation": [
+      "icons/lucide_icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "form_core",
+      "input_features",
+      "localizations",
+      "text_editing"
+    ],
+    "components": [
+      "autocomplete",
+      "chip",
+      "input"
+    ]
+  },
+  "files": [
+    "chip_input.dart",
+    "chip_input_style.dart",
+    "chip_input_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ChipInput",
+      "ChipInputTheme",
+      "ChipSubmitIntent"
+    ],
+    "constants": [
+      "chipInputDefaults",
+      "chipInputDefaultSpacing",
+      "chipInputDefaultChipIconSize",
+      "chipInputThemeOverrides"
+    ],
+    "typedefs": [
+      "ChipBuilder",
+      "ChipSubmitCallback"
+    ],
+    "providedByPrimitives": {
+      "text_editing": [
+        "TokenEditingController",
+        "TokenSpan",
+        "TokenClipboardHandler",
+        "PlainTokenClipboardHandler",
+        "TokenFragment",
+        "TokenTextFragment",
+        "TokenValueFragment"
+      ],
+      "form_core": [
+        "FormValidationMode"
+      ]
+    }
+  },
+  "theme": {
+    "class": "ChipInputTheme",
+    "userFile": "chip_input_theme.dart",
+    "defaults": "chipInputDefaults",
+    "fields": {
+      "spacing": "double? - 4; the rendered gap between two neighbouring tokens",
+      "removable": "bool? - true; whether each token gets a remove button",
+      "chipTheme": "ChipTheme? - extra leg for this field's tokens only",
+      "chipIconSize": "double? - 12; icon size of the remove button",
+      "alignment": "PlaceholderAlignment? - middle; how a token sits on the text baseline"
+    },
+    "notes": "The field surface itself is the `input` component's `InputTheme`, passed as ChipInput.inputTheme."
+  },
+  "strings": {
+    "chipInputRemoveChip": "Semantics label of each token's remove button."
+  }
+}

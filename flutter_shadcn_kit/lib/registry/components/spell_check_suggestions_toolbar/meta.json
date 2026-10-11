@@ -1,0 +1,56 @@
+{
+  "id": "spell_check_suggestions_toolbar",
+  "name": "SpellCheckSuggestionsToolbar",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Menu-backed toolbar for the spell check replacements of the misspelled word under an editable text cursor: up to three suggestion rows in the menu popup surface.",
+  "tier": "component",
+  "install": "flutter_shadcn add spell_check_suggestions_toolbar",
+  "import": "import 'package:<your_app>/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart';",
+  "tags": [
+    "overlay",
+    "spellcheck",
+    "menu",
+    "editable-text",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [
+      "localizations"
+    ],
+    "components": [
+      "menu"
+    ]
+  },
+  "files": [
+    "spell_check_suggestions_toolbar.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "SpellCheckSuggestionsToolbar"
+    ],
+    "constants": [
+      "kMaxSpellCheckSuggestions"
+    ]
+  },
+  "theme": {
+    "class": null,
+    "note": "No theme of its own: the rows and surface resolve the menu component's MenuTheme/MenuPopupTheme."
+  },
+  "accessibility": {
+    "keyboard": "the rows are standard menu rows (ArrowUp/Down traversal, Enter/Space activates); the framework's editable text toolbar owns focus and dismissal",
+    "semantics": "every suggestion is a menu button; disabled rows dim to 50% opacity"
+  },
+  "sizes": {
+    "row": "menu row metrics (min-height 32)",
+    "toolbar": "up to 3 rows; no icon or shortcut column"
+  },
+  "notes": [
+    "A misspelled word without suggestions shows one disabled row labelled from ShadcnLocalizations.spellCheckNoSuggestions (English fallback; no ARB equivalent).",
+    "MenuPopup/MenuButton come from the menu component; the toolbar declares no copy of them.",
+    "Anchoring is the same TextFieldTapRegion + Stack/Positioned contract the framework's toolbar builder expects."
+  ]
+}

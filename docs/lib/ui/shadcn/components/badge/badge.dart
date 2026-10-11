@@ -1,0 +1,263 @@
+// The `badge` component: [Badge], a small rounded label (or a status dot) with
+// four variants.
+//
+// The four old wrapper classes (`PrimaryBadge`, `SecondaryBadge`,
+// `OutlineBadge`, `DestructiveBadge`) collapse into one widget with a
+// `variant` enum (PLAN §4 rule 1). Interaction lives in the `Clickable`
+// primitive, so a static badge stays out of the focus tree; the widget does
+// not import the `button` component.
+
+import 'package:flutter/widgets.dart';
+
+import '../../foundation/gap.dart';
+import '../../primitives/clickable.dart';
+import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
+import '../../theme/theme.dart';
+import 'badge_style.dart';
+
+export 'badge_style.dart';
+
+/// Diameter of the dot drawn when [Badge.showAsDot] is true (shadcn
+/// `size-2.5 rounded-full` = 10).
+const double badgeDotSize = 10;
+
+/// Cursor of a pressable badge.
+const MouseCursor _badgeMouseCursor = SystemMouseCursors.click;
+
+/// A small rounded label used for status, counts and categories.
+///
+/// Non-interactive by default: without [onPressed] the badge paints a plain
+/// surface and never enters the focus tree. The old badges were always
+/// `enabled: true` buttons wrapped in `ExcludeFocus`, so even a static badge
+/// showed hover/press styling and swallowed a pointer click with no handler.
+class Badge extends StatefulWidget {
+  /// Creates a badge.
+  const Badge({
+    super.key,
+    required this.child,
+    this.variant = BadgeVariant.primary,
+    this.leading,
+    this.trailing,
+    this.onPressed,
+    this.onHover,
+    this.onFocusChange,
+    this.focusNode,
+    this.autofocus = false,
+    this.showAsDot = false,
+    this.theme,
+  }) : assert(
+         !showAsDot || (leading == null && trailing == null),
+         'A dot badge takes no child, leading or trailing content',
+       );
+
+  /// Badge content. Ignored when [showAsDot] is true.
+  final Widget child;
+
+  /// Visual variant. Defaults to [BadgeVariant.primary].
+  final BadgeVariant variant;
+
+  /// Widget shown before [child].
+  final Widget? leading;
+
+  /// Widget shown after [child].
+  final Widget? trailing;
+
+  /// Turns the badge into a press target when provided.
+  final VoidCallback? onPressed;
+
+  /// Called when the hover state changes.
+  final ValueChanged<bool>? onHover;
+
+  /// Called when the focus state changes.
+  final ValueChanged<bool>? onFocusChange;
+
+  /// Focus node of a pressable badge; ignored when [onPressed] is null.
+  final FocusNode? focusNode;
+
+  /// Whether a pressable badge requests focus when first built.
+  final bool autofocus;
+
+  /// Draws a fixed-size dot instead of [child] (shadcn `showAsDot`).
+  final bool showAsDot;
+
+  /// Widget-leg style override, merged over the component/app/defaults.
+  final BadgeStyle? theme;
+
+  /// Whether this badge reacts to input.
+  bool get isInteractive => onPressed != null;
+
+  @override
+  State<Badge> createState() => _BadgeState();
+}
+
+class _BadgeState extends State<Badge> {
+  FocusNode? _ownedFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _syncAutofocus();
+  }
+
+  @override
+  void didUpdateWidget(Badge oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.autofocus != oldWidget.autofocus ||
+        widget.focusNode != oldWidget.focusNode) {
+      _syncAutofocus();
+    }
+  }
+
+  @override
+  void dispose() {
+    _ownedFocusNode?.dispose();
+    super.dispose();
+  }
+
+  void _syncAutofocus() {
+    if (!widget.autofocus || !widget.isInteractive) {
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
+      return;
+    }
+    if (widget.focusNode != null) {
+      final FocusNode node = widget.focusNode!;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          node.requestFocus();
+        }
+      });
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
+      return;
+    }
+    final FocusNode node = _ownedFocusNode ??= FocusNode(debugLabel: 'Badge');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && identical(_ownedFocusNode, node)) {
+        node.requestFocus();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
+    final BadgeTheme container = resolveComponentStyle<BadgeTheme, BadgeTheme>(
+      context,
+      select: (t) => t,
+      defaults: badgeDefaults,
+    );
+    final BadgeStyle resolved = (widget.theme ?? const BadgeStyle()).merge(
+      container.forVariant(widget.variant),
+    );
+    final TextStyle textStyle =
+        resolved.textStyle ?? container.textStyle ?? badgeDefaultTextStyle;
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      resolved.padding ?? badgeDefaultPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
+    final double iconSize = (resolved.iconSize ?? 12) * ambient.scaling;
+    final double gap = ambient.spacing.sm;
+    final double dotSize = badgeDotSize * ambient.scaling;
+
+    Color? colorFor(StateValue<ThemedColor>? value, Set<WidgetState> states) =>
+        value?.resolve(states)?.resolve(ambient.colors);
+
+    // A dot is always round and never bordered; shadcn paints it from the
+    // variant fill alone.
+    BoxDecoration dotDecoration(Set<WidgetState> states) => BoxDecoration(
+      color: colorFor(resolved.background, states),
+      shape: BoxShape.circle,
+    );
+
+    BoxDecoration decorationFor(Set<WidgetState> states) {
+      final Color? borderColor = colorFor(resolved.borderColor, states);
+      final double width = resolved.borderWidth ?? 0;
+      return BoxDecoration(
+        color: colorFor(resolved.background, states),
+        border: borderColor != null && width > 0
+            ? Border.all(color: borderColor, width: width)
+            : null,
+        borderRadius: ambient.borderRadiusMd,
+      );
+    }
+
+    TextStyle labelStyleFor(Set<WidgetState> states) =>
+        textStyle.copyWith(color: colorFor(resolved.foreground, states));
+
+    IconThemeData iconThemeFor(Set<WidgetState> states) {
+      final Color? color = colorFor(resolved.foreground, states);
+      return IconThemeData(color: color, size: iconSize);
+    }
+
+    if (widget.showAsDot) {
+      final Widget dot = DecoratedBox(
+        decoration: dotDecoration(const <WidgetState>{}),
+        child: SizedBox.fromSize(size: Size.square(dotSize)),
+      );
+      if (!widget.isInteractive) {
+        return dot;
+      }
+      return Clickable(
+        onPressed: widget.onPressed,
+        onHover: widget.onHover,
+        onFocus: widget.onFocusChange,
+        focusNode: widget.focusNode ?? _ownedFocusNode,
+        mouseCursor: const WidgetStatePropertyAll<MouseCursor?>(
+          _badgeMouseCursor,
+        ),
+        decoration: WidgetStateProperty.resolveWith(dotDecoration),
+        child: dot,
+      );
+    }
+
+    Widget content = widget.child;
+    if (widget.leading != null || widget.trailing != null) {
+      content = Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ?widget.leading,
+          if (widget.leading != null) Gap(gap),
+          widget.child,
+          if (widget.trailing != null) Gap(gap),
+          ?widget.trailing,
+        ],
+      );
+    }
+    // The padding wraps the whole row, so a leading/trailing icon keeps the
+    // same edge distance as the label (shadcn `px-2`) and never touches it.
+    content = Padding(padding: padding, child: content);
+
+    if (!widget.isInteractive) {
+      // The static badge still sets the variant text/icon style: without
+      // this the label would inherit whatever ambient size surrounds it
+      // instead of shadcn `text-xs` (same wrap the chip builds).
+      return DecoratedBox(
+        decoration: decorationFor(const <WidgetState>{}),
+        child: DefaultTextStyle.merge(
+          style: labelStyleFor(const <WidgetState>{}),
+          child: IconTheme.merge(
+            data: iconThemeFor(const <WidgetState>{}),
+            child: content,
+          ),
+        ),
+      );
+    }
+
+    return Clickable(
+      onPressed: widget.onPressed,
+      onHover: widget.onHover,
+      onFocus: widget.onFocusChange,
+      focusNode: widget.focusNode ?? _ownedFocusNode,
+      mouseCursor: const WidgetStatePropertyAll<MouseCursor?>(
+        _badgeMouseCursor,
+      ),
+      decoration: WidgetStateProperty.resolveWith(decorationFor),
+      textStyle: WidgetStateProperty.resolveWith(labelStyleFor),
+      iconTheme: WidgetStateProperty.resolveWith(iconThemeFor),
+      child: content,
+    );
+  }
+}

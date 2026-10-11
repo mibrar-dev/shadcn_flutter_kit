@@ -1,0 +1,80 @@
+{
+  "id": "chat",
+  "name": "Chat",
+  "category": "Data Display",
+  "description": "Chat bubbles and groups: plain, tailed or sharp-corner bubbles aligned to their side of the row, with optional avatars.",
+  "tier": "component",
+  "install": "flutter_shadcn add chat",
+  "import": "import 'package:<your_app>/ui/shadcn/components/chat/chat.dart';",
+  "tags": [
+    "display",
+    "chat",
+    "bubble",
+    "conversation",
+    "messaging"
+  ],
+  "deps": {
+    "foundation": [
+      "data"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "fractional_align_box",
+      "overlap_layout"
+    ],
+    "components": []
+  },
+  "files": [
+    "chat.dart",
+    "chat_style.dart",
+    "chat_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ChatBubble",
+      "ChatGroup",
+      "ChatReaction",
+      "ChatReactionContainer",
+      "ChatBubbleData",
+      "ChatTheme"
+    ],
+    "enums": [
+      "ChatBubbleVariant",
+      "ChatTailBehavior",
+      "ChatBubbleCorner",
+      "ChatBubbleCornerDirectional"
+    ],
+    "constants": [
+      "chatDefaults",
+      "chatThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ChatTheme",
+    "userFile": "chat_theme.dart",
+    "defaults": "chatDefaults",
+    "fields": {
+      "background": "ThemedColor? - primary token",
+      "foreground": "ThemedColor? - primaryForeground token",
+      "variant": "ChatBubbleVariant? - plain | tail | sharpCorner",
+      "alignment": "AlignmentGeometry? - AlignmentDirectional.centerEnd",
+      "widthFactor": "double? - share of the row width, 0.5",
+      "padding": "EdgeInsetsGeometry? - 12 horizontal / 8 vertical",
+      "borderRadius": "BorderRadiusGeometry? - ambient radiusLg",
+      "borderColor": "ThemedColor? - null draws no border",
+      "borderWidth": "double? - 1 when a border is drawn",
+      "tailSize": "Size? - 8 x 8",
+      "tailRadius": "double? - ambient radiusSm",
+      "tailBehavior": "ChatTailBehavior? - first | middle | last | never",
+      "spacing": "double? - gap between group bubbles, 2",
+      "avatarSpacing": "double? - gap to the avatar, 8",
+      "avatarAlignment": "AlignmentGeometry? - AlignmentDirectional.topEnd"
+    }
+  }
+}

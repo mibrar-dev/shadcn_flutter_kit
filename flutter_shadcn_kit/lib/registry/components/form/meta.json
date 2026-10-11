@@ -1,0 +1,83 @@
+{
+  "id": "form",
+  "name": "ShadcnForm",
+  "category": "Forms & Inputs",
+  "description": "ShadcnForm scope, labelled field layouts, validators, controller and submission flow.",
+  "tier": "component",
+  "install": "flutter_shadcn add form",
+  "import": "import 'package:<your_app>/ui/shadcn/components/form/form.dart';",
+  "tags": [
+    "form",
+    "validation",
+    "field",
+    "submit",
+    "object"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "gap"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "form_core"
+    ],
+    "components": []
+  },
+  "files": [
+    "form.dart",
+    "form_style.dart",
+    "form_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ShadcnForm",
+      "ShadcnFormField<T>",
+      "FormInline<T>",
+      "FormTableLayout",
+      "FormFieldMessages",
+      "FormTheme",
+      "FormResolvedTheme"
+    ],
+    "reExports": [
+      "FormController",
+      "SubmissionResult",
+      "FormKey<T>",
+      "FormEntry<T>",
+      "FormValueSupplier",
+      "Validator<T>",
+      "InvalidResult",
+      "WaitingResult",
+      "CompositeValidator / OrValidator / NotValidator / ValidationMode / ValidatorBuilder",
+      "NonNullValidator / NotEmptyValidator / LengthValidator / RangeValidator / RegexValidator / EmailValidator / URLValidator / MinValidator / MaxValidator / SafePasswordValidator / CompareTo / CompareWith",
+      "FormEntryErrorBuilder / FormErrorBuilder / FormPending / Validated<T>",
+      "ObjectFormField<T> / ObjectFormHandler<T> / PromptMode / ObjectFormFieldDialogResult<T>"
+    ],
+    "constants": [
+      "formDefaults",
+      "formThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "FormTheme",
+    "userFile": "form_theme.dart",
+    "defaults": "formDefaults",
+    "fields": {
+      "spacing": "double? - vertical gap between blocks, default 8",
+      "labelStyle": "TextStyle? - default 13 / w500",
+      "hintStyle": "TextStyle? - default 12",
+      "messageStyle": "TextStyle? - default 12 / w500",
+      "labelColor": "ThemedColor? - default foreground",
+      "hintColor": "ThemedColor? - default mutedForeground",
+      "messageColor": "ThemedColor? - default destructive"
+    },
+    "notes": [
+      "Form machinery (controller, keys, validators, entries, builders, object field) lives in primitives/form_core/ because the component folder is capped at two code files.",
+      "The old `AttachedInput`/`SharedFormHandleAdapter` bridge and the two parallel form systems are gone; form_core owns the single FormFieldHandle."
+    ]
+  }
+}

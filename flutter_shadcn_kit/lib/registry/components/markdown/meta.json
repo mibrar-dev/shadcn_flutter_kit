@@ -1,0 +1,55 @@
+{
+  "id": "markdown",
+  "name": "Markdown",
+  "category": "Typography & Media",
+  "description": "Text-only markdown renderer with a shadcn theme, tap callbacks and an image preview overlay.",
+  "tier": "component",
+  "install": "flutter_shadcn add markdown",
+  "import": "import 'package:<your_app>/ui/shadcn/components/markdown/markdown.dart';",
+  "tags": ["display", "markdown", "text", "streaming"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["markdown_parser", "localizations", "text_editing"],
+    "components": ["collapsible"]
+  },
+  "files": [
+    "markdown.dart",
+    "markdown_style.dart",
+    "markdown_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Markdown", "MarkdownTheme"],
+    "enums": ["MarkdownImagePreviewBehavior", "MarkdownTapElementKind"],
+    "functions": [],
+    "constants": ["markdownDefaults", "markdownThemeOverrides"],
+    "providedByPrimitives": {
+      "markdown_parser": ["computeStableMarkdownPrefixLength"]
+    }
+  },
+  "theme": {
+    "class": "MarkdownTheme",
+    "userFile": "markdown_theme.dart",
+    "defaults": "markdownDefaults",
+    "fields": {
+      "style": "TextStyle? - body shape; color falls back to foreground",
+      "linkStyle": "TextStyle? - link shape; color falls back to linkColor",
+      "linkColor": "ThemedColor? - primary token",
+      "codeStyle": "TextStyle? - code shape; family falls back to fontMono",
+      "codeBackgroundColor": "ThemedColor? - foreground at 7%",
+      "quoteBorderColor": "ThemedColor? - border token",
+      "tableHeaderStyle": "TextStyle? - table header shape",
+      "tableBorderColor": "ThemedColor? - border token",
+      "tableHeaderBackgroundColor": "ThemedColor? - muted at 50%",
+      "heading1Style": "TextStyle? - 28px w800",
+      "heading2Style": "TextStyle? - 23px w800",
+      "heading3Style": "TextStyle? - 20px w700",
+      "heading4Style": "TextStyle? - 18px w700",
+      "heading5Style": "TextStyle? - 16px w700",
+      "heading6Style": "TextStyle? - 14px w700",
+      "horizontalRuleColor": "ThemedColor? - border token",
+      "blockSpacing": "double? - 6"
+    }
+  }
+}

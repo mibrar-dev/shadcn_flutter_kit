@@ -1,0 +1,11 @@
+{
+  "id": "impl_dir",
+  "name": "Impl Dir",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  },
+  "files": [
+    "impl_dir.dart"
+  ]
+}

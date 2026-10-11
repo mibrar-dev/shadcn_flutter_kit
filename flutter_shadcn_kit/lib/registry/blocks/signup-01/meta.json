@@ -1,0 +1,35 @@
+{
+  "id": "signup-01",
+  "name": "Signup 01",
+  "category": "Authentication",
+  "description": "A create-account card with name, email, password and a terms checkbox.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add signup-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/signup-01/signup_01.dart';",
+  "tags": [
+    "signup01",
+    "signup"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alert",
+      "button",
+      "card",
+      "checkbox",
+      "form",
+      "input",
+      "spinner"
+    ]
+  },
+  "files": [
+    "signup_01.dart",
+    "README.md"
+  ]
+}

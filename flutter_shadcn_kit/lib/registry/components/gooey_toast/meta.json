@@ -1,0 +1,88 @@
+{
+  "id": "gooey_toast",
+  "name": "Gooey Toast",
+  "category": "Overlays",
+  "description": "Gooey-style transient notifications: a compact pill whose metaball silhouette morphs into an expanded body, built on the shared toast queue.",
+  "tier": "component",
+  "install": "flutter_shadcn add gooey_toast",
+  "import": "import 'package:<your_app>/ui/shadcn/components/gooey_toast/gooey_toast.dart';",
+  "tags": [
+    "overlay",
+    "notification",
+    "toast",
+    "gooey"
+  ],
+  "deps": {
+    "foundation": [
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "animation",
+      "gooey",
+      "toast_queue"
+    ],
+    "components": []
+  },
+  "files": [
+    "gooey_toast.dart",
+    "gooey_toast_style.dart",
+    "gooey_toast_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "GooeyAutopilot",
+      "GooeyToastAction",
+      "GooeyToastController",
+      "GooeyToastLayer",
+      "GooeyToastOptions",
+      "GooeyToastTheme"
+    ],
+    "enums": [
+      "GooeyToastState",
+      "GooeyToastPosition",
+      "GooeyToastExpandDirection",
+      "GooeyToastAnimationStyle",
+      "GooeyToastShapeStyle",
+      "GooeyToastBodyAnimationStyle",
+      "GooeyToastNewToastBehavior"
+    ],
+    "functions": [
+      "gooeyToastControllerOf",
+      "showGooeyToast"
+    ],
+    "constants": [
+      "gooeyToastDefaults",
+      "gooeyToastThemeOverrides",
+      "gooeyTitleTextStyle",
+      "gooeyDescriptionTextStyle"
+    ]
+  },
+  "theme": {
+    "class": "GooeyToastTheme",
+    "userFile": "gooey_toast_theme.dart",
+    "defaults": "gooeyToastDefaults",
+    "fields": {
+      "width": "double? - surface width (350)",
+      "fill": "ThemedColor? - surface fill (#0D1117 by default)",
+      "roundness": "double? - base corner roundness before the shape style (18)",
+      "titleStyle": "TextStyle? - compact label; null adds the state tone",
+      "descriptionStyle": "TextStyle? - expanded body text",
+      "duration": "Duration? - default auto-dismiss (6s)",
+      "animationStyle": "GooeyToastAnimationStyle? - open/close profile (sileo)",
+      "shapeStyle": "GooeyToastShapeStyle? - corner profile (defaultShape)",
+      "bodyAnimationStyle": "GooeyToastBodyAnimationStyle? - body content profile (fade)",
+      "enableGooeyBlur": "bool? - metaball blur pass (true)",
+      "successTone": "ThemedColor? - success accent (#63C65E)",
+      "loadingTone": "ThemedColor? - loading accent (#8A8F98)",
+      "errorTone": "ThemedColor? - error accent (#EF5E5E)",
+      "warningTone": "ThemedColor? - warning accent (#EABB4B)",
+      "infoTone": "ThemedColor? - info accent (#6EA8FF)",
+      "actionTone": "ThemedColor? - action accent (#7A8DFF)"
+    }
+  }
+}

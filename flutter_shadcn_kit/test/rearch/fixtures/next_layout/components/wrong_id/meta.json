@@ -1,0 +1,8 @@
+{
+  "id": "other_name",
+  "name": "Wrong Id",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  }
+}

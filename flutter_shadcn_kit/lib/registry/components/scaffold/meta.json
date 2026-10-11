@@ -1,0 +1,45 @@
+{
+  "id": "scaffold",
+  "name": "Scaffold",
+  "category": "Layout",
+  "description": "App screen shell with header/footer bars, a loading bar and keyboard avoidance, plus the AppBar title bar.",
+  "tier": "component",
+  "install": "flutter_shadcn add scaffold",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scaffold/scaffold.dart';",
+  "tags": ["layout", "scaffold", "appbar", "shell", "screen"],
+  "deps": {
+    "foundation": ["data", "gap"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["text"],
+    "components": ["progress"]
+  },
+  "files": [
+    "scaffold.dart",
+    "scaffold_style.dart",
+    "scaffold_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Scaffold", "AppBar", "ScaffoldBarData", "ScaffoldTheme", "AppBarTheme"],
+    "constants": ["scaffoldDefaults", "appBarDefaults", "scaffoldThemeOverrides", "appBarThemeOverrides"]
+  },
+  "theme": {
+    "class": "ScaffoldTheme",
+    "userFile": "scaffold_theme.dart",
+    "defaults": "scaffoldDefaults",
+    "fields": {
+      "background": "ThemedColor? - body fill, background token",
+      "headerBackground": "ThemedColor? - null = transparent",
+      "footerBackground": "ThemedColor? - null = transparent",
+      "showLoadingSparks": "bool? - loading bar sparks, false",
+      "resizeToAvoidBottomInset": "bool? - pad body for keyboard, true",
+      "appBarBackground": "ThemedColor? - bar fill, card token (AppBarTheme.background)",
+      "appBarPadding": "EdgeInsetsGeometry? - density padding (AppBarTheme.padding)",
+      "leadingGap": "double? - gap between leading widgets",
+      "trailingGap": "double? - gap between trailing widgets",
+      "contentGap": "double? - gap between bar sections",
+      "surfaceBlur": "double? - backdrop blur under the bar",
+      "surfaceOpacity": "double? - multiplied onto the bar fill, 1"
+    }
+  }
+}

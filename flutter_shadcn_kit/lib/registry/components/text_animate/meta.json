@@ -1,0 +1,82 @@
+{
+  "id": "text_animate",
+  "name": "TextAnimate",
+  "category": "Animation & Effects",
+  "description": "Stream-aware animated text renderer for incremental updates, plus a streaming markdown tail.",
+  "tier": "component",
+  "install": "flutter_shadcn add text_animate",
+  "import": "import 'package:<your_app>/ui/shadcn/components/text_animate/text_animate.dart';",
+  "tags": [
+    "display",
+    "text",
+    "animation",
+    "streaming"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "streaming_text"
+    ],
+    "components": [
+      "markdown"
+    ]
+  },
+  "files": [
+    "text_animate.dart",
+    "text_animate_style.dart",
+    "text_animate_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "TextAnimate",
+      "TextAnimateMarkdown",
+      "TextAnimateTheme",
+      "TextAnimateTypewriter",
+      "TextAnimateCursor",
+      "TextAnimateEffect",
+      "StreamingSnapshot",
+      "StreamingMarkdownSplit",
+      "StreamingSectionCache",
+      "StreamingClock",
+      "MarkdownStreamingExtension"
+    ],
+    "enums": [
+      "TextAnimateEffectKind"
+    ],
+    "functions": [
+      "resolveTextAnimateParts",
+      "textAnimateCursorVisible"
+    ],
+    "constants": [
+      "textAnimateDefaults",
+      "textAnimateThemeOverrides"
+    ],
+    "providedByPrimitives": {
+      "streaming_text": [
+        "splitStreamingChars",
+        "splitStreamingWords",
+        "sharedStreamingPrefix",
+        "streamingVisibleCount",
+        "streamingIsSettled",
+        "streamingProgress",
+        "animateStreamingBlock"
+      ]
+    }
+  },
+  "theme": {
+    "class": "TextAnimateTheme",
+    "userFile": "text_animate_theme.dart",
+    "defaults": "textAnimateDefaults",
+    "fields": {
+      "style": "TextStyle? - base style, merged over the ambient default",
+      "typewriter": "TextAnimateTypewriter? - reveal pacing, 48 units/s",
+      "effect": "TextAnimateEffect? - per-unit animation, none",
+      "cursor": "TextAnimateCursor? - streaming cursor, hidden"
+    }
+  }
+}

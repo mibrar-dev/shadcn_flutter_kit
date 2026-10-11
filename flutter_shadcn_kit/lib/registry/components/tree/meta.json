@@ -1,0 +1,98 @@
+{
+  "id": "tree",
+  "name": "Tree",
+  "category": "Data Display",
+  "description": "Immutable hierarchical list with expand/collapse, selection and themed indent guides.",
+  "tier": "component",
+  "install": "flutter_shadcn add tree",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tree/tree.dart';",
+  "tags": [
+    "tree",
+    "hierarchy",
+    "file",
+    "selection"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "icons"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "tree_selection"
+    ],
+    "components": [
+      "icon"
+    ]
+  },
+  "files": [
+    "tree.dart",
+    "tree_style.dart",
+    "tree_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Tree",
+      "TreeNode",
+      "TreeItem",
+      "TreeRow",
+      "TreeRowContext",
+      "TreeNodeDepth",
+      "TreeTheme",
+      "TreeCollapseIntent",
+      "TreeExpandIntent"
+    ],
+    "constants": [
+      "treeDefaults",
+      "treeThemeOverrides"
+    ],
+    "enums": [
+      "TreeBranchLine",
+      "TreeSelectionPosition",
+      "TreeSelectionGesture"
+    ],
+    "extensions": [
+      "TreeNodeListExtension"
+    ],
+    "providedByPrimitives": {
+      "tree_selection": [
+        "TreeNode",
+        "TreeItem",
+        "TreeNodeListExtension",
+        "TreeNodeUnaryOperator",
+        "TreeSelectionGesture",
+        "TreeSelectionRange",
+        "resolveTreeSelectionGesture",
+        "resolveTreeSelectionIntent",
+        "selectionRange",
+        "selectedRuns"
+      ]
+    },
+    "typedefs": [
+      "TreeNodeSelectionChanged",
+      "TreeNodeExpandedChanged"
+    ]
+  },
+  "theme": {
+    "class": "TreeTheme",
+    "userFile": "tree_theme.dart",
+    "defaults": "treeDefaults",
+    "fields": {
+      "branchLine": "TreeBranchLine? - guide style, default path",
+      "branchLineColor": "ThemedColor? - guide colour, default border",
+      "padding": "EdgeInsetsGeometry? - padding around the tree",
+      "indentWidth": "double? - space per level, default 16",
+      "itemPadding": "EdgeInsetsGeometry? - row padding, default 8x4",
+      "itemGap": "double? - gap between adornments and content, default 8",
+      "selectedBackground": "ThemedColor? - default primary at 5%",
+      "selectedFocusedBackground": "ThemedColor? - default primary at 10%",
+      "selectedRadius": "BorderRadiusGeometry? - default theme.borderRadiusMd"
+    }
+  }
+}

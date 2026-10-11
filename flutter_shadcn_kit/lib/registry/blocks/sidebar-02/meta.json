@@ -1,0 +1,39 @@
+{
+  "id": "sidebar-02",
+  "name": "Sidebar 02",
+  "category": "Sidebar",
+  "description": "An inset sidebar with grouped navigation and live search; a drawer on phones.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add sidebar-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
+  "tags": [
+    "sidebar02",
+    "sidebar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "avatar",
+      "badge",
+      "button",
+      "card",
+      "divider",
+      "drawer",
+      "input",
+      "progress"
+    ]
+  },
+  "files": [
+    "sidebar_02.dart",
+    "sidebar_02_content.dart",
+    "sidebar_02_panel.dart",
+    "README.md"
+  ]
+}

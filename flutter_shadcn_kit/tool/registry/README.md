@@ -1,65 +1,57 @@
 # Registry Scripts
 
-Scripts for building and validating registry metadata/manifests.
+Scripts for the post-cutover flat registry (`lib/registry/`).
 
-## Production Layout
+`src/categories.dart` is the single source of truth for the two P6-B1
+taxonomies (component categories and block categories) and for the viewport
+hints a block may declare. `gen_registry_manifest.dart` and
+`tool/rearch/check_layers.dart` both read it, so a typo in a `meta.json`
+category fails the gate instead of reaching the docs.
 
-- Component-level `meta.json`, `<id>.meta.json`, and `theme.schema.json` are canonical.
-- Nested component `registry/` metadata directories are legacy compatibility artifacts and should be removed.
-- `docs/lib/ui/shadcn` is generated from the registry mirror for the docs app. Do not hand-edit generated docs mirror files.
+## Generated manifest
 
-## Main Workflow
+`lib/registry/manifests/registry.json` (schemaVersion 2) is the single
+registry manifest the CLI reads. Regenerate it after any change to the
+registry tree:
 
-1. `dart run tool/registry/registry_readme_meta.dart`
-2. `dart run tool/registry/registry_sync_all.dart --force`
-3. `dart run tool/registry/registry_index_generate.dart`
-4. `dart run tool/registry/registry_verify.dart`
+- `dart run tool/registry/gen_registry_manifest.dart` — writes the manifest
+  from `components/*/meta.json`, `blocks/*/meta.json`, the
+  foundation/theme/primitives layers, `themes/*.json` and `pubspec.yaml`.
+  Deterministic; `--check` exits 1 when the file on disk is stale. It also
+  rejects an unknown component category, an unknown block category or
+  viewport, and a block directory without a `README.md` or entry file.
+- Build logic: `src/registry_manifest.dart` (+ `src/layer_scan.dart`,
+  `src/dart_imports.dart`, `src/categories.dart`). Contract:
+  `rearch/reports/registry_manifest.v2.schema.json`.
+- Guard: `test/rearch/registry_manifest_test.dart` (up to date + schema +
+  dependency closure).
 
-## Pre-PR Check
+## Blocks
 
-Run these commands before opening a PR:
+`lib/registry/blocks/<id>/` is layer 4, above components: `<id>.dart`
+(the public widget, which is also the preview), optional
+`<id>_<part>.dart` parts, `meta.json` and `README.md`. A block may import
+foundation/theme/primitives/components, never another block.
 
-1. `cd flutter_shadcn_kit && dart run tool/registry/registry_verify.dart --ci`
-2. `cd docs && flutter analyze && flutter build web`
-3. `cd flutter_shadcn_kit/flutter_cli_verification_example && flutter analyze && flutter build web`
-4. Optional harness smoke test: `cd flutter_shadcn_kit/flutter_cli_verification_example && flutter test test/widget_test.dart`
+- `dart run tool/registry/gen_blocks_test.dart` — writes
+  `test/registry/blocks/blocks_render_test.dart` (every block pumped at
+  375/768/1440 under neutral + claude, light + dark) and
+  `test/registry/blocks/blocks_meta_test.dart` (meta.json category,
+  viewport, files, and deps == the real imports, derived here with
+  `package:analyzer`). `--check` exits 1 when either file is stale.
+- `tool/rearch/check_layers.dart` adds `block-imports` (a block importing
+  another block) and `block-installable` (self-contained block directory).
 
-## Scripts
+Note: the Dart file stem is the id with `-` replaced by `_`, so
+`dashboard-01` lives in `dashboard_01.dart` — Dart file names must satisfy
+the `file_names` lint.
 
-- `registry_sync_all.dart`
-  - Syncs top-level component metadata + `components.json` + docs snapshot.
-  - Docs: `registry_sync_all_readme.md`
-- `registry_components_manifest.dart`
-  - Rebuilds `components.json` from component metadata and filesystem.
-  - Docs: `registry_components_manifest_readme.md`
-- `registry_meta_update.dart`
-  - Updates existing top-level component `meta.json` files (files/deps/version/api merge).
-  - Docs: `registry_meta_update_readme.md`
-- `registry_readme_meta.dart`
-  - Generates `<id>.meta.json` from README content.
-  - Docs: `registry_readme_meta_readme.md`
-- `registry_index_generate.dart`
-  - Generates `lib/registry/manifests/index.json`.
-  - Docs: `registry_index_generate_readme.md`
-- `registry_verify.dart`
-  - Validates manifest/files/dependencies consistency.
-  - Docs: `registry_verify_readme.md`
-- `registry_shared_manifest.dart`
-  - Generates `shared_manifest.json` from `registry/shared`.
-  - Docs: `registry_shared_manifest_readme.md`
-- `registry_skill_bundle.dart`
-  - Creates skill snapshot bundles under `skills/`.
-  - Docs: `registry_skill_bundle_readme.md`
-- `registry_tool.dart`
-  - Interactive helper (`init`, `sync`, `add-impl`).
-  - Docs: `registry_tool_readme.md`
-- `generate_available_components.dart`
-  - Generates available components listing.
-  - Docs: `generate_available_components_readme.md`
+## Package barrel
 
-## Help
+- `dart run tool/registry/registry_barrel_generate.dart` — regenerates
+  `lib/flutter_shadcn_kit.dart` (theme layer + every component entry).
 
-Each script supports:
+## See also
 
-- `-h`
-- `--help`
+- `tool/rearch/` — layers/single-owner/user-theme guardrails and
+  `gen_app_theme.dart` (preset → `app_theme.dart`).

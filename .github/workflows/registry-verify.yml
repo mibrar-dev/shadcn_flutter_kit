@@ -12,7 +12,6 @@ jobs:
     defaults:
       run:
         working-directory: flutter_shadcn_kit
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,5 +24,57 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Verify registry
-        run: dart run tool/registry/registry_verify.dart --ci
+      - name: Format
+        run: dart format --output=none --set-exit-if-changed lib test tool
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Generated files up to date
+        run: |
+          dart run tool/registry/gen_registry_manifest.dart --check
+          dart run tool/registry/gen_previews_test.dart --check
+          dart run tool/registry/gen_blocks_test.dart --check
+
+      - name: Guardrails
+        run: |
+          dart run tool/rearch/check_layers.dart --root lib/registry --strict
+          dart run tool/rearch/check_single_owner.dart --root lib/registry
+          dart run tool/rearch/check_user_theme.dart --root lib/registry --strict
+
+      - name: Tests
+        run: flutter test test/registry test/rearch
+
+  docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Format
+        run: dart format --output=none --set-exit-if-changed lib test tool
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Generated data and registry mirror up to date
+        run: |
+          dart run tool/gen_docs_data.dart --check
+          bash tool/sync_registry.sh --check
+
+      - name: Tests
+        run: flutter test
+
+      - name: Build web
+        run: flutter build web --release

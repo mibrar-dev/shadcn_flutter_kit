@@ -1,0 +1,20 @@
+{
+  "shared": [
+    {
+      "id": "clickable",
+      "files": [
+        {
+          "source": "registry/shared/primitives/clickable.dart"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "files": [
+        {
+          "source": "registry/shared/theme/tokens.dart"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "toggle",
+  "name": "Toggle",
+  "category": "Buttons & Actions",
+  "description": "On/off button with a controlled and a controller-driven mode, plus form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add toggle",
+  "import": "import 'package:<your_app>/ui/shadcn/components/toggle/toggle.dart';",
+  "tags": [
+    "control",
+    "toggle",
+    "selected",
+    "form"
+  ],
+  "deps": {
+    "foundation": [
+      "geometry"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "form_core"
+    ],
+    "components": []
+  },
+  "files": [
+    "toggle.dart",
+    "toggle_style.dart",
+    "toggle_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Toggle",
+      "ToggleController",
+      "ToggleTheme",
+      "ToggleStyle"
+    ],
+    "enums": [
+      "ToggleSize"
+    ],
+    "constants": [
+      "toggleDefaultPadding",
+      "toggleDefaultTextStyle",
+      "toggleDefaults",
+      "toggleThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ToggleTheme",
+    "userFile": "toggle_theme.dart",
+    "defaults": "toggleDefaults",
+    "fields": {
+      "on": "ToggleStyle? - primary row (default)",
+      "off": "ToggleStyle? - ghost row (default)",
+      "background": "StateValue<ThemedColor>? - per-state fill",
+      "foreground": "StateValue<ThemedColor>? - per-state label/icon colour",
+      "borderColor": "StateValue<ThemedColor>? - null draws no border",
+      "borderWidth": "double? - used when borderColor resolves",
+      "decoration": "StateValue<TextDecoration>? - optional underline",
+      "padding": "EdgeInsetsGeometry? - defaults to px-2 (h8), zero vertical",
+      "textStyle": "TextStyle? - defaults to 14 / w500"
+    }
+  }
+}

@@ -4,7 +4,14 @@ description: "A Flutter registry package for shadcn-style components, themes, an
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.7
+  # SDK floor for the whole kit (kit + docs + every CLI-installed component).
+  # The newest language feature the registry uses is `private-named-parameters`
+  # (a `this._keys` field formal in a named-parameter list), which shipped in
+  # Dart 3.12.0. Nothing here needs 3.13, so the floor stays 3.12: lower it and
+  # `theme/theme.dart` + `components/keyboard_shortcut/` fail with
+  # `experiment_not_enabled`. Registry sources carry no per-library
+  # `// @dart=` pins, so this is the only version they compile against.
+  sdk: ^3.12.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -19,19 +26,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  email_validator: ^3.0.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
-  skeletonizer: ^2.1.0+1
-  country_flags: ^4.1.0
-  phonecodes: ^0.0.4
-  cross_file: ^0.3.4+2
-  web: ^1.1.1
-  data_widget: ^0.0.2
-  gap: ^3.0.1
   expressions: ^0.2.5+2
-  animation_kit: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -43,7 +41,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
-  analyzer: ^6.4.1
+  analyzer: ^14.0.0
   crypto: ^3.0.6
   glob: ^2.1.2
   file: ^7.0.0

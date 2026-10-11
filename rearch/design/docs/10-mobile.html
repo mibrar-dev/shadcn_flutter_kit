@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mobile states — shadcn_flutter_kit docs</title>
+<meta name="description" content="375px layouts: landing, component page, navigation drawer.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue); color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+.page{max-width:1280px;margin:0 auto;padding:40px 24px 88px}
+.page h1{font-size:30px;letter-spacing:-.025em;margin:0 0 6px}
+.page>p{color:var(--muted-foreground);margin:0 0 28px;max-width:46rem}
+.frames{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.frame{width:375px;flex:none;border:1px solid var(--border);border-radius:28px;overflow:hidden;background:var(--background);box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.frame-cap{font-size:13px;color:var(--muted-foreground);margin:14px 2px 0;font-family:var(--font-mono)}
+.notch{display:flex;justify-content:center;padding:10px 0 6px}
+.notch i{width:110px;height:22px;border-radius:99px;background:var(--muted);display:block}
+.m-nav{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-weight:650;font-size:14.5px}
+.m-nav .sp{margin-left:auto;display:flex;gap:4px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:0;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.m-body{padding:20px 16px 28px}
+.m-body h2{font-size:27px;letter-spacing:-.025em;line-height:1.12;margin:12px 0 8px}
+.m-body .sub{font-size:14px;color:var(--muted-foreground);margin:0 0 16px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted-foreground);border:1px solid var(--border);border-radius:999px;padding:4px 12px;background:var(--muted)}
+.cmd{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;background:var(--muted);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.cmd code{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:14px;font-weight:600;padding:10px 16px;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;text-decoration:none;background:var(--primary);color:var(--primary-foreground);width:100%}
+.btn.o{background:transparent;border-color:var(--border);color:var(--foreground);margin-top:8px}
+.m-stack{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.mini{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
+.mini h4{margin:0 0 8px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground)}
+.mock-tabs{display:flex;gap:2px;background:var(--muted);border-radius:7px;padding:3px;font-size:12px}
+.mock-tabs span{padding:5px 12px;border-radius:5px;color:var(--muted-foreground)}
+.mock-tabs span.on{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.mock-input{font-size:13px;color:var(--muted-foreground);border:1px solid var(--input);border-radius:var(--radius);padding:8px 12px}
+.preview-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:12px}
+.preview-stage{display:flex;align-items:center;justify-content:center;padding:28px 12px;background:var(--background);border-bottom:1px solid var(--border)}
+.demo-btn{font:inherit;font-size:14px;font-weight:600;border-radius:var(--radius);padding:9px 18px;border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);cursor:pointer}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.ctl label{display:block;font-size:11px;font-weight:600;color:var(--muted-foreground);margin-bottom:5px}
+.ctl select{font:inherit;font-size:12.5px;width:100%;background:var(--muted);color:var(--foreground);border:1px solid var(--border);border-radius:6px;padding:6px 8px}
+table.mini-api{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:12px}
+table.mini-api td{border-bottom:1px solid var(--border);padding:7px 4px}
+table.mini-api td:first-child{font-family:var(--font-mono);font-size:11.5px}
+/* drawer frame */
+.drawer-wrap{position:relative;height:640px;overflow:hidden}
+.drawer-scrim{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.drawer{position:absolute;top:0;left:0;bottom:0;width:290px;background:var(--popover);border-right:1px solid var(--border);padding:16px;animation:slide-in var(--d200) var(--ease)}
+@keyframes slide-in{from{transform:translateX(-40px);opacity:.5}to{transform:none;opacity:1}}
+.drawer h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-foreground);margin:14px 0 4px}
+.drawer a{display:block;font-size:14px;color:var(--muted-foreground);text-decoration:none;padding:7px 10px;border-radius:6px}
+.drawer a[aria-current="page"]{color:var(--foreground);background:var(--accent)}
+.drawer .q{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted-foreground);border:1px solid var(--border);border-radius:8px;background:var(--muted);padding:8px 12px}
+.spec{margin-top:36px;border:1px solid var(--border);border-radius:12px;background:var(--card);padding:22px;max-width:820px}
+.spec h2{font-size:18px;margin:0 0 8px}
+.spec code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.spec table{border-collapse:collapse;font-size:13.5px}
+.spec td,.spec th{border-bottom:1px solid var(--border);padding:7px 14px 7px 0;text-align:left;vertical-align:top}
+@media(max-width:480px){.page{padding:24px 16px 64px}.frames{gap:16px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important}.drawer{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>Mobile · 375px</h1>
+<p>Three states at device width: stacked landing, stacked component page, and the navigation drawer (slide-in <code>200ms</code>, scrim fade <code>150ms</code>). Below 760px the sidebar/TOC collapse and grids go single-column.</p>
+<div class="frames">
+<div><div class="frame" data-od-id="mobile-landing"><div class="notch"><i></i></div>
+  <div class="m-nav"><button class="icon-btn" aria-label="Open menu">☰</button>shadcn_flutter_kit<span class="sp"><button class="icon-btn" aria-label="Toggle theme">◐</button></span></div>
+  <div class="m-body"><span class="kicker">118 components · 42 presets</span>
+    <h2>shadcn/ui quality, native Flutter.</h2>
+    <p class="sub">Copy-paste source. Every component installs alone.</p>
+    <div class="cmd"><code>$ flutter_shadcn add button</code></div>
+    <div style="height:10px"></div><a class="btn" href="#">Get started</a><a class="btn o" href="#">Browse</a>
+    <div class="m-stack"><div class="mini"><h4>Button</h4><div style="display:flex;gap:6px"><span class="demo-btn" style="font-size:12px;padding:6px 12px">Primary</span><span class="demo-btn" style="font-size:12px;padding:6px 12px;background:transparent;border-color:var(--border);color:var(--foreground)">Outline</span></div></div>
+    <div class="mini"><h4>Tabs</h4><div class="mock-tabs"><span class="on">Account</span><span>Team</span></div></div>
+    <div class="mini"><h4>Input</h4><div class="mock-input">name@example.com</div></div></div>
+  </div></div><p class="frame-cap">A · landing @375 — hero stacks, collage becomes vertical list</p></div>
+<div><div class="frame" data-od-id="mobile-component"><div class="notch"><i></i></div>
+  <div class="m-nav"><button class="icon-btn" aria-label="Open menu">☰</button>Button<span class="sp"><button class="icon-btn" aria-label="Toggle theme">◐</button></span></div>
+  <div class="m-body"><p style="font-size:12px;color:var(--muted-foreground);margin:0">Components / Button</p>
+    <h2 style="margin-top:2px">Button</h2>
+    <p class="sub">One widget, variant table, Clickable primitive.</p>
+    <div class="cmd"><code>$ flutter_shadcn add button</code></div>
+    <div class="preview-card"><div class="preview-stage"><button class="demo-btn">Get started</button></div>
+      <div class="controls"><div class="ctl"><label>Variant</label><select><option>primary</option><option>outline</option></select></div>
+      <div class="ctl"><label>Size</label><select><option>default</option><option>sm</option></select></div></div></div>
+    <table class="mini-api"><tr><td>variant</td><td>ButtonVariant · .primary</td></tr><tr><td>onPressed</td><td>null → disabled</td></tr></table>
+  </div></div><p class="frame-cap">B · component @375 — preview first, controls 2-col, tables scroll-x</p></div>
+<div><div class="frame" data-od-id="mobile-drawer"><div class="drawer-wrap"><div class="notch"><i></i></div>
+  <div class="m-nav"><button class="icon-btn" aria-label="Close menu">✕</button>Docs</div>
+  <div class="m-body"><h2>Introduction</h2><p class="sub">Drawer covers content; scrim tap or Esc closes.</p></div>
+  <div class="drawer-scrim"></div>
+  <nav class="drawer" aria-label="Mobile navigation"><div class="q">Search… <span style="margin-left:auto;font-family:var(--font-mono);font-size:11px">⌘K</span></div>
+    <h4>Getting started</h4><a href="#" aria-current="page">Introduction</a><a href="#">Installation</a><a href="#">Theming</a>
+    <h4>Components</h4><a href="#">Button</a><a href="#">Dialog</a><a href="#">Input</a></nav>
+</div></div><p class="frame-cap">C · nav drawer @375 — 290px sheet, focus trapped, 200ms slide</p></div>
+</div>
+<section class="spec" data-od-id="mobile-spec"><h2>Responsive breakpoints</h2>
+<table><thead><tr><th>Width</th><th>Shell</th><th>Grids</th></tr></thead><tbody>
+<tr><td><code>≥ 1100px</code></td><td>sidebar + content + TOC</td><td>3-col cards, 4-col presets</td></tr>
+<tr><td><code>760–1100px</code></td><td>sidebar + content, TOC hidden</td><td>2-col cards</td></tr>
+<tr><td><code>&lt; 760px</code></td><td>top bar + drawer, hamburger</td><td>single column; sticky filter bar</td></tr>
+</tbody></table>
+<p style="margin:12px 0 0">Flutter mapping: <code>drawer</code> component (same dismissal contract as dialog), hamburger is an icon <code>button</code>, breakpoints via <code>media_query</code> primitive tokens <code>760 / 1100 / 1280</code>.</p></section>
+</div>
+</body>
+</html>

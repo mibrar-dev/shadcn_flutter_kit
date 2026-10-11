@@ -1,0 +1,44 @@
+{
+  "id": "text_area",
+  "name": "TextArea",
+  "category": "Forms & Inputs",
+  "description": "Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.",
+  "tier": "component",
+  "install": "flutter_shadcn add text_area",
+  "import": "import 'package:<your_app>/ui/shadcn/components/text_area/text_area.dart';",
+  "tags": ["form", "input", "textarea", "multiline"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": ["form_core", "input_features"],
+    "components": ["input"]
+  },
+  "files": ["text_area.dart", "preview.dart"],
+  "api": {
+    "classes": ["TextArea"],
+    "constants": ["TextArea.textAreaMinLines", "TextArea.textAreaMaxLines"],
+    "reusedFromComponents": {
+      "input": [
+        "Input",
+        "InputTheme",
+        "resolveInputSurface",
+        "InputSurface"
+      ]
+    }
+  },
+  "theme": {
+    "class": "InputTheme",
+    "userFile": "../input/input_theme.dart",
+    "defaults": "inputDefaults",
+    "fields": {},
+    "reason": "A text area has no visual property of its own: every row (fill, border, radius, padding, text, hint, cursor, min height) is `InputTheme`'s, and the widget leg is forwarded verbatim. Adding a second theme class would duplicate those rows and let the two drift apart, so `theme` is null and the shared `InputTheme` is re-exported from text_area.dart instead."
+  },
+  "notes": [
+    "`deps.theme` is empty: the widget reads no token, class or theme file directly — `Input` resolves the surface, and the file only imports `components/input`, `primitives/form_core` and `primitives/input_features`.",
+    "The old `TextArea` extended `TextInputStatefulWidget` (a `TextField` subclass) purely to reach `expands`/`maxLines`/`minLines` through `widget.copyWith`, and carried ~80 forwarded `TextField` parameters that no caller set. The port is a 30-field wrapper over `Input`.",
+    "The drag-resize handle (`_TextAreaDragHandlePainter`, `expandableHeight`, `expandableWidth`, `initialHeight`, `initialWidth`, `min*`/`max*` sizes, `onHeightChanged`, `onWidthChanged`) is deleted: resizing is a layout decision that `minLines`/`maxLines`/`expands` already express, shadcn/ui has no such affordance, and the handle mutated width from a `MouseRegion` that only received `resizeLeftRight`/`resizeUpDown` cursors.",
+    "The old handle ignored `_height.isFinite`, so `initialWidth = double.infinity` plus `expandableWidth: true` produced `infinity` arithmetic on every pan; the wrapper has no equivalent state.",
+    "`Input`'s `minHeight` (36) is smaller than three text lines, so `EditableTextShell` grows the box with the content rather than clipping it.",
+    "`textCapitalization` defaults to `sentences` here, not `none` as in `Input`: prose fields capitalise their first letter, and `Input`'s default suits a code or number field."
+  ]
+}

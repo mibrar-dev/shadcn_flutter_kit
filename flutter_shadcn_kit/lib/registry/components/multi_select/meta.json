@@ -1,0 +1,68 @@
+{
+  "id": "multi_select",
+  "name": "MultiSelect",
+  "category": "Forms & Inputs",
+  "description": "A multi-selection dropdown built on select: checkbox popup rows (menu MenuCheckboxItem) that stay open while toggling, and removable chips in the trigger.",
+  "tier": "component",
+  "install": "flutter_shadcn add multi_select",
+  "import": "import 'package:<your_app>/ui/shadcn/components/multi_select/multi_select.dart';",
+  "tags": [
+    "form",
+    "select",
+    "multi-select",
+    "combobox",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "select_popup"
+    ],
+    "components": [
+      "chip",
+      "menu",
+      "select"
+    ]
+  },
+  "files": [
+    "multi_select.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "MultiSelect",
+      "MultiSelectItem",
+      "MultiSelectChip"
+    ],
+    "functions": [
+      "multiSelectHandler",
+      "multiSelectPredicate"
+    ]
+  },
+  "theme": {
+    "class": "SelectTheme",
+    "owner": "select",
+    "userFile": "select/select_theme.dart",
+    "note": "MultiSelect forwards its theme to the select component; no theme of its own."
+  },
+  "accessibility": {
+    "keyboard": "select trigger and popup traversal (arrows, Home/End, Enter/Space toggles, Escape closes, typeahead); the search field takes focus when shown",
+    "semantics": "checkbox rows announce their checked state; the popup stays open between toggles"
+  },
+  "sizes": {
+    "trigger": "min-height 36 (h-9), px-3 (12), chips inside",
+    "row": "menu row metrics: px-2 py-1.5, min-height 32, 14px type"
+  },
+  "notes": [
+    "Split out of `select` as a sibling component: the popup rows need menu/chip (layer 3) and the select component's two-file budget cannot hold the family; the re-architecture plan gives different behaviour its own small component.",
+    "Checkbox rows are the menu component's MenuCheckboxItem (autoClose false), bound to the select data.",
+    "Value selection defaults to `multiSelectHandler`/`multiSelectPredicate`; `canUnselect` (default true) allows removing a picked value, `autoClose` (default false) keeps the popup open."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "sidebar-01",
+  "name": "Sidebar 01",
+  "category": "Sidebar",
+  "description": "A navigation rail beside a sample mailbox screen; a drawer on phones.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add sidebar-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-01/sidebar_01.dart';",
+  "tags": [
+    "sidebar01",
+    "sidebar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "button",
+      "card",
+      "divider",
+      "drawer"
+    ]
+  },
+  "files": [
+    "sidebar_01.dart",
+    "sidebar_01_content.dart",
+    "README.md"
+  ]
+}

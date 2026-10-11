@@ -1,0 +1,56 @@
+{
+  "id": "steps",
+  "name": "Steps",
+  "category": "Layout",
+  "description": "Vertical numbered step list joined by a connector line.",
+  "tier": "component",
+  "install": "flutter_shadcn add steps",
+  "import": "import 'package:<your_app>/ui/shadcn/components/steps/steps.dart';",
+  "tags": [
+    "layout",
+    "steps",
+    "progress",
+    "flow"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "text"
+    ],
+    "components": []
+  },
+  "files": [
+    "steps.dart",
+    "steps_style.dart",
+    "steps_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Steps",
+      "StepItem",
+      "StepsTheme"
+    ],
+    "constants": [
+      "stepsDefaults",
+      "stepsThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "StepsTheme",
+    "userFile": "steps_theme.dart",
+    "defaults": "stepsDefaults",
+    "fields": {
+      "indicatorSize": "double? - numbered circle diameter (× scaling)",
+      "spacing": "double? - gap between indicator column and content",
+      "indicatorColor": "ThemedColor? - circle fill",
+      "indicatorForeground": "ThemedColor? - step number colour",
+      "connectorColor": "ThemedColor? - connector line colour",
+      "connectorThickness": "double? - connector line thickness"
+    }
+  }
+}

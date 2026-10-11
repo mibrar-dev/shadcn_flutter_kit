@@ -143,7 +143,7 @@ void readAllDocs(void Function(String content) writer) {
     final mod = node.factoryKeyword != null
         ? 'factory '
         : (node.constKeyword != null ? 'const ' : '');
-    final className = node.returnType.toSource();
+    final className = node.typeName?.toSource() ?? '';
     final name = ctorName;
     final params = node.parameters.toSource();
     b.writeln('  $mod$className${name != null ? '.$name' : ''}$params;');
@@ -183,8 +183,8 @@ void readAllDocs(void Function(String content) writer) {
   String classHeader(ClassDeclaration node) {
     final isAbstract = node.abstractKeyword != null;
     final isMixinClass = node.mixinKeyword != null;
-    final name = node.name.lexeme;
-    final typeParams = toSrcOrEmpty(node.typeParameters);
+    final name = node.namePart.typeName.lexeme;
+    final typeParams = toSrcOrEmpty(node.namePart.typeParameters);
     final extendsClause = node.extendsClause == null
         ? ''
         : ' extends ${node.extendsClause!.superclass.toSource()}';
@@ -213,19 +213,19 @@ void readAllDocs(void Function(String content) writer) {
   String extensionHeader(ExtensionDeclaration node) {
     final name = node.name?.lexeme ?? '';
     final typeParams = toSrcOrEmpty(node.typeParameters);
-    final onType = node.extendedType.toSource();
+    final onType = node.onClause?.extendedType.toSource() ?? '';
     return 'extension${name.isNotEmpty ? ' $name' : ''}$typeParams on $onType';
   }
 
   String enumSignature(EnumDeclaration node) {
     final docs = doc(node.documentationComment);
-    final names = node.constants
+    final names = node.body.constants
         .map((c) => c.name.lexeme)
         .where((n) => !isPrivateName(n))
         .join(', ');
     return [
       if (docs.isNotEmpty) docs,
-      'enum ${node.name.lexeme} { $names }',
+      'enum ${node.namePart.typeName.lexeme} { $names }',
     ].join('\n');
   }
 
@@ -299,11 +299,11 @@ void readAllDocs(void Function(String content) writer) {
 
     for (final decl in unit.declarations) {
       if (decl is ClassDeclaration) {
-        if (isPrivateName(decl.name.lexeme)) continue;
+        if (isPrivateName(decl.namePart.typeName.lexeme)) continue;
         final docs = doc(decl.documentationComment);
         if (docs.isNotEmpty) buffer.writeln(docs);
         buffer.writeln('${classHeader(decl)} {');
-        for (final member in decl.members) {
+        for (final member in decl.body.members) {
           if (member is FieldDeclaration) {
             buffer.write(fieldSignature(member));
           } else if (member is ConstructorDeclaration) {
@@ -321,7 +321,7 @@ void readAllDocs(void Function(String content) writer) {
         final docs = doc(decl.documentationComment);
         if (docs.isNotEmpty) buffer.writeln(docs);
         buffer.writeln('${mixinHeader(decl)} {');
-        for (final member in decl.members) {
+        for (final member in decl.body.members) {
           if (member is FieldDeclaration) {
             buffer.write(fieldSignature(member));
           } else if (member is MethodDeclaration) {
@@ -337,7 +337,7 @@ void readAllDocs(void Function(String content) writer) {
         final docs = doc(decl.documentationComment);
         if (docs.isNotEmpty) buffer.writeln(docs);
         buffer.writeln('${extensionHeader(decl)} {');
-        for (final member in decl.members) {
+        for (final member in decl.body.members) {
           if (member is FieldDeclaration) {
             buffer.write(fieldSignature(member));
           } else if (member is MethodDeclaration) {
@@ -348,7 +348,7 @@ void readAllDocs(void Function(String content) writer) {
         buffer.writeln('}');
         buffer.writeln();
       } else if (decl is EnumDeclaration) {
-        if (isPrivateName(decl.name.lexeme)) continue;
+        if (isPrivateName(decl.namePart.typeName.lexeme)) continue;
         buffer.writeln(enumSignature(decl));
         buffer.writeln();
       } else if (decl is TopLevelVariableDeclaration) {

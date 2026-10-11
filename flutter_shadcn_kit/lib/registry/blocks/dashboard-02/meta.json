@@ -1,0 +1,35 @@
+{
+  "id": "dashboard-02",
+  "name": "Dashboard 02",
+  "category": "Dashboard",
+  "description": "An analytics workspace with a visitors chart, a device split and traffic sources.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add dashboard-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/dashboard-02/dashboard_02.dart';",
+  "tags": [
+    "dashboard02",
+    "dashboard"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "button",
+      "card",
+      "divider",
+      "input",
+      "progress",
+      "tabs"
+    ]
+  },
+  "files": [
+    "dashboard_02.dart",
+    "dashboard_02_sections.dart",
+    "README.md"
+  ]
+}

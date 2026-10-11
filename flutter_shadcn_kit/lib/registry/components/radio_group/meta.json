@@ -1,0 +1,101 @@
+{
+  "id": "radio_group",
+  "name": "RadioGroup",
+  "category": "Forms & Inputs",
+  "description": "Single-select group with controlled and controller-driven modes, row and card item shapes, roving arrow-key traversal and form participation.",
+  "tier": "component",
+  "install": "flutter_shadcn add radio_group",
+  "import": "import 'package:<your_app>/ui/shadcn/components/radio_group/radio_group.dart';",
+  "tags": [
+    "form",
+    "radio",
+    "single-select",
+    "options"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "gap"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "form_core",
+      "roving_group",
+      "selectable_radio"
+    ],
+    "components": [
+      "card"
+    ]
+  },
+  "files": [
+    "radio_group.dart",
+    "radio_group_style.dart",
+    "radio_group_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "ShadcnRadioGroup",
+      "ShadcnRadioGroupController",
+      "RadioGroupTheme",
+      "RadioCard",
+      "SelectableCardTheme"
+    ],
+    "enums": [],
+    "constants": [
+      "radioGroupDefaults",
+      "radioGroupThemeOverrides"
+    ],
+    "providedByPrimitives": {
+      "selectable_radio": [
+        "RadioItem",
+        "RadioIndicator",
+        "RadioIndicatorStyle",
+        "SelectableRadioTheme",
+        "SelectableData",
+        "SelectableDataScope",
+        "kRadioIndicatorKey",
+        "kRadioIndicatorDotKey",
+        "selectableRadioDefaults",
+        "selectableItemDisabledOpacity",
+        "radioDefaultIndicatorSize",
+        "radioDefaultDuration",
+        "radioDefaultTextStyle"
+      ],
+      "roving_group": [
+        "RovingItem",
+        "RovingGroupRegistry",
+        "RovingGroupScope",
+        "NextRovingItemIntent",
+        "PreviousRovingItemIntent"
+      ]
+    },
+    "intents": [
+      "NextRovingItemIntent",
+      "PreviousRovingItemIntent"
+    ]
+  },
+  "theme": {
+    "class": "RadioGroupTheme",
+    "userFile": "radio_group_theme.dart",
+    "defaults": "radioGroupDefaults",
+    "fields": {
+      "direction": "Axis? - arrow-key reading order; null = the widget's own",
+      "items": "SelectableRadioTheme? - row styling (gap, itemPadding, labelStyle, indicator rows)",
+      "card": "SelectableCardTheme? - card surface styling (padding, borderRadius, per-state fill and border, gap)"
+    }
+  },
+  "notes": [
+    "`RadioItem` (the row) and `RadioIndicator` live in `primitives/selectable_radio/`: `select`, `menu` and `tabs` need the same rows, and the item is only here a consumer of the group's selection scope.",
+    "`RadioCard` and `SelectableCardTheme` stay with the component: a card is a component-layer surface, so the layer 2 primitive may not import `Card`.",
+    "`ControlledRadioGroup` and the `ControlledComponent` adapter are deleted; one widget with two modes, like `Switch`.",
+    "The old `RadioCard`/`Radio` classes are gone as such: `RadioCard` is a card item and `RadioIndicator` is the circle, both themed through the group's own rows so an indicator leg can no longer disagree with the item that drew it.",
+    "The arrow-key traversal is registered on each item's `Clickable` (`shortcuts`/`actions`), not on a `Shortcuts` above the items: `Clickable` binds the arrow keys to directional focus and the nearest `Shortcuts` wins.",
+    "`NextItemIntent`/`PreviousItemIntent` are now the primitive's `NextRovingItemIntent`/`PreviousRovingItemIntent`; the old names were ambiguous and the old handlers all selected the focused item instead of moving."
+  ]
+}

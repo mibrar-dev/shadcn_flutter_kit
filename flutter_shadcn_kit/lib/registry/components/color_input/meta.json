@@ -1,0 +1,53 @@
+{
+  "id": "color_input",
+  "name": "ColorInput",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.",
+  "tier": "component",
+  "install": "flutter_shadcn add color_input",
+  "import": "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
+  "tags": ["form", "color", "input", "picker", "hex", "history"],
+  "deps": {
+    "foundation": ["captured_wrapper", "data", "gap"],
+    "theme": ["color_tokens", "color_utils", "theme"],
+    "primitives": [
+      "clickable",
+      "form_core",
+      "localizations",
+      "overlay",
+      "popover_controller"
+    ],
+    "components": ["color", "color_picker", "eye_dropper", "history", "input"]
+  },
+  "files": [
+    "color_input.dart",
+    "color_input_style.dart",
+    "color_input_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["ColorInput", "ColorInputTheme"],
+    "constants": ["colorInputDefaults", "colorInputThemeOverrides"],
+    "functions": ["colorInputTrigger"]
+  },
+  "theme": {
+    "class": "ColorInputTheme",
+    "userFile": "color_input_theme.dart",
+    "defaults": "colorInputDefaults",
+    "fields": {
+      "mode": "PromptMode? - popover at 768px+ (desktop), dialog below",
+      "pickerMode": "ColorPickerMode? - channel mode the picker opens in, rgb by default",
+      "showAlpha": "bool? - picker alpha editing, true by default",
+      "enableEyeDropper": "bool? - picker screen sampling, true by default",
+      "showHistory": "bool? - picker history toggle, true by default",
+      "popoverAlignment": "AlignmentGeometry? - popover placement, top-left by default",
+      "popoverAnchorAlignment": "AlignmentGeometry? - popover anchor edge, bottom-left by default",
+      "popoverPadding": "EdgeInsetsGeometry? - popover inner padding, 16 by default",
+      "gap": "double? - gap between the well and the hex field, 8 by default",
+      "swatchSize": "double? - colour well edge, 36 by default",
+      "swatchBorderRadius": "BorderRadiusGeometry? - well corner radius, ambient radiusMd",
+      "swatchBorderColor": "ThemedColor? - well border, the border token"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+class WrongId {
+  const WrongId();
+}

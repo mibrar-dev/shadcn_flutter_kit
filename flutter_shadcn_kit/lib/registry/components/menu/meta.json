@@ -1,0 +1,149 @@
+{
+  "id": "menu",
+  "name": "Menu",
+  "category": "Menus",
+  "description": "Keyboard-navigable menu family: MenuGroup with roving focus and typeahead; MenuButton, MenuCheckboxItem, MenuRadioItem, MenuLabel, MenuShortcut, MenuSeparator and MenuSub rows; showShadcnMenu helper; MenuPopup surface. Owns MenuPopupTheme and MenubarTheme for the wave-D menu consumers.",
+  "tier": "component",
+  "install": "flutter_shadcn add menu",
+  "import": "import 'package:<your_app>/ui/shadcn/components/menu/menu.dart';",
+  "tags": [
+    "overlay",
+    "menu",
+    "popup",
+    "dropdown",
+    "keyboard",
+    "a11y"
+  ],
+  "deps": {
+    "foundation": [
+      "data",
+      "icons"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "menu_nav",
+      "menu_rows",
+      "popover_controller"
+    ],
+    "components": []
+  },
+  "files": [
+    "menu.dart",
+    "menu_style.dart",
+    "menu_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "MenuGroup",
+      "MenuButton",
+      "MenuCheckboxItem",
+      "MenuRadioGroup",
+      "MenuRadioItem",
+      "MenuLabel",
+      "MenuShortcut",
+      "MenuSeparator",
+      "MenuSub",
+      "MenuPopup",
+      "MenuTheme",
+      "MenuPopupTheme",
+      "MenubarTheme"
+    ],
+    "abstractClasses": [
+      "MenuItem"
+    ],
+    "typedefs": [
+      "MenuPressedCallback",
+      "MenuChangedCallback"
+    ],
+    "constants": [
+        "menuDefaults",
+        "menuItemDefaultPadding",
+        "menuPopupDefaults",
+        "menuPopupThemeOverrides",
+        "menuThemeOverrides",
+        "menubarDefaults",
+        "menubarThemeOverrides"
+    ],
+    "reExportedFromPrimitives": {
+      "menu_nav": [
+        "MenuGroupData",
+        "MenuNavSlot",
+        "RovingGroup"
+      ],
+      "menu_rows": [
+        "RovingRow",
+        "MenuPopupSurface",
+        "showMenuPopover",
+        "MenuLabel",
+        "MenuShortcut",
+        "MenuSeparator",
+        "columnMenuBuilder"
+      ]
+    }
+  },
+  "theme": {
+    "class": "MenuTheme",
+    "userFile": "menu_theme.dart",
+    "defaults": "menuDefaults",
+    "fields": {
+      "background": "StateValue<ThemedColor>? - per-state row fill; hovered/focused = accent",
+      "foreground": "StateValue<ThemedColor>? - per-state label/icon colour",
+      "itemPadding": "EdgeInsetsGeometry? - null = px-2 py-1.5",
+      "textStyle": "TextStyle? - label style; its colour is ignored",
+      "borderRadius": "BorderRadiusGeometry? - null = borderRadiusSm",
+      "subMenuOffset": "Offset? - submenu offset; null = Offset(8, -4)"
+    },
+    "popupTheme": {
+      "class": "MenuPopupTheme",
+      "defaults": "menuPopupDefaults",
+      "fields": {
+        "background": "ThemedColor? - surface fill; null = popover",
+        "foreground": "ThemedColor? - content colour; null = popoverForeground",
+        "borderColor": "ThemedColor? - null = border",
+        "borderWidth": "double? - null = 1.0",
+        "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
+        "padding": "EdgeInsetsGeometry? - null = all 4",
+        "minWidth": "double? - null = 128 (8rem)",
+        "surfaceBlur": "double? - null = the app theme's surfaceBlur"
+      }
+    },
+    "menubarTheme": {
+      "class": "MenubarTheme",
+      "defaults": "menubarDefaults",
+      "fields": {
+        "border": "bool? - whether the bar draws its border; null = true",
+        "background": "ThemedColor? - bar fill; null = background",
+        "borderColor": "ThemedColor? - null = border",
+        "borderWidth": "double? - null = 1.0",
+        "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
+        "padding": "EdgeInsetsGeometry? - null = all 4",
+        "subMenuOffset": "Offset? - null = Offset(-4, 8)"
+      }
+    }
+  },
+  "accessibility": {
+    "keyboard": "one tab stop per group (roving tabindex): ArrowUp/Down move and wrap, Home/End jump, Enter/Space activates (toggles checkbox/radio), ArrowRight opens the submenu, ArrowLeft closes one level, Escape closes one level (all at the root), typing selects by prefix with a 600 ms buffer",
+    "semantics": "rows are buttons through Clickable; disabled rows dim to 50% opacity"
+  },
+  "sizes": {
+    "row": "min-height 32 (shadcn h-8), padding px-2 py-1.5",
+    "popup": "min-width 128 (8rem), hugs content up to the viewport, padding 4, 1px border, radius md, shadow-md"
+  },
+  "notes": [
+    "The old module imported material.dart for Divider/VerticalDivider; the separator is a themed 1px box now (MenuSeparator).",
+    "The eleven Data.maybeOf reads are foundation Data, not data_widget.",
+    "MenuButton rows were old Button widgets with ButtonVariance.menu/menubar; they are Clickable rows now, so menu declares no component deps.",
+    "Sheet/dialog overlay sniffing is deleted: popovers paint one surface everywhere.",
+    "MenubarState coupling is deleted; the menubar component (B20) owns it and imports MenubarTheme from here.",
+    "MenuGap is deleted; use the foundation Gap.",
+    "Checkbox/radio rows keep the menu open (autoClose false) vs radio picks dismiss (autoClose true); both are overridable.",
+    "Arrow keys reach the roving engine because the row surface rebinds them to an unbound intent; the Clickable framework traversal would otherwise swallow them (no wrap, no disabled-skip, no submenu keys).",
+    "Row painting lives in primitives: `roving_row.dart` (RovingRow: hover/focus accent paint, padding reserved inside the 32px minimum) and `menu_rows.dart` (MenuPopupSurface, showMenuPopover, static rows), both re-exported from menu.dart.",
+    "B20/F1 fix: rows now measure the shadcn h-8 = 32 and paint `focus:bg-accent focus:text-accent-foreground` (previously the padding stacked to 44 and the fill was state-static)."
+  ]
+}

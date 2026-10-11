@@ -1,0 +1,39 @@
+{
+  "id": "spinner",
+  "name": "Spinner",
+  "category": "Feedback",
+  "description": "Indeterminate circular indicator with a rotating arc, widgets-only.",
+  "tier": "component",
+  "install": "flutter_shadcn add spinner",
+  "import": "import 'package:<your_app>/ui/shadcn/components/spinner/spinner.dart';",
+  "tags": ["display", "spinner", "loading", "indicator"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animation"],
+    "components": []
+  },
+  "files": [
+    "spinner.dart",
+    "spinner_style.dart",
+    "spinner_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Spinner", "SpinnerTheme"],
+    "constructors": [
+      "Spinner({size, strokeWidth, color, semanticsLabel, theme})"
+    ],
+    "constants": ["spinnerDefaults", "spinnerThemeOverrides"]
+  },
+  "theme": {
+    "class": "SpinnerTheme",
+    "userFile": "spinner_theme.dart",
+    "defaults": "spinnerDefaults",
+    "fields": {
+      "size": "double? - null = 24 * scaling",
+      "strokeWidth": "double? - null = size / 12",
+      "color": "ThemedColor? - primary token"
+    }
+  }
+}

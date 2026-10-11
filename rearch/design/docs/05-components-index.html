@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Components — shadcn_flutter_kit docs</title>
+<meta name="description" content="118 installable components: search, filter by category, live mini previews.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1280px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none}
+.badge{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-foreground);background:var(--muted)}
+.top-links{display:flex;gap:2px}.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.top-links a[aria-current="page"]{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.page-head{padding:56px 0 8px}
+.page-head h1{font-size:clamp(30px,3.6vw,44px);letter-spacing:-.03em;margin:0 0 8px;font-weight:700}
+.page-head p{color:var(--muted-foreground);font-size:17px;margin:0;max-width:40rem}
+.toolbar{position:sticky;top:60px;z-index:40;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:16px 0;border-bottom:1px solid var(--border);margin-top:24px}
+.toolbar-in{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 240px;display:flex;align-items:center;gap:8px;background:var(--muted);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.search:focus-within{border-color:var(--ring)}
+.search input{flex:1;font:inherit;font-size:14px;background:transparent;border:0;color:var(--foreground);outline:none;min-width:0}
+.search input::placeholder{color:var(--muted-foreground)}
+kbd{font-family:var(--font-mono);font-size:11px;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--card);color:var(--muted-foreground)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{font:inherit;font-size:13px;font-weight:550;border:1px solid var(--border);background:var(--card);color:var(--muted-foreground);border-radius:999px;padding:6px 14px;cursor:pointer}
+.fbtn:hover{color:var(--foreground)}
+.fbtn[aria-pressed="true"]{background:var(--foreground);color:var(--background);border-color:var(--foreground)}
+.count{font-size:13px;color:var(--muted-foreground);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:28px 0 88px}
+@media(max-width:1000px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.top-links{display:none}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.mini-prev{background:var(--background);border-bottom:1px solid var(--border);min-height:118px;display:flex;align-items:center;justify-content:center;gap:8px;padding:18px;flex-wrap:wrap}
+.card-body{padding:14px 16px 16px}
+.card-body b{font-size:14.5px}
+.card-body p{font-size:13px;color:var(--muted-foreground);margin:4px 0 10px}
+.meta{display:flex;gap:6px;align-items:center;font-family:var(--font-mono);font-size:11px;color:var(--muted-foreground)}
+.meta .files{border:1px solid var(--border);border-radius:999px;padding:1px 9px;background:var(--muted)}
+.empty{padding:60px 0;text-align:center;color:var(--muted-foreground)}
+.pv-btn{font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:var(--radius);background:var(--primary);color:var(--primary-foreground)}
+.pv-btn.o{background:transparent;border:1px solid var(--border);color:var(--foreground)}
+.pv-input{font-size:12.5px;color:var(--muted-foreground);border:1px solid var(--input);border-radius:var(--radius);padding:7px 12px;background:var(--background);min-width:150px}
+.pv-sw{position:relative;width:38px;height:21px;border-radius:999px;background:var(--primary)}
+.pv-sw::after{content:"";position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:var(--primary-foreground)}
+.pv-check{width:17px;height:17px;border-radius:4px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;color:var(--primary-foreground);font-size:12px}
+.pv-radio{width:16px;height:16px;border-radius:50%;border:4px solid var(--primary)}
+.pv-badge{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--secondary);color:var(--secondary-foreground)}
+.pv-badge.p{background:var(--primary);color:var(--primary-foreground)}
+.pv-avatar{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-foreground);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.pv-tabs{display:flex;gap:2px;background:var(--muted);border-radius:7px;padding:3px}
+.pv-tabs span{font-size:12px;padding:4px 12px;border-radius:5px;color:var(--muted-foreground)}
+.pv-tabs span.on{background:var(--card);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.pv-bar{width:150px;height:8px;border-radius:99px;background:var(--muted);overflow:hidden}
+.pv-bar i{display:block;height:100%;width:64%;background:var(--primary);border-radius:99px}
+.pv-slider{width:150px;height:5px;border-radius:99px;background:var(--muted);position:relative}
+.pv-slider::after{content:"";position:absolute;left:60%;top:-5px;width:15px;height:15px;border-radius:50%;background:var(--card);border:2px solid var(--primary)}
+.pv-skel{width:150px;height:12px;border-radius:6px;background:var(--muted)}
+.pv-skel.s{width:96px}
+.pv-chip{font-size:11.5px;border:1px solid var(--border);border-radius:999px;padding:3px 11px;color:var(--muted-foreground)}
+.pv-toast{font-size:12.5px;border:1px solid var(--border);border-radius:8px;background:var(--popover);padding:9px 14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.pv-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:10px;color:var(--muted-foreground);text-align:center}
+.pv-cal .sel{background:var(--primary);color:var(--primary-foreground);border-radius:4px}
+.pv-table{font-size:11.5px;width:100%;border-collapse:collapse}
+.pv-table td{border-bottom:1px solid var(--border);padding:5px 8px;color:var(--muted-foreground)}
+.pv-table td:first-child{color:var(--foreground);font-weight:600}
+.pv-acc{font-size:12.5px;border:1px solid var(--border);border-radius:7px;padding:8px 12px;min-width:170px;display:flex;justify-content:space-between;gap:12px}
+.pv-crumb{font-size:12.5px;color:var(--muted-foreground)}
+.pv-crumb b{color:var(--foreground);font-weight:600}
+.pv-dlg{width:170px;border:1px solid var(--border);border-radius:9px;background:var(--popover);padding:12px;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.pv-dlg b{font-size:12.5px}.pv-dlg p{font-size:11px;color:var(--muted-foreground);margin:2px 0 8px}
+.pv-sep{height:1px;width:130px;background:var(--border)}
+.pv-stars{color:var(--primary);font-size:15px;letter-spacing:2px}
+.pv-toggle{display:flex;background:var(--muted);border-radius:7px;padding:3px;gap:2px;font-size:12px}
+.pv-toggle span{padding:4px 12px;border-radius:5px;color:var(--muted-foreground)}
+.pv-toggle span.on{background:var(--card);color:var(--foreground)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:var(--d150) !important}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html">Docs</a><a href="05-components-index.html" aria-current="page">Components</a><a href="06-themes.html">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right"><button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</div></header>
+<main>
+<section class="wrap page-head" data-od-id="index-header"><h1>Components</h1>
+<p>118 widgets, each installable alone. Pick one — the CLI resolves its dependencies and copies real source you own.</p></section>
+<div class="toolbar"><div class="toolbar-in">
+  <label class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted-foreground)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" type="search" placeholder="Search components…" aria-label="Search components"><kbd>/</kbd></label>
+  <div class="filters" role="group" aria-label="Category filter">
+    <button class="fbtn" data-cat="all" aria-pressed="true">All</button>
+    <button class="fbtn" data-cat="form" aria-pressed="false">Form</button>
+    <button class="fbtn" data-cat="overlay" aria-pressed="false">Overlay</button>
+    <button class="fbtn" data-cat="data" aria-pressed="false">Data</button>
+    <button class="fbtn" data-cat="nav" aria-pressed="false">Navigation</button>
+    <button class="fbtn" data-cat="feedback" aria-pressed="false">Feedback</button>
+  </div>
+  <span class="count" id="count">24 of 118 shown</span>
+</div></div>
+<section class="wrap" data-od-id="index-grid"><div class="grid" id="grid">
+  <a class="card" href="03-component-button.html" data-cat="form" data-name="button"><div class="mini-prev"><span class="pv-btn">Primary</span><span class="pv-btn o">Outline</span></div><div class="card-body"><b>Button</b><p>One widget, variant table, Clickable primitive.</p><div class="meta"><span class="files">1 file</span><span>form</span></div></div></a>
+  <a class="card" href="#" data-cat="form" data-name="input"><div class="mini-prev"><span class="pv-input">name@example.com</span></div><div class="card-body"><b>Input</b><p>Text entry owning the shared feature system.</p><div class="meta"><span class="files">3 files</span><span>form</span></div></div></a>
+  <a class="card" href="#" data-cat="form" data-name="checkbox"><div class="mini-prev"><span class="pv-check">✓</span><span class="pv-check" style="background:var(--muted);color:var(--muted-foreground)">✓</span></div><div class="card-body"><b>Checkbox</b><p>Tri-state with indeterminate support.</p><div class="meta"><span class="files">1 file</span><span>form</span></div></div></a>
+  <a class="card" href="#" data-cat="form" data-name="switch"><div class="mini-prev"><span class="pv-sw"></span><span class="pv-toggle"><span class="on">On</span><span>Off</span></span></div><div class="card-body"><b>Switch</b><p>Binary toggle with drag support.</p><div class="meta"><span class="files">1 file</span><span>form</span></div></div></a>
+  <a class="card" href="#" data-cat="form" data-name="select"><div class="mini-prev"><span class="pv-input">Select a fruit… ▾</span></div><div class="card-body"><b>Select</b><p>Dropdown built on the overlay primitive.</p><div class="meta"><span class="files">2 files</span><span>form</span></div></div></a>
+  <a class="card" href="#" data-cat="form" data-name="slider"><div class="mini-prev"><span class="pv-slider"></span></div><div class="card-body"><b>Slider</b><p>Single and range, keyboard stepping.</p><div class="meta"><span class="files">2 files</span><span>form</span></div></div></a>
+  <a class="card" href="04-component-dialog.html" data-cat="overlay" data-name="dialog"><div class="mini-prev"><div class="pv-dlg"><b>Edit profile</b><p>Modal with focus trap.</p><span class="pv-btn" style="font-size:11.5px;padding:5px 12px">Save</span></div></div><div class="card-body"><b>Dialog</b><p>Modal overlay, scrim + Esc dismissal.</p><div class="meta"><span class="files">2 files</span><span>overlay</span></div></div></a>
+  <a class="card" href="#" data-cat="overlay" data-name="drawer"><div class="mini-prev"><span class="pv-acc">Drawer — right <span>→</span></span></div><div class="card-body"><b>Drawer</b><p>Edge sheet sharing dialog's contract.</p><div class="meta"><span class="files">2 files</span><span>overlay</span></div></div></a>
+  <a class="card" href="#" data-cat="overlay" data-name="popover"><div class="mini-prev"><span class="pv-toast">Popover content</span></div><div class="card-body"><b>Popover</b><p>Anchored floating panel, hover + click.</p><div class="meta"><span class="files">2 files</span><span>overlay</span></div></div></a>
+  <a class="card" href="#" data-cat="overlay" data-name="tooltip"><div class="mini-prev"><span class="pv-chip">Hover me</span><span class="pv-toast" style="font-size:11.5px">Add to library</span></div><div class="card-body"><b>Tooltip</b><p>Delayed label on hover or focus.</p><div class="meta"><span class="files">1 file</span><span>overlay</span></div></div></a>
+  <a class="card" href="#" data-cat="overlay" data-name="command"><div class="mini-prev"><span class="pv-input">Type a command… ⌘K</span></div><div class="card-body"><b>Command</b><p>Palette with fuzzy filter + arrows.</p><div class="meta"><span class="files">3 files</span><span>overlay</span></div></div></a>
+  <a class="card" href="#" data-cat="data" data-name="table"><div class="mini-prev"><table class="pv-table"><tr><td>Ada</td><td>Admin</td></tr><tr><td>Grace</td><td>Member</td></tr><tr><td>Alan</td><td>Owner</td></tr></table></div><div class="card-body"><b>Table</b><p>Sortable rows, sticky header option.</p><div class="meta"><span class="files">3 files</span><span>data</span></div></div></a>
+  <a class="card" href="#" data-cat="data" data-name="calendar"><div class="mini-prev"><div class="pv-cal"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>5</span><span>6</span><span>7</span><span>8</span><span class="sel">9</span><span>10</span><span>11</span></div></div><div class="card-body"><b>Calendar</b><p>Month grid, range + locale aware.</p><div class="meta"><span class="files">3 files</span><span>data</span></div></div></a>
+  <a class="card" href="#" data-cat="data" data-name="chart"><div class="mini-prev"><span class="pv-bar"><i></i></span><span class="pv-bar" style="width:110px"><i style="width:38%"></i></span></div><div class="card-body"><b>Chart</b><p>Bar + line from chart-1…5 tokens.</p><div class="meta"><span class="files">2 files</span><span>data</span></div></div></a>
+  <a class="card" href="#" data-cat="data" data-name="avatar"><div class="mini-prev"><span class="pv-avatar">AL</span><span class="pv-avatar" style="background:var(--secondary);color:var(--secondary-foreground)">GR</span><span class="pv-avatar" style="background:var(--primary);color:var(--primary-foreground)">AT</span></div><div class="card-body"><b>Avatar</b><p>Image with initials fallback.</p><div class="meta"><span class="files">1 file</span><span>data</span></div></div></a>
+  <a class="card" href="#" data-cat="data" data-name="badge"><div class="mini-prev"><span class="pv-badge p">New</span><span class="pv-badge">Beta</span><span class="pv-chip">v0.1.0</span></div><div class="card-body"><b>Badge</b><p>Status labels and counts.</p><div class="meta"><span class="files">1 file</span><span>data</span></div></div></a>
+  <a class="card" href="#" data-cat="nav" data-name="tabs"><div class="mini-prev"><div class="pv-tabs"><span class="on">Account</span><span>Password</span><span>Team</span></div></div><div class="card-body"><b>Tabs</b><p>Single owner for tab types.</p><div class="meta"><span class="files">2 files</span><span>nav</span></div></div></a>
+  <a class="card" href="#" data-cat="nav" data-name="breadcrumb"><div class="mini-prev"><span class="pv-crumb">Home / Docs / <b>Button</b></span></div><div class="card-body"><b>Breadcrumb</b><p>Collapsed path with ellipsis.</p><div class="meta"><span class="files">1 file</span><span>nav</span></div></div></a>
+  <a class="card" href="#" data-cat="nav" data-name="pagination"><div class="mini-prev"><div class="pv-toggle"><span>←</span><span class="on">2</span><span>3</span><span>→</span></div></div><div class="card-body"><b>Pagination</b><p>Page controls with ellipsis logic.</p><div class="meta"><span class="files">1 file</span><span>nav</span></div></div></a>
+  <a class="card" href="#" data-cat="nav" data-name="accordion"><div class="mini-prev"><span class="pv-acc">Is it accessible? <span>+</span></span></div><div class="card-body"><b>Accordion</b><p>Single/multi expand, animated.</p><div class="meta"><span class="files">1 file</span><span>nav</span></div></div></a>
+  <a class="card" href="#" data-cat="feedback" data-name="toast"><div class="mini-prev"><span class="pv-toast"><b>Scheduled.</b> Event saved.</span></div><div class="card-body"><b>Toast</b><p>Stacked notifications, auto-dismiss.</p><div class="meta"><span class="files">2 files</span><span>feedback</span></div></div></a>
+  <a class="card" href="#" data-cat="feedback" data-name="progress"><div class="mini-prev"><span class="pv-bar"><i style="width:72%"></i></span></div><div class="card-body"><b>Progress</b><p>Bar + spinner + skeleton set.</p><div class="meta"><span class="files">1 file</span><span>feedback</span></div></div></a>
+  <a class="card" href="#" data-cat="feedback" data-name="skeleton"><div class="mini-prev"><span style="display:flex;flex-direction:column;gap:6px"><span class="pv-skel"></span><span class="pv-skel s"></span></span></div><div class="card-body"><b>Skeleton</b><p>Loading placeholders, shimmer-free.</p><div class="meta"><span class="files">1 file</span><span>feedback</span></div></div></a>
+  <a class="card" href="#" data-cat="feedback" data-name="star rating"><div class="mini-prev"><span class="pv-stars">★★★★☆</span></div><div class="card-body"><b>Star rating</b><p>Half-step input + display mode.</p><div class="meta"><span class="files">1 file</span><span>feedback</span></div></div></a>
+</div>
+<div class="empty" id="empty" hidden>No components match. Try a different search.</div>
+</section>
+</main>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');});
+  var q=document.getElementById('q'),grid=document.getElementById('grid'),count=document.getElementById('count'),empty=document.getElementById('empty');
+  var cat='all';
+  var cards=Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  document.querySelectorAll('.fbtn').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    cat=b.getAttribute('data-cat');apply();});});
+  q.addEventListener('input',apply);
+  document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}});
+  function apply(){var term=q.value.trim().toLowerCase();var n=0;
+    cards.forEach(function(c){var ok=(cat==='all'||c.getAttribute('data-cat')===cat)&&(!term||c.getAttribute('data-name').indexOf(term)>-1);
+      c.style.display=ok?'':'none';if(ok)n++;});
+    count.textContent=n+' of 118 shown';empty.hidden=n>0;}
+})();
+</script>
+</body>
+</html>

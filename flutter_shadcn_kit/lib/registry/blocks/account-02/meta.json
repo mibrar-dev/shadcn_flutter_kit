@@ -1,0 +1,36 @@
+{
+  "id": "account-02",
+  "name": "Account 02",
+  "category": "Settings & Account",
+  "description": "A notifications preferences screen with per-channel switches.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add account-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/account-02/account_02.dart';",
+  "tags": [
+    "account02",
+    "account"
+  ],
+  "deps": {
+    "foundation": [
+      "gap"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alert",
+      "breadcrumb",
+      "button",
+      "card",
+      "divider",
+      "form",
+      "spinner",
+      "switch"
+    ]
+  },
+  "files": [
+    "account_02.dart",
+    "README.md"
+  ]
+}

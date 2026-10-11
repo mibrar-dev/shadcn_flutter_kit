@@ -1,0 +1,62 @@
+{
+  "id": "popup",
+  "name": "Popup",
+  "category": "Overlays",
+  "description": "An anchored floating surface for arbitrary content: the menu component's MenuPopup (re-exported) plus showShadcnPopup, a generic helper with Escape/outside-tap dismissal.",
+  "tier": "component",
+  "install": "flutter_shadcn add popup",
+  "import": "import 'package:<your_app>/ui/shadcn/components/popup/popup.dart';",
+  "tags": [
+    "overlay",
+    "popup",
+    "popover",
+    "surface"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [
+      "overlay",
+      "popover"
+    ],
+    "components": [
+      "menu"
+    ]
+  },
+  "files": [
+    "popup.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "functions": [
+      "showShadcnPopup"
+    ],
+    "reExportedFromComponents": {
+      "menu": [
+        "MenuPopup",
+        "MenuPopupTheme",
+        "menuPopupDefaults"
+      ]
+    }
+  },
+  "theme": {
+    "class": "MenuPopupTheme",
+    "owner": "menu",
+    "userFile": "menu/menu_theme.dart",
+    "defaults": "menuPopupDefaults",
+    "note": "The surface tokens are menu-owned; showShadcnPopup accepts a MenuPopupTheme as its widget-leg override."
+  },
+  "accessibility": {
+    "keyboard": "Escape closes the popup (the helper binds DismissIntent); with modal: true focus is trapped on the surface while it is open",
+    "semantics": "the surface is a plain decorated box: give the content its own semantics"
+  },
+  "sizes": {
+    "surface": "MenuPopup defaults: min-width 192 (12rem), padding 4, 1px border, radius md"
+  },
+  "notes": [
+    "MenuPopup/MenuPopupTheme are re-exported from menu (B13) and never re-declared.",
+    "The old popup depended on dialog for DialogOverlayHandler padding sniffing; that sniffing is deleted in menu, so the dependency dissolved.",
+    "The old MenuPopup surfaceOpacity/surfaceBlur/fillColor/borderColor fields are replaced by MenuPopupTheme's token fields (B13).",
+    "showShadcnPopup is new: the old component was only the surface, with no helper to present it."
+  ]
+}

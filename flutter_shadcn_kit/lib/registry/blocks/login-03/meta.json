@@ -1,0 +1,36 @@
+{
+  "id": "login-03",
+  "name": "Login 03",
+  "category": "Authentication",
+  "description": "A sign-in card with social provider buttons and an email form.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add login-03",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/login-03/login_03.dart';",
+  "tags": [
+    "login03",
+    "login"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alert",
+      "button",
+      "card",
+      "divider",
+      "form",
+      "input",
+      "spinner"
+    ]
+  },
+  "files": [
+    "login_03.dart",
+    "README.md"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "tracker",
+  "name": "Tracker",
+  "category": "Data Display",
+  "description": "A row of coloured activity segments, each with a hover tooltip.",
+  "tier": "component",
+  "install": "flutter_shadcn add tracker",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tracker/tracker.dart';",
+  "tags": ["display", "tracker", "status", "activity", "monitor"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": ["tooltip"]
+  },
+  "files": [
+    "tracker.dart",
+    "tracker_style.dart",
+    "tracker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Tracker", "TrackerData", "TrackerTheme"],
+    "enums": ["TrackerLevel"],
+    "constants": [
+      "trackerDefaults",
+      "trackerDefaultGap",
+      "trackerDefaultItemHeight",
+      "trackerThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "TrackerTheme",
+    "userFile": "tracker_theme.dart",
+    "defaults": "trackerDefaults",
+    "fields": {
+      "fine": "ThemedColor? - fill of a fine segment",
+      "warning": "ThemedColor? - fill of a warning segment",
+      "critical": "ThemedColor? - fill of a critical segment (destructive token)",
+      "unknown": "ThemedColor? - fill of an unknown segment (mutedForeground token)",
+      "radius": "double? - null = ambient radiusMd",
+      "gap": "double? - 2",
+      "itemHeight": "double? - 32"
+    }
+  },
+  "notes": [
+    "The old `TrackerLevel` abstract class with four `static const` instances is one enum; its per-level literal `Color` moved into `TrackerTheme` as a `ThemedColor` row, so a preset switch restyles the tracker.",
+    "Each literal status colour is a `TrackerTheme` field (`fine` / `warning`), so Studio can edit it; `critical` and `unknown` are token refs.",
+    "The old `TrackerThemeDefaults` (radius 6 / gap 2 / height 32) was never read by the widget; the defaults now feed the resolver.",
+    "The old widget wrapped its tooltip content in a `TooltipContainer` on top of the one the tooltip already applied; the segment passes the bare tooltip widget now."
+  ]
+}

@@ -21,3 +21,6 @@ build/
 **/.pub/
 .pub-cache/
 **/.pub-cache/
+
+# re-architecture agent logs
+rearch/logs/

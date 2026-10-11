@@ -1,0 +1,68 @@
+{
+  "id": "keyboard_shortcut",
+  "name": "KeyboardShortcut",
+  "category": "Data Display",
+  "description": "Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.",
+  "tier": "component",
+  "install": "flutter_shadcn add keyboard_shortcut",
+  "import": "import 'package:<your_app>/ui/shadcn/components/keyboard_shortcut/keyboard_shortcut.dart';",
+  "tags": ["display", "keyboard", "shortcut", "hint", "hotkey"],
+  "deps": {
+    "foundation": ["data", "gap", "keyboard"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": [],
+    "components": ["card"]
+  },
+  "files": [
+    "keyboard_shortcut.dart",
+    "keyboard_shortcut_style.dart",
+    "keyboard_shortcut_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "KeyboardShortcut",
+      "KeyboardKeyCap",
+      "KeyboardShortcutDisplayScope",
+      "KeyboardShortcutTheme"
+    ],
+    "enums": [],
+    "functions": ["defaultKeyboardKeyLabel"],
+    "constants": [
+      "keyboardShortcutDefaults",
+      "keyboardShortcutDefaultSpacing",
+      "keyboardShortcutDefaultKeyPadding",
+      "keyboardShortcutDefaultTextStyle",
+      "keyboardShortcutThemeOverrides",
+      "keyboardKeyCapKey",
+      "keyboardShortcutKey"
+    ],
+    "providedByFoundation": {
+      "keyboard": [
+        "KeyboardShortcutDisplayBuilder",
+        "KeyboardShortcutDisplayHandle",
+        "shortcutActivatorToKeySet"
+      ]
+    }
+  },
+  "theme": {
+    "class": "KeyboardShortcutTheme",
+    "userFile": "keyboard_shortcut_theme.dart",
+    "defaults": "keyboardShortcutDefaults",
+    "fields": {
+      "spacing": "double? - null = 2 (shadcn gap-0.5)",
+      "keyPadding": "EdgeInsetsGeometry? - null = symmetric(6, 4) (shadcn px-1.5 py-0.5)",
+      "keyBackground": "ThemedColor? - null = background at 70% alpha",
+      "keyForeground": "ThemedColor? - null = mutedForeground",
+      "keyBorderRadius": "BorderRadiusGeometry? - null = the ambient radiusMd",
+      "keyTextStyle": "TextStyle? - merged onto the default; null = text-xs (12, w500)",
+      "keyShadows": "List<BoxShadow>? - null = none (the shadcn look)"
+    }
+  },
+  "notes": [
+    "`KeyboardShortcutDisplayBuilder`, `KeyboardShortcutDisplayHandle` and `shortcutActivatorToKeySet` are already owned by `foundation/keyboard.dart`; the component's local copies are gone.",
+    "`KeyboardDisplay` / `KeyboardKeyDisplay` are now `KeyboardShortcut` / `KeyboardKeyCap`, matching the component id.",
+    "`KeyboardShortcutDisplayMapper` (a StatefulWidget whose state only cached a handle) becomes `KeyboardShortcutDisplayScope`, a stateless `Data` provider, and is optional: a cap outside it falls back to `defaultKeyboardKeyLabel`.",
+    "Key glyphs are not localized copy: a shortcut has to read the same on every keyboard the user is on, so they are a lookup table plus Flutter's own `keyLabel`."
+  ]
+}

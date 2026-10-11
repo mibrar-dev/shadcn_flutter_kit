@@ -1,0 +1,99 @@
+{
+  "id": "autocomplete",
+  "name": "AutoComplete",
+  "category": "Forms & Inputs",
+  "description": "Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.",
+  "tier": "component",
+  "install": "flutter_shadcn add autocomplete",
+  "import": "import 'package:<your_app>/ui/shadcn/components/autocomplete/autocomplete.dart';",
+  "tags": [
+    "form",
+    "autocomplete",
+    "suggestions",
+    "input",
+    "popover"
+  ],
+  "deps": {
+    "foundation": [
+      "text_input"
+    ],
+    "theme": [
+      "color_tokens",
+      "density",
+      "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "input_features",
+      "overlay",
+      "popover_controller",
+      "popover_overlay_handler",
+      "menu_rows"
+    ],
+    "components": []
+  },
+  "files": [
+    "autocomplete.dart",
+    "autocomplete_style.dart",
+    "autocomplete_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "AutoCompleteFeature",
+      "AutoCompleteTheme",
+      "AutoCompleteNavigateIntent",
+      "AutoCompleteAcceptIntent",
+      "AutoCompleteDismissIntent"
+    ],
+    "enums": [
+      "AutoCompleteMode"
+    ],
+    "typedefs": [
+      "AutoCompleteCompleter",
+      "SuggestionRowBuilder"
+    ],
+    "functions": [
+      "applyAutoCompleteSuggestion"
+    ],
+    "constants": [
+      "autocompleteDefaults",
+      "autocompleteDefaultMaxHeight",
+      "autocompleteDefaultTextStyle",
+      "autocompleteDefaultItemPadding",
+      "identityAutoCompleteCompleter",
+      "autocompleteThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "AutoCompleteTheme",
+    "userFile": "autocomplete_theme.dart",
+    "defaults": "autocompleteDefaults",
+    "fields": {
+      "mode": "AutoCompleteMode? - default replacement strategy, replaceWord",
+      "popoverConstraints": "BoxConstraints? - null caps the list at maxHeight",
+      "popoverWidthConstraint": "PopoverConstraint? - null keeps the field width as a minimum and hugs wider suggestions",
+      "popoverAlignment": "AlignmentGeometry? - null = topStart",
+      "popoverAnchorAlignment": "AlignmentGeometry? - null = bottomStart",
+      "containerBackground": "ThemedColor? - popover surface fill",
+      "containerForeground": "ThemedColor? - label colour inside the popover",
+      "containerBorderColor": "ThemedColor? - null draws no border",
+      "containerBorderWidth": "double? - used when the border resolves",
+      "containerBorderRadius": "BorderRadiusGeometry? - null = ambient radiusMd",
+      "containerPadding": "EdgeInsetsGeometry? - shadcn p-1, so 4 all round",
+      "itemBackground": "StateValue<ThemedColor>? - accent on hover/press/highlight",
+      "itemForeground": "StateValue<ThemedColor>? - accentForeground while active",
+      "itemPadding": "EdgeInsetsGeometry? - shadcn px-2 py-1.5",
+      "itemRadius": "BorderRadiusGeometry? - null = ambient radiusSm",
+      "itemTextStyle": "TextStyle? - null = text-sm (14), colour from itemForeground",
+      "gap": "double? - vertical space between rows, 0 by default",
+      "maxHeight": "double? - list height cap, shadcn max-h-60 = 240"
+    }
+  },
+  "notes": [
+    "Installable next to `input`: the field is the `input` component and this feature plugs into its generic suggestion slot (`InputFeature` + `SuggestionBuilder`, P3 design I2). It does not import `input`, so neither component depends on the other.",
+    "The old `AutoComplete` wrapper widget (which wrapped an opaque child and re-declared a field surface) is deleted; `AutoCompleteFeature` is the whole public surface.",
+    "`AutoCompleteMode` replaces both drifted old copies; `input` keeps only the generic `InputAutoCompleteFeature` slot.",
+    "`applyAutoCompleteSuggestion` is public so a host that owns its own field (or the `chip_input` component in B13) can reuse the same append/replace-word/replace-all surgery."
+  ]
+}

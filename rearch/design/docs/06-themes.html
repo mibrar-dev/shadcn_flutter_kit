@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-preset="modern-minimal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Themes — shadcn_flutter_kit docs</title>
+<meta name="description" content="42 token presets, live dashboard re-theme, token table, radius and density, export.">
+<style>
+:root{
+  --ease:cubic-bezier(0.16,1,0.3,1); --d150:150ms; --d200:200ms; --d300:300ms;
+  --font-sans:"Geist Sans",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:0.375rem;
+  --z-950:#171717; --z-900:#1f1f1f; --z-850:#262626; --z-800:#2e2e2e; --z-700:#404040;
+  --z-100:#e5e5e5; --z-400:#a3a3a3; --white:#ffffff;
+  --l-fg:#333333; --l-mut:#f9fafb; --l-sec:#f3f4f6; --l-sec-fg:#4b5563; --l-mut-fg:#6b7280; --l-bd:#e5e7eb;
+  --blue:#3b82f6; --red:#ef4444; --acc-d:#1e3a8a; --acc-d-fg:#bfdbfe; --acc-l:#e0f2fe; --acc-l-fg:#1e3a8a;
+  --code-bg:#0c0c0e; --code-fg:#e5e5e5; --code-dim:#8b8b93; --code-kw:#7dd3fc; --code-str:#bef264;
+  --p-zinc:#71717a; --p-bubble:#ec4899; --p-bubble-acc:#fce7f3; --p-bubble-fg:#9d174d;
+  --p-claude:#d97757; --p-claude-acc:#f5f0e8; --p-claude-fg:#5e3b2e;
+  --p-tang:#ea580c; --p-tang-acc:#431407; --p-tang-fg:#fed7aa;
+  --p-kodama:#4d7c0f; --p-kodama-acc:#1a2e05; --p-kodama-fg:#d9f99d;
+  --p-ocean:#0f766e; --p-ocean-acc:#042f2e; --p-ocean-fg:#99f6e4;
+  --p-graph:#52525b; --p-graph-acc:#27272a; --p-graph-fg:#fafafa;
+  --p-mono:#09090b; --p-mono-acc:#f4f4f5; --p-mono-fg:#09090b;
+  --p-cat:#f4a259; --p-cat-acc:#3b2f2f; --p-cat-fg:#ffe8cc;
+  --p-caf:#92400e; --p-caf-acc:#1c0a00; --p-caf-fg:#fde68a;
+  --p-sup:#3ecf8e; --p-sup-acc:#052e1b; --p-sup-fg:#a7f3d0;
+  --c2:#2563eb; --c3:#1d4ed8; --c4:#1e40af; --c5d:#172554;
+}
+html[data-theme="dark"]{
+  --background:var(--z-950); --foreground:var(--z-100); --card:var(--z-850); --card-foreground:var(--z-100);
+  --popover:var(--z-850); --popover-foreground:var(--z-100); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--z-800); --secondary-foreground:var(--z-100); --muted:var(--z-900); --muted-foreground:var(--z-400);
+  --accent:var(--acc-d); --accent-foreground:var(--acc-d-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--z-700); --input:var(--z-700); --ring:var(--blue);
+  --chart-1:var(--blue); --chart-2:var(--c2); --chart-3:var(--c3); --chart-4:var(--c4); --chart-5:var(--c5d);
+  --nav-bg:rgba(23,23,23,.82); color-scheme:dark;
+}
+html[data-theme="light"]{
+  --background:var(--white); --foreground:var(--l-fg); --card:var(--white); --card-foreground:var(--l-fg);
+  --popover:var(--white); --popover-foreground:var(--l-fg); --primary:var(--blue); --primary-foreground:var(--white);
+  --secondary:var(--l-sec); --secondary-foreground:var(--l-sec-fg); --muted:var(--l-mut); --muted-foreground:var(--l-mut-fg);
+  --accent:var(--acc-l); --accent-foreground:var(--acc-l-fg); --destructive:var(--red); --destructive-foreground:var(--white);
+  --border:var(--l-bd); --input:var(--l-bd); --ring:var(--blue);
+  --chart-1:var(--blue); --chart-2:var(--c2); --chart-3:var(--c3); --chart-4:var(--c4); --chart-5:var(--acc-l-fg);
+  --nav-bg:rgba(255,255,255,.82); color-scheme:light;
+}
+html[data-preset="zinc"]{ --primary:var(--z-100); --primary-foreground:var(--z-950); --ring:var(--z-100); --accent:var(--z-800); --accent-foreground:var(--white); }
+html[data-preset="bubblegum"]{ --primary:var(--p-bubble); --primary-foreground:var(--white); --ring:var(--p-bubble); --accent:var(--p-bubble-acc); --accent-foreground:var(--p-bubble-fg); }
+html[data-preset="claude"]{ --primary:var(--p-claude); --primary-foreground:var(--white); --ring:var(--p-claude); --accent:var(--p-claude-acc); --accent-foreground:var(--p-claude-fg); }
+html[data-preset="tangerine"]{ --primary:var(--p-tang); --primary-foreground:var(--white); --ring:var(--p-tang); --accent:var(--p-tang-acc); --accent-foreground:var(--p-tang-fg); }
+html[data-preset="kodama-grove"]{ --primary:var(--p-kodama); --primary-foreground:var(--white); --ring:var(--p-kodama); --accent:var(--p-kodama-acc); --accent-foreground:var(--p-kodama-fg); }
+html[data-preset="ocean-breeze"]{ --primary:var(--p-ocean); --primary-foreground:var(--white); --ring:var(--p-ocean); --accent:var(--p-ocean-acc); --accent-foreground:var(--p-ocean-fg); }
+html[data-preset="graphite"]{ --primary:var(--p-graph); --primary-foreground:var(--white); --ring:var(--p-graph); --accent:var(--p-graph-acc); --accent-foreground:var(--p-graph-fg); }
+html[data-preset="mono"]{ --primary:var(--z-100); --primary-foreground:var(--z-950); --ring:var(--z-100); --accent:var(--z-800); --accent-foreground:var(--z-100); }
+html[data-preset="catppuccin"]{ --primary:var(--p-cat); --primary-foreground:var(--z-950); --ring:var(--p-cat); --accent:var(--p-cat-acc); --accent-foreground:var(--p-cat-fg); }
+html[data-preset="caffeine"]{ --primary:var(--p-caf); --primary-foreground:var(--white); --ring:var(--p-caf); --accent:var(--p-caf-acc); --accent-foreground:var(--p-caf-fg); }
+html[data-preset="supabase"]{ --primary:var(--p-sup); --primary-foreground:var(--z-950); --ring:var(--p-sup); --accent:var(--p-sup-acc); --accent-foreground:var(--p-sup-fg); }
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background-color var(--d300) var(--ease),color var(--d300) var(--ease)}
+body *{transition-property:background-color,border-color,color;transition-duration:var(--d300);transition-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:4px}
+a{color:inherit}
+@keyframes page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main{animation:page-in var(--d200) var(--ease)}
+.nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:16px;height:60px;max-width:1280px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:650;text-decoration:none}
+.top-links{display:flex;gap:2px}.top-links a{text-decoration:none;font-size:14px;color:var(--muted-foreground);padding:6px 12px;border-radius:6px}
+.top-links a:hover{color:var(--foreground);background:var(--muted)}
+.top-links a[aria-current="page"]{color:var(--foreground);background:var(--muted)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted-foreground);cursor:pointer}
+.icon-btn:hover{background:var(--muted);color:var(--foreground);border-color:var(--border)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.page-head{padding:56px 0 8px}
+.page-head h1{font-size:clamp(30px,3.6vw,44px);letter-spacing:-.03em;margin:0 0 8px;font-weight:700}
+.page-head p{color:var(--muted-foreground);font-size:17px;margin:0;max-width:42rem}
+h2.sec{font-size:22px;letter-spacing:-.02em;margin:48px 0 6px}
+p.sub{color:var(--muted-foreground);margin:0 0 20px;max-width:44rem}
+code{font-family:var(--font-mono);font-size:.86em;background:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+.pgal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:1000px){.pgal{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.pgal{grid-template-columns:repeat(2,1fr)}.top-links{display:none}}
+.preset-card{text-align:left;font:inherit;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;color:var(--foreground)}
+.preset-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.preset-card[aria-pressed="true"]{border-color:var(--ring);box-shadow:0 0 0 1px var(--ring)}
+.preset-card b{display:block;font-size:13.5px;margin-bottom:10px}
+.swatches{display:flex;gap:0}
+.swatches span{width:26px;height:26px;border-radius:50%;border:2px solid var(--card);margin-left:-7px}
+.swatches span:first-child{margin-left:0}
+.more-note{font-size:13px;color:var(--muted-foreground);margin:12px 0 0}
+/* dashboard */
+.dash{border:1px solid var(--border);border-radius:14px;background:var(--card);overflow:hidden}
+.dash-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--border);font-size:13.5px;font-weight:600}
+.dash-bar .badge{margin-left:auto}
+.badge{font-family:var(--font-mono);font-size:11px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-foreground);background:var(--muted)}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px}
+@media(max-width:900px){.dash-grid{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--background);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.kpi span{font-size:12px;color:var(--muted-foreground)}
+.kpi b{display:block;font-size:24px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin:2px 0}
+.kpi em{font-style:normal;font-size:12px;color:var(--primary);font-weight:600}
+.dash-panels{display:grid;grid-template-columns:7fr 5fr;gap:12px;padding:0 18px 18px}
+@media(max-width:900px){.dash-panels{grid-template-columns:1fr}}
+.panel-box{background:var(--background);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.panel-box h3{margin:0 0 12px;font-size:13.5px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:130px}
+.bars i{flex:1;border-radius:4px 4px 0 0;min-height:8px}
+table.dt{width:100%;border-collapse:collapse;font-size:13px}
+table.dt th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-foreground);padding:6px 8px;border-bottom:1px solid var(--border)}
+table.dt td{padding:8px;border-bottom:1px solid var(--border)}
+.pill{font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent);color:var(--accent-foreground)}
+.form-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.input{font:inherit;font-size:13.5px;background:var(--background);border:1px solid var(--input);border-radius:var(--radius);padding:8px 12px;color:var(--foreground);min-width:0}
+.input:focus{border-color:var(--ring);box-shadow:0 0 0 2px var(--ring);outline:none}
+.btn{font:inherit;font-size:13.5px;font-weight:600;padding:8px 16px;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;background:var(--primary);color:var(--primary-foreground)}
+.sw{position:relative;width:40px;height:22px;border-radius:999px;background:var(--primary);border:1px solid var(--border);flex:none}
+.sw::after{content:"";position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:var(--primary-foreground)}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="logo" href="01-landing.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="2" fill="var(--primary)"/></svg>shadcn_flutter_kit</a>
+  <nav class="top-links" aria-label="Sections"><a href="02-docs-shell.html">Docs</a><a href="05-components-index.html">Components</a><a href="06-themes.html" aria-current="page">Themes</a><a href="08-cli-reference.html">CLI</a></nav>
+  <div class="nav-right"><button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</div></header>
+<main class="wrap">
+<section data-od-id="themes-header"><div class="page-head"><h1>Themes</h1>
+<p>One token table, 42 presets, light + dark everywhere. Pick a preset — the dashboard below re-themes with a 300ms colour morph and no layout shift.</p></div></section>
+<section data-od-id="themes-gallery"><h2 class="sec">Preset gallery</h2>
+<p class="sub">12 of 42 shown live; the rest ship as JSON in the kit and preview identically.</p>
+<div class="pgal" id="pgal" role="group" aria-label="Preset gallery"></div>
+<p class="more-note">+ 30 more: amber-minimal · amethyst-haze · bold-tech · candyland · clean-slate · cosmic-night · cyberpunk · darkmatter · doom-64 · elegant-luxury · midnight-bloom · mocha-mousse · nature · neo-brutalism · notebook · pastel-dreams · perpetuity · quantum-rose · retro-arcade · sage-garden · soft-pop · solar-dusk · starry-night · sunset-horizon · t3-chat · twitter · vercel · vintage-paper · violet-bloom · …</p></section>
+<section data-od-id="themes-dashboard"><h2 class="sec">Live dashboard <span class="badge" id="dashPreset">modern-minimal</span></h2>
+<p class="sub">Cards, chart, table, and form — every surface reads the same tokens your app will use.</p>
+<div class="dash" id="dash">
+  <div class="dash-bar">Acme analytics <span class="badge">sample</span></div>
+  <div class="dash-grid">
+    <div class="kpi"><span>Revenue</span><b>$48.2k</b><em>+12.4%</em></div>
+    <div class="kpi"><span>Users</span><b>8,431</b><em>+4.1%</em></div>
+    <div class="kpi"><span>Churn</span><b>1.9%</b><em>−0.3pt</em></div>
+    <div class="kpi"><span>NPS</span><b>62</b><em>+3</em></div>
+  </div>
+  <div class="dash-panels">
+    <div class="panel-box"><h3>Weekly signups</h3>
+      <div class="bars"><i style="height:38%;background:var(--chart-5)"></i><i style="height:55%;background:var(--chart-4)"></i><i style="height:44%;background:var(--chart-3)"></i><i style="height:70%;background:var(--chart-2)"></i><i style="height:62%;background:var(--chart-2)"></i><i style="height:88%;background:var(--chart-1)"></i><i style="height:100%;background:var(--primary)"></i></div></div>
+    <div class="panel-box"><h3>Team</h3>
+      <table class="dt"><thead><tr><th>Name</th><th>Role</th><th>Status</th></tr></thead><tbody>
+        <tr><td>Ada</td><td>Admin</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Grace</td><td>Member</td><td><span class="pill">Active</span></td></tr>
+        <tr><td>Alan</td><td>Owner</td><td><span class="pill">Away</span></td></tr>
+      </tbody></table>
+      <div class="form-row"><input class="input" value="ada@acme.dev" aria-label="Email"><span class="sw" aria-hidden="true"></span><button class="btn">Invite</button></div></div>
+  </div>
+</div></section>
+<section data-od-id="themes-tokens"><h2 class="sec">Token table</h2>
+<p class="sub">Dart and JSON names are camelCase of the shadcn CSS variable — no renames. Every colour token ships light + dark.</p>
+<div class="panel-box" style="padding:6px 18px"><table class="dt"><thead><tr><th>shadcn CSS</th><th>Theme JSON / Dart</th><th>Used for</th></tr></thead><tbody>
+<tr><td><code>--background / --foreground</code></td><td><code>background, foreground</code></td><td>App canvas + default text</td></tr>
+<tr><td><code>--card / --popover (+ -foreground)</code></td><td><code>card, popover…</code></td><td>Cards, dialogs, menus</td></tr>
+<tr><td><code>--primary / --secondary / --muted / --accent</code></td><td><code>primary…</code></td><td>Actions, fills, quiet surfaces</td></tr>
+<tr><td><code>--destructive</code></td><td><code>destructive</code></td><td>Danger actions</td></tr>
+<tr><td><code>--border / --input / --ring</code></td><td><code>border, input, ring</code></td><td>Lines, fields, focus rings</td></tr>
+<tr><td><code>--chart-1 … --chart-5</code></td><td><code>chart1…chart5</code></td><td>Chart series (see dashboard)</td></tr>
+<tr><td><code>--sidebar*</code></td><td><code>sidebar…</code></td><td>Docs + app sidebars</td></tr>
+<tr><td><code>--radius</code></td><td><code>radius</code></td><td>Base corner radius — try below</td></tr>
+</tbody></table></div></section>
+<section data-od-id="themes-controls"><h2 class="sec">Radius + density</h2>
+<p class="sub">Shape and spacing scale live on the dashboard — the same controls Studio exposes per component.</p>
+<div class="panel-box"><div class="form-row" style="margin-top:0">
+<label style="font-size:13px">Radius <b id="radVal">6px</b><br><input type="range" id="ctlRadius" min="0" max="16" value="6" style="width:220px;accent-color:var(--primary)"></label>
+<label style="font-size:13px">Density <b id="denVal">100%</b><br><input type="range" id="ctlDensity" min="85" max="115" value="100" style="width:220px;accent-color:var(--primary)"></label>
+</div></div></section>
+<section data-od-id="themes-export"><h2 class="sec">Export</h2>
+<p class="sub">Copy the current preset as canonical JSON or as the generated <code>app_theme.dart</code> your app will own.</p>
+<div class="form-row" style="margin-top:0"><button class="btn" id="copyJson">Copy JSON</button><button class="btn" id="copyDart" style="background:var(--secondary);color:var(--secondary-foreground)">Copy Dart app_theme</button></div>
+<div class="panel-box" style="margin-top:16px;border-style:dashed"><h3>Studio teaser</h3>
+<p style="font-size:14px;color:var(--muted-foreground);margin:0">Studio reads your lockfile, renders an editor per installed component schema, and rewrites only that component's <code>*_theme.dart</code> on save. This page's controls are its prototype.</p></div>
+<div style="height:88px"></div></section>
+</main>
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click',function(){root.setAttribute('data-theme',root.getAttribute('data-theme')==='light'?'dark':'light');});
+  var presets=[
+    {id:'modern-minimal',name:'Modern Minimal',c:['var(--blue)','var(--blue)','var(--acc-d)','var(--z-700)']},
+    {id:'zinc',name:'Zinc',c:['var(--z-100)','var(--p-zinc)','var(--z-800)','var(--z-700)']},
+    {id:'bubblegum',name:'Bubblegum',c:['var(--p-bubble)','var(--p-bubble)','var(--p-bubble-acc)','var(--z-700)']},
+    {id:'claude',name:'Claude',c:['var(--p-claude)','var(--p-claude)','var(--p-claude-acc)','var(--z-700)']},
+    {id:'tangerine',name:'Tangerine',c:['var(--p-tang)','var(--p-tang)','var(--p-tang-acc)','var(--z-700)']},
+    {id:'kodama-grove',name:'Kodama Grove',c:['var(--p-kodama)','var(--p-kodama)','var(--p-kodama-acc)','var(--z-700)']},
+    {id:'ocean-breeze',name:'Ocean Breeze',c:['var(--p-ocean)','var(--p-ocean)','var(--p-ocean-acc)','var(--z-700)']},
+    {id:'graphite',name:'Graphite',c:['var(--p-graph)','var(--p-graph)','var(--p-graph-acc)','var(--z-700)']},
+    {id:'mono',name:'Mono',c:['var(--white)','var(--z-100)','var(--z-800)','var(--z-700)']},
+    {id:'catppuccin',name:'Catppuccin',c:['var(--p-cat)','var(--p-cat)','var(--p-cat-acc)','var(--z-700)']},
+    {id:'caffeine',name:'Caffeine',c:['var(--p-caf)','var(--p-caf)','var(--p-caf-acc)','var(--z-700)']},
+    {id:'supabase',name:'Supabase',c:['var(--p-sup)','var(--p-sup)','var(--p-sup-acc)','var(--z-700)']}
+  ];
+  var gal=document.getElementById('pgal'),badge=document.getElementById('dashPreset');
+  presets.forEach(function(p,i){var b=document.createElement('button');b.className='preset-card';b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.innerHTML='<b>'+p.name+'</b><span class="swatches"><span style="background:'+p.c[0]+'"></span><span style="background:'+p.c[1]+'"></span><span style="background:'+p.c[2]+'"></span><span style="background:'+p.c[3]+'"></span></span>';
+    b.addEventListener('click',function(){root.setAttribute('data-preset',p.id);badge.textContent=p.id;
+      gal.querySelectorAll('.preset-card').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});});
+    gal.appendChild(b);});
+  document.getElementById('ctlRadius').addEventListener('input',function(e){root.style.setProperty('--radius',(e.target.value/16)+'rem');document.getElementById('radVal').textContent=e.target.value+'px';});
+  document.getElementById('ctlDensity').addEventListener('input',function(e){document.getElementById('dash').style.fontSize=(e.target.value/100*15.5)+'px';document.getElementById('denVal').textContent=e.target.value+'%';});
+  function flash(btn,fn){btn.addEventListener('click',function(){fn();var old=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=old;},1500);});}
+  flash(document.getElementById('copyJson'),function(){if(navigator.clipboard)navigator.clipboard.writeText('{"id":"'+root.getAttribute('data-preset')+'","radius":0.375}').catch(function(){});});
+  flash(document.getElementById('copyDart'),function(){if(navigator.clipboard)navigator.clipboard.writeText('// app_theme.dart — generated, values only\nconst appTheme = ShadcnTheme('+root.getAttribute('data-preset')+');').catch(function(){});});
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+{
+  "id": "card_image",
+  "name": "Card Image",
+  "category": "Layout",
+  "description": "A pressable card pairing an image with a leading/title/subtitle/trailing text block.",
+  "tier": "component",
+  "install": "flutter_shadcn add card_image",
+  "import": "import 'package:<your_app>/ui/shadcn/components/card_image/card_image.dart';",
+  "tags": ["layout", "card", "image", "media", "pressable"],
+  "deps": {
+    "foundation": ["constants", "gap"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["layout"],
+    "components": ["button", "outlined_container"]
+  },
+  "files": [
+    "card_image.dart",
+    "card_image_style.dart",
+    "card_image_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["CardImage", "CardImageTheme"],
+    "constants": [
+      "cardImageDefaults",
+      "cardImageButtonStyle",
+      "cardImageDefaultGap",
+      "cardImageDefaultHoverScale",
+      "cardImageThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "CardImageTheme",
+    "userFile": "card_image_theme.dart",
+    "defaults": "cardImageDefaults",
+    "fields": {
+      "direction": "Axis? - composition axis; null = vertical",
+      "hoverScale": "double? - image scale while hovered; null = 1.05",
+      "normalScale": "double? - image scale at rest; null = 1",
+      "imageBackground": "ThemedColor? - image fill; null = transparent token",
+      "imageBorderColor": "ThemedColor? - image border; null = transparent token",
+      "imageRadius": "BorderRadiusGeometry? - null = ambient radiusXl",
+      "gap": "double? - image/text gap; null = 12"
+    }
+  },
+  "notes": [
+    "`ButtonStyle.fixed(density: compact)` is deleted; the card runs on `ButtonSize.icon` (chrome-free, zero padding) with the `cardImageButtonStyle` leg, which reproduces the old fixed look.",
+    "The old `style`/`direction`/`hoverScale`/`normalScale`/`backgroundColor`/`borderColor`/`gap` widget arguments are theme fields now (clean break).",
+    "`Basic` is the `primitives/layout.dart` primitive (the old `layout/basic` component), so `deps.components` holds only `button` and `outlined_container`."
+  ]
+}

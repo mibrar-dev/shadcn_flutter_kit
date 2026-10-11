@@ -110,8 +110,8 @@ String _indentDocs(String docs, String indent) {
 String classHeader(ClassDeclaration node) {
   final isAbstract = node.abstractKeyword != null;
   final isMixinClass = node.mixinKeyword != null;
-  final name = node.name.lexeme;
-  final typeParams = node.typeParameters?.toSource() ?? '';
+  final name = node.namePart.typeName.lexeme;
+  final typeParams = node.namePart.typeParameters?.toSource() ?? '';
   final extendsClause = node.extendsClause == null
       ? ''
       : ' extends ${node.extendsClause!.superclass.toSource()}';
@@ -140,7 +140,7 @@ String mixinHeader(MixinDeclaration node) {
 String extensionHeader(ExtensionDeclaration node) {
   final name = node.name?.lexeme ?? '';
   final typeParams = node.typeParameters?.toSource() ?? '';
-  final onType = node.extendedType.toSource();
+  final onType = node.onClause?.extendedType.toSource() ?? '';
   return 'extension${name.isNotEmpty ? ' $name' : ''}$typeParams on $onType';
 }
 
@@ -182,7 +182,7 @@ String _ctorSigWithDocs(ConstructorDeclaration node) {
   final mod = node.factoryKeyword != null
       ? 'factory '
       : (node.constKeyword != null ? 'const ' : '');
-  final className = node.returnType.toSource();
+  final className = node.typeName?.toSource() ?? '';
   final params = node.parameters.toSource();
   b.writeln('  $mod$className${name != null ? '.$name' : ''}$params;');
   return b.toString();
@@ -217,7 +217,7 @@ String _renderClassTopic(ClassDeclaration decl) {
   final cdocs = _docLines(decl.documentationComment);
   if (cdocs.isNotEmpty) b.writeln(cdocs);
   b.writeln('${classHeader(decl)} {');
-  for (final member in decl.members) {
+  for (final member in decl.body.members) {
     if (member is FieldDeclaration) {
       b.write(_fieldSigWithDocs(member));
     } else if (member is ConstructorDeclaration) {
@@ -239,7 +239,7 @@ String _renderMixinTopic(MixinDeclaration decl) {
   final cdocs = _docLines(decl.documentationComment);
   if (cdocs.isNotEmpty) b.writeln(cdocs);
   b.writeln('${mixinHeader(decl)} {');
-  for (final member in decl.members) {
+  for (final member in decl.body.members) {
     if (member is FieldDeclaration) {
       b.write(_fieldSigWithDocs(member));
     } else if (member is MethodDeclaration) {
@@ -258,7 +258,7 @@ String _renderExtensionTopic(ExtensionDeclaration decl) {
   final cdocs = _docLines(decl.documentationComment);
   if (cdocs.isNotEmpty) b.writeln(cdocs);
   b.writeln('${extensionHeader(decl)} {');
-  for (final member in decl.members) {
+  for (final member in decl.body.members) {
     if (member is FieldDeclaration) {
       b.write(_fieldSigWithDocs(member));
     } else if (member is MethodDeclaration) {
@@ -276,8 +276,8 @@ String _renderEnumTopic(EnumDeclaration decl) {
   b.writeln('```dart');
   final edocs = _docLines(decl.documentationComment);
   if (edocs.isNotEmpty) b.writeln(edocs);
-  b.writeln('enum ${decl.name.lexeme} {');
-  for (final c in decl.constants) {
+  b.writeln('enum ${decl.namePart.typeName.lexeme} {');
+  for (final c in decl.body.constants) {
     final name = c.name.lexeme;
     if (_isPrivateName(name)) continue;
     final cdoc = _docLines(c.documentationComment);
@@ -334,7 +334,7 @@ List<_Topic> _collectApiTopics() {
     final unit = result.unit;
     for (final decl in unit.declarations) {
       if (decl is ClassDeclaration) {
-        final name = decl.name.lexeme;
+        final name = decl.namePart.typeName.lexeme;
         if (_isPrivateName(name)) continue;
         final docs =
             decl.documentationComment?.tokens.map((t) => t.lexeme).join('\n') ??
@@ -373,17 +373,17 @@ List<_Topic> _collectApiTopics() {
             '';
         final desc = _firstSentence(docs.replaceAll('///', '').trim());
         final body = StringBuffer()..writeln(_renderExtensionTopic(decl));
+        final onType = decl.onClause?.extendedType.toSource() ?? '';
         topics.add(
           _Topic(
-            slug:
-                'extension-${name ?? 'on-${decl.extendedType.toSource().replaceAll(' ', '-')}'}',
-            title: 'Extension: ${name ?? decl.extendedType.toSource()}',
+            slug: 'extension-${name ?? 'on-${onType.replaceAll(' ', '-')}'}',
+            title: 'Extension: ${name ?? onType}',
             description: desc.isEmpty ? 'Reference for extension' : desc,
             body: body.toString(),
           ),
         );
       } else if (decl is EnumDeclaration) {
-        final name = decl.name.lexeme;
+        final name = decl.namePart.typeName.lexeme;
         if (_isPrivateName(name)) continue;
         final docs =
             decl.documentationComment?.tokens.map((t) => t.lexeme).join('\n') ??

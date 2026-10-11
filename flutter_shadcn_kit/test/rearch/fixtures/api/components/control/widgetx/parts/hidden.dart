@@ -1,0 +1,3 @@
+class HiddenThing {}
+
+class ShownThing {}

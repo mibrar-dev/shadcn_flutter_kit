@@ -1,0 +1,41 @@
+{
+  "id": "switcher",
+  "name": "Switcher",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Swipeable view that animates between child widgets along a chosen axis.",
+  "tier": "component",
+  "install": "flutter_shadcn add switcher",
+  "import": "import 'package:<your_app>/ui/shadcn/components/switcher/switcher.dart';",
+  "tags": ["navigation", "swipe", "carousel", "pages", "transition"],
+  "deps": {
+    "foundation": ["constants"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "switcher.dart",
+    "switcher_style.dart",
+    "switcher_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Switcher", "SwitcherTheme"],
+    "constants": ["switcherDefaults", "switcherThemeOverrides"]
+  },
+  "theme": {
+    "class": "SwitcherTheme",
+    "userFile": "switcher_theme.dart",
+    "defaults": "switcherDefaults",
+    "fields": {
+      "duration": "Duration? - snap-back duration; default 150ms",
+      "curve": "Curve? - snap-back curve; default Curves.easeInOut"
+    }
+  },
+  "notes": [
+    "The fractional position is an AnimationController value; the old AnimatedValueBuilder(value:, duration:) pair was replaced.",
+    "children is asserted non-empty and index is clamped, so an out-of-range index no longer throws a RangeError.",
+    "preview.dart imports clickable and the button component; preview files are excluded from dependency checking."
+  ]
+}

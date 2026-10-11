@@ -1,0 +1,52 @@
+{
+  "id": "empty_state",
+  "name": "EmptyState",
+  "category": "Data Display",
+  "description": "A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.",
+  "tier": "component",
+  "install": "flutter_shadcn add empty_state",
+  "import": "import 'package:<your_app>/ui/shadcn/components/empty_state/empty_state.dart';",
+  "tags": ["display", "empty", "placeholder", "no-results", "error"],
+  "deps": {
+    "foundation": ["gap", "icons"],
+    "theme": ["color_tokens", "density", "theme"],
+    "primitives": ["localizations"],
+    "components": ["button", "card"]
+  },
+  "files": [
+    "empty_state.dart",
+    "empty_state_style.dart",
+    "empty_state_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["EmptyState", "EmptyStateAction", "EmptyStateTheme", "EmptyStateMetrics"],
+    "enums": ["EmptyStateVariant", "EmptyStateSize"],
+    "constants": ["emptyStateDefaults", "emptyStateMetrics", "emptyStateThemeOverrides", "emptyStateIconContainerKey", "emptyStateActionsKey"],
+    "methods": ["EmptyStateVariant.icon", "EmptyStateSize.hasSurface", "EmptyStateSize.hasIconContainer", "EmptyStateTheme.metricsFor"]
+  },
+  "theme": {
+    "class": "EmptyStateTheme",
+    "userFile": "empty_state_theme.dart",
+    "defaults": "emptyStateDefaults",
+    "fields": {
+      "iconColor": "ThemedColor? - null = mutedForeground",
+      "iconContainerBackground": "ThemedColor? - null = muted",
+      "iconContainerBorderColor": "ThemedColor? - null = border",
+      "iconContainerPadding": "EdgeInsetsGeometry? - null = the size's entry",
+      "iconContainerBorderRadius": "BorderRadiusGeometry? - null = the size's entry (circular 14)",
+      "titleStyle": "TextStyle? - merged onto the size's title style",
+      "descriptionStyle": "TextStyle? - merged onto the size's description style",
+      "padding": "EdgeInsetsGeometry? - null = the size's entry (24 compact / 32 full page)",
+      "maxWidth": "double? - null = the size's entry (420 / 520)",
+      "metrics": "Map<EmptyStateSize, EmptyStateMetrics>? - a listed size wins as a whole",
+      "surface": "ThemedColor? - compact surface fill; null = the ambient card token"
+    }
+  },
+  "notes": [
+    "Default strings come from `primitives/localizations` (six new getters, English fallback only, no invented translations).",
+    "`emptyStateThemeTokens` and `EmptyStateThemeSchema` are deleted: one `EmptyStateTheme` with a per-size `EmptyStateMetrics` table replaces the second hand-maintained theme layer.",
+    "`EmptyStateTheme` now implements `Mergeable`; the old one extended `ComponentThemeData` without a merge, so a leg that set only `iconColor` dropped every other value.",
+    "`EmptyStateActionStyle` (primary/secondary/link) is gone: `EmptyStateAction.variant` takes a `ButtonVariant`, so the component no longer keeps its own parallel enum."
+  ]
+}

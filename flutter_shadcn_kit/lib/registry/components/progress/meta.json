@@ -1,0 +1,42 @@
+{
+  "id": "progress",
+  "name": "Progress",
+  "category": "Feedback",
+  "description": "Determinate and indeterminate linear progress bar, widgets-only.",
+  "tier": "component",
+  "install": "flutter_shadcn add progress",
+  "import": "import 'package:<your_app>/ui/shadcn/components/progress/progress.dart';",
+  "tags": ["display", "progress", "indicator", "loading"],
+  "deps": {
+    "foundation": ["constants"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animation"],
+    "components": []
+  },
+  "files": [
+    "progress.dart",
+    "progress_style.dart",
+    "progress_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Progress", "ProgressTheme"],
+    "constructors": [
+      "Progress({value, height, borderRadius, color, backgroundColor, showSparks, disableAnimation, semanticsLabel, semanticsValue, theme})"
+    ],
+    "constants": ["progressDefaults", "progressThemeOverrides"]
+  },
+  "theme": {
+    "class": "ProgressTheme",
+    "userFile": "progress_theme.dart",
+    "defaults": "progressDefaults",
+    "fields": {
+      "color": "ThemedColor? - primary token",
+      "backgroundColor": "ThemedColor? - primary token at 20% alpha",
+      "height": "double? - null = 8 * scaling",
+      "borderRadius": "BorderRadiusGeometry? - null = pill at half the height",
+      "showSparks": "bool? - leading-edge glow, false",
+      "disableAnimation": "bool? - jump instead of animate, false"
+    }
+  }
+}

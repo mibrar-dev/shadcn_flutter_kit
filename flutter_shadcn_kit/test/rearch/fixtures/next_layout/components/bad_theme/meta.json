@@ -1,0 +1,13 @@
+{
+  "id": "bad_theme",
+  "name": "Bad Theme",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  },
+  "files": [
+    "bad_theme.dart",
+    "bad_theme_style.dart",
+    "bad_theme_theme.dart"
+  ]
+}

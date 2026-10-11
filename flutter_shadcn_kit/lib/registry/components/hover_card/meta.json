@@ -1,0 +1,45 @@
+{
+  "id": "hover_card",
+  "name": "HoverCard",
+  "category": "Overlays",
+  "description": "Rich preview card shown while the pointer rests on its child, presented through the popover machinery with themed timing and placement.",
+  "tier": "component",
+  "install": "flutter_shadcn add hover_card",
+  "import": "import 'package:<your_app>/ui/shadcn/components/hover_card/hover_card.dart';",
+  "tags": ["overlay", "hover", "preview", "card"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["hover", "overlay", "popover_controller"],
+    "components": []
+  },
+  "files": [
+    "hover_card.dart",
+    "hover_card_style.dart",
+    "hover_card_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["HoverCard", "HoverCardTheme"],
+    "constants": ["hoverCardDefaults", "hoverCardThemeOverrides"]
+  },
+  "theme": {
+    "class": "HoverCardTheme",
+    "userFile": "hover_card_theme.dart",
+    "defaults": "hoverCardDefaults",
+    "fields": {
+      "debounce": "Duration? - hide delay after the pointer leaves; null = 500 ms",
+      "wait": "Duration? - show delay after the pointer enters; null = 500 ms",
+      "popoverAlignment": "AlignmentGeometry? - card placement; null = top-center",
+      "anchorAlignment": "AlignmentGeometry? - anchor edge; null = bottom-center",
+      "popoverOffset": "Offset? - gap between anchor and card; null = Offset(0, 8)",
+      "behavior": "HitTestBehavior? - anchor hit-testing; null = deferToChild"
+    }
+  },
+  "notes": [
+    "The tooltip component dep from the batch plan is dropped: it served only the adaptiveOverlay path through overlay_configuration, the same path the tooltip pilot deleted. The card surface is local tokens.",
+    "adaptiveOverlay and the handler passthrough are deleted (one show path, dialog D2 rule); touch screens long-press instead.",
+    "The custom MouseRegion timers are the Hover primitive (wait maps to waitDuration, debounce to minDuration).",
+    "Overlays stay live through the popover primitive's captured themes."
+  ]
+}

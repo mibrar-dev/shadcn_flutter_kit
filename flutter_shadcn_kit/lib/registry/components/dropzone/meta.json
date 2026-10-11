@@ -1,0 +1,100 @@
+{
+  "id": "dropzone",
+  "name": "Dropzone",
+  "category": "Forms & Inputs",
+  "description": "An upload surface: outline, upload icon, localized status line, optional hint and a browse button. Presentational — it takes a state, it does not listen to a drag stream.",
+  "tier": "component",
+  "install": "flutter_shadcn add dropzone",
+  "import": "import 'package:<your_app>/ui/shadcn/components/dropzone/dropzone.dart';",
+  "tags": [
+    "form",
+    "upload",
+    "file",
+    "drop",
+    "drag"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "focus_outline",
+      "localizations"
+    ],
+    "components": [
+      "button"
+    ]
+  },
+  "files": [
+    "dropzone.dart",
+    "dropzone_style.dart",
+    "dropzone_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Dropzone",
+      "DropzoneTheme"
+    ],
+    "enums": [
+      "DropzoneState"
+    ],
+    "constants": [
+        "dropzoneActionKey",
+        "dropzoneDefaultDuration",
+        "dropzoneDefaultPadding",
+        "dropzoneDefaults",
+        "dropzoneIconKey",
+        "dropzoneStatusKey",
+        "dropzoneSurfaceKey",
+        "dropzoneThemeOverrides"
+    ],
+    "providedByPrimitives": {
+      "file_value": [
+        "FileValue",
+        "FileItem",
+        "FileStatus",
+        "FileConstraints",
+        "FileValidationResult"
+      ]
+    }
+  },
+  "theme": {
+    "class": "DropzoneTheme",
+    "userFile": "dropzone_theme.dart",
+    "defaults": "dropzoneDefaults",
+    "fields": {
+      "background": "ThemedColor? - null = no fill",
+      "borderColor": "StateValue<ThemedColor>? - per-state; the DropzoneState token wins",
+      "borderWidth": "double? - null = 1",
+      "borderRadius": "BorderRadiusGeometry? - null = the ambient radiusLg",
+      "padding": "EdgeInsetsGeometry? - null = 24",
+      "minHeight": "double? - null = 0 (the surface hugs its content)",
+      "iconColor": "ThemedColor? - null = mutedForeground",
+      "iconSize": "double? - null = 28",
+      "statusStyle": "TextStyle? - merged onto the default; null = 14",
+      "hintStyle": "TextStyle? - merged onto the default; null = 12",
+      "gap": "double? - null = 16",
+      "hintGap": "double? - null = 4",
+      "actionGap": "double? - null = 24",
+      "focusRingColor": "ThemedColor? - null = ring",
+      "focusRingSpread": "double? - null = 2",
+      "hoverScale": "double? - null = 1.05",
+      "duration": "Duration? - null = 150ms",
+      "dragBorder": "ThemedColor? - border while a drag hovers; null = the DropzoneState.dragging token (primary)"
+    }
+  },
+  "notes": [
+    "`FileDropzone` is now `Dropzone`: the old name implied it owned a file list, which it never did (that is `primitives/file_value/`).",
+    "`hotDropEnabled` / `hotDropping` are replaced by `DropzoneState` plus `isDragOver`; the old pair could disagree with each other and with `state`, and `_resolveBorderColor` had to reconcile all three.",
+    "`OutlineButton` is `Button(variant: ButtonVariant.outline)`.",
+    "Status strings and the browse label are `ShadcnLocalizations` getters (seven new getters, English fallback only, no invented translations).",
+    "The border is a plain 1px outline, not a dashed one: the kit has no dashed primitive, so the shape is honest rather than approximated with a repeating image."
+  ]
+}

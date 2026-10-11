@@ -1,0 +1,42 @@
+{
+  "id": "phone_input",
+  "name": "PhoneInput",
+  "category": "Forms & Inputs",
+  "description": "Searchable country selector (flag + dial code) with a national-number field, wired into the form system.",
+  "tier": "component",
+  "install": "flutter_shadcn add phone_input",
+  "import": "import 'package:<your_app>/ui/shadcn/components/phone_input/phone_input.dart';",
+  "tags": ["form", "phone", "country", "input"],
+  "deps": {
+    "foundation": ["gap"],
+    "theme": ["color_tokens", "theme", "density"],
+    "primitives": ["countries", "form_core", "localizations", "phone_number"],
+    "components": ["country_flag", "input", "select"]
+  },
+  "files": [
+    "phone_input.dart",
+    "phone_input_style.dart",
+    "phone_input_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["PhoneInput", "PhoneNumberValidator", "PhoneInputTheme"],
+    "constants": ["phoneInputDefaults", "phoneInputThemeOverrides"]
+  },
+  "theme": {
+    "class": "PhoneInputTheme",
+    "userFile": "phone_input_theme.dart",
+    "defaults": "phoneInputDefaults",
+    "fields": {
+      "inputPadding": "EdgeInsetsGeometry? - number field padding, 12/8 by default",
+      "maxWidth": "double? - number field width, 200 by default",
+      "selectWidth": "double? - country selector width (the popup is trigger-wide), 180 by default",
+      "popupConstraints": "BoxConstraints? - popup max size, 250x300 by default",
+      "flagWidth": "double? - flag width, 24 by default",
+      "flagHeight": "double? - flag height, 18 by default",
+      "flagGap": "double? - flag-to-code/name gap, 8 by default",
+      "fieldGap": "double? - selector-to-field gap, 8 by default",
+      "countryGap": "double? - name-to-dial-code gap in popup rows, 16 by default"
+    }
+  }
+}

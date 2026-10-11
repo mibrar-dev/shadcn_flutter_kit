@@ -18,6 +18,13 @@ jobs:
           channel: stable
 
       - name: Deploy to GitHub Pages
+        # Verified D1 (2026-10-09) against stable Flutter 3.47.5:
+        #  * bluefireteam/flutter-gh-pages@v9 is the current major tag; its
+        #    action.yml only passes `--web-renderer` when the detected Flutter
+        #    version is < 3.29, so on current stable the `webRenderer` input is
+        #    ignored and the build is `flutter build web --release --base-href`.
+        #  * `docs` builds cleanly with that exact command (plus the D1
+        #    shell); no workflow change is required.
         uses: bluefireteam/flutter-gh-pages@v9
         with:
           workingDir: docs

@@ -1,0 +1,13 @@
+{
+  "id": "badge",
+  "name": "Badge",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  },
+  "files": [
+    "badge.dart",
+    "badge_style.dart",
+    "badge_theme.dart"
+  ]
+}

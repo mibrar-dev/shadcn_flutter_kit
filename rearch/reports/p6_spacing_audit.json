@@ -1,0 +1,1467 @@
+{
+  "id": "P6-D9b",
+  "generated_by": "test/registry/layout_audit/spatial_scan.dart",
+  "registry": "flutter_shadcn_kit/lib/registry",
+  "tool": "package:analyzer parseString (unresolved AST)",
+  "classification_legend": {
+    "derived_spacing": "scales with the preset spacing base (COMPLIANT)",
+    "derived_density": "scales with density (EdgeInsetsDensity / resolveEdgeInsets / density-scaled literal) (COMPLIANT)",
+    "theme_default": "resolved through a component theme / widget leg (COMPLIANT when its own default is density-derived)",
+    "computed": "expression over parameters, not a literal (COMPLIANT)",
+    "border_hairline": "1px border or divider — allowed by the audit rules",
+    "icon_size": "icon glyph size owned by the component theme — allowed",
+    "shadcn_fixed": "size pinned by shadcn in a box context — allowed",
+    "layout_cap": "width/height layout cap, not padding — allowed",
+    "raw": "literal padding/gap/spacing that does not scale — FINDING"
+  },
+  "totals": {
+    "sites": 1245,
+    "components": 121,
+    "findings": 63,
+    "impl_findings": 22,
+    "preview_findings": 41,
+    "by_classification": {
+      "theme_default": 268,
+      "derived_spacing": 571,
+      "layout_cap": 181,
+      "derived_density": 38,
+      "raw": 63,
+      "computed": 118,
+      "border_hairline": 3,
+      "shadcn_fixed": 3
+    }
+  },
+  "compliant_components": [
+    "accordion",
+    "alert",
+    "alert_dialog",
+    "alpha",
+    "anchor",
+    "app",
+    "async",
+    "autocomplete",
+    "avatar",
+    "backdrop_transform",
+    "badge",
+    "border_loading",
+    "breadcrumb",
+    "button",
+    "calendar",
+    "card",
+    "card_image",
+    "carousel",
+    "chat",
+    "checkbox",
+    "chip",
+    "chip_input",
+    "code_snippet",
+    "collapsible",
+    "color",
+    "color_field",
+    "color_input",
+    "color_picker",
+    "context_menu",
+    "country_flag",
+    "dialog",
+    "divider",
+    "dot_indicator",
+    "drawer",
+    "drawer_container",
+    "dropdown_menu",
+    "dropzone",
+    "empty_state",
+    "error_system",
+    "eye_dropper",
+    "feature_carousel",
+    "file_diff_viewer",
+    "file_picker",
+    "form",
+    "formatted_input",
+    "formatter",
+    "foundation",
+    "gooey_toast",
+    "group",
+    "history",
+    "hover_card",
+    "hsl",
+    "hsv",
+    "icon",
+    "image",
+    "input",
+    "input_otp",
+    "item_picker",
+    "keyboard_shortcut",
+    "locale_utils",
+    "markdown",
+    "media_query",
+    "menubar",
+    "multi_select",
+    "multiple_choice",
+    "navigation_bar",
+    "navigation_menu",
+    "number_ticker",
+    "object_input",
+    "outlined_container",
+    "overflow_marquee",
+    "overlay_configuration",
+    "page_route",
+    "pagination",
+    "patch",
+    "phone_input",
+    "pinned_sheet",
+    "popup",
+    "progress",
+    "radio_group",
+    "refresh_trigger",
+    "resizable",
+    "scaffold",
+    "scrollable",
+    "scrollable_client",
+    "scrollbar",
+    "scrollview",
+    "select",
+    "selectable",
+    "skeleton",
+    "slider",
+    "sortable",
+    "spell_check_suggestions_toolbar",
+    "spinner",
+    "stage_container",
+    "star_rating",
+    "stepper",
+    "steps",
+    "swiper",
+    "switch",
+    "switcher",
+    "table",
+    "tabs",
+    "text_animate",
+    "text_area",
+    "theme",
+    "time_picker",
+    "timeline",
+    "timeline_animation",
+    "toggle",
+    "tooltip",
+    "tracker",
+    "tree",
+    "triple_dots",
+    "window"
+  ],
+  "components": {
+    "accordion": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "alert": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "alert_dialog": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "alpha": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/alpha/preview.dart",
+          "line": 26,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ]
+    },
+    "anchor": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "app": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "async": {
+      "compliant": true,
+      "sites": 4,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/async/preview.dart",
+          "line": 65,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "20",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_body"
+        },
+        {
+          "file": "lib/registry/components/async/preview.dart",
+          "line": 76,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "20",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_body"
+        },
+        {
+          "file": "lib/registry/components/async/preview.dart",
+          "line": 83,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "20",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_body"
+        }
+      ]
+    },
+    "autocomplete": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "avatar": {
+      "compliant": true,
+      "sites": 16,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "backdrop_transform": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "badge": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "border_loading": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/border_loading/preview.dart",
+          "line": 57,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/border_loading/preview.dart",
+          "line": 65,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/border_loading/preview.dart",
+          "line": 73,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/border_loading/preview.dart",
+          "line": 85,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ]
+    },
+    "breadcrumb": {
+      "compliant": true,
+      "sites": 10,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "button": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "calendar": {
+      "compliant": true,
+      "sites": 12,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "card": {
+      "compliant": true,
+      "sites": 17,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "card_image": {
+      "compliant": true,
+      "sites": 10,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "carousel": {
+      "compliant": true,
+      "sites": 17,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "chat": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "checkbox": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "chip": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "chip_input": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "code_snippet": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/code_snippet/preview.dart",
+          "line": 32,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/code_snippet/preview.dart",
+          "line": 43,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/code_snippet/preview.dart",
+          "line": 53,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/code_snippet/preview.dart",
+          "line": 78,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "collapsible": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "color": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "color_field": {
+      "compliant": true,
+      "sites": 14,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "color_input": {
+      "compliant": true,
+      "sites": 12,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "color_picker": {
+      "compliant": true,
+      "sites": 14,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "command": {
+      "compliant": false,
+      "sites": 10,
+      "impl_findings": [
+        {
+          "file": "lib/registry/components/command/command.dart",
+          "line": 315,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ],
+      "preview_findings": []
+    },
+    "context_menu": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "country_flag": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "date_picker": {
+      "compliant": false,
+      "sites": 10,
+      "impl_findings": [
+        {
+          "file": "lib/registry/components/date_picker/date_picker.dart",
+          "line": 394,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "32",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/date_picker/date_picker.dart",
+          "line": 395,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "32",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ],
+      "preview_findings": []
+    },
+    "dialog": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "divider": {
+      "compliant": true,
+      "sites": 24,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "dot_indicator": {
+      "compliant": true,
+      "sites": 17,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "drawer": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "drawer_container": {
+      "compliant": true,
+      "sites": 24,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "dropdown_menu": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "dropzone": {
+      "compliant": true,
+      "sites": 16,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "empty_state": {
+      "compliant": true,
+      "sites": 16,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "error_system": {
+      "compliant": true,
+      "sites": 15,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "eye_dropper": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "feature_carousel": {
+      "compliant": true,
+      "sites": 17,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/feature_carousel/preview.dart",
+          "line": 49,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/feature_carousel/preview.dart",
+          "line": 51,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/feature_carousel/preview.dart",
+          "line": 53,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/feature_carousel/preview.dart",
+          "line": 152,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "file_diff_viewer": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "file_picker": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "filter_bar": {
+      "compliant": false,
+      "sites": 31,
+      "impl_findings": [
+        {
+          "file": "lib/registry/components/filter_bar/filter_bar_style.dart",
+          "line": 155,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "36",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/filter_bar/filter_bar_style.dart",
+          "line": 327,
+          "kind": "edge_insets",
+          "construct": "EdgeInsets.fromLTRB",
+          "value": "0",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/filter_bar/filter_bar_style.dart",
+          "line": 340,
+          "kind": "edge_insets",
+          "construct": "EdgeInsets.fromLTRB",
+          "value": "0",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ],
+      "preview_findings": []
+    },
+    "form": {
+      "compliant": true,
+      "sites": 15,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "formatted_input": {
+      "compliant": true,
+      "sites": 12,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "formatter": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "gooey_toast": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 73,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 75,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 77,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 79,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 81,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/gooey_toast/preview.dart",
+          "line": 216,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "group": {
+      "compliant": true,
+      "sites": 4,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "history": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "hover_card": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "hsl": {
+      "compliant": true,
+      "sites": 19,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "hsv": {
+      "compliant": true,
+      "sites": 19,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "icon": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "image": {
+      "compliant": true,
+      "sites": 19,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "input": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "input_otp": {
+      "compliant": true,
+      "sites": 12,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "item_picker": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "keyboard_shortcut": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "locale_utils": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "markdown": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "media_query": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "menu": {
+      "compliant": false,
+      "sites": 10,
+      "impl_findings": [
+        {
+          "file": "lib/registry/components/menu/menu.dart",
+          "line": 272,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/menu/menu.dart",
+          "line": 272,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/menu/menu.dart",
+          "line": 313,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/menu/menu.dart",
+          "line": 313,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ],
+      "preview_findings": []
+    },
+    "menubar": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "multi_select": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "multiple_choice": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/multiple_choice/preview.dart",
+          "line": 87,
+          "kind": "edge_insets",
+          "construct": "EdgeInsets.symmetric",
+          "value": "6",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ]
+    },
+    "navigation_bar": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "navigation_menu": {
+      "compliant": true,
+      "sites": 8,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "number_ticker": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/number_ticker/preview.dart",
+          "line": 45,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/number_ticker/preview.dart",
+          "line": 56,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/number_ticker/preview.dart",
+          "line": 64,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/number_ticker/preview.dart",
+          "line": 77,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/number_ticker/preview.dart",
+          "line": 113,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "object_input": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "outlined_container": {
+      "compliant": true,
+      "sites": 14,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "overflow_marquee": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/overflow_marquee/preview.dart",
+          "line": 55,
+          "kind": "edge_insets",
+          "construct": "EdgeInsets.all",
+          "value": "8",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/overflow_marquee/preview.dart",
+          "line": 62,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/overflow_marquee/preview.dart",
+          "line": 79,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "16",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        }
+      ]
+    },
+    "overlay_configuration": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "page_route": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "pagination": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "patch": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "phone_input": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "pinned_sheet": {
+      "compliant": true,
+      "sites": 5,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "popup": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/popup/preview.dart",
+          "line": 28,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "2",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ]
+    },
+    "progress": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "radio_group": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "refresh_trigger": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "resizable": {
+      "compliant": true,
+      "sites": 19,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "scaffold": {
+      "compliant": true,
+      "sites": 16,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "scrollable": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/scrollable/preview.dart",
+          "line": 32,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/scrollable/preview.dart",
+          "line": 34,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/scrollable/preview.dart",
+          "line": 92,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "scrollable_client": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "scrollbar": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "scrollview": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "select": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "selectable": {
+      "compliant": true,
+      "sites": 4,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "skeleton": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "slider": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "sortable": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "spell_check_suggestions_toolbar": {
+      "compliant": true,
+      "sites": 3,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/spell_check_suggestions_toolbar/preview.dart",
+          "line": 27,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "8",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        }
+      ]
+    },
+    "spinner": {
+      "compliant": true,
+      "sites": 2,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "stage_container": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "star_rating": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "stepper": {
+      "compliant": true,
+      "sites": 15,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "steps": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "swiper": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "switch": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "switcher": {
+      "compliant": true,
+      "sites": 9,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "table": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "tabs": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "text_animate": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "text_area": {
+      "compliant": true,
+      "sites": 13,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "time_picker": {
+      "compliant": true,
+      "sites": 12,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "timeline": {
+      "compliant": true,
+      "sites": 15,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "timeline_animation": {
+      "compliant": true,
+      "sites": 1,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/timeline_animation/preview.dart",
+          "line": 85,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        }
+      ]
+    },
+    "toast": {
+      "compliant": false,
+      "sites": 6,
+      "impl_findings": [
+        {
+          "file": "lib/registry/components/toast/toast_style.dart",
+          "line": 247,
+          "kind": "edge_insets",
+          "construct": "EdgeInsets.all",
+          "value": "24",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "toastDefaults"
+        }
+      ],
+      "preview_findings": []
+    },
+    "toggle": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "tooltip": {
+      "compliant": true,
+      "sites": 10,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "tracker": {
+      "compliant": true,
+      "sites": 10,
+      "impl_findings": [],
+      "preview_findings": [
+        {
+          "file": "lib/registry/components/tracker/preview.dart",
+          "line": 31,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/tracker/preview.dart",
+          "line": 33,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/tracker/preview.dart",
+          "line": 38,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "24",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/components/tracker/preview.dart",
+          "line": 109,
+          "kind": "gap",
+          "construct": "Gap",
+          "value": "8",
+          "should_be": "Gap(theme.spacing.<step>)",
+          "decl": "_section"
+        }
+      ]
+    },
+    "tree": {
+      "compliant": true,
+      "sites": 11,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "triple_dots": {
+      "compliant": true,
+      "sites": 7,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "window": {
+      "compliant": true,
+      "sites": 6,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "foundation": {
+      "compliant": true,
+      "sites": 4,
+      "impl_findings": [],
+      "preview_findings": []
+    },
+    "primitives": {
+      "compliant": false,
+      "sites": 164,
+      "impl_findings": [
+        {
+          "file": "lib/registry/primitives/drawer_route/drawer_panel_surface.dart",
+          "line": 108,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/primitives/gooey/gooey_content.dart",
+          "line": 292,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "24",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/primitives/gooey/gooey_content.dart",
+          "line": 293,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "24",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/primitives/roving_row.dart",
+          "line": 152,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_resolvedLeading"
+        },
+        {
+          "file": "lib/registry/primitives/roving_row.dart",
+          "line": 152,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_resolvedLeading"
+        },
+        {
+          "file": "lib/registry/primitives/roving_row.dart",
+          "line": 154,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_resolvedLeading"
+        },
+        {
+          "file": "lib/registry/primitives/roving_row.dart",
+          "line": 154,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_resolvedLeading"
+        },
+        {
+          "file": "lib/registry/primitives/select_popup.dart",
+          "line": 90,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build.indicator"
+        },
+        {
+          "file": "lib/registry/primitives/select_popup.dart",
+          "line": 90,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "16",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build.indicator"
+        },
+        {
+          "file": "lib/registry/primitives/select_popup.dart",
+          "line": 197,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "build"
+        },
+        {
+          "file": "lib/registry/primitives/select_popup.dart",
+          "line": 212,
+          "kind": "sized_box",
+          "construct": "SizedBox",
+          "value": "48",
+          "should_be": "EdgeInsets.all(theme.spacing.<step>) or EdgeInsetsDensity.<...>",
+          "decl": "_resolve.resolvedRows"
+        }
+      ],
+      "preview_findings": []
+    },
+    "theme": {
+      "compliant": true,
+      "sites": 10,
+      "impl_findings": [],
+      "preview_findings": []
+    }
+  },
+  "failing_tests": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "media_query",
+  "name": "MediaQueryVisibility",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Shows one child while the viewport width is inside a range and another when it is not.",
+  "tier": "component",
+  "install": "flutter_shadcn add media_query",
+  "import": "import 'package:<your_app>/ui/shadcn/components/media_query/media_query.dart';",
+  "tags": ["layout", "responsive", "breakpoint", "viewport"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "media_query.dart",
+    "media_query_style.dart",
+    "media_query_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["MediaQueryVisibility", "MediaQueryVisibilityTheme"],
+    "constants": ["mediaQueryVisibilityDefaults", "mediaQueryVisibilityThemeOverrides"]
+  },
+  "theme": {
+    "class": "MediaQueryVisibilityTheme",
+    "userFile": "media_query_theme.dart",
+    "defaults": "mediaQueryVisibilityDefaults",
+    "fields": {
+      "minWidth": "double? - narrowest inclusive width that shows the child",
+      "maxWidth": "double? - widest inclusive width that shows the child"
+    }
+  },
+  "notes": [
+    "The component is width-only (the old one read MediaQueryData.size.width as well); a height bound would need its own component.",
+    "No token values in the theme: breakpoints are numbers, not design tokens, so the defaults are empty and the widget arguments stay primary."
+  ]
+}

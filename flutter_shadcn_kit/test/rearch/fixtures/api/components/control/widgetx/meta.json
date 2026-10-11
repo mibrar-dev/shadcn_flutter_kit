@@ -1,0 +1,11 @@
+{
+  "id": "widgetx",
+  "name": "WidgetX",
+  "dependencies": {
+    "shared": [],
+    "components": []
+  },
+  "files": [
+    "widgetx.dart"
+  ]
+}

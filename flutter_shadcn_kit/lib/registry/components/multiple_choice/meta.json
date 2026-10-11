@@ -1,0 +1,60 @@
+{
+  "id": "multiple_choice",
+  "name": "Multiple Choice",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Selection scopes for single-choice and multi-choice trees, controlled or controller-driven.",
+  "tier": "component",
+  "install": "flutter_shadcn add multiple_choice",
+  "import": "import 'package:<your_app>/ui/shadcn/components/multiple_choice/multiple_choice.dart';",
+  "tags": [
+    "form",
+    "choice",
+    "select",
+    "multi-select"
+  ],
+  "deps": {
+    "foundation": [
+      "data"
+    ],
+    "theme": [
+      "color_tokens",
+      "theme"
+    ],
+    "primitives": [
+      "form_core"
+    ],
+    "components": []
+  },
+  "files": [
+    "multiple_choice.dart",
+    "multiple_choice_style.dart",
+    "multiple_choice_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "MultipleChoice<T>",
+      "MultipleAnswer<T>",
+      "MultipleChoiceController<T>",
+      "MultipleAnswerController<T>",
+      "MultipleChoiceTheme"
+    ],
+    "mixins": [
+      "Choice<T>"
+    ],
+    "constants": [
+      "multipleChoiceDefaults",
+      "multipleAnswerDefaults",
+      "multipleChoiceThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "MultipleChoiceTheme",
+    "userFile": "multiple_choice_theme.dart",
+    "defaults": "multipleChoiceDefaults / multipleAnswerDefaults",
+    "fields": {
+      "allowUnselect": "bool? - re-selecting the current item clears/toggles it"
+    }
+  }
+}

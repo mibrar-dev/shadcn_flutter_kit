@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/layout/app/app.dart';
-import 'package:flutter_shadcn_kit/registry/shared/localizations/shadcn_localizations.dart';
+import 'package:flutter_shadcn_kit/registry/components/app/app.dart';
+import 'package:flutter_shadcn_kit/registry/primitives/localizations/localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,15 +8,11 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      const ShadcnApp(
-        locale: Locale('en'),
-        supportedLocales: ShadcnLocalizations.supportedLocales,
-        home: _LocalizationsProbe(),
-      ),
+      const ShadcnApp(locale: Locale('en'), home: _LocalizationsProbe()),
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Must be shorter than 4 characters.'), findsOneWidget);
+    expect(find.text('Must be at least 4 characters.'), findsOneWidget);
   });
 }
 
@@ -25,11 +21,10 @@ class _LocalizationsProbe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = Localizations.of<ShadcnLocalizations>(
-      context,
-      ShadcnLocalizations,
+    final localizations = ShadcnLocalizations.of(context);
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Text(localizations.formLengthLessThan(4)),
     );
-    final text = localizations?.formLengthLessThan(4) ?? 'missing';
-    return Directionality(textDirection: TextDirection.ltr, child: Text(text));
   }
 }

@@ -1,0 +1,62 @@
+{
+  "id": "tooltip",
+  "name": "Tooltip",
+  "category": "Overlays",
+  "description": "Delayed hover label presented through the popover machinery, plus the themed TooltipContainer surface and the tooltip overlay handler.",
+  "tier": "component",
+  "install": "flutter_shadcn add tooltip",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tooltip/tooltip.dart';",
+  "tags": ["overlay", "tooltip", "hover", "label"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [
+      "hover",
+      "overlay",
+      "overlay_manager",
+      "popover_controller",
+      "popover_overlay_state"
+    ],
+    "components": []
+  },
+  "files": [
+    "tooltip.dart",
+    "tooltip_style.dart",
+    "tooltip_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Tooltip",
+      "TooltipContainer",
+      "TooltipOverlayHandler",
+      "TooltipTheme"
+    ],
+    "constants": [
+      "kTooltipWaitDuration",
+      "kTooltipShowDuration",
+      "tooltipDefaultTextStyle",
+      "tooltipDefaults",
+      "tooltipThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "TooltipTheme",
+    "userFile": "tooltip_theme.dart",
+    "defaults": "tooltipDefaults",
+    "fields": {
+      "background": "ThemedColor? - surface fill; null = primary",
+      "foreground": "ThemedColor? - label colour; null = primaryForeground",
+      "borderRadius": "BorderRadiusGeometry? - null = borderRadiusSm",
+      "padding": "EdgeInsetsGeometry? - null = density base gap at 0.75x",
+      "textStyle": "TextStyle? - its colour is ignored (taken from foreground)",
+      "surfaceBlur": "double? - null = the app theme's surfaceBlur"
+    }
+  },
+  "notes": [
+    "`InstantTooltip` is deleted: it was a second copy of `Tooltip` with a zero wait duration. Use `Tooltip(waitDuration: Duration.zero)`.",
+    "`FixedTooltipOverlayHandler` is deleted: 142 lines re-implementing `PopoverOverlayHandler.show` with zero readers.",
+    "`adaptiveOverlay` is dropped: it reached into the `overlay_configuration` component. An app installs a distinct tooltip handler through `ShadcnLayer(tooltipHandler: ...)` instead, which `TooltipOverlayHandler` routes to.",
+    "Overlays capture `InheritedTheme` and `Data` through the popover primitive, so a light -> dark switch while a tooltip is open repaints it."
+  ]
+}

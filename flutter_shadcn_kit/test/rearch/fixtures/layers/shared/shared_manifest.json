@@ -1,0 +1,14 @@
+{
+  "root": "registry/shared",
+  "groups": [
+    {
+      "id": "util",
+      "files": [
+        {
+          "path": "utils/util.dart",
+          "source": "registry/shared/utils/util.dart"
+        }
+      ]
+    }
+  ]
+}

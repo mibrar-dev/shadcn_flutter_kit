@@ -1,0 +1,42 @@
+{
+  "id": "scrollable",
+  "name": "Scrollable",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Notification-driven edge-fade viewport for any scrollable subtree.",
+  "tier": "component",
+  "install": "flutter_shadcn add scrollable",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
+  "tags": ["layout", "scrollable", "fade", "viewport"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["scroll_metrics"],
+    "components": []
+  },
+  "files": [
+    "scrollable.dart",
+    "scrollable_style.dart",
+    "scrollable_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["FadedScrollableViewport", "ScrollableTheme"],
+    "enums": [],
+    "constants": [
+      "scrollableDefaults",
+      "scrollableDefaultFadeExtent",
+      "scrollableDefaultFadeSize",
+      "scrollableThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ScrollableTheme",
+    "userFile": "scrollable_theme.dart",
+    "defaults": "scrollableDefaults",
+    "fields": {
+      "fadeExtent": "double? - 20, scroll distance to full fade",
+      "fadeSize": "double? - 50, gradient length"
+    }
+  }
+}

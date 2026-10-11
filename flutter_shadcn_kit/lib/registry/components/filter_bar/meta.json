@@ -1,0 +1,90 @@
+{
+  "id": "filter_bar",
+  "name": "FilterBar",
+  "category": "Layout",
+  "description": "Search, sort, date-range, custom filters and chips in one bar, with a clear action and a mobile sheet presentation; backed by a typed filter engine.",
+  "tier": "component",
+  "install": "flutter_shadcn add filter_bar",
+  "import": "import 'package:<your_app>/ui/shadcn/components/filter_bar/filter_bar.dart';",
+  "tags": [
+    "layout",
+    "filters",
+    "search",
+    "sort",
+    "sheet"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "filter_core",
+      "form_core",
+      "input_features",
+      "localizations"
+    ],
+    "components": [
+      "button",
+      "chip",
+      "date_picker",
+      "drawer",
+      "input",
+      "select"
+    ]
+  },
+  "files": [
+    "filter_bar.dart",
+    "filter_bar_style.dart",
+    "filter_bar_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "FilterBar",
+      "FilterBarTheme",
+      "FilterBarSheetScaffold",
+      "FilterBarSearchField",
+      "FilterBarSortControl",
+      "FilterBarDateControl",
+      "FilterBarClearButton",
+      "FilterBarSheetTrigger",
+      "FilterBarController",
+      "FilterState",
+      "FilterChipData",
+      "FilterDateRange",
+      "FilterSortOption",
+      "FilterMatcher",
+      "FilterMatcherOption",
+      "FilterField",
+      "FilterBinding",
+      "TypedFilterBinding",
+      "FilterCustomFilter",
+      "FilterClearPolicy",
+      "FilterGroup",
+      "FilterBarGroupedContent"
+    ],
+    "enums": [
+      "FilterBarPresentation"
+    ],
+    "constants": ["filterBarThemeOverrides"],
+    "providedByPrimitives": {
+      "filter_core": ["filterBarDefaults", "FilterMatchers"]
+    }
+  },
+  "theme": {
+    "class": "FilterBarTheme",
+    "userFile": "filter_bar_theme.dart",
+    "defaults": "filterBarDefaults",
+    "fields": {
+      "spacing": "double? - gap between controls, 12 by default",
+      "runSpacing": "double? - gap between wrapped runs, 8 by default",
+      "searchWidth": "double? - search field width, 220 by default",
+      "controlWidth": "double? - sort/date control width, 180 by default",
+      "dense": "bool? - compact padding and small buttons, false by default"
+    }
+  }
+}

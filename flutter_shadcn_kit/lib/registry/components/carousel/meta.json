@@ -1,0 +1,66 @@
+{
+  "id": "carousel",
+  "name": "Carousel",
+  "category": "Data Display",
+  "description": "Paged carousel with a sliding or fading transition, drag, autoplay and a controller that drives the dot row.",
+  "tier": "component",
+  "install": "flutter_shadcn add carousel",
+  "import": "import 'package:<your_app>/ui/shadcn/components/carousel/carousel.dart';",
+  "tags": ["display", "carousel", "slider", "pages", "autoplay"],
+  "deps": {
+    "foundation": ["constants", "util"],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["animation_queue"],
+    "components": []
+  },
+  "files": [
+    "carousel.dart",
+    "carousel_style.dart",
+    "carousel_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Carousel",
+      "CarouselController",
+      "CarouselTheme"
+    ],
+    "methods": ["CarouselController.tick", "CarouselController.isAnimating"],
+    "enums": ["CarouselTransition", "CarouselAlignment"],
+    "typedefs": ["CarouselItemBuilder"],
+    "functions": [
+      "carouselVisibleRange",
+      "carouselPageAt",
+      "carouselPageVisible",
+      "carouselStepTarget",
+      "carouselSnapTarget"
+    ],
+    "constants": ["carouselDefaults", "carouselThemeOverrides"]
+  },
+  "theme": {
+    "class": "CarouselTheme",
+    "userFile": "carousel_theme.dart",
+    "defaults": "carouselDefaults",
+    "fields": {
+      "transition": "CarouselTransition? - sliding or fading; null = sliding",
+      "alignment": "CarouselAlignment? - where the page sits; null = center",
+      "direction": "Axis? - scroll axis; null = horizontal",
+      "viewportFraction": "double? - viewport share per page; null = 1",
+      "itemExtent": "double? - fixed page extent; wins over viewportFraction",
+      "gap": "double? - gap between pages; null = 0",
+      "speed": "Duration? - page-change duration; null = kDefaultDuration",
+      "curve": "Curve? - page-change curve; null = Curves.easeInOut",
+      "autoplayInterval": "Duration? - hold time per page; null disables autoplay",
+      "pauseOnHover": "bool? - null = true",
+      "draggable": "bool? - null = true",
+      "wrap": "bool? - null = true"
+    }
+  },
+  "notes": [
+    "`CarouselTransition.sliding({gap})` / `.fading()` (an abstract class with a `const factory` per variant) become the `CarouselTransition` enum plus an exhaustive switch; `CarouselSizeConstraint` and its two one-field subclasses become `itemExtent` / `viewportFraction`.",
+    "`CarouselIndicator` (the old `CarouselDotIndicator`, a 20-line pass-through) is deleted: compose `DotIndicator` with the controller, as the preview shows.",
+    "`wrap`, `draggable` and `pauseOnHover` are theme rows only; they have no widget argument (a behavioural knob is not structure).",
+    "`CarouselController` lives in `carousel_style.dart` next to the theme rows and the pure layout math, so both files stay under the 400-line limit.",
+    "The batch data lists `dot_indicator` as a component dependency; it is not imported, so `deps.components` is empty (an unimported dep would raise an `unused-dependency` finding)."
+  ]
+}

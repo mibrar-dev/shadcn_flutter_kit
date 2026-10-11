@@ -1,0 +1,81 @@
+{
+  "id": "tabs",
+  "name": "Tabs",
+  "category": "Navigation",
+  "description": "Pill tab strip with roving arrow-key navigation, plus a sortable IDE-style tab pane over a content card.",
+  "tier": "component",
+  "install": "flutter_shadcn add tabs",
+  "import": "import 'package:<your_app>/ui/shadcn/components/tabs/tabs.dart';",
+  "tags": [
+    "navigation",
+    "tabs",
+    "tabpane",
+    "reorder"
+  ],
+  "deps": {
+    "foundation": [],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "fade_scroll",
+      "roving_group",
+      "tab_container"
+    ],
+    "components": [
+      "sortable"
+    ]
+  },
+  "files": [
+    "tabs.dart",
+    "tabs_style.dart",
+    "tabs_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Tabs",
+      "TabPane",
+      "TabPaneData",
+      "TabContainer",
+      "TabContainerData",
+      "TabContainerTheme",
+      "TabItem",
+      "TabButton",
+      "TabShell",
+      "TabShellPainter",
+      "TabsTheme",
+      "TabPaneTheme"
+    ],
+    "typedefs": [
+      "TabBuilder",
+      "TabChildBuilder",
+      "TabPaneItemBuilder"
+    ],
+    "constants": [
+      "tabsDefaults",
+      "tabContainerDefaults",
+      "tabPaneDefaults",
+      "tabsThemeOverrides",
+      "tabContainerThemeOverrides",
+      "tabPaneThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "TabsTheme",
+    "userFile": "tabs_theme.dart",
+    "defaults": "tabsDefaults",
+    "fields": {
+      "containerColor": "StateValue<ThemedColor>? - strip fill, muted",
+      "containerPadding": "EdgeInsetsGeometry? - strip padding, all 3 (p-[3px])",
+      "borderRadius": "BorderRadiusGeometry? - strip/tab radius, ambient radiusLg/Md",
+      "tabPadding": "EdgeInsetsGeometry? - horizontal tab padding, px-2",
+      "selectedColor": "StateValue<ThemedColor>? - selected tab fill, background",
+      "labelColor": "StateValue<ThemedColor>? - idle label, mutedForeground",
+      "selectedLabelColor": "StateValue<ThemedColor>? - selected label, foreground",
+      "textStyle": "TextStyle? - label style, 14 w500"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "page_route",
+  "name": "ShadcnPageRoute",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Widgets-only page route and declarative Page with the shadcn fade + slide transition.",
+  "tier": "component",
+  "install": "flutter_shadcn add page_route",
+  "import": "import 'package:<your_app>/ui/shadcn/components/page_route/page_route.dart';",
+  "tags": ["navigation", "route", "page", "transition"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["page_route.dart", "preview.dart"],
+  "api": {
+    "classes": ["ShadcnPageRoute<T>", "ShadcnPage<T>", "ShadcnPageTransition"],
+    "constants": ["kShadcnPageTransitionDuration"],
+    "transitions": [
+      "transitionDuration: 300ms, fade (easeOutCubic) + 2% slide up",
+      "buildTransitions ignores secondaryAnimation: a covered page does not animate out"
+    ]
+  },
+  "theme": null,
+  "notes": [
+    "No <name>_style.dart / <name>_theme.dart: a route has no token-derived surface, so there is nothing to theme.",
+    "`kDefaultPageTransitionDuration` was renamed to `kShadcnPageTransitionDuration` so it cannot be confused with foundation's `kDefaultDuration` (150ms).",
+    "preview.dart imports the `button` and `dialog` components for the demo; preview files are excluded from dependency checking."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "missing_entry",
+  "name": "Missing Entry",
+  "dependencies": {
+    "components": [],
+    "shared": []
+  },
+  "files": [
+    "missing_entry.dart"
+  ]
+}

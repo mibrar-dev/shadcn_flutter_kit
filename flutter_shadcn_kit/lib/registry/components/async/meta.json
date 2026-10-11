@@ -1,0 +1,27 @@
+{
+  "id": "async",
+  "name": "FutureOrBuilder",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Renders a value that may already be available or may still be loading through one builder.",
+  "tier": "component",
+  "install": "flutter_shadcn add async",
+  "import": "import 'package:<your_app>/ui/shadcn/components/async/async.dart';",
+  "tags": ["utility", "async", "future", "loading"],
+  "deps": {
+    "foundation": [],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["async.dart", "preview.dart"],
+  "api": {
+    "classes": ["FutureOrBuilder<T>"],
+    "types": ["builder: AsyncWidgetBuilder<T> (Flutter's own typedef)"]
+  },
+  "theme": null,
+  "notes": [
+    "No <name>_style.dart / <name>_theme.dart: the component paints nothing, so there is no token-derived property to theme.",
+    "The old `FutureOrWidgetBuilder<T>` typedef was dropped; Flutter's `AsyncWidgetBuilder<T>` is the same signature and is re-exported by widgets.dart."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "scrollbar",
+  "name": "Scrollbar",
+  "category": "Layout",
+  "description": "Themeable scrollbar wrapper around Flutter's RawScrollbar with token-derived thumb, thickness and radius.",
+  "tier": "component",
+  "install": "flutter_shadcn add scrollbar",
+  "import": "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
+  "tags": ["control", "scrollbar", "scroll", "thumb"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["scroll_metrics"],
+    "components": []
+  },
+  "files": [
+    "scrollbar.dart",
+    "scrollbar_style.dart",
+    "scrollbar_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["Scrollbar", "ScrollbarTheme"],
+    "enums": [],
+    "constants": [
+      "scrollbarDefaults",
+      "scrollbarDefaultThickness",
+      "scrollbarThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "ScrollbarTheme",
+    "userFile": "scrollbar_theme.dart",
+    "defaults": "scrollbarDefaults",
+    "fields": {
+      "color": "ThemedColor? - border token",
+      "thickness": "double? - 7 times ambient scaling",
+      "radius": "Radius? - radiusSm token",
+      "minThumbLength": "double? - 48 (kMinScrollbarThumbExtent)",
+      "minOverscrollLength": "double? - null follows minThumbLength",
+      "interactive": "bool? - true"
+    }
+  }
+}

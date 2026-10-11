@@ -1,0 +1,78 @@
+{
+  "id": "stepper",
+  "name": "Stepper",
+  "category": "Navigation",
+  "description": "Multi-step flow with numbered indicators and connectors, horizontal or vertical, controlled or controller-driven.",
+  "tier": "component",
+  "install": "flutter_shadcn add stepper",
+  "import": "import 'package:<your_app>/ui/shadcn/components/stepper/stepper.dart';",
+  "tags": [
+    "navigation",
+    "stepper",
+    "wizard",
+    "onboarding",
+    "progress"
+  ],
+  "deps": {
+    "foundation": [
+      "constants",
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "color_tokens",
+      "density",
+      "theme"
+    ],
+    "primitives": [
+      "clickable"
+    ],
+    "components": []
+  },
+  "files": [
+    "stepper.dart",
+    "stepper_style.dart",
+    "stepper_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "Stepper",
+      "StepperStep",
+      "StepperController",
+      "StepperIndicator",
+      "StepperTheme",
+      "StepperIndicatorStyle"
+    ],
+    "enums": [
+      "StepperSize",
+      "StepperPhase",
+      "StepperStepState"
+    ],
+    "functions": [
+      "firstFailedStep"
+    ],
+    "constants": [
+      "stepperDefaults",
+      "stepperThemeOverrides"
+    ]
+  },
+  "theme": {
+    "class": "StepperTheme",
+    "userFile": "stepper_theme.dart",
+    "defaults": "stepperDefaults",
+    "fields": {
+      "direction": "Axis? - horizontal (default) or vertical",
+      "size": "StepperSize? - indicator size, default md (40px circle)",
+      "active": "StepperIndicatorStyle? - the active step's ring",
+      "completed": "StepperIndicatorStyle? - a finished step's ring",
+      "pending": "StepperIndicatorStyle? - a step after the active one",
+      "failed": "StepperIndicatorStyle? - a step flagged failed",
+      "connectorColor": "ThemedColor? - connector up to the active step",
+      "connectorPendingColor": "ThemedColor? - connector after it",
+      "connectorThickness": "double? - connector thickness, default 2",
+      "gap": "double? - space around the indicator, default 8",
+      "titleStyle": "TextStyle? - default is the size typography"
+    }
+  }
+}

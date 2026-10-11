@@ -1,0 +1,38 @@
+{
+  "id": "pricing-01",
+  "name": "Pricing 01",
+  "category": "Marketing",
+  "description": "A pricing section with three plans, a highlighted middle tier and a validated promo-code form.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add pricing-01",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/pricing-01/pricing_01.dart';",
+  "tags": [
+    "pricing01",
+    "pricing"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [],
+    "components": [
+      "alert",
+      "badge",
+      "button",
+      "card",
+      "divider",
+      "form",
+      "input_otp",
+      "spinner"
+    ]
+  },
+  "files": [
+    "pricing_01.dart",
+    "pricing_01_promo.dart",
+    "README.md"
+  ]
+}

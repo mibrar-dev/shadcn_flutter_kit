@@ -18,22 +18,100 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A shadcn/ui-style design system for Flutter. Copy-paste components, token theming, 42 presets — widgets-only.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="docs">
+  <meta name="apple-mobile-web-app-title" content="shadcn_flutter_kit docs">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>docs</title>
+  <title>shadcn_flutter_kit — docs</title>
   <link rel="manifest" href="manifest.json">
-  <script src="standard.js"></script>
+
+  <!--
+    First-paint placeholder. Self-contained (no images, no CDN): the old
+    standard.js loader shipped 536K of component screenshots and hard-coded
+    component names, both removed with the old docs app. Removed on
+    `flutter-first-frame`.
+  -->
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #171717;
+      color: #e5e5e5;
+      font-family: "Geist Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    }
+    /* First paint before the app reports its theme: follow the system mode so
+       a light-mode visitor never sees a dark flash. The app then sets the
+       exact preset colours through `shadcn_flutter_theme_changed`. */
+    @media (prefers-color-scheme: light) {
+      html, body {
+        background: #ffffff;
+        color: #000000;
+      }
+      #docs-first-paint span {
+        color: #737373;
+      }
+    }
+    #docs-first-paint {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    #docs-first-paint strong {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+    #docs-first-paint span {
+      font-size: 14px;
+      color: #a3a3a3;
+      animation: docs-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes docs-pulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #docs-first-paint span { animation: none; opacity: 1; }
+    }
+  </style>
+  <script>
+    // Drop the placeholder as soon as Flutter paints its first frame.
+    window.addEventListener('flutter-first-frame', function () {
+      var placeholder = document.getElementById('docs-first-paint');
+      if (placeholder) {
+        placeholder.remove();
+      }
+    });
+    // Keep the page background in sync with the active preset/mode so any
+    // area Flutter does not paint (overscroll, resize gaps) matches the app.
+    window.addEventListener('shadcn_flutter_theme_changed', function (event) {
+      var detail = event.detail || {};
+      if (detail.background) {
+        document.documentElement.style.background = detail.background;
+        document.body.style.background = detail.background;
+      }
+      if (detail.foreground) {
+        document.body.style.color = detail.foreground;
+      }
+    });
+  </script>
 </head>
 <body>
+  <div id="docs-first-paint">
+    <strong>shadcn_flutter_kit</strong>
+    <span>Loading docs…</span>
+  </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

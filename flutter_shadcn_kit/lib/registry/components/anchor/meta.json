@@ -1,0 +1,40 @@
+{
+  "id": "anchor",
+  "name": "Anchor",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Describes the point an overlay positions itself against and tracks it while it moves.",
+  "tier": "component",
+  "install": "flutter_shadcn add anchor",
+  "import": "import 'package:<your_app>/ui/shadcn/components/anchor/anchor.dart';",
+  "tags": ["overlay", "anchor", "positioning", "popover", "menu", "tooltip"],
+  "deps": {
+    "foundation": ["data"],
+    "theme": [],
+    "primitives": [],
+    "components": []
+  },
+  "files": ["anchor.dart", "preview.dart"],
+  "api": {
+    "classes": [
+      "Anchor",
+      "AnchorSubscription",
+      "ContextAnchor",
+      "LinkedAnchor",
+      "OverlayAnchor",
+      "OverlayAnchorEntry",
+      "OverlayAnchorRegistry",
+      "OverlayAnchorScope",
+      "RenderOverlayAnchor"
+    ],
+    "functions": ["anchorTransformRelativeTo"]
+  },
+  "theme": null,
+  "notes": [
+    "No <name>_style.dart / <name>_theme.dart: the component paints nothing; the only token read is the caller's.",
+    "There is no process-wide registry any more. `OverlayAnchor` asserts it sits under an `OverlayAnchorScope`, which is what lets sibling screens reuse the same anchor keys (the old `OverlayAnchorRegistry.global` collided).",
+    "`AnchorSubscription.dispose()` is part of the contract; the old doc claimed there was no dispose while a per-frame Ticker ran until one was called.",
+    "`deps.primitives` is empty although the batch data lists [\"overlay\"]: primitives/overlay.dart (OverlayHandler, OverlayBarrier, PopoverConstraint) is not used by this component.",
+    "preview.dart imports the `button` component; preview files are excluded from dependency checking."
+  ]
+}

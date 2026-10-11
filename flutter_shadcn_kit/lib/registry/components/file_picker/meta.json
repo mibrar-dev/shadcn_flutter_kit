@@ -1,0 +1,103 @@
+{
+  "id": "file_picker",
+  "name": "File Picker",
+  "category": "Forms & Inputs",
+  "description": "File selection surface (dropzone, tile or compact trigger) with validation, a concurrent upload queue and the FileUploadRow list \u2014 list or grid layout, caller-keyed groups, per-file icons.",
+  "tier": "component",
+  "install": "flutter_shadcn add file_picker",
+  "import": "import 'package:<your_app>/ui/shadcn/components/file_picker/file_picker.dart';",
+  "tags": [
+    "form",
+    "file",
+    "upload",
+    "picker",
+    "dropzone"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+        "color_tokens",
+        "density",
+        "theme"
+    ],
+    "primitives": [
+      "clickable",
+      "file_value",
+      "localizations"
+    ],
+    "components": [
+      "button",
+      "dropzone",
+      "progress"
+    ]
+  },
+  "files": [
+    "file_picker.dart",
+    "file_picker_style.dart",
+    "file_picker_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "FileUpload",
+      "FileUploadPickRequest",
+      "FileUploadController",
+      "FileUploadRow",
+      "FileUploadItemsView",
+      "FileUploadTheme",
+      "FileUploadRowTheme"
+    ],
+    "enums": [
+      "FileUploadVariant",
+      "FileUploadItemsLayout"
+    ],
+    "typedefs": [
+      "FileUploadPick",
+      "FileUploadFn",
+      "FileUploadMessage",
+      "FileUploadDropTargetBuilder",
+      "FileUploadIconBuilder",
+      "FileUploadItemBuilder"
+    ],
+    "constants": [
+        "fileUploadDefaultPadding",
+        "fileUploadDefaults",
+        "fileUploadThemeOverrides"
+    ],
+    "providedByPrimitives": {
+      "file_value": [
+        "FileValue",
+        "FileItem",
+        "FileStatus",
+        "FileConstraints",
+        "FileError",
+        "FileErrorCode",
+        "FileStatusLabels",
+        "fileUploadRowDefaults"
+      ]
+    }
+  },
+  "theme": {
+    "class": "FileUploadTheme",
+    "userFile": "file_picker_theme.dart",
+    "defaults": "fileUploadDefaults",
+    "fields": {
+      "background": "ThemedColor? - tile fill; null = no fill",
+      "borderColor": "ThemedColor? - tile border; null = input token",
+      "borderWidth": "double? - null = 1",
+      "borderRadius": "BorderRadiusGeometry? - null = the ambient radiusMd",
+      "padding": "EdgeInsetsGeometry? - tile padding; null = 16x12",
+      "minHeight": "double? - tile min height; null = 48",
+      "gap": "double? - vertical rhythm; null = 12"
+    }
+  },
+  "notes": [
+    "Platform file picking and drag intake are caller-supplied (`pick`, `dropTargetBuilder`): the old `web`/`cross_file`/dart:html adapters are gone.",
+    "`FileUploadDragDropOptions` / `FileUploadTileOptions` / `FileUploadMobileOptions` collapse to one `FileUploadVariant` enum with flat arguments.",
+    "The old row widget `FileItem` is `FileUploadRow` (the value type keeps the name). The row, its theme, the items view and the upload controller live in `primitives/file_value`.",
+    "`FileIconProvider` is replaced by the `FileUpload.iconBuilder` callback; grid layout and caller-keyed grouping are restored on `FileUpload` (`layout`, `gridColumns`, `groupKey`, `groupHeaderBuilder`)."
+  ]
+}

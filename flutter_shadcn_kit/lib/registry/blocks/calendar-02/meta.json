@@ -1,0 +1,35 @@
+{
+  "id": "calendar-02",
+  "name": "Calendar 02",
+  "category": "Calendar & Scheduling",
+  "description": "A scheduling panel: a month calendar beside the selected day's slots.",
+  "viewport": "desktop",
+  "install": "flutter_shadcn add calendar-02",
+  "import": "import 'package:<your_app>/ui/shadcn/blocks/calendar-02/calendar_02.dart';",
+  "tags": [
+    "calendar02",
+    "calendar"
+  ],
+  "deps": {
+    "foundation": [
+      "gap",
+      "icons"
+    ],
+    "theme": [
+      "theme"
+    ],
+    "primitives": [
+      "date_math"
+    ],
+    "components": [
+      "button",
+      "calendar",
+      "card",
+      "divider"
+    ]
+  },
+  "files": [
+    "calendar_02.dart",
+    "README.md"
+  ]
+}

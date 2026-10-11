@@ -1,0 +1,46 @@
+{
+  "id": "selectable",
+  "name": "SelectableText",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Read-only selectable text with widgets-only selection controls.",
+  "tier": "component",
+  "install": "flutter_shadcn add selectable",
+  "import": "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
+  "tags": ["display", "text", "selectable", "copy"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": ["text_editing"],
+    "components": []
+  },
+  "files": [
+    "selectable.dart",
+    "selectable_style.dart",
+    "selectable_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": ["SelectableText", "SelectableTextTheme"],
+    "constructors": [
+      "SelectableText(String data, {...})",
+      "SelectableText.rich(TextSpan textSpan, {...})"
+    ],
+    "constants": ["selectableDefaults", "selectableThemeOverrides"]
+  },
+  "theme": {
+    "class": "SelectableTextTheme",
+    "userFile": "selectable_theme.dart",
+    "defaults": "selectableDefaults",
+    "fields": {
+      "textStyle": "TextStyle? - merged under widget style",
+      "cursorWidth": "double? - 2",
+      "cursorHeight": "double? - line height",
+      "cursorRadius": "Radius? - square",
+      "cursorColor": "ThemedColor? - primary token",
+      "selectionHeightStyle": "BoxHeightStyle? - tight",
+      "selectionWidthStyle": "BoxWidthStyle? - tight",
+      "enableInteractiveSelection": "bool? - true"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# P6-F1: every layout-audit test now passes with no `skip: true`.
+#
+# The 10 P6-D9b findings and their skips are fixed: chip/badge/input/table/
+# select/menu/tabs padding plus the chip and badge icon geometry now derive
+# from the density tokens (`EdgeInsetsDensity.px*` resolved at build), and the
+# two assertions that pinned a raw literal were rewritten to resolve it at the
+# default density instead. Regenerate the scan with
+# `dart run test/registry/layout_audit/spatial_scan.dart`.

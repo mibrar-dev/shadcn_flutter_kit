@@ -1,0 +1,48 @@
+{
+  "id": "border_loading",
+  "name": "Border Loading",
+  "category": "Animation & Effects",
+  "description": "Animated gradient border around a child: sweep ring, travelling tracers, determinate progress or a static outline.",
+  "tier": "component",
+  "install": "flutter_shadcn add border_loading",
+  "import": "import 'package:<your_app>/ui/shadcn/components/border_loading/border_loading.dart';",
+  "tags": ["display", "loading", "progress", "border", "gradient"],
+  "deps": {
+    "foundation": [],
+    "theme": ["color_tokens", "theme"],
+    "primitives": [],
+    "components": []
+  },
+  "files": [
+    "border_loading.dart",
+    "border_loading_style.dart",
+    "border_loading_theme.dart",
+    "preview.dart"
+  ],
+  "api": {
+    "classes": [
+      "BorderLoading",
+      "BorderLoadingTheme",
+      "BorderLoadingSpec",
+      "BorderGradientSpec",
+      "BorderTracerSpec"
+    ],
+    "enums": ["BorderLoadingMode", "BorderGradientType"],
+    "constants": ["borderLoadingDefaults", "borderLoadingThemeOverrides", "borderLoadingGradientColors"]
+  },
+  "theme": {
+    "class": "BorderLoadingTheme",
+    "userFile": "border_loading_theme.dart",
+    "defaults": "borderLoadingDefaults",
+    "fields": {
+      "mode": "BorderLoadingMode? - sweepGradient | tracer | progress | staticBorder",
+      "strokeWidth": "double? - default 2",
+      "padding": "EdgeInsetsGeometry? - default EdgeInsets.all(strokeWidth)",
+      "borderRadius": "BorderRadiusGeometry? - default radius 12",
+      "backgroundColor": "ThemedColor? - fill behind the child, default none",
+      "duration": "Duration? - cycle of the looping modes, default 1200ms",
+      "curve": "Curve? - easing of normalized progress, default linear",
+      "opacity": "double? - stroke opacity, default 1"
+    }
+  }
+}

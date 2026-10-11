@@ -1,0 +1,39 @@
+{
+  "id": "eye_dropper",
+  "name": "Eye Dropper",
+  "category": "Utilities (building blocks)",
+  "listed": false,
+  "description": "Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).",
+  "tier": "component",
+  "install": "flutter_shadcn add eye_dropper",
+  "import": "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
+  "tags": ["overlay", "color", "picker", "sampling"],
+  "deps": {
+    "foundation": ["data", "data_messenger"],
+    "theme": ["color_tokens", "color_utils", "theme"],
+    "primitives": ["screen_capture", "text"],
+    "components": ["history"]
+  },
+  "files": ["eye_dropper.dart", "eye_dropper_style.dart", "eye_dropper_theme.dart", "preview.dart"],
+  "api": {
+    "classes": ["EyeDropperLayer", "EyeDropperLayerScope", "EyeDropperResult", "EyeDropperTheme"],
+    "enums": [],
+    "typedefs": ["PreviewLabelBuilder"],
+    "constants": ["eyeDropperDefaults", "eyeDropperThemeOverrides", "pickColorFromScreen"]
+  },
+  "theme": {
+    "class": "EyeDropperTheme",
+    "userFile": "eye_dropper_theme.dart",
+    "defaults": "eyeDropperDefaults",
+    "fields": {
+      "previewSize": "Size? - magnified preview size, 100x100 by default",
+      "previewScale": "double? - magnification, 8 by default",
+      "showPreview": "bool? - show the preview at all, true by default",
+      "borderColor": "ThemedColor? - preview ring, border token by default",
+      "borderWidth": "double? - ring width, 1 by default",
+      "selectedBorderColor": "ThemedColor? - centre cell highlight, primary by default",
+      "selectedBorderWidth": "double? - centre highlight width, 2 by default",
+      "backgroundColor": "ThemedColor? - preview backing, background token by default"
+    }
+  }
+}

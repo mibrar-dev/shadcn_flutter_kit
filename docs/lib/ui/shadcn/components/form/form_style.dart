@@ -20,6 +20,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
     super.themeSpacing,
     super.themeShadows,
     this.spacing,
+    this.messageSpacing,
     this.labelStyle,
     this.hintStyle,
     this.messageStyle,
@@ -28,8 +29,12 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
     this.messageColor,
   });
 
-  /// Vertical gap between label, field, hint and message.
+  /// Vertical gap between the label row and the control: shadcn `gap-2` (8).
   final double? spacing;
+
+  /// Vertical gap between the control and its hint or error text: shadcn
+  /// `gap-1.5` (6).
+  final double? messageSpacing;
 
   /// Label text style; colour comes from [labelColor].
   final TextStyle? labelStyle;
@@ -52,6 +57,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
   /// Returns a copy with the given fields replaced.
   FormTheme copyWith({
     ValueGetter<double?>? spacing,
+    ValueGetter<double?>? messageSpacing,
     ValueGetter<TextStyle?>? labelStyle,
     ValueGetter<TextStyle?>? hintStyle,
     ValueGetter<TextStyle?>? messageStyle,
@@ -64,6 +70,9 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
       themeSpacing: themeSpacing,
       themeShadows: themeShadows,
       spacing: spacing == null ? this.spacing : spacing(),
+      messageSpacing: messageSpacing == null
+          ? this.messageSpacing
+          : messageSpacing(),
       labelStyle: labelStyle == null ? this.labelStyle : labelStyle(),
       hintStyle: hintStyle == null ? this.hintStyle : hintStyle(),
       messageStyle: messageStyle == null ? this.messageStyle : messageStyle(),
@@ -84,6 +93,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
       themeSpacing: themeSpacing ?? fallback.themeSpacing,
       themeShadows: themeShadows ?? fallback.themeShadows,
       spacing: spacing ?? fallback.spacing,
+      messageSpacing: messageSpacing ?? fallback.messageSpacing,
       labelStyle: labelStyle == null
           ? fallback.labelStyle
           : (fallback.labelStyle?.merge(labelStyle) ?? labelStyle),
@@ -106,6 +116,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
       themeSpacing: t < 0.5 ? a.themeSpacing : b.themeSpacing,
       themeShadows: t < 0.5 ? a.themeShadows : b.themeShadows,
       spacing: lerpDouble(a.spacing, b.spacing, t),
+      messageSpacing: lerpDouble(a.messageSpacing, b.messageSpacing, t),
       labelStyle: TextStyle.lerp(a.labelStyle, b.labelStyle, t),
       hintStyle: TextStyle.lerp(a.hintStyle, b.hintStyle, t),
       messageStyle: TextStyle.lerp(a.messageStyle, b.messageStyle, t),
@@ -125,6 +136,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
         other.themeSpacing == themeSpacing &&
         other.themeShadows == themeShadows &&
         other.spacing == spacing &&
+        other.messageSpacing == messageSpacing &&
         other.labelStyle == labelStyle &&
         other.hintStyle == hintStyle &&
         other.messageStyle == messageStyle &&
@@ -139,6 +151,7 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
     themeSpacing,
     themeShadows,
     spacing,
+    messageSpacing,
     labelStyle,
     hintStyle,
     messageStyle,
@@ -149,11 +162,16 @@ class FormTheme extends ComponentThemeData implements Mergeable<FormTheme> {
 }
 
 /// Token-derived baseline for form layouts.
+///
+/// shadcn v4 `Field` rows: the label is `text-sm font-medium`, the description
+/// and the error are `text-sm` (muted and destructive), the label-to-control
+/// gap is `gap-2` (8) and the hint/error gap is `gap-1.5` (6).
 const FormTheme formDefaults = FormTheme(
   spacing: 8,
-  labelStyle: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-  hintStyle: TextStyle(fontSize: 12),
-  messageStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+  messageSpacing: 6,
+  labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+  hintStyle: TextStyle(fontSize: 14),
+  messageStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
   labelColor: ThemedColor.ref(ColorRef.foreground),
   hintColor: ThemedColor.ref(ColorRef.mutedForeground),
   messageColor: ThemedColor.ref(ColorRef.destructive),
@@ -168,13 +186,17 @@ class FormResolvedTheme {
   /// Creates a resolved theme snapshot.
   const FormResolvedTheme({
     required this.spacing,
+    required this.messageSpacing,
     required this.labelStyle,
     required this.hintStyle,
     required this.messageStyle,
   });
 
-  /// Vertical gap between label, field, hint and message.
+  /// Vertical gap between the label row and the control.
   final double spacing;
+
+  /// Vertical gap between the control and its hint or error text.
+  final double messageSpacing;
 
   /// Fully coloured label style.
   final TextStyle labelStyle;
@@ -197,22 +219,26 @@ FormResolvedTheme resolveFormTheme(BuildContext context, FormTheme? widgetLeg) {
   );
   TextStyle style(TextStyle? base, ThemedColor? color, TextStyle fallback) =>
       (base ?? fallback).copyWith(color: color?.resolve(theme.colors));
+  // Both gaps are shadcn pixel values at the default density, scaled like every
+  // other spacing in the registry.
+  final double scale = theme.density.scale * theme.scaling;
   return FormResolvedTheme(
-    spacing: resolved.spacing ?? 8,
+    spacing: (resolved.spacing ?? 8) * scale,
+    messageSpacing: (resolved.messageSpacing ?? 6) * scale,
     labelStyle: style(
       resolved.labelStyle,
       resolved.labelColor,
-      const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
     ),
     hintStyle: style(
       resolved.hintStyle,
       resolved.hintColor,
-      const TextStyle(fontSize: 12),
+      const TextStyle(fontSize: 14),
     ),
     messageStyle: style(
       resolved.messageStyle,
       resolved.messageColor,
-      const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
     ),
   );
 }

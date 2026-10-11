@@ -161,7 +161,7 @@ void main() {
     await _openAt(tester, const Offset(100, 100));
     expect(tester.getSize(find.byType(RovingRow).first).height, 32);
     final Size size = tester.getSize(find.byType(MenuPopup));
-    expect(size.width, greaterThanOrEqualTo(192));
+    expect(size.width, greaterThanOrEqualTo(128));
     final Container surface = tester.widget<Container>(
       find
           .descendant(

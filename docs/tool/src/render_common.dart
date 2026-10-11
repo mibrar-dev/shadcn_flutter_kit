@@ -1,6 +1,7 @@
 // Shared model + banner for the docs codegen renderers.
 
 import 'api_model.dart';
+import 'example_sources.dart';
 import 'readme_scan.dart';
 import 'registry_scan.dart';
 
@@ -13,6 +14,7 @@ class DocsModel {
     required this.previewClasses,
     required this.previewExamples,
     required this.previewExampleNames,
+    required this.exampleSources,
     required this.keyboard,
     required this.snippets,
     required this.cliCommands,
@@ -38,6 +40,11 @@ class DocsModel {
   /// (P6-F4, read with `package:analyzer`); empty when the file ships the
   /// old single gallery class.
   final Map<String, List<String>> previewExampleNames;
+
+  /// Per-example display sources keyed by component id, in declaration
+  /// order (P7-D1, read with `package:analyzer`); empty when the file ships
+  /// the old single gallery class.
+  final Map<String, List<DocsExampleSourceFacts>> exampleSources;
 
   /// Keyboard rows keyed by component id (empty lists for gaps).
   final Map<String, List<KeyboardRowFacts>> keyboard;

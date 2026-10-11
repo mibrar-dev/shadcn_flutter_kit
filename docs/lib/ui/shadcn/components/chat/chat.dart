@@ -7,6 +7,7 @@ import 'dart:math' as math;
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
+import '../../primitives/clickable.dart';
 import '../../primitives/fractional_align_box.dart';
 import '../../primitives/overlap_layout.dart';
 import '../../theme/color_tokens.dart';
@@ -130,6 +131,8 @@ class ChatBubble extends StatelessWidget {
       result = CustomPaint(
         painter: _ChatTailPainter(
           color: background,
+          borderColor: style.borderColor?.resolve(shadcn.colors),
+          borderWidth: style.borderWidth!,
           radius: radius,
           corner: bubbleCorner,
           tailSize: tail,
@@ -201,7 +204,7 @@ class ChatGroup extends StatelessWidget {
   final Widget? avatarSuffix;
 
   /// Edge alignment of the avatars / gap to them; null uses the theme.
-  final Alignment? avatarAlignment;
+  final AlignmentGeometry? avatarAlignment;
   final double? avatarSpacing;
 
   /// Widget-leg theme override for the group layout and its bubbles.
@@ -215,6 +218,7 @@ class ChatGroup extends StatelessWidget {
       foreground: foreground,
       spacing: spacing,
       avatarSpacing: avatarSpacing,
+      avatarAlignment: avatarAlignment,
     );
     // Only explicit values become the scoped leg, so app overrides below
     // still reach the bubbles; the group's `theme` arg outranks them.
@@ -226,6 +230,9 @@ class ChatGroup extends StatelessWidget {
       padding: padding,
       borderRadius: borderRadius,
       borderColor: borderColor,
+      spacing: spacing,
+      avatarAlignment: avatarAlignment,
+      avatarSpacing: avatarSpacing,
     );
     return ComponentTheme<ChatTheme>(
       data: theme?.merge(group) ?? group,
@@ -285,6 +292,7 @@ class ChatReaction extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextDirection dir = Directionality.of(context);
     final ChatTheme style = resolveChatStyle(context, widgetTheme: theme);
+    final ShadcnThemeData shadcn = ShadcnTheme.of(context);
     final Alignment side = style.alignment!.resolve(dir);
     final ChatBubbleCorner fallback = side.x >= 0
         ? ChatBubbleCorner.bottomRight
@@ -293,9 +301,13 @@ class ChatReaction extends StatelessWidget {
     return OverlapLayout(
       corner: OverlapCorner.values[at.index],
       alignment: side,
-      gap: gap ?? 8,
-      extraWidth: extraWidth ?? 8,
-      overlap: Row(mainAxisSize: MainAxisSize.min, spacing: 4, children: chips),
+      gap: (gap ?? 8) * shadcn.scaling,
+      extraWidth: (extraWidth ?? 8) * shadcn.scaling,
+      overlap: Row(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 4 * shadcn.scaling,
+        children: chips,
+      ),
       child: ComponentTheme<ChatTheme>(
         data: const ChatTheme(widthFactor: 1.0),
         child: child,
@@ -331,19 +343,27 @@ class ChatReactionContainer extends StatelessWidget {
       style.reactionPadding!,
       shadcn.density.baseContentPadding * shadcn.scaling,
     );
-    final Widget pill = Container(
-      padding: pillPadding,
-      decoration: BoxDecoration(
-        color: fill.resolve(colors),
-        border: Border.all(color: colors.border),
-        borderRadius: const BorderRadius.all(Radius.circular(999)),
-      ),
-      child: DefaultTextStyle.merge(
-        style: TextStyle(color: label.resolve(colors)),
-        child: child,
-      ),
+    final BoxDecoration decoration = BoxDecoration(
+      color: fill.resolve(colors),
+      border: Border.all(color: colors.border),
+      borderRadius: const BorderRadius.all(Radius.circular(999)),
     );
-    return onTap == null ? pill : GestureDetector(onTap: onTap, child: pill);
+    final TextStyle textStyle = TextStyle(color: label.resolve(colors));
+    if (onTap == null) {
+      return Container(
+        padding: pillPadding,
+        decoration: decoration,
+        child: DefaultTextStyle.merge(style: textStyle, child: child),
+      );
+    }
+    // Keyboard, hover, focus ring and button semantics come from the
+    // primitive; a raw GestureDetector gave tap-only behaviour.
+    return Clickable(
+      onPressed: onTap,
+      decoration: WidgetStatePropertyAll<BoxDecoration?>(decoration),
+      textStyle: WidgetStatePropertyAll<TextStyle?>(textStyle),
+      child: Container(padding: pillPadding, child: child),
+    );
   }
 }
 
@@ -351,6 +371,8 @@ class ChatReactionContainer extends StatelessWidget {
 class _ChatTailPainter extends CustomPainter {
   const _ChatTailPainter({
     required this.color,
+    required this.borderColor,
+    required this.borderWidth,
     required this.radius,
     required this.corner,
     required this.tailSize,
@@ -360,6 +382,13 @@ class _ChatTailPainter extends CustomPainter {
   /// Bubble fill, corner radius (the base grows past it to join cleanly),
   /// corner, tail extent and tip rounding.
   final Color color;
+
+  /// Bubble border, painted along the tail outline so a bordered bubble
+  /// keeps its ring around the nub; null draws a fill-only tail.
+  final Color? borderColor;
+
+  /// Width of the tail outline; ignored when [borderColor] is null.
+  final double borderWidth;
   final BorderRadius radius;
   final ChatBubbleCorner corner;
   final Size tailSize;
@@ -403,11 +432,22 @@ class _ChatTailPainter extends CustomPainter {
       ..lineTo(b2.dx, b2.dy)
       ..close();
     canvas.drawPath(path, Paint()..color = color);
+    if (borderColor != null && borderWidth > 0) {
+      canvas.drawPath(
+        path,
+        Paint()
+          ..color = borderColor!
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = borderWidth,
+      );
+    }
   }
 
   @override
   bool shouldRepaint(covariant _ChatTailPainter oldDelegate) =>
       oldDelegate.color != color ||
+      oldDelegate.borderColor != borderColor ||
+      oldDelegate.borderWidth != borderWidth ||
       oldDelegate.radius != radius ||
       oldDelegate.corner != corner ||
       oldDelegate.tailSize != tailSize ||

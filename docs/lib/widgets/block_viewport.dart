@@ -1,12 +1,17 @@
-// The framed, resizable block viewport (P6-B3): the reference `/blocks` card
-// renders each block inside an iframe sized to the device it targets, with
-// desktop / tablet / mobile toggles beside the Preview | Code tabs.
+// The framed, resizable block viewport (P6-B3, P7-B1 intrinsic sizing): the
+// reference `/blocks` card renders each block inside an iframe sized to the
+// device it targets, with desktop / tablet / mobile toggles beside the
+// Preview | Code tabs.
 //
-// Ours is the same idea without an iframe: the block widget itself is laid out
-// inside a bordered frame of the selected width (full width, 768 or 375) and a
-// fixed height, centred in the card. Every block is responsive (they lay out
-// from `LayoutBuilder` breakpoints), so the mobile width shows the phone
-// layout of the same source.
+// Ours is the same idea without an iframe: the block widget itself is laid
+// out inside a frame of the selected width (full width, 768 or 375),
+// centred in the card. The frame constrains only the width (and a 360px
+// minimum height); the height is the block's own intrinsic height — the docs
+// page scrolls vertically, so the block shrink-wraps instead of clipping.
+// Every block is responsive (they lay out from `LayoutBuilder`
+// breakpoints), so the mobile width shows the phone layout of the same
+// source. Every block must stay safe under unbounded height (no vertical
+// `Expanded`/`Flexible`/`Spacer`), otherwise the intrinsic frame throws.
 
 import 'package:flutter/widgets.dart';
 
@@ -41,25 +46,9 @@ enum BlockViewport {
   final double? width;
 }
 
-/// Preview height of a block card: tall blocks (dashboards, sidebars,
-/// pricing) scroll inside this cap, like the reference's iframes.
-const double kBlockPreviewHeight = 640;
-
 /// Shortest frame a block ever gets: short forms (login, otp) fit instead of
-/// floating in a 640 px box.
+/// floating in a box far taller than their content.
 const double kBlockPreviewMinHeight = 360;
-
-/// Natural frame heights of the single-card blocks, measured from the block
-/// widgets (card + inner scroll padding + 32 px frame padding, +40 px wrap
-/// margin so a 375 px phone never overflows; taller content scrolls inside
-/// the bounded frame). Every other block uses [kBlockPreviewHeight].
-const Map<String, double> kCompactBlockHeights = <String, double>{
-  'otp-01': 520,
-  'calendar-01': 520,
-  'login-01': 560,
-  'login-03': 600,
-  'signup-01': 620,
-};
 
 /// The device toggle group: three icon buttons, the active one filled.
 class BlockViewportToggle extends StatelessWidget {
@@ -111,10 +100,9 @@ class BlockViewportToggle extends StatelessWidget {
 /// it to the bottom radius): desktop fills the card edge to edge with no inner
 /// border of its own, so header + tabs + viewport read as a single framed card
 /// (shadcn `/blocks`); tablet and mobile render narrower in a bordered device
-/// frame of their own, centred on the card background. The height fits the
-/// block between [kBlockPreviewMinHeight] and [kBlockPreviewHeight]; taller
-/// content scrolls inside the bounded frame, so short forms never float in
-/// empty space.
+/// frame of their own, centred on the card background. The height is the
+/// block's intrinsic height (minimum [kBlockPreviewMinHeight]): nothing is
+/// ever clipped, and short forms never float in empty space.
 class BlockPreviewFrame extends StatelessWidget {
   /// Creates the frame.
   const BlockPreviewFrame({
@@ -129,14 +117,9 @@ class BlockPreviewFrame extends StatelessWidget {
   /// The selected viewport width.
   final BlockViewport viewport;
 
-  /// Frame height for [blockId]: the compact fit, or the full cap.
-  static double heightFor(String blockId) =>
-      kCompactBlockHeights[blockId] ?? kBlockPreviewHeight;
-
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
-    final double height = heightFor(blockId);
     final bool fill = viewport.width == null;
     return Container(
       width: double.infinity,
@@ -149,9 +132,12 @@ class BlockPreviewFrame extends StatelessWidget {
           final double width = fill
               ? available
               : (viewport.width! < available ? viewport.width! : available);
-          final Widget stage = SizedBox(
-            width: width,
-            height: height,
+          final Widget stage = ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: width,
+              maxWidth: width,
+              minHeight: kBlockPreviewMinHeight,
+            ),
             child: BlockPreviewLoader(blockId: blockId),
           );
           // Desktop fills the card: background fill only, no inner border, so

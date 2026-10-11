@@ -9,9 +9,10 @@
           "button",
           "card",
           "divider",
+          "form",
           "input",
-          "tabs",
-          "text_area"
+          "spinner",
+          "tabs"
         ],
         "foundation": [
           "gap"
@@ -21,13 +22,16 @@
           "theme"
         ]
       },
-      "description": "An account settings screen with a tab strip and a profile form.",
+      "description": "An account settings screen with tabbed, validated profile and password forms.",
       "docs": [
         "blocks/account-01/README.md"
       ],
       "entry": "blocks/account-01/account_01.dart",
       "files": [
-        "blocks/account-01/account_01.dart"
+        "blocks/account-01/account_01.dart",
+        "blocks/account-01/account_01_password.dart",
+        "blocks/account-01/account_01_profile.dart",
+        "blocks/account-01/account_01_team.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/account-01/account_01.dart';",
       "install": "flutter_shadcn add account-01",
@@ -42,11 +46,13 @@
       "category": "Settings & Account",
       "deps": {
         "components": [
+          "alert",
           "breadcrumb",
           "button",
           "card",
-          "checkbox",
           "divider",
+          "form",
+          "spinner",
           "switch"
         ],
         "foundation": [
@@ -226,11 +232,14 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
           "card",
           "checkbox",
           "divider",
-          "input"
+          "form",
+          "input",
+          "spinner"
         ],
         "foundation": [
           "gap"
@@ -261,25 +270,29 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
-          "image",
-          "input"
+          "form",
+          "input",
+          "spinner"
         ],
         "foundation": [
-          "gap"
+          "gap",
+          "icons"
         ],
         "primitives": [],
         "theme": [
           "theme"
         ]
       },
-      "description": "A split sign-in page: the form beside a full-bleed image panel.",
+      "description": "A split sign-in page: a validated form beside a testimonial panel.",
       "docs": [
         "blocks/login-02/README.md"
       ],
       "entry": "blocks/login-02/login_02.dart",
       "files": [
-        "blocks/login-02/login_02.dart"
+        "blocks/login-02/login_02.dart",
+        "blocks/login-02/login_02_panel.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/login-02/login_02.dart';",
       "install": "flutter_shadcn add login-02",
@@ -294,10 +307,13 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
           "card",
           "divider",
-          "input"
+          "form",
+          "input",
+          "spinner"
         ],
         "foundation": [
           "gap",
@@ -329,10 +345,13 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
           "card",
           "divider",
-          "input_otp"
+          "form",
+          "input_otp",
+          "spinner"
         ],
         "foundation": [
           "gap"
@@ -363,11 +382,14 @@
       "category": "Marketing",
       "deps": {
         "components": [
+          "alert",
           "badge",
           "button",
           "card",
           "divider",
-          "input_otp"
+          "form",
+          "input_otp",
+          "spinner"
         ],
         "foundation": [
           "gap",
@@ -378,13 +400,14 @@
           "theme"
         ]
       },
-      "description": "A pricing section with three plans and a highlighted middle tier.",
+      "description": "A pricing section with three plans, a highlighted middle tier and a validated promo-code form.",
       "docs": [
         "blocks/pricing-01/README.md"
       ],
       "entry": "blocks/pricing-01/pricing_01.dart",
       "files": [
-        "blocks/pricing-01/pricing_01.dart"
+        "blocks/pricing-01/pricing_01.dart",
+        "blocks/pricing-01/pricing_01_promo.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/pricing-01/pricing_01.dart';",
       "install": "flutter_shadcn add pricing-01",
@@ -401,7 +424,8 @@
         "components": [
           "button",
           "card",
-          "divider"
+          "divider",
+          "drawer"
         ],
         "foundation": [
           "gap",
@@ -412,13 +436,14 @@
           "theme"
         ]
       },
-      "description": "A navigation rail that collapses to icons beside a sample mailbox screen.",
+      "description": "A navigation rail beside a sample mailbox screen; a drawer on phones.",
       "docs": [
         "blocks/sidebar-01/README.md"
       ],
       "entry": "blocks/sidebar-01/sidebar_01.dart",
       "files": [
-        "blocks/sidebar-01/sidebar_01.dart"
+        "blocks/sidebar-01/sidebar_01.dart",
+        "blocks/sidebar-01/sidebar_01_content.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-01/sidebar_01.dart';",
       "install": "flutter_shadcn add sidebar-01",
@@ -438,6 +463,7 @@
           "button",
           "card",
           "divider",
+          "drawer",
           "input",
           "progress"
         ],
@@ -450,13 +476,15 @@
           "theme"
         ]
       },
-      "description": "An inset sidebar whose navigation is grouped by section, above a sample screen.",
+      "description": "An inset sidebar with grouped navigation and live search; a drawer on phones.",
       "docs": [
         "blocks/sidebar-02/README.md"
       ],
       "entry": "blocks/sidebar-02/sidebar_02.dart",
       "files": [
-        "blocks/sidebar-02/sidebar_02.dart"
+        "blocks/sidebar-02/sidebar_02.dart",
+        "blocks/sidebar-02/sidebar_02_content.dart",
+        "blocks/sidebar-02/sidebar_02_panel.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
       "install": "flutter_shadcn add sidebar-02",
@@ -477,6 +505,7 @@
           "button",
           "card",
           "divider",
+          "drawer",
           "input",
           "progress"
         ],
@@ -489,13 +518,14 @@
           "theme"
         ]
       },
-      "description": "A full app shell: header with breadcrumb and search, grouped sidebar and content.",
+      "description": "A full app shell: header with breadcrumb and search, grouped sidebar and content; the sidebar becomes a drawer on phones.",
       "docs": [
         "blocks/sidebar-03/README.md"
       ],
       "entry": "blocks/sidebar-03/sidebar_03.dart",
       "files": [
-        "blocks/sidebar-03/sidebar_03.dart"
+        "blocks/sidebar-03/sidebar_03.dart",
+        "blocks/sidebar-03/sidebar_03_content.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/sidebar-03/sidebar_03.dart';",
       "install": "flutter_shadcn add sidebar-03",
@@ -510,10 +540,13 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
           "card",
           "checkbox",
-          "input"
+          "form",
+          "input",
+          "spinner"
         ],
         "foundation": [
           "gap"
@@ -544,12 +577,15 @@
       "category": "Authentication",
       "deps": {
         "components": [
+          "alert",
           "button",
           "card",
           "checkbox",
           "divider",
+          "form",
           "input",
-          "progress"
+          "progress",
+          "spinner"
         ],
         "foundation": [
           "gap",
@@ -566,7 +602,9 @@
       ],
       "entry": "blocks/signup-02/signup_02.dart",
       "files": [
-        "blocks/signup-02/signup_02.dart"
+        "blocks/signup-02/signup_02.dart",
+        "blocks/signup-02/signup_02_aside.dart",
+        "blocks/signup-02/signup_02_form.dart"
       ],
       "import": "import 'package:<your_app>/ui/shadcn/blocks/signup-02/signup_02.dart';",
       "install": "flutter_shadcn add signup-02",
@@ -970,9 +1008,7 @@
       },
       "category": "Forms & Inputs",
       "deps": {
-        "components": [
-          "card"
-        ],
+        "components": [],
         "foundation": [
           "text_input"
         ],
@@ -981,7 +1017,8 @@
           "input_features",
           "overlay",
           "popover_controller",
-          "popover_overlay_handler"
+          "popover_overlay_handler",
+          "menu_rows"
         ],
         "theme": [
           "color_tokens",
@@ -1027,7 +1064,7 @@
           "popoverAlignment": "AlignmentGeometry? - null = topStart",
           "popoverAnchorAlignment": "AlignmentGeometry? - null = bottomStart",
           "popoverConstraints": "BoxConstraints? - null caps the list at maxHeight",
-          "popoverWidthConstraint": "PopoverConstraint? - null matches the field width"
+          "popoverWidthConstraint": "PopoverConstraint? - null keeps the field width as a minimum and hugs wider suggestions"
         },
         "userFile": "autocomplete_theme.dart"
       },
@@ -1455,6 +1492,7 @@
         ],
         "theme": [
           "color_tokens",
+          "density",
           "theme"
         ]
       },
@@ -1744,6 +1782,7 @@
           "data"
         ],
         "primitives": [
+          "clickable",
           "fractional_align_box",
           "overlap_layout"
         ],
@@ -2117,6 +2156,7 @@
           "icons/lucide_icons"
         ],
         "primitives": [
+          "clickable",
           "text"
         ],
         "theme": [
@@ -2235,7 +2275,7 @@
           ]
         }
       },
-      "category": "Color",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "alpha"
@@ -2257,7 +2297,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/color_field/color_field.dart';",
       "install": "flutter_shadcn add color_field",
-      "listed": true,
+      "listed": false,
       "name": "Color Field",
       "tags": [
         "form",
@@ -2295,7 +2335,7 @@
           "colorInputTrigger"
         ]
       },
-      "category": "Color",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "color",
@@ -2330,7 +2370,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
       "install": "flutter_shadcn add color_input",
-      "listed": true,
+      "listed": false,
       "name": "ColorInput",
       "tags": [
         "form",
@@ -2367,6 +2407,7 @@
       "api": {
         "classes": [
           "ColorPicker",
+          "ColorPickerCappedWidth",
           "ColorPickerControls",
           "ColorPickerTheme"
         ],
@@ -2406,6 +2447,7 @@
         "theme": [
           "color_tokens",
           "color_utils",
+          "density",
           "theme"
         ]
       },
@@ -2469,7 +2511,6 @@
         "components": [
           "button",
           "dialog",
-          "divider",
           "input"
         ],
         "foundation": [
@@ -2517,7 +2558,7 @@
           "itemHighlightForeground": "ThemedColor? - focused row content",
           "itemPadding": "EdgeInsetsGeometry? - row padding, default 8/6",
           "maxHeight": "double? - dialog height, default 349",
-          "maxWidth": "double? - dialog width, default 510",
+          "maxWidth": "double? - dialog width, default 512 (max-w-lg)",
           "mutedForeground": "ThemedColor? - secondary text",
           "padding": "EdgeInsetsGeometry? - content padding, default 4",
           "shadows": "List<BoxShadow>? - surface shadows; empty draws none"
@@ -3007,7 +3048,7 @@
           "OverlayPosition"
         ]
       },
-      "category": "Overlays",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "drawer"
@@ -3030,7 +3071,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
       "install": "flutter_shadcn add drawer_container",
-      "listed": true,
+      "listed": false,
       "name": "Drawer Container",
       "tags": [
         "overlay",
@@ -3129,6 +3170,7 @@
           "icons"
         ],
         "primitives": [
+          "focus_outline",
           "localizations"
         ],
         "theme": [
@@ -3400,7 +3442,7 @@
           "PreviewLabelBuilder"
         ]
       },
-      "category": "Color",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "history"
@@ -3427,7 +3469,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
       "install": "flutter_shadcn add eye_dropper",
-      "listed": true,
+      "listed": false,
       "name": "Eye Dropper",
       "tags": [
         "overlay",
@@ -3566,6 +3608,7 @@
           "icons"
         ],
         "primitives": [
+          "clickable",
           "localizations",
           "text_editing"
         ],
@@ -5131,7 +5174,7 @@
             "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
             "borderWidth": "double? - null = 1.0",
             "foreground": "ThemedColor? - content colour; null = popoverForeground",
-            "minWidth": "double? - null = 192 (12rem)",
+            "minWidth": "double? - null = 128 (8rem)",
             "padding": "EdgeInsetsGeometry? - null = all 4",
             "surfaceBlur": "double? - null = the app theme's surfaceBlur"
           }
@@ -5357,7 +5400,8 @@
         ],
         "foundation": [
           "data",
-          "platform"
+          "platform",
+          "gap"
         ],
         "primitives": [
           "navigation",
@@ -5607,7 +5651,7 @@
         ],
         "enums": []
       },
-      "category": "Layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -5625,7 +5669,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
       "install": "flutter_shadcn add outlined_container",
-      "listed": true,
+      "listed": false,
       "name": "Outlined Container",
       "tags": [
         "layout",
@@ -6452,7 +6496,7 @@
         ],
         "enums": []
       },
-      "category": "Layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6472,7 +6516,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
       "install": "flutter_shadcn add scrollable",
-      "listed": true,
+      "listed": false,
       "name": "Scrollable",
       "tags": [
         "layout",
@@ -6618,7 +6662,7 @@
         "constants": [],
         "enums": []
       },
-      "category": "Layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6632,7 +6676,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
       "install": "flutter_shadcn add scrollview",
-      "listed": true,
+      "listed": false,
       "name": "Scroll View Interceptor",
       "tags": [
         "control",
@@ -6708,7 +6752,7 @@
         "class": "SelectTheme",
         "defaults": "selectDefaults",
         "fields": {
-          "constraints": "BoxConstraints? - popup size; null = 192-320 wide, 240 high (always trigger-wide)",
+          "constraints": "BoxConstraints? - popup size; null = 128 min wide, 240 high, no max width (hugs the widest option, never narrower than the trigger)",
           "itemPadding": "EdgeInsetsGeometry? - option row padding; null = px-2 py-1.5",
           "popup": "MenuPopupTheme? - surface override (menu-owned class)",
           "trigger": "ButtonVariantStyle? - per-state trigger rows merged over the variant",
@@ -6735,7 +6779,7 @@
           "SelectableText.rich(TextSpan textSpan, {...})"
         ]
       },
-      "category": "Data Display",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -6755,7 +6799,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
       "install": "flutter_shadcn add selectable",
-      "listed": true,
+      "listed": false,
       "name": "SelectableText",
       "tags": [
         "display",
@@ -6966,7 +7010,7 @@
           "kMaxSpellCheckSuggestions"
         ]
       },
-      "category": "Overlays",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "menu"
@@ -6984,7 +7028,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart';",
       "install": "flutter_shadcn add spell_check_suggestions_toolbar",
-      "listed": true,
+      "listed": false,
       "name": "SpellCheckSuggestionsToolbar",
       "tags": [
         "overlay",
@@ -7072,7 +7116,7 @@
           "StageContainerBuilder"
         ]
       },
-      "category": "Layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -7091,7 +7135,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
       "install": "flutter_shadcn add stage_container",
-      "listed": true,
+      "listed": false,
       "name": "Stage Container",
       "tags": [
         "layout",
@@ -7332,7 +7376,7 @@
           "swiperDefaults"
         ]
       },
-      "category": "Overlays",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "drawer"
@@ -7354,7 +7398,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/swiper/swiper.dart';",
       "install": "flutter_shadcn add swiper",
-      "listed": true,
+      "listed": false,
       "name": "Swiper",
       "tags": [
         "overlay",
@@ -7469,7 +7513,7 @@
           "switcherThemeOverrides"
         ]
       },
-      "category": "Navigation",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [
@@ -7489,7 +7533,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/switcher/switcher.dart';",
       "install": "flutter_shadcn add switcher",
-      "listed": true,
+      "listed": false,
       "name": "Switcher",
       "tags": [
         "navigation",
@@ -7869,6 +7913,7 @@
         ],
         "theme": [
           "color_tokens",
+          "density",
           "theme"
         ]
       },
@@ -8036,7 +8081,8 @@
           "icons"
         ],
         "primitives": [
-          "toast_queue"
+          "toast_queue",
+          "clickable"
         ],
         "theme": [
           "color_tokens",
@@ -8398,7 +8444,7 @@
           "TripleDots({count, direction, size, spacing, color, padding, theme})"
         ]
       },
-      "category": "Menus",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [],
         "foundation": [],
@@ -8416,7 +8462,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
       "install": "flutter_shadcn add triple_dots",
-      "listed": true,
+      "listed": false,
       "name": "TripleDots",
       "tags": [
         "display",
@@ -8472,7 +8518,7 @@
           ]
         }
       },
-      "category": "Layout",
+      "category": "Utilities (building blocks)",
       "deps": {
         "components": [
           "card",
@@ -8505,7 +8551,7 @@
       ],
       "import": "import 'package:<your_app>/ui/shadcn/components/window/window.dart';",
       "install": "flutter_shadcn add window",
-      "listed": true,
+      "listed": false,
       "name": "Window",
       "tags": [
         "layout",
@@ -8535,51 +8581,62 @@
   },
   "fileHashes": {
     "blocks/account-01/README.md": "9f72489455f38f108e2ccd975bca9109bc559a8d997c210be2a7580cabc5d82e",
-    "blocks/account-01/account_01.dart": "f8e1dc7ded671bdc0ba3ce0b942224ae3dfa58160c878a292841333056775c92",
+    "blocks/account-01/account_01.dart": "265e43778fdef27af535a7242b94c102a23214152979d2e99ae51f0b2932442f",
+    "blocks/account-01/account_01_password.dart": "623e27ac7d09fbf8e4cf86edfed35f00d3924f63a1c09fa2be1861415a31cbdd",
+    "blocks/account-01/account_01_profile.dart": "afc9691481eb8c2ad7e55fd31ffca35697d2228a91f1a9172176c6fc1f41158b",
+    "blocks/account-01/account_01_team.dart": "8a357358b3117f158fb6dc05fed0d454bfb4fed0f06d1245f4f69957d3f4cb5e",
     "blocks/account-02/README.md": "15f45652c46c962c6797dd630c8b839118fcedb6a3f00859f0dbfbef0d7d19f2",
-    "blocks/account-02/account_02.dart": "fd5942035bd653876c03a19eab758a6540f21adb1e6dc3b89e29bf94517237e6",
+    "blocks/account-02/account_02.dart": "1b27080a13acaa7de193d98653abf623bef1092ecf3cbb373b6cbaa1ab02db49",
     "blocks/calendar-01/README.md": "381b43d8099ed61a16406d92c1b4a5910bc29584a6b263b5dd9fafc790fc92da",
-    "blocks/calendar-01/calendar_01.dart": "18d98ecf5ad66c8d0283fad7dcb26b04a838c8e9d03b87a5ca8fc8808328c0b4",
+    "blocks/calendar-01/calendar_01.dart": "76d1e1b5a9737c2562c65f9104bae88c670491eb2266e9fe11d12a50ba1c3008",
     "blocks/calendar-02/README.md": "1117184d74a4b8a34c022319ebd4ada3350addf2c8564eb3a5a8a61c63380952",
-    "blocks/calendar-02/calendar_02.dart": "c3dbad6197e188fe418487b43da72166923c2a182452f8e064cd636e15cbc430",
+    "blocks/calendar-02/calendar_02.dart": "e528f71b455961072678af82557d0a6efb427f9eb50ff6d67ffa17c1ba4515f9",
     "blocks/dashboard-01/README.md": "aeccb8c340f53f00018d26852b57e8a4e28b5f42c4568fe8d92672a557141486",
-    "blocks/dashboard-01/dashboard_01.dart": "6c0acf954ab31b27775109b17f5943eca2b574527a1055babdc1a921a6399514",
-    "blocks/dashboard-01/dashboard_01_table.dart": "026d84081ed1abe74c4217e1ecd5e2ad3d984ae2d197493072ad1ca6ce468f36",
+    "blocks/dashboard-01/dashboard_01.dart": "9ac6238580481422092e809c498e75b75e527f0838f3adc626f4e476ae8ad72b",
+    "blocks/dashboard-01/dashboard_01_table.dart": "96478936e79c6025869655199605c895d2772d15b9c79f91b653c40775a8ad8a",
     "blocks/dashboard-02/README.md": "d61a3f8d3909a36988b88803b564c701dc96e5c6450a23f176baf811ad7bd8ce",
-    "blocks/dashboard-02/dashboard_02.dart": "0244c792adfdba263c457ae10965ad39e6dba6c060f36368edde9d9a2441a923",
+    "blocks/dashboard-02/dashboard_02.dart": "f12408670860b4747fe54d016ad73f55d6d189aa7886c2c7ab0e6fbcefa6803d",
     "blocks/dashboard-02/dashboard_02_sections.dart": "e61ca6fdff7aefbb2104991aeb1f4a0d3633c3699d45ea078a3ae2cc8ecbb413",
     "blocks/login-01/README.md": "4376dbaaf87c1e95dd6ca3330ba1dea1a4b13ac88015b87356d9c5420aceb411",
-    "blocks/login-01/login_01.dart": "a14443181af2652afa05c26b7ce376ba4bde79b0b08e1fc1631c29114ac597f9",
+    "blocks/login-01/login_01.dart": "d6d52affba686596a756b29328f936a63097b80de4fdf5062261fc01d7ab3f89",
     "blocks/login-02/README.md": "630d6de8f8c2f490c8e5ba1359409e1480ff3a72e2901676ae07f6806de08c60",
-    "blocks/login-02/login_02.dart": "f8d57378095c58fc5e02f3dd51e6f205f6f224f4401d5a8cb0bbb31a6506bcb4",
+    "blocks/login-02/login_02.dart": "3bc0f6b83ed1745c289e51c082ba781cd2da9a69fbb55809559f5112aa8b01cd",
+    "blocks/login-02/login_02_panel.dart": "9868b5cfa497b4065b1b7cb359e4092c452bcc2b6923f4c572a8761864737a40",
     "blocks/login-03/README.md": "f4c3cd09af55d9aa7cf72af3b7f8340ec041c277770c0f02771e200755c0d47a",
-    "blocks/login-03/login_03.dart": "757147330ee2450f4cc75a515fa9a8d8cf381fbf1dee6b05531a15893ba27e07",
+    "blocks/login-03/login_03.dart": "6e79e8ee1b296ce64d292b1314adad04e0a6c4f3add66553c23ba6791580e0b6",
     "blocks/otp-01/README.md": "0931062e21fa8b4dc96da75e9518515fe49be8dbb4c85ea93a8ebdb5ab3af07f",
-    "blocks/otp-01/otp_01.dart": "d035551586a4193a8abc9a2346fdfb007baf30299770fb1b25a0081b12b4390b",
+    "blocks/otp-01/otp_01.dart": "344372c6bcc2788580558450f3d4a14f98a6ca90e927b4fcf0983b955b4613c9",
     "blocks/pricing-01/README.md": "a681ca45f41325aadb679971cd8ea085b422e22dd06f17c9b19bc87106bc6872",
-    "blocks/pricing-01/pricing_01.dart": "b7bed5fb1ca4cc977e4b4658af1038dadf8a340c2a1a70c372cffe73736265e5",
+    "blocks/pricing-01/pricing_01.dart": "78c91232f6e9a6546e68fc27ae43cdc4c3374d8fb2ac8703d6458722975ad0f8",
+    "blocks/pricing-01/pricing_01_promo.dart": "8d9a67f092ed33276c42a323851d85840b0084583c0681064597e2ce5bec2bf5",
     "blocks/sidebar-01/README.md": "902a8223a6ccfcdffa95b0652f46ef39e038069cebd7c931fe0900f68bcf0443",
-    "blocks/sidebar-01/sidebar_01.dart": "c30702ead824d54f7a46d3cc1c94d919fa2f0278ea1d545751c770b16b89b55e",
+    "blocks/sidebar-01/sidebar_01.dart": "867dcb533b095508dff1319b5bfd92d608dd403f4e205ae50463aa6befe3066b",
+    "blocks/sidebar-01/sidebar_01_content.dart": "24fbb5d903c944f783823de5a4c3f90efd0e4953d68818ffb2b011541f5ccc12",
     "blocks/sidebar-02/README.md": "4c5a9f481d3f845b1619f4d76a9632155f03c42b5fc80baca1f140531c855558",
-    "blocks/sidebar-02/sidebar_02.dart": "1ccf53e6dc0ad46e961e6c8f7f2373abeb61f732a3e8aa1a4e2dac97f667ca8d",
+    "blocks/sidebar-02/sidebar_02.dart": "b95cffb60aef8036c8474ebf8443f46d8dac6ee377ecd35bd71607520606ce31",
+    "blocks/sidebar-02/sidebar_02_content.dart": "d17d8cac4456b93b0cb714fe7e2ef3cf29c7b543e6a5c6bfd60280a28b91eda9",
+    "blocks/sidebar-02/sidebar_02_panel.dart": "8eaff76e8da5ed70d5ec6b39955a3c8c32de7f6bd4e6436df0b6f25eb2f97d71",
     "blocks/sidebar-03/README.md": "65c5e678d05db4a930fe315c993950b7fbbea4e1cd5d1023470b19bb5e41910b",
-    "blocks/sidebar-03/sidebar_03.dart": "d41e6f01a8afb3e2612ae14b2719b041575e94ab8226713e0e2f8bfe637fd377",
+    "blocks/sidebar-03/sidebar_03.dart": "69aaa687252366d47ae802e5ad2d7363a976b55350fd06c6912e1988fb8af109",
+    "blocks/sidebar-03/sidebar_03_content.dart": "b0fc75b22055299f15b935779e0fcbd335cefe22ca6851540c07d7f4b8b78add",
     "blocks/signup-01/README.md": "3c3fcb7eeaaa2e33c9cf0989e15212cf2182a72b9a4da9ae82395bbbad620359",
-    "blocks/signup-01/signup_01.dart": "82822d22008ac6e358301e364dcd97899e07caeea3f736bcd816f6fa3721881f",
+    "blocks/signup-01/signup_01.dart": "883974a64663827a179a7f5f9204ba13659a1356285a481e3cdee0b03a216e3a",
     "blocks/signup-02/README.md": "6d573310bc0b2019bdec5b45155aa5ae8216997e2532a17a71fdba93b2128531",
-    "blocks/signup-02/signup_02.dart": "c01dfdc3cf2ff84fa86adc5ab1acde34c7db01c61338f2e380b82acb716f5e34",
-    "components/accordion/accordion.dart": "8da15791c76a3caa08377f58b480bca7aa29e81eb8baa4628f098a141633b239",
-    "components/accordion/accordion_style.dart": "6ddd2b1620d842b2ab9d0059d921a0a2cb5adc25f679ef1932b3be8876742e71",
+    "blocks/signup-02/signup_02.dart": "7c983a3546208f205d543e5236b956506a6918eedabe296dccd9976a7fe02943",
+    "blocks/signup-02/signup_02_aside.dart": "08671d0be531177637c4bd94e882ce1093e042dabd8a922716421fd0a988590b",
+    "blocks/signup-02/signup_02_form.dart": "d659b41e17def22938f296086c981ef8e8da6b2416b4ba3fb67a285874dc0f03",
+    "components/accordion/accordion.dart": "8c5959b402f08782424ff6cfe97e0f15bec01c9a33796ac24074b243f9f3d732",
+    "components/accordion/accordion_style.dart": "bac754cc56509d481260f4999adb3e7ed9c3617a58d769e4348b1ea057de6726",
     "components/accordion/accordion_theme.dart": "375e4ee1d09dc4179fb48a9bd374f882d4a41ca77b68be7a357302767072aab1",
-    "components/accordion/preview.dart": "db1e25bfd0eb435406d76405b220e52e139215b44351f74d7fcda9977a84d3a8",
+    "components/accordion/preview.dart": "f26080989e5328de46f8d22ab5e0b2d92c249080461bac7c450523282e841d02",
     "components/alert/alert.dart": "4d38d1d7e1618e40fc9609fd9fcee23050a8290fa794096ec0b6728a5386deb1",
     "components/alert/alert_style.dart": "fe30425868c236b09e281d6f826f4b603de50259e0e19bbe22f843af99f71a33",
     "components/alert/alert_theme.dart": "c0d6deb5deb53267de56ef33059c9493d9c856fa99a402fbee2c9dde5c2d40f1",
-    "components/alert/preview.dart": "a7746dcd81da58e24ed874cc1d624cbdfa5fa8a946f17c0eb4269ea8e46a9697",
-    "components/alert_dialog/alert_dialog.dart": "c5d8971fb6f8c334cc9f4dd8a2ba5ea9cd24fdc0c1c6318d2ae9778dfabf0ad1",
+    "components/alert/preview.dart": "c8f62f8f3b8d1f8f820cfb3e7e32eaf376a943d3564d5a3e5ab14595a090f01a",
+    "components/alert_dialog/alert_dialog.dart": "0ca9e1221aaa4e7e85597665756eb46920733a88138d7c390a78193d3740b50b",
     "components/alert_dialog/alert_dialog_style.dart": "958a56142f17e01283a7c12b0abb18c481b2dab280a43e335594c1464ef9515e",
     "components/alert_dialog/alert_dialog_theme.dart": "7beef27652cba8a22534698508da833a89cbbad005702959dc71435ad9c15791",
-    "components/alert_dialog/preview.dart": "d897bc073b96f02030e05f3a56bcd864d1a282983218556b6d1f43a5375a06f7",
+    "components/alert_dialog/preview.dart": "944df16bf2fc9fdbe3e841c768f0075b52598526056264135608e8eafba7c0c8",
     "components/alpha/alpha.dart": "2a5ee7248119735a16dd8c10390ba23719b4db59176280462284e393a0d62bc7",
     "components/alpha/preview.dart": "146a4853448d604a092094f1b283f5a49a33e6a1cc3dabb9a3e1602532133c85",
     "components/anchor/anchor.dart": "44819b2fdf54882b31812260a07716e52c7d7556862f802ddb80cc6e4de85c0b",
@@ -8588,58 +8645,58 @@
     "components/app/preview.dart": "c6f49f283df8c6009d8b1676cb924c61c2874b599b76cd1a116baa3202952eca",
     "components/async/async.dart": "b78dab734d119221c9d23f59ae0b903f25f476db454d6c121cad568393fe0df7",
     "components/async/preview.dart": "7f80f2934f1d6a5d5637a39a9fe8e87848825f3ee6135f9a608ab74a076028ef",
-    "components/autocomplete/autocomplete.dart": "28eb4b81a8fb13479ccab62c091619bf7eea202b17ed71fc8ac74f52139fc00f",
-    "components/autocomplete/autocomplete_style.dart": "8d4cbfe0cc82d463c1f73d66a4f3362a1e2300210864e6f82a01e177db502fc0",
+    "components/autocomplete/autocomplete.dart": "508085d1bea55eb85f9433925da7bad8ba6455d0d522a69d8e13fe7599b47f62",
+    "components/autocomplete/autocomplete_style.dart": "29dcbe3b829b3922fe05fecf3db97807f17360a1640f483c58f58195e8c324b6",
     "components/autocomplete/autocomplete_theme.dart": "2eab0681ae203c27bc4d77c94f4e32e678e9e7242a472e05c78e0959e38460e0",
     "components/autocomplete/preview.dart": "638318c0a7612a00b1932eb4e6d91e408e7fba648e241ea34d3a7c26fdcd7fc3",
-    "components/avatar/avatar.dart": "7a58d6e4718d00f63e0820138edf219ded5f0d6a5fcaa69d71c1184cd056124e",
-    "components/avatar/avatar_style.dart": "e052091299f8a5a0ed6139083e5d7e1a453a7a76ce4376077b43f210175021a3",
+    "components/avatar/avatar.dart": "651f63eccc4d1d3b6ca5c305d78e8f2d71b959986bb8cfd04af5655a1ded703a",
+    "components/avatar/avatar_style.dart": "4dcfbe6a091cb66911a03564f6500639d21c25d343d23cd099b22eef6eb2d0fa",
     "components/avatar/avatar_theme.dart": "f4585597bda91c1a35d21bd9aa3c6afc26c802e65f39606226fb498a30becc58",
     "components/avatar/preview.dart": "4126daf9ff8d8a1005ca17f333421879fc86517c3d44522eea4d17fb2b2ed25d",
     "components/backdrop_transform/backdrop_transform.dart": "b01443a72cfb266805400a92ca952cee8a2d7a98eabb89434439a811682a70b2",
     "components/backdrop_transform/preview.dart": "47c664bad24d3a1fbd9b0bcf757013d06d4946c1793c0be5761b69655960f1ed",
-    "components/badge/badge.dart": "8129899585e415c94fefd3c932e12c2b633ba15e8b166f62a0826d06129b846b",
+    "components/badge/badge.dart": "1c6ed4a7452ab68adb15adffd3cfd9175c3b3bb5fcb0680e2ebf153b2dd740c4",
     "components/badge/badge_style.dart": "c86b90d1cd159b4a52a5aa87746da45269f13381d72b4459e5ab51bdc85bedfc",
     "components/badge/badge_theme.dart": "b3c6b6a74ef054e0e97cc6601a496a60d2555486b07e85215e105e345b4bde95",
-    "components/badge/preview.dart": "65a2f70c3d06a633009074194e32789570b3bf7a78ed308924100eec219cc1e3",
-    "components/border_loading/border_loading.dart": "c5d73bac03835002889e89648c75ed543a4fbd35d5474fcb9569228bc756a4c8",
+    "components/badge/preview.dart": "bd6a0a862c25f9090dc5e9d78eec8a576eb9fdc6dcff21069688af26045b7009",
+    "components/border_loading/border_loading.dart": "ee9ef589478071ca297c6f4cf1aebc7a6befc92dd271ca3baf8f526eebd44233",
     "components/border_loading/border_loading_style.dart": "86f0a757b5048af5941e52d1719b48e76996f5de7532f76a91c4264740c4d55b",
     "components/border_loading/border_loading_theme.dart": "d0acdb0dff8e56d3323986c3208d11a6c15f3122f906b5b00b076b6322776b76",
-    "components/border_loading/preview.dart": "fc10e8f70b02e3cf1c6c7e61ebdd0a3a5d65c94716aeb58050364c63357b2cf8",
-    "components/breadcrumb/breadcrumb.dart": "72872a537b8862dbf961a91ba088b99f30b38cd2ac6e468679237e46acf1981d",
+    "components/border_loading/preview.dart": "e265a52cfdd6eedd869d590280b24b7ef44dbc89fb7c87017cfd35091cbf9590",
+    "components/breadcrumb/breadcrumb.dart": "16df8b54a5b5008716e907cc785bfcaa3d004a8ba6d92f20edf5a53154e183ba",
     "components/breadcrumb/breadcrumb_style.dart": "2e6efea101aead02fea42ca9abc75992fbc698423909429e18e047171c98d2cc",
     "components/breadcrumb/breadcrumb_theme.dart": "842da6f375e259c45d93d4f0dfbf8d615b957cfa991832d6d1598ad8a528e1cf",
     "components/breadcrumb/preview.dart": "7145e1252949596a859d1b6095d93eef723a9730e2eefadbd028a13d9ffd56b4",
-    "components/button/button.dart": "93c3754a40a2ea514b0ed2bfe86345e7f7d2d871a0a2f8a5c50b3d3aa7dd1e2f",
+    "components/button/button.dart": "f25f61e66cec94661c0ec5f5579f2ea6fb3cab70c332c66571cf77f7675d9f91",
     "components/button/button_group.dart": "9b6f20f7d3fd9fb30b144d7f6f14ee3451ed273ee55853f0e01b7612b7461d40",
     "components/button/button_style.dart": "f0bed4c644577cfd7bdf733d82e0df841fdeeb5621cc89fb0051dac9a570a758",
     "components/button/button_theme.dart": "99e0fd2148c98f7b98c8581733daf2a6f60e22069defacd5ca5bfc5233262b4c",
-    "components/button/preview.dart": "522cfcbf95c23341962a49cfc62328ee50370dc238511b066033277dea121eda",
-    "components/calendar/calendar.dart": "2cf0583ca46903d0d3898f0496bae72ce05375c92c766be91d18e48bc63ba86f",
-    "components/calendar/calendar_style.dart": "e3c734dcffc5540d4ca8a9661fcac09e3e2b8cb58a3b95f7748de2c9ceb7ea1b",
+    "components/button/preview.dart": "09e38acbcea082d10ac214232749b13cacdb23bd87ed8eadbb4e6825a9653748",
+    "components/calendar/calendar.dart": "27ea0c488e1094d43fd13ac455224e3a16df62517a261a3aa4ed79f5ec6e5cdf",
+    "components/calendar/calendar_style.dart": "03ddc7fef1f5246450b5ea367c66dbca5d437056c7a85e7134a35db58ce91c34",
     "components/calendar/calendar_theme.dart": "53f9eedd84485f6043f6f5384f025265dcfbf42a21653a8931b504fcdf2e1a03",
-    "components/calendar/preview.dart": "bb6351e869e515ea251a489e6f194fd0bcf972a43c24dc4e5ada1f05ca6efb47",
-    "components/card/card.dart": "2783c598d83b2fa72ff92787ec1e75a0c1ddbe66ae067e1d95efdb7ae0d64a4f",
+    "components/calendar/preview.dart": "47ee2f1c4254c4d6cac6373c87f0f748bd055f3adf300bd5453a2b92cc2766b6",
+    "components/card/card.dart": "3cbb7e47c485f8bd7ced99f54281f47a908ff2c3e46dbd90824650a86b077163",
     "components/card/card_style.dart": "9bb74b22b2ec7d1ec58159a020e3e2315395075a9b32f6b68545b8f0f222306f",
     "components/card/card_theme.dart": "dc68ea51686fc254fff76c4d2397d0bc579fbd0ebf992130dde845d5eb63ed54",
-    "components/card/preview.dart": "bed6c0d84cae43ebb47cb9769ed5642d6e2840e32f641e980c06a6373b959633",
+    "components/card/preview.dart": "4489d9ca9694b43a8464fe752b4429b02bd6805a46d2582ac588c7ac13464872",
     "components/card_image/card_image.dart": "40d55325bafd371270830b414ac8be59e4d0aca0faa70c490f4f12c90bbb8491",
     "components/card_image/card_image_style.dart": "727284a5d68b4c3f1e245d75ed02e6f894fbb25600d3ea2afe3526227db3684b",
     "components/card_image/card_image_theme.dart": "4934ed979dea72bfbc1736686bed9d533e5c30bda465bd8361acebe9176008db",
     "components/card_image/preview.dart": "a8dae66f12f7af8847b25ce841267f96981cdf4236d07d4d469f2aa5f076a1ce",
-    "components/carousel/carousel.dart": "2f3fd91438732af38a9bcc54255f4a3e31636674b07fadacf45237e2156aeabf",
-    "components/carousel/carousel_style.dart": "7a59ba7bc82e14b4bc3a67e1e7b8a4186b7ff8abd648101f2624b7cdd94f6470",
+    "components/carousel/carousel.dart": "95d95ffb764b73b0705b16ffbded21e9fc99832c4c8fd4fd3df6156bb0303e0c",
+    "components/carousel/carousel_style.dart": "845f3618d8e8636c8a66187d1c67b829c3bd7de2cd7455a2446a68441ae06eee",
     "components/carousel/carousel_theme.dart": "7fdaa2baf99659c54e784ff38c9de3b9e191ce45989e5b219925e1e290dd3ba5",
     "components/carousel/preview.dart": "3da2851d5ea579c0aeaacd6dd90f6e6660431cecc2cf19baaa20b3ecaa0e5fec",
-    "components/chat/chat.dart": "3e830a28271e5d2bac2b81cfad85b7cff80ea246f4385f33c5627e0546ad52b3",
-    "components/chat/chat_style.dart": "97510cdbb9358116ff02662b780d6577ba0efda1c81832155523e386c975f62c",
+    "components/chat/chat.dart": "b575e4a77bdfdc5cc35e27ea7ad66c63d08d9991b1969829849df2347b4b3d3c",
+    "components/chat/chat_style.dart": "92707cf372c063df541f0255346bbfb6b1679c45ee84562ef48f2f1a09a85e59",
     "components/chat/chat_theme.dart": "4ff153f91c624960b3f5343e29f853ec254d42e8a0f652244e7c347d0617987f",
     "components/chat/preview.dart": "9e1e9bed46cfc9c3707a18f70ea4f8b6537d6e78f3d112297e3f9c411e622cf0",
-    "components/checkbox/checkbox.dart": "d729b190f6254244b0cf62740b2d82efb3e2adc0459fd84fa199ce56e08b3fb6",
+    "components/checkbox/checkbox.dart": "2b5371c34bad56e6eac280f5e95308ea55c4a0b16734c32ed2e1a04bba39b449",
     "components/checkbox/checkbox_style.dart": "db4279399477f20dfb07c8c9c436a4a95885a253f1026362297e7ab679285438",
     "components/checkbox/checkbox_theme.dart": "df42943c3de1be7807b4d1f5406183bfd5c063d093e12beb6f48bb792b810381",
-    "components/checkbox/preview.dart": "48437ab9cb1cf375e8c541010ae3fc376ac9ffe9cb6f389e2eb9867915ea975c",
-    "components/chip/chip.dart": "a53e93cf1248e13323b58b14d9bc8e7d7f39cc45663eec1b3aa5b2cd8321f1df",
+    "components/checkbox/preview.dart": "a15205cca5bdae8e14aab39e99383c7d641c2aaa5b07b3c7a036dec39efaa89c",
+    "components/chip/chip.dart": "d8502d6a8e56da83694843ae68c1394d6d3b24f0c07cd9a761ad9cfaeb22d9f5",
     "components/chip/chip_style.dart": "89d82d1efb2dddfc75e210e4c06b6beb0e734ace9157608b77d10e6aa21f7d2c",
     "components/chip/chip_theme.dart": "291eabd171ef1d98791697d663560ad3642964ea00077b3e42bc5c1a814132d3",
     "components/chip/preview.dart": "1b05e5b667efe97e33009b9e85005da32e7e1e0985cda07c9ef62856957902ca",
@@ -8647,39 +8704,39 @@
     "components/chip_input/chip_input_style.dart": "15357b593ec6374a96f9176ee8364ab0a061d563ea36b06e4678cebaebbe9a82",
     "components/chip_input/chip_input_theme.dart": "879e69b1c259e2e9f98676530560c6e8b516ffd3b8b68c4813f5988b8c535216",
     "components/chip_input/preview.dart": "f5052d7a7fcafa256ef78c423f2b5b9e290d516b2730be60ccaf4c70d5d27e3c",
-    "components/code_snippet/code_snippet.dart": "8b61423e845094f00a2864b641cb04b750ac81e553c95cfa8c498df1273786e7",
+    "components/code_snippet/code_snippet.dart": "120fc8ac9632e02fd7d0633f8c1747f091dfe69b2e82d5ac3b87de3f147cb9fc",
     "components/code_snippet/code_snippet_style.dart": "0e21351004640c9ebc1a578ed74eb14847ab0fd07ed92c17239ffa4c13342811",
     "components/code_snippet/code_snippet_theme.dart": "dfd9af928c0f207c3c0504fc6d16b998101614ba5c9203addebe811435fa61ad",
-    "components/code_snippet/preview.dart": "3c22f74b5efd2ca04bee12e74fbf8c08c7552c3be5abcd6526bf6da2a082aecb",
-    "components/collapsible/collapsible.dart": "5f017b5e27d10606f6c0eaa3be624735111fd6199e8511aeaae44e6fb42aa14c",
+    "components/code_snippet/preview.dart": "f4ea695b843df8746d184a6bff962d31178b60d01ea8fdbaa7bd836034057bc5",
+    "components/collapsible/collapsible.dart": "f427a472da3a3de0b5e0bc7add1f82c91eee491a2b2d3c5850bc4b48c35bc2b3",
     "components/collapsible/collapsible_style.dart": "8e191890455c5413b0e2935bc3c0055719cd55391fb09c47b1b65e83436c441e",
     "components/collapsible/collapsible_theme.dart": "1188197762885e137a5259ed54d27644cf69c00c7b76f4a1fde2abe75bfc49c7",
-    "components/collapsible/preview.dart": "5444c4bd2dbebd2aed0b3557b418dd527a34c0478e859ddd82231d6c69497f91",
+    "components/collapsible/preview.dart": "eea790e946bf3a1d4ef16b336b5711cc4d13c9633b7b699119b61dee192afdff",
     "components/color/color.dart": "da95825ae2c782493abb4be57db237674ad2a492270276b6d32f2735d7c4cb73",
     "components/color/preview.dart": "543e69c8ad3d8a66a80a91594d3632cba0787f47230b6356452081aca2835bce",
-    "components/color_field/color_field.dart": "d0fd176859915fa2bfc13eb1ef71f3ed2b5060451e418fc0e5807a425003c857",
+    "components/color_field/color_field.dart": "6b7452559fda5c09d0c29abc5a9b38469d15ed77fc9366cb8777d08516d08a23",
     "components/color_field/color_field_style.dart": "cbb8fd74868576959f7f9f6e74a1b9549db363faadb796667e31bcf0216bba67",
     "components/color_field/color_field_theme.dart": "5ca8acf46d29a25199aceeea46e48fb3b3153a98db4ae0abc26bbfe1d90e58aa",
     "components/color_field/preview.dart": "e410f7bd53676af9b203f76145ae5b6c9ef59ea855d050945ef2dd1f7970d33c",
-    "components/color_input/color_input.dart": "cc36072d22f4be266b9c42251cb92582b45cd6cc7db3b26fb0e167523ff16e5f",
-    "components/color_input/color_input_style.dart": "55244120b54f433420dd4dbe2ad808a17f6f2df5f6717880ddb7201c839ef0c9",
+    "components/color_input/color_input.dart": "367e946a3f053bb7317237132b4562b75f091a5b6d3240009a5ed5db030479ce",
+    "components/color_input/color_input_style.dart": "0b33c2d7f841bb6a6117ec72c2afbe11c7073a38c281ac8d6f24f8759b3e2bf4",
     "components/color_input/color_input_theme.dart": "3b38dff71789cdb5e15778fb0c103ca19dafc73500f5b2a4d5fb6c7903ab9b4d",
     "components/color_input/preview.dart": "5e1b74cdc1989a540847fff846817df97c49779a42989ab053f6beb3741f3b66",
-    "components/color_picker/color_picker.dart": "6d97675572fa3d8bd9c8d79da03d1f4cd7a757e446e7d473dd870428e4714c80",
-    "components/color_picker/color_picker_style.dart": "be52c242da6d4a0ffb01132b5b98778acbfb7ddf4a90599dabe94cbe5f6dd1a1",
+    "components/color_picker/color_picker.dart": "e465207ea14887de8de98c8b9e966b8a64c004851b0e4ce9a5c87cd7ebc75c8e",
+    "components/color_picker/color_picker_style.dart": "066a9411a03c9c6e4eb2dfc1f40f15a54fee8c173651c8fe72a6e6ff462309b7",
     "components/color_picker/color_picker_theme.dart": "3a1248351dc0a28e4f60e119a98bde091ab5009426a2345125de303e1de37a22",
     "components/color_picker/preview.dart": "7bb4c7f2bd80fbe8e9cfeda38fefde4a5fac8823b28ce5c9f0f44cfd871eca47",
-    "components/command/command.dart": "8b62b45a56430ba9f44cfa9470d1ffcfad3f51606be0d7db830e6a5c6ad876a9",
-    "components/command/command_style.dart": "b118eb3648e90a58cb95e698c416afb06de6b481ca30bda9a3af54fb95c6989e",
+    "components/command/command.dart": "2d1f25d7104cd2b064d5949258fba36cfac7f12326db1d0d18862d083ae4b8e7",
+    "components/command/command_style.dart": "65b6fb6cc1466d0e519d8fde83e1bb237c2d0154bcba4cce718ba0adff4330eb",
     "components/command/command_theme.dart": "4f52d4bc8da3ccdf42c17d971afc1a95715097dce7a1ba0a8885d9e0c3bffe60",
-    "components/command/preview.dart": "5a84fee6345c83b8b53b03a6c2a90357d3c309ccad9ec1fd4c9cc0ac38bae480",
-    "components/context_menu/context_menu.dart": "cdcb03d007354047acb27bf680e71f796924ae312724194ca254045af6eb9ecb",
+    "components/command/preview.dart": "6cc3112b32d3037dbbf51e9f4fd443491f934f2385b18e50c47cb3145470cabb",
+    "components/context_menu/context_menu.dart": "59118622f40097d16416f2fe39684bce11a330ea8b6aa18490f1d2ce48db57a4",
     "components/context_menu/preview.dart": "995f0a049880d4104e9b65e5ed740841fb7896786a7176e25ec10be5d23cdc6c",
-    "components/country_flag/country_flag.dart": "dc5f952002941db88f0764d92a7e8886c60f448c9837dff36a4d105518f03081",
+    "components/country_flag/country_flag.dart": "64ba2e7c6411895999ee864c14223e81a4330991b4e6528a9e52bbda1886f6e5",
     "components/country_flag/country_flag_style.dart": "a37d73e15798fc1ab3a3529e0be6225965952a8d915ad67a954c3b09a1fc8a2e",
     "components/country_flag/country_flag_theme.dart": "7f90d6328b6b707afca974525591185ffa7e72bf3b0fe01ead9ec669cae54477",
     "components/country_flag/preview.dart": "f2558e74c3111fc4ee94c6dd97217362e9c5db19ed94548119dd952d148338e4",
-    "components/date_picker/date_picker.dart": "2523918511c2a8fd46e860b3ea28706525fc2e08ef5306603a0c7fc85eab38ad",
+    "components/date_picker/date_picker.dart": "d1f2afb914d5a8abbd93e736e6e74d35021f6f958be732e28ee9b2d134aed800",
     "components/date_picker/date_picker_style.dart": "faa1af8d92972e140e4d780252d91c18f498a91ac075a55e9fe7c7c391d4070d",
     "components/date_picker/date_picker_theme.dart": "b5f921a9d3a548532622478bf543ee1939daf90d9dfca035093f78b1ec0e9800",
     "components/date_picker/preview.dart": "2669d08286b63d59864b4211ca89480ecfe062167415bd4202d2cede6f664f4e",
@@ -8687,11 +8744,11 @@
     "components/dialog/dialog_style.dart": "d66f5874c91940b806ce3a0c1aa8cfec8381f9e8645b3d54823cd3bf586cec78",
     "components/dialog/dialog_theme.dart": "347235dc95c013d1d3246efe5c63bd4f8b70dc6f1f27a8c324b0b053c7aec56b",
     "components/dialog/preview.dart": "ce893a1d70f8ecfac7092ecff6198118ffff71c14f1e397545e5cae59c6b3eb3",
-    "components/divider/divider.dart": "44612113e962ad38b0e131fed474b499d9092c7c482f6d565b90318ded5495eb",
+    "components/divider/divider.dart": "af8071803fa9189f2f9596b68c55f3c7adc9d5dc7b6296cecd80a2a250624522",
     "components/divider/divider_style.dart": "91d386a6d0dddb621820f1842926fa04cdde34fe56c45e708a2d410fc4f1c995",
     "components/divider/divider_theme.dart": "29cd40b1fde48621a6e4c6f8b96e967bb64e7d1466ae36428fdfbfd149003d7a",
     "components/divider/preview.dart": "56f25c4c9d065805792f2c7339c15151a9819a533863fc0614a98800af5ff3ec",
-    "components/dot_indicator/dot_indicator.dart": "ca75a0cad80c212ac5d6dd87cf952e770a862a759d52bc5c7d40951336c74a72",
+    "components/dot_indicator/dot_indicator.dart": "c8de6cca5fc95706878060662bb60e47df3ce27f9d3b7cc23700b556fc3753c4",
     "components/dot_indicator/dot_indicator_style.dart": "c112545ad96d2a552f01b4be45bbb34a3c22d8f227cc4fd9250c2865063b692c",
     "components/dot_indicator/dot_indicator_theme.dart": "a8981257210250fbf6ac93226e50e4b2c6a3a25f859b59160c5b7205d0b7ad09",
     "components/dot_indicator/preview.dart": "4d4e4f213d5db6d0eeb35f3764ffeb38f02ade462ed5f286b4fc9287d874d2aa",
@@ -8699,53 +8756,53 @@
     "components/drawer/drawer_style.dart": "1a8531d7d17de00edc83f2c0c7a88fc540e30f961718e1662cabe9db9122faee",
     "components/drawer/drawer_theme.dart": "15e9c455b6f0e61ab749756fe70de370a8d51986953894ded476c04608c59e9f",
     "components/drawer/preview.dart": "9744d1c557b48726cabadb21867caff61c42ce551db8329d2e1d55e85920a003",
-    "components/drawer_container/drawer_container.dart": "55b7ddc7101d064c3ba7f028f5d971ee0964431e3f83f0e9e551957ae0a1be64",
+    "components/drawer_container/drawer_container.dart": "e84535645434d849965f5166f55bf11e4638b850b551fe3a922b9597acb9d0f7",
     "components/drawer_container/preview.dart": "5017ae85d85f26048e0538f4919a165fb3ecf4520d618da984254dedc6122db8",
-    "components/dropdown_menu/dropdown_menu.dart": "5250b23ccc624db0f932024b3b1a02b7e448dee3536ea29a48b1e68f2d5972f8",
+    "components/dropdown_menu/dropdown_menu.dart": "0529b4d807fe87f416c67a0d075d2b9d15b4b0ecf51a8011d895c14e96f34abe",
     "components/dropdown_menu/preview.dart": "8c778fffffa2504fd35c491a8da6d6a9e3ef0b4c49f932f62e4b1b8760c7a824",
-    "components/dropzone/dropzone.dart": "b4b099354e7b3dfbea5fb7196e1a838ec348893e4bd7b04ab345d48bd18ff415",
+    "components/dropzone/dropzone.dart": "f80f6f4d16fa0d9927b173b44a584156e467e7c75eaeaece1616da3d8c4e29b3",
     "components/dropzone/dropzone_style.dart": "45b1ead2f882f0b1f820d03761f77dcf53423fa29ab178218e5b30eb126e02a9",
     "components/dropzone/dropzone_theme.dart": "f74280420d94eb62255a3990f4169135e22f6d26ede50cec8ac111cf62d7ce24",
     "components/dropzone/preview.dart": "7710d3f4ec067bf23e5dc551001f2202e37241df5395348b92ae540693c463ad",
-    "components/empty_state/empty_state.dart": "980a314f38902fe3b90c24dc033e240125d3caac938d632ac9e89064871ab893",
-    "components/empty_state/empty_state_style.dart": "867bf0579dc919be6c49c1ebd6e5235fcffc0e1de7626e0d481f391d30df22ad",
+    "components/empty_state/empty_state.dart": "782f824af814d02e9348390b01cd86d01a3d44019cc29da134401718bd0afa37",
+    "components/empty_state/empty_state_style.dart": "6303d24f9f34f9a6466b29cfc55ba6abd093bc1249aa04f9e0b45ae7aa5bd162",
     "components/empty_state/empty_state_theme.dart": "27d46efcd0fd3411ca4b811fd7713d0cf913a16235aa09d88b2dc5d07149aa76",
     "components/empty_state/preview.dart": "14a7655f92376812b2e905836158554219c0e9fe564d611a69c16a17660a08f9",
     "components/error_system/error_system.dart": "9c236d215b8e295689aca5b82a3c0b184524b2c65dff8119febb2ec9b310d3f3",
     "components/error_system/error_system_style.dart": "570db4b401cc3ccfb77a69ab69cd06ce037c7b964c1e7dae8c499cdb06ab6a5c",
     "components/error_system/error_system_theme.dart": "b4ca5cc8682fe0bbdf3098b5c9f7dc5c212caf8b6a559a5a7ed20f671b9c8209",
     "components/error_system/preview.dart": "22a913c36c89f5c2a9f81f612494ffdd2b8ffac6b75a6a666232bbdc4651c1df",
-    "components/eye_dropper/eye_dropper.dart": "0347a9cdc9f22f21f0f35e7516b0b08f1e0f07dd93933dd2c95a856711cca618",
+    "components/eye_dropper/eye_dropper.dart": "4674fba9234fa7d811317872387617adbfe031bc078a6b5d241ab0d5d2de3f77",
     "components/eye_dropper/eye_dropper_style.dart": "02c3fc7649214d871e26f7b7df386fe58a2d6f33997491a062f930d43c2701e8",
     "components/eye_dropper/eye_dropper_theme.dart": "c499e35f3dadc757d06df59d4d54162777485d73a556e10a964aafd80c5da6fc",
     "components/eye_dropper/preview.dart": "32c9631b2baf83040a14dc7110ee19f5c87abe99e8d9e2717ee502b53fd742b4",
-    "components/feature_carousel/feature_carousel.dart": "c868318740fc3d1682ae378139006ed96c4b026b598134d722250310fc44c3d3",
+    "components/feature_carousel/feature_carousel.dart": "5f72abd2d99599669f53a1b375b9ab4a91c8f0885a2d78601606b49254af6e36",
     "components/feature_carousel/feature_carousel_style.dart": "b345decc8361256714d6906807810a6f90046d01bc76313af7d13aa43f47eed9",
     "components/feature_carousel/feature_carousel_theme.dart": "bc401376b9e42c10c783a15c53bcd5e56038815e3c7549db7c3f4bf3aea64e69",
-    "components/feature_carousel/preview.dart": "12b38ba506847260c37ebc40c34363939057279d02e5b958d27569578b976d5f",
-    "components/file_diff_viewer/file_diff_viewer.dart": "ce026bf059ee90e8e477b537a2b4d5b86c0414e21eeff0b88684cd435ee1bbfc",
+    "components/feature_carousel/preview.dart": "976feba79b7c0f4797e408e4378219d63bec0e29ec7c62ca3f30c12f9e35a73f",
+    "components/file_diff_viewer/file_diff_viewer.dart": "9fbde2ab45d3f6f56172b54e14b1434c0b2852cf5567610e948a6c1873a03d4e",
     "components/file_diff_viewer/file_diff_viewer_style.dart": "cbe056d82d68b5f772550b2f9f39e52d7a40f6fef70f45b01b474281c341e2de",
     "components/file_diff_viewer/file_diff_viewer_theme.dart": "430265b0848e6bf08653979a964a8ae48251f5e6aa53a70f1ca638463f2b652b",
     "components/file_diff_viewer/preview.dart": "5fc9aac0514ff2db3ac26c80aec049e7d1a2f188bb747695fc5731a43b13a3e0",
-    "components/file_picker/file_picker.dart": "8ad252c4481fb9a8c5f3796453aa485cda27176dd84c4fb5763dea574653fb96",
+    "components/file_picker/file_picker.dart": "d8a81055c7ef16867ed3596f07641c98fb2ceb671d35ecca6e2430a71cf04f6f",
     "components/file_picker/file_picker_style.dart": "0bcc958b7d38d9599e45d4484dc512366715fd9254e4d343ec4ba12488d8c721",
     "components/file_picker/file_picker_theme.dart": "53f28d6b6f45bf53e1eaa726cbbcc66b7a2a1f85b165402dc3f676fac83c1a39",
     "components/file_picker/preview.dart": "d61c869e75b6bf7ddb19f4f2924f016d380123c0126f8ec4d4e014dfaccea72f",
-    "components/filter_bar/filter_bar.dart": "f13dc16aa986a78eb96b4c6374c5408ba860c6e3d9c3bce026f088e192e7b8eb",
-    "components/filter_bar/filter_bar_style.dart": "6a09ae5ea804d4fb0613185308ac2ef36040bac8a9568b8a8718c3f895513d55",
+    "components/filter_bar/filter_bar.dart": "9361a2e65c3dcb61aa377ca826a0f79136e657ef6208e296eb3e01a4fa79bba9",
+    "components/filter_bar/filter_bar_style.dart": "6504badfbd41d24fd8e3b3db68972d746cb215e4d130ed41a01e3ed3ae85a0b1",
     "components/filter_bar/filter_bar_theme.dart": "23285d875e48fc719a90e5d2c7a319a87930cf0582212aae84a3f0b33ae367d1",
     "components/filter_bar/preview.dart": "e17ee2fc7c31fac73808595d813281a23d2a44a502b296e59e34e569992830ec",
-    "components/form/form.dart": "f008a07ac4e6372d03d0245f3728b698f0d63669e9ed525181510d51d02b82d6",
-    "components/form/form_style.dart": "084b83098fdd88b9832f3557907ebbe18eb62246cef14e63aaad0e257e51eb48",
+    "components/form/form.dart": "b2c84068af16850d45fd65b5d4289c7b4d3ea6b20bb2eabdafb4af7787fd8a3f",
+    "components/form/form_style.dart": "42e6266f3117bdb1b83731926596740930887fa65b9b891c4d0f86ec83c33878",
     "components/form/form_theme.dart": "e6d52bb4896eca6b9b8e4ff457879c2b40ed4866ef87efd5a396a9858236b2b3",
     "components/form/preview.dart": "7c83347be9863d3dfb7f0322a2fd462c4f0bf9159f6a67924a378db97598dc76",
-    "components/formatted_input/formatted_input.dart": "afc977a3c7dc1909f417d48233928422b06ad6ad8f0d76c89327627becc0c0de",
-    "components/formatted_input/formatted_input_style.dart": "6b75a568f47f3a97968224e033e49f1600518513343e38f2a7a5f3b5c52b72f0",
+    "components/formatted_input/formatted_input.dart": "9069989089df46f09a24b92a4f31cadfaec885bcfa1a8cfed851b99a078cae7f",
+    "components/formatted_input/formatted_input_style.dart": "de85425aec461974621ffd57b80d595926f7955437ce572539c2935392be1e6f",
     "components/formatted_input/formatted_input_theme.dart": "3ebf79e3757d5a3233cb0855c8798846bb54dff1df15fa8db49319f6dff6e4a4",
-    "components/formatted_input/preview.dart": "d595feef052e0eeb5478457389396d936ac3741267e4758d5b933ff466a5b35d",
+    "components/formatted_input/preview.dart": "a95c26bce6cc4ff37dddaa2bbfc7275496b7857300e77d2582b25d235244988b",
     "components/formatter/formatter.dart": "1c1e03e7fd88b621558433c8c58e3982f75cb28bea18624784ef575315bfc058",
     "components/formatter/preview.dart": "92540c4ebf3d4862380fb7aa02cb06332238cca8aa568bdb94f8dbb4025dd12f",
-    "components/gooey_toast/gooey_toast.dart": "224633c27a50f561ea7ac028c367fc5924b1727a65d583f121f3411091406b0a",
+    "components/gooey_toast/gooey_toast.dart": "e2f9aa5bc6c82b7f1d443a05d82233a817e6f4adc391d6d7e182fca3d7540829",
     "components/gooey_toast/gooey_toast_style.dart": "bd3b76ea08a05fe98c9d76c4c32ea6c2758014e945940a32f0485202c4e015b8",
     "components/gooey_toast/gooey_toast_theme.dart": "e7a7a84b6a2a2804d06339e0bc77c473ebcef55ca09d8e8b7c6f86ccb294d878",
     "components/gooey_toast/preview.dart": "d014dc0b0866be7fabf4a645ea3ae8def21ec8bb05c8a005f076e77aa94af568",
@@ -8755,7 +8812,7 @@
     "components/history/history_style.dart": "763996adfedde9353980cd913422529794e56697d1db61227b63dba9951cec68",
     "components/history/history_theme.dart": "04043e9863dcae0b3cbd8bd696eeff35cdaa8e71bd99f4044e174c0029f33e38",
     "components/history/preview.dart": "eb693d4919bc1308ab4e91520640d78a1a4c7ddfcc0d751556e30067d4e01ee1",
-    "components/hover_card/hover_card.dart": "25336462ef913ed69171316a99a74a206ddd2e13559ec841db07c4318c7e8e55",
+    "components/hover_card/hover_card.dart": "873844290c5a6378b60474f962431f1189ce8acaca468c69392201cb962b6522",
     "components/hover_card/hover_card_style.dart": "fc45fc39a0f6f740f531bd1083027eff2f28e86fd186e5f65b3d5096df7c1cfd",
     "components/hover_card/hover_card_theme.dart": "1f2fcdefd8f8e801912da245a49b34e195764235fe03dbb92ed144944f2bed59",
     "components/hover_card/preview.dart": "83541ec6898a88a7088e899fd541a91d84cc7d696ea8ece381f59750cdf1e7b7",
@@ -8771,19 +8828,19 @@
     "components/icon/icon_style.dart": "9a6e2d5f19897851cf26700d8475a72b356e7aa2102e6b3f6fc71c27f2f1f778",
     "components/icon/icon_theme.dart": "22332267de818b8a5c727c0eb1f5bd22f803b7645756d74add02d9193cfb14a5",
     "components/icon/preview.dart": "6690a42fb152e748637cf21160b211cf4f75889a44de16f3b86ca7e07091c721",
-    "components/image/image.dart": "82b841afa3957b3ed0d649b5b66500cb6be63b803590460d2c96ca5dff0b9c23",
+    "components/image/image.dart": "f1747daf7b43642b6e1b65307852be8aa044e1b18564dea85fb51dc42479b369",
     "components/image/image_style.dart": "ad0cd14e484a840aee9d34a8eb57d0c524aa50bd35310cbceb25ea2114ad2f28",
     "components/image/image_theme.dart": "c8890eacb758b9d76e0b14883c63a1abf99bfecbc38e0a43f42f2a3df5c00a23",
     "components/image/preview.dart": "667cafa171b81cb74e370df674f72b3030d3ddf363169b781b27696eff0ff2b6",
     "components/input/input.dart": "e73c4a2070ad6209a49112ed00eb87b74355fa3adc1f333fb6210f7e33a0c82a",
     "components/input/input_style.dart": "4e4f43475d1d024b335586df29194f86601c6f1fab9313ca72e6bf080990c109",
     "components/input/input_theme.dart": "d3ea4501f6b2e86b77eecc28516ad149fae31ab6dd3b9e6242a1b39fd2a3af08",
-    "components/input/preview.dart": "dde1fffdd670804e91d16175ec85fae038ffa8e5369f00630d4a75b38d0ed2ba",
-    "components/input_otp/input_otp.dart": "2af28e0d8754e2785e363f5c8fd1207702899e3ea2cfed78357385143a4f06f6",
+    "components/input/preview.dart": "25b93295ba071590ccd8c647ce6fcd4ed4770390a527117c5a45417a9ab20c1e",
+    "components/input_otp/input_otp.dart": "834fb418f37596fc050263a56a32f7d5d59f8979948a63569843516efe055590",
     "components/input_otp/input_otp_style.dart": "7ca55622d4dcbd97eee1e97366994b5ae0603247ce3d63d88881f680ee9c1be1",
     "components/input_otp/input_otp_theme.dart": "5e2f3b0c3147a60ebbe931876111b31eaa1be5dd116f07fa5622b8dfc59fe218",
-    "components/input_otp/preview.dart": "cdd701a0339d8f1346890a385732f5b4e9f336d9dc9073772212fab25caddee0",
-    "components/item_picker/item_picker.dart": "1be1267b00b0b24dcd99418fa568a045a4089ab8d58bf505e9559f7bbab3bc22",
+    "components/input_otp/preview.dart": "bce6f9ac20f089a0497972b1264b705d2bdfb3fefb20b4960e19f1c963bfad2a",
+    "components/item_picker/item_picker.dart": "3e67efa2438aa34a8f320d79fadc34c7d8af084246768cf9d72358f9ff155187",
     "components/item_picker/item_picker_style.dart": "db037c8f8468be3c331bb582a32de0c4776ed9365162b9f94259f2ed5c824aed",
     "components/item_picker/item_picker_theme.dart": "cd2ed01d43b9e21d1d419c79385847fc9a304bdac799c59ca797060e1ee552d1",
     "components/item_picker/preview.dart": "5373d91ba3638ccab87104765427d3346b6bfb1d6dfc732c6b07a3ef80301307",
@@ -8801,11 +8858,11 @@
     "components/media_query/media_query_style.dart": "0eaf6ac048ef55eafbe8c4a0c602372f427101cb379d0a6d29d9006a59c949cd",
     "components/media_query/media_query_theme.dart": "0531f36504a3f2a8a8cc218fbce6bee9a9f26b66d0092566a9aece8bdfa43229",
     "components/media_query/preview.dart": "945f07ac68db5fc9d931f238813f1681bdbb4d38a9717fb41df5ac114300d24b",
-    "components/menu/menu.dart": "a53dc503f15088116ae4b943f09e9898f52720edbf47167fc5c34359001a1d49",
-    "components/menu/menu_style.dart": "e481848fac6b19cd7afb219f9a9114486bcae83932d22f25cd316496464250bc",
+    "components/menu/menu.dart": "bd71102d72dc4afa195ba754b701477b8228b225aadd179ff2a73b48242c2707",
+    "components/menu/menu_style.dart": "c42424a9eef0e870ace52bb8b127ef21e5cac8a0a07ff9a986fb6778aa0fd82a",
     "components/menu/menu_theme.dart": "9d4391f0a637e365ab4b85c6aefb1820230a22cf06938373a75994d21c1d9a9e",
     "components/menu/preview.dart": "4208d68423f1a0f4ea1fcdad36d0facc424bb796dabdffc3056bd90af7ce2fce",
-    "components/menubar/menubar.dart": "818ffaba90a282cf2f69a2b2a20423ac27134f449705b7d8a9e2da38fb4fb519",
+    "components/menubar/menubar.dart": "f17ed720eda6aaf0c8edfa83ced24bb789a81351a6525ec52db065b1a8e750f4",
     "components/menubar/preview.dart": "a04decc99d7abffa3f556e15a25f95649737b1dffc118cdac8cb0a013f8c1ad8",
     "components/multi_select/multi_select.dart": "eb685ce867233dbc74d9bab86924d2b5d47903189a78d5e58c651b509d59882d",
     "components/multi_select/preview.dart": "658ad335d70be269ff225882cc5be2618057b48e672c248bb63e7ad4c9fc559b",
@@ -8813,11 +8870,11 @@
     "components/multiple_choice/multiple_choice_style.dart": "d348cd6cd10604b513f4f4b6a0fac889bdb8a79983e375a42ea2c969f9f3d1ff",
     "components/multiple_choice/multiple_choice_theme.dart": "d01b823c31178ae49aa453efcd59952351f07e0795089f03a76bae7d11e81122",
     "components/multiple_choice/preview.dart": "5d6dfb88f44e31a70c1a45936101d1f3e7bc212057ba1d0f5feaa7c87450bcf2",
-    "components/navigation_bar/navigation_bar.dart": "ac1bb891df5b15bea195d817720b9a5757a1618994e614150822cbecadb4db9a",
+    "components/navigation_bar/navigation_bar.dart": "0e6e2fdea7829a5413290aaf7e7f0c1e7a65e18df8b3e3d67d8899293fe5e2ef",
     "components/navigation_bar/navigation_bar_style.dart": "18c065f962213f323618f11b5c19eedec35a32e1c4932f9a2302fb16ac67a9cc",
     "components/navigation_bar/navigation_bar_theme.dart": "90a8c087d40f57a188d5d55bfa4bbb1db976a914c7c58088572b8eae7368db27",
-    "components/navigation_bar/preview.dart": "7cf22ab1f306b8cbab5e57d948008d0002cb492686b8ad674be16d09a0d076dd",
-    "components/navigation_menu/navigation_menu.dart": "0bfd3cf60dc0d963b44643be5df75d13fddf6f0d34faeb5b2ff11cc6cb10a86d",
+    "components/navigation_bar/preview.dart": "26db3c5e3948fe3802c629029fb14cd23cdcc143adf185416ca158503177c0af",
+    "components/navigation_menu/navigation_menu.dart": "eec4f300adaf772e3dd0bd1f78bba248b6ce46fb2f2a2d106d8fe3a8df39b23c",
     "components/navigation_menu/navigation_menu_style.dart": "9e1b20951271247f529d9ade9086507d945d4fbf3fafeaedc496294e05159e11",
     "components/navigation_menu/navigation_menu_theme.dart": "b095750a07d777e23133d8afc9004c2e5a58d3149520df7bf3f762a72102a28c",
     "components/navigation_menu/preview.dart": "3f36ebfa3966c5166d7371909070498dae6c48c29a96e0ebdd7219c716550b51",
@@ -8857,9 +8914,9 @@
     "components/progress/progress.dart": "9849c181259fbda4766eed90a6017701c95187ee613dc857cb5042f4cae19d48",
     "components/progress/progress_style.dart": "45e64fefda1030d36d43c5d79d0130f81f7d2148082e70e882c0e9862cd39092",
     "components/progress/progress_theme.dart": "e8c8fb32bb5dbf64c9d492254a61b1c6ff7a6024ff9bfbc1f58569f5c528a4fa",
-    "components/radio_group/preview.dart": "c8a4e544200d0c57e6f7c865ed5a706556e5ebe62b1539b66c69ab99757b001b",
-    "components/radio_group/radio_group.dart": "eed6abe559e08f9567b02d95641fbde02273c29bb9baa7bfe28e522860c75f60",
-    "components/radio_group/radio_group_style.dart": "94675ce8d581b86263f7f691f5259cf41cca01e20af00ccf787b1c06081f96c2",
+    "components/radio_group/preview.dart": "be8c632c02bdfb3d3e6065a5dbd6cd58dacce2af39e1b2d959222680938cc3cc",
+    "components/radio_group/radio_group.dart": "4a51b250be5eedeb5ca2df1317b42ebe662fd46d5e7d2112b2df1b62235f7c08",
+    "components/radio_group/radio_group_style.dart": "54585a63d77444f761c22d595b7845a289d3a358017675031cf2984a38a071dc",
     "components/radio_group/radio_group_theme.dart": "be8a7f96dc93fc49a9e737f8f422b99f7fe5b56935e0b7ea6b675e914549024f",
     "components/refresh_trigger/preview.dart": "afc7bb1b9d3f9164caa7eb3d79151d9945f8990711a1810b16fb600a3b274de3",
     "components/refresh_trigger/refresh_trigger.dart": "1ed8f376d08573bb6d975e8be474102c31cf5725bcc6ada31aeab340f3c2a66f",
@@ -8888,7 +8945,7 @@
     "components/scrollview/preview.dart": "b823f0dd025132eca3c742a06fb8531b64a16405d226bd3f36378c3d9957606c",
     "components/scrollview/scrollview.dart": "80b8637390f226283f70b08f8fb1169c6b60dd2a73f567c11ec5746b743121b6",
     "components/select/preview.dart": "191fb361d8a34504e3487bf22665e78d9aa78faca13cf53f40674314a909e6ac",
-    "components/select/select.dart": "9f45617f86323cbaaeb585bb5e6dd68f46e0672a0f58de58e0d90046e857ff49",
+    "components/select/select.dart": "5612b74f9a52bec43e20ca77b0854434e448a4df4ac71531197d756d28967d7e",
     "components/select/select_style.dart": "f19cfd327dff00ac74312ab88d0efab81103eb8bd70044b55419c6a828f76a6e",
     "components/select/select_theme.dart": "12c99982ce95294ee168ec3ff80e4a8bd27d797ea99d927151e5f1a10089ca01",
     "components/selectable/preview.dart": "c8257bc74fa61bf0a00e0f4a1579cf53fe71d93fb944d751d0bc18c33fab4400",
@@ -8920,7 +8977,7 @@
     "components/star_rating/star_rating_style.dart": "087bb4d73b17682d62865613720955a483ea7d5c28dd1844d3b9ea79b66dfd28",
     "components/star_rating/star_rating_theme.dart": "3378906e0da63e8f022bf20b738214fb276bccb74c7098d98a649e8941a284a0",
     "components/stepper/preview.dart": "b8c44167890405e380b6478b39924f960e3ff8f6c0a07012b4e1e3144427950c",
-    "components/stepper/stepper.dart": "9a019f0efa962e6e0dcc7af8beef626680163061bfb48fc2f569ec1a3aea7496",
+    "components/stepper/stepper.dart": "63dd2b8469d9d5a5da007fde2f0f0cddd40a6fef5dd3be90267851f4879addda",
     "components/stepper/stepper_style.dart": "beed8816d1d43b6252b33145c18f595e579d253ea496f8bb710af83df97fc008",
     "components/stepper/stepper_theme.dart": "c7b9704cff4f8ceb60bef94e3d632244b871e77d367e35c24e34a2275c053445",
     "components/steps/preview.dart": "d1a280aadb5efe9919e5e2d2c82e84543ca818b506b239b73e5d90ae28c707a5",
@@ -8931,11 +8988,11 @@
     "components/swiper/swiper.dart": "e538f55e506e5b85a167865a052039771435dc790da0ee78375fae86e4ae0408",
     "components/swiper/swiper_style.dart": "a8e57f8ce3c90ff8033b4d7b94299c359854c8ae9835cd835100ead6ab41685e",
     "components/swiper/swiper_theme.dart": "2ce8b805b964558383acacb54ea85f436e93c2db9b924b8146387b06d2608ff4",
-    "components/switch/preview.dart": "b255d3bbbb7ea32f562efd430631eab40349d3f2edfdfbdea75c577c898b80be",
-    "components/switch/switch.dart": "1507081380bd1133f6a32982cd79e4bcbcc5e77dbe5559343f52dc2c09acd5ea",
+    "components/switch/preview.dart": "06113773ec2d577ae502c5790d2f53323ffb438561cf0f154b78465bd4a78472",
+    "components/switch/switch.dart": "a3ec436bc71cdeb858a87cb6986df2443dab19d02159f1b3d631f6313d928eea",
     "components/switch/switch_style.dart": "c0bec6b1ae6fca3f67f8c331561802aada723952a1870dcf06ceb27ca909a007",
     "components/switch/switch_theme.dart": "34ce47538e082ab0daeada5f6236e246ddc7dd1955235979dd0b68373e489d1e",
-    "components/switcher/preview.dart": "f63765f83a8405b42847d658afafb4ae10f615d64734f91ca23ccb4d7cf03e94",
+    "components/switcher/preview.dart": "b407c2bc1656b2b10e1bd5390bcf19fc91e4aaa59a35d382b6c36529772ca9d2",
     "components/switcher/switcher.dart": "67de1832c3abdca48efdced584a65ad45f1c69c9bd86b8eae8dd180f90fb0363",
     "components/switcher/switcher_style.dart": "57fb558ad95d2e79e9368390fd86f79fad9bf4b0bf2f9cb51746d4ff604e9dd3",
     "components/switcher/switcher_theme.dart": "12ddca42797f97ff480412bcddc162ebedbf0eee5e29c368d9dff1596ba46a16",
@@ -8954,20 +9011,20 @@
     "components/text_area/preview.dart": "48867121595d1a4ebb0c7223bc3a89093acb4c6a3527c6113391ab71bd52b5b3",
     "components/text_area/text_area.dart": "8237a1f25f9b23fb99b7f1df61172a42cc2b55c12e4f2af7e305b5b80a5c3343",
     "components/time_picker/preview.dart": "1b69c7042b901018509ae5874fd789e47f7f1a298c68459ed7d41632653c75af",
-    "components/time_picker/time_picker.dart": "ed31797284a199e6f5e0c13e4e051e43190fff4d9f4ee70af6bd966e05386a02",
+    "components/time_picker/time_picker.dart": "e43d6c49cfefa8d08608316c19725e3352878649e68f02c9bddff812434adaa3",
     "components/time_picker/time_picker_style.dart": "db95f56a4db885eb45bcafcb0c80ec4a6bbc17f4fd739d2d97cc0273bb65f2e0",
     "components/time_picker/time_picker_theme.dart": "c57d5b8995050970a85396b10f36ff0f42880502ae7d02211b3bb69af0d34256",
     "components/timeline/preview.dart": "61a845fd31c4a289e36f529ffa5a0434484543f147703f310f1e4dd05ccd6e49",
-    "components/timeline/timeline.dart": "92e993c5d77879a0303e3bf737288a1da15770aeddb9f3d6301f4192501f5047",
+    "components/timeline/timeline.dart": "fc398d0d4bd571c65ace007d449f293c9c13a8b3e1b6fb19872c1f5a6f11b07f",
     "components/timeline/timeline_style.dart": "c4247a553dca8c9c8485ea57d0e591ef452c5809921dcd94414e41eb6914c09c",
     "components/timeline/timeline_theme.dart": "bf5ee9e2191242144faf86f1029231ce9b4b49f0f71e7ce5b43dd32299f4dca3",
     "components/timeline_animation/preview.dart": "9bd1ff83134a91e41745cc0da9ef890c7626c8e6abfed45545bd4c5f54c490eb",
     "components/timeline_animation/timeline_animation.dart": "d51c5214f3d44a54426f58a743dce68829f09c15b299bcc12469ecaa559145e8",
     "components/toast/preview.dart": "2cc80baed35a9dea233a11cad431b424bdd6055958994f36794c7f7fe5fabbb0",
-    "components/toast/toast.dart": "f38d1359115af7a4a45bfbdb4052ddcd6917756716575b2fc0f1a3b3af7b6ab7",
+    "components/toast/toast.dart": "55fc51c69b0904408c05d6c7a8331cc7bc1b4048870fc4ae5812e388b7026929",
     "components/toast/toast_style.dart": "1ab341404d2e2c8251f5fffdef104f4e9353a04cc5d8a3362e732d6a4012bef0",
     "components/toast/toast_theme.dart": "a1f48f6603741624a5845362cfb2b85c434a91f4df9f82b33fa1ea4bbf5b94e2",
-    "components/toggle/preview.dart": "9da6dcba221ed78f38b0380d4ee79644780a3e42892e8940d98608ac6650da05",
+    "components/toggle/preview.dart": "5bd5e05849d35aa14105de785035a6a229ce888d50969c881d7ca5b33898a59f",
     "components/toggle/toggle.dart": "1ee675afd905309b864e18706e6c6cb7bbb43ddb9bd184cbe2747540efd8b215",
     "components/toggle/toggle_style.dart": "1a7d70313e40235482635753d92091b3049a6058c57acbd5700376538d972061",
     "components/toggle/toggle_theme.dart": "94686b183df1d6836a145134f26e66f9e3d2ec07ce495b60fe165748c5840520",
@@ -9023,9 +9080,9 @@
     "primitives/color_math.dart": "827d8cb1ec09eefa7b77421e9b7acc0a66ee9f0def9f740bfaedda27692b4909",
     "primitives/countries.dart": "892eb3b607f0ef3ebfb362d9eb06dd3cc878ab73a659ceba7d7ae7c06faaf8b4",
     "primitives/date_math.dart": "8382007a17ad0ae22dffdd5892c6d8bf7a85c5921227ddaa368aef3dcb1a33c7",
-    "primitives/drag_sort.dart": "9618ab84efc1a97bfaa3341b490e4462ee2a23a16ad6e394aabd3f1a5a11607c",
+    "primitives/drag_sort.dart": "97c2568902cd28b021f2432a15904bb49383a7d5f69732d7ddfb5bb19822fdf7",
     "primitives/drawer_route/drawer_panel.dart": "1f42c76a4d8315304cc91499344ba7d0b2a828442a5713bbd0d7803c6e9aa5ca",
-    "primitives/drawer_route/drawer_panel_surface.dart": "d08e5857244399cec3b63cefff92bc10589a7f903da49280451f243a371b17a5",
+    "primitives/drawer_route/drawer_panel_surface.dart": "9617b51aaba9e4de8c98e70d877c378ac7a9d306618acfbb8454047a67cd5ee5",
     "primitives/drawer_route/drawer_route.dart": "934b844fed5b65bb2bfb60202cc6e1a79ec73cdbd7974fd45757945f19a03aac",
     "primitives/drawer_route/drawer_shell.dart": "97dd274e207a517a6468f2306a2e26c816216475f97f2393106840a96d398d7b",
     "primitives/error_handling/error_handling.dart": "aa93bc3171d221d165de374a10fd1cca6d05e36bd47ef8ec4e663c4ce89b23bb",
@@ -9055,8 +9112,8 @@
     "primitives/form_core/form_core.dart": "660ca1e9f97fdc9f84062824cb5296c38a049650c5b58f334a628b2d488d3d23",
     "primitives/form_core/form_entry.dart": "a9c1215d7386bcab8d7f46aa4e5d99734ea84118ced26d4c1e52ddb0bfcb293c",
     "primitives/form_core/form_value.dart": "0bcf67745e5cfd7bf19fce94243c950e8b8a8e361654d86314379eabf6c21bf0",
-    "primitives/form_core/object_form_field.dart": "aaf629754636c2f2b4f4a535615ccf643534e08d3ef670e034035d3f23d8f706",
-    "primitives/form_core/object_form_prompt.dart": "9c82afe30eff86744217b3918b1a9518f4c73d2c4795419d15bae6bade1df738",
+    "primitives/form_core/object_form_field.dart": "3202f9997353a1e6a5b87fcda475949d8b331ce9f3e8bea983bd88d7aff3868f",
+    "primitives/form_core/object_form_prompt.dart": "8652461796d2012756106cbc015455e3c550a3ea431b02ec4881b1501d3236fe",
     "primitives/form_core/validation.dart": "09c4b4d908da8b26b4da41a0d1fda0a6b58c24db785532bb21b382f43254a8a0",
     "primitives/form_core/validators.dart": "b9ba7e27fa736fc1a370879a5f63efff9e613b594bb576ae71070e1b3716175c",
     "primitives/form_core/validators_compare.dart": "19159c2bfac52ca56d1c3fe017eb14d33a208d1b35cff829dcfb804301b0dc36",
@@ -9136,7 +9193,7 @@
     "primitives/markdown_parser/view.dart": "6d23739e33cc09a30426e7990be79819ef6e0e7c940f5e9c5ca18e4c77284f01",
     "primitives/masonry_layout.dart": "12ceeef658a8374e4868fa63dc275dab73c7389b2f6de1e1abb7c447f63a0e79",
     "primitives/menu_nav.dart": "7d5c61d4f8f50020f1377f1c434e741d48abf16f4c4ff82487fee72e668d2723",
-    "primitives/menu_rows.dart": "885f51866324c85dc38b5b50b55eed480b406835377cba775a02d980e7683c9f",
+    "primitives/menu_rows.dart": "9c3943d2ffa63f77f08640475fc6d6e130136ca43df8ffe98c2c704ded95ec8a",
     "primitives/navigation/navigation_item_row.dart": "18241273410fd88dd5030c6793a9d8e86fb67270d30abfcd6ea77c19fbb09764",
     "primitives/navigation/navigation_items.dart": "c54a691d45a501dee715526115ca67842e55a3ddfe53509579d0fb7012289d98",
     "primitives/navigation/navigation_sections.dart": "5b2b3245ba231b43dc1514a1c50ddbae3624ed0441f0fb1c32fe97eb7553607a",
@@ -9157,11 +9214,11 @@
     "primitives/resizable_handle.dart": "1a2d924610881940d3ad9b7aea5bbd1b8c7846403ca14700135b8c4739232994",
     "primitives/resizable_pane.dart": "09ef91d97a8af12a24480f44c2f5014bc3efdb65228fb59690a0b67348bf1523",
     "primitives/roving_group.dart": "5cd0bdc9da51b1d427332a55d873238ebfd8773bf7e6235a8b337aabb3c2b465",
-    "primitives/roving_row.dart": "504b77a37234f8d4889a6db1f583437ce404176d4e40a24d1986e8b25d7d3b9b",
+    "primitives/roving_row.dart": "667792b2ac2425959da222741b52f33fddb98053caedc8a880287be991bc897c",
     "primitives/screen_capture.dart": "41ebc0f752a9d572083d56ead28c7edbcffe1ddcce38c137edfd3fbc6d12bf70",
     "primitives/scroll_metrics.dart": "7e086da1265c8a75ebc987b59058ba731cd4533973f910eb3e7b5b776f20eb98",
-    "primitives/select_popup.dart": "b9e4d27d40132798ae087039433ebc2446f0877662a4af175e6ec28fe6448c89",
-    "primitives/selectable_radio/selectable_radio.dart": "82290bee419e58d2f412745b474942e2e5bc80cd366631944d04545b5d34c6ff",
+    "primitives/select_popup.dart": "f3775687610044549e1b941c461f5da8a88a5b901b99ff5851e0c8e59a6f2044",
+    "primitives/selectable_radio/selectable_radio.dart": "ff9b46fe5b1a9109794294877d8b26c9863e7adf0469820fa3971d40c11dabee",
     "primitives/selectable_radio/selectable_radio_theme.dart": "73cfe25d1ce72591c367539d7ac52dd35a9795ff08844052f9c07bc2b7ee38dd",
     "primitives/sheet_overlay.dart": "299df3c63f59dbf42770da7aaac595f1cdf80ece5b29f197f7ec8efe4d388070",
     "primitives/sheet_stage.dart": "4e08a613c6c08a97acbb503bf86934ff18acc2355ec84b4d5857e7b5d96f0ceb",
@@ -9210,7 +9267,7 @@
     "primitives/text_editing/text_editing.dart": "2af259d571671567ee11ff0f2cbf25782ebb12f7aa053ccc1b1dc1ad5fa26bb8",
     "primitives/text_editing/token_clipboard.dart": "b3cccf3aa18b820df4b181910a03e4a6f9b3d3695b08795213737fd5d28d7f0d",
     "primitives/text_editing/token_editing.dart": "7212f22360c7d7bb0512fb319ea202c53e5630185e15a487e946ae67b520f665",
-    "primitives/text_editing/token_span.dart": "8e67f12d2b966423a66d5215a057fc2b6f27fa89c8bcca39a736de67b5b727c4",
+    "primitives/text_editing/token_span.dart": "6711f95905a005a2d910436a0bb6bcd30ec139e53ccd6641574d845049f264a1",
     "primitives/text_editing/token_units.dart": "304baf82cc19fe6e51582fb2eb2d7934056e71321223b7aebf459f39c41bf8f9",
     "primitives/toast_queue/toast_controller.dart": "bccc526a139af1737d4b31b1e5723b5f7da892c3a4c4e29f2e188780567ff5ab",
     "primitives/toast_queue/toast_entry.dart": "b5efa0df9be9b9d81a0636067517520547e6f025dfc745418baee422f6163112",
@@ -9220,7 +9277,7 @@
     "primitives/tree_selection/tree_nodes.dart": "4cfd2bbcf5f2b24eb52f3384bcef6f857f4a1b79e124d71dfb1b2a83f39d7da4",
     "primitives/tree_selection/tree_selection.dart": "554af28f3168a8f48578fa7243aced526924cc870bac2ec0899be5459f1f2523",
     "primitives/widget_states.dart": "401f655425baba6a55a3a12f4c48d9885d60871d7ee3197835a86817ec00414a",
-    "primitives/window_host.dart": "c86f00fe15674f254f76c6aea322f144c76cfd329535b9b204a7321895d8aaea",
+    "primitives/window_host.dart": "040594a06f670765ef72cfd4251ff5b2f0bcac17ba99cc08d549b6889f78e773",
     "primitives/window_manager.dart": "dc4fbc470470c5434c98cc9427fe993f39101c13ed77ba782debe9da24cffb88",
     "primitives/window_snap.dart": "6a7a324501e808289b6a4ef4ec526ea8a52e7efffcb91bc886d202feb336c602",
     "theme/color_tokens.dart": "fef9d7c22266ded82b99857d333235089196f0a584c5c58000c60244800b9579",

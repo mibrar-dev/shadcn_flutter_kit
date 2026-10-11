@@ -129,8 +129,56 @@ class _FileUploadState extends State<FileUpload> {
   FileUploadController? _owned;
   bool _dragActive = false;
   bool _focused = false;
+  final Set<String> _dismissedFileIds = <String>{};
 
   FileUploadController get _controller => widget.controller ?? _owned!;
+
+  FileUploadMessage _messageFor(BuildContext context) {
+    return (FileErrorCode code, FileValue? file) {
+      final ShadcnLocalizations l10n = ShadcnLocalizations.of(context);
+      return switch (code) {
+        FileErrorCode.tooMany => l10n.fileUploadTooMany,
+        FileErrorCode.tooLarge => l10n.fileUploadTooLarge,
+        FileErrorCode.invalidType => l10n.fileUploadInvalidType,
+        FileErrorCode.uploadFailed =>
+          file == null
+              ? l10n.fileUploadUploadFailed
+              : l10n.fileUploadUploadFailedFor(file.name),
+      };
+    };
+  }
+
+  /// Errors still relevant to the current list: a removed file's per-file
+  /// errors are hidden locally. The primitive owns the error list (READ-ONLY:
+  /// no per-file clear API), so the component filters by removed id instead.
+  List<FileError> get _visibleErrors => _controller.errors
+      .where(
+        (FileError error) =>
+            error.file == null || !_dismissedFileIds.contains(error.file!.id),
+      )
+      .toList(growable: false);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.controller == null && _owned == null) {
+      _owned = FileUploadController(message: _messageFor(context));
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant FileUpload oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      if (oldWidget.controller == null) {
+        _owned?.dispose();
+        _owned = null;
+      } else if (widget.controller == null && _owned == null) {
+        _owned = FileUploadController(message: _messageFor(context));
+      }
+      _dismissedFileIds.clear();
+    }
+  }
 
   @override
   void dispose() {
@@ -143,7 +191,7 @@ class _FileUploadState extends State<FileUpload> {
     if (_dragActive) return DropzoneState.dragging;
     final FileUploadController controller = _controller;
     if (controller.isUploading) return DropzoneState.uploading;
-    if (controller.errors.isNotEmpty) return DropzoneState.error;
+    if (_visibleErrors.isNotEmpty) return DropzoneState.error;
     final List<FileItem> items = controller.items;
     final bool allDone =
         items.isNotEmpty &&
@@ -192,6 +240,9 @@ class _FileUploadState extends State<FileUpload> {
     if (added.isEmpty) {
       return;
     }
+    for (final FileValue file in added) {
+      _dismissedFileIds.remove(file.id);
+    }
     widget.onFilesChanged?.call(_files());
     final FileUploadFn? upload = widget.upload;
     if (upload == null) {
@@ -208,6 +259,9 @@ class _FileUploadState extends State<FileUpload> {
 
   void _removeItem(FileItem item) {
     _controller.removeFile(item.file);
+    // The primitive has no per-file error-clear API (only retry/clear), so a
+    // removed file's errors are hidden locally by id.
+    _dismissedFileIds.add(item.file.id);
     widget.onFilesChanged?.call(_files());
   }
 
@@ -217,22 +271,6 @@ class _FileUploadState extends State<FileUpload> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.controller == null) {
-      _owned ??= FileUploadController(
-        message: (FileErrorCode code, FileValue? file) {
-          final ShadcnLocalizations l10n = ShadcnLocalizations.of(context);
-          return switch (code) {
-            FileErrorCode.tooMany => l10n.fileUploadTooMany,
-            FileErrorCode.tooLarge => l10n.fileUploadTooLarge,
-            FileErrorCode.invalidType => l10n.fileUploadInvalidType,
-            FileErrorCode.uploadFailed =>
-              file == null
-                  ? l10n.fileUploadUploadFailed
-                  : l10n.fileUploadUploadFailedFor(file.name),
-          };
-        },
-      );
-    }
     return ListenableBuilder(
       listenable: _controller,
       builder: (BuildContext context, Widget? child) => _content(context),
@@ -255,9 +293,9 @@ class _FileUploadState extends State<FileUpload> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         _surface(context, style, ShadcnLocalizations.of(context)),
-        if (_controller.errors.isNotEmpty) ...<Widget>[
+        if (_visibleErrors.isNotEmpty) ...<Widget>[
           Gap(gap),
-          for (final FileError error in _controller.errors)
+          for (final FileError error in _visibleErrors)
             Text(
               error.message,
               style: ambient.typography.xSmall.copyWith(
@@ -337,7 +375,7 @@ class _FileUploadState extends State<FileUpload> {
       child: Dropzone(
         state: _dropzoneState,
         isDragOver: _dragActive,
-        enabled: widget.enabled,
+        enabled: canPick,
         focused: _focused,
         onBrowse: canPick ? _pick : null,
         showAction: canPick,

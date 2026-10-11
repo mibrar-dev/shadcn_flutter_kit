@@ -55,7 +55,7 @@ class _CalendarCalendarPanelState extends State<_CalendarCalendarPanel> {
     final spacing = ShadcnTheme.of(context).spacing;
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Row(
           mainAxisSize: MainAxisSize.min,

@@ -98,7 +98,7 @@ void main() {
     expect(decoration.borderRadius, BorderRadius.zero);
   });
 
-  testWidgets('draws a 32x4 drag handle when draggable', (tester) async {
+  testWidgets('draws a 36x4 drag handle when draggable', (tester) async {
     await _pump(
       tester,
       const DrawerRawContainer(
@@ -109,7 +109,7 @@ void main() {
     final Finder handle = find.byWidgetPredicate(
       (Widget w) => w is Container && w.constraints != null,
     );
-    expect(tester.getSize(handle), const Size(32, 4));
+    expect(tester.getSize(handle), const Size(36, 4));
 
     await _pump(
       tester,

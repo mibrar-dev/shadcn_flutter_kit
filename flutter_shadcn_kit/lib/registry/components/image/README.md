@@ -36,8 +36,8 @@ ShadcnImage(
 | Member | Type | Notes |
 |---|---|---|
 | `image` | `ImageProvider<Object>` | Required. The stream is resolved by the component, so the bytes stay cached across rebuilds. |
-| `width` / `height` | `double?` | At least one is required — `aspectRatio` alone leaves an axis unbounded. |
-| `aspectRatio` | `double?` | shadcn renders a square image (`1`). |
+| `width` / `height` | `double?` | At least one is required — `aspectRatio` alone leaves an axis unbounded. When only one side is given and `aspectRatio` is null, the box defaults to square (the missing side equals the given one). |
+| `aspectRatio` | `double?` | shadcn renders a square image (`1`); also the default when a single side is given without one. |
 | `fit` | `BoxFit` | Defaults to `BoxFit.cover`. |
 | `borderRadius` | `BorderRadiusGeometry?` | null = `ImageTheme.borderRadius`, then `radiusLg`. |
 | `background` | `Color?` | Fill behind the image; also the default placeholder. |

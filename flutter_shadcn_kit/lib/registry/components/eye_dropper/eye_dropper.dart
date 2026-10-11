@@ -149,12 +149,10 @@ class _EyeDropperLayerState extends State<EyeDropperLayer>
       if (historyStorage == null || !active.storages.add(historyStorage)) {
         return future;
       }
-      return future.then((Color? color) {
-        if (color != null) {
-          historyStorage.addHistory(color);
-        }
-        return color;
-      });
+      // Joined storages are covered by the shared epilogue below, which
+      // iterates every registered storage once — do not chain an extra
+      // `.then(addHistory)` here or the joined storage gets two entries.
+      return future;
     }
     final ScreenCapture? screen = await captureRenderBoundary(_boundaryKey);
     if (!mounted || screen == null) {

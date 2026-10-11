@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
+import '../../primitives/clickable.dart';
 import '../../primitives/text/text_extension.dart';
 import '../../theme/theme.dart';
 import '../button/button.dart';
@@ -151,20 +152,32 @@ class CollapsibleTrigger extends StatelessWidget {
       color: ambient.colors.mutedForeground,
     );
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Expanded(child: child.small.semiBold),
-          Gap(iconGap),
-          Button(
-            variant: ButtonVariant.ghost,
-            size: ButtonSize.icon,
-            onPressed: data.toggle,
-            child: IconTheme(data: iconTheme, child: Icon(icon)),
-          ),
-        ],
+    return Semantics(
+      button: true,
+      expanded: data.isExpanded,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: padding),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            // The whole label toggles, like shadcn's `CollapsibleTrigger`;
+            // the icon `Button` stays a sibling (never nested), so a tap
+            // lands on exactly one of the two controls.
+            Expanded(
+              child: Clickable(
+                onPressed: data.toggle,
+                child: child.small.semiBold,
+              ),
+            ),
+            Gap(iconGap),
+            Button(
+              variant: ButtonVariant.ghost,
+              size: ButtonSize.icon,
+              onPressed: data.toggle,
+              child: IconTheme(data: iconTheme, child: Icon(icon)),
+            ),
+          ],
+        ),
       ),
     );
   }

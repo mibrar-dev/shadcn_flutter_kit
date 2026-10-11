@@ -15,6 +15,7 @@ import '../../primitives/axis_size.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/theme.dart';
 import '../drawer/drawer.dart' show OverlayPosition;
+import '../drawer/drawer_style.dart';
 export '../../primitives/axis_size.dart';
 export '../drawer/drawer.dart' show OverlayPosition;
 
@@ -88,13 +89,13 @@ class DrawerRawContainer extends StatelessWidget {
 
   final double endPadding;
 
-  bool get _crossIsHorizontal =>
-      position == OverlayPosition.top || position == OverlayPosition.bottom;
-
-  Border _border(ShadcnColors colors) {
+  Border _border(BuildContext context, ShadcnColors colors) {
+    final OverlayPosition resolved = position.resolve(
+      Directionality.of(context),
+    );
     final BorderSide side = BorderSide(color: colors.border);
     if (isSheet) {
-      return switch (position) {
+      return switch (resolved) {
         OverlayPosition.left => Border(right: side),
         OverlayPosition.right => Border(left: side),
         OverlayPosition.top => Border(bottom: side),
@@ -103,7 +104,7 @@ class DrawerRawContainer extends StatelessWidget {
         OverlayPosition.end => Border.all(color: colors.border),
       };
     }
-    return switch (position) {
+    return switch (resolved) {
       OverlayPosition.left => Border(top: side, right: side, bottom: side),
       OverlayPosition.right => Border(top: side, left: side, bottom: side),
       OverlayPosition.top => Border(left: side, right: side, bottom: side),
@@ -113,11 +114,14 @@ class DrawerRawContainer extends StatelessWidget {
     };
   }
 
-  BorderRadius _resolvedRadius(double radius) {
+  BorderRadius _resolvedRadius(BuildContext context, double radius) {
+    final OverlayPosition resolved = position.resolve(
+      Directionality.of(context),
+    );
     if (isSheet) {
       return BorderRadius.zero;
     }
-    return switch (position) {
+    return switch (resolved) {
       OverlayPosition.left => BorderRadius.only(
         topRight: Radius.circular(radius),
         bottomRight: Radius.circular(radius),
@@ -143,8 +147,22 @@ class DrawerRawContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final ShadcnColors colors = theme.colors;
-    final Size handle = dragHandleSize ?? const Size(32, 4);
-    final bool isHorizontal = _crossIsHorizontal;
+    final OverlayPosition resolved = position.resolve(
+      Directionality.of(context),
+    );
+    final bool isHorizontal =
+        resolved == OverlayPosition.top || resolved == OverlayPosition.bottom;
+    final DrawerTheme drawerTheme =
+        resolveComponentStyle<DrawerTheme, DrawerTheme>(
+          context,
+          select: (DrawerTheme t) => t,
+          defaults: drawerDefaults,
+        );
+    final Size handle =
+        dragHandleSize ?? drawerTheme.dragHandleSize ?? const Size(36, 4);
+    final Color handleColor =
+        (drawerTheme.dragHandleColor ?? const ThemedColor.ref(ColorRef.muted))
+            .resolve(colors);
 
     final Widget layout = Column(
       mainAxisSize: MainAxisSize.min,
@@ -153,12 +171,14 @@ class DrawerRawContainer extends StatelessWidget {
         if (draggable && showDragHandle) ...<Widget>[
           SizedBox(height: gapBeforeDragger ?? 8),
           Center(
-            child: Container(
-              width: handle.width,
-              height: handle.height,
-              decoration: BoxDecoration(
-                color: colors.border,
-                borderRadius: BorderRadius.circular(handle.height / 2),
+            child: ExcludeSemantics(
+              child: Container(
+                width: handle.width,
+                height: handle.height,
+                decoration: BoxDecoration(
+                  color: handleColor,
+                  borderRadius: BorderRadius.circular(handle.height / 2),
+                ),
               ),
             ),
           ),
@@ -172,8 +192,8 @@ class DrawerRawContainer extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: colors.background,
-        border: _border(colors),
-        borderRadius: borderRadius ?? _resolvedRadius(theme.radiusLg),
+        border: _border(context, colors),
+        borderRadius: borderRadius ?? _resolvedRadius(context, theme.radiusLg),
       ),
       child: layout,
     );
@@ -190,10 +210,9 @@ class DrawerRawContainer extends StatelessWidget {
           );
         }
         return Align(
-          alignment: Alignment(
-            isHorizontal ? crossAxisAlignment : 0,
-            isHorizontal ? 0 : crossAxisAlignment,
-          ),
+          alignment: isHorizontal
+              ? AlignmentDirectional(crossAxisAlignment, 0)
+              : Alignment(0, crossAxisAlignment),
           child: SizedBox(
             width: isHorizontal
                 ? crossAxis
@@ -215,8 +234,9 @@ class DrawerRawContainer extends StatelessWidget {
     }
     if (margin != EdgeInsets.zero || startPadding != 0 || endPadding != 0) {
       sized = Padding(
-        padding:
-            margin + EdgeInsets.only(left: startPadding, right: endPadding),
+        padding: margin.add(
+          EdgeInsetsDirectional.only(start: startPadding, end: endPadding),
+        ),
         child: sized,
       );
     }
@@ -228,7 +248,7 @@ class DrawerRawContainer extends StatelessWidget {
           Positioned.fill(
             child: FadeTransition(
               opacity: fadeAnimation!,
-              child: ColoredBox(color: barrierColor!),
+              child: ExcludeSemantics(child: ColoredBox(color: barrierColor!)),
             ),
           ),
           sized,

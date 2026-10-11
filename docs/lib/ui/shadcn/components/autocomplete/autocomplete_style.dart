@@ -336,7 +336,7 @@ const _itemFg = StateValue(
 /// so neither is resolved twice.
 const AutoCompleteTheme autocompleteDefaults = AutoCompleteTheme(
   mode: AutoCompleteMode.replaceWord,
-  popoverWidthConstraint: PopoverConstraint.anchorFixedSize,
+  popoverWidthConstraint: PopoverConstraint.anchorMinSize,
   popoverAnchorAlignment: AlignmentDirectional.bottomStart,
   popoverAlignment: AlignmentDirectional.topStart,
   containerBackground: ThemedColor.ref(ColorRef.popover),

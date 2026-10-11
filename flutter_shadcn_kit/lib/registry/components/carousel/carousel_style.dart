@@ -376,9 +376,10 @@ double carouselStepTarget({
   return to.clamp(0.0, count.toDouble() - 1);
 }
 
-/// The whole page a drag fling lands on: the pointer velocity is projected
-/// forward, capped at one page (a violent flick must not skip ten), then
-/// rounded. A [velocity] of 0 snaps to the nearest page.
+/// The whole page a drag fling lands on: the pointer velocity (px/s) is
+/// projected forward over a short horizon, capped at one page (a violent
+/// flick must not skip ten), then rounded. A [velocity] of 0 snaps to the
+/// nearest page.
 double carouselSnapTarget({
   required double value,
   required double velocity,
@@ -387,7 +388,8 @@ double carouselSnapTarget({
   required bool wrap,
 }) {
   final double page = extent > 0 ? extent : 1;
-  final double fling = (-velocity / page / 1000).clamp(-1.0, 1.0);
+  // 100 ms of travel at release velocity, in pages, capped at one page.
+  final double fling = (-velocity * 0.1 / page).clamp(-1.0, 1.0);
   final double target = (value + fling).roundToDouble();
   final int? count = itemCount;
   if (count == null || wrap) {

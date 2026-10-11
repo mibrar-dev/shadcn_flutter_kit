@@ -38,6 +38,7 @@ class RadioGroupTheme extends ComponentThemeData
     super.themeShadows,
     this.direction,
     this.items,
+    this.itemsGap,
     this.card,
   });
 
@@ -46,6 +47,12 @@ class RadioGroupTheme extends ComponentThemeData
 
   /// Row styling for this group's items.
   final SelectableRadioTheme? items;
+
+  /// Space between two items; null resolves 12 (shadcn `gap-3`).
+  ///
+  /// A shadcn pixel value at the default density: the widget scales it with
+  /// the ambient density and scaling, like every other spacing it derives.
+  final double? itemsGap;
 
   /// Surface styling for this group's card items.
   final SelectableCardTheme? card;
@@ -62,6 +69,7 @@ class RadioGroupTheme extends ComponentThemeData
       themeShadows: themeShadows ?? fallback.themeShadows,
       direction: direction ?? fallback.direction,
       items: items?.merge(fallback.items) ?? fallback.items,
+      itemsGap: itemsGap ?? fallback.itemsGap,
       card: card?.merge(fallback.card) ?? fallback.card,
     );
   }
@@ -77,6 +85,7 @@ class RadioGroupTheme extends ComponentThemeData
         other.themeShadows == themeShadows &&
         other.direction == direction &&
         other.items == items &&
+        other.itemsGap == itemsGap &&
         other.card == card;
   }
 
@@ -87,6 +96,7 @@ class RadioGroupTheme extends ComponentThemeData
     themeShadows,
     direction,
     items,
+    itemsGap,
     card,
   );
 }
@@ -97,6 +107,10 @@ const RadioGroupTheme radioGroupDefaults = RadioGroupTheme(
   items: selectableRadioDefaults,
   card: selectableCardDefaults,
 );
+
+/// Gap between two items of a [ShadcnRadioGroup]: shadcn `gap-3` (12) at the
+/// default density, scaled by the ambient density.
+const double radioGroupItemsGap = 12;
 
 /// Card-surface styling for a [RadioCard].
 ///
@@ -137,7 +151,7 @@ class SelectableCardTheme extends ComponentThemeData
   /// Inner padding; null resolves 16, density-scaled.
   final EdgeInsetsGeometry? padding;
 
-  /// Space between the indicator and the content; null resolves 12.
+  /// Space between the indicator and the content; null resolves `spacing.md`.
   final double? gap;
 
   /// First-non-null-wins merge; the receiver (higher-priority leg) wins.

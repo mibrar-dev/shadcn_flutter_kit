@@ -108,7 +108,7 @@
         "borderWidth": "double? - null = 1.0",
         "borderRadius": "BorderRadiusGeometry? - null = borderRadiusMd",
         "padding": "EdgeInsetsGeometry? - null = all 4",
-        "minWidth": "double? - null = 192 (12rem)",
+        "minWidth": "double? - null = 128 (8rem)",
         "surfaceBlur": "double? - null = the app theme's surfaceBlur"
       }
     },
@@ -132,7 +132,7 @@
   },
   "sizes": {
     "row": "min-height 32 (shadcn h-8), padding px-2 py-1.5",
-    "popup": "min-width 192 (12rem), padding 4"
+    "popup": "min-width 128 (8rem), hugs content up to the viewport, padding 4, 1px border, radius md, shadow-md"
   },
   "notes": [
     "The old module imported material.dart for Divider/VerticalDivider; the separator is a themed 1px box now (MenuSeparator).",

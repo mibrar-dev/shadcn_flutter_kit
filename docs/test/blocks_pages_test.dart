@@ -268,7 +268,7 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('short blocks fit, tall blocks cap at the max height', (
+    testWidgets('frames size to the block intrinsic height (P7-B1)', (
       WidgetTester tester,
     ) async {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
@@ -276,13 +276,14 @@ void main() {
       final double loginHeight = tester
           .getSize(find.byKey(const ValueKey<String>('block-frame-login-01')))
           .height;
-      expect(loginHeight, moreOrLessEquals(560, epsilon: 1));
+      // Short forms keep the 360 minimum instead of floating in a tall box.
+      expect(loginHeight, greaterThanOrEqualTo(kBlockPreviewMinHeight));
 
       await goTo(tester, delegate, '/blocks/otp-01');
       final double otpHeight = tester
           .getSize(find.byKey(const ValueKey<String>('block-frame-otp-01')))
           .height;
-      expect(otpHeight, moreOrLessEquals(520, epsilon: 1));
+      expect(otpHeight, greaterThanOrEqualTo(kBlockPreviewMinHeight));
 
       await goTo(tester, delegate, '/blocks/dashboard-01');
       final double dashboardHeight = tester
@@ -290,9 +291,26 @@ void main() {
             find.byKey(const ValueKey<String>('block-frame-dashboard-01')),
           )
           .height;
-      expect(dashboardHeight, moreOrLessEquals(640, epsilon: 1));
+      // No static table: each frame fits its own block, so the heights
+      // differ and the tall dashboard is far taller than the short forms.
       expect(loginHeight, lessThan(dashboardHeight));
-      expect(otpHeight, greaterThanOrEqualTo(kBlockPreviewMinHeight));
+      expect(otpHeight, lessThan(dashboardHeight));
+      expect((loginHeight - otpHeight).abs(), greaterThan(1));
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('tall blocks are never clipped (P7-B1)', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(tester);
+      // Formerly truncated by the fixed 640px frame: every section renders.
+      await goTo(tester, delegate, '/blocks/account-01');
+      expect(find.text('Save changes'), findsOneWidget);
+      await goTo(tester, delegate, '/blocks/dashboard-01');
+      expect(find.text('Transactions'), findsOneWidget);
+      await goTo(tester, delegate, '/blocks/dashboard-02');
+      expect(find.text('Traffic sources'), findsOneWidget);
+      expect(find.text('By device'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 

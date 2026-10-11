@@ -11,6 +11,7 @@ import '../../foundation/icons/lucide_icons.dart';
 import '../../foundation/time_of_day.dart';
 import '../../primitives/date_math.dart';
 import '../../primitives/form_core/object_form_field.dart';
+import '../../theme/density.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../primitives/localizations/localizations_extensions.dart';
 import '../../primitives/localizations/locale_parts.dart';
@@ -32,6 +33,33 @@ TimePickerTheme _resolveTimePickerTheme(BuildContext c, TimePickerTheme? w) =>
     );
 
 String _two(int value) => value.toString().padLeft(2, '0');
+
+/// Lookup key of one digit column, named by its caption label.
+ValueKey<String> kTimeColumnKey(String label) =>
+    ValueKey<String>('shadcn.time_picker.column.\$label');
+
+/// Shell padding of a picker sheet: shadcn `p-3` (12), density-scaled.
+///
+/// The sheet carries it, not the dialog card, so a `p-0` card plus this shell
+/// is exactly one frame of breathing room — the same rule the `calendar`
+/// follows.
+final EdgeInsetsGeometry timePickerEditorPadding = EdgeInsetsDensity.pxAll(12);
+
+/// Card padding of a picker prompt: `p-0`, because the sheet above paints its
+/// own shell and the footer paints the only separator.
+const EdgeInsetsGeometry timePickerDialogPadding = EdgeInsets.zero;
+
+/// Footer row padding of a picker prompt: shadcn `p-3`, with a hairline top
+/// border separating the actions from the columns.
+final EdgeInsetsGeometry timePickerDialogFooterPadding =
+    EdgeInsetsDensity.pxAll(12);
+
+/// Width of one digit column, density-scaled.
+const double _timeColumnWidth = 72;
+
+/// Narrowest one digit column gets, so a four-column duration sheet still fits
+/// a 375px phone (4 x 48 + the colons is less than the screen inset).
+const double _timeColumnMinWidth = 48;
 
 /// A clock-time field opening a [TimePickerDialog] sheet.
 class TimePicker extends StatelessWidget {
@@ -87,8 +115,10 @@ class TimePicker extends StatelessWidget {
       popoverAlignment: popoverAlignment ?? style.popoverAlignment,
       popoverAnchorAlignment:
           popoverAnchorAlignment ?? style.popoverAnchorAlignment,
-      popoverPadding: popoverPadding ?? style.popoverPadding,
+      popoverPadding: popoverPadding ?? style.popoverPadding ?? EdgeInsets.zero,
       dialogTitle: dialogTitle ?? style.dialogTitle,
+      dialogPadding: timePickerDialogPadding,
+      dialogFooterPadding: timePickerDialogFooterPadding,
       enabled: enabled,
       editorBuilder: (context, handler) => TimePickerDialog(
         initialValue: handler.value,
@@ -170,53 +200,50 @@ class _TimePickerDialogState extends State<TimePickerDialog> {
   @override
   Widget build(BuildContext context) {
     final ShadcnLocalizations strings = ShadcnLocalizations.of(context);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        _DigitsField(
-          controller: _hour,
-          label: strings.timeHour,
-          onChanged: (_) => _report(),
-        ),
-        const _Colon(),
-        _DigitsField(
-          controller: _minute,
-          label: strings.timeMinute,
-          onChanged: (_) => _report(),
-        ),
-        if (widget.showSeconds) ...<Widget>[
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Padding(
+      // The sheet paints its own shell (shadcn `p-3`), so the dialog card
+      // around it is `p-0` and the dialog hugs the columns exactly.
+      padding: resolveEdgeInsets(
+        timePickerEditorPadding,
+        theme.density.baseContentPadding * theme.scaling,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          _sheetField(_hour, strings.timeHour, (String _) => _report()),
           const _Colon(),
-          _DigitsField(
-            controller: _second,
-            label: strings.timeSecond,
-            onChanged: (_) => _report(),
-          ),
+          _sheetField(_minute, strings.timeMinute, (String _) => _report()),
+          if (widget.showSeconds) ...<Widget>[
+            const _Colon(),
+            _sheetField(_second, strings.timeSecond, (String _) => _report()),
+          ],
+          if (!widget.use24HourFormat) ...<Widget>[
+            Gap(theme.spacing.sm),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Button(
+                  size: ButtonSize.sm,
+                  variant: _pm ? ButtonVariant.ghost : ButtonVariant.primary,
+                  onPressed: () => _setPm(false),
+                  child: Text(strings.timeAM),
+                ),
+                // A gap, not a layout cap: it spaces the AM/PM stack
+                // (shadcn `gap-1` = 4 = `spacing.xs`), so it tracks the scale.
+                Gap(theme.spacing.xs),
+                Button(
+                  size: ButtonSize.sm,
+                  variant: _pm ? ButtonVariant.primary : ButtonVariant.ghost,
+                  onPressed: () => _setPm(true),
+                  child: Text(strings.timePM),
+                ),
+              ],
+            ),
+          ],
         ],
-        if (!widget.use24HourFormat) ...<Widget>[
-          Gap(ShadcnTheme.of(context).spacing.sm),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Button(
-                size: ButtonSize.sm,
-                variant: _pm ? ButtonVariant.ghost : ButtonVariant.primary,
-                onPressed: () => _setPm(false),
-                child: Text(strings.timeAM),
-              ),
-              // A gap, not a layout cap: it spaces the AM/PM stack
-              // (shadcn `gap-1` = 4 = `spacing.xs`), so it tracks the scale.
-              Gap(ShadcnTheme.of(context).spacing.xs),
-              Button(
-                size: ButtonSize.sm,
-                variant: _pm ? ButtonVariant.primary : ButtonVariant.ghost,
-                onPressed: () => _setPm(true),
-                child: Text(strings.timePM),
-              ),
-            ],
-          ),
-        ],
-      ],
+      ),
     );
   }
 }
@@ -256,8 +283,10 @@ class DurationPicker extends StatelessWidget {
       mode: mode,
       popoverAlignment: popoverAlignment,
       popoverAnchorAlignment: popoverAnchorAlignment,
-      popoverPadding: popoverPadding,
+      popoverPadding: popoverPadding ?? EdgeInsets.zero,
       dialogTitle: dialogTitle,
+      dialogPadding: timePickerDialogPadding,
+      dialogFooterPadding: timePickerDialogFooterPadding,
       enabled: enabled,
       editorBuilder: (context, handler) => DurationPickerDialog(
         initialValue: handler.value,
@@ -326,21 +355,42 @@ class _DurationPickerDialogState extends State<DurationPickerDialog> {
           (_minute, strings.durationMinute),
           (_second, strings.durationSecond),
         ];
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        for (int i = 0; i < fields.length; i++) ...<Widget>[
-          if (i > 0) const _Colon(),
-          _DigitsField(
-            controller: fields[i].$1,
-            label: fields[i].$2,
-            onChanged: (_) => _report(),
-          ),
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Padding(
+      // Same shell as [TimePickerDialog], so both dialogs read as one control.
+      padding: resolveEdgeInsets(
+        timePickerEditorPadding,
+        theme.density.baseContentPadding * theme.scaling,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          for (int i = 0; i < fields.length; i++) ...<Widget>[
+            if (i > 0) const _Colon(),
+            _sheetField(fields[i].$1, fields[i].$2, (String _) => _report()),
+          ],
         ],
-      ],
+      ),
     );
   }
+}
+
+/// One flexible digit column: it hugs its nominal width when the row has room
+/// and gives a little back (down to `_timeColumnMinWidth`) when it does not, so
+/// a four-column duration sheet still fits a 375px phone.
+Widget _sheetField(
+  TextEditingController controller,
+  String label,
+  ValueChanged<String> onChanged,
+) {
+  return Flexible(
+    child: _DigitsField(
+      controller: controller,
+      label: label,
+      onChanged: onChanged,
+    ),
+  );
 }
 
 /// One centered two-digit field with its caption below, shared by both sheets.
@@ -356,8 +406,18 @@ class _DigitsField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
-    return SizedBox(
-      width: 72,
+    final double scale = theme.density.scale * theme.scaling;
+    // `w-18` at the default density, and it may shrink (down to `_timeColumn
+    // MinWidth`) when the row is tight: the dialog hugs the columns when it
+    // has room, and gives a little back when it does not, rather than
+    // overflowing a 375px phone.
+    return ConstrainedBox(
+      // Lookup key of one digit column; the label makes it unique per column.
+      key: ValueKey<String>('shadcn.time_picker.column.\$label'),
+      constraints: BoxConstraints(
+        minWidth: _timeColumnMinWidth * scale,
+        maxWidth: _timeColumnWidth * scale,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -390,8 +450,16 @@ class _Colon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final double scale = theme.density.scale * theme.scaling;
+    // The caption sits below the field, so the colon is lifted by the input
+    // height plus that caption block to centre itself on the digits.
+    final double caption = theme.spacing.xs + 14 * scale;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24, left: 4, right: 4),
+      padding: EdgeInsets.only(
+        bottom: (36 - 14) * scale + caption,
+        left: 4 * scale,
+        right: 4 * scale,
+      ),
       child: Text(
         ':',
         style: theme.typography.large.copyWith(color: theme.colors.foreground),

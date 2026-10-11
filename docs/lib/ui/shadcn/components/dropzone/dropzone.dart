@@ -16,10 +16,12 @@
 // The widget is presentational on purpose: it takes a state, it does not listen
 // to a drag stream. That keeps it testable without a platform drag target.
 
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
 import '../../foundation/icons/radix_icons.dart';
+import '../../primitives/focus_outline.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/density.dart';
@@ -53,6 +55,8 @@ class Dropzone extends StatelessWidget {
     this.actionVariant = ButtonVariant.outline,
     this.showAction = true,
     this.theme,
+    this.focusNode,
+    this.autofocus = false,
   });
 
   /// Current upload state.
@@ -94,6 +98,12 @@ class Dropzone extends StatelessWidget {
   /// Widget-leg style override.
   final DropzoneTheme? theme;
 
+  /// Focus node for keyboard activation; null creates one internally.
+  final FocusNode? focusNode;
+
+  /// Whether the surface requests focus when first built.
+  final bool autofocus;
+
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData shadcnTheme = ShadcnTheme.of(context);
@@ -115,15 +125,22 @@ class Dropzone extends StatelessWidget {
       if (!interactive) WidgetState.disabled,
       if (state == DropzoneState.error) WidgetState.error,
     };
+    final BorderRadiusGeometry radius =
+        container.borderRadius ??
+        BorderRadius.circular(shadcnTheme.radiusLg * shadcnTheme.scaling);
+    final Color ringColor =
+        (container.focusRingColor ?? dropzoneDefaults.focusRingColor!).resolve(
+          colors,
+        );
+    final double ringSpread =
+        container.focusRingSpread ?? dropzoneDefaults.focusRingSpread ?? 2;
 
-    return Container(
+    final Widget surface = Container(
       key: dropzoneSurfaceKey,
       width: double.infinity,
       decoration: BoxDecoration(
         color: container.background?.resolve(colors),
-        borderRadius:
-            container.borderRadius ??
-            BorderRadius.circular(shadcnTheme.radiusLg * shadcnTheme.scaling),
+        borderRadius: radius,
         border: Border.all(
           color:
               _borderColor(container, states, colors) ??
@@ -158,6 +175,37 @@ class Dropzone extends StatelessWidget {
         ),
       ),
     );
+
+    return FocusableActionDetector(
+      focusNode: focusNode,
+      autofocus: autofocus,
+      enabled: interactive,
+      shortcuts: const <ShortcutActivator, Intent>{
+        SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
+        SingleActivator(LogicalKeyboardKey.space): ActivateIntent(),
+      },
+      actions: <Type, Action<Intent>>{
+        ActivateIntent: CallbackAction<Intent>(
+          onInvoke: (Intent intent) {
+            if (interactive) {
+              onBrowse?.call();
+            }
+            return null;
+          },
+        ),
+      },
+      child: Semantics(
+        button: true,
+        enabled: interactive,
+        focused: focused,
+        child: FocusOutline(
+          focused: focused && interactive,
+          borderRadius: radius,
+          border: Border.all(color: ringColor, width: ringSpread),
+          child: surface,
+        ),
+      ),
+    );
   }
 
   /// The border colour for [states]: the state's own token wins, then the
@@ -186,6 +234,15 @@ class Dropzone extends StatelessWidget {
     return resolved?.resolve(colors);
   }
 
+  /// Scales a text style's font size by the ambient scaling factor.
+  TextStyle _scaledText(TextStyle base, double scaling) {
+    final double? size = base.fontSize;
+    if (size == null) {
+      return base;
+    }
+    return base.copyWith(fontSize: size * scaling);
+  }
+
   List<Widget> _buildChildren(
     BuildContext context,
     DropzoneTheme container,
@@ -195,7 +252,8 @@ class Dropzone extends StatelessWidget {
     bool hovering,
     Duration duration,
   ) {
-    final double gap = container.gap ?? 16;
+    final double scaling = shadcnTheme.scaling;
+    final double gap = (container.gap ?? 16) * scaling;
     final Widget? hint = this.hint;
     final Widget? content = this.content;
     return <Widget>[
@@ -218,8 +276,10 @@ class Dropzone extends StatelessWidget {
         opacity: interactive ? 1 : 0.6,
         duration: duration,
         child: DefaultTextStyle.merge(
-          style: (container.statusStyle ?? dropzoneDefaults.statusStyle!)
-              .copyWith(color: shadcnTheme.colors.mutedForeground),
+          style: _scaledText(
+            container.statusStyle ?? dropzoneDefaults.statusStyle!,
+            scaling,
+          ).copyWith(color: shadcnTheme.colors.mutedForeground),
           textAlign: TextAlign.center,
           child: Text(
             _status(l10n),
@@ -234,8 +294,10 @@ class Dropzone extends StatelessWidget {
           opacity: interactive ? 1 : 0.6,
           duration: duration,
           child: DefaultTextStyle.merge(
-            style: (container.hintStyle ?? dropzoneDefaults.hintStyle!)
-                .copyWith(color: shadcnTheme.colors.mutedForeground),
+            style: _scaledText(
+              container.hintStyle ?? dropzoneDefaults.hintStyle!,
+              scaling,
+            ).copyWith(color: shadcnTheme.colors.mutedForeground),
             textAlign: TextAlign.center,
             child: hint,
           ),

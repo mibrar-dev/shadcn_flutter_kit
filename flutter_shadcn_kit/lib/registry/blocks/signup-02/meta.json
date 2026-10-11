@@ -20,16 +20,21 @@
     ],
     "primitives": [],
     "components": [
+      "alert",
       "button",
       "card",
       "checkbox",
       "divider",
+      "form",
       "input",
-      "progress"
+      "progress",
+      "spinner"
     ]
   },
   "files": [
     "signup_02.dart",
+    "signup_02_aside.dart",
+    "signup_02_form.dart",
     "README.md"
   ]
 }

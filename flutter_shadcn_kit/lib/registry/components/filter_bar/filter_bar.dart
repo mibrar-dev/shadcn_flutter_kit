@@ -168,7 +168,26 @@ class _FilterBarState extends State<FilterBar> {
     final String next = _current.search;
     if (next != _emittedSearch) {
       _emittedSearch = next;
+      final String prev = _search.text;
+      final TextSelection prevSelection = _search.selection;
       _search.text = next;
+      if (!prevSelection.isValid) {
+        _search.selection = TextSelection.collapsed(offset: next.length);
+      } else {
+        final bool atEnd =
+            prevSelection.baseOffset == prev.length &&
+            prevSelection.extentOffset == prev.length;
+        final bool appended =
+            next.length >= prev.length && next.startsWith(prev);
+        if (atEnd && appended) {
+          _search.selection = TextSelection.collapsed(offset: next.length);
+        } else {
+          _search.selection = prevSelection.copyWith(
+            baseOffset: prevSelection.baseOffset.clamp(0, next.length),
+            extentOffset: prevSelection.extentOffset.clamp(0, next.length),
+          );
+        }
+      }
     }
   }
 
@@ -373,21 +392,24 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   Future<void> _openSheet(BuildContext context) {
-    final FilterBarTheme style = _style(context);
     return openSheet<void>(
       context: context,
       position: widget.sheetPosition,
       useRootNavigator: widget.useRootNavigator,
       builder: (BuildContext sheetContext) {
-        final ShadcnLocalizations l10n = ShadcnLocalizations.of(sheetContext);
         return FilterBarSheetScaffold(
-          title: l10n.filterFilters,
+          title: ShadcnLocalizations.of(sheetContext).filterFilters,
           contentPadding: widget.sheetContentPadding,
           onClose: () => closeSheet(sheetContext),
           child: ValueListenableBuilder<FilterState>(
             valueListenable: _mirror,
-            builder: (BuildContext context, FilterState current, _) =>
-                _content(context, current, style, l10n, inSheet: true),
+            builder: (BuildContext context, FilterState current, _) {
+              // Resolved from the sheet's own context so a theme change while
+              // the sheet is open is live instead of a stale snapshot.
+              final FilterBarTheme style = _style(context);
+              final ShadcnLocalizations l10n = ShadcnLocalizations.of(context);
+              return _content(context, current, style, l10n, inSheet: true);
+            },
           ),
         );
       },

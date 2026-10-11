@@ -39,13 +39,15 @@ class ShadcnRadioGroupController<T> extends ValueNotifier<T?> {
 /// A single-select group of radio items.
 ///
 /// Two modes: controlled (`value` + `onChanged`, null `onChanged` disables) or
-/// uncontrolled ([ShadcnRadioGroupController]). The caller lays the items out; the
-/// group owns the selection, the arrow-key traversal and the form value.
+/// uncontrolled ([ShadcnRadioGroupController]). The group owns the layout —
+/// [items] stacks along [direction] with [RadioGroupTheme.itemsGap] between
+/// them (shadcn `grid gap-3`) — plus the selection, the arrow-key traversal and
+/// the form value.
 class ShadcnRadioGroup<T> extends StatefulWidget {
   /// Creates a radio group.
   const ShadcnRadioGroup({
     super.key,
-    required this.child,
+    required this.items,
     this.value,
     this.controller,
     this.onChanged,
@@ -57,8 +59,8 @@ class ShadcnRadioGroup<T> extends StatefulWidget {
          'A controller-driven ShadcnRadioGroup must not also receive onChanged',
        );
 
-  /// The items, laid out by the caller.
-  final Widget child;
+  /// The items, stacked by the group along [direction].
+  final List<Widget> items;
 
   /// The selected value in controlled mode.
   final T? value;
@@ -161,6 +163,13 @@ class _RadioGroupState<T> extends State<ShadcnRadioGroup<T>>
     // be reached.
     _registry.direction = widget.direction;
     _registry.onSelect = _select;
+    final RadioGroupTheme group =
+        resolveComponentStyle<RadioGroupTheme, RadioGroupTheme>(
+          context,
+          widget: widget.theme,
+          select: (RadioGroupTheme t) => t,
+          defaults: radioGroupDefaults,
+        );
 
     return SelectableDataScope<T>(
       data: data,
@@ -169,10 +178,35 @@ class _RadioGroupState<T> extends State<ShadcnRadioGroup<T>>
           policy: widget.direction == Axis.horizontal
               ? OrderedTraversalPolicy()
               : ReadingOrderTraversalPolicy(),
-          child: widget.child,
+          child: _layout(context, group),
         ),
       ),
     );
+  }
+
+  /// Stacks [ShadcnRadioGroup.items] along [ShadcnRadioGroup.direction].
+  ///
+  /// shadcn's radio group is a `grid gap-3`, and the group owns that gap: the
+  /// caller used to supply the `Column`, so the gap was whoever wrote the demo
+  /// remembered — the docs gallery forgot it and the rows touched. The gap
+  /// comes from the theme, so it follows density, scaling and the preset.
+  Widget _layout(BuildContext context, RadioGroupTheme group) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final double scale = theme.density.scale * theme.scaling;
+    final double gap = (group.itemsGap ?? radioGroupItemsGap) * scale;
+    return widget.direction == Axis.horizontal
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: gap,
+            children: widget.items,
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: gap,
+            children: widget.items,
+          );
   }
 }
 
@@ -322,6 +356,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
         );
     final bool selected = group?.selected == widget.value;
     final bool enabled = widget.enabled && (group?.enabled ?? false);
+    final double scale = shadcnTheme.density.scale * shadcnTheme.scaling;
     _syncRegistration();
     final Set<WidgetState> states = <WidgetState>{
       if (selected) WidgetState.selected,
@@ -370,10 +405,10 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
                   padding: const EdgeInsets.only(top: 1),
                   child: RadioIndicator(style: indicator, selected: selected),
                 ),
-                Gap(card.gap ?? 12),
+                Gap(card.gap ?? selectableCardDefaults.gap! * scale),
                 Flexible(child: widget.child),
                 if (widget.trailing != null) ...<Widget>[
-                  Gap(card.gap ?? 12),
+                  Gap(card.gap ?? selectableCardDefaults.gap! * scale),
                   widget.trailing!,
                 ],
               ],

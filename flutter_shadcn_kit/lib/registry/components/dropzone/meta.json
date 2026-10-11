@@ -24,6 +24,7 @@
         "theme"
     ],
     "primitives": [
+      "focus_outline",
       "localizations"
     ],
     "components": [

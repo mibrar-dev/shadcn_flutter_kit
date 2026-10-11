@@ -146,7 +146,7 @@ void main() {
       expect(halves.first.flex, halves.last.flex);
     });
 
-    testWidgets('start alignment pushes the label to the end', (tester) async {
+    testWidgets('start alignment collapses the leading rule', (tester) async {
       await tester.pumpWidget(
         _frame(
           child: const Divider(
@@ -158,10 +158,10 @@ void main() {
       final List<Expanded> halves = tester
           .widgetList<Expanded>(find.byType(Expanded))
           .toList();
-      expect(halves.first.flex, greaterThan(halves.last.flex));
+      expect(halves.first.flex, lessThan(halves.last.flex));
     });
 
-    testWidgets('end alignment collapses the leading rule', (tester) async {
+    testWidgets('end alignment collapses the trailing rule', (tester) async {
       await tester.pumpWidget(
         _frame(
           child: const Divider(
@@ -173,7 +173,7 @@ void main() {
       final List<Expanded> halves = tester
           .widgetList<Expanded>(find.byType(Expanded))
           .toList();
-      expect(halves.first.flex, lessThan(halves.last.flex));
+      expect(halves.first.flex, greaterThan(halves.last.flex));
     });
 
     testWidgets('a vertical divider can carry a label too', (tester) async {

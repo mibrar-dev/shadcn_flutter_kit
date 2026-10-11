@@ -148,37 +148,48 @@ class DotIndicator extends StatelessWidget {
         theme.forIndex(isActive) ?? DotIndicatorDefaults.forIndex(isActive);
     final double size = style.size ?? 12 * appTheme.scaling;
 
+    final Widget dot;
     if (onChanged == null) {
-      // A read-only indicator must neither look nor behave pressable.
-      return _DotBox(
-        size: size,
-        duration: theme.duration!,
-        decoration: dotBuilder == null
-            ? _dotDecoration(
+      // A read-only indicator must neither look nor behave pressable. A
+      // custom builder replaces the default dot wholesale.
+      dot = dotBuilder != null
+          ? dotBuilder!(context, position, isActive)
+          : _DotBox(
+              size: size,
+              duration: theme.duration!,
+              decoration: _dotDecoration(
                 style,
                 const <WidgetState>{},
                 appTheme.colors,
                 appTheme.scaling,
-              )
-            : null,
+              ),
+            );
+    } else {
+      dot = Clickable(
+        behavior: HitTestBehavior.translucent,
+        onPressed: () => onChanged!(position),
+        mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
+          SystemMouseCursors.click,
+        ),
+        // Half the gap on each side makes the whole dot an easy tap target
+        // without changing the visual gap.
+        padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+          EdgeInsets.symmetric(horizontal: gap / 2, vertical: gap / 2),
+        ),
+        decoration: WidgetStateProperty.resolveWith(
+          (Set<WidgetState> states) =>
+              _dotDecoration(style, states, appTheme.colors, appTheme.scaling),
+        ),
+        // A custom builder paints the dot; the tap target stays.
+        child: dotBuilder != null
+            ? dotBuilder!(context, position, isActive)
+            : _DotBox(size: size, duration: theme.duration!),
       );
     }
-    return Clickable(
-      behavior: HitTestBehavior.translucent,
-      onPressed: () => onChanged!(position),
-      mouseCursor: const WidgetStatePropertyAll<MouseCursor>(
-        SystemMouseCursors.click,
-      ),
-      // Half the gap on each side makes the whole dot an easy tap target
-      // without changing the visual gap.
-      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        EdgeInsets.symmetric(horizontal: gap / 2, vertical: gap / 2),
-      ),
-      decoration: WidgetStateProperty.resolveWith(
-        (Set<WidgetState> states) =>
-            _dotDecoration(style, states, appTheme.colors, appTheme.scaling),
-      ),
-      child: _DotBox(size: size, duration: theme.duration!),
+    return Semantics(
+      selected: isActive,
+      label: 'Page ${position + 1} of $length',
+      child: dot,
     );
   }
 }

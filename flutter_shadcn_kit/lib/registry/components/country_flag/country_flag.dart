@@ -122,18 +122,29 @@ class _EmojiFlag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget result = SizedBox(
-      width: details.width,
-      height: details.height,
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: Text(
-          flagEmojiForCode(details.countryCode),
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            height: 1,
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.normal,
+    // The emoji glyph carries no accessible name; expose the resolved
+    // country name (or the raw code when the table has no row for it). The
+    // glyph itself is excluded: readers announce the name, not the raw
+    // regional-indicator characters.
+    final String label =
+        countryInfoForCode(details.countryCode)?.name ?? details.countryCode;
+    Widget result = Semantics(
+      label: label,
+      child: ExcludeSemantics(
+        child: SizedBox(
+          width: details.width,
+          height: details.height,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Text(
+              flagEmojiForCode(details.countryCode),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                height: 1,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           ),
         ),
       ),

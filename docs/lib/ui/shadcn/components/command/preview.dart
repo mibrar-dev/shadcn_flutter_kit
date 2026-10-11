@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/component_preview.dart';
 import '../../primitives/subfocus_list_item.dart';
-import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'command.dart';
 
@@ -43,16 +42,7 @@ class _CommandPalette extends StatelessWidget {
               for (final String value in _commandValues) {
                 if (query == null ||
                     value.toLowerCase().contains(query.toLowerCase())) {
-                  items.add(
-                    SubFocusListItem(
-                      padding: EdgeInsetsDensity.pxSymmetric(
-                        horizontal: 8,
-                        vertical: 8,
-                      ),
-                      title: Text(value),
-                      onTap: () {},
-                    ),
-                  );
+                  items.add(SubFocusListItem(title: Text(value), onTap: () {}));
                 }
               }
             } else {
@@ -61,12 +51,18 @@ class _CommandPalette extends StatelessWidget {
                 'Settings',
               ]) {
                 items.add(
+                  // shadcn group heading: `px-2 py-1.5 text-xs font-medium`
+                  // in the muted colour.
                   Padding(
-                    padding: EdgeInsetsDensity.pxSymmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 6,
+                    ),
                     child: Text(
                       group,
                       style: TextStyle(
                         fontSize: 12,
+                        fontWeight: FontWeight.w500,
                         color: ShadcnTheme.of(context).colors.mutedForeground,
                       ),
                     ),
@@ -76,14 +72,7 @@ class _CommandPalette extends StatelessWidget {
                   if (query == null ||
                       value.toLowerCase().contains(query.toLowerCase())) {
                     items.add(
-                      SubFocusListItem(
-                        padding: EdgeInsetsDensity.pxSymmetric(
-                          horizontal: 8,
-                          vertical: 8,
-                        ),
-                        title: Text(value),
-                        onTap: () {},
-                      ),
+                      SubFocusListItem(title: Text(value), onTap: () {}),
                     );
                   }
                 }

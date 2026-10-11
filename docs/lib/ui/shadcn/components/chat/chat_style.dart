@@ -370,6 +370,7 @@ ChatTheme resolveChatStyle(
   ThemedColor? borderColor,
   double? spacing,
   double? avatarSpacing,
+  AlignmentGeometry? avatarAlignment,
 }) {
   final ShadcnThemeData theme = ShadcnTheme.of(context);
   final ChatTheme resolved = resolveComponentStyle<ChatTheme, ChatTheme>(
@@ -393,7 +394,10 @@ ChatTheme resolveChatStyle(
     tailBehavior: resolved.tailBehavior ?? ChatTailBehavior.last,
     spacing: spacing ?? resolved.spacing ?? 2,
     avatarSpacing: avatarSpacing ?? resolved.avatarSpacing ?? 8,
-    avatarAlignment: resolved.avatarAlignment ?? AlignmentDirectional.topEnd,
+    avatarAlignment:
+        avatarAlignment ??
+        resolved.avatarAlignment ??
+        AlignmentDirectional.topEnd,
     reactionBackground: resolved.reactionBackground,
     reactionForeground: resolved.reactionForeground,
     reactionSelectedBackground: resolved.reactionSelectedBackground,

@@ -120,13 +120,24 @@ class _WindowHostState extends State<WindowHost> implements WindowManager {
 
   @override
   void setAlwaysOnTop(Object window, bool value) {
-    if (window is! ManagedWindow) {
+    if (window is! ManagedWindow || !mounted) {
       return;
     }
-    if (value && _windows.remove(window)) {
-      _topWindows.add(window);
-    } else if (!value && _topWindows.remove(window)) {
-      _windows.add(window);
+    // Mirror push/focus (P7-Q2): the destination layer's front is index 0,
+    // and the move must schedule a rebuild (this runs from a controller
+    // listener, and previously mutated the lists silently).
+    if (value && _windows.contains(window) && !_topWindows.contains(window)) {
+      setState(() {
+        _windows.remove(window);
+        _topWindows.insert(0, window);
+      });
+    } else if (!value &&
+        _topWindows.contains(window) &&
+        !_windows.contains(window)) {
+      setState(() {
+        _topWindows.remove(window);
+        _windows.insert(0, window);
+      });
     }
   }
 

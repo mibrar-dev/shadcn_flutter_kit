@@ -289,7 +289,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
+                  padding: EdgeInsetsDirectional.fromSTEB(
                     ambient.spacing.md,
                     ambient.spacing.sm,
                     ambient.spacing.sm,
@@ -322,7 +322,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
                         contentPadding ??
                         // Flush under the title row (it already carries the
                         // `sm` bottom), so the top inset is a deliberate 0.
-                        EdgeInsets.fromLTRB(
+                        EdgeInsetsDirectional.fromSTEB(
                           ambient.spacing.md,
                           0,
                           ambient.spacing.md,
@@ -333,7 +333,7 @@ class FilterBarSheetScaffold extends StatelessWidget {
                 ),
                 if (footer != null)
                   Padding(
-                    padding: EdgeInsets.fromLTRB(
+                    padding: EdgeInsetsDirectional.fromSTEB(
                       // Flush under the scrolling body (it already carries the
                       // `md` bottom), so the top inset is a deliberate 0.
                       ambient.spacing.md,

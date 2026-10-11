@@ -53,6 +53,19 @@ DatePickerTheme _resolveDatePickerTheme(
   defaults: datePickerDefaults,
 );
 
+/// Card padding of the date picker prompt: `p-0`.
+///
+/// The calendar paints its own `p-3` shell (shadcn puts `p-3` on the
+/// `DayPicker` root and `p-0` on the popover), so an extra card padding would
+/// show up as a second, uneven frame around the grid. The footer carries the
+/// only separator, exactly as shadcn's picker dialogs do.
+const EdgeInsetsGeometry datePickerDialogPadding = EdgeInsets.zero;
+
+/// Footer row padding of the date picker prompt: shadcn `p-3`, painted with a
+/// hairline top border so the action row is visually separate from the grid.
+final EdgeInsetsGeometry datePickerDialogFooterPadding =
+    EdgeInsetsDensity.pxAll(12);
+
 /// A single-date field: a trigger showing the value (or the localized
 /// placeholder) that opens a [DatePickerDialog] in a dialog or a popover.
 class DatePicker extends StatelessWidget {
@@ -100,8 +113,10 @@ class DatePicker extends StatelessWidget {
       popoverAlignment: popoverAlignment ?? style.popoverAlignment,
       popoverAnchorAlignment:
           popoverAnchorAlignment ?? style.popoverAnchorAlignment,
-      popoverPadding: popoverPadding ?? style.popoverPadding,
+      popoverPadding: popoverPadding ?? style.popoverPadding ?? EdgeInsets.zero,
       dialogTitle: dialogTitle,
+      dialogPadding: datePickerDialogPadding,
+      dialogFooterPadding: datePickerDialogFooterPadding,
       enabled: enabled,
       editorBuilder: (context, handler) => DatePickerDialog(
         initialView:
@@ -173,8 +188,10 @@ class DateRangePicker extends StatelessWidget {
       popoverAlignment: popoverAlignment ?? style.popoverAlignment,
       popoverAnchorAlignment:
           popoverAnchorAlignment ?? style.popoverAnchorAlignment,
-      popoverPadding: popoverPadding ?? style.popoverPadding,
+      popoverPadding: popoverPadding ?? style.popoverPadding ?? EdgeInsets.zero,
       dialogTitle: dialogTitle,
+      dialogPadding: datePickerDialogPadding,
+      dialogFooterPadding: datePickerDialogFooterPadding,
       enabled: enabled,
       editorBuilder: (context, handler) => DatePickerDialog(
         initialView:
@@ -320,18 +337,18 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        // shadcn's caption row: `h-8` chevrons either side of a `text-sm`
+        // caption. `mainAxisSize.min` and a caption that hugs its label keep
+        // the row's width to the caption, so a shrink-wrapping dialog card is
+        // sized by the calendar grid (the widest child) and nothing else.
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             _HeaderButton(
               icon: LucideIcons.chevronLeft,
               onPressed: () => _step(false),
             ),
-            Expanded(
-              child: _HeaderButton(
-                label: _header(strings),
-                onPressed: _cycleViewType,
-              ),
-            ),
+            _HeaderButton(label: _header(strings), onPressed: _cycleViewType),
             _HeaderButton(
               icon: LucideIcons.chevronRight,
               onPressed: () => _step(true),
@@ -364,6 +381,11 @@ class _HeaderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final double scale = theme.density.scale * theme.scaling;
+    // shadcn's caption row: the two step buttons are `size-(--cell-size)`
+    // (32) with `p-0`, and the caption itself is `h-8 px-2 text-sm`. Both
+    // resolve to the same box, so the header row keeps the grid's pitch.
+    final double slot = calendarDayCellSize * scale;
     return Clickable(
       onPressed: onPressed,
       decoration: WidgetStatePropertyAll<Decoration?>(
@@ -375,25 +397,21 @@ class _HeaderButton extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      // The control's own breathing room (8 above and below the label/icon),
-      // held as a density multiplier. `Clickable` hands its padding to a
-      // `Container`, so the multipliers are resolved here.
       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-        resolveEdgeInsets(
-          const EdgeInsetsDensity.pxSymmetric(vertical: 8),
-          theme.density.baseContentPadding * theme.scaling,
-        ),
+        icon == null
+            ? EdgeInsets.symmetric(horizontal: 8 * scale)
+            : EdgeInsets.zero,
       ),
       child: icon == null
-          ? Center(child: Text(label!))
+          ? SizedBox(
+              height: slot,
+              child: Center(child: Text(label!)),
+            )
           : IconTheme.merge(
               data: IconThemeData(color: theme.colors.foreground),
-              // A layout cap, not spacing: the icon slot is a fixed 32px
-              // envelope (shadcn `size-8`) around a 16px glyph.
-              child: SizedBox(
-                width: 32,
-                height: 32,
-                child: Icon(icon, size: 16),
+              child: SizedBox.square(
+                dimension: slot,
+                child: Icon(icon, size: 16 * scale),
               ),
             ),
     );

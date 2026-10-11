@@ -96,10 +96,10 @@ class ColorInput extends StatefulWidget {
   /// below.
   final PromptMode? mode;
 
-  /// Popover placement relative to the trigger; null resolves top-left.
+  /// Popover placement relative to the trigger; null resolves top-start.
   final AlignmentGeometry? popoverAlignment;
 
-  /// Anchor edge in popover mode; null resolves bottom-left.
+  /// Anchor edge in popover mode; null resolves bottom-start.
   final AlignmentGeometry? popoverAnchorAlignment;
 
   /// Padding inside the popover surface; null resolves the primitive's 16.

@@ -6,12 +6,14 @@ import 'dart:io';
 import 'dart_scan.dart';
 import 'api_model.dart';
 import 'block_class.dart';
+import 'example_sources.dart';
 import 'readme_scan.dart';
 import 'registry_scan.dart';
 import 'render_api.dart';
 import 'render_blocks.dart';
 import 'render_code.dart';
 import 'render_common.dart';
+import 'render_example_sources.dart';
 import 'render_files.dart';
 import 'render_presets.dart';
 import 'render_previews.dart';
@@ -51,6 +53,8 @@ DocsModel buildDocsModel(String registryRoot) {
   final Map<String, String?> previewExamples = <String, String?>{};
   final Map<String, List<String>> previewExampleNames =
       <String, List<String>>{};
+  final Map<String, List<DocsExampleSourceFacts>> exampleSources =
+      <String, List<DocsExampleSourceFacts>>{};
   final Map<String, List<KeyboardRowFacts>> keyboard =
       <String, List<KeyboardRowFacts>>{};
   final Map<String, List<ReadmeBlock>> snippets = <String, List<ReadmeBlock>>{};
@@ -99,6 +103,13 @@ DocsModel buildDocsModel(String registryRoot) {
     previewExamples[component.id] = exampleList;
     previewExampleNames[component.id] = findPreviewExamples(
       source: previewSource,
+    );
+    // P7-D1: the per-example Code tabs show the builder plus its private
+    // helpers; the user-facing import comes from the manifest.
+    exampleSources[component.id] = extractExampleSources(
+      source: previewSource,
+      previewDir: 'components/${component.id}',
+      componentImport: component.import,
     );
     if (previewClasses[component.id] == null &&
         previewExamples[component.id] == null) {
@@ -161,6 +172,7 @@ DocsModel buildDocsModel(String registryRoot) {
     previewClasses: previewClasses,
     previewExamples: previewExamples,
     previewExampleNames: previewExampleNames,
+    exampleSources: exampleSources,
     keyboard: keyboard,
     snippets: snippets,
     cliCommands: cliCommands,
@@ -187,6 +199,7 @@ Map<String, String> renderBundle(
     '$outDir/docs_blocks.dart': renderDocsBlocks(model),
     '$outDir/docs_preset_sources.dart': renderPresetSources(model.scan),
     '$outDir/docs_previews.dart': renderDocsPreviews(model),
+    '$outDir/docs_example_sources.dart': renderDocsExampleSources(model),
     '$outDir/app_theme.dart': renderAppTheme(
       model.scan,
       themeImport: themeImport,

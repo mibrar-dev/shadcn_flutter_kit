@@ -1,18 +1,23 @@
-// P6-F4 proofs: the site theme reaches every preview, code is selectable,
-// and the stage is bounded.
+// P7-D1 proofs: the site theme reaches every example card, code is
+// selectable, and the stage is bounded.
 //
 //  * claude preset → the Calendar Read-only selection paints the preset's own
 //    `primary` in light and dark (the registry is correct; this guards the
-//    docs-side wiring), and a runtime preset switch re-themes the preview.
-//  * every code surface (install block, usage snippet, View Code teaser, Get
-//    Code dialog, generic figure) renders a `SelectableRegion` with its
-//    highlighting intact, plus a working copy button.
+//    docs-side wiring), and a runtime preset switch re-themes the previews.
+//  * every code surface (install block, usage snippet, per-example View Code
+//    teaser, Get Code dialog, generic figure) renders a `SelectableRegion`
+//    with its highlighting intact, plus a working copy button.
 //  * the stage hands the preview a bounded width (the unbounded harness bug).
+//
+// P7-D1: every named example renders in its own card, so the calendar page
+// shows six `Calendar` widgets (one per example), not one.
 
+import 'package:docs/generated/docs_example_sources.dart';
 import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/ui/shadcn/components/calendar/calendar.dart';
 import 'package:docs/ui/shadcn/theme/theme.dart';
 import 'package:docs/widgets/code_figure.dart';
+import 'package:docs/widgets/example_preview_card.dart';
 import 'package:docs/widgets/get_code_dialog.dart';
 import 'package:docs/widgets/preview_stage.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +26,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
 
-/// Every `Container` fill under [finder], in paint order.
-List<Color> _fills(WidgetTester tester, Finder finder) {
+/// Every `Container` fill under [element], in paint order.
+List<Color> _fillsOf(Element element) {
   final List<Color> out = <Color>[];
   void visit(Element e) {
     final Widget w = e.widget;
@@ -35,8 +40,18 @@ List<Color> _fills(WidgetTester tester, Finder finder) {
     e.visitChildren(visit);
   }
 
-  visit(tester.element(finder.first));
+  visit(element);
   return out;
+}
+
+/// Whether any `Calendar` on the page paints [color] in a fill.
+bool _anyCalendarPaints(WidgetTester tester, Color color) {
+  for (final Element element in find.byType(Calendar).evaluate()) {
+    if (_fillsOf(element).contains(color)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void main() {
@@ -54,19 +69,22 @@ void main() {
           );
           docsState.setPreset('claude');
           await tester.pumpAndSettle();
-          docsState.setPreviewExample('calendar', 'Read-only');
           await goTo(tester, delegate, '/docs/components/calendar');
           await tester.pumpAndSettle();
           await tester.pumpAndSettle();
           final Color primary = docsState.theme.colors.primary;
-          // The Read-only example seeds SingleCalendarValue(Mar 14 2024).
-          expect(find.byType(Calendar), findsOneWidget);
+          // P7-D1: all six calendar examples render; the Read-only example
+          // seeds SingleCalendarValue(Mar 14 2024).
           expect(
-            _fills(tester, find.byType(Calendar)),
-            contains(primary),
+            find.byType(Calendar),
+            findsNWidgets(kComponentPreviews['calendar']!.length),
+          );
+          expect(
+            _anyCalendarPaints(tester, primary),
+            isTrue,
             reason: 'claude ${brightness.name} primary is $primary',
           );
-          // The preview reads the ambient site theme, not a nested default.
+          // The previews read the ambient site theme, not a nested default.
           final ShadcnThemeData ambient = ShadcnTheme.of(
             tester.element(find.byType(Calendar).first),
           );
@@ -75,11 +93,10 @@ void main() {
       );
     }
 
-    testWidgets('a runtime preset switch re-themes the preview', (
+    testWidgets('a runtime preset switch re-themes the previews', (
       WidgetTester tester,
     ) async {
       final delegate = await pumpDocsApp(tester);
-      docsState.setPreviewExample('calendar', 'Read-only');
       await goTo(tester, delegate, '/docs/components/calendar');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
@@ -87,16 +104,16 @@ void main() {
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
       final Color claude = docsState.theme.colors.primary;
-      expect(_fills(tester, find.byType(Calendar)), contains(claude));
+      expect(_anyCalendarPaints(tester, claude), isTrue);
       docsState.setPreset('neutral');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
       final Color neutral = docsState.theme.colors.primary;
       expect(neutral.toARGB32(), isNot(claude.toARGB32()));
-      expect(_fills(tester, find.byType(Calendar)), contains(neutral));
+      expect(_anyCalendarPaints(tester, neutral), isTrue);
     });
 
-    testWidgets('per-preview toggle keeps the preset, flips brightness', (
+    testWidgets('per-card toggle keeps the preset, flips brightness', (
       WidgetTester tester,
     ) async {
       final delegate = await pumpDocsApp(
@@ -105,7 +122,6 @@ void main() {
       );
       docsState.setPreset('claude');
       await tester.pumpAndSettle();
-      docsState.setPreviewExample('calendar', 'Read-only');
       await goTo(tester, delegate, '/docs/components/calendar');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
@@ -117,12 +133,18 @@ void main() {
           .themeFor(Brightness.dark)
           .colors
           .primary;
-      expect(_fills(tester, find.byType(Calendar)), contains(lightPrimary));
-      docsState.setPreviewInverted('calendar', true);
+      expect(_anyCalendarPaints(tester, lightPrimary), isTrue);
+      // The Read-only example is card index 5; flip just that card.
+      final Finder toggle = find.byKey(
+        const ValueKey<String>('preview-theme-toggle-5'),
+      );
+      await tester.ensureVisible(toggle);
+      await tester.pumpAndSettle();
+      await tester.tap(toggle);
       await tester.pumpAndSettle();
       await tester.pump(const Duration(milliseconds: 500));
       // Same preset document, opposite brightness leg.
-      expect(_fills(tester, find.byType(Calendar)), contains(darkPrimary));
+      expect(_anyCalendarPaints(tester, darkPrimary), isTrue);
       expect(docsState.presetId, 'claude');
     });
   });
@@ -135,7 +157,7 @@ void main() {
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
-      // The install figure, the usage figures and the teaser all render
+      // The install figure, the usage figures and the teasers all render
       // SelectableRegions; highlighting keeps the plain text intact.
       expect(find.byType(SelectableRegion), findsWidgets);
       expect(find.textContaining('flutter_shadcn add button'), findsWidgets);
@@ -166,14 +188,54 @@ void main() {
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
+      // Open the first card's Code tab: its teaser carries the View Code
+      // pill.
+      await tester.tap(
+        find.descendant(
+          of: find.byType(ExamplePreviewCard).first,
+          matching: find.text('Code'),
+        ),
+      );
+      await tester.pumpAndSettle();
       await tester.ensureVisible(
-        find.byKey(const ValueKey<String>('code-teaser-view-code')),
+        find.byKey(const ValueKey<String>('code-teaser-view-code')).first,
       );
       await tester.pumpAndSettle();
       await tester.tap(
-        find.byKey(const ValueKey<String>('code-teaser-view-code')),
+        find.byKey(const ValueKey<String>('code-teaser-view-code')).first,
       );
       await tester.pumpAndSettle();
+      expect(find.byType(SelectableRegion), findsWidgets);
+    });
+
+    testWidgets('every example code tab is selectable source text', (
+      WidgetTester tester,
+    ) async {
+      final delegate = await pumpDocsApp(tester);
+      await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      // Open each card's Code tab: it carries exactly that example's
+      // source, still selectable with colours intact.
+      final List<DocsExampleSource> sources = kExampleSources['button']!;
+      for (int i = 0; i < sources.length; i++) {
+        await tester.ensureVisible(
+          find.byKey(ValueKey<String>('example-tabs-$i')),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.descendant(
+            of: find.byType(ExamplePreviewCard).at(i),
+            matching: find.text('Code'),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.textContaining(sources[i].builder),
+          findsWidgets,
+          reason: sources[i].name,
+        );
+      }
       expect(find.byType(SelectableRegion), findsWidgets);
     });
 
@@ -227,6 +289,23 @@ void main() {
       expect(kComponentPreviews['patch'], isEmpty);
     });
 
+    test('example sources match the preview lists one-to-one', () {
+      for (final String id in kComponentPreviews.keys) {
+        expect(
+          kExampleSources[id]!.length,
+          kComponentPreviews[id]!.length,
+          reason: id,
+        );
+        for (int i = 0; i < kComponentPreviews[id]!.length; i++) {
+          expect(kExampleSources[id]![i].name, kComponentPreviews[id]![i]);
+          expect(
+            kExampleSources[id]![i].code,
+            contains(kExampleSources[id]![i].builder),
+          );
+        }
+      }
+    });
+
     testWidgets('divider and input lay out inside the bounded stage', (
       WidgetTester tester,
     ) async {
@@ -235,7 +314,11 @@ void main() {
         await goTo(tester, delegate, '/docs/components/$id');
         await tester.pumpAndSettle();
         await tester.pumpAndSettle();
-        expect(find.byType(PreviewStage), findsOneWidget);
+        expect(find.byType(PreviewStage), findsWidgets);
+        expect(
+          find.byType(ExamplePreviewCard),
+          findsNWidgets(kComponentPreviews[id]!.length),
+        );
         expect(tester.takeException(), isNull, reason: id);
       }
     });

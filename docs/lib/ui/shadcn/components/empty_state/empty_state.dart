@@ -160,13 +160,13 @@ class EmptyState extends StatelessWidget {
         _buildIcon(context, container, metrics),
         Gap(metrics.contentGap),
         DefaultTextStyle.merge(
-          style: container.titleStyle ?? metrics.titleStyle,
+          style: metrics.titleStyle.merge(container.titleStyle),
           child:
               title ?? Text(_defaultTitle(l10n), textAlign: TextAlign.center),
         ),
         Gap(metrics.titleGap),
         DefaultTextStyle.merge(
-          style: container.descriptionStyle ?? metrics.descriptionStyle,
+          style: metrics.descriptionStyle.merge(container.descriptionStyle),
           textAlign: TextAlign.center,
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: metrics.descriptionMaxWidth),

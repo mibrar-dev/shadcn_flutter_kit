@@ -19,11 +19,13 @@
     ],
     "primitives": [],
     "components": [
+      "alert",
       "breadcrumb",
       "button",
       "card",
-      "checkbox",
       "divider",
+      "form",
+      "spinner",
       "switch"
     ]
   },

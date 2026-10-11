@@ -17,8 +17,8 @@ Widget _alert(
   String title,
   String content,
 ) {
-  return SizedBox(
-    width: 512,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 512),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -52,8 +52,8 @@ Widget _alertDestructive(BuildContext context) => _alert(
 
 /// A compact alert with a trailing action and no leading icon.
 Widget _alertCompact(BuildContext context) {
-  return const SizedBox(
-    width: 512,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 512),
     child: Alert(
       title: Text('Notification'),
       content: Text('You have a new message.'),

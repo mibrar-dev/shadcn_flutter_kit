@@ -88,6 +88,50 @@ Widget _toggleDisabled(BuildContext context) {
   );
 }
 
+/// A toggle group: one control per member, `gap-3` between the members.
+class _ToggleGroup extends StatefulWidget {
+  const _ToggleGroup();
+
+  @override
+  State<_ToggleGroup> createState() => _ToggleGroupState();
+}
+
+class _ToggleGroupState extends State<_ToggleGroup> {
+  final Set<String> _active = <String>{'bold'};
+
+  static const List<(String, IconData)> _members = <(String, IconData)>[
+    ('bold', LucideIcons.bold),
+    ('italic', LucideIcons.italic),
+    ('underline', LucideIcons.underline),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: spacing.md,
+      children: <Widget>[
+        for (final (String name, IconData icon) in _members)
+          Toggle(
+            value: _active.contains(name),
+            onChanged: (bool value) => setState(() {
+              if (value) {
+                _active.add(name);
+              } else {
+                _active.remove(name);
+              }
+            }),
+            child: Icon(icon, size: 16),
+          ),
+      ],
+    );
+  }
+}
+
+Widget _toggleGroup(BuildContext context) => const _ToggleGroup();
+
 Widget _toggleDefault(BuildContext context) => const _ToggleControlledToggle();
 
 Widget _toggleController(BuildContext context) =>
@@ -96,6 +140,7 @@ Widget _toggleController(BuildContext context) =>
 /// Named docs examples for `toggle`; the first entry is the default.
 const List<ComponentPreview> togglePreviews = <ComponentPreview>[
   ComponentPreview('Default', _toggleDefault),
+  ComponentPreview('Group', _toggleGroup),
   ComponentPreview('Controller', _toggleController),
   ComponentPreview('Disabled', _toggleDisabled),
 ];

@@ -81,13 +81,15 @@ TextSpan buildTokenTextSpan<T>({
         index: index,
         alignment: alignment,
         child: Padding(
-          padding: EdgeInsets.only(
-            left: previousIsToken
+          // Directional so the edge flush mirrors in RTL: the first token
+          // hugs the leading edge and the last keeps trailing space.
+          padding: EdgeInsetsDirectional.only(
+            start: previousIsToken
                 ? spacing / 2
                 : i == 0
                 ? 0
                 : spacing,
-            right: nextIsToken ? spacing / 2 : spacing,
+            end: nextIsToken ? spacing / 2 : spacing,
           ),
           child: builder(context, token, index),
         ),

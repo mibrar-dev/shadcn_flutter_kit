@@ -18,9 +18,9 @@
       "icons/lucide_icons"
     ],
     "theme": [
-        "color_tokens",
-        "density",
-        "theme"
+      "color_tokens",
+      "density",
+      "theme"
     ],
     "primitives": [
       "input_features",
@@ -31,7 +31,6 @@
     "components": [
       "button",
       "dialog",
-      "divider",
       "input"
     ]
   },
@@ -77,7 +76,7 @@
       "itemHighlightForeground": "ThemedColor? - focused row content",
       "itemPadding": "EdgeInsetsGeometry? - row padding, default 8/6",
       "shadows": "List<BoxShadow>? - surface shadows; empty draws none",
-      "maxWidth": "double? - dialog width, default 510",
+      "maxWidth": "double? - dialog width, default 512 (max-w-lg)",
       "maxHeight": "double? - dialog height, default 349"
     }
   }

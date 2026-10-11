@@ -3,12 +3,14 @@
 // in `calendar_style.dart`. Ported from `components/display/calendar/**`; the
 // `DatePickerDialog` of that tree is not migrated — it needs batch B13's overlay.
 
+import 'package:flutter/rendering.dart' show RenderProxyBox;
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/date_math.dart';
 import '../../primitives/focus_outline.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../primitives/menu_nav.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import 'calendar_style.dart';
 
@@ -209,20 +211,50 @@ class _CalendarState extends State<Calendar> {
           defaults: calendarDefaults,
         );
     final bool days = widget.viewType == CalendarViewType.date;
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
+    final EdgeInsets padding = resolveEdgeInsets(
+      calendarPadding,
+      ambient.density.baseContentPadding * ambient.scaling,
+    ).resolve(Directionality.of(context));
+    // The slots do not depend on the constraints, so they are resolved once
+    // here and reused for the hug metrics and the grid.
+    final List<_Slot> slots = _slotsFor(context);
     return _keys(
       // A masonry column (~300 px) or a phone (375 px minus padding) is
       // narrower than seven 32 px cells plus gaps, so the cells shrink to the
       // available width (down to a ~7x32 px minimum footprint). Unbounded
       // widths keep the nominal cell sizes.
-      LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) => _grid(
-          context: context,
-          slots: _slotsFor(context),
+      //
+      // The `p-3` shell (shadcn puts it on the `DayPicker` root) is inside the
+      // `LayoutBuilder`, so the grid is fitted against the width it really
+      // has; the hug proxy outside reports the natural size to a
+      // shrink-wrapping parent — the picker dialogs size themselves to it.
+      _CalendarHugWidth(
+        nominal: calendarGridWidth(style, ambient, padding),
+        nominalHeight: calendarGridHeight(
+          style,
+          ambient,
+          padding,
+          slots.length,
           weekdays: days
               ? calendarWeekdayLabels(context, widget.firstDayOfWeek)
               : null,
-          style: style,
-          maxWidth: constraints.maxWidth,
+        ),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Padding(
+              padding: padding,
+              child: _grid(
+                context: context,
+                slots: slots,
+                weekdays: days
+                    ? calendarWeekdayLabels(context, widget.firstDayOfWeek)
+                    : null,
+                style: style,
+                maxWidth: constraints.maxWidth - padding.left - padding.right,
+              ),
+            );
+          },
         ),
       ),
     );
@@ -306,6 +338,64 @@ typedef _Slot = ({
 /// horizontal scroll.
 const double _kMinCalendarCell = 20;
 
+/// Density scale of the ambient theme: 1 at the default density, 0.5 at
+/// compact, 1.25 at comfortable (the kit's documented scaling rule).
+double _densityScale(ShadcnThemeData theme) =>
+    theme.density.scale * theme.scaling;
+
+/// Nominal cell side of the day grid, density-scaled.
+double calendarDayCellWidthOf(CalendarTheme style, ShadcnThemeData theme) =>
+    (style.cellWidth ?? style.cellHeight ?? calendarDayCellSize) *
+    _densityScale(theme);
+
+/// Density-scaled grid gap: `CalendarTheme.gap` (4, the shadcn cell pitch) or
+/// `density.baseGap` when the theme leaves it unset.
+double calendarGapOf(CalendarTheme style, ShadcnThemeData theme) =>
+    (style.gap ?? 4) * _densityScale(theme);
+
+/// Natural (unshrunk) width of a day grid plus its `p-3` shell.
+///
+/// The day grid is the widest of the three grids, so it decides the width of
+/// a shrink-wrapping parent — the picker dialogs. Month and year grids are
+/// narrower and still fit.
+double calendarGridWidth(
+  CalendarTheme style,
+  ShadcnThemeData theme,
+  EdgeInsets padding,
+) {
+  final double cell = calendarDayCellWidthOf(style, theme);
+  final double gap = calendarGapOf(style, theme);
+  return cell * 7 + gap * 6 + padding.left + padding.right;
+}
+
+/// Natural (unshrunk) height of a grid: the cell rows, the gaps between them,
+/// the weekday header of a day grid, and the `p-3` shell.
+///
+/// Heights never shrink — only the width adapts — so this is also the height
+/// a shrink-wrapping parent measures.
+double calendarGridHeight(
+  CalendarTheme style,
+  ShadcnThemeData theme,
+  EdgeInsets padding,
+  int slotCount, {
+  List<String>? weekdays,
+}) {
+  final int columns = weekdays == null ? 4 : 7;
+  final int rows = (slotCount + columns - 1) ~/ columns;
+  final double scale = _densityScale(theme);
+  final double cell =
+      (style.cellHeight ??
+          (columns < 7 ? calendarMonthCellHeight : calendarDayCellSize)) *
+      scale;
+  final double gap = calendarGapOf(style, theme);
+  // A day grid carries a weekday header in its own cell-sized box.
+  final int boxes = rows + (weekdays == null ? 0 : 1);
+  return cell * boxes +
+      gap * (rows > 0 ? rows - 1 : 0) +
+      padding.top +
+      padding.bottom;
+}
+
 /// A nominal cell width fitted into [maxWidth]: the nominal size when it fits,
 /// otherwise an even share of the row, floored at [_kMinCalendarCell].
 /// Heights never shrink — only the width adapts, so rows keep their pitch.
@@ -322,6 +412,69 @@ double _fitCalendarCell({
   return fit >= nominal ? nominal : fit.clamp(_kMinCalendarCell, nominal);
 }
 
+/// Reports the calendar's nominal width during an intrinsic pass.
+///
+/// `LayoutBuilder` answers "not implemented" for intrinsic sizes (its builder
+/// needs real constraints), so a shrink-wrapping parent would measure the
+/// calendar as zero wide. The picker dialogs wrap their content in
+/// `IntrinsicWidth`, and this proxy gives it the honest answer: the grid's
+/// natural width. Layout is untouched — the child still sees the real
+/// constraints and shrinks its cells when the parent is narrow.
+class _CalendarHugWidth extends SingleChildRenderObjectWidget {
+  const _CalendarHugWidth({
+    required this.nominal,
+    required this.nominalHeight,
+    required super.child,
+  });
+
+  /// The grid's natural width, shell padding included.
+  final double nominal;
+
+  /// The grid's natural height, shell padding included.
+  final double nominalHeight;
+
+  @override
+  _RenderCalendarHugWidth createRenderObject(BuildContext context) =>
+      _RenderCalendarHugWidth(nominal, nominalHeight);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    covariant _RenderCalendarHugWidth renderObject,
+  ) {
+    renderObject
+      ..nominal = nominal
+      ..nominalHeight = nominalHeight;
+  }
+}
+
+/// Passes the nominal width through an intrinsic pass and the real constraints
+/// through layout, so a shrink-wrapping parent measures the grid honestly
+/// while the cells still shrink to fit a narrow parent.
+class _RenderCalendarHugWidth extends RenderProxyBox {
+  _RenderCalendarHugWidth(this._nominal, this._nominalHeight);
+
+  double _nominal;
+
+  double _nominalHeight;
+
+  set nominal(double value) => _nominal = value;
+
+  set nominalHeight(double value) => _nominalHeight = value;
+
+  @override
+  double computeMaxIntrinsicWidth(double height) => _nominal;
+
+  @override
+  double computeMinIntrinsicWidth(double height) => _nominal;
+
+  @override
+  double computeMaxIntrinsicHeight(double width) => _nominalHeight;
+
+  @override
+  double computeMinIntrinsicHeight(double width) => _nominalHeight;
+}
+
 /// An optional weekday header, then rows of cells.
 Widget _grid({
   required BuildContext context,
@@ -331,8 +484,9 @@ Widget _grid({
   double maxWidth = double.infinity,
 }) {
   final ShadcnThemeData theme = ShadcnTheme.of(context);
-  final double size = style.cellHeight ?? 32;
-  final double gap = style.gap ?? theme.density.baseGap;
+  final double scale = _densityScale(theme);
+  final double size = (style.cellHeight ?? calendarDayCellSize) * scale;
+  final double gap = calendarGapOf(style, theme);
   final int columns = weekdays == null ? 4 : 7;
   double fit(double nominal) => _fitCalendarCell(
     nominal: nominal,
@@ -340,8 +494,14 @@ Widget _grid({
     gap: gap,
     maxWidth: maxWidth,
   );
-  final double dayWidth = fit(style.cellWidth ?? size);
-  final double wideWidth = fit(style.cellWidth ?? 56);
+  final double dayWidth = fit(
+    style.cellWidth == null ? size : style.cellWidth! * scale,
+  );
+  final double wideWidth = fit(
+    style.cellWidth == null
+        ? calendarMonthCellWidth * scale
+        : style.cellWidth! * scale,
+  );
   final TextStyle header = theme.typography.xSmall.copyWith(
     color: theme.colors.mutedForeground,
     fontSize: style.weekdayTextStyle?.fontSize,
@@ -406,10 +566,18 @@ Widget _calendarCell(
     style: style,
     colors: theme.colors,
   );
-  final double size = style.cellHeight ?? (slot.wide ? 40 : 32);
+  final double scale = _densityScale(theme);
+  final double size =
+      (style.cellHeight ??
+          (slot.wide ? calendarMonthCellHeight : calendarDayCellSize)) *
+      scale;
   // [cellWidth] is the row's fitted share; without it the cell keeps the
   // nominal theme size (cellWidth, or the cell height for date cells).
-  final double width = cellWidth ?? style.cellWidth ?? (slot.wide ? 56 : 0);
+  final double width =
+      cellWidth ??
+      (style.cellWidth == null
+          ? (slot.wide ? calendarMonthCellWidth * scale : size)
+          : style.cellWidth! * scale);
   final BorderRadius radius = (style.cellBorderRadius ?? theme.borderRadiusMd)
       .resolve(Directionality.of(context));
   return Semantics(

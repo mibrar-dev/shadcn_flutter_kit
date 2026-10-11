@@ -115,7 +115,7 @@ class MenuTheme extends ComponentThemeData implements Mergeable<MenuTheme> {
 }
 
 /// Popup-surface contract (shadcn popover: `bg-popover`, 1px `border`,
-/// `rounded-md`, `shadow-md`, `p-1`, min-width 8rem/12rem).
+/// `rounded-md`, `shadow-md`, `p-1`, min-width 8rem).
 class MenuPopupTheme extends ComponentThemeData
     implements Mergeable<MenuPopupTheme> {
   /// Creates a menu popup theme.
@@ -151,7 +151,7 @@ class MenuPopupTheme extends ComponentThemeData
   /// Inner padding; null resolves 4 on all sides.
   final EdgeInsetsGeometry? padding;
 
-  /// Minimum popup width; null resolves 192 (12rem).
+  /// Minimum popup width; null resolves 128 (8rem).
   final double? minWidth;
 
   /// Backdrop blur radius; null resolves the app theme's `surfaceBlur`.
@@ -373,7 +373,7 @@ const MenuPopupTheme menuPopupDefaults = MenuPopupTheme(
   borderWidth: 1,
   // shadcn `p-1` around the row list, density-scaled.
   padding: EdgeInsetsDensity.pxAll(4),
-  minWidth: 192,
+  minWidth: 128,
 );
 
 /// Token-derived menubar baseline.

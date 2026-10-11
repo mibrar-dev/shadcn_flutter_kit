@@ -1,11 +1,15 @@
-// The component page template (spec §2.4): one route for all 118 components.
-// Title row + typeset description, a live preview card (deferred preview.dart),
-// an install block, then typeset H2 sections: Usage (snippets), API
-// Reference, Theme, and Accessibility (keyboard rows, hidden when empty).
-// Prev/next pager at the bottom. Every fact comes from the generated data.
+// The component page template (spec §2.4, P7-D1 shadcn docs layout): one
+// route for all 118 components.
 //
-// The preview card itself lives in `widgets/component_preview_card.dart`
-// (P6-F4: one named example behind a `Select` plus a per-preview toggle).
+// Title row + typeset description, the main demo card (the first named
+// example), an install block, then typeset H2 sections: Usage (snippets),
+// Examples (every remaining example as `### <Name>` + its own Preview |
+// Code card), API Reference, Theme, and Accessibility (keyboard rows, hidden
+// when empty). Prev/next pager at the bottom. Every fact comes from the
+// generated data.
+//
+// The example cards live in `widgets/example_preview_card.dart` (P7-D1: one
+// card per named example instead of P6-F4's single preview + Select).
 
 import 'package:flutter/widgets.dart';
 
@@ -14,6 +18,7 @@ import '../generated/docs_data.dart';
 import '../generated/docs_tables.dart';
 import '../routing/docs_nav.dart';
 import '../ui/shadcn/components/badge/badge.dart';
+import '../widgets/component_examples_section.dart';
 import '../widgets/component_install_block.dart';
 import '../widgets/component_preview_card.dart';
 import '../widgets/component_sections.dart';
@@ -79,6 +84,7 @@ class _ComponentPageState extends State<ComponentPage> {
           ComponentPreviewCard(componentId: widget.componentId),
           ComponentInstallBlock(componentId: widget.componentId),
           ComponentUsageSection(componentId: widget.componentId),
+          ComponentExamplesSection(componentId: widget.componentId),
           ComponentApiSection(componentId: widget.componentId),
           if (_hasMembers(widget.componentId))
             ComponentMembersSection(componentId: widget.componentId),

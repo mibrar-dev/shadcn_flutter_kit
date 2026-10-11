@@ -14,13 +14,14 @@ export 'roving_row.dart';
 
 /// The popup surface rows are presented on, from resolved values.
 ///
-/// The surface never issues intrinsic queries: an earlier revision wrapped
-/// the rows in an `IntrinsicWidth`, and any `LayoutBuilder` descendant (the
-/// registry `Slider`, for example) throws "LayoutBuilder does not support
-/// returning intrinsic dimensions" while `RenderIntrinsicWidth` measures it
-/// during layout — one root error cascading into a "was not laid out" error
-/// per ancestor. Width is deterministic instead (`width`, else up to
-/// [maxWidth] and at least [minWidth]), so arbitrary content is safe.
+/// The surface hugs its content: it measures the widest row and sizes
+/// between [minWidth] and [maxWidth] (at least the incoming minimum, so an
+/// anchor-minimum constraint is honoured). The measurement is guarded: an
+/// intrinsic-incapable descendant (a `LayoutBuilder`, e.g. the registry
+/// `Slider`) throws during the query, and the surface falls back to the
+/// minimum instead of failing the frame — arbitrary content (including
+/// `LayoutBuilder` descendants) stays safe, which a bare `IntrinsicWidth`
+/// cannot promise.
 /// Height is capped at [maxHeight] with its own scroll area, so long lists
 /// stay on-screen.
 class MenuPopupSurface extends StatelessWidget {
@@ -34,10 +35,11 @@ class MenuPopupSurface extends StatelessWidget {
     this.borderWidth = 1,
     this.borderRadius,
     this.padding,
-    this.minWidth = 192,
+    this.minWidth = 128,
     this.width,
-    this.maxWidth = 288,
+    this.maxWidth = double.infinity,
     this.maxHeight = 360,
+    this.shadows,
   });
 
   /// The rows.
@@ -61,17 +63,23 @@ class MenuPopupSurface extends StatelessWidget {
   /// Resolved inner padding; null resolves all 4.
   final EdgeInsetsGeometry? padding;
 
-  /// Minimum popup width (12rem).
+  /// Minimum popup width (8rem).
   final double minWidth;
 
-  /// Exact popup width; null sizes up to [maxWidth] (at least [minWidth]).
+  /// Exact popup width; null hugs the content between [minWidth] and
+  /// [maxWidth].
   final double? width;
 
-  /// Maximum popup width; the rows stretch to it.
+  /// Maximum popup width; the rows stretch to it. Defaults to unbounded so
+  /// the viewport (through the popover margin) is the only cap.
   final double maxWidth;
 
   /// Maximum popup height; taller content scrolls inside the surface.
   final double maxHeight;
+
+  /// Resolved popup shadow; null draws none. Callers pass the ambient
+  /// `shadowMd` unless the theme overrides it.
+  final List<BoxShadow>? shadows;
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData app = ShadcnTheme.of(context);
@@ -92,6 +100,7 @@ class MenuPopupSurface extends StatelessWidget {
             width: borderWidth,
           ),
           borderRadius: radius,
+          boxShadow: shadows,
         ),
         child: DefaultTextStyle(
           style: TextStyle(color: fg),
@@ -111,7 +120,8 @@ class MenuPopupSurface extends StatelessWidget {
   }
 }
 
-/// Sizes the popup surface from the incoming constraints without issuing
+/// Sizes the popup surface from the incoming constraints, hugging the
+/// content between [minWidth] and [maxWidth] without issuing unguarded
 /// intrinsic queries.
 ///
 /// A `LayoutBuilder` cannot do this job: anchored popovers with an intrinsic
@@ -119,7 +129,9 @@ class MenuPopupSurface extends StatelessWidget {
 /// sheet) measure the surface with `getMaxIntrinsicWidth` during layout, and
 /// any `LayoutBuilder` answers that with "does not support returning
 /// intrinsic dimensions". This render object only lays out, so arbitrary
-/// content (including `LayoutBuilder` descendants like `Slider`) is safe.
+/// content (including `LayoutBuilder` descendants like `Slider`) is safe:
+/// it *attempts* one guarded intrinsic query for the hug width and falls
+/// back to the minimum when a descendant cannot answer it.
 class _SurfaceSizing extends SingleChildRenderObjectWidget {
   /// Creates a surface sizer.
   const _SurfaceSizing({
@@ -203,12 +215,23 @@ class _RenderSurfaceSizing extends RenderProxyBox {
     if (hi < incoming.minWidth) hi = incoming.minWidth;
     double lo = math.min(minWidth, hi);
     final double? exact = width;
+    final double target;
     if (exact != null) {
       final double tight = math.min(exact, hi);
       lo = math.max(incoming.minWidth, tight);
       hi = math.max(incoming.minWidth, tight);
+      target = hi;
     } else {
       lo = math.max(incoming.minWidth, lo);
+      // Hug the widest row. Guarded: an intrinsic-incapable descendant
+      // throws `FlutterError` and the surface keeps the minimum width.
+      double measured;
+      try {
+        measured = child.getMaxIntrinsicWidth(hi);
+      } on FlutterError {
+        measured = lo;
+      }
+      target = measured.clamp(lo, hi);
     }
     // A tight incoming height comes from an anchored size constraint (the
     // select trigger, for example), not from the viewport: it must not cap
@@ -221,8 +244,8 @@ class _RenderSurfaceSizing extends RenderProxyBox {
         : maxHeight;
     child.layout(
       BoxConstraints(
-        minWidth: lo,
-        maxWidth: hi,
+        minWidth: target,
+        maxWidth: target,
         minHeight: incoming.minHeight,
         maxHeight: math.max(ceiling, incoming.minHeight),
       ),
@@ -236,7 +259,10 @@ class _RenderSurfaceSizing extends RenderProxyBox {
 ///
 /// The popover never dismisses itself: siblings close through the caller's
 /// `MenuGroupData.closeOthers()` first, the whole menu through `closeAll()`.
-/// Themes stay live through the handler's captured themes.
+/// Themes stay live through the handler's captured themes. The default
+/// placement opens to the side of the trigger (for nested submenu levels);
+/// root levels below a horizontal bar pass a below-start [alignment]/
+/// [anchorAlignment] pair instead.
 Future<T?> showMenuPopover<T>({
   required BuildContext context,
   required PopoverController controller,

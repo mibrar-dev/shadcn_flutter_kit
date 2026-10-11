@@ -58,7 +58,9 @@ class Menubar extends StatelessWidget {
         popoverOffset ?? style.subMenuOffset ?? const Offset(-4, 8);
 
     Widget bar = MenuGroup(
-      direction: Axis.vertical,
+      // Horizontal root: submenu levels open below the trigger's start
+      // edge (see MenuButton); nested groups always reset to vertical.
+      direction: Axis.horizontal,
       subMenuOffset: offset,
       autofocus: false,
       builder: (context, rows) => IntrinsicHeight(

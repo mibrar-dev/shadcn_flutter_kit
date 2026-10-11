@@ -1,15 +1,21 @@
-// The `sidebar-01` block: a collapsible icon rail.
+// The `sidebar-01` block: a collapsible icon rail beside a mailbox screen.
 //
-// The rail is a navigation strip of icon buttons that collapses to its icons
-// only. It reads the sidebar tokens (`sidebar`, `sidebarAccent`, …), so it
-// re-themes with every preset, and below 720px it flips to a horizontal strip
-// on top of the content instead of overflowing.
+// A block is layer 4 of the registry: it may import foundation, theme,
+// primitives and components, never another block. Its public widget is the
+// preview - the docs page renders it exactly as an app would.
+//
+// The rail reads the sidebar tokens (`sidebar`, `sidebarAccent`, …), so it
+// re-themes with every preset. From 720px the rail sits beside the content;
+// below that a menu button opens the navigation as a drawer. The content is
+// a sample mailbox with stats and activity. The layout shrink-wraps so the
+// docs frame sizes to its intrinsic height, and scrolls internally when the
+// host is bounded.
 
 import 'package:flutter/widgets.dart';
 
 import '../../components/button/button.dart';
-import '../../components/card/card.dart';
-import '../../components/divider/divider.dart';
+import '../../components/drawer/drawer.dart';
+import 'sidebar_01_content.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/theme.dart';
@@ -26,40 +32,64 @@ class Sidebar01 extends StatefulWidget {
 class _Sidebar01State extends State<Sidebar01> {
   int _selected = 0;
 
+  void _openNav() {
+    openDrawer(
+      context: context,
+      position: OverlayPosition.start,
+      builder: (BuildContext context) => _Sidebar01DrawerNav(
+        selected: _selected,
+        onSelected: (int index) {
+          setState(() => _selected = index);
+          closeDrawer(context);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return ColoredBox(
       color: theme.colors.background,
       child: SafeArea(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             final bool vertical = constraints.maxWidth >= 720;
-            final Widget rail = _Sidebar01Rail(
-              vertical: vertical,
-              selected: _selected,
-              onSelected: (int index) => setState(() => _selected = index),
-            );
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                if (!vertical) ...<Widget>[rail, Gap(spacing.lg)],
-                Flexible(
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.all(spacing.lg),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        if (vertical) rail,
-                        if (vertical) Gap(spacing.lg),
-                        const Expanded(child: Sidebar01Content()),
-                      ],
-                    ),
+            final Widget content = Sidebar01Content(selected: _selected);
+            final Widget body;
+            if (!vertical) {
+              body = Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  _Sidebar01Bar(selected: _selected, onMenu: _openNav),
+                  Gap(theme.spacing.lg),
+                  content,
+                ],
+              );
+            } else {
+              body = Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _Sidebar01Rail(
+                    selected: _selected,
+                    onSelected: (int index) =>
+                        setState(() => _selected = index),
                   ),
-                ),
-              ],
+                  Gap(theme.spacing.lg),
+                  Expanded(child: content),
+                ],
+              );
+            }
+            if (!constraints.maxHeight.isFinite) {
+              return Padding(
+                padding: EdgeInsets.all(theme.spacing.lg),
+                child: body,
+              );
+            }
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(theme.spacing.lg),
+              child: body,
             );
           },
         ),
@@ -68,102 +98,75 @@ class _Sidebar01State extends State<Sidebar01> {
   }
 }
 
+/// The icon rail (desktop): one 40px button per destination.
 class _Sidebar01Rail extends StatelessWidget {
-  const _Sidebar01Rail({
-    required this.vertical,
-    required this.selected,
-    required this.onSelected,
-  });
+  const _Sidebar01Rail({required this.selected, required this.onSelected});
 
-  final bool vertical;
   final int selected;
   final ValueChanged<int> onSelected;
 
-  static const List<_Sidebar01Item> _items = <_Sidebar01Item>[
-    _Sidebar01Item('Home', LucideIcons.house),
-    _Sidebar01Item('Inbox', LucideIcons.inbox),
-    _Sidebar01Item('Calendar', LucideIcons.calendarDays),
-    _Sidebar01Item('Search', LucideIcons.search),
-    _Sidebar01Item('Settings', LucideIcons.settings),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    final List<Widget> buttons = <Widget>[
-      for (var i = 0; i < _items.length; i++)
-        _Sidebar01RailButton(
-          item: _items[i],
-          vertical: vertical,
-          selected: i == selected,
-          onPressed: () => onSelected(i),
-        ),
-    ];
-    final Widget content = vertical
-        ? Column(mainAxisSize: MainAxisSize.min, children: buttons)
-        : Row(mainAxisSize: MainAxisSize.min, children: buttons);
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Container(
-      padding: EdgeInsets.all(spacing.sm),
+      padding: EdgeInsets.all(theme.spacing.sm),
       decoration: BoxDecoration(
         color: theme.colors.sidebar,
         borderRadius: theme.borderRadiusLg,
         border: Border.all(color: theme.colors.sidebarBorder),
       ),
-      child: content,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          for (var i = 0; i < sidebar01Items.length; i++)
+            _Sidebar01RailButton(
+              item: sidebar01Items[i],
+              selected: i == selected,
+              onPressed: () => onSelected(i),
+            ),
+        ],
+      ),
     );
   }
-}
-
-class _Sidebar01Item {
-  const _Sidebar01Item(this.label, this.icon);
-
-  final String label;
-  final IconData icon;
 }
 
 class _Sidebar01RailButton extends StatelessWidget {
   const _Sidebar01RailButton({
     required this.item,
-    required this.vertical,
     required this.selected,
     required this.onPressed,
   });
 
-  final _Sidebar01Item item;
-
-  /// Whether the rail runs vertically (margin below) or horizontally.
-  final bool vertical;
-
+  final Sidebar01Item item;
   final bool selected;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return Semantics(
-      label: item.label,
-      selected: selected,
-      button: true,
-      child: GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          width: 40,
-          height: 40,
-          margin: vertical
-              ? const EdgeInsets.only(bottom: 4)
-              : const EdgeInsets.only(right: 4),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: selected ? theme.colors.sidebarAccent : null,
-            borderRadius: theme.borderRadiusMd,
-          ),
-          child: Icon(
-            item.icon,
-            size: 18,
-            color: selected
-                ? theme.colors.sidebarAccentForeground
-                : theme.colors.sidebarForeground,
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Semantics(
+        label: item.label,
+        selected: selected,
+        button: true,
+        child: GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: selected ? theme.colors.sidebarAccent : null,
+              borderRadius: theme.borderRadiusMd,
+            ),
+            child: Icon(
+              item.icon,
+              size: 18,
+              color: selected
+                  ? theme.colors.sidebarAccentForeground
+                  : theme.colors.sidebarForeground,
+            ),
           ),
         ),
       ),
@@ -171,101 +174,128 @@ class _Sidebar01RailButton extends StatelessWidget {
   }
 }
 
-/// The sample content that sits next to the rail.
-class Sidebar01Content extends StatelessWidget {
-  /// Creates the content area.
-  const Sidebar01Content({super.key});
+/// The mobile bar: a menu trigger plus the current destination title.
+class _Sidebar01Bar extends StatelessWidget {
+  const _Sidebar01Bar({required this.selected, required this.onMenu});
+
+  final int selected;
+  final VoidCallback onMenu;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text('Mailbox', style: theme.typography.h2),
-        Gap(spacing.xs),
-        Text(
-          'Everything in one place, at arm’s reach.',
-          style: theme.typography.textMuted.copyWith(
-            color: theme.colors.mutedForeground,
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.md,
+        vertical: theme.spacing.sm,
+      ),
+      decoration: BoxDecoration(
+        color: theme.colors.sidebar,
+        borderRadius: theme.borderRadiusLg,
+        border: Border.all(color: theme.colors.sidebarBorder),
+      ),
+      child: Row(
+        children: <Widget>[
+          Button(
+            variant: ButtonVariant.ghost,
+            size: ButtonSize.icon,
+            onPressed: onMenu,
+            child: const Icon(LucideIcons.menu, size: 18),
           ),
-        ),
-        Gap(spacing.lg),
-        Card(
-          padding: EdgeInsets.zero,
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _Sidebar01Row(
-                'Design review',
-                'Kara — 2 hours ago',
-                'Can we move the sidebar review to Thursday?',
+          Gap(theme.spacing.md),
+          Expanded(
+            child: Text(
+              sidebar01Items[selected].label,
+              style: theme.typography.textSmall.copyWith(
+                color: theme.colors.sidebarForeground,
+                fontWeight: FontWeight.w600,
               ),
-              const Divider(),
-              _Sidebar01Row(
-                'Invoice 4821',
-                'Billing — yesterday',
-                'Your receipt for the annual plan is attached.',
-              ),
-              const Divider(),
-              _Sidebar01Row(
-                'Welcome aboard',
-                'Team — Monday',
-                'Here is everything you need to get started.',
-              ),
-            ],
-          ),
-        ),
-        Gap(spacing.lg),
-        Wrap(
-          spacing: spacing.md,
-          runSpacing: spacing.md,
-          children: <Widget>[
-            Button(
-              variant: ButtonVariant.outline,
-              onPressed: () {},
-              child: const Text('Mark all read'),
             ),
-            Button(onPressed: () {}, child: const Text('Compose')),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _Sidebar01Row extends StatelessWidget {
-  const _Sidebar01Row(this.title, this.author, this.preview);
+/// The drawer navigation (mobile): full-width labelled rows.
+class _Sidebar01DrawerNav extends StatelessWidget {
+  const _Sidebar01DrawerNav({required this.selected, required this.onSelected});
 
-  final String title;
-  final String author;
-  final String preview;
+  final int selected;
+  final ValueChanged<int> onSelected;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Padding(
-      padding: EdgeInsets.all(spacing.md),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title, style: theme.typography.textSmall),
-          Gap(spacing.xs),
-          Text(
-            author,
-            style: theme.typography.xSmall.copyWith(
-              color: theme.colors.mutedForeground,
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    return ColoredBox(
+      color: theme.colors.sidebar,
+      child: Padding(
+        padding: EdgeInsets.all(theme.spacing.lg),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Acme Inc',
+              style: theme.typography.textSmall.copyWith(
+                color: theme.colors.sidebarForeground,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          Gap(spacing.sm),
-          Text(preview, style: theme.typography.textSmall),
-        ],
+            Gap(theme.spacing.lg),
+            for (var i = 0; i < sidebar01Items.length; i++)
+              _Sidebar01DrawerRow(
+                item: sidebar01Items[i],
+                selected: i == selected,
+                onPressed: () => onSelected(i),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Sidebar01DrawerRow extends StatelessWidget {
+  const _Sidebar01DrawerRow({
+    required this.item,
+    required this.selected,
+    required this.onPressed,
+  });
+
+  final Sidebar01Item item;
+  final bool selected;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final Color foreground = selected
+        ? theme.colors.sidebarAccentForeground
+        : theme.colors.sidebarForeground;
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: EdgeInsets.only(bottom: theme.spacing.xs),
+        padding: EdgeInsets.symmetric(
+          horizontal: theme.spacing.md,
+          vertical: theme.spacing.sm,
+        ),
+        decoration: BoxDecoration(
+          color: selected ? theme.colors.sidebarAccent : null,
+          borderRadius: theme.borderRadiusSm,
+        ),
+        child: Row(
+          children: <Widget>[
+            Icon(item.icon, size: 16, color: foreground),
+            Gap(theme.spacing.sm),
+            Text(
+              item.label,
+              style: theme.typography.textSmall.copyWith(color: foreground),
+            ),
+          ],
+        ),
       ),
     );
   }

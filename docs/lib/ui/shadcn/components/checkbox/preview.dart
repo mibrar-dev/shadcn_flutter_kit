@@ -7,17 +7,24 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/component_preview.dart';
-import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
 import 'checkbox.dart';
 
-/// One labelled checkbox row.
-Widget _checkboxRow(BuildContext context, Widget checkbox, String label) {
-  final spacing = ShadcnTheme.of(context).spacing;
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[checkbox, Gap(spacing.md), Text(label)],
+/// One labelled checkbox row; the component owns the label gap (shadcn
+/// `gap-2`) and makes the whole row clickable.
+Widget _checkboxRow(BuildContext context, Checkbox checkbox, String label) {
+  return Checkbox(
+    value: checkbox.value,
+    controller: checkbox.controller,
+    onChanged: checkbox.onChanged,
+    tristate: checkbox.tristate,
+    enabled: checkbox.enabled,
+    size: checkbox.size,
+    gap: checkbox.gap,
+    padding: checkbox.padding,
+    theme: checkbox.theme,
+    focusNode: checkbox.focusNode,
+    label: Text(label),
   );
 }
 
@@ -64,13 +71,13 @@ Widget _checkboxDisabled(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
+    spacing: spacing.md,
     children: <Widget>[
       _checkboxRow(
         context,
         const Checkbox(value: CheckboxValue.checked),
         'On (disabled)',
       ),
-      Gap(spacing.md),
       _checkboxRow(
         context,
         const Checkbox(value: CheckboxValue.unchecked),

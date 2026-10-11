@@ -293,6 +293,7 @@ class AvatarGroup extends StatelessWidget {
     this.overlap,
     this.ringWidth = 2,
     this.clipBehavior = Clip.none,
+    this.borderRadius,
   });
 
   /// Tiles to overlap, first in front; usually [Avatar]s.
@@ -313,6 +314,11 @@ class AvatarGroup extends StatelessWidget {
   /// Clip behavior of the group's stack.
   final Clip clipBehavior;
 
+  /// Shape of the background ring; null is a full circle, matching the
+  /// default circular tile. Pass the tile radius when grouping
+  /// rounded-square tiles so the ring does not peek out.
+  final BorderRadiusGeometry? borderRadius;
+
   @override
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
@@ -329,6 +335,8 @@ class AvatarGroup extends StatelessWidget {
     final double width = cell + step * (children.length - 1);
     final TextDirection direction = Directionality.of(context);
     final bool rtl = direction == TextDirection.rtl;
+    final BorderRadiusGeometry ringShape =
+        borderRadius ?? BorderRadius.circular(cell / 2);
 
     return SizedBox(
       width: width,
@@ -346,7 +354,7 @@ class AvatarGroup extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: theme.colors.background,
-                  shape: BoxShape.circle,
+                  borderRadius: ringShape,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(ringWidth),

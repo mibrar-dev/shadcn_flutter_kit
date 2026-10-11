@@ -225,7 +225,9 @@ class _SwitchState extends State<Switch> with FormValueSupplier<bool, Switch> {
     // short of the far edge (track width - thumb - 2 = 14 by default).
     final double travel =
         resolved.travel ?? max(0.0, track.width - thumb - borderWidth * 2 - 2);
-    final double gap = resolved.gap ?? 8;
+    // shadcn `gap-2` (8), scaled with the ambient density.
+    final double gap =
+        (resolved.gap ?? 8) * ambient.density.scale * ambient.scaling;
     final TextStyle labelStyle =
         (resolved.labelStyle ?? container.labelStyle ?? switchDefaultLabelStyle)
             .copyWith(color: ambient.colors.foreground);

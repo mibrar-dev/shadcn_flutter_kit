@@ -37,8 +37,6 @@ import 'package:flutter_shadcn_kit/registry/components/chip/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/chip_input/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/code_snippet/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/collapsible/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/color_field/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/color_input/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/color_picker/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/command/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/context_menu/preview.dart';
@@ -48,11 +46,9 @@ import 'package:flutter_shadcn_kit/registry/components/dialog/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/divider/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/dot_indicator/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/drawer/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/drawer_container/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/dropdown_menu/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/dropzone/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/empty_state/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/eye_dropper/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/feature_carousel/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/file_diff_viewer/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/file_picker/preview.dart';
@@ -74,7 +70,6 @@ import 'package:flutter_shadcn_kit/registry/components/navigation_bar/preview.da
 import 'package:flutter_shadcn_kit/registry/components/navigation_menu/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/number_ticker/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/object_input/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/outlined_container/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/overflow_marquee/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/pagination/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/phone_input/preview.dart';
@@ -85,23 +80,16 @@ import 'package:flutter_shadcn_kit/registry/components/radio_group/preview.dart'
 import 'package:flutter_shadcn_kit/registry/components/refresh_trigger/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/resizable/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/scaffold/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/scrollable/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/scrollbar/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/scrollview/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/select/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/selectable/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/skeleton/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/slider/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/sortable/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/spell_check_suggestions_toolbar/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/spinner/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/stage_container/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/star_rating/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/stepper/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/steps/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/swiper/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/switch/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/switcher/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/table/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/tabs/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/text_animate/preview.dart';
@@ -113,8 +101,6 @@ import 'package:flutter_shadcn_kit/registry/components/toggle/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/tooltip/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/tracker/preview.dart';
 import 'package:flutter_shadcn_kit/registry/components/tree/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/triple_dots/preview.dart';
-import 'package:flutter_shadcn_kit/registry/components/window/preview.dart';
 
 /// Stage size the docs page hands an example.
 const Size _stageSize = Size(720, 420);
@@ -160,8 +146,6 @@ final Map<String, List<ComponentPreview>> _previews =
       'chip_input': chipInputPreviews,
       'code_snippet': codeSnippetPreviews,
       'collapsible': collapsiblePreviews,
-      'color_field': colorFieldPreviews,
-      'color_input': colorInputPreviews,
       'color_picker': colorPickerPreviews,
       'command': commandPreviews,
       'context_menu': contextMenuPreviews,
@@ -171,11 +155,9 @@ final Map<String, List<ComponentPreview>> _previews =
       'divider': dividerPreviews,
       'dot_indicator': dotIndicatorPreviews,
       'drawer': drawerPreviews,
-      'drawer_container': drawerContainerPreviews,
       'dropdown_menu': dropdownMenuPreviews,
       'dropzone': dropzonePreviews,
       'empty_state': emptyStatePreviews,
-      'eye_dropper': eyeDropperPreviews,
       'feature_carousel': featureCarouselPreviews,
       'file_diff_viewer': fileDiffViewerPreviews,
       'file_picker': filePickerPreviews,
@@ -197,7 +179,6 @@ final Map<String, List<ComponentPreview>> _previews =
       'navigation_menu': navigationMenuPreviews,
       'number_ticker': numberTickerPreviews,
       'object_input': objectInputPreviews,
-      'outlined_container': outlinedContainerPreviews,
       'overflow_marquee': overflowMarqueePreviews,
       'pagination': paginationPreviews,
       'phone_input': phoneInputPreviews,
@@ -208,23 +189,16 @@ final Map<String, List<ComponentPreview>> _previews =
       'refresh_trigger': refreshTriggerPreviews,
       'resizable': resizablePreviews,
       'scaffold': scaffoldPreviews,
-      'scrollable': scrollablePreviews,
       'scrollbar': scrollbarPreviews,
-      'scrollview': scrollviewPreviews,
       'select': selectPreviews,
-      'selectable': selectablePreviews,
       'skeleton': skeletonPreviews,
       'slider': sliderPreviews,
       'sortable': sortablePreviews,
-      'spell_check_suggestions_toolbar': spellCheckSuggestionsToolbarPreviews,
       'spinner': spinnerPreviews,
-      'stage_container': stageContainerPreviews,
       'star_rating': starRatingPreviews,
       'stepper': stepperPreviews,
       'steps': stepsPreviews,
-      'swiper': swiperPreviews,
       'switch': switchPreviews,
-      'switcher': switcherPreviews,
       'table': tablePreviews,
       'tabs': tabsPreviews,
       'text_animate': textAnimatePreviews,
@@ -236,8 +210,6 @@ final Map<String, List<ComponentPreview>> _previews =
       'tooltip': tooltipPreviews,
       'tracker': trackerPreviews,
       'tree': treePreviews,
-      'triple_dots': tripleDotsPreviews,
-      'window': windowPreviews,
     };
 
 /// The example inside the bounded 720x420 stage box.

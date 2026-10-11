@@ -79,6 +79,8 @@ class _ControllerSwitchState extends State<_ControllerSwitch> {
 
 Widget _controller(BuildContext context) => const _ControllerSwitch();
 
+Widget _switchRows(BuildContext context) => const _SwitchRows();
+
 /// On and off switches with no callback, so both are disabled.
 Widget _disabled(BuildContext context) {
   final spacing = ShadcnTheme.of(context).spacing;
@@ -92,9 +94,46 @@ Widget _disabled(BuildContext context) {
   );
 }
 
+/// A stack of switch rows: the group gap (shadcn `gap-3`) between them, the
+/// same one the radio group and a checkbox list use.
+class _SwitchRows extends StatefulWidget {
+  const _SwitchRows();
+
+  @override
+  State<_SwitchRows> createState() => _SwitchRowsState();
+}
+
+class _SwitchRowsState extends State<_SwitchRows> {
+  bool _notifications = true;
+  bool _sounds = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = ShadcnTheme.of(context).spacing;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: spacing.md,
+      children: <Widget>[
+        Switch(
+          value: _notifications,
+          onChanged: (bool value) => setState(() => _notifications = value),
+          label: const Text('Notifications'),
+        ),
+        Switch(
+          value: _sounds,
+          onChanged: (bool value) => setState(() => _sounds = value),
+          label: const Text('Sounds'),
+        ),
+      ],
+    );
+  }
+}
+
 /// Named docs examples for `switch`; the first entry is the default.
 const List<ComponentPreview> switchPreviews = <ComponentPreview>[
   ComponentPreview('Default', _default),
+  ComponentPreview('Rows', _switchRows),
   ComponentPreview('Controller', _controller),
   ComponentPreview('Disabled', _disabled),
 ];

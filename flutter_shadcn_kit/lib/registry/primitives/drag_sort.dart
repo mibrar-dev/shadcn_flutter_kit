@@ -183,14 +183,15 @@ class DragBounds {
   ///
   /// The old `_handleDrag` clamped with `min(low, high)` / `max(low, high)`,
   /// which turned an inverted range into a drag that moved the ghost the wrong
-  /// way whenever the item was larger than the layer.
+  /// way whenever the item was larger than the layer. The range also accounts
+  /// for the item's starting corner: an item below the layer origin may move
+  /// up by up to its own top (`-minOffset`), not just down (P7-Q2: upward
+  /// drags were pinned to zero, so list items could only reorder downward).
   Offset clampTranslation(Offset current, Offset delta) {
     final next = current + delta;
-    final maxX = maxTranslationOn(Axis.horizontal);
-    final maxY = maxTranslationOn(Axis.vertical);
     return Offset(
-      next.dx.isFinite ? next.dx.clamp(0.0, maxX) : 0.0,
-      next.dy.isFinite ? next.dy.clamp(0.0, maxY) : 0.0,
+      _clampAxis(next.dx, -minOffset.dx, layerSize.width - maxOffset.dx),
+      _clampAxis(next.dy, -minOffset.dy, layerSize.height - maxOffset.dy),
     );
   }
 
@@ -202,6 +203,15 @@ class DragBounds {
   @override
   String toString() =>
       'DragBounds(layer: $layerSize, item: $itemSize, at: $minOffset)';
+}
+
+/// Clamps [value] to `[min, max]`; pins to zero when the value is non-finite
+/// or the range is inverted (item larger than the layer on this axis).
+double _clampAxis(double value, double min, double max) {
+  if (!value.isFinite || min > max) {
+    return 0;
+  }
+  return value.clamp(min, max);
 }
 
 /// Base class of a single reorder operation on a list.

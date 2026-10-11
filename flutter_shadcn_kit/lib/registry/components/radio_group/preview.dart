@@ -8,7 +8,6 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/component_preview.dart';
-import '../../theme/theme.dart';
 import 'radio_group.dart';
 
 /// A vertical group of row items; the selection lives in this example.
@@ -27,15 +26,11 @@ class _RowsDemoState extends State<_RowsDemo> {
     return ShadcnRadioGroup<String>(
       value: _plan,
       onChanged: (String value) => setState(() => _plan = value),
-      child: const Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          RadioItem<String>(value: 'free', label: Text('Free')),
-          RadioItem<String>(value: 'pro', label: Text('Pro')),
-          RadioItem<String>(value: 'team', label: Text('Team')),
-        ],
-      ),
+      items: const <Widget>[
+        RadioItem<String>(value: 'free', label: Text('Free')),
+        RadioItem<String>(value: 'pro', label: Text('Pro')),
+        RadioItem<String>(value: 'team', label: Text('Team')),
+      ],
     );
   }
 }
@@ -53,29 +48,19 @@ class _CardsDemoState extends State<_CardsDemo> {
 
   @override
   Widget build(BuildContext context) {
-    final spacing = ShadcnTheme.of(context).spacing;
     return ShadcnRadioGroup<String>(
       value: _plan,
       onChanged: (String value) => setState(() => _plan = value),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          for (final String plan in <String>['free', 'pro'])
-            Padding(
-              padding: EdgeInsets.only(bottom: spacing.sm),
-              child: RadioCard<String>(
-                value: plan,
-                child: Text(
-                  plan,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+      items: <Widget>[
+        for (final String plan in <String>['free', 'pro'])
+          RadioCard<String>(
+            value: plan,
+            child: Text(
+              plan,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

@@ -147,7 +147,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'dot_indicator',
-    name: 'DotIndicator',
+    name: 'Dot Indicator',
     category: 'Animation & Effects',
     description:
         'Animated row or column of dots showing the active index of a carousel, stepper or pager.',
@@ -160,7 +160,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'text_animate',
-    name: 'TextAnimate',
+    name: 'Text Animate',
     category: 'Animation & Effects',
     description:
         'Stream-aware animated text renderer for incremental updates, plus a streaming markdown tail.',
@@ -198,53 +198,14 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'color_field',
-    name: 'Color Field',
-    category: 'Color',
-    description:
-        'Custom-painted HSV/HSL gradient area with an optional transparency checkerboard and a themed ring.',
-    install: 'flutter_shadcn add color_field',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/color_field/color_field.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'color_input',
-    name: 'ColorInput',
-    category: 'Color',
-    description:
-        'Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.',
-    install: 'flutter_shadcn add color_input',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'color_picker',
-    name: 'ColorPicker',
+    name: 'Color Picker',
     category: 'Color',
     description:
         'Full colour picker: HSV/HSL pad, hue/alpha bars, RGB/HSL/HSV/HEX fields, optional alpha, colour history and screen sampling.',
     install: 'flutter_shadcn add color_picker',
     import:
         "import 'package:<your_app>/ui/shadcn/components/color_picker/color_picker.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'eye_dropper',
-    name: 'Eye Dropper',
-    category: 'Color',
-    description:
-        'Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).',
-    install: 'flutter_shadcn add eye_dropper',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
     fileCount: 3,
     stability: 'stable',
     listed: true,
@@ -314,7 +275,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'country_flag',
-    name: 'CountryFlag',
+    name: 'Country Flag',
     category: 'Data Display',
     description:
         'Flag tile for a country looked up by ISO code, currency or dial prefix, with an emoji fallback.',
@@ -340,7 +301,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'empty_state',
-    name: 'EmptyState',
+    name: 'Empty State',
     category: 'Data Display',
     description:
         'A block that stands in for missing content: muted icon, title, description and up to three actions, in an inline or route-level scale.',
@@ -379,7 +340,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'keyboard_shortcut',
-    name: 'KeyboardShortcut',
+    name: 'Keyboard Shortcut',
     category: 'Data Display',
     description:
         'Renders a keyboard shortcut as a row of small key caps, from explicit keys or from a ShortcutActivator, with an optional app-wide label override.',
@@ -392,7 +353,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'number_ticker',
-    name: 'NumberTicker',
+    name: 'Number Ticker',
     category: 'Data Display',
     description:
         'Animated number with a formatter or custom builder, plus flip-clock character rollers.',
@@ -413,19 +374,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import:
         "import 'package:<your_app>/ui/shadcn/components/pinned_sheet/pinned_sheet.dart';",
     fileCount: 1,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'selectable',
-    name: 'SelectableText',
-    category: 'Data Display',
-    description:
-        'Read-only selectable text with widgets-only selection controls.',
-    install: 'flutter_shadcn add selectable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
-    fileCount: 3,
     stability: 'stable',
     listed: true,
   ),
@@ -495,7 +443,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'date_picker',
-    name: 'DatePicker',
+    name: 'Date Picker',
     category: 'Date & Time',
     description:
         'Single-date and date-span fields opening a calendar sheet (DatePickerDialog with month/year stepper) in a dialog or a popover, wired into the form system.',
@@ -508,7 +456,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'time_picker',
-    name: 'TimePicker',
+    name: 'Time Picker',
     category: 'Date & Time',
     description:
         'Clock-time and duration fields opening digit-field sheets (hour/minute/second plus AM/PM, day/hour/minute/second) in a dialog or a popover, wired into the form system.',
@@ -586,7 +534,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'autocomplete',
-    name: 'AutoComplete',
+    name: 'Autocomplete',
     category: 'Forms & Inputs',
     description:
         'Input feature that turns the field text into a popover-backed suggestion list with keyboard navigation and three replacement modes.',
@@ -612,7 +560,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'chip_input',
-    name: 'ChipInput',
+    name: 'Chip Input',
     category: 'Forms & Inputs',
     description:
         'Token field: a widgets-only input whose values render as removable chips, with suggestion, validation and clipboard round-trips.',
@@ -651,7 +599,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'form',
-    name: 'ShadcnForm',
+    name: 'Form',
     category: 'Forms & Inputs',
     description:
         'ShadcnForm scope, labelled field layouts, validators, controller and submission flow.',
@@ -663,7 +611,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'formatted_input',
-    name: 'FormattedInput',
+    name: 'Formatted Input',
     category: 'Forms & Inputs',
     description:
         'Masked/segmented field (phone, date, card) built from static separators and small editable parts.',
@@ -689,7 +637,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'input_otp',
-    name: 'InputOtp',
+    name: 'Input OTP',
     category: 'Forms & Inputs',
     description:
         'One-time-password input: one hidden field drives a row of character slots, with separators, obscuring, validation and form participation.',
@@ -702,7 +650,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'item_picker',
-    name: 'ItemPicker',
+    name: 'Item Picker',
     category: 'Forms & Inputs',
     description:
         'Field that edits a value by picking one item from a grid or list, in a dialog or popover.',
@@ -715,7 +663,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'multi_select',
-    name: 'MultiSelect',
+    name: 'Multi Select',
     category: 'Forms & Inputs',
     description:
         'A multi-selection dropdown built on select: checkbox popup rows (menu MenuCheckboxItem) that stay open while toggling, and removable chips in the trigger.',
@@ -741,7 +689,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'phone_input',
-    name: 'PhoneInput',
+    name: 'Phone Input',
     category: 'Forms & Inputs',
     description:
         'Searchable country selector (flag + dial code) with a national-number field, wired into the form system.',
@@ -754,7 +702,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'radio_group',
-    name: 'RadioGroup',
+    name: 'Radio Group',
     category: 'Forms & Inputs',
     description:
         'Single-select group with controlled and controller-driven modes, row and card item shapes, roving arrow-key traversal and form participation.',
@@ -819,7 +767,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'text_area',
-    name: 'TextArea',
+    name: 'Text Area',
     category: 'Forms & Inputs',
     description:
         'Multi-line text input: an Input with three-line defaults, a multiline keyboard and vertically centred content.',
@@ -883,26 +831,13 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'filter_bar',
-    name: 'FilterBar',
+    name: 'Filter Bar',
     category: 'Layout',
     description:
         'Search, sort, date-range, custom filters and chips in one bar, with a clear action and a mobile sheet presentation; backed by a typed filter engine.',
     install: 'flutter_shadcn add filter_bar',
     import:
         "import 'package:<your_app>/ui/shadcn/components/filter_bar/filter_bar.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'outlined_container',
-    name: 'Outlined Container',
-    category: 'Layout',
-    description:
-        'Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.',
-    install: 'flutter_shadcn add outlined_container',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
     fileCount: 3,
     stability: 'stable',
     listed: true,
@@ -947,19 +882,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'scrollable',
-    name: 'Scrollable',
-    category: 'Layout',
-    description:
-        'Notification-driven edge-fade viewport for any scrollable subtree.',
-    install: 'flutter_shadcn add scrollable',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'scrollbar',
     name: 'Scrollbar',
     category: 'Layout',
@@ -969,19 +891,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import:
         "import 'package:<your_app>/ui/shadcn/components/scrollbar/scrollbar.dart';",
     fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'scrollview',
-    name: 'Scroll View Interceptor',
-    category: 'Layout',
-    description:
-        'Middle-button drag-to-scroll interceptor for desktop and web pointer devices.',
-    install: 'flutter_shadcn add scrollview',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
-    fileCount: 1,
     stability: 'stable',
     listed: true,
   ),
@@ -999,19 +908,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'stage_container',
-    name: 'Stage Container',
-    category: 'Layout',
-    description:
-        'Responsive container that snaps content to breakpoint widths.',
-    install: 'flutter_shadcn add stage_container',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'steps',
     name: 'Steps',
     category: 'Layout',
@@ -1019,19 +915,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     install: 'flutter_shadcn add steps',
     import:
         "import 'package:<your_app>/ui/shadcn/components/steps/steps.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'window',
-    name: 'Window',
-    category: 'Layout',
-    description:
-        'Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.',
-    install: 'flutter_shadcn add window',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/window/window.dart';",
     fileCount: 3,
     stability: 'stable',
     listed: true,
@@ -1051,7 +934,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'context_menu',
-    name: 'ContextMenu',
+    name: 'Context Menu',
     category: 'Menus',
     description:
         'A menu shown at the pointer on right-click (long-press on touch platforms), plus the showShadcnContextMenu helper. Rows, traversal and the popup surface come from the menu component.',
@@ -1064,7 +947,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'dropdown_menu',
-    name: 'DropdownMenu',
+    name: 'Dropdown Menu',
     category: 'Menus',
     description:
         'A menu surface anchored below the widget that opened it, plus the showShadcnDropdown helper. Rows, traversal and the popup surface come from the menu component.',
@@ -1101,18 +984,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'triple_dots',
-    name: 'TripleDots',
-    category: 'Menus',
-    description: 'Row or column of small round dots, used as an ellipsis.',
-    install: 'flutter_shadcn add triple_dots',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'breadcrumb',
     name: 'Breadcrumb',
     category: 'Navigation',
@@ -1140,7 +1011,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'navigation_menu',
-    name: 'NavigationMenu',
+    name: 'Navigation Menu',
     category: 'Navigation',
     description:
         'Horizontal navigation bar whose entries open themed popover content on hover or press.',
@@ -1178,19 +1049,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'switcher',
-    name: 'Switcher',
-    category: 'Navigation',
-    description:
-        'Swipeable view that animates between child widgets along a chosen axis.',
-    install: 'flutter_shadcn add switcher',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/switcher/switcher.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'tabs',
     name: 'Tabs',
     category: 'Navigation',
@@ -1204,7 +1062,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'alert_dialog',
-    name: 'AlertDialog',
+    name: 'Alert Dialog',
     category: 'Overlays',
     description:
         'Shadcn alert dialog: icon, title, description and an action footer on top of the dialog route.',
@@ -1241,19 +1099,6 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: true,
   ),
   DocsComponent(
-    id: 'drawer_container',
-    name: 'Drawer Container',
-    category: 'Overlays',
-    description:
-        'Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.',
-    install: 'flutter_shadcn add drawer_container',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
-    fileCount: 1,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
     id: 'gooey_toast',
     name: 'Gooey Toast',
     category: 'Overlays',
@@ -1268,7 +1113,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'hover_card',
-    name: 'HoverCard',
+    name: 'Hover Card',
     category: 'Overlays',
     description:
         'Rich preview card shown while the pointer rests on its child, presented through the popover machinery with themed timing and placement.',
@@ -1294,38 +1139,13 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'refresh_trigger',
-    name: 'RefreshTrigger',
+    name: 'Refresh Trigger',
     category: 'Overlays',
     description:
         'Pull-to-refresh wrapper for any scrollable, with a themed indicator pill and programmatic refresh.',
     install: 'flutter_shadcn add refresh_trigger',
     import:
         "import 'package:<your_app>/ui/shadcn/components/refresh_trigger/refresh_trigger.dart';",
-    fileCount: 3,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'spell_check_suggestions_toolbar',
-    name: 'SpellCheckSuggestionsToolbar',
-    category: 'Overlays',
-    description:
-        'Menu-backed toolbar for the spell check replacements of the misspelled word under an editable text cursor: up to three suggestion rows in the menu popup surface.',
-    install: 'flutter_shadcn add spell_check_suggestions_toolbar',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart';",
-    fileCount: 1,
-    stability: 'stable',
-    listed: true,
-  ),
-  DocsComponent(
-    id: 'swiper',
-    name: 'Swiper',
-    category: 'Overlays',
-    description: 'Swipe-to-open wrapper that reveals a drawer or sheet panel.',
-    install: 'flutter_shadcn add swiper',
-    import:
-        "import 'package:<your_app>/ui/shadcn/components/swiper/swiper.dart';",
     fileCount: 3,
     stability: 'stable',
     listed: true,
@@ -1345,7 +1165,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'code_snippet',
-    name: 'CodeSnippet',
+    name: 'Code Snippet',
     category: 'Typography & Media',
     description:
         'Scrollable code block with optional top-right action buttons.',
@@ -1358,7 +1178,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'image',
-    name: 'ShadcnImage',
+    name: 'Image',
     category: 'Typography & Media',
     description:
         'Themed rounded image slot with a placeholder while loading and a caller-supplied error slot on failure.',
@@ -1421,7 +1241,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'async',
-    name: 'FutureOrBuilder',
+    name: 'Async',
     category: 'Utilities (building blocks)',
     description:
         'Renders a value that may already be available or may still be loading through one builder.',
@@ -1434,7 +1254,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'backdrop_transform',
-    name: 'BackdropTransform',
+    name: 'Backdrop Transform',
     category: 'Utilities (building blocks)',
     description:
         'Strategy describing how the content behind a sheet or drawer is transformed while it opens.',
@@ -1459,6 +1279,45 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: false,
   ),
   DocsComponent(
+    id: 'color_field',
+    name: 'Color Field',
+    category: 'Utilities (building blocks)',
+    description:
+        'Custom-painted HSV/HSL gradient area with an optional transparency checkerboard and a themed ring.',
+    install: 'flutter_shadcn add color_field',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/color_field/color_field.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'color_input',
+    name: 'Color Input',
+    category: 'Utilities (building blocks)',
+    description:
+        'Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.',
+    install: 'flutter_shadcn add color_input',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/color_input/color_input.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'drawer_container',
+    name: 'Drawer Container',
+    category: 'Utilities (building blocks)',
+    description:
+        'Reusable drawer/sheet chrome (edge border, outer corners, drag handle, barrier wash) for pinned sheets and drawer overlays.',
+    install: 'flutter_shadcn add drawer_container',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/drawer_container/drawer_container.dart';",
+    fileCount: 1,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
     id: 'error_system',
     name: 'Error System',
     category: 'Utilities (building blocks)',
@@ -1467,6 +1326,19 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     install: 'flutter_shadcn add error_system',
     import:
         "import 'package:<your_app>/ui/shadcn/components/error_system/error_system.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'eye_dropper',
+    name: 'Eye Dropper',
+    category: 'Utilities (building blocks)',
+    description:
+        'Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).',
+    install: 'flutter_shadcn add eye_dropper',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/eye_dropper/eye_dropper.dart';",
     fileCount: 3,
     stability: 'stable',
     listed: false,
@@ -1499,7 +1371,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'history',
-    name: 'Color History',
+    name: 'History',
     category: 'Utilities (building blocks)',
     description: 'Recent-colour storage plus the swatch grid that reuses them.',
     install: 'flutter_shadcn add history',
@@ -1511,7 +1383,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'hsl',
-    name: 'HSL Color Slider',
+    name: 'HSL',
     category: 'Utilities (building blocks)',
     description:
         'Gradient slider that controls hue, saturation, lightness, or alpha for HSL colours.',
@@ -1523,7 +1395,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'hsv',
-    name: 'HSV Color Slider',
+    name: 'HSV',
     category: 'Utilities (building blocks)',
     description:
         'Gradient slider that controls hue, saturation, value, or alpha for HSV colours.',
@@ -1560,7 +1432,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'media_query',
-    name: 'MediaQueryVisibility',
+    name: 'Media Query',
     category: 'Utilities (building blocks)',
     description:
         'Shows one child while the viewport width is inside a range and another when it is not.',
@@ -1585,6 +1457,19 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: false,
   ),
   DocsComponent(
+    id: 'outlined_container',
+    name: 'Outlined Container',
+    category: 'Utilities (building blocks)',
+    description:
+        'Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.',
+    install: 'flutter_shadcn add outlined_container',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/outlined_container/outlined_container.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
     id: 'overlay_configuration',
     name: 'Overlay Configuration',
     category: 'Utilities (building blocks)',
@@ -1599,7 +1484,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'page_route',
-    name: 'ShadcnPageRoute',
+    name: 'Page Route',
     category: 'Utilities (building blocks)',
     description:
         'Widgets-only page route and declarative Page with the shadcn fade + slide transition.',
@@ -1612,7 +1497,7 @@ const List<DocsComponent> kComponents = <DocsComponent>[
   ),
   DocsComponent(
     id: 'patch',
-    name: 'ClickDetector',
+    name: 'Patch',
     category: 'Utilities (building blocks)',
     description:
         'Counts consecutive taps inside a time and distance window for double/triple-click gestures.',
@@ -1620,6 +1505,19 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import:
         "import 'package:<your_app>/ui/shadcn/components/patch/patch.dart';",
     fileCount: 1,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'scrollable',
+    name: 'Scrollable',
+    category: 'Utilities (building blocks)',
+    description:
+        'Notification-driven edge-fade viewport for any scrollable subtree.',
+    install: 'flutter_shadcn add scrollable',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollable/scrollable.dart';",
+    fileCount: 3,
     stability: 'stable',
     listed: false,
   ),
@@ -1637,6 +1535,83 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     listed: false,
   ),
   DocsComponent(
+    id: 'scrollview',
+    name: 'Scrollview',
+    category: 'Utilities (building blocks)',
+    description:
+        'Middle-button drag-to-scroll interceptor for desktop and web pointer devices.',
+    install: 'flutter_shadcn add scrollview',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/scrollview/scrollview.dart';",
+    fileCount: 1,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'selectable',
+    name: 'Selectable',
+    category: 'Utilities (building blocks)',
+    description:
+        'Read-only selectable text with widgets-only selection controls.',
+    install: 'flutter_shadcn add selectable',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/selectable/selectable.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'spell_check_suggestions_toolbar',
+    name: 'Spell Check Suggestions Toolbar',
+    category: 'Utilities (building blocks)',
+    description:
+        'Menu-backed toolbar for the spell check replacements of the misspelled word under an editable text cursor: up to three suggestion rows in the menu popup surface.',
+    install: 'flutter_shadcn add spell_check_suggestions_toolbar',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart';",
+    fileCount: 1,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'stage_container',
+    name: 'Stage Container',
+    category: 'Utilities (building blocks)',
+    description:
+        'Responsive container that snaps content to breakpoint widths.',
+    install: 'flutter_shadcn add stage_container',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/stage_container/stage_container.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'swiper',
+    name: 'Swiper',
+    category: 'Utilities (building blocks)',
+    description: 'Swipe-to-open wrapper that reveals a drawer or sheet panel.',
+    install: 'flutter_shadcn add swiper',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/swiper/swiper.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'switcher',
+    name: 'Switcher',
+    category: 'Utilities (building blocks)',
+    description:
+        'Swipeable view that animates between child widgets along a chosen axis.',
+    install: 'flutter_shadcn add switcher',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/switcher/switcher.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
     id: 'timeline_animation',
     name: 'Timeline Animation',
     category: 'Utilities (building blocks)',
@@ -1646,6 +1621,31 @@ const List<DocsComponent> kComponents = <DocsComponent>[
     import:
         "import 'package:<your_app>/ui/shadcn/components/timeline_animation/timeline_animation.dart';",
     fileCount: 1,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'triple_dots',
+    name: 'Triple Dots',
+    category: 'Utilities (building blocks)',
+    description: 'Row or column of small round dots, used as an ellipsis.',
+    install: 'flutter_shadcn add triple_dots',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/triple_dots/triple_dots.dart';",
+    fileCount: 3,
+    stability: 'stable',
+    listed: false,
+  ),
+  DocsComponent(
+    id: 'window',
+    name: 'Window',
+    category: 'Utilities (building blocks)',
+    description:
+        'Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.',
+    install: 'flutter_shadcn add window',
+    import:
+        "import 'package:<your_app>/ui/shadcn/components/window/window.dart';",
+    fileCount: 3,
     stability: 'stable',
     listed: false,
   ),
@@ -1888,13 +1888,14 @@ const List<DocsThemeToken> kThemeTokens = <DocsThemeToken>[
 const List<DocsComponentLink> kComponentLinks = <DocsComponentLink>[
   DocsComponentLink(id: 'accordion', name: 'Accordion'),
   DocsComponentLink(id: 'alert', name: 'Alert'),
-  DocsComponentLink(id: 'alert_dialog', name: 'AlertDialog'),
+  DocsComponentLink(id: 'alert_dialog', name: 'Alert Dialog'),
   DocsComponentLink(id: 'alpha', name: 'Alpha'),
   DocsComponentLink(id: 'anchor', name: 'Anchor'),
   DocsComponentLink(id: 'app', name: 'App'),
-  DocsComponentLink(id: 'autocomplete', name: 'AutoComplete'),
+  DocsComponentLink(id: 'async', name: 'Async'),
+  DocsComponentLink(id: 'autocomplete', name: 'Autocomplete'),
   DocsComponentLink(id: 'avatar', name: 'Avatar'),
-  DocsComponentLink(id: 'backdrop_transform', name: 'BackdropTransform'),
+  DocsComponentLink(id: 'backdrop_transform', name: 'Backdrop Transform'),
   DocsComponentLink(id: 'badge', name: 'Badge'),
   DocsComponentLink(id: 'border_loading', name: 'Border Loading'),
   DocsComponentLink(id: 'breadcrumb', name: 'Breadcrumb'),
@@ -1906,84 +1907,83 @@ const List<DocsComponentLink> kComponentLinks = <DocsComponentLink>[
   DocsComponentLink(id: 'chat', name: 'Chat'),
   DocsComponentLink(id: 'checkbox', name: 'Checkbox'),
   DocsComponentLink(id: 'chip', name: 'Chip'),
-  DocsComponentLink(id: 'chip_input', name: 'ChipInput'),
-  DocsComponentLink(id: 'patch', name: 'ClickDetector'),
-  DocsComponentLink(id: 'code_snippet', name: 'CodeSnippet'),
+  DocsComponentLink(id: 'chip_input', name: 'Chip Input'),
+  DocsComponentLink(id: 'code_snippet', name: 'Code Snippet'),
   DocsComponentLink(id: 'collapsible', name: 'Collapsible'),
   DocsComponentLink(id: 'color', name: 'Color'),
   DocsComponentLink(id: 'color_field', name: 'Color Field'),
-  DocsComponentLink(id: 'history', name: 'Color History'),
-  DocsComponentLink(id: 'color_input', name: 'ColorInput'),
-  DocsComponentLink(id: 'color_picker', name: 'ColorPicker'),
+  DocsComponentLink(id: 'color_input', name: 'Color Input'),
+  DocsComponentLink(id: 'color_picker', name: 'Color Picker'),
   DocsComponentLink(id: 'command', name: 'Command'),
-  DocsComponentLink(id: 'context_menu', name: 'ContextMenu'),
-  DocsComponentLink(id: 'country_flag', name: 'CountryFlag'),
-  DocsComponentLink(id: 'date_picker', name: 'DatePicker'),
+  DocsComponentLink(id: 'context_menu', name: 'Context Menu'),
+  DocsComponentLink(id: 'country_flag', name: 'Country Flag'),
+  DocsComponentLink(id: 'date_picker', name: 'Date Picker'),
   DocsComponentLink(id: 'dialog', name: 'Dialog'),
   DocsComponentLink(id: 'divider', name: 'Divider'),
-  DocsComponentLink(id: 'dot_indicator', name: 'DotIndicator'),
+  DocsComponentLink(id: 'dot_indicator', name: 'Dot Indicator'),
   DocsComponentLink(id: 'drawer', name: 'Drawer'),
   DocsComponentLink(id: 'drawer_container', name: 'Drawer Container'),
-  DocsComponentLink(id: 'dropdown_menu', name: 'DropdownMenu'),
+  DocsComponentLink(id: 'dropdown_menu', name: 'Dropdown Menu'),
   DocsComponentLink(id: 'dropzone', name: 'Dropzone'),
-  DocsComponentLink(id: 'empty_state', name: 'EmptyState'),
+  DocsComponentLink(id: 'empty_state', name: 'Empty State'),
   DocsComponentLink(id: 'error_system', name: 'Error System'),
   DocsComponentLink(id: 'eye_dropper', name: 'Eye Dropper'),
   DocsComponentLink(id: 'feature_carousel', name: 'Feature Carousel'),
   DocsComponentLink(id: 'file_diff_viewer', name: 'File Diff Viewer'),
   DocsComponentLink(id: 'file_picker', name: 'File Picker'),
-  DocsComponentLink(id: 'filter_bar', name: 'FilterBar'),
-  DocsComponentLink(id: 'formatted_input', name: 'FormattedInput'),
+  DocsComponentLink(id: 'filter_bar', name: 'Filter Bar'),
+  DocsComponentLink(id: 'form', name: 'Form'),
+  DocsComponentLink(id: 'formatted_input', name: 'Formatted Input'),
   DocsComponentLink(id: 'formatter', name: 'Formatter'),
-  DocsComponentLink(id: 'async', name: 'FutureOrBuilder'),
   DocsComponentLink(id: 'gooey_toast', name: 'Gooey Toast'),
   DocsComponentLink(id: 'group', name: 'Group'),
-  DocsComponentLink(id: 'hover_card', name: 'HoverCard'),
-  DocsComponentLink(id: 'hsl', name: 'HSL Color Slider'),
-  DocsComponentLink(id: 'hsv', name: 'HSV Color Slider'),
+  DocsComponentLink(id: 'history', name: 'History'),
+  DocsComponentLink(id: 'hover_card', name: 'Hover Card'),
+  DocsComponentLink(id: 'hsl', name: 'HSL'),
+  DocsComponentLink(id: 'hsv', name: 'HSV'),
   DocsComponentLink(id: 'icon', name: 'Icon'),
+  DocsComponentLink(id: 'image', name: 'Image'),
   DocsComponentLink(id: 'input', name: 'Input'),
-  DocsComponentLink(id: 'input_otp', name: 'InputOtp'),
-  DocsComponentLink(id: 'item_picker', name: 'ItemPicker'),
-  DocsComponentLink(id: 'keyboard_shortcut', name: 'KeyboardShortcut'),
+  DocsComponentLink(id: 'input_otp', name: 'Input OTP'),
+  DocsComponentLink(id: 'item_picker', name: 'Item Picker'),
+  DocsComponentLink(id: 'keyboard_shortcut', name: 'Keyboard Shortcut'),
   DocsComponentLink(id: 'locale_utils', name: 'Locale Utils'),
   DocsComponentLink(id: 'markdown', name: 'Markdown'),
-  DocsComponentLink(id: 'media_query', name: 'MediaQueryVisibility'),
+  DocsComponentLink(id: 'media_query', name: 'Media Query'),
   DocsComponentLink(id: 'menu', name: 'Menu'),
   DocsComponentLink(id: 'menubar', name: 'Menubar'),
+  DocsComponentLink(id: 'multi_select', name: 'Multi Select'),
   DocsComponentLink(id: 'multiple_choice', name: 'Multiple Choice'),
-  DocsComponentLink(id: 'multi_select', name: 'MultiSelect'),
   DocsComponentLink(id: 'navigation_bar', name: 'Navigation Bar'),
-  DocsComponentLink(id: 'navigation_menu', name: 'NavigationMenu'),
-  DocsComponentLink(id: 'number_ticker', name: 'NumberTicker'),
+  DocsComponentLink(id: 'navigation_menu', name: 'Navigation Menu'),
+  DocsComponentLink(id: 'number_ticker', name: 'Number Ticker'),
   DocsComponentLink(id: 'object_input', name: 'Object Input'),
   DocsComponentLink(id: 'outlined_container', name: 'Outlined Container'),
   DocsComponentLink(id: 'overflow_marquee', name: 'Overflow Marquee'),
   DocsComponentLink(id: 'overlay_configuration', name: 'Overlay Configuration'),
+  DocsComponentLink(id: 'page_route', name: 'Page Route'),
   DocsComponentLink(id: 'pagination', name: 'Pagination'),
-  DocsComponentLink(id: 'phone_input', name: 'PhoneInput'),
+  DocsComponentLink(id: 'patch', name: 'Patch'),
+  DocsComponentLink(id: 'phone_input', name: 'Phone Input'),
   DocsComponentLink(id: 'pinned_sheet', name: 'Pinned Sheet'),
   DocsComponentLink(id: 'popup', name: 'Popup'),
   DocsComponentLink(id: 'progress', name: 'Progress'),
-  DocsComponentLink(id: 'radio_group', name: 'RadioGroup'),
-  DocsComponentLink(id: 'refresh_trigger', name: 'RefreshTrigger'),
+  DocsComponentLink(id: 'radio_group', name: 'Radio Group'),
+  DocsComponentLink(id: 'refresh_trigger', name: 'Refresh Trigger'),
   DocsComponentLink(id: 'resizable', name: 'Resizable'),
   DocsComponentLink(id: 'scaffold', name: 'Scaffold'),
-  DocsComponentLink(id: 'scrollview', name: 'Scroll View Interceptor'),
   DocsComponentLink(id: 'scrollable', name: 'Scrollable'),
   DocsComponentLink(id: 'scrollable_client', name: 'Scrollable Client'),
   DocsComponentLink(id: 'scrollbar', name: 'Scrollbar'),
+  DocsComponentLink(id: 'scrollview', name: 'Scrollview'),
   DocsComponentLink(id: 'select', name: 'Select'),
-  DocsComponentLink(id: 'selectable', name: 'SelectableText'),
-  DocsComponentLink(id: 'form', name: 'ShadcnForm'),
-  DocsComponentLink(id: 'image', name: 'ShadcnImage'),
-  DocsComponentLink(id: 'page_route', name: 'ShadcnPageRoute'),
+  DocsComponentLink(id: 'selectable', name: 'Selectable'),
   DocsComponentLink(id: 'skeleton', name: 'Skeleton'),
   DocsComponentLink(id: 'slider', name: 'Slider'),
   DocsComponentLink(id: 'sortable', name: 'Sortable'),
   DocsComponentLink(
     id: 'spell_check_suggestions_toolbar',
-    name: 'SpellCheckSuggestionsToolbar',
+    name: 'Spell Check Suggestions Toolbar',
   ),
   DocsComponentLink(id: 'spinner', name: 'Spinner'),
   DocsComponentLink(id: 'stage_container', name: 'Stage Container'),
@@ -1995,35 +1995,35 @@ const List<DocsComponentLink> kComponentLinks = <DocsComponentLink>[
   DocsComponentLink(id: 'switcher', name: 'Switcher'),
   DocsComponentLink(id: 'table', name: 'Table'),
   DocsComponentLink(id: 'tabs', name: 'Tabs'),
-  DocsComponentLink(id: 'text_animate', name: 'TextAnimate'),
-  DocsComponentLink(id: 'text_area', name: 'TextArea'),
+  DocsComponentLink(id: 'text_animate', name: 'Text Animate'),
+  DocsComponentLink(id: 'text_area', name: 'Text Area'),
+  DocsComponentLink(id: 'time_picker', name: 'Time Picker'),
   DocsComponentLink(id: 'timeline', name: 'Timeline'),
   DocsComponentLink(id: 'timeline_animation', name: 'Timeline Animation'),
-  DocsComponentLink(id: 'time_picker', name: 'TimePicker'),
   DocsComponentLink(id: 'toast', name: 'Toast'),
   DocsComponentLink(id: 'toggle', name: 'Toggle'),
   DocsComponentLink(id: 'tooltip', name: 'Tooltip'),
   DocsComponentLink(id: 'tracker', name: 'Tracker'),
   DocsComponentLink(id: 'tree', name: 'Tree'),
-  DocsComponentLink(id: 'triple_dots', name: 'TripleDots'),
+  DocsComponentLink(id: 'triple_dots', name: 'Triple Dots'),
   DocsComponentLink(id: 'window', name: 'Window'),
 ];
 
 /// Catalog categories, count descending then id.
 const List<DocsCategory> kCategories = <DocsCategory>[
-  DocsCategory(id: 'Utilities (building blocks)', count: 21),
+  DocsCategory(id: 'Utilities (building blocks)', count: 35),
   DocsCategory(id: 'Forms & Inputs', count: 19),
-  DocsCategory(id: 'Data Display', count: 18),
-  DocsCategory(id: 'Layout', count: 16),
-  DocsCategory(id: 'Overlays', count: 11),
-  DocsCategory(id: 'Navigation', count: 7),
-  DocsCategory(id: 'Menus', count: 6),
+  DocsCategory(id: 'Data Display', count: 17),
+  DocsCategory(id: 'Layout', count: 11),
+  DocsCategory(id: 'Overlays', count: 8),
+  DocsCategory(id: 'Navigation', count: 6),
   DocsCategory(id: 'Feedback', count: 5),
-  DocsCategory(id: 'Color', count: 4),
+  DocsCategory(id: 'Menus', count: 5),
   DocsCategory(id: 'Animation & Effects', count: 3),
   DocsCategory(id: 'Date & Time', count: 3),
   DocsCategory(id: 'Typography & Media', count: 3),
   DocsCategory(id: 'Buttons & Actions', count: 2),
+  DocsCategory(id: 'Color', count: 1),
 ];
 
 /// Stats band values, each with its derivation.
@@ -2064,25 +2064,25 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
       DocsComponentCategory(
         id: 'Forms & Inputs',
         components: <DocsComponentLink>[
-          DocsComponentLink(id: 'autocomplete', name: 'AutoComplete'),
+          DocsComponentLink(id: 'autocomplete', name: 'Autocomplete'),
           DocsComponentLink(id: 'checkbox', name: 'Checkbox'),
-          DocsComponentLink(id: 'chip_input', name: 'ChipInput'),
+          DocsComponentLink(id: 'chip_input', name: 'Chip Input'),
           DocsComponentLink(id: 'dropzone', name: 'Dropzone'),
           DocsComponentLink(id: 'file_picker', name: 'File Picker'),
-          DocsComponentLink(id: 'formatted_input', name: 'FormattedInput'),
+          DocsComponentLink(id: 'form', name: 'Form'),
+          DocsComponentLink(id: 'formatted_input', name: 'Formatted Input'),
           DocsComponentLink(id: 'input', name: 'Input'),
-          DocsComponentLink(id: 'input_otp', name: 'InputOtp'),
-          DocsComponentLink(id: 'item_picker', name: 'ItemPicker'),
-          DocsComponentLink(id: 'multi_select', name: 'MultiSelect'),
+          DocsComponentLink(id: 'input_otp', name: 'Input OTP'),
+          DocsComponentLink(id: 'item_picker', name: 'Item Picker'),
+          DocsComponentLink(id: 'multi_select', name: 'Multi Select'),
           DocsComponentLink(id: 'object_input', name: 'Object Input'),
-          DocsComponentLink(id: 'phone_input', name: 'PhoneInput'),
-          DocsComponentLink(id: 'radio_group', name: 'RadioGroup'),
+          DocsComponentLink(id: 'phone_input', name: 'Phone Input'),
+          DocsComponentLink(id: 'radio_group', name: 'Radio Group'),
           DocsComponentLink(id: 'select', name: 'Select'),
-          DocsComponentLink(id: 'form', name: 'ShadcnForm'),
           DocsComponentLink(id: 'slider', name: 'Slider'),
           DocsComponentLink(id: 'star_rating', name: 'Star Rating'),
           DocsComponentLink(id: 'switch', name: 'Switch'),
-          DocsComponentLink(id: 'text_area', name: 'TextArea'),
+          DocsComponentLink(id: 'text_area', name: 'Text Area'),
         ],
       ),
       DocsComponentCategory(
@@ -2093,15 +2093,14 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
           DocsComponentLink(id: 'carousel', name: 'Carousel'),
           DocsComponentLink(id: 'chat', name: 'Chat'),
           DocsComponentLink(id: 'chip', name: 'Chip'),
-          DocsComponentLink(id: 'country_flag', name: 'CountryFlag'),
+          DocsComponentLink(id: 'country_flag', name: 'Country Flag'),
           DocsComponentLink(id: 'divider', name: 'Divider'),
-          DocsComponentLink(id: 'empty_state', name: 'EmptyState'),
+          DocsComponentLink(id: 'empty_state', name: 'Empty State'),
           DocsComponentLink(id: 'feature_carousel', name: 'Feature Carousel'),
           DocsComponentLink(id: 'file_diff_viewer', name: 'File Diff Viewer'),
-          DocsComponentLink(id: 'keyboard_shortcut', name: 'KeyboardShortcut'),
-          DocsComponentLink(id: 'number_ticker', name: 'NumberTicker'),
+          DocsComponentLink(id: 'keyboard_shortcut', name: 'Keyboard Shortcut'),
+          DocsComponentLink(id: 'number_ticker', name: 'Number Ticker'),
           DocsComponentLink(id: 'pinned_sheet', name: 'Pinned Sheet'),
-          DocsComponentLink(id: 'selectable', name: 'SelectableText'),
           DocsComponentLink(id: 'table', name: 'Table'),
           DocsComponentLink(id: 'timeline', name: 'Timeline'),
           DocsComponentLink(id: 'tracker', name: 'Tracker'),
@@ -2115,39 +2114,25 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
           DocsComponentLink(id: 'card', name: 'Card'),
           DocsComponentLink(id: 'card_image', name: 'Card Image'),
           DocsComponentLink(id: 'collapsible', name: 'Collapsible'),
-          DocsComponentLink(id: 'filter_bar', name: 'FilterBar'),
-          DocsComponentLink(
-            id: 'outlined_container',
-            name: 'Outlined Container',
-          ),
+          DocsComponentLink(id: 'filter_bar', name: 'Filter Bar'),
           DocsComponentLink(id: 'overflow_marquee', name: 'Overflow Marquee'),
           DocsComponentLink(id: 'resizable', name: 'Resizable'),
           DocsComponentLink(id: 'scaffold', name: 'Scaffold'),
-          DocsComponentLink(id: 'scrollview', name: 'Scroll View Interceptor'),
-          DocsComponentLink(id: 'scrollable', name: 'Scrollable'),
           DocsComponentLink(id: 'scrollbar', name: 'Scrollbar'),
           DocsComponentLink(id: 'sortable', name: 'Sortable'),
-          DocsComponentLink(id: 'stage_container', name: 'Stage Container'),
           DocsComponentLink(id: 'steps', name: 'Steps'),
-          DocsComponentLink(id: 'window', name: 'Window'),
         ],
       ),
       DocsComponentCategory(
         id: 'Overlays',
         components: <DocsComponentLink>[
-          DocsComponentLink(id: 'alert_dialog', name: 'AlertDialog'),
+          DocsComponentLink(id: 'alert_dialog', name: 'Alert Dialog'),
           DocsComponentLink(id: 'dialog', name: 'Dialog'),
           DocsComponentLink(id: 'drawer', name: 'Drawer'),
-          DocsComponentLink(id: 'drawer_container', name: 'Drawer Container'),
           DocsComponentLink(id: 'gooey_toast', name: 'Gooey Toast'),
-          DocsComponentLink(id: 'hover_card', name: 'HoverCard'),
+          DocsComponentLink(id: 'hover_card', name: 'Hover Card'),
           DocsComponentLink(id: 'popup', name: 'Popup'),
-          DocsComponentLink(id: 'refresh_trigger', name: 'RefreshTrigger'),
-          DocsComponentLink(
-            id: 'spell_check_suggestions_toolbar',
-            name: 'SpellCheckSuggestionsToolbar',
-          ),
-          DocsComponentLink(id: 'swiper', name: 'Swiper'),
+          DocsComponentLink(id: 'refresh_trigger', name: 'Refresh Trigger'),
           DocsComponentLink(id: 'tooltip', name: 'Tooltip'),
         ],
       ),
@@ -2156,22 +2141,10 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
         components: <DocsComponentLink>[
           DocsComponentLink(id: 'breadcrumb', name: 'Breadcrumb'),
           DocsComponentLink(id: 'navigation_bar', name: 'Navigation Bar'),
-          DocsComponentLink(id: 'navigation_menu', name: 'NavigationMenu'),
+          DocsComponentLink(id: 'navigation_menu', name: 'Navigation Menu'),
           DocsComponentLink(id: 'pagination', name: 'Pagination'),
           DocsComponentLink(id: 'stepper', name: 'Stepper'),
-          DocsComponentLink(id: 'switcher', name: 'Switcher'),
           DocsComponentLink(id: 'tabs', name: 'Tabs'),
-        ],
-      ),
-      DocsComponentCategory(
-        id: 'Menus',
-        components: <DocsComponentLink>[
-          DocsComponentLink(id: 'command', name: 'Command'),
-          DocsComponentLink(id: 'context_menu', name: 'ContextMenu'),
-          DocsComponentLink(id: 'dropdown_menu', name: 'DropdownMenu'),
-          DocsComponentLink(id: 'menu', name: 'Menu'),
-          DocsComponentLink(id: 'menubar', name: 'Menubar'),
-          DocsComponentLink(id: 'triple_dots', name: 'TripleDots'),
         ],
       ),
       DocsComponentCategory(
@@ -2185,36 +2158,37 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
         ],
       ),
       DocsComponentCategory(
-        id: 'Color',
+        id: 'Menus',
         components: <DocsComponentLink>[
-          DocsComponentLink(id: 'color_field', name: 'Color Field'),
-          DocsComponentLink(id: 'color_input', name: 'ColorInput'),
-          DocsComponentLink(id: 'color_picker', name: 'ColorPicker'),
-          DocsComponentLink(id: 'eye_dropper', name: 'Eye Dropper'),
+          DocsComponentLink(id: 'command', name: 'Command'),
+          DocsComponentLink(id: 'context_menu', name: 'Context Menu'),
+          DocsComponentLink(id: 'dropdown_menu', name: 'Dropdown Menu'),
+          DocsComponentLink(id: 'menu', name: 'Menu'),
+          DocsComponentLink(id: 'menubar', name: 'Menubar'),
         ],
       ),
       DocsComponentCategory(
         id: 'Animation & Effects',
         components: <DocsComponentLink>[
           DocsComponentLink(id: 'border_loading', name: 'Border Loading'),
-          DocsComponentLink(id: 'dot_indicator', name: 'DotIndicator'),
-          DocsComponentLink(id: 'text_animate', name: 'TextAnimate'),
+          DocsComponentLink(id: 'dot_indicator', name: 'Dot Indicator'),
+          DocsComponentLink(id: 'text_animate', name: 'Text Animate'),
         ],
       ),
       DocsComponentCategory(
         id: 'Date & Time',
         components: <DocsComponentLink>[
           DocsComponentLink(id: 'calendar', name: 'Calendar'),
-          DocsComponentLink(id: 'date_picker', name: 'DatePicker'),
-          DocsComponentLink(id: 'time_picker', name: 'TimePicker'),
+          DocsComponentLink(id: 'date_picker', name: 'Date Picker'),
+          DocsComponentLink(id: 'time_picker', name: 'Time Picker'),
         ],
       ),
       DocsComponentCategory(
         id: 'Typography & Media',
         components: <DocsComponentLink>[
-          DocsComponentLink(id: 'code_snippet', name: 'CodeSnippet'),
+          DocsComponentLink(id: 'code_snippet', name: 'Code Snippet'),
+          DocsComponentLink(id: 'image', name: 'Image'),
           DocsComponentLink(id: 'markdown', name: 'Markdown'),
-          DocsComponentLink(id: 'image', name: 'ShadcnImage'),
         ],
       ),
       DocsComponentCategory(
@@ -2222,6 +2196,12 @@ const List<DocsComponentCategory> kComponentCategoryGroups =
         components: <DocsComponentLink>[
           DocsComponentLink(id: 'button', name: 'Button'),
           DocsComponentLink(id: 'toggle', name: 'Toggle'),
+        ],
+      ),
+      DocsComponentCategory(
+        id: 'Color',
+        components: <DocsComponentLink>[
+          DocsComponentLink(id: 'color_picker', name: 'Color Picker'),
         ],
       ),
     ];

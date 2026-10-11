@@ -3,6 +3,9 @@
 // One focused demo per example; the first entry is the default. Spacing comes
 // from the ambient theme, so the examples follow the selected preset and the
 // site light/dark toggle.
+//
+// P7-D1b: single-button examples use `Align.center` (not start) so the stage
+// centres them on both axes.
 
 import 'package:flutter/widgets.dart';
 
@@ -17,7 +20,7 @@ Widget _buttonExample(
   String label,
 ) {
   return Align(
-    alignment: AlignmentDirectional.centerStart,
+    alignment: Alignment.center,
     child: Button(variant: variant, onPressed: () {}, child: Text(label)),
   );
 }
@@ -43,7 +46,7 @@ Widget _buttonDestructive(BuildContext context) =>
 /// Icon-only button (shadcn `size="icon"`).
 Widget _buttonIcon(BuildContext context) {
   return Align(
-    alignment: AlignmentDirectional.centerStart,
+    alignment: Alignment.center,
     child: Button(
       size: ButtonSize.icon,
       variant: ButtonVariant.outline,
@@ -93,7 +96,7 @@ Widget _buttonSizes(BuildContext context) {
 /// A pending button: disabled with a loader glyph, the shadcn pattern.
 Widget _buttonLoading(BuildContext context) {
   return Align(
-    alignment: AlignmentDirectional.centerStart,
+    alignment: Alignment.center,
     child: Button(
       enabled: false,
       leading: const Icon(LucideIcons.loaderCircle, size: 16),
@@ -105,7 +108,7 @@ Widget _buttonLoading(BuildContext context) {
 /// A disabled button.
 Widget _buttonDisabled(BuildContext context) {
   return Align(
-    alignment: AlignmentDirectional.centerStart,
+    alignment: Alignment.center,
     child: Button(enabled: false, child: const Text('Disabled')),
   );
 }

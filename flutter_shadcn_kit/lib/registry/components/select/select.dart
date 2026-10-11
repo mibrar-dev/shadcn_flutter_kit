@@ -220,9 +220,12 @@ class _SelectState<T> extends State<Select<T>>
     _popover
         .show<void>(
           context: context,
-          alignment: Alignment.topCenter,
+          // Below the trigger's start edge; the popup hugs the widest
+          // option and is never narrower than the trigger.
+          alignment: AlignmentDirectional.topStart,
+          anchorAlignment: AlignmentDirectional.bottomStart,
           offset: const Offset(0, 4),
-          widthConstraint: PopoverConstraint.anchorFixedSize,
+          widthConstraint: PopoverConstraint.anchorMinSize,
           builder: (context) => ComponentTheme<SelectTheme>(
             data: _style(context),
             child: ListenableBuilder(
@@ -393,7 +396,9 @@ class SelectItem<T> extends StatelessWidget {
     );
     return SelectRow(
       selected: selected,
-      reserveIndicator: data?.hasSelection ?? false,
+      // shadcn reserves `pr-8` for the check on every option, so rows never
+      // shift when the first value is picked.
+      reserveIndicator: true,
       enabled: enabled && (data?.enabled ?? true),
       padding: style.itemPadding ?? selectDefaultItemPadding,
       onPressed: () => data?.onChanged(value, !selected),

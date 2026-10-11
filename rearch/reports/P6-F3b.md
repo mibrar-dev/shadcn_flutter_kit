@@ -110,16 +110,45 @@ by `colors.muted`.
 
 ## Gates
 
-- `dart format` on all 20 files (19 previews + harness): clean.
+- `dart format` on all 20 files (19 previews + harness): clean (0 changed).
 - `flutter analyze` on all 19 component dirs + harness: **No issues found**.
 - `flutter test test/registry/previews_f3b_test.dart`: **115/115 pass**
   (19 components × (2 static + 4 combo); each combo pumps every example at
   720×420 and 375-wide under neutral/claude × light/dark).
 - `flutter test test/registry/previews_test.dart` (P6-F3-owned, unmodified):
-  **448/448 pass** — no regression.
+  **502/502 pass** — no regression.
+
+### Re-verification (2026-10-11 01:18–01:27, after out-of-band breaks)
+
+All three gates re-run from the working tree and re-reported here.
+
+- `test/registry/previews_f3b_test.dart` first **failed to load** on a
+  *foreign* compile error: another agent's in-flight edit left
+  `lib/registry/components/calendar/calendar.dart` with 10 analyzer errors
+  (`_RenderCalendarHugWidth` constructor/override mismatch, ~01:17).
+  `object_input` is the only one of the 19 that transitively imports
+  `calendar`, so the whole package failed to compile for the test runner.
+  Not my file, so it was left alone; a scratch copy of the harness with
+  `object_input` removed passed **109/109**, isolating the break to that one
+  external file. The other agent fixed `calendar.dart` at 01:17:52 and the
+  full 115/115 then passed. Scratch copy deleted afterwards.
+- The same thing happened a second time minutes later, this time in
+  `drawer_container/drawer_container.dart:241` (`EdgeInsetsDirectional` →
+  `EdgeInsets`), another agent's mid-edit (mtime 01:24:02). `pinned_sheet`
+  is the component of mine that imports it. Left alone; the author fixed it
+  at 01:25:50 and the 115/115 passed again.
+- `radio_group/preview.dart` shows a diff against HEAD that is **not mine**:
+  another agent changed `ShadcnRadioGroup` from `child` to
+  `required List<Widget> items` (radio_group.dart / _style.dart, 00:41–00:51)
+  and adapted my preview to the new API in the same coupled edit (00:51:28).
+  It compiles and passes; no action taken.
+- The other 18 previews are committed (`40d7d6a`, orchestrator), so
+  `git diff` shows only `radio_group/preview.dart` of the batch.
 
 ## Progress log
 
 All 19 components converted in one pass (batches of 4–5 files, analyze run
 after batch 1–2, harness green after fixing pagination phone overflow and the
-phone_input 136px selector width). Report written last. Done; nothing pending.
+phone_input 136px selector width). Report written last. Re-verified end-to-end
+on 2026-10-11 01:18–01:27 through two transient foreign compile breaks (see
+Gates). Done; nothing pending.

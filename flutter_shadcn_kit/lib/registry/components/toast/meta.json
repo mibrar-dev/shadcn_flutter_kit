@@ -22,7 +22,8 @@
         "theme"
     ],
     "primitives": [
-      "toast_queue"
+      "toast_queue",
+      "clickable"
     ],
     "components": []
   },

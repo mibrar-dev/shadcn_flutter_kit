@@ -51,7 +51,7 @@ class _HorizontalSwitcherState extends State<_HorizontalSwitcher> {
         ),
         SizedBox(height: theme.spacing.md),
         Wrap(
-          spacing: 8,
+          spacing: theme.spacing.sm,
           children: <Widget>[
             for (int i = 0; i < 3; i++)
               Button(

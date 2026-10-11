@@ -37,14 +37,20 @@ class _InputSection extends StatelessWidget {
 }
 
 /// The default email field.
+//
+// P7-D1b: capped at 400 px so the stage centres it instead of stretching it
+// full-bleed.
 Widget _inputDefault(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    mainAxisSize: MainAxisSize.min,
-    children: const <Widget>[
-      _InputSection('Email'),
-      Input(hintText: 'Email'),
-    ],
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 400),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: const <Widget>[
+        _InputSection('Email'),
+        Input(hintText: 'Email'),
+      ],
+    ),
   );
 }
 
@@ -68,59 +74,65 @@ class _InputWithIconState extends State<_InputWithIcon> {
   @override
   Widget build(BuildContext context) {
     final spacing = ShadcnTheme.of(context).spacing;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Input(
-          controller: _controller,
-          hintText: 'Type to enable clear/copy',
-          features: <InputFeature>[
-            InputLeadingFeature(const Icon(LucideIcons.search, size: 16)),
-            InputClearFeature(),
-            InputCopyFeature(),
-            const InputPasteFeature(),
-          ],
-        ),
-        Gap(spacing.lg),
-        const Input(
-          obscureText: true,
-          hintText: 'Password',
-          features: <InputFeature>[InputPasswordToggleFeature()],
-        ),
-        Gap(spacing.lg),
-        const Input(
-          keyboardType: TextInputType.number,
-          hintText: 'Quantity',
-          features: <InputFeature>[InputSpinnerFeature(min: 0, max: 10)],
-        ),
-      ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Input(
+            controller: _controller,
+            hintText: 'Type to enable clear/copy',
+            features: <InputFeature>[
+              InputLeadingFeature(const Icon(LucideIcons.search, size: 16)),
+              InputClearFeature(),
+              InputCopyFeature(),
+              const InputPasteFeature(),
+            ],
+          ),
+          Gap(spacing.lg),
+          const Input(
+            obscureText: true,
+            hintText: 'Password',
+            features: <InputFeature>[InputPasswordToggleFeature()],
+          ),
+          Gap(spacing.lg),
+          const Input(
+            keyboardType: TextInputType.number,
+            hintText: 'Quantity',
+            features: <InputFeature>[InputSpinnerFeature(min: 0, max: 10)],
+          ),
+        ],
+      ),
     );
   }
 }
 
 /// An invalid field.
 Widget _inputInvalid(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    mainAxisSize: MainAxisSize.min,
-    children: const <Widget>[
-      _InputSection('Invalid'),
-      Input(
-        hintText: 'Invalid while non-empty',
-        validator: _inputNotAllowed,
-        features: <InputFeature>[InputRevalidateFeature()],
-      ),
-      _InputSection('Above / below and hint'),
-      Input(
-        hintText: 'With helper rows',
-        features: <InputFeature>[
-          InputAboveBelowFeature.above(Text('Label')),
-          InputAboveBelowFeature.below(Text('Helper text')),
-          InputHintFeature(popupBuilder: _inputHintPopup),
-        ],
-      ),
-    ],
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 400),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: const <Widget>[
+        _InputSection('Invalid'),
+        Input(
+          hintText: 'Invalid while non-empty',
+          validator: _inputNotAllowed,
+          features: <InputFeature>[InputRevalidateFeature()],
+        ),
+        _InputSection('Above / below and hint'),
+        Input(
+          hintText: 'With helper rows',
+          features: <InputFeature>[
+            InputAboveBelowFeature.above(Text('Label')),
+            InputAboveBelowFeature.below(Text('Helper text')),
+            InputHintFeature(popupBuilder: _inputHintPopup),
+          ],
+        ),
+      ],
+    ),
   );
 }
 
@@ -132,20 +144,23 @@ Widget _inputHintPopup(BuildContext context) => const Text('Extra information');
 /// A disabled field beside a read-only one.
 Widget _inputDisabled(BuildContext context) {
   final spacing = ShadcnTheme.of(context).spacing;
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      const _InputSection('Disabled'),
-      const Input(hintText: 'Disabled', enabled: false),
-      Gap(spacing.lg),
-      const _InputSection('Read-only'),
-      const Input(
-        hintText: 'Read-only',
-        readOnly: true,
-        initialValue: 'Read-only value',
-      ),
-    ],
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 400),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        const _InputSection('Disabled'),
+        const Input(hintText: 'Disabled', enabled: false),
+        Gap(spacing.lg),
+        const _InputSection('Read-only'),
+        const Input(
+          hintText: 'Read-only',
+          readOnly: true,
+          initialValue: 'Read-only value',
+        ),
+      ],
+    ),
   );
 }
 

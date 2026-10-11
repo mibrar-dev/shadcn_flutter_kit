@@ -401,34 +401,66 @@ class _DocsArticleState extends State<DocsArticle> {
   }
 
   Widget _pager(BuildContext context) {
+    // P7-D1: neighbour names can be long ("Spell Check Suggestions Toolbar"
+    // is 482 px at the 640 px article width). The labels are capped at half
+    // the pager width (minus the button chrome) and ellipsize; the cap sits
+    // directly on the `Text` because the button's inner `Row` hands its
+    // children unbounded width, so a looser wrapper would never trigger the
+    // ellipsis.
     return Padding(
       padding: const EdgeInsets.only(top: 40),
       child: SizedBox(
         height: 64,
-        child: Row(
-          children: <Widget>[
-            if (widget.previous != null)
-              Button(
-                variant: ButtonVariant.secondary,
-                size: ButtonSize.sm,
-                onPressed: () => DocsRouterScope.of(
-                  context,
-                ).go(context, widget.previous!.location),
-                leading: const Icon(LucideIcons.arrowLeft, size: 16),
-                child: Text(widget.previous!.label),
-              ),
-            const Spacer(),
-            if (widget.next != null)
-              Button(
-                variant: ButtonVariant.secondary,
-                size: ButtonSize.sm,
-                onPressed: () => DocsRouterScope.of(
-                  context,
-                ).go(context, widget.next!.location),
-                trailing: const Icon(LucideIcons.arrowRight, size: 16),
-                child: Text(widget.next!.label),
-              ),
-          ],
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double width = constraints.maxWidth.isFinite
+                ? constraints.maxWidth
+                : DocsMetrics.articleWidth;
+            final double maxLabel = (width - 12) / 2 - 56;
+            return Row(
+              children: <Widget>[
+                if (widget.previous != null)
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: (width - 12) / 2),
+                    child: Button(
+                      variant: ButtonVariant.secondary,
+                      size: ButtonSize.sm,
+                      onPressed: () => DocsRouterScope.of(
+                        context,
+                      ).go(context, widget.previous!.location),
+                      leading: const Icon(LucideIcons.arrowLeft, size: 16),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxLabel),
+                        child: Text(
+                          widget.previous!.label,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+                const Spacer(),
+                if (widget.next != null)
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: (width - 12) / 2),
+                    child: Button(
+                      variant: ButtonVariant.secondary,
+                      size: ButtonSize.sm,
+                      onPressed: () => DocsRouterScope.of(
+                        context,
+                      ).go(context, widget.next!.location),
+                      trailing: const Icon(LucideIcons.arrowRight, size: 16),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxLabel),
+                        child: Text(
+                          widget.next!.label,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

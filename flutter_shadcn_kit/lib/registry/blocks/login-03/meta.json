@@ -20,10 +20,13 @@
     ],
     "primitives": [],
     "components": [
+      "alert",
       "button",
       "card",
       "divider",
-      "input"
+      "form",
+      "input",
+      "spinner"
     ]
   },
   "files": [

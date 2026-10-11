@@ -190,14 +190,11 @@ void main() {
         ),
       );
       await _open(tester, find.text('09:00'));
-      final Finder fields = find.byType(SizedBox);
-      expect(fields.evaluate().isNotEmpty, isTrue);
-      final Size size = tester.getSize(
-        find
-            .ancestor(of: find.text('Hour'), matching: find.byType(SizedBox))
-            .first,
+      // One column per field, `w-18` (72) wide at the default density.
+      expect(
+        tester.getSize(find.byKey(kTimeColumnKey('Hour')).first).width,
+        72,
       );
-      expect(size.width, 72);
     });
 
     testWidgets('AM/PM buttons flip the half day', (tester) async {

@@ -132,7 +132,18 @@ class ColorField extends StatelessWidget {
         child: field,
       );
     }
-    return field;
+    // Display-only surface: expose the colour as a semantic value so screen
+    // readers announce it; there is no interaction to expose.
+    final String hex = color
+        .toARGB32()
+        .toRadixString(16)
+        .padLeft(8, '0')
+        .toUpperCase();
+    return Semantics(
+      label: mode == ColorFieldMode.hsv ? 'HSV color field' : 'HSL color field',
+      value: '#$hex',
+      child: field,
+    );
   }
 }
 

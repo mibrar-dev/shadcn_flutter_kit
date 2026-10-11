@@ -55,6 +55,15 @@ primitive, provided through `ComponentThemes` or a tree
 `ComponentTheme<FileUploadRowTheme>`. The user-owned file is
 `file_picker_theme.dart`; the CLI never overwrites it.
 
+## Behaviour notes
+
+- Removing a file hides that file's errors with it; the controller keeps its
+  own error list, so the component filters the removed ids locally.
+- A `dragDrop` surface with no `pick` callback renders disabled (not just
+  keyboard-dead): its visuals now match its behaviour.
+- An owned `FileUploadController` is created in `didChangeDependencies` (it
+  needs a context for localizations), not in `build`.
+
 ## Fixed (not ported)
 
 - `web` + `cross_file` package dependencies (dart:html drop adapter) — the

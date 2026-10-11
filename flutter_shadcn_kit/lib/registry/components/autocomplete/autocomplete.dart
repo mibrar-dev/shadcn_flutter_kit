@@ -30,12 +30,12 @@ import 'package:flutter/widgets.dart';
 
 import '../../primitives/clickable.dart';
 import '../../primitives/input_features/input_features.dart';
+import '../../primitives/menu_rows.dart';
 import '../../primitives/overlay.dart';
 import '../../primitives/popover_controller.dart';
 import '../../primitives/popover_overlay_handler.dart';
 import '../../theme/density.dart';
 import '../../theme/theme.dart';
-import '../card/card.dart';
 import 'autocomplete_style.dart';
 
 export 'autocomplete_style.dart';
@@ -153,7 +153,7 @@ class AutoCompleteFeature extends InputFeature {
       // The field keeps the focus while the list moves.
       dismissBackdropFocus: false,
       widthConstraint:
-          theme.popoverWidthConstraint ?? PopoverConstraint.anchorFixedSize,
+          theme.popoverWidthConstraint ?? PopoverConstraint.anchorMinSize,
       anchorAlignment:
           theme.popoverAnchorAlignment ?? AlignmentDirectional.bottomStart,
       alignment: theme.popoverAlignment ?? AlignmentDirectional.topStart,
@@ -168,40 +168,55 @@ class AutoCompleteFeature extends InputFeature {
   ) {
     final ShadcnThemeData ambient = ShadcnTheme.of(context);
     final List<String> items = slot.items;
-    // `containerPadding` is density-derived; the `Card` below is the widget
-    // that paints it, so it is the one that resolves it (never both).
-    final EdgeInsets padding = (theme.containerPadding ?? EdgeInsets.zero)
-        .resolve(Directionality.of(context));
+    // The shared menu surface hugs the widest suggestion (never narrower
+    // than the field through the anchor-minimum sizing) and scrolls past
+    // `maxHeight`, so options stay single-line instead of wrapping.
     return ConstrainedBox(
       constraints:
           theme.popoverConstraints ??
           BoxConstraints(
             maxHeight: theme.maxHeight ?? autocompleteDefaultMaxHeight,
           ),
-      child: Card(
-        padding: padding,
-        background: theme.containerBackground,
-        borderColor: theme.containerBorderColor,
-        borderWidth: theme.containerBorderWidth,
-        borderRadius: theme.containerBorderRadius,
+      child: MenuPopupSurface(
+        fill:
+            theme.containerBackground?.resolve(ambient.colors) ??
+            ambient.colors.popover,
+        foreground:
+            theme.containerForeground?.resolve(ambient.colors) ??
+            ambient.colors.popoverForeground,
+        borderColor:
+            theme.containerBorderColor?.resolve(ambient.colors) ??
+            ambient.colors.border,
+        borderWidth: theme.containerBorderWidth ?? 1,
+        borderRadius: (theme.containerBorderRadius ?? ambient.borderRadiusMd)
+            .resolve(Directionality.of(context)),
+        padding: resolveEdgeInsets(
+          theme.containerPadding ?? EdgeInsetsDensity.pxAll(4),
+          ambient.density.baseContentPadding * ambient.scaling,
+        ),
+        minWidth: 128,
+        maxHeight: theme.maxHeight ?? autocompleteDefaultMaxHeight,
         shadows:
             theme.themeShadows?.shadowMd ?? ambient.tokens.shadows.shadowMd,
-        clipBehavior: Clip.antiAlias,
-        child: ListenableBuilder(
-          listenable: slot.selected,
-          builder: (context, _) => ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            itemCount: items.length,
-            itemBuilder: (context, index) => _buildRow(
-              context,
-              theme,
-              slot,
-              items[index],
-              index == slot.selected.value,
+        children: <Widget>[
+          ListenableBuilder(
+            listenable: slot.selected,
+            builder: (context, _) => Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                for (int i = 0; i < items.length; i++)
+                  _buildRow(
+                    context,
+                    theme,
+                    slot,
+                    items[i],
+                    i == slot.selected.value,
+                  ),
+              ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -223,7 +238,14 @@ class AutoCompleteFeature extends InputFeature {
     );
     final Widget content =
         itemBuilder?.call(context, suggestion, highlighted) ??
-        Text(suggestion, textAlign: TextAlign.start, style: rowStyle);
+        Text(
+          suggestion,
+          textAlign: TextAlign.start,
+          style: rowStyle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: false,
+        );
     return Clickable(
       focusOutline: false,
       onPressed: () => _accept(slot, suggestion, theme),

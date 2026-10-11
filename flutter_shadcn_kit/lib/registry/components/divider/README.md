@@ -49,8 +49,11 @@ const Divider(
 | `indent` / `endIndent` | `double?` | 0 | insets on the leading/trailing edge |
 | `label` | `Widget?` | null | omit for a plain rule |
 | `labelPadding` | `EdgeInsetsGeometry?` | 8 horizontal | |
-| `labelAlignment` | `DividerLabelAlignment?` | `center` | `start`, `center`, `end` |
+| `labelAlignment` | `DividerLabelAlignment?` | `center` | `start` parks the label at the start (collapses the leading rule), `end` at the end |
 | `theme` | `DividerTheme?` | null | widget leg of the resolver |
+
+A plain (unlabelled) rule is decorative and excluded from semantics; insets
+mirror with text direction in the horizontal orientation.
 
 `AxisAlignmentGeometry` is not needed: the label placement is three alignment
 options that read naturally in both orientations and in RTL.

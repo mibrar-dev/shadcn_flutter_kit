@@ -1231,8 +1231,13 @@ void main() {
           expect(cellWidth, lessThan(32));
           expect(cellWidth, greaterThanOrEqualTo(20));
         }
-        // The weekday header keeps the shrunken pitch.
-        expect(tester.getRect(find.text('Mon')).width, cellWidth);
+        // The weekday header keeps the shrunken pitch. `closeTo` because the
+        // header text is measured against the fitted cell share, and the two
+        // are the same double computed by different division orders.
+        expect(
+          tester.getRect(find.text('Mon')).width,
+          closeTo(cellWidth, 0.001),
+        );
         // A shrunken cell still selects its date.
         await tester.tap(find.text('15'));
         await tester.pump();

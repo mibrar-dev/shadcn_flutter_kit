@@ -65,8 +65,8 @@ class DropdownMenu extends StatelessWidget {
 Future<T?> showShadcnDropdown<T>({
   required BuildContext context,
   required List<Widget> children,
-  AlignmentGeometry alignment = Alignment.topCenter,
-  AlignmentGeometry? anchorAlignment,
+  AlignmentGeometry alignment = AlignmentDirectional.topStart,
+  AlignmentGeometry anchorAlignment = AlignmentDirectional.bottomStart,
   Offset offset = const Offset(0, 4),
   PopoverConstraint widthConstraint = PopoverConstraint.anchorFixedSize,
   PopoverConstraint heightConstraint = PopoverConstraint.flexible,

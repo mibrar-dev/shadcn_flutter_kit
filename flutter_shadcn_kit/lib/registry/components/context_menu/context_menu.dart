@@ -59,9 +59,12 @@ class ContextMenu extends StatelessWidget {
         platform == TargetPlatform.android ||
         platform == TargetPlatform.fuchsia;
     void open(Offset position) {
+      // The pointer offset is physical: mirror it in RTL so the menu still
+      // opens just past the pointer on the reading side.
+      final bool rtl = Directionality.of(context) == TextDirection.rtl;
       showShadcnContextMenu<void>(
         context: context,
-        position: position,
+        position: position + Offset(rtl ? -8 : 8, 0),
         children: items,
         direction: direction,
         theme: theme,
@@ -98,7 +101,8 @@ Future<T?> showShadcnContextMenu<T>({
   return showPopover<T>(
     context: context,
     handler: OverlayHandler.popover,
-    position: position + const Offset(8, 0),
+    // [position] already includes the reading-side gap applied by the caller.
+    position: position,
     alignment: Alignment.topLeft,
     modal: false,
     consumeOutsideTaps: false,

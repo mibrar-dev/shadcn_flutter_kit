@@ -35,10 +35,10 @@ BorderRadius _innerRadius(BorderRadius radius, OverlayPosition position) {
 BoxBorder _innerBorder(Color color, double width, OverlayPosition position) {
   final BorderSide side = BorderSide(color: color, width: width);
   return Border(
-    left: position == OverlayPosition.left ? side : BorderSide.none,
-    right: position == OverlayPosition.right ? side : BorderSide.none,
-    top: position == OverlayPosition.top ? side : BorderSide.none,
-    bottom: position == OverlayPosition.bottom ? side : BorderSide.none,
+    left: position == OverlayPosition.right ? side : BorderSide.none,
+    right: position == OverlayPosition.left ? side : BorderSide.none,
+    top: position == OverlayPosition.bottom ? side : BorderSide.none,
+    bottom: position == OverlayPosition.top ? side : BorderSide.none,
   );
 }
 

@@ -9,7 +9,7 @@
   "tags": ["form", "color", "picker", "hsv", "hsl", "hex"],
   "deps": {
     "foundation": ["data", "gap", "icons"],
-    "theme": ["color_tokens", "color_utils", "theme"],
+    "theme": ["color_tokens", "color_utils", "density", "theme"],
     "primitives": ["localizations"],
     "components": [
       "button",
@@ -32,6 +32,7 @@
   "api": {
     "classes": [
       "ColorPicker",
+      "ColorPickerCappedWidth",
       "ColorPickerControls",
       "ColorPickerTheme"
     ],

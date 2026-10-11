@@ -188,7 +188,7 @@ class ShadcnFormField<T> extends StatelessWidget {
               FormFieldMessages(
                 hint: hint,
                 message: message,
-                spacing: resolved.spacing,
+                spacing: resolved.messageSpacing,
                 hintStyle: resolved.hintStyle,
                 messageStyle: resolved.messageStyle,
               ),
@@ -304,7 +304,7 @@ class FormInline<T> extends StatelessWidget {
               FormFieldMessages(
                 hint: hint,
                 message: message,
-                spacing: resolved.spacing,
+                spacing: resolved.messageSpacing,
                 hintStyle: resolved.hintStyle,
                 messageStyle: resolved.messageStyle,
               ),
@@ -377,7 +377,7 @@ class FormTableLayout extends StatelessWidget {
                           FormFieldMessages(
                             hint: rows[i].hint,
                             message: message,
-                            spacing: resolved.spacing,
+                            spacing: resolved.messageSpacing,
                             hintStyle: resolved.hintStyle,
                             messageStyle: resolved.messageStyle,
                           ),

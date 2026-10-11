@@ -340,35 +340,30 @@ class _StudioPaymentMethodCardState extends State<StudioPaymentMethodCard> {
       child: ShadcnRadioGroup<String>(
         value: _method,
         onChanged: (String next) => setState(() => _method = next),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            RadioCard<String>(
-              value: 'bank',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Text('Bank Transfer'),
-                  StudioHelper('SWIFT · IBAN · 3-5 business days'),
-                ],
-              ),
+        items: <Widget>[
+          RadioCard<String>(
+            value: 'bank',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('Bank Transfer'),
+                StudioHelper('SWIFT · IBAN · 3-5 business days'),
+              ],
             ),
-            const Gap(12),
-            RadioCard<String>(
-              value: 'paypal',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Text('PayPal'),
-                  StudioHelper('Instant · 1.5% processing fee'),
-                ],
-              ),
+          ),
+          RadioCard<String>(
+            value: 'paypal',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Text('PayPal'),
+                StudioHelper('Instant · 1.5% processing fee'),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

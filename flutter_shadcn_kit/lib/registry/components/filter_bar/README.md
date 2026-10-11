@@ -171,9 +171,13 @@ re-exported here.
 - `FilterSheetItemBuilder` (a byte-identical duplicate of
   `FilterCustomFilterBuilder`) and `FilterField.label` are gone.
 - Fixed: the debounce timer can no longer resurrect cleared search text; the
-  sheet follows live state; `sheetBreakpoint` compares the raw width; a
-  half-null date range maps to a one-day span; `controller` + `state` is an
-  assert; the sheet trigger only renders when there is something to show.
+  sheet follows live state and resolves its theme from its own context (a theme
+  change while open is live, not a stale snapshot); external search updates
+  preserve the caret instead of dropping it; `sheetBreakpoint` compares the raw
+  width; a half-null date range maps to a one-day span; `controller` + `state`
+  is an assert; the sheet trigger only renders when there is something to show.
+- The sheet scaffold pads directionally (`EdgeInsetsDirectional`), so RTL
+  mirrors the title/body/footer insets.
 - `setMatcherIdOf` returns the same state for unknown ids (it used to return a
   copy that stored nothing); `FilterState.hashCode` computes the custom-filter
   hash once.

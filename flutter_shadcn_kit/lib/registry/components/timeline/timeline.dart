@@ -132,7 +132,8 @@ class _TimelineRow extends StatelessWidget {
           ConstrainedBox(
             constraints: surface.timeConstraints,
             child: Align(
-              alignment: Alignment.topRight,
+              // Directional (P7-Q2): hugs the spine in both directions.
+              alignment: AlignmentDirectional.topEnd,
               child: entry.time.medium.small,
             ),
           ),
@@ -168,13 +169,18 @@ class _TimelineRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: surface.contentStart),
+                  // Directional (P7-Q2): the nudge toward the spine mirrors.
+                  padding: EdgeInsetsDirectional.only(
+                    start: surface.contentStart,
+                  ),
                   child: entry.title.semiBold.secondaryForeground.base,
                 ),
                 if (entry.content != null) Gap(surface.spacing),
                 if (entry.content != null)
                   Padding(
-                    padding: EdgeInsets.only(left: surface.contentStart),
+                    padding: EdgeInsetsDirectional.only(
+                      start: surface.contentStart,
+                    ),
                     child: entry.content!.muted.small,
                   ),
               ],

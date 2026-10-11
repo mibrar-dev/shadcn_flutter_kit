@@ -1,7 +1,8 @@
 {
   "id": "outlined_container",
   "name": "Outlined Container",
-  "category": "Layout",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Animated outlined surface with token-derived border, optional translucency and backdrop blur, plus dashed border helpers.",
   "tier": "component",
   "install": "flutter_shadcn add outlined_container",

@@ -31,7 +31,6 @@ import '../../theme/theme.dart';
 import '../button/button.dart';
 import '../dialog/dialog.dart';
 import '../dialog/dialog_style.dart';
-import '../divider/divider.dart';
 import '../input/input.dart';
 import 'command_style.dart';
 
@@ -179,6 +178,12 @@ class _CommandState extends State<Command> {
     final double borderWidth = resolved.borderWidth ?? 1;
     final BorderRadiusGeometry radius =
         resolved.borderRadius ?? theme.borderRadiusLg;
+    final double scale = theme.scaling;
+    // The result list's `p-1`, density-scaled.
+    final EdgeInsets listPadding = resolveEdgeInsets(
+      resolved.padding ?? EdgeInsetsDensity.pxAll(4),
+      theme.density.baseContentPadding * scale,
+    ).resolve(Directionality.of(context));
 
     return SubFocusScope(
       autofocus: true,
@@ -217,7 +222,7 @@ class _CommandState extends State<Command> {
                     ? Border.all(color: border, width: borderWidth)
                     : null,
                 borderRadius: radius,
-                boxShadow: resolved.shadows,
+                boxShadow: resolved.shadows ?? theme.tokens.shadows.shadowLg,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -229,11 +234,22 @@ class _CommandState extends State<Command> {
                     placeholder:
                         widget.searchPlaceholder ??
                         Text(localizations.commandSearch),
-                    decoration: const BoxDecoration(color: Color(0x00000000)),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: theme.spacing.sm,
-                      vertical: theme.spacing.md,
+                    // The search row is h-9 chrome, not a field: transparent
+                    // with a bottom border only, so focusing it never draws
+                    // a rounded ring inside the palette.
+                    decoration: BoxDecoration(
+                      color: const Color(0x00000000),
+                      border: borderWidth > 0
+                          ? Border(
+                              bottom: BorderSide(
+                                color: border,
+                                width: borderWidth,
+                              ),
+                            )
+                          : null,
                     ),
+                    borderRadius: BorderRadius.zero,
+                    padding: EdgeInsets.symmetric(horizontal: theme.spacing.md),
                     features: <InputFeature>[
                       const InputLeadingFeature(
                         // shadcn `mr-2` on the command search icon. Held as a
@@ -244,7 +260,11 @@ class _CommandState extends State<Command> {
                           padding: EdgeInsetsDensity.only(
                             right: 8 / Density.pxBase,
                           ),
-                          child: Icon(LucideIcons.search),
+                          // shadcn `size-4 ... opacity-50`.
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: Icon(LucideIcons.search, size: 16),
+                          ),
                         ),
                       ),
                       if (canPop)
@@ -258,13 +278,17 @@ class _CommandState extends State<Command> {
                         ),
                     ],
                   ),
-                  const Divider(),
                   Flexible(
-                    child: _CommandResults(
-                      stream: _stream,
-                      emptyBuilder: widget.emptyBuilder,
-                      errorBuilder: widget.errorBuilder,
-                      loadingBuilder: widget.loadingBuilder,
+                    child: ConstrainedBox(
+                      // shadcn caps the result list; taller results scroll.
+                      constraints: BoxConstraints(maxHeight: 300 * scale),
+                      child: _CommandResults(
+                        stream: _stream,
+                        listPadding: listPadding,
+                        emptyBuilder: widget.emptyBuilder,
+                        errorBuilder: widget.errorBuilder,
+                        loadingBuilder: widget.loadingBuilder,
+                      ),
                     ),
                   ),
                 ],
@@ -281,12 +305,17 @@ class _CommandState extends State<Command> {
 class _CommandResults extends StatelessWidget {
   const _CommandResults({
     required this.stream,
+    required this.listPadding,
     this.emptyBuilder,
     this.errorBuilder,
     this.loadingBuilder,
   });
 
   final Stream<List<Widget>>? stream;
+
+  /// Padding around the result list (the surface's `p-1`).
+  final EdgeInsets listPadding;
+
   final WidgetBuilder? emptyBuilder;
   final CommandErrorBuilder? errorBuilder;
   final WidgetBuilder? loadingBuilder;
@@ -320,13 +349,9 @@ class _CommandResults extends StatelessWidget {
   }
 
   Widget _buildList(List<Widget> items) {
-    return ListView.separated(
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      itemCount: items.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: (context, index) => items[index],
-    );
+    // No separators between rows: apps separate groups themselves (with a
+    // heading or a spacer); the list only carries the surface's `p-1`.
+    return ListView(shrinkWrap: true, padding: listPadding, children: items);
   }
 }
 

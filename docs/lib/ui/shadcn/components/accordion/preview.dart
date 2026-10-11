@@ -13,8 +13,8 @@ import 'accordion.dart';
 
 /// The three classic questions, collapsed.
 Widget _accordionDefault(BuildContext context) {
-  return const SizedBox(
-    width: 420,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 420),
     child: Accordion(
       items: <Widget>[
         AccordionItem(
@@ -42,36 +42,11 @@ Widget _accordionDefault(BuildContext context) {
 
 /// The second item is opened on the first frame.
 Widget _accordionExpanded(BuildContext context) {
-  return const SizedBox(width: 420, child: _AccordionExpandedAccordion());
-}
-
-class _AccordionExpandedAccordion extends StatefulWidget {
-  const _AccordionExpandedAccordion();
-
-  @override
-  State<_AccordionExpandedAccordion> createState() =>
-      _AccordionExpandedAccordionState();
-}
-
-class _AccordionExpandedAccordionState
-    extends State<_AccordionExpandedAccordion> {
-  final GlobalKey<AccordionState> _key = GlobalKey<AccordionState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // Opened after the first layout so the item identity exists.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _key.currentState?.toggle(const Key('styled'));
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Accordion(
-      key: _key,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 420),
+    child: Accordion(
       items: <Widget>[
-        const AccordionItem(
+        AccordionItem(
           trigger: AccordionTrigger(child: Text('Is it accessible?')),
           content: Text(
             'Yes. It follows the WAI-ARIA disclosure pattern and responds '
@@ -79,20 +54,20 @@ class _AccordionExpandedAccordionState
           ),
         ),
         AccordionItem(
-          key: const Key('styled'),
-          trigger: const AccordionTrigger(child: Text('Is it styled?')),
-          content: const Text(
+          expanded: true,
+          trigger: AccordionTrigger(child: Text('Is it styled?')),
+          content: Text(
             'Yes. Defaults come from the global tokens and every part is '
             'overridable through AccordionTheme.',
           ),
         ),
-        const AccordionItem(
+        AccordionItem(
           trigger: AccordionTrigger(child: Text('Is it animated?')),
           content: Text('Yes. Items animate with the theme duration.'),
         ),
       ],
-    );
-  }
+    ),
+  );
 }
 
 /// Two accordions stacked, so more than one can be open at a time.
@@ -102,9 +77,15 @@ Widget _accordionMultiple(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.stretch,
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      const SizedBox(width: 420, child: _AccordionTwoItemAccordion()),
+      ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 420),
+        child: _AccordionTwoItemAccordion(),
+      ),
       Gap(spacing.lg),
-      const SizedBox(width: 420, child: _AccordionTwoItemAccordion()),
+      ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 420),
+        child: _AccordionTwoItemAccordion(),
+      ),
     ],
   );
 }

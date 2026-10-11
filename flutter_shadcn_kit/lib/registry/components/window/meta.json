@@ -1,7 +1,8 @@
 {
   "id": "window",
   "name": "Window",
-  "category": "Layout",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Desktop-style window frame with drag, resize, maximize, close, z-order, focus and edge snapping, hosted by a WindowNavigator.",
   "tier": "component",
   "install": "flutter_shadcn add window",

@@ -239,6 +239,10 @@ class _RovingRowState extends State<RovingRow> {
       child: Clickable(
         enabled: widget.enabled,
         focusNode: _node,
+        // Rows paint their own hover/focus highlight (the accent fill
+        // above): a focus ring on top of it reads as a thick border, so
+        // rows never draw one, for mouse and keyboard alike.
+        focusOutline: false,
         onPressed: widget.enabled ? widget.onPressed : null,
         onHover: widget.enabled && widget.onHover != null
             ? (hovered) {

@@ -58,6 +58,16 @@ multiplied to 18%, stat badges to 14% — alpha multiplies, never replaces.
 
 ## Behaviour notes
 
+- The file header wraps its stat badges, status and copy action under the path
+  (a `Flexible` + `Wrap`), so narrow widths shrink the cluster instead of
+  overflowing.
+- Hunk headers are keyboard-accessible `Clickable` targets (not mouse-only);
+  non-collapsible headers render static.
+- The copy confirmation is generation-guarded: a rapid second tap restarts the
+  1200ms window instead of letting the first timer clear it early.
+- Code rows always lay out LTR (gutter + marker + content order is positional),
+  and the gutter divider is directional.
+
 - The "Copy" label comes from `ShadcnLocalizations` (`menuCopy`); the
   confirmation reuses a check icon instead of an unlocalised "Copied" string.
 - The code font/size come from the ambient `fontMono` / `xSmall` styles (the

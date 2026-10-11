@@ -31,8 +31,8 @@ class _CollapsibleUncontrolled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spacing = ShadcnTheme.of(context).spacing;
-    return SizedBox(
-      width: 360,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 360),
       child: Collapsible(
         children: <Widget>[
           const CollapsibleTrigger(child: Text('Recent activity')),
@@ -70,8 +70,8 @@ class _CollapsibleControlledState extends State<_CollapsibleControlled> {
   @override
   Widget build(BuildContext context) {
     final spacing = ShadcnTheme.of(context).spacing;
-    return SizedBox(
-      width: 360,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 360),
       child: Collapsible(
         isExpanded: _expanded,
         onExpansionChanged: (bool value) => setState(() => _expanded = value),

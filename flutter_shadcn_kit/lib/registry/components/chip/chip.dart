@@ -168,16 +168,137 @@ class Chip extends StatelessWidget {
       );
     }
 
-    return Clickable(
+    return _AutofocusClickable(
+      autofocus: autofocus,
+      focusNode: focusNode,
       onPressed: onPressed,
       onHover: onHover,
       onFocus: onFocusChange,
-      focusNode: focusNode,
       decoration: WidgetStateProperty.resolveWith(decorationFor),
       textStyle: WidgetStateProperty.resolveWith(textStyleFor),
       iconTheme: WidgetStateProperty.resolveWith(iconThemeFor),
       mouseCursor: _chipMouseCursor,
       child: content,
+    );
+  }
+}
+
+/// A [Clickable] that honours [autofocus], shared by [Chip] and [ChipButton].
+///
+/// `Clickable` takes a `focusNode` but has no `autofocus` parameter, so the
+/// owned node (created when no external node is given) is requested in a
+/// post-frame callback guarded by `mounted` and node identity: a rebuild
+/// that turns autofocus off disposes the node before the frame runs.
+class _AutofocusClickable extends StatefulWidget {
+  /// Creates an autofocus-aware clickable.
+  const _AutofocusClickable({
+    required this.child,
+    this.autofocus = false,
+    this.focusNode,
+    this.onPressed,
+    this.onHover,
+    this.onFocus,
+    this.decoration,
+    this.textStyle,
+    this.iconTheme,
+    this.mouseCursor,
+  });
+
+  /// Content.
+  final Widget child;
+
+  /// Whether to request focus when first built.
+  final bool autofocus;
+
+  /// External focus node; null creates an owned one for autofocus.
+  final FocusNode? focusNode;
+
+  /// Called on tap.
+  final VoidCallback? onPressed;
+
+  /// Called when the hover state changes.
+  final ValueChanged<bool>? onHover;
+
+  /// Called when the focus state changes.
+  final ValueChanged<bool>? onFocus;
+
+  /// State-aware decoration.
+  final WidgetStateProperty<BoxDecoration?>? decoration;
+
+  /// State-aware text style.
+  final WidgetStateProperty<TextStyle?>? textStyle;
+
+  /// State-aware icon theme.
+  final WidgetStateProperty<IconThemeData?>? iconTheme;
+
+  /// State-aware mouse cursor.
+  final WidgetStateProperty<MouseCursor?>? mouseCursor;
+
+  @override
+  State<_AutofocusClickable> createState() => _AutofocusClickableState();
+}
+
+class _AutofocusClickableState extends State<_AutofocusClickable> {
+  FocusNode? _ownedFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _syncAutofocus();
+  }
+
+  @override
+  void didUpdateWidget(_AutofocusClickable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.autofocus != oldWidget.autofocus ||
+        widget.focusNode != oldWidget.focusNode) {
+      _syncAutofocus();
+    }
+  }
+
+  @override
+  void dispose() {
+    _ownedFocusNode?.dispose();
+    super.dispose();
+  }
+
+  void _syncAutofocus() {
+    if (!widget.autofocus || widget.onPressed == null) {
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
+      return;
+    }
+    if (widget.focusNode != null) {
+      final FocusNode node = widget.focusNode!;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          node.requestFocus();
+        }
+      });
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
+      return;
+    }
+    final FocusNode node = _ownedFocusNode ??= FocusNode(debugLabel: 'Chip');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && identical(_ownedFocusNode, node)) {
+        node.requestFocus();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Clickable(
+      onPressed: widget.onPressed,
+      onHover: widget.onHover,
+      onFocus: widget.onFocus,
+      focusNode: widget.focusNode ?? _ownedFocusNode,
+      decoration: widget.decoration,
+      textStyle: widget.textStyle,
+      iconTheme: widget.iconTheme,
+      mouseCursor: widget.mouseCursor,
+      child: widget.child,
     );
   }
 }
@@ -258,9 +379,10 @@ class ChipButton extends StatelessWidget {
       );
     }
 
-    return Clickable(
-      onPressed: onPressed,
+    return _AutofocusClickable(
+      autofocus: autofocus,
       focusNode: focusNode,
+      onPressed: onPressed,
       decoration: WidgetStateProperty.resolveWith(decorationFor),
       iconTheme: WidgetStateProperty.resolveWith(
         (Set<WidgetState> states) =>

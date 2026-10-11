@@ -126,21 +126,30 @@ class _ButtonState extends State<Button> {
   }
 
   void _syncAutofocus() {
-    final bool needsOwnNode = widget.autofocus && widget.focusNode == null;
-    if (needsOwnNode && _ownedFocusNode == null) {
-      final node = FocusNode(debugLabel: 'Button');
-      _ownedFocusNode = node;
+    if (!widget.autofocus) {
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
+      return;
+    }
+    if (widget.focusNode != null) {
+      final FocusNode node = widget.focusNode!;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           node.requestFocus();
         }
       });
+      _ownedFocusNode?.dispose();
+      _ownedFocusNode = null;
       return;
     }
-    if (!needsOwnNode && _ownedFocusNode != null) {
-      _ownedFocusNode!.dispose();
-      _ownedFocusNode = null;
-    }
+    final FocusNode node = _ownedFocusNode ??= FocusNode(debugLabel: 'Button');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // The node may have been disposed by a rebuild that turned autofocus
+      // off before this frame ran; only focus the live owned node.
+      if (mounted && identical(_ownedFocusNode, node)) {
+        node.requestFocus();
+      }
+    });
   }
 
   @override

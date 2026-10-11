@@ -17,7 +17,7 @@ import '../../theme/theme.dart';
 /// Every field is nullable: an override leg sets only what it changes and
 /// [merge] keeps the lower leg's remaining fields. `size`, `borderRadius` and
 /// `badgeSize` resolve at build because their real defaults follow the
-/// ambient scaling factor (`40 * scaling`, a full circle, `12 * scaling`).
+/// ambient scaling factor (`32 * scaling`, a full circle, `10 * scaling`).
 class AvatarTheme extends ComponentThemeData implements Mergeable<AvatarTheme> {
   /// Creates an avatar theme.
   const AvatarTheme({
@@ -37,7 +37,7 @@ class AvatarTheme extends ComponentThemeData implements Mergeable<AvatarTheme> {
     this.badgeGap,
   });
 
-  /// Diameter in logical pixels; null resolves `40 * scaling`.
+  /// Diameter in logical pixels; null resolves `32 * scaling`.
   final double? size;
 
   /// Corner radius of the tile; null resolves a full circle.
@@ -52,7 +52,7 @@ class AvatarTheme extends ComponentThemeData implements Mergeable<AvatarTheme> {
   /// Initials text style; its colour is overridden by [foregroundColor].
   final TextStyle? textStyle;
 
-  /// Badge diameter; null resolves `12 * scaling`.
+  /// Badge diameter; null resolves `10 * scaling`.
   final double? badgeSize;
 
   /// Badge corner radius; null resolves a full circle.

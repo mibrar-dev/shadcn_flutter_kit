@@ -51,6 +51,8 @@ Dropzone(
 | `actionVariant` | `ButtonVariant` | `outline` | |
 | `showAction` | `bool` | true | false drops the button |
 | `theme` | `DropzoneTheme?` | null | widget leg of the resolver |
+| `focusNode` | `FocusNode?` | null | null creates one internally for Enter/Space activation |
+| `autofocus` | `bool` | false | requests focus on first build |
 
 ## States
 
@@ -59,9 +61,9 @@ Dropzone(
 | `idle` | "Browse to upload files" | `border` |
 | `dragging` | "Drop files to upload" | `primary` |
 | `uploading` | "Uploading files..." | `primary` |
-| `success` | "Files ready" | `accent` |
+| `success` | "Files ready" | `accent` (design decision, not `success`) |
 | `error` | "Fix errors to continue" | `destructive` |
-| `disabled` | "File uploads disabled" | none |
+| `disabled` | "File uploads disabled" | `border` at 60% opacity via `AnimatedOpacity` |
 
 All six strings and the browse label come from `primitives/localizations`; the
 other 45 locales inherit the English until someone adds a translation.

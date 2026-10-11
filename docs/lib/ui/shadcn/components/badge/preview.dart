@@ -3,6 +3,8 @@
 // One focused demo per example; the first entry is the default. Spacing comes
 // from the ambient theme, so the examples follow the selected preset and the
 // site light/dark toggle.
+//
+// P7-D1b: the column centres its badges so the stage centres them.
 
 import 'package:flutter/widgets.dart';
 
@@ -14,7 +16,7 @@ import 'badge.dart';
 
 Widget _badgeExample(BuildContext context, BadgeVariant variant, String label) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Badge(variant: variant, child: Text(label)),

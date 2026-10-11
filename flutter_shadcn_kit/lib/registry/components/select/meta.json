@@ -71,7 +71,7 @@
       "trigger": "ButtonVariantStyle? - per-state trigger rows merged over the variant",
       "popup": "MenuPopupTheme? - surface override (menu-owned class)",
       "itemPadding": "EdgeInsetsGeometry? - option row padding; null = px-2 py-1.5",
-      "constraints": "BoxConstraints? - popup size; null = 192-320 wide, 240 high (always trigger-wide)"
+      "constraints": "BoxConstraints? - popup size; null = 128 min wide, 240 high, no max width (hugs the widest option, never narrower than the trigger)"
     }
   },
   "accessibility": {
@@ -80,7 +80,7 @@
   },
   "sizes": {
     "trigger": "min-height 36 (h-9), px-3 (12), 14px label, 16px expand icon",
-    "popup": "min-width 192 (12rem), max-width 320, max-height 240 before scrolling, p-1 (4) surface",
+    "popup": "min-width 128 (8rem), hugs the widest option, max-height 240 before scrolling, p-1 (4) surface, shadow-md",
     "row": "menu row metrics: px-2 py-1.5, min-height 32, 14px type"
   },
   "notes": [
@@ -91,6 +91,6 @@
     "Fixed (B20/F1): menu_rows.RovingRow reserves its padding inside the 32px minimum and paints the hover/focus accent; SelectRow and the popup constraints rely on it.",
     "The popup search field has no leading search icon (dropped with the two-file budget; not shadcn).",
     "Multi selection is the sibling multi_select component (MultiSelect/MultiSelectItem/MultiSelectChip), built on Select's valueSelectionHandler/valueSelectionPredicate hooks and the menu component's MenuCheckboxItem; it lives in its own folder because the popup rows need menu/chip (layer 3) and the two-file select budget cannot hold the family.",
-    "canUnselect (click the selected item to clear), autoClose (default true) and themeable popup constraints (SelectTheme.constraints / popupConstraints) are restored; the default popup band is 192-320 wide and 240 high, always trigger-wide."
+    "canUnselect (click the selected item to clear), autoClose (default true) and themeable popup constraints (SelectTheme.constraints / popupConstraints) are restored; the default popup hugs the widest option between 128 wide and the viewport, 240 high, never narrower than the trigger; option labels stay single-line with ellipsis."
   ]
 }

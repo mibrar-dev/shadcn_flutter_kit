@@ -1,7 +1,8 @@
 {
   "id": "color_input",
   "name": "ColorInput",
-  "category": "Color",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Compact colour field: a colour well plus an editable hex text input that opens the full color_picker in a popover (desktop) or dialog.",
   "tier": "component",
   "install": "flutter_shadcn add color_input",

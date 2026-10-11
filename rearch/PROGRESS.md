@@ -113,3 +113,21 @@ All P6 batches accepted (D7–D9, F1–F5, T1–T2, H1, B1–B3, P1–P3, Z1–Z
 CLI (522 + e2e); CLI reinstall into the docs app identical to the mirror. Report: rearch/reports/P6_FINAL_QA.md (includes PR
 summary draft). Next: ask Ibrar before opening PRs (kit + CLI) / merging to main.
 - 2026-10-10 23:20: Ibrar approved opening both PRs → kit mibrar-dev/shadcn_flutter_kit#4, CLI mibrar-dev/flutter_shadcn_cli#2 (not merged; merge needs his approval).
+
+### P7-U2 — radio group gap + picker dialogs + form spacing audit (2026-10-11)
+User captures `rearch/design/ours/screens/user-bugs-2026-10-11/radio-group-no-gap.png`.
+- Radio group: the group owns the item layout (`items`, shadcn `grid gap-3` = 12 × density) instead of
+  trusting the caller's `Column` — the reported zero gap. `selectable_radio` label gap is
+  density-scaled and its `p-0.5` row padding was broken (0.125 px, an unresolved `EdgeInsetsDensity`).
+- Picker dialogs: the prompt card shrink-wraps (`IntrinsicWidth`, 240…480 clamp) over a `p-0` card;
+  the calendar carries shadcn's `p-3` and `size-8` (32) density-scaled cells; the caption row is
+  `size-(--cell-size)` tall (was 48); time/duration columns are flexible so the 4-column sheet fits
+  375. Popover variant: `w-auto p-0` (`PopoverConstraint.intrinsic`).
+- Form: `FormTheme.messageSpacing` (gap-1.5) split from `spacing` (gap-2), both density-scaled; label
+  and hint/error text raised to `text-sm` (shadcn v4 `Field`).
+- Card sizes at default density: date 272×356, time 240×160 (tests assert exact content-fit and the
+  ≤360×420 bound, light/dark × neutral/claude).
+- Tests: `test/registry/components/p7u2_pickers_test.dart` (12) + captures
+  `test/registry/visual/p7u2_screens_test.dart` (8 PNGs in rearch/design/ours/screens/p7u2-*).
+- Gates green: qa_gate.sh (4383 + 42), docs 216 + codegen --check + sync --check + build web --release.
+- API break by design: `ShadcnRadioGroup(child:)` → `items:` (PLAN §3 clean break). Report: rearch/reports/P7-U2.md.

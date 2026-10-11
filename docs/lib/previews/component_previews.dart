@@ -23,14 +23,8 @@ import 'package:docs/ui/shadcn/components/button/preview.dart'
     deferred as preview_button;
 import 'package:docs/ui/shadcn/components/toggle/preview.dart'
     deferred as preview_toggle;
-import 'package:docs/ui/shadcn/components/color_field/preview.dart'
-    deferred as preview_color_field;
-import 'package:docs/ui/shadcn/components/color_input/preview.dart'
-    deferred as preview_color_input;
 import 'package:docs/ui/shadcn/components/color_picker/preview.dart'
     deferred as preview_color_picker;
-import 'package:docs/ui/shadcn/components/eye_dropper/preview.dart'
-    deferred as preview_eye_dropper;
 import 'package:docs/ui/shadcn/components/avatar/preview.dart'
     deferred as preview_avatar;
 import 'package:docs/ui/shadcn/components/badge/preview.dart'
@@ -57,8 +51,6 @@ import 'package:docs/ui/shadcn/components/number_ticker/preview.dart'
     deferred as preview_number_ticker;
 import 'package:docs/ui/shadcn/components/pinned_sheet/preview.dart'
     deferred as preview_pinned_sheet;
-import 'package:docs/ui/shadcn/components/selectable/preview.dart'
-    deferred as preview_selectable;
 import 'package:docs/ui/shadcn/components/table/preview.dart'
     deferred as preview_table;
 import 'package:docs/ui/shadcn/components/timeline/preview.dart'
@@ -131,28 +123,18 @@ import 'package:docs/ui/shadcn/components/collapsible/preview.dart'
     deferred as preview_collapsible;
 import 'package:docs/ui/shadcn/components/filter_bar/preview.dart'
     deferred as preview_filter_bar;
-import 'package:docs/ui/shadcn/components/outlined_container/preview.dart'
-    deferred as preview_outlined_container;
 import 'package:docs/ui/shadcn/components/overflow_marquee/preview.dart'
     deferred as preview_overflow_marquee;
 import 'package:docs/ui/shadcn/components/resizable/preview.dart'
     deferred as preview_resizable;
 import 'package:docs/ui/shadcn/components/scaffold/preview.dart'
     deferred as preview_scaffold;
-import 'package:docs/ui/shadcn/components/scrollable/preview.dart'
-    deferred as preview_scrollable;
 import 'package:docs/ui/shadcn/components/scrollbar/preview.dart'
     deferred as preview_scrollbar;
-import 'package:docs/ui/shadcn/components/scrollview/preview.dart'
-    deferred as preview_scrollview;
 import 'package:docs/ui/shadcn/components/sortable/preview.dart'
     deferred as preview_sortable;
-import 'package:docs/ui/shadcn/components/stage_container/preview.dart'
-    deferred as preview_stage_container;
 import 'package:docs/ui/shadcn/components/steps/preview.dart'
     deferred as preview_steps;
-import 'package:docs/ui/shadcn/components/window/preview.dart'
-    deferred as preview_window;
 import 'package:docs/ui/shadcn/components/command/preview.dart'
     deferred as preview_command;
 import 'package:docs/ui/shadcn/components/context_menu/preview.dart'
@@ -163,8 +145,6 @@ import 'package:docs/ui/shadcn/components/menu/preview.dart'
     deferred as preview_menu;
 import 'package:docs/ui/shadcn/components/menubar/preview.dart'
     deferred as preview_menubar;
-import 'package:docs/ui/shadcn/components/triple_dots/preview.dart'
-    deferred as preview_triple_dots;
 import 'package:docs/ui/shadcn/components/breadcrumb/preview.dart'
     deferred as preview_breadcrumb;
 import 'package:docs/ui/shadcn/components/navigation_bar/preview.dart'
@@ -175,8 +155,6 @@ import 'package:docs/ui/shadcn/components/pagination/preview.dart'
     deferred as preview_pagination;
 import 'package:docs/ui/shadcn/components/stepper/preview.dart'
     deferred as preview_stepper;
-import 'package:docs/ui/shadcn/components/switcher/preview.dart'
-    deferred as preview_switcher;
 import 'package:docs/ui/shadcn/components/tabs/preview.dart'
     deferred as preview_tabs;
 import 'package:docs/ui/shadcn/components/alert_dialog/preview.dart'
@@ -185,8 +163,6 @@ import 'package:docs/ui/shadcn/components/dialog/preview.dart'
     deferred as preview_dialog;
 import 'package:docs/ui/shadcn/components/drawer/preview.dart'
     deferred as preview_drawer;
-import 'package:docs/ui/shadcn/components/drawer_container/preview.dart'
-    deferred as preview_drawer_container;
 import 'package:docs/ui/shadcn/components/gooey_toast/preview.dart'
     deferred as preview_gooey_toast;
 import 'package:docs/ui/shadcn/components/hover_card/preview.dart'
@@ -195,10 +171,6 @@ import 'package:docs/ui/shadcn/components/popup/preview.dart'
     deferred as preview_popup;
 import 'package:docs/ui/shadcn/components/refresh_trigger/preview.dart'
     deferred as preview_refresh_trigger;
-import 'package:docs/ui/shadcn/components/spell_check_suggestions_toolbar/preview.dart'
-    deferred as preview_spell_check_suggestions_toolbar;
-import 'package:docs/ui/shadcn/components/swiper/preview.dart'
-    deferred as preview_swiper;
 import 'package:docs/ui/shadcn/components/tooltip/preview.dart'
     deferred as preview_tooltip;
 import 'package:docs/ui/shadcn/components/code_snippet/preview.dart'
@@ -219,8 +191,16 @@ import 'package:docs/ui/shadcn/components/backdrop_transform/preview.dart'
     deferred as preview_backdrop_transform;
 import 'package:docs/ui/shadcn/components/color/preview.dart'
     deferred as preview_color;
+import 'package:docs/ui/shadcn/components/color_field/preview.dart'
+    deferred as preview_color_field;
+import 'package:docs/ui/shadcn/components/color_input/preview.dart'
+    deferred as preview_color_input;
+import 'package:docs/ui/shadcn/components/drawer_container/preview.dart'
+    deferred as preview_drawer_container;
 import 'package:docs/ui/shadcn/components/error_system/preview.dart'
     deferred as preview_error_system;
+import 'package:docs/ui/shadcn/components/eye_dropper/preview.dart'
+    deferred as preview_eye_dropper;
 import 'package:docs/ui/shadcn/components/formatter/preview.dart'
     deferred as preview_formatter;
 import 'package:docs/ui/shadcn/components/group/preview.dart'
@@ -239,16 +219,36 @@ import 'package:docs/ui/shadcn/components/media_query/preview.dart'
     deferred as preview_media_query;
 import 'package:docs/ui/shadcn/components/multiple_choice/preview.dart'
     deferred as preview_multiple_choice;
+import 'package:docs/ui/shadcn/components/outlined_container/preview.dart'
+    deferred as preview_outlined_container;
 import 'package:docs/ui/shadcn/components/overlay_configuration/preview.dart'
     deferred as preview_overlay_configuration;
 import 'package:docs/ui/shadcn/components/page_route/preview.dart'
     deferred as preview_page_route;
 import 'package:docs/ui/shadcn/components/patch/preview.dart'
     deferred as preview_patch;
+import 'package:docs/ui/shadcn/components/scrollable/preview.dart'
+    deferred as preview_scrollable;
 import 'package:docs/ui/shadcn/components/scrollable_client/preview.dart'
     deferred as preview_scrollable_client;
+import 'package:docs/ui/shadcn/components/scrollview/preview.dart'
+    deferred as preview_scrollview;
+import 'package:docs/ui/shadcn/components/selectable/preview.dart'
+    deferred as preview_selectable;
+import 'package:docs/ui/shadcn/components/spell_check_suggestions_toolbar/preview.dart'
+    deferred as preview_spell_check_suggestions_toolbar;
+import 'package:docs/ui/shadcn/components/stage_container/preview.dart'
+    deferred as preview_stage_container;
+import 'package:docs/ui/shadcn/components/swiper/preview.dart'
+    deferred as preview_swiper;
+import 'package:docs/ui/shadcn/components/switcher/preview.dart'
+    deferred as preview_switcher;
 import 'package:docs/ui/shadcn/components/timeline_animation/preview.dart'
     deferred as preview_timeline_animation;
+import 'package:docs/ui/shadcn/components/triple_dots/preview.dart'
+    deferred as preview_triple_dots;
+import 'package:docs/ui/shadcn/components/window/preview.dart'
+    deferred as preview_window;
 
 /// Loads the preview widget for [componentId] and [exampleIndex],
 /// fetching its deferred chunk first.
@@ -285,24 +285,9 @@ Future<Widget> loadComponentPreview(
     (_) =>
         Builder(builder: preview_toggle.togglePreviews[exampleIndex].builder),
   ),
-  'color_field' => preview_color_field.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_color_field.colorFieldPreviews[exampleIndex].builder,
-    ),
-  ),
-  'color_input' => preview_color_input.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_color_input.colorInputPreviews[exampleIndex].builder,
-    ),
-  ),
   'color_picker' => preview_color_picker.loadLibrary().then(
     (_) => Builder(
       builder: preview_color_picker.colorPickerPreviews[exampleIndex].builder,
-    ),
-  ),
-  'eye_dropper' => preview_eye_dropper.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_eye_dropper.eyeDropperPreviews[exampleIndex].builder,
     ),
   ),
   'avatar' => preview_avatar.loadLibrary().then(
@@ -365,11 +350,6 @@ Future<Widget> loadComponentPreview(
   'pinned_sheet' => preview_pinned_sheet.loadLibrary().then(
     (_) => Builder(
       builder: preview_pinned_sheet.pinnedSheetPreviews[exampleIndex].builder,
-    ),
-  ),
-  'selectable' => preview_selectable.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_selectable.selectablePreviews[exampleIndex].builder,
     ),
   ),
   'table' => preview_table.loadLibrary().then(
@@ -534,13 +514,6 @@ Future<Widget> loadComponentPreview(
       builder: preview_filter_bar.filterBarPreviews[exampleIndex].builder,
     ),
   ),
-  'outlined_container' => preview_outlined_container.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_outlined_container
-          .outlinedContainerPreviews[exampleIndex]
-          .builder,
-    ),
-  ),
   'overflow_marquee' => preview_overflow_marquee.loadLibrary().then(
     (_) => Builder(
       builder: preview_overflow_marquee
@@ -558,19 +531,9 @@ Future<Widget> loadComponentPreview(
       builder: preview_scaffold.scaffoldPreviews[exampleIndex].builder,
     ),
   ),
-  'scrollable' => preview_scrollable.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_scrollable.scrollablePreviews[exampleIndex].builder,
-    ),
-  ),
   'scrollbar' => preview_scrollbar.loadLibrary().then(
     (_) => Builder(
       builder: preview_scrollbar.scrollbarPreviews[exampleIndex].builder,
-    ),
-  ),
-  'scrollview' => preview_scrollview.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_scrollview.scrollviewPreviews[exampleIndex].builder,
     ),
   ),
   'sortable' => preview_sortable.loadLibrary().then(
@@ -578,18 +541,8 @@ Future<Widget> loadComponentPreview(
       builder: preview_sortable.sortablePreviews[exampleIndex].builder,
     ),
   ),
-  'stage_container' => preview_stage_container.loadLibrary().then(
-    (_) => Builder(
-      builder:
-          preview_stage_container.stageContainerPreviews[exampleIndex].builder,
-    ),
-  ),
   'steps' => preview_steps.loadLibrary().then(
     (_) => Builder(builder: preview_steps.stepsPreviews[exampleIndex].builder),
-  ),
-  'window' => preview_window.loadLibrary().then(
-    (_) =>
-        Builder(builder: preview_window.windowPreviews[exampleIndex].builder),
   ),
   'command' => preview_command.loadLibrary().then(
     (_) =>
@@ -611,11 +564,6 @@ Future<Widget> loadComponentPreview(
   'menubar' => preview_menubar.loadLibrary().then(
     (_) =>
         Builder(builder: preview_menubar.menubarPreviews[exampleIndex].builder),
-  ),
-  'triple_dots' => preview_triple_dots.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_triple_dots.tripleDotsPreviews[exampleIndex].builder,
-    ),
   ),
   'breadcrumb' => preview_breadcrumb.loadLibrary().then(
     (_) => Builder(
@@ -643,11 +591,6 @@ Future<Widget> loadComponentPreview(
     (_) =>
         Builder(builder: preview_stepper.stepperPreviews[exampleIndex].builder),
   ),
-  'switcher' => preview_switcher.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_switcher.switcherPreviews[exampleIndex].builder,
-    ),
-  ),
   'tabs' => preview_tabs.loadLibrary().then(
     (_) => Builder(builder: preview_tabs.tabsPreviews[exampleIndex].builder),
   ),
@@ -663,13 +606,6 @@ Future<Widget> loadComponentPreview(
   'drawer' => preview_drawer.loadLibrary().then(
     (_) =>
         Builder(builder: preview_drawer.drawerPreviews[exampleIndex].builder),
-  ),
-  'drawer_container' => preview_drawer_container.loadLibrary().then(
-    (_) => Builder(
-      builder: preview_drawer_container
-          .drawerContainerPreviews[exampleIndex]
-          .builder,
-    ),
   ),
   'gooey_toast' => preview_gooey_toast.loadLibrary().then(
     (_) => Builder(
@@ -689,18 +625,6 @@ Future<Widget> loadComponentPreview(
       builder:
           preview_refresh_trigger.refreshTriggerPreviews[exampleIndex].builder,
     ),
-  ),
-  'spell_check_suggestions_toolbar' =>
-    preview_spell_check_suggestions_toolbar.loadLibrary().then(
-      (_) => Builder(
-        builder: preview_spell_check_suggestions_toolbar
-            .spellCheckSuggestionsToolbarPreviews[exampleIndex]
-            .builder,
-      ),
-    ),
-  'swiper' => preview_swiper.loadLibrary().then(
-    (_) =>
-        Builder(builder: preview_swiper.swiperPreviews[exampleIndex].builder),
   ),
   'tooltip' => preview_tooltip.loadLibrary().then(
     (_) =>
@@ -735,8 +659,30 @@ Future<Widget> loadComponentPreview(
   'color' => preview_color.loadLibrary().then(
     (_) => preview_color.ColorPreview(),
   ),
+  'color_field' => preview_color_field.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_color_field.colorFieldPreviews[exampleIndex].builder,
+    ),
+  ),
+  'color_input' => preview_color_input.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_color_input.colorInputPreviews[exampleIndex].builder,
+    ),
+  ),
+  'drawer_container' => preview_drawer_container.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_drawer_container
+          .drawerContainerPreviews[exampleIndex]
+          .builder,
+    ),
+  ),
   'error_system' => preview_error_system.loadLibrary().then(
     (_) => preview_error_system.ErrorSystemPreview(),
+  ),
+  'eye_dropper' => preview_eye_dropper.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_eye_dropper.eyeDropperPreviews[exampleIndex].builder,
+    ),
   ),
   'formatter' => preview_formatter.loadLibrary().then(
     (_) => preview_formatter.FormatterPreview(),
@@ -759,6 +705,13 @@ Future<Widget> loadComponentPreview(
   'multiple_choice' => preview_multiple_choice.loadLibrary().then(
     (_) => preview_multiple_choice.MultipleChoicePreview(),
   ),
+  'outlined_container' => preview_outlined_container.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_outlined_container
+          .outlinedContainerPreviews[exampleIndex]
+          .builder,
+    ),
+  ),
   'overlay_configuration' => preview_overlay_configuration.loadLibrary().then(
     (_) => preview_overlay_configuration.OverlayConfigurationPreview(),
   ),
@@ -768,11 +721,58 @@ Future<Widget> loadComponentPreview(
   'patch' => preview_patch.loadLibrary().then(
     (_) => preview_patch.PatchPreview(),
   ),
+  'scrollable' => preview_scrollable.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_scrollable.scrollablePreviews[exampleIndex].builder,
+    ),
+  ),
   'scrollable_client' => preview_scrollable_client.loadLibrary().then(
     (_) => preview_scrollable_client.ScrollableClientPreview(),
   ),
+  'scrollview' => preview_scrollview.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_scrollview.scrollviewPreviews[exampleIndex].builder,
+    ),
+  ),
+  'selectable' => preview_selectable.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_selectable.selectablePreviews[exampleIndex].builder,
+    ),
+  ),
+  'spell_check_suggestions_toolbar' =>
+    preview_spell_check_suggestions_toolbar.loadLibrary().then(
+      (_) => Builder(
+        builder: preview_spell_check_suggestions_toolbar
+            .spellCheckSuggestionsToolbarPreviews[exampleIndex]
+            .builder,
+      ),
+    ),
+  'stage_container' => preview_stage_container.loadLibrary().then(
+    (_) => Builder(
+      builder:
+          preview_stage_container.stageContainerPreviews[exampleIndex].builder,
+    ),
+  ),
+  'swiper' => preview_swiper.loadLibrary().then(
+    (_) =>
+        Builder(builder: preview_swiper.swiperPreviews[exampleIndex].builder),
+  ),
+  'switcher' => preview_switcher.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_switcher.switcherPreviews[exampleIndex].builder,
+    ),
+  ),
   'timeline_animation' => preview_timeline_animation.loadLibrary().then(
     (_) => preview_timeline_animation.TimelineAnimationPreview(),
+  ),
+  'triple_dots' => preview_triple_dots.loadLibrary().then(
+    (_) => Builder(
+      builder: preview_triple_dots.tripleDotsPreviews[exampleIndex].builder,
+    ),
+  ),
+  'window' => preview_window.loadLibrary().then(
+    (_) =>
+        Builder(builder: preview_window.windowPreviews[exampleIndex].builder),
   ),
   _ => throw ArgumentError.value(
     componentId,

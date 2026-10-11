@@ -253,6 +253,18 @@ class _ShadcnImageState extends State<ShadcnImage> {
     if (height != null && ratio != null) {
       return SizedBox(width: height * ratio, height: height, child: child);
     }
+    // One side without a ratio would leave the other axis unbounded, which
+    // throws under the `StackFit.expand` picture layer in an unbounded parent
+    // (e.g. a width-only image in a `Column`). shadcn renders a square image,
+    // so the missing axis defaults to the given one; an explicit axis is
+    // never overridden.
+    final double effective = (ratio == null || ratio <= 0) ? 1 : ratio;
+    if (width != null) {
+      return SizedBox(width: width, height: width / effective, child: child);
+    }
+    if (height != null) {
+      return SizedBox(width: height * effective, height: height, child: child);
+    }
     return SizedBox(width: width, height: height, child: child);
   }
 }

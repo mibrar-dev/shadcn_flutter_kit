@@ -264,7 +264,7 @@ FormattedInputSurface resolveFormattedInputSurface(
         theme.typography.small.copyWith(color: colors.mutedForeground),
     separatorStyle:
         resolved.separatorStyle ?? text.copyWith(color: colors.mutedForeground),
-    leadingGap: resolved.leadingGap ?? 8,
+    leadingGap: (resolved.leadingGap ?? 8) * theme.scaling,
     partGap: resolved.partGap ?? 0,
     cursorColor: colors.ring,
   );

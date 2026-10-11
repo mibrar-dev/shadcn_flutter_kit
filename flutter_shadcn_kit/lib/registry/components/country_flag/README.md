@@ -15,14 +15,14 @@ Widgets-only; it imports no other component.
 Minimal:
 
 ```dart
-const CountryFlag.fromCountryCode('US');
+CountryFlag.fromCountryCode('US');
 ```
 
 Other lookups (first table match wins on shared currencies/prefixes):
 
 ```dart
-const CountryFlag.fromCurrencyCode('JPY');
-const CountryFlag.fromPhonePrefix('+49');
+CountryFlag.fromCurrencyCode('JPY');
+CountryFlag.fromPhonePrefix('+49');
 ```
 
 Sized and clipped:
@@ -43,7 +43,7 @@ ComponentTheme<CountryFlagTheme>(
   data: CountryFlagTheme(
     builder: (context, details) => MyFlagImage(code: details.countryCode),
   ),
-  child: const CountryFlag.fromCountryCode('US'),
+  child: CountryFlag.fromCountryCode('US'),
 );
 ```
 
@@ -58,6 +58,9 @@ ComponentTheme<CountryFlagTheme>(
 
 Unknown codes render as an empty box of the requested size, keeping the
 surrounding layout intact instead of throwing.
+
+The emoji fallback exposes the resolved country name (or the raw code) as
+its accessible label; the glyph itself is hidden from assistive technology.
 
 ## Differences from old `country_flag`
 

@@ -158,10 +158,18 @@ class CardTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CardTheme theme = resolveComponentStyle<CardTheme, CardTheme>(
+      context,
+      select: (t) => t,
+      defaults: cardDefaults,
+    );
+    final Color color =
+        theme.foreground?.resolve(ShadcnTheme.of(context).colors) ??
+        _foreground(context);
     return DefaultTextStyle.merge(
       style:
           (style ?? const TextStyle(fontSize: 16, fontWeight: FontWeight.w600))
-              .copyWith(color: _foreground(context)),
+              .copyWith(color: color),
       child: child,
     );
   }

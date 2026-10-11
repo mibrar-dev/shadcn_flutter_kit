@@ -145,6 +145,8 @@ class _HoverCardSurface extends StatelessWidget {
         color: app.colors.popover,
         border: Border.all(color: app.colors.border),
         borderRadius: app.borderRadiusMd,
+        // Quiet popover elevation, like every other overlay surface.
+        boxShadow: app.tokens.shadows.shadowMd,
       ),
       child: DefaultTextStyle(
         style: app.typography.small.copyWith(

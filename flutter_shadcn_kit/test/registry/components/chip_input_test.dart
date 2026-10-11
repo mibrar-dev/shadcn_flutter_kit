@@ -11,8 +11,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_shadcn_kit/registry/components/card/card.dart'
-    as shadcn;
+import 'package:flutter_shadcn_kit/registry/primitives/menu_rows.dart';
 import 'package:flutter_shadcn_kit/registry/components/chip/chip.dart';
 import 'package:flutter_shadcn_kit/registry/components/chip_input/chip_input.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
@@ -463,7 +462,7 @@ void main() {
       // The empty query has to be offered: `AutoCompleteFeature` reads the
       // field on focus, which is what `input`'s `onFocusGained` wiring enables.
       expect(_plain(tester), '');
-      expect(find.byType(shadcn.Card), findsOneWidget);
+      expect(find.byType(MenuPopupSurface), findsOneWidget);
     });
   });
 
@@ -950,15 +949,15 @@ void main() {
       // `spacing`.
       expect(
         (spans[0].child as Padding).padding,
-        const EdgeInsets.only(left: 0, right: 2),
+        const EdgeInsetsDirectional.only(start: 0, end: 2),
       );
       expect(
         (spans[1].child as Padding).padding,
-        const EdgeInsets.only(left: 2, right: 2),
+        const EdgeInsetsDirectional.only(start: 2, end: 2),
       );
       expect(
         (spans[2].child as Padding).padding,
-        const EdgeInsets.only(left: 2, right: 4),
+        const EdgeInsetsDirectional.only(start: 2, end: 4),
       );
     });
   });

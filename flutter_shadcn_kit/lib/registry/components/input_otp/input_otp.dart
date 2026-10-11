@@ -93,8 +93,9 @@ class InputOtp extends StatefulWidget {
   /// Slots between two separators.
   final int? separatorEvery;
 
-  /// Validation of the whole code; a non-null result shows it below the row.
-  /// Receives `null` until every slot is filled.
+  /// Validation of the whole code; the message renders below the row, but only
+  /// once every slot is filled. The validator itself runs on every change
+  /// (per [autovalidateMode]) and sees partial codes along the way.
   final String? Function(String? code)? validator;
 
   /// When [validator] runs: `initial` on mount, `changed` on every change,
@@ -130,6 +131,7 @@ class _InputOtpState extends State<InputOtp>
       onControllerChanged: _handleChanged,
       onStatesChanged: () => setState(() {}),
     );
+    _host.focusNode.canRequestFocus = widget.enabled;
     _completed = _isComplete;
     _reported = _code;
     _validation = EditableTextValidation(
@@ -149,6 +151,12 @@ class _InputOtpState extends State<InputOtp>
       statesController: null,
       enabled: widget.enabled,
     );
+    if (widget.enabled != oldWidget.enabled) {
+      _host.focusNode.canRequestFocus = widget.enabled;
+      if (!widget.enabled) {
+        _host.focusNode.unfocus();
+      }
+    }
     if (widget.validator != oldWidget.validator ||
         widget.autovalidateMode != oldWidget.autovalidateMode) {
       _validation.update(
@@ -318,13 +326,22 @@ class _InputOtpState extends State<InputOtp>
     return fit.clamp(0.0, box);
   }
 
-  /// Width of the dash the row draws between groups, measured in the resolved
-  /// separator style so the slot split reserves exactly what it costs.
+  /// Width of the separator the row draws between groups, measured in the
+  /// resolved separator style so the slot split reserves exactly what it
+  /// costs. A custom [InputOtp.separator] that is a plain [Text] span is
+  /// measured directly; anything else falls back to the dash measure.
   double _separatorReserve(ShadcnThemeData theme) {
+    final Widget? custom = widget.separator;
+    String? text;
+    TextStyle? style;
+    if (custom is Text && custom.data != null) {
+      text = custom.data;
+      style = custom.style;
+    }
     final TextPainter painter = TextPainter(
       text: TextSpan(
-        text: '-',
-        style: _resolved.separatorTextStyle ?? theme.typography.base,
+        text: text ?? '-',
+        style: style ?? _resolved.separatorTextStyle ?? theme.typography.base,
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -338,8 +355,12 @@ class _InputOtpState extends State<InputOtp>
     required double box,
     required double gap,
   }) {
+    // Slot index math is positional (LTR): the caret never paints while the
+    // field is disabled.
     final int caret =
-        _host.focusNode.hasFocus && _host.controller.selection.isValid
+        widget.enabled &&
+            _host.focusNode.hasFocus &&
+            _host.controller.selection.isValid
         ? _host.controller.selection.baseOffset.clamp(0, widget.length)
         : -1;
 
@@ -374,7 +395,11 @@ class _InputOtpState extends State<InputOtp>
     final Widget field = Stack(
       clipBehavior: Clip.none,
       children: <Widget>[
-        Row(mainAxisSize: MainAxisSize.min, children: children),
+        // OTP slot order is positional, so the row stays LTR in RTL locales.
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Row(mainAxisSize: MainAxisSize.min, children: children),
+        ),
         _hiddenField(theme),
       ],
     );
@@ -417,13 +442,15 @@ class _InputOtpState extends State<InputOtp>
     _host.focusNode.unfocus();
   }
 
-  Widget _separator(ShadcnThemeData theme, double gap) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: gap / 2),
-    child: Text(
-      '-',
-      style: _resolved.separatorTextStyle ?? theme.typography.base,
-    ),
-  );
+  Widget _separator(ShadcnThemeData theme, double gap) {
+    final Widget content =
+        widget.separator ??
+        Text('-', style: _resolved.separatorTextStyle ?? theme.typography.base);
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: gap / 2),
+      child: content,
+    );
+  }
 }
 
 Widget _slot(

@@ -1,9 +1,15 @@
-// The `sidebar-03` block: a whole app shell — header, grouped sidebar, content.
+// The `sidebar-03` block: a whole app shell — header, grouped sidebar,
+// content.
 //
-// This is the "shell" variant of the blocks set: it wires the pieces a real
-// app needs (a header row with breadcrumb + search + avatar, a grouped
-// sidebar that stacks above the content below 840px, and a content column)
-// so a project can adopt the layout and drop its own screens inside.
+// A block is layer 4 of the registry: it may import foundation, theme,
+// primitives and components, never another block. Its public widget is the
+// preview - the docs page renders it exactly as an app would.
+//
+// From 840px the shell is a header row over a grouped sidebar beside the
+// content; below that a menu button in the header opens the sidebar as a
+// drawer. The content is a sample workspace with stats, projects and
+// activity. The layout shrink-wraps so the docs frame sizes to its intrinsic
+// height, and scrolls internally when the host is bounded.
 
 import 'package:flutter/widgets.dart';
 
@@ -11,10 +17,11 @@ import '../../components/avatar/avatar.dart';
 import '../../components/badge/badge.dart';
 import '../../components/breadcrumb/breadcrumb.dart';
 import '../../components/button/button.dart';
-import '../../components/card/card.dart';
 import '../../components/divider/divider.dart';
+import '../../components/drawer/drawer.dart';
 import '../../components/input/input.dart';
 import '../../components/progress/progress.dart';
+import 'sidebar_03_content.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/theme.dart';
@@ -31,57 +38,77 @@ class Sidebar03 extends StatefulWidget {
 class _Sidebar03State extends State<Sidebar03> {
   int _selected = 0;
 
+  void _openNav() {
+    openDrawer(
+      context: context,
+      position: OverlayPosition.start,
+      builder: (BuildContext context) => SingleChildScrollView(
+        child: Sidebar03Sidebar(
+          selected: _selected,
+          onSelected: (int index) {
+            setState(() => _selected = index);
+            closeDrawer(context);
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final spacing = ShadcnTheme.of(context).spacing;
-    final background = ShadcnTheme.of(context).colors.background;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return ColoredBox(
-      color: background,
+      color: theme.colors.background,
       child: SafeArea(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             final bool inset = constraints.maxWidth >= 840;
-            final Widget header = _Sidebar03Header(selected: _selected);
+            final Widget content = Sidebar03Content(selected: _selected);
+            final Widget body;
             if (!inset) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.all(spacing.md),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    header,
-                    Gap(spacing.md),
-                    Sidebar03Sidebar(
-                      selected: _selected,
-                      onSelected: (int index) =>
-                          setState(() => _selected = index),
-                    ),
-                    Gap(spacing.md),
-                    const Sidebar03Content(),
-                  ],
-                ),
-              );
-            }
-            return Padding(
-              padding: EdgeInsets.all(spacing.md),
-              child: Column(
+              body = Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  header,
-                  Gap(spacing.md),
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        const SizedBox(width: 260, child: Sidebar03Sidebar()),
-                        Gap(spacing.md),
-                        const Expanded(child: Sidebar03Content()),
-                      ],
-                    ),
+                  _Sidebar03Header(selected: _selected, onMenu: _openNav),
+                  Gap(theme.spacing.md),
+                  content,
+                ],
+              );
+            } else {
+              body = Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  _Sidebar03Header(selected: _selected),
+                  Gap(theme.spacing.md),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 260,
+                        child: Sidebar03Sidebar(
+                          selected: _selected,
+                          onSelected: (int index) =>
+                              setState(() => _selected = index),
+                        ),
+                      ),
+                      Gap(theme.spacing.md),
+                      Expanded(child: content),
+                    ],
                   ),
                 ],
-              ),
+              );
+            }
+            if (!constraints.maxHeight.isFinite) {
+              return Padding(
+                padding: EdgeInsets.all(theme.spacing.md),
+                child: body,
+              );
+            }
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(theme.spacing.md),
+              child: body,
             );
           },
         ),
@@ -91,7 +118,7 @@ class _Sidebar03State extends State<Sidebar03> {
 }
 
 class _Sidebar03Header extends StatelessWidget {
-  const _Sidebar03Header({required this.selected});
+  const _Sidebar03Header({required this.selected, this.onMenu});
 
   static const List<String> _titles = <String>[
     'Dashboard',
@@ -102,14 +129,16 @@ class _Sidebar03Header extends StatelessWidget {
 
   final int selected;
 
+  /// When non-null (mobile), a menu trigger replaces the product mark.
+  final VoidCallback? onMenu;
+
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: spacing.md,
-        vertical: spacing.sm,
+        horizontal: theme.spacing.md,
+        vertical: theme.spacing.sm,
       ),
       decoration: BoxDecoration(
         color: theme.colors.card,
@@ -117,18 +146,29 @@ class _Sidebar03Header extends StatelessWidget {
         border: Border.all(color: theme.colors.border),
       ),
       // The 200 px search field collapses below 500 px (like the reference
-      // header), so the icon, breadcrumb and avatar always fit a phone.
+      // header), so the trigger, breadcrumb and avatar always fit a phone.
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           final bool showSearch = constraints.maxWidth >= 500;
+          final VoidCallback? onMenu = this.onMenu;
           return Row(
             children: <Widget>[
-              Icon(
-                LucideIcons.command,
-                size: 18,
-                color: theme.colors.foreground,
-              ),
-              Gap(spacing.md),
+              if (onMenu != null) ...<Widget>[
+                Button(
+                  variant: ButtonVariant.ghost,
+                  size: ButtonSize.icon,
+                  onPressed: onMenu,
+                  child: const Icon(LucideIcons.menu, size: 18),
+                ),
+                Gap(theme.spacing.md),
+              ] else ...<Widget>[
+                Icon(
+                  LucideIcons.command,
+                  size: 18,
+                  color: theme.colors.foreground,
+                ),
+                Gap(theme.spacing.md),
+              ],
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -150,10 +190,10 @@ class _Sidebar03Header extends StatelessWidget {
                 ),
               ),
               if (showSearch) ...<Widget>[
-                Gap(spacing.md),
+                Gap(theme.spacing.md),
                 const SizedBox(width: 200, child: Input(hintText: 'Search')),
               ],
-              Gap(spacing.md),
+              Gap(theme.spacing.md),
               const Avatar(initials: 'AC'),
             ],
           );
@@ -170,7 +210,8 @@ const List<_Sidebar03Link> _sidebar03Links = <_Sidebar03Link>[
   _Sidebar03Link('Settings', LucideIcons.settings),
 ];
 
-/// The sidebar panel: grouped navigation plus a storage meter.
+/// The sidebar panel: grouped navigation plus a storage meter. Shared by the
+/// desktop layout and the mobile drawer, so both stay identical.
 class Sidebar03Sidebar extends StatelessWidget {
   /// Creates the sidebar panel.
   const Sidebar03Sidebar({super.key, this.selected = 0, this.onSelected});
@@ -183,8 +224,7 @@ class Sidebar03Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Container(
       decoration: BoxDecoration(
         color: theme.colors.sidebar,
@@ -196,12 +236,17 @@ class Sidebar03Sidebar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(spacing.lg),
-            child: Text('Navigation', style: theme.typography.textLarge),
+            padding: EdgeInsets.all(theme.spacing.lg),
+            child: Text(
+              'Navigation',
+              style: theme.typography.textLarge.copyWith(
+                color: theme.colors.sidebarForeground,
+              ),
+            ),
           ),
           const Divider(),
           Padding(
-            padding: EdgeInsets.all(spacing.sm),
+            padding: EdgeInsets.all(theme.spacing.sm),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -216,7 +261,7 @@ class Sidebar03Sidebar extends StatelessWidget {
           ),
           const Divider(),
           Padding(
-            padding: EdgeInsets.all(spacing.lg),
+            padding: EdgeInsets.all(theme.spacing.lg),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,9 +272,14 @@ class Sidebar03Sidebar extends StatelessWidget {
                     color: theme.colors.mutedForeground,
                   ),
                 ),
-                Gap(spacing.sm),
-                Text('12.4 GB of 20 GB', style: theme.typography.textSmall),
-                Gap(spacing.sm),
+                Gap(theme.spacing.sm),
+                Text(
+                  '12.4 GB of 20 GB',
+                  style: theme.typography.textSmall.copyWith(
+                    color: theme.colors.sidebarForeground,
+                  ),
+                ),
+                Gap(theme.spacing.sm),
                 const _Sidebar03Bar(),
               ],
             ),
@@ -260,17 +310,16 @@ class _Sidebar03NavRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    final foreground = selected
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final Color foreground = selected
         ? theme.colors.sidebarAccentForeground
         : theme.colors.sidebarForeground;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: spacing.md,
-          vertical: spacing.sm,
+          horizontal: theme.spacing.md,
+          vertical: theme.spacing.sm,
         ),
         decoration: BoxDecoration(
           color: selected ? theme.colors.sidebarAccent : null,
@@ -279,7 +328,7 @@ class _Sidebar03NavRow extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Icon(link.icon, size: 16, color: foreground),
-            Gap(spacing.sm),
+            Gap(theme.spacing.sm),
             Expanded(
               child: Text(
                 link.label,
@@ -306,91 +355,12 @@ class _Sidebar03Bar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Progress(
       value: 0.62,
       height: theme.spacing.xs,
       color: theme.colors.sidebarPrimary,
       backgroundColor: theme.colors.muted,
-    );
-  }
-}
-
-/// The sample screen inside the shell.
-class Sidebar03Content extends StatelessWidget {
-  /// Creates the content area.
-  const Sidebar03Content({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text('Recent projects', style: theme.typography.h2),
-        Gap(spacing.xs),
-        Text(
-          'Four shared workspaces, updated today.',
-          style: theme.typography.textMuted.copyWith(
-            color: theme.colors.mutedForeground,
-          ),
-        ),
-        Gap(spacing.lg),
-        Wrap(
-          spacing: spacing.lg,
-          runSpacing: spacing.lg,
-          children: const <Widget>[
-            SizedBox(width: 280, child: Sidebar03ProjectCard('Atlas')),
-            SizedBox(width: 280, child: Sidebar03ProjectCard('Beacon')),
-            SizedBox(width: 280, child: Sidebar03ProjectCard('Cobalt')),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class Sidebar03ProjectCard extends StatelessWidget {
-  /// Creates one project card.
-  const Sidebar03ProjectCard(this.name, {super.key});
-
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(child: Text(name, style: theme.typography.textLarge)),
-              Badge(
-                variant: BadgeVariant.secondary,
-                child: Text('Live', style: theme.typography.xSmall),
-              ),
-            ],
-          ),
-          Gap(spacing.sm),
-          Text(
-            'Shared with 4 people · edited 3 minutes ago',
-            style: theme.typography.textSmall.copyWith(
-              color: theme.colors.mutedForeground,
-            ),
-          ),
-          Gap(spacing.lg),
-          Button(
-            variant: ButtonVariant.outline,
-            onPressed: () {},
-            child: const Text('Open'),
-          ),
-        ],
-      ),
     );
   }
 }

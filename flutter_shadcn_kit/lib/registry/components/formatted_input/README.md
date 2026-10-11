@@ -51,9 +51,11 @@ FormattedInput(controller: controller); // controller.value.text -> '555 () 4567
 | `TextSegment` / `SegmentedTextController` | the segment primitive: one controller and focus node per segment |
 
 The field is **controlled** when you pass `value` + `onChanged`; it reports the
-next value and you decide whether to apply it. Pass `controller` (with no
-`value`/`onChanged`) for uncontrolled-with-listener, or `initialValue` alone
-for a purely uncontrolled field.
+next value and you decide whether to apply it. Once the field has seen a
+non-null `value` it stays controlled: passing `value: null` later clears the
+field to the empty shape instead of keeping the stale text. Pass `controller`
+(with no `value`/`onChanged`) for uncontrolled-with-listener, or `initialValue`
+alone for a purely uncontrolled field.
 
 Keyboard:
 
@@ -89,8 +91,9 @@ formattedInputDefaults`, merged per field with receiver-wins
 | `leadingGap` | 8 (scaled) |
 | `partGap` | 0 |
 
-A disabled field is wrapped in `Opacity(0.5)` and `IgnorePointer`, and its
-segments become `readOnly`.
+A disabled field is wrapped in `Opacity(0.5)` and `IgnorePointer`, its segments
+become `readOnly`, their focus nodes refuse focus (`canRequestFocus: false`)
+and the focus ring never paints.
 
 ## Validation
 

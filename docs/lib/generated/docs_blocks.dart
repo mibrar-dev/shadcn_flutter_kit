@@ -104,7 +104,16 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/login-01/login_01.dart';",
     files: <String>['lib/ui/shadcn/blocks/login-01/login_01.dart'],
-    deps: <String>['button', 'card', 'checkbox', 'divider', 'input'],
+    deps: <String>[
+      'alert',
+      'button',
+      'card',
+      'checkbox',
+      'divider',
+      'form',
+      'input',
+      'spinner',
+    ],
     tags: <String>['login', 'login01'],
   ),
   DocsBlock(
@@ -112,13 +121,16 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Login 02',
     category: 'Authentication',
     description:
-        'A split sign-in page: the form beside a full-bleed image panel.',
+        'A split sign-in page: a validated form beside a testimonial panel.',
     viewport: 'desktop',
     install: 'flutter_shadcn add login-02',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/login-02/login_02.dart';",
-    files: <String>['lib/ui/shadcn/blocks/login-02/login_02.dart'],
-    deps: <String>['button', 'image', 'input'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/login-02/login_02.dart',
+      'lib/ui/shadcn/blocks/login-02/login_02_panel.dart',
+    ],
+    deps: <String>['alert', 'button', 'form', 'input', 'spinner'],
     tags: <String>['login', 'login02'],
   ),
   DocsBlock(
@@ -132,7 +144,15 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/login-03/login_03.dart';",
     files: <String>['lib/ui/shadcn/blocks/login-03/login_03.dart'],
-    deps: <String>['button', 'card', 'divider', 'input'],
+    deps: <String>[
+      'alert',
+      'button',
+      'card',
+      'divider',
+      'form',
+      'input',
+      'spinner',
+    ],
     tags: <String>['login', 'login03'],
   ),
   DocsBlock(
@@ -144,7 +164,15 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     install: 'flutter_shadcn add otp-01',
     import: "import 'package:<your_app>/ui/shadcn/blocks/otp-01/otp_01.dart';",
     files: <String>['lib/ui/shadcn/blocks/otp-01/otp_01.dart'],
-    deps: <String>['button', 'card', 'divider', 'input_otp'],
+    deps: <String>[
+      'alert',
+      'button',
+      'card',
+      'divider',
+      'form',
+      'input_otp',
+      'spinner',
+    ],
     tags: <String>['otp', 'otp01'],
   ),
   DocsBlock(
@@ -158,7 +186,15 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/signup-01/signup_01.dart';",
     files: <String>['lib/ui/shadcn/blocks/signup-01/signup_01.dart'],
-    deps: <String>['button', 'card', 'checkbox', 'input'],
+    deps: <String>[
+      'alert',
+      'button',
+      'card',
+      'checkbox',
+      'form',
+      'input',
+      'spinner',
+    ],
     tags: <String>['signup', 'signup01'],
   ),
   DocsBlock(
@@ -171,14 +207,21 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     install: 'flutter_shadcn add signup-02',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/signup-02/signup_02.dart';",
-    files: <String>['lib/ui/shadcn/blocks/signup-02/signup_02.dart'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/signup-02/signup_02.dart',
+      'lib/ui/shadcn/blocks/signup-02/signup_02_aside.dart',
+      'lib/ui/shadcn/blocks/signup-02/signup_02_form.dart',
+    ],
     deps: <String>[
+      'alert',
       'button',
       'card',
       'checkbox',
       'divider',
+      'form',
       'input',
       'progress',
+      'spinner',
     ],
     tags: <String>['signup', 'signup02'],
   ),
@@ -249,13 +292,25 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Pricing 01',
     category: 'Marketing',
     description:
-        'A pricing section with three plans and a highlighted middle tier.',
+        'A pricing section with three plans, a highlighted middle tier and a validated promo-code form.',
     viewport: 'desktop',
     install: 'flutter_shadcn add pricing-01',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/pricing-01/pricing_01.dart';",
-    files: <String>['lib/ui/shadcn/blocks/pricing-01/pricing_01.dart'],
-    deps: <String>['badge', 'button', 'card', 'divider', 'input_otp'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/pricing-01/pricing_01.dart',
+      'lib/ui/shadcn/blocks/pricing-01/pricing_01_promo.dart',
+    ],
+    deps: <String>[
+      'alert',
+      'badge',
+      'button',
+      'card',
+      'divider',
+      'form',
+      'input_otp',
+      'spinner',
+    ],
     tags: <String>['pricing', 'pricing01'],
   ),
   DocsBlock(
@@ -263,21 +318,27 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Account 01',
     category: 'Settings & Account',
     description:
-        'An account settings screen with a tab strip and a profile form.',
+        'An account settings screen with tabbed, validated profile and password forms.',
     viewport: 'desktop',
     install: 'flutter_shadcn add account-01',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/account-01/account_01.dart';",
-    files: <String>['lib/ui/shadcn/blocks/account-01/account_01.dart'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/account-01/account_01.dart',
+      'lib/ui/shadcn/blocks/account-01/account_01_password.dart',
+      'lib/ui/shadcn/blocks/account-01/account_01_profile.dart',
+      'lib/ui/shadcn/blocks/account-01/account_01_team.dart',
+    ],
     deps: <String>[
       'alert',
       'avatar',
       'button',
       'card',
       'divider',
+      'form',
       'input',
+      'spinner',
       'tabs',
-      'text_area',
     ],
     tags: <String>['account', 'account01'],
   ),
@@ -293,11 +354,13 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
         "import 'package:<your_app>/ui/shadcn/blocks/account-02/account_02.dart';",
     files: <String>['lib/ui/shadcn/blocks/account-02/account_02.dart'],
     deps: <String>[
+      'alert',
       'breadcrumb',
       'button',
       'card',
-      'checkbox',
       'divider',
+      'form',
+      'spinner',
       'switch',
     ],
     tags: <String>['account', 'account02'],
@@ -307,13 +370,16 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Sidebar 01',
     category: 'Sidebar',
     description:
-        'A navigation rail that collapses to icons beside a sample mailbox screen.',
+        'A navigation rail beside a sample mailbox screen; a drawer on phones.',
     viewport: 'desktop',
     install: 'flutter_shadcn add sidebar-01',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/sidebar-01/sidebar_01.dart';",
-    files: <String>['lib/ui/shadcn/blocks/sidebar-01/sidebar_01.dart'],
-    deps: <String>['button', 'card', 'divider'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/sidebar-01/sidebar_01.dart',
+      'lib/ui/shadcn/blocks/sidebar-01/sidebar_01_content.dart',
+    ],
+    deps: <String>['button', 'card', 'divider', 'drawer'],
     tags: <String>['sidebar', 'sidebar01'],
   ),
   DocsBlock(
@@ -321,18 +387,23 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Sidebar 02',
     category: 'Sidebar',
     description:
-        'An inset sidebar whose navigation is grouped by section, above a sample screen.',
+        'An inset sidebar with grouped navigation and live search; a drawer on phones.',
     viewport: 'desktop',
     install: 'flutter_shadcn add sidebar-02',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
-    files: <String>['lib/ui/shadcn/blocks/sidebar-02/sidebar_02.dart'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/sidebar-02/sidebar_02.dart',
+      'lib/ui/shadcn/blocks/sidebar-02/sidebar_02_content.dart',
+      'lib/ui/shadcn/blocks/sidebar-02/sidebar_02_panel.dart',
+    ],
     deps: <String>[
       'avatar',
       'badge',
       'button',
       'card',
       'divider',
+      'drawer',
       'input',
       'progress',
     ],
@@ -343,12 +414,15 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
     name: 'Sidebar 03',
     category: 'Sidebar',
     description:
-        'A full app shell: header with breadcrumb and search, grouped sidebar and content.',
+        'A full app shell: header with breadcrumb and search, grouped sidebar and content; the sidebar becomes a drawer on phones.',
     viewport: 'desktop',
     install: 'flutter_shadcn add sidebar-03',
     import:
         "import 'package:<your_app>/ui/shadcn/blocks/sidebar-03/sidebar_03.dart';",
-    files: <String>['lib/ui/shadcn/blocks/sidebar-03/sidebar_03.dart'],
+    files: <String>[
+      'lib/ui/shadcn/blocks/sidebar-03/sidebar_03.dart',
+      'lib/ui/shadcn/blocks/sidebar-03/sidebar_03_content.dart',
+    ],
     deps: <String>[
       'avatar',
       'badge',
@@ -356,6 +430,7 @@ const List<DocsBlock> kBlocks = <DocsBlock>[
       'button',
       'card',
       'divider',
+      'drawer',
       'input',
       'progress',
     ],
@@ -379,7 +454,16 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/login-01/login_01.dart';",
         files: <String>['lib/ui/shadcn/blocks/login-01/login_01.dart'],
-        deps: <String>['button', 'card', 'checkbox', 'divider', 'input'],
+        deps: <String>[
+          'alert',
+          'button',
+          'card',
+          'checkbox',
+          'divider',
+          'form',
+          'input',
+          'spinner',
+        ],
         tags: <String>['login', 'login01'],
       ),
       DocsBlock(
@@ -387,13 +471,16 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Login 02',
         category: 'Authentication',
         description:
-            'A split sign-in page: the form beside a full-bleed image panel.',
+            'A split sign-in page: a validated form beside a testimonial panel.',
         viewport: 'desktop',
         install: 'flutter_shadcn add login-02',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/login-02/login_02.dart';",
-        files: <String>['lib/ui/shadcn/blocks/login-02/login_02.dart'],
-        deps: <String>['button', 'image', 'input'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/login-02/login_02.dart',
+          'lib/ui/shadcn/blocks/login-02/login_02_panel.dart',
+        ],
+        deps: <String>['alert', 'button', 'form', 'input', 'spinner'],
         tags: <String>['login', 'login02'],
       ),
       DocsBlock(
@@ -407,7 +494,15 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/login-03/login_03.dart';",
         files: <String>['lib/ui/shadcn/blocks/login-03/login_03.dart'],
-        deps: <String>['button', 'card', 'divider', 'input'],
+        deps: <String>[
+          'alert',
+          'button',
+          'card',
+          'divider',
+          'form',
+          'input',
+          'spinner',
+        ],
         tags: <String>['login', 'login03'],
       ),
       DocsBlock(
@@ -421,7 +516,15 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/otp-01/otp_01.dart';",
         files: <String>['lib/ui/shadcn/blocks/otp-01/otp_01.dart'],
-        deps: <String>['button', 'card', 'divider', 'input_otp'],
+        deps: <String>[
+          'alert',
+          'button',
+          'card',
+          'divider',
+          'form',
+          'input_otp',
+          'spinner',
+        ],
         tags: <String>['otp', 'otp01'],
       ),
       DocsBlock(
@@ -435,7 +538,15 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/signup-01/signup_01.dart';",
         files: <String>['lib/ui/shadcn/blocks/signup-01/signup_01.dart'],
-        deps: <String>['button', 'card', 'checkbox', 'input'],
+        deps: <String>[
+          'alert',
+          'button',
+          'card',
+          'checkbox',
+          'form',
+          'input',
+          'spinner',
+        ],
         tags: <String>['signup', 'signup01'],
       ),
       DocsBlock(
@@ -448,14 +559,21 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         install: 'flutter_shadcn add signup-02',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/signup-02/signup_02.dart';",
-        files: <String>['lib/ui/shadcn/blocks/signup-02/signup_02.dart'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/signup-02/signup_02.dart',
+          'lib/ui/shadcn/blocks/signup-02/signup_02_aside.dart',
+          'lib/ui/shadcn/blocks/signup-02/signup_02_form.dart',
+        ],
         deps: <String>[
+          'alert',
           'button',
           'card',
           'checkbox',
           'divider',
+          'form',
           'input',
           'progress',
+          'spinner',
         ],
         tags: <String>['signup', 'signup02'],
       ),
@@ -548,13 +666,25 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Pricing 01',
         category: 'Marketing',
         description:
-            'A pricing section with three plans and a highlighted middle tier.',
+            'A pricing section with three plans, a highlighted middle tier and a validated promo-code form.',
         viewport: 'desktop',
         install: 'flutter_shadcn add pricing-01',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/pricing-01/pricing_01.dart';",
-        files: <String>['lib/ui/shadcn/blocks/pricing-01/pricing_01.dart'],
-        deps: <String>['badge', 'button', 'card', 'divider', 'input_otp'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/pricing-01/pricing_01.dart',
+          'lib/ui/shadcn/blocks/pricing-01/pricing_01_promo.dart',
+        ],
+        deps: <String>[
+          'alert',
+          'badge',
+          'button',
+          'card',
+          'divider',
+          'form',
+          'input_otp',
+          'spinner',
+        ],
         tags: <String>['pricing', 'pricing01'],
       ),
     ],
@@ -567,21 +697,27 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Account 01',
         category: 'Settings & Account',
         description:
-            'An account settings screen with a tab strip and a profile form.',
+            'An account settings screen with tabbed, validated profile and password forms.',
         viewport: 'desktop',
         install: 'flutter_shadcn add account-01',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/account-01/account_01.dart';",
-        files: <String>['lib/ui/shadcn/blocks/account-01/account_01.dart'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/account-01/account_01.dart',
+          'lib/ui/shadcn/blocks/account-01/account_01_password.dart',
+          'lib/ui/shadcn/blocks/account-01/account_01_profile.dart',
+          'lib/ui/shadcn/blocks/account-01/account_01_team.dart',
+        ],
         deps: <String>[
           'alert',
           'avatar',
           'button',
           'card',
           'divider',
+          'form',
           'input',
+          'spinner',
           'tabs',
-          'text_area',
         ],
         tags: <String>['account', 'account01'],
       ),
@@ -597,11 +733,13 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
             "import 'package:<your_app>/ui/shadcn/blocks/account-02/account_02.dart';",
         files: <String>['lib/ui/shadcn/blocks/account-02/account_02.dart'],
         deps: <String>[
+          'alert',
           'breadcrumb',
           'button',
           'card',
-          'checkbox',
           'divider',
+          'form',
+          'spinner',
           'switch',
         ],
         tags: <String>['account', 'account02'],
@@ -616,13 +754,16 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Sidebar 01',
         category: 'Sidebar',
         description:
-            'A navigation rail that collapses to icons beside a sample mailbox screen.',
+            'A navigation rail beside a sample mailbox screen; a drawer on phones.',
         viewport: 'desktop',
         install: 'flutter_shadcn add sidebar-01',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/sidebar-01/sidebar_01.dart';",
-        files: <String>['lib/ui/shadcn/blocks/sidebar-01/sidebar_01.dart'],
-        deps: <String>['button', 'card', 'divider'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/sidebar-01/sidebar_01.dart',
+          'lib/ui/shadcn/blocks/sidebar-01/sidebar_01_content.dart',
+        ],
+        deps: <String>['button', 'card', 'divider', 'drawer'],
         tags: <String>['sidebar', 'sidebar01'],
       ),
       DocsBlock(
@@ -630,18 +771,23 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Sidebar 02',
         category: 'Sidebar',
         description:
-            'An inset sidebar whose navigation is grouped by section, above a sample screen.',
+            'An inset sidebar with grouped navigation and live search; a drawer on phones.',
         viewport: 'desktop',
         install: 'flutter_shadcn add sidebar-02',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/sidebar-02/sidebar_02.dart';",
-        files: <String>['lib/ui/shadcn/blocks/sidebar-02/sidebar_02.dart'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/sidebar-02/sidebar_02.dart',
+          'lib/ui/shadcn/blocks/sidebar-02/sidebar_02_content.dart',
+          'lib/ui/shadcn/blocks/sidebar-02/sidebar_02_panel.dart',
+        ],
         deps: <String>[
           'avatar',
           'badge',
           'button',
           'card',
           'divider',
+          'drawer',
           'input',
           'progress',
         ],
@@ -652,12 +798,15 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
         name: 'Sidebar 03',
         category: 'Sidebar',
         description:
-            'A full app shell: header with breadcrumb and search, grouped sidebar and content.',
+            'A full app shell: header with breadcrumb and search, grouped sidebar and content; the sidebar becomes a drawer on phones.',
         viewport: 'desktop',
         install: 'flutter_shadcn add sidebar-03',
         import:
             "import 'package:<your_app>/ui/shadcn/blocks/sidebar-03/sidebar_03.dart';",
-        files: <String>['lib/ui/shadcn/blocks/sidebar-03/sidebar_03.dart'],
+        files: <String>[
+          'lib/ui/shadcn/blocks/sidebar-03/sidebar_03.dart',
+          'lib/ui/shadcn/blocks/sidebar-03/sidebar_03_content.dart',
+        ],
         deps: <String>[
           'avatar',
           'badge',
@@ -665,6 +814,7 @@ const List<DocsBlockCategory> kBlockCategories = <DocsBlockCategory>[
           'button',
           'card',
           'divider',
+          'drawer',
           'input',
           'progress',
         ],

@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
+import '../../primitives/clickable.dart';
 import '../../primitives/toast_queue/toast_controller.dart';
 import '../../primitives/toast_queue/toast_entry.dart';
 import '../../primitives/toast_queue/toast_exit.dart';
@@ -265,17 +266,22 @@ class _ToastCardState extends State<_ToastCard>
       widget.controller.setInteracting(_entry.id, value);
 
   void _onPanUpdate(DragUpdateDetails details) {
-    _dragging = true;
-    final horizontal =
-        _directions.contains(ToastSwipeDirection.left) ||
-        _directions.contains(ToastSwipeDirection.right);
-    final vertical =
-        _directions.contains(ToastSwipeDirection.up) ||
-        _directions.contains(ToastSwipeDirection.down);
-    _drag = Offset(
-      horizontal ? _drag.dx + details.delta.dx : 0,
-      vertical ? _drag.dy + details.delta.dy : 0,
-    );
+    // Rebuild so the card tracks the finger: `AnimatedSlide` only picks up
+    // its new offset target in `didUpdateWidget` (P7-Q2: without this the
+    // swipe gave no visual feedback until release).
+    setState(() {
+      _dragging = true;
+      final horizontal =
+          _directions.contains(ToastSwipeDirection.left) ||
+          _directions.contains(ToastSwipeDirection.right);
+      final vertical =
+          _directions.contains(ToastSwipeDirection.up) ||
+          _directions.contains(ToastSwipeDirection.down);
+      _drag = Offset(
+        horizontal ? _drag.dx + details.delta.dx : 0,
+        vertical ? _drag.dy + details.delta.dy : 0,
+      );
+    });
   }
 
   void _onPanEnd(DragEndDetails details) {
@@ -337,9 +343,14 @@ class _ToastCardState extends State<_ToastCard>
               ),
               if (theme.showCloseButton ?? true) ...<Widget>[
                 Gap(ambient.spacing.sm),
-                GestureDetector(
+                // The registry-wide accessible tap primitive (P7-Q2): Tab
+                // focus with Enter/Space activation and hover feedback.
+                // Hover styling is off so the resting pixels are unchanged;
+                // the focus outline still shows on keyboard focus.
+                Clickable(
+                  onPressed: _dismiss,
                   behavior: HitTestBehavior.opaque,
-                  onTap: _dismiss,
+                  disableHoverEffect: true,
                   child: Icon(
                     LucideIcons.x,
                     size: 16,

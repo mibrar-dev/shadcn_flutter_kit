@@ -20,7 +20,15 @@ class _PhoneExample extends StatefulWidget {
 }
 
 class _PhoneExampleState extends State<_PhoneExample> {
-  SegmentedValue? _value;
+  static const SegmentedValue _initial = SegmentedValue(<SegmentPart>[
+    SegmentPart.editable(length: 3, width: 32, placeholder: Text('555')),
+    SegmentPart.separator(' ('),
+    SegmentPart.editable(length: 3, width: 32, placeholder: Text('123')),
+    SegmentPart.separator(') '),
+    SegmentPart.editable(length: 4, width: 36, placeholder: Text('4567')),
+  ]);
+
+  SegmentedValue _value = _initial;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +38,6 @@ class _PhoneExampleState extends State<_PhoneExample> {
         leading: const Icon(LucideIcons.phone, size: 16),
         value: _value,
         onChanged: (SegmentedValue value) => setState(() => _value = value),
-        initialValue: const SegmentedValue(<SegmentPart>[
-          SegmentPart.editable(length: 3, width: 32, placeholder: Text('555')),
-          SegmentPart.separator(' ('),
-          SegmentPart.editable(length: 3, width: 32, placeholder: Text('123')),
-          SegmentPart.separator(') '),
-          SegmentPart.editable(length: 4, width: 36, placeholder: Text('4567')),
-        ]),
       ),
     );
   }

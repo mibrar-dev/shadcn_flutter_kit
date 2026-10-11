@@ -54,7 +54,7 @@ exposes `button` + `expanded`.
 | `duration` | 200 ms |
 | `curve` / `reverseCurve` | `easeIn` / `easeOut` |
 | `padding` | content density × scaling |
-| `iconGap` | 18 × scaling |
+| `iconGap` | 16 × scaling |
 | `dividerHeight` | 1 × scaling |
 | `dividerColor` | `muted` token |
 | `arrowIcon` | Lucide `chevronUp` |

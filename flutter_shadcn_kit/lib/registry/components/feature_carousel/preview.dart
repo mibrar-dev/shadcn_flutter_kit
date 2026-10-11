@@ -98,17 +98,32 @@ Widget _featureCarouselCardsOnly(BuildContext context) {
   );
 }
 
-class _FeatureCarouselCardsOnlyCarousel extends StatelessWidget {
+class _FeatureCarouselCardsOnlyCarousel extends StatefulWidget {
   const _FeatureCarouselCardsOnlyCarousel();
+
+  @override
+  State<_FeatureCarouselCardsOnlyCarousel> createState() =>
+      _FeatureCarouselCardsOnlyCarouselState();
+}
+
+class _FeatureCarouselCardsOnlyCarouselState
+    extends State<_FeatureCarouselCardsOnlyCarousel> {
+  late final FeatureCarouselController _controller = FeatureCarouselController(
+    autoPlay: false,
+    showCta: false,
+    showNavArrows: false,
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return FeatureCarousel(
-      controller: FeatureCarouselController(
-        autoPlay: false,
-        showCta: false,
-        showNavArrows: false,
-      ),
+      controller: _controller,
       items: const <FeatureCarouselItem>[
         FeatureCarouselItem(title: 'Cards only', icon: LucideIcons.image),
         FeatureCarouselItem(title: 'No chrome', icon: LucideIcons.circle),

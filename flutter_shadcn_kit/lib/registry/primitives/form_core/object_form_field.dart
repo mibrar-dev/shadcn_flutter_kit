@@ -91,6 +91,8 @@ class ObjectFormField<T> extends StatefulWidget {
     this.popoverPadding,
     this.dialogTitle,
     this.dialogActions,
+    this.dialogPadding,
+    this.dialogFooterPadding,
     this.enabled,
     this.decorate = true,
     this.immediateValueChange,
@@ -132,6 +134,19 @@ class ObjectFormField<T> extends StatefulWidget {
 
   /// Title of the dialog prompt.
   final Widget? dialogTitle;
+
+  /// Padding between the dialog card border and the editor.
+  ///
+  /// `EdgeInsets.zero` paints no card padding, which is what a picker editor
+  /// that paints its own shell (a `p-3` calendar) wants — shadcn's picker
+  /// dialogs are `p-0`. Null resolves [objectFormDialogPadding].
+  final EdgeInsetsGeometry? dialogPadding;
+
+  /// Padding of the dialog footer row when it paints a hairline top border.
+  ///
+  /// Non-null gives the footer its own `p-3` and separator, as shadcn's
+  /// picker dialogs have; null keeps the footer inside the card padding.
+  final EdgeInsetsGeometry? dialogFooterPadding;
 
   /// Extra dialog actions before Cancel/Save.
   final List<Widget> Function(
@@ -210,6 +225,8 @@ class _ObjectFormFieldState<T> extends State<ObjectFormField<T>>
             editorBuilder: widget.editorBuilder,
             dialogTitle: widget.dialogTitle,
             dialogActions: widget.dialogActions,
+            padding: widget.dialogPadding,
+            footerPadding: widget.dialogFooterPadding,
             decorate: widget.decorate,
             onPrompt: prompt,
             onChanged: (changed) {
@@ -256,6 +273,9 @@ class _ObjectFormFieldState<T> extends State<ObjectFormField<T>>
           anchorAlignment:
               widget.popoverAnchorAlignment ?? Alignment.bottomLeft,
           offset: Offset(0, theme.spacing.xs),
+          // shadcn's picker popovers are `w-auto`: the surface hugs the
+          // editor instead of stretching to the overlay.
+          widthConstraint: PopoverConstraint.intrinsic,
           modal: true,
           overlayBarrier: OverlayBarrier(borderRadius: theme.borderRadiusLg),
           builder: (context) {

@@ -98,7 +98,7 @@ Sizes are the built-in scale, multiplied once by `theme.scaling`:
 | title → description | 8 | 12 |
 | above actions | 16 | 24 |
 | max width | 420 | 520 |
-| description measure | 420 | 560 |
+| description measure | 420 | 520 |
 
 A listed `metrics` entry wins as a whole, so a restyled size is never
 half-default.

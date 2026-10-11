@@ -131,7 +131,7 @@ class _BorderLoadingState extends State<BorderLoading>
   @override
   void initState() {
     super.initState();
-    _looping = _isLooping(widget.mode);
+    _looping = _isLooping(widget.mode ?? BorderLoadingMode.sweepGradient);
     _controller = AnimationController(
       vsync: this,
       duration: widget.duration ?? const Duration(milliseconds: 1200),
@@ -140,9 +140,30 @@ class _BorderLoadingState extends State<BorderLoading>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final BorderLoadingTheme style = resolveBorderLoadingStyle(
+      context,
+      widgetTheme: widget.theme,
+      mode: widget.mode,
+      strokeWidth: widget.strokeWidth,
+      padding: widget.padding,
+      borderRadius: widget.borderRadius,
+      backgroundColor: widget.backgroundColor,
+      duration: widget.duration,
+      curve: widget.curve,
+      opacity: widget.opacity,
+    );
+    _sync(duration: style.duration, looping: _isLooping(style.mode));
+  }
+
+  @override
   void didUpdateWidget(covariant BorderLoading oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _sync(duration: widget.duration);
+    _sync(
+      duration: widget.duration,
+      looping: _isLooping(widget.mode ?? BorderLoadingMode.sweepGradient),
+    );
     if (oldWidget.progressStream != widget.progressStream) {
       _bindProgressStream();
     }
@@ -204,7 +225,6 @@ class _BorderLoadingState extends State<BorderLoading>
       curve: widget.curve,
       opacity: widget.opacity,
     );
-    _sync(duration: style.duration, looping: _isLooping(style.mode));
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final BorderRadiusGeometry? geometry = style.borderRadius;
     final BorderRadius radius = geometry is BorderRadius
@@ -231,23 +251,9 @@ class _BorderLoadingState extends State<BorderLoading>
     }
     if (style.strokeWidth! == 0) return content;
 
-    final _BorderPainter painter = _BorderPainter(
-      style: style,
-      shape: _shape(style, radius),
-      spec: widget.spec,
-      tracer: widget.tracer,
-      colors: gradientColors,
-      progress: style.curve!.transform(
-        (_looping ? _controller.value : _effectiveProgress)
-            .clamp(0.0, 1.0)
-            .toDouble(),
-      ),
-    );
-    final Widget frame = Positioned.fill(
-      child: IgnorePointer(
-        child: RepaintBoundary(child: CustomPaint(painter: painter)),
-      ),
-    );
+    // The painter is built inside the AnimatedBuilder so every controller
+    // tick bakes a fresh progress into it; hoisting it out freezes the loop
+    // on its first frame because shouldRepaint never sees a new instance.
     return RepaintBoundary(
       child: Stack(
         clipBehavior: Clip.none,
@@ -255,7 +261,29 @@ class _BorderLoadingState extends State<BorderLoading>
           content,
           AnimatedBuilder(
             animation: _controller,
-            builder: (BuildContext context, Widget? child) => frame,
+            builder: (BuildContext context, Widget? child) {
+              final double frame = style.curve!.transform(
+                (_looping ? _controller.value : _effectiveProgress)
+                    .clamp(0.0, 1.0)
+                    .toDouble(),
+              );
+              return Positioned.fill(
+                child: IgnorePointer(
+                  child: RepaintBoundary(
+                    child: CustomPaint(
+                      painter: _BorderPainter(
+                        style: style,
+                        shape: _shape(style, radius),
+                        spec: widget.spec,
+                        tracer: widget.tracer,
+                        colors: gradientColors,
+                        progress: frame,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

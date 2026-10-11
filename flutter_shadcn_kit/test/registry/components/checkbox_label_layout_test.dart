@@ -251,14 +251,10 @@ void main() {
         _stretch(
           ShadcnRadioGroup<String>(
             controller: controller,
-            child: const Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                RadioItem<String>(value: 'a', label: Text('Option A')),
-                RadioItem<String>(value: 'b', label: Text('Option B')),
-              ],
-            ),
+            items: const <Widget>[
+              RadioItem<String>(value: 'a', label: Text('Option A')),
+              RadioItem<String>(value: 'b', label: Text('Option B')),
+            ],
           ),
         ),
       );

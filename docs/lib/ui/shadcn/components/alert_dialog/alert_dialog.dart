@@ -117,7 +117,7 @@ class AlertDialog extends StatelessWidget {
       row.add(
         IconTheme.merge(
           data: IconThemeData(
-            size: 20,
+            size: 20 * ShadcnTheme.of(context).scaling,
             color: (style.iconColor ?? alertDialogDefaults.iconColor!).resolve(
               ShadcnTheme.of(context).colors,
             ),
@@ -166,16 +166,23 @@ class AlertDialog extends StatelessWidget {
     }
     if (actions.length == 1) {
       return Align(
-        alignment: alignment == MainAxisAlignment.end
-            ? AlignmentDirectional.centerEnd
-            : AlignmentDirectional.centerStart,
+        alignment: switch (alignment) {
+          MainAxisAlignment.start => AlignmentDirectional.centerStart,
+          MainAxisAlignment.end => AlignmentDirectional.centerEnd,
+          _ => AlignmentDirectional.center,
+        },
         child: actions.first,
       );
     }
     return Wrap(
-      alignment: alignment == MainAxisAlignment.end
-          ? WrapAlignment.end
-          : WrapAlignment.start,
+      alignment: switch (alignment) {
+        MainAxisAlignment.start => WrapAlignment.start,
+        MainAxisAlignment.end => WrapAlignment.end,
+        MainAxisAlignment.center => WrapAlignment.center,
+        MainAxisAlignment.spaceBetween => WrapAlignment.spaceBetween,
+        MainAxisAlignment.spaceAround => WrapAlignment.spaceAround,
+        MainAxisAlignment.spaceEvenly => WrapAlignment.spaceEvenly,
+      },
       spacing: actionGap,
       runSpacing: actionGap,
       children: actions,

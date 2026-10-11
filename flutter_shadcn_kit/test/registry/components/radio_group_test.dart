@@ -19,6 +19,7 @@ import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/form_core/form_core.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/selectable_radio/selectable_radio.dart';
 import 'package:flutter_shadcn_kit/registry/theme/color_tokens.dart';
+import 'package:flutter_shadcn_kit/registry/theme/density.dart';
 import 'package:flutter_shadcn_kit/registry/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -69,9 +70,7 @@ Widget _rows({
     controller: controller,
     onChanged: onChanged,
     direction: direction,
-    child: direction == Axis.horizontal
-        ? Row(mainAxisSize: MainAxisSize.min, children: items)
-        : Column(mainAxisSize: MainAxisSize.min, children: items),
+    items: items,
   );
 }
 
@@ -138,9 +137,65 @@ void _noop(String value) {}
 
 void main() {
   group('rows', () {
+    // The reported bug: the docs gallery passed a plain `Column`, so the rows
+    // touched (radio-group-no-gap.png). The group now owns the gap.
+    testWidgets('shadcn grid gap-3 (12) separates the stacked items', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _frame(
+          child: _rows(value: 'b', onChanged: _noop),
+        ),
+      );
+      final List<double> gaps = <double>[];
+      // The three rows, in tree order.
+      for (int i = 0; i < 3; i++) {
+        final Rect rect = tester.getRect(find.byType(Clickable).at(i));
+        if (i > 0) {
+          final Rect previous = tester.getRect(
+            find.byType(Clickable).at(i - 1),
+          );
+          gaps.add(rect.top - previous.bottom);
+        }
+      }
+      expect(gaps.length, 2);
+      expect(gaps, everyElement(moreOrLessEquals(12)));
+    });
+
+    testWidgets('the item gap scales with density', (tester) async {
+      final List<double> gaps = <double>[];
+      for (final Density density in <Density>[
+        Density.compactDensity,
+        Density.defaultDensity,
+        Density.spaciousDensity,
+      ]) {
+        await tester.pumpWidget(
+          _frame(
+            data: const ShadcnThemeData().copyWith(density: () => density),
+            child: _rows(value: 'b', onChanged: _noop),
+          ),
+        );
+        final Rect first = tester.getRect(find.byType(Clickable).at(0));
+        final Rect second = tester.getRect(find.byType(Clickable).at(1));
+        gaps.add(second.top - first.bottom);
+      }
+      expect(gaps, <double>[6, 12, 15]);
+    });
+
     testWidgets('an unchecked row uses the input border and no fill', (
       tester,
     ) async {
+      await tester.pumpWidget(
+        _frame(
+          child: _rows(value: 'b', onChanged: _noop),
+        ),
+      );
+      final BoxDecoration decoration = _indicator(tester);
+      expect(decoration.border?.top.color, ShadcnColors.lightFallback.input);
+      expect(decoration.color, isNull);
+    });
+
+    testWidgets('the label follows the indicator with the gap', (tester) async {
       await tester.pumpWidget(
         _frame(
           child: _rows(value: 'b', onChanged: _noop),
@@ -236,13 +291,10 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: (String v) => seen = v,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                RadioCard<String>(value: 'a', child: Text('Alpha')),
-                RadioCard<String>(value: 'b', child: Text('Beta')),
-              ],
-            ),
+            items: const <Widget>[
+              RadioCard<String>(value: 'a', child: Text('Alpha')),
+              RadioCard<String>(value: 'b', child: Text('Beta')),
+            ],
           ),
         ),
       );
@@ -268,21 +320,18 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: _noop,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                RadioCard<String>(
-                  value: 'a',
-                  cardTheme: theme,
-                  child: Text('Alpha'),
-                ),
-                RadioCard<String>(
-                  value: 'b',
-                  cardTheme: theme,
-                  child: Text('Beta'),
-                ),
-              ],
-            ),
+            items: const <Widget>[
+              RadioCard<String>(
+                value: 'a',
+                cardTheme: theme,
+                child: Text('Alpha'),
+              ),
+              RadioCard<String>(
+                value: 'b',
+                cardTheme: theme,
+                child: Text('Beta'),
+              ),
+            ],
           ),
         ),
       );
@@ -292,21 +341,18 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'b',
             onChanged: _noop,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const <Widget>[
-                RadioCard<String>(
-                  value: 'a',
-                  cardTheme: theme,
-                  child: Text('Alpha'),
-                ),
-                RadioCard<String>(
-                  value: 'b',
-                  cardTheme: theme,
-                  child: Text('Beta'),
-                ),
-              ],
-            ),
+            items: const <Widget>[
+              RadioCard<String>(
+                value: 'a',
+                cardTheme: theme,
+                child: Text('Alpha'),
+              ),
+              RadioCard<String>(
+                value: 'b',
+                cardTheme: theme,
+                child: Text('Beta'),
+              ),
+            ],
           ),
         ),
       );
@@ -349,7 +395,9 @@ void main() {
             enabled: false,
             value: 'a',
             onChanged: (String _) => calls++,
-            child: const RadioItem<String>(value: 'a', label: Text('Alpha')),
+            items: const <Widget>[
+              RadioItem<String>(value: 'a', label: Text('Alpha')),
+            ],
           ),
         ),
       );
@@ -402,7 +450,7 @@ void main() {
         () => ShadcnRadioGroup<String>(
           controller: ShadcnRadioGroupController<String>(),
           onChanged: _noop,
-          child: const SizedBox.shrink(),
+          items: const <Widget>[SizedBox.shrink()],
         ),
         throwsAssertionError,
       );
@@ -440,21 +488,18 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: (String v) => seen = v,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                RadioItem<String>(
-                  value: 'a',
-                  label: const Text('Alpha'),
-                  focusNode: FocusNode(),
-                ),
-                RadioItem<String>(
-                  value: 'b',
-                  label: const Text('Beta'),
-                  focusNode: node,
-                ),
-              ],
-            ),
+            items: <Widget>[
+              RadioItem<String>(
+                value: 'a',
+                label: const Text('Alpha'),
+                focusNode: FocusNode(),
+              ),
+              RadioItem<String>(
+                value: 'b',
+                label: const Text('Beta'),
+                focusNode: node,
+              ),
+            ],
           ),
         ),
       );
@@ -536,17 +581,14 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: (String v) => seen = v,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const RadioItem<String>(value: 'a', label: Text('Alpha')),
-                RadioItem<String>(
-                  value: 'b',
-                  label: const Text('Beta'),
-                  focusNode: node,
-                ),
-              ],
-            ),
+            items: <Widget>[
+              const RadioItem<String>(value: 'a', label: Text('Alpha')),
+              RadioItem<String>(
+                value: 'b',
+                label: const Text('Beta'),
+                focusNode: node,
+              ),
+            ],
           ),
         ),
       );
@@ -682,15 +724,17 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: _noop,
-            child: const RadioItem<String>(
-              value: 'a',
-              label: Text('Alpha'),
-              theme: SelectableRadioTheme(
-                selected: RadioIndicatorStyle(
-                  background: StateValue(rest: ThemedColor.value(_blue)),
+            items: const <Widget>[
+              RadioItem<String>(
+                value: 'a',
+                label: Text('Alpha'),
+                theme: SelectableRadioTheme(
+                  selected: RadioIndicatorStyle(
+                    background: StateValue(rest: ThemedColor.value(_blue)),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       );
@@ -765,17 +809,19 @@ void main() {
           child: ShadcnRadioGroup<String>(
             value: 'a',
             onChanged: _noop,
-            child: const RadioItem<String>(
-              value: 'a',
-              label: Text('Alpha'),
-              theme: SelectableRadioTheme(
-                selected: RadioIndicatorStyle(
-                  background: StateValue(
-                    rest: ThemedColor.ref(ColorRef.primary, alpha: 0.5),
+            items: const <Widget>[
+              RadioItem<String>(
+                value: 'a',
+                label: Text('Alpha'),
+                theme: SelectableRadioTheme(
+                  selected: RadioIndicatorStyle(
+                    background: StateValue(
+                      rest: ThemedColor.ref(ColorRef.primary, alpha: 0.5),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       );

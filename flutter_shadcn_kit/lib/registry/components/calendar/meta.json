@@ -9,7 +9,7 @@
   "tags": ["display", "date", "picker", "calendar", "schedule", "keyboard", "a11y"],
   "deps": {
     "foundation": [],
-    "theme": ["color_tokens", "theme"],
+    "theme": ["color_tokens", "density", "theme"],
     "primitives": ["date_math", "focus_outline", "localizations", "menu_nav"],
     "components": []
   },

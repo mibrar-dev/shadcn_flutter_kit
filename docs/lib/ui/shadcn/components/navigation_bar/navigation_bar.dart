@@ -15,8 +15,10 @@
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
+import '../../foundation/gap.dart';
 import '../../foundation/platform.dart';
 import '../../primitives/navigation/navigation_items.dart';
+import '../../primitives/navigation/navigation_sections.dart';
 import '../../primitives/roving_group.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/density.dart';
@@ -104,20 +106,38 @@ class _NavigationBarState extends State<NavigationBar> {
     _roving.onSelect = _select;
   }
 
-  List<Widget> _wrapChildren() {
+  List<Widget> _wrapChildren({required bool distribute, required double gap}) {
     var index = 0;
     final List<Widget> out = <Widget>[];
+    NavigationBarItem? previous;
     for (var i = 0; i < widget.children.length; i++) {
       final NavigationBarItem child = widget.children[i];
-      out.add(
-        Data<NavigationChildData>.inherit(
-          data: (index: child.selectable ? index++ : null, actualIndex: i),
-          child: child,
-        ),
+      // Spacing gaps go between items only: fixed-geometry helpers define
+      // their own size (P7-Q2: a `NavigationGap(40)` must stay exactly 40).
+      if (out.isNotEmpty &&
+          gap > 0 &&
+          !_isFixedHelper(previous!) &&
+          !_isFixedHelper(child)) {
+        out.add(Gap(gap));
+      }
+      Widget wrapped = Data<NavigationChildData>.inherit(
+        data: (index: child.selectable ? index++ : null, actualIndex: i),
+        child: child,
       );
+      // A horizontal bar shares its width equally between items (bottom-nav
+      // parity); helpers keep their intrinsic size (P7-Q2).
+      if (distribute && !_isFixedHelper(child)) {
+        wrapped = Expanded(child: wrapped);
+      }
+      out.add(wrapped);
+      previous = child;
     }
     return out;
   }
+
+  /// Fixed-geometry helpers: never expanded, never spaced apart.
+  static bool _isFixedHelper(NavigationBarItem child) =>
+      child is NavigationGap || child is NavigationDivider;
 
   @override
   Widget build(BuildContext context) {
@@ -173,13 +193,22 @@ class _NavigationBarState extends State<NavigationBar> {
       ambient.density.baseContentPadding * ambient.scaling,
     );
     _roving.direction = direction;
+    // A horizontal bar shares its width equally between items (bottom-nav
+    // parity); without this, labelled items keep their intrinsic widths and
+    // overflow phone widths (P7-Q2). `spacing` is part of the public API;
+    // it lays out as fixed gaps between items instead of being dropped.
     final Widget body = _body(
       ambient,
       container,
       direction,
       alignment,
       padding,
-      _wrapChildren(),
+      _wrapChildren(
+        distribute:
+            container == NavigationContainerType.bar &&
+            direction == Axis.horizontal,
+        gap: (widget.spacing ?? style.spacing ?? 8) * ambient.scaling,
+      ),
     );
     return RepaintBoundary(
       child: Data<NavigationControlData>.inherit(

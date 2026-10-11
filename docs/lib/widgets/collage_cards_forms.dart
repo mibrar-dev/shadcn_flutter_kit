@@ -175,14 +175,11 @@ class CollageRadioCardState extends State<CollageRadioCard> {
         ShadcnRadioGroup<String>(
           value: _value,
           onChanged: (String value) => setState(() => _value = value),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              RadioItem<String>(value: 'free', label: Text('Free')),
-              RadioItem<String>(value: 'pro', label: Text('Pro')),
-              RadioItem<String>(value: 'team', label: Text('Team')),
-            ],
-          ),
+          items: const <Widget>[
+            RadioItem<String>(value: 'free', label: Text('Free')),
+            RadioItem<String>(value: 'pro', label: Text('Pro')),
+            RadioItem<String>(value: 'team', label: Text('Team')),
+          ],
         ),
       ],
     );

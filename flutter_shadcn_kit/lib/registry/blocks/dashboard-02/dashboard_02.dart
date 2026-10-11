@@ -20,8 +20,7 @@ class Dashboard02 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return ColoredBox(
       color: theme.colors.background,
       child: SafeArea(
@@ -32,40 +31,45 @@ class Dashboard02 extends StatelessWidget {
                 : constraints.maxWidth >= 640
                 ? 2
                 : 1;
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(spacing.lg),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1440),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const _Dashboard02Filters(),
-                    Gap(spacing.lg),
-                    _Dashboard02Tiles(
-                      columns: columns,
-                      width: constraints.maxWidth - spacing.lg * 2,
-                    ),
-                    Gap(spacing.lg),
-                    const Dashboard02Chart(),
-                    Gap(spacing.lg),
-                    if (constraints.maxWidth >= 1080)
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Expanded(child: Dashboard02Sources()),
-                          Gap(spacing.lg),
-                          const Expanded(flex: 2, child: Dashboard02Devices()),
-                        ],
-                      )
-                    else ...<Widget>[
-                      const Dashboard02Sources(),
-                      Gap(spacing.lg),
-                      const Dashboard02Devices(),
-                    ],
-                  ],
+            // Dashboards are full-width by design: no max-width cap here.
+            final Widget body = Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const _Dashboard02Filters(),
+                Gap(theme.spacing.lg),
+                _Dashboard02Tiles(
+                  columns: columns,
+                  width: constraints.maxWidth - theme.spacing.lg * 2,
                 ),
-              ),
+                Gap(theme.spacing.lg),
+                const Dashboard02Chart(),
+                Gap(theme.spacing.lg),
+                if (constraints.maxWidth >= 1080)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Expanded(child: Dashboard02Sources()),
+                      Gap(theme.spacing.lg),
+                      const Expanded(flex: 2, child: Dashboard02Devices()),
+                    ],
+                  )
+                else ...<Widget>[
+                  const Dashboard02Sources(),
+                  Gap(theme.spacing.lg),
+                  const Dashboard02Devices(),
+                ],
+              ],
+            );
+            if (!constraints.maxHeight.isFinite) {
+              return Padding(
+                padding: EdgeInsets.all(theme.spacing.lg),
+                child: body,
+              );
+            }
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(theme.spacing.lg),
+              child: body,
             );
           },
         ),

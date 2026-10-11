@@ -63,12 +63,13 @@ InputOtp(length: 6, controller: controller, onChanged: controller.notifyListener
 | | `enabled` | true | false dims the row to 50% and ignores pointers |
 | | `autofocus` | false | |
 | | `filter` | null | rejects a character when it returns false |
-| | `separator` / `separatorEvery` | null / null | separator drawn after every N slots |
+| | `separator` / `separatorEvery` | null / null | the `separator` widget (default `-`) drawn after every N slots; a plain-`Text` separator is measured so the slot split reserves its exact width |
 | | `validator` / `autovalidateMode` | null / changed | message rendered under the row, once every slot is filled |
 
 `autovalidateMode` selects the trigger: `initial` validates on mount, `changed`
 (every keystroke) on every change, `submitted` when the field is submitted.
-The validator always receives `null` until all slots are filled.
+The validator runs on every change and sees partial codes; the message below
+the row only shows once every slot is filled.
 | | `theme` | null | widget leg of `InputOtpTheme` |
 
 ## Theme fields

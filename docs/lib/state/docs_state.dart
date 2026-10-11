@@ -129,58 +129,6 @@ class DocsState extends ChangeNotifier {
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // Component preview state (P6-F4): one named example at a time.
-  // ---------------------------------------------------------------------------
-
-  /// Selected example name per component id (the `Select` above the stage).
-  ///
-  /// Null means "the default" (the first entry of `kComponentPreviews`).
-  /// Stored here (not in the page) so the choice survives navigation between
-  /// components; the page falls back to the first entry for unknown names.
-  final Map<String, String> _previewExamples = <String, String>{};
-
-  /// Components whose stage shows the opposite brightness of the site
-  /// (the per-preview light/dark toggle). The stage keeps the same preset
-  /// document and only flips the brightness leg.
-  final Set<String> _previewInverted = <String>{};
-
-  /// The selected example name for [componentId], or null for the default.
-  String? previewExampleFor(String componentId) =>
-      _previewExamples[componentId];
-
-  /// Selects the [name] example for [componentId].
-  void setPreviewExample(String componentId, String name) {
-    if (_previewExamples[componentId] == name) {
-      return;
-    }
-    _previewExamples[componentId] = name;
-    notifyListeners();
-  }
-
-  /// Whether the [componentId] stage is inverted to the opposite brightness.
-  bool isPreviewInverted(String componentId) =>
-      _previewInverted.contains(componentId);
-
-  /// Sets the inverted flag for [componentId].
-  void setPreviewInverted(String componentId, bool inverted) {
-    final bool current = _previewInverted.contains(componentId);
-    if (current == inverted) {
-      return;
-    }
-    if (inverted) {
-      _previewInverted.add(componentId);
-    } else {
-      _previewInverted.remove(componentId);
-    }
-    notifyListeners();
-  }
-
-  /// Flips the stage brightness override for [componentId].
-  void togglePreviewInverted(String componentId) {
-    setPreviewInverted(componentId, !isPreviewInverted(componentId));
-  }
-
   @override
   void dispose() {
     themeModel.removeListener(notifyListeners);

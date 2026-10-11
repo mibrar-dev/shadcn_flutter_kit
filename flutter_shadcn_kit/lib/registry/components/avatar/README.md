@@ -46,7 +46,7 @@ const AvatarGroup(
 |---|---|---|---|
 | `Avatar` | `initials` | required | fallback text and semantic label |
 | | `image` | null | any `ImageProvider`; failed decodes fall back |
-| | `size` | `40 * scaling` | |
+| | `size` | `32 * scaling` | |
 | | `borderRadius` | full circle | |
 | | `badge` / `badgeAlignment` / `badgeGap` | null / bottom end / 0 | |
 | | `theme` | null | widget-leg `AvatarTheme` |

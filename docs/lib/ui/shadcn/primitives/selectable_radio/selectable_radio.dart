@@ -13,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/data.dart';
 import '../../foundation/gap.dart';
 import '../../theme/color_tokens.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../clickable.dart';
 import '../roving_group.dart';
@@ -205,10 +206,15 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
     RadioIndicatorStyle indicator,
     bool selected,
   ) {
-    final double gap = container.gap ?? 8;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
+    final double gap =
+        (container.gap ?? 8) * theme.density.scale * theme.scaling;
     final Widget? label = widget.label;
     return Padding(
-      padding: container.itemPadding ?? selectableRadioDefaults.itemPadding!,
+      padding: resolveEdgeInsets(
+        container.itemPadding ?? selectableRadioDefaults.itemPadding!,
+        theme.density.baseContentPadding * theme.scaling,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,7 +225,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
             Flexible(
               child: DefaultTextStyle.merge(
                 style: (container.labelStyle ?? radioDefaultTextStyle).copyWith(
-                  color: ShadcnTheme.of(context).colors.foreground,
+                  color: theme.colors.foreground,
                 ),
                 child: label,
               ),

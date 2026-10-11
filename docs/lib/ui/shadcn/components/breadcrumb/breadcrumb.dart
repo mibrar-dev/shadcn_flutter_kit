@@ -113,10 +113,11 @@ class _BreadcrumbArrowSeparator extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final double size = 12 * theme.scaling;
+    final bool rtl = Directionality.of(context) == TextDirection.rtl;
     return SizedBox.square(
       dimension: size,
       child: Icon(
-        LucideIcons.chevronRight,
+        rtl ? LucideIcons.chevronLeft : LucideIcons.chevronRight,
         size: size,
         color: theme.colors.mutedForeground,
       ),

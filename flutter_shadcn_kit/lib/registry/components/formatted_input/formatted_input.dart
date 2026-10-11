@@ -105,14 +105,34 @@ class _FormattedInputState extends State<FormattedInput>
   List<SegmentPart> _structure = const <SegmentPart>[];
   String? _errorText;
   bool _focused = false;
+  bool _valueControlled = false;
 
   /// The value the widget is currently driven by.
   ///
   /// The seed chain includes [FormattedInput.controller] in every mode: reading
   /// only `value`/`initialValue` left the mirror empty in controller mode and
-  /// dropped every keystroke.
-  SegmentedValue get _source =>
-      widget.value ?? widget.controller?.value ?? _value;
+  /// dropped every keystroke. Once the widget has been controlled by a
+  /// non-null [FormattedInput.value], a later `null` is a deliberate clear and
+  /// resolves to the empty shape instead of falling through to stale state.
+  SegmentedValue get _source {
+    if (_valueControlled && widget.value == null) {
+      // A deliberate clear: the same shape with emptied segments (the stored
+      // shape carries the stale values, so it cannot be reused as-is).
+      return SegmentedValue(<SegmentPart>[
+        for (final SegmentPart part in _incomingParts)
+          part.holdsValue
+              ? SegmentPart.editable(
+                  length: part.length,
+                  width: part.width,
+                  obscureText: part.obscureText,
+                  placeholder: part.placeholder,
+                  inputFormatters: part.inputFormatters,
+                )
+              : part,
+      ]);
+    }
+    return widget.value ?? widget.controller?.value ?? _value;
+  }
 
   /// The parts the widget is currently declared with. An uncontrolled widget
   /// can swap [FormattedInput.initialValue] to change the shape, which rebuilds
@@ -134,6 +154,7 @@ class _FormattedInputState extends State<FormattedInput>
       values: <String>[for (final SegmentPart part in editable) part.value],
     );
     for (final FocusNode node in segments.focusNodes) {
+      node.canRequestFocus = widget.enabled;
       node.addListener(() {
         final bool focused = _segments.focusNodes.any(
           (FocusNode focus) => focus.hasFocus,
@@ -149,6 +170,7 @@ class _FormattedInputState extends State<FormattedInput>
   @override
   void initState() {
     super.initState();
+    _valueControlled = widget.value != null;
     _value =
         widget.value ??
         widget.initialValue ??
@@ -172,6 +194,20 @@ class _FormattedInputState extends State<FormattedInput>
     if (widget.controller != oldWidget.controller) {
       oldWidget.controller?.removeListener(_handleControllerChanged);
       widget.controller?.addListener(_handleControllerChanged);
+    }
+    if (widget.value != null) {
+      _valueControlled = true;
+    }
+    if (widget.enabled != oldWidget.enabled) {
+      for (final FocusNode node in _segments.focusNodes) {
+        node.canRequestFocus = widget.enabled;
+      }
+      if (!widget.enabled) {
+        for (final FocusNode node in _segments.focusNodes) {
+          node.unfocus();
+        }
+        _focused = false;
+      }
     }
     final List<SegmentPart> incoming = _incomingParts;
     // Only a shape change rebuilds the segment controllers; a value swap flows
@@ -304,7 +340,7 @@ class _FormattedInputState extends State<FormattedInput>
     final Widget field = Focus(
       onKeyEvent: _handleKey,
       child: FocusOutline(
-        focused: _focused,
+        focused: _focused && widget.enabled,
         borderRadius: surface.borderRadius,
         child: Container(
           height: surface.height,

@@ -10,8 +10,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_shadcn_kit/registry/components/autocomplete/autocomplete.dart';
-import 'package:flutter_shadcn_kit/registry/components/card/card.dart'
-    as shadcn;
+import 'package:flutter_shadcn_kit/registry/primitives/menu_rows.dart';
 import 'package:flutter_shadcn_kit/registry/components/input/input.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/clickable.dart';
 import 'package:flutter_shadcn_kit/registry/primitives/input_features/input_features.dart';
@@ -144,7 +143,7 @@ Future<void> _settle(WidgetTester tester) async {
 List<String> _rows(WidgetTester tester) => tester
     .widgetList<Text>(
       find.descendant(
-        of: find.byType(shadcn.Card),
+        of: find.byType(MenuPopupSurface),
         matching: find.byType(Text),
       ),
     )
@@ -153,7 +152,10 @@ List<String> _rows(WidgetTester tester) => tester
 
 /// The clickable row of the popover at [index].
 Finder _rowAt(WidgetTester tester, int index) => find
-    .descendant(of: find.byType(shadcn.Card), matching: find.byType(Clickable))
+    .descendant(
+      of: find.byType(MenuPopupSurface),
+      matching: find.byType(Clickable),
+    )
     .at(index);
 
 Color? _highlightFill(WidgetTester tester, int index) {
@@ -177,7 +179,7 @@ void main() {
       await tester.tap(find.byType(EditableText));
       await tester.pump();
       await _type(tester, 'zzz');
-      expect(find.byType(shadcn.Card), findsNothing);
+      expect(find.byType(MenuPopupSurface), findsNothing);
     });
 
     testWidgets('typing a matching query opens the list', (tester) async {
@@ -185,7 +187,7 @@ void main() {
       await tester.tap(find.byType(EditableText));
       await tester.pump();
       await _type(tester, 'a');
-      expect(find.byType(shadcn.Card), findsOneWidget);
+      expect(find.byType(MenuPopupSurface), findsOneWidget);
       expect(_rows(tester), isNotEmpty);
       expect(_rows(tester).first, 'Apple');
     });
@@ -199,7 +201,7 @@ void main() {
       await tester.tap(find.byType(EditableText));
       await tester.pump();
       await _settle(tester);
-      expect(find.byType(shadcn.Card), findsNothing);
+      expect(find.byType(MenuPopupSurface), findsNothing);
     });
 
     testWidgets('a stale async answer is dropped', (tester) async {
@@ -260,7 +262,7 @@ void main() {
       await tester.pump();
       await _type(tester, 'a');
       expect(tester.takeException(), isNull);
-      expect(find.byType(shadcn.Card), findsNothing);
+      expect(find.byType(MenuPopupSurface), findsNothing);
     });
   });
 
@@ -472,10 +474,10 @@ void main() {
       await tester.tap(find.byType(EditableText));
       await tester.pump();
       await _type(tester, 'a');
-      expect(find.byType(shadcn.Card), findsOneWidget);
+      expect(find.byType(MenuPopupSurface), findsOneWidget);
       await tester.sendKeyEvent(LogicalKeyboardKey.escape);
       await _settle(tester);
-      expect(find.byType(shadcn.Card), findsNothing);
+      expect(find.byType(MenuPopupSurface), findsNothing);
       expect(find.text('a'), findsOneWidget);
     });
 
@@ -541,12 +543,12 @@ void main() {
       await _type(tester, 'Grape ap');
       await tester.sendKeyEvent(LogicalKeyboardKey.enter);
       await _settle(tester);
-      expect(find.byType(shadcn.Card), findsNothing);
+      expect(find.byType(MenuPopupSurface), findsNothing);
       // Typing again reopens it: the suppression lasts one cycle only. Note
       // that the accepted write itself fires a query, which the flag swallows;
       // the *next* edit must reopen.
       await _type(tester, 'Grape ap');
-      expect(find.byType(shadcn.Card), findsOneWidget);
+      expect(find.byType(MenuPopupSurface), findsOneWidget);
     });
 
     testWidgets('a custom row builder is used', (tester) async {
@@ -672,7 +674,7 @@ void main() {
       final DecoratedBox box = tester.widget<DecoratedBox>(
         find
             .descendant(
-              of: find.byType(shadcn.Card),
+              of: find.byType(MenuPopupSurface),
               matching: find.byType(DecoratedBox),
             )
             .first,
@@ -696,7 +698,7 @@ void main() {
       final DecoratedBox box = tester.widget<DecoratedBox>(
         find
             .descendant(
-              of: find.byType(shadcn.Card),
+              of: find.byType(MenuPopupSurface),
               matching: find.byType(DecoratedBox),
             )
             .first,
@@ -728,7 +730,7 @@ void main() {
       DecoratedBox box() => tester.widget<DecoratedBox>(
         find
             .descendant(
-              of: find.byType(shadcn.Card),
+              of: find.byType(MenuPopupSurface),
               matching: find.byType(DecoratedBox),
             )
             .first,

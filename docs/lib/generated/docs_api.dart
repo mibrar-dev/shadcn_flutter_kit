@@ -611,172 +611,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
-  'color_field': DocsApiTable(
-    componentId: 'color_field',
-    symbol: 'ColorField',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A gradient area that varies an HSV/HSL colour along configurable axes.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'color',
-        type: 'Color',
-        isRequired: true,
-        doc: 'The colour the field is built from.',
-      ),
-      DocsApiParam(
-        name: 'mode',
-        type: 'ColorFieldMode',
-        isRequired: false,
-        defaultValue: 'ColorFieldMode.hsv',
-        doc: 'Colour space used to paint the field.',
-      ),
-      DocsApiParam(
-        name: 'hueAxis',
-        type: 'ColorFieldAxis',
-        isRequired: false,
-        defaultValue: 'ColorFieldAxis.none',
-        doc: 'Hue ramp axis (both modes).',
-      ),
-      DocsApiParam(
-        name: 'saturationAxis',
-        type: 'ColorFieldAxis',
-        isRequired: false,
-        defaultValue: 'ColorFieldAxis.none',
-        doc: 'Saturation ramp axis (both modes).',
-      ),
-      DocsApiParam(
-        name: 'valueAxis',
-        type: 'ColorFieldAxis',
-        isRequired: false,
-        defaultValue: 'ColorFieldAxis.none',
-        doc: 'Value ramp axis ([ColorFieldMode.hsv] only).',
-      ),
-      DocsApiParam(
-        name: 'lightnessAxis',
-        type: 'ColorFieldAxis',
-        isRequired: false,
-        defaultValue: 'ColorFieldAxis.none',
-        doc: 'Lightness ramp axis ([ColorFieldMode.hsl] only).',
-      ),
-      DocsApiParam(
-        name: 'alphaAxis',
-        type: 'ColorFieldAxis',
-        isRequired: false,
-        defaultValue: 'ColorFieldAxis.none',
-        doc: 'Alpha ramp axis (both modes).',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'ColorFieldTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg style override, merged on top of the component/app/defaults.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'color_input': DocsApiTable(
-    componentId: 'color_input',
-    symbol: 'ColorInput',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A compact colour field: a colour well and an editable hex text field.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'value',
-        type: 'ColorDerivative',
-        isRequired: true,
-        doc: 'The current colour.',
-      ),
-      DocsApiParam(
-        name: 'onChanged',
-        type: 'ValueChanged<ColorDerivative>?',
-        isRequired: false,
-        doc: 'Called with every committed colour.',
-      ),
-      DocsApiParam(
-        name: 'onChanging',
-        type: 'ValueChanged<ColorDerivative>?',
-        isRequired: false,
-        doc: 'Called while a picker drag is in flight (live preview).',
-      ),
-      DocsApiParam(
-        name: 'showAlpha',
-        type: 'bool?',
-        isRequired: false,
-        doc: 'Whether the picker edits alpha; null resolves true.',
-      ),
-      DocsApiParam(
-        name: 'initialMode',
-        type: 'ColorPickerMode?',
-        isRequired: false,
-        doc: 'Channel mode the picker opens in; null resolves `rgb`.',
-      ),
-      DocsApiParam(
-        name: 'enableEyeDropper',
-        type: 'bool?',
-        isRequired: false,
-        doc: 'Whether the picker offers screen sampling; null resolves true.',
-      ),
-      DocsApiParam(
-        name: 'showHistory',
-        type: 'bool?',
-        isRequired: false,
-        doc:
-            'Whether the picker\'s history toggle is shown; null resolves true.',
-      ),
-      DocsApiParam(
-        name: 'mode',
-        type: 'PromptMode?',
-        isRequired: false,
-        doc:
-            'Prompt presentation; null resolves popover at 768 px and wider, dialog\nbelow.',
-      ),
-      DocsApiParam(
-        name: 'popoverAlignment',
-        type: 'AlignmentGeometry?',
-        isRequired: false,
-        doc:
-            'Popover placement relative to the trigger; null resolves top-left.',
-      ),
-      DocsApiParam(
-        name: 'popoverAnchorAlignment',
-        type: 'AlignmentGeometry?',
-        isRequired: false,
-        doc: 'Anchor edge in popover mode; null resolves bottom-left.',
-      ),
-      DocsApiParam(
-        name: 'popoverPadding',
-        type: 'EdgeInsetsGeometry?',
-        isRequired: false,
-        doc:
-            'Padding inside the popover surface; null resolves the primitive\'s 16.',
-      ),
-      DocsApiParam(
-        name: 'dialogTitle',
-        type: 'Widget?',
-        isRequired: false,
-        doc: 'Optional heading above the picker in dialog mode.',
-      ),
-      DocsApiParam(
-        name: 'enabled',
-        type: 'bool?',
-        isRequired: false,
-        doc: 'Overrides the enabled state; null means `onChanged != null`.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'ColorInputTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg style override, merged on top of the component/app/defaults.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
   'color_picker': DocsApiTable(
     componentId: 'color_picker',
     symbol: 'ColorPicker',
@@ -848,61 +682,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc:
             'Widget-leg style override (orientation/spacing/slider size live here).',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'eye_dropper': DocsApiTable(
-    componentId: 'eye_dropper',
-    symbol: 'EyeDropperLayer',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'Wraps a subtree and enables sampling colours from it.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'child',
-        type: 'Widget',
-        isRequired: true,
-        doc: 'The subtree that can be sampled.',
-      ),
-      DocsApiParam(
-        name: 'previewAlignment',
-        type: 'AlignmentGeometry?',
-        isRequired: false,
-        doc:
-            'Pins the preview to this alignment; null makes it follow the pointer.',
-      ),
-      DocsApiParam(
-        name: 'showPreview',
-        type: 'bool?',
-        isRequired: false,
-        doc:
-            'Whether the magnified preview is shown. Default: theme value (true).',
-      ),
-      DocsApiParam(
-        name: 'previewSize',
-        type: 'Size?',
-        isRequired: false,
-        doc: 'Preview size override. Default: theme value (100x100), scaled.',
-      ),
-      DocsApiParam(
-        name: 'previewScale',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Magnification override. Default: theme value (8).',
-      ),
-      DocsApiParam(
-        name: 'previewLabelBuilder',
-        type: 'PreviewLabelBuilder?',
-        isRequired: false,
-        doc: 'Custom label under the preview; defaults to the hex value.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'EyeDropperTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -1776,176 +1555,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         type: 'Duration',
         isRequired: false,
         defaultValue: 'const Duration(milliseconds: 350)',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'selectable': DocsApiTable(
-    componentId: 'selectable',
-    symbol: 'SelectableText',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'Read-only text that users can select, copy and long-press.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'data',
-        type: 'String?',
-        isRequired: true,
-        doc:
-            'Plain text; null when the [SelectableText.rich] constructor is used.',
-      ),
-      DocsApiParam(
-        name: 'focusNode',
-        type: 'FocusNode?',
-        isRequired: false,
-        doc: 'Focus node; one is created and disposed internally when null.',
-      ),
-      DocsApiParam(
-        name: 'style',
-        type: 'TextStyle?',
-        isRequired: false,
-        doc: 'Style override; merged over the theme and default text style.',
-      ),
-      DocsApiParam(
-        name: 'strutStyle',
-        type: 'StrutStyle?',
-        isRequired: false,
-        doc: 'Strut style override.',
-      ),
-      DocsApiParam(
-        name: 'textAlign',
-        type: 'TextAlign?',
-        isRequired: false,
-        doc: 'Horizontal text alignment.',
-      ),
-      DocsApiParam(
-        name: 'textDirection',
-        type: 'TextDirection?',
-        isRequired: false,
-        doc: 'Text direction override.',
-      ),
-      DocsApiParam(
-        name: 'textScaler',
-        type: 'TextScaler?',
-        isRequired: false,
-        doc: 'Text scaling override.',
-      ),
-      DocsApiParam(
-        name: 'showCursor',
-        type: 'bool',
-        isRequired: false,
-        defaultValue: 'false',
-        doc: 'Whether to paint a blinking caret when focused.',
-      ),
-      DocsApiParam(
-        name: 'autofocus',
-        type: 'bool',
-        isRequired: false,
-        defaultValue: 'false',
-        doc: 'Whether to focus when first built.',
-      ),
-      DocsApiParam(
-        name: 'minLines',
-        type: 'int?',
-        isRequired: false,
-        doc: 'Minimum number of lines.',
-      ),
-      DocsApiParam(
-        name: 'maxLines',
-        type: 'int?',
-        isRequired: false,
-        doc: 'Maximum number of lines before scrolling.',
-      ),
-      DocsApiParam(
-        name: 'cursorWidth',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Caret width override.',
-      ),
-      DocsApiParam(
-        name: 'cursorHeight',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Caret height override.',
-      ),
-      DocsApiParam(
-        name: 'cursorRadius',
-        type: 'Radius?',
-        isRequired: false,
-        doc: 'Caret corner radius override.',
-      ),
-      DocsApiParam(
-        name: 'cursorColor',
-        type: 'Color?',
-        isRequired: false,
-        doc: 'Caret colour override.',
-      ),
-      DocsApiParam(
-        name: 'selectionHeightStyle',
-        type: 'BoxHeightStyle?',
-        isRequired: false,
-        doc: 'Selection box height style override.',
-      ),
-      DocsApiParam(
-        name: 'selectionWidthStyle',
-        type: 'BoxWidthStyle?',
-        isRequired: false,
-        doc: 'Selection box width style override.',
-      ),
-      DocsApiParam(
-        name: 'enableInteractiveSelection',
-        type: 'bool?',
-        isRequired: false,
-        doc: 'Whether drag/double-tap/long-press selection is enabled.',
-      ),
-      DocsApiParam(
-        name: 'selectionControls',
-        type: 'TextSelectionControls?',
-        isRequired: false,
-        doc:
-            'Selection controls override; defaults to `ShadcnSelectionControls`.',
-      ),
-      DocsApiParam(
-        name: 'contextMenuBuilder',
-        type: 'EditableTextContextMenuBuilder?',
-        isRequired: false,
-        doc: 'Context menu builder override; defaults to the shadcn toolbar.',
-      ),
-      DocsApiParam(
-        name: 'onTap',
-        type: 'VoidCallback?',
-        isRequired: false,
-        doc: 'Called when the text is tapped.',
-      ),
-      DocsApiParam(
-        name: 'onSelectionChanged',
-        type: 'SelectionChangedCallback?',
-        isRequired: false,
-        doc: 'Called when the selection changes.',
-      ),
-      DocsApiParam(
-        name: 'semanticsLabel',
-        type: 'String?',
-        isRequired: false,
-        doc: 'Semantic label; replaces the text semantics when set.',
-      ),
-      DocsApiParam(
-        name: 'textHeightBehavior',
-        type: 'TextHeightBehavior?',
-        isRequired: false,
-        doc: 'Text height behavior override.',
-      ),
-      DocsApiParam(
-        name: 'textWidthBasis',
-        type: 'TextWidthBasis?',
-        isRequired: false,
-        doc: 'Text width basis override.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'SelectableTextTheme?',
-        isRequired: false,
-        doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -2955,6 +2564,19 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc: 'Widget-leg style override.',
       ),
+      DocsApiParam(
+        name: 'focusNode',
+        type: 'FocusNode?',
+        isRequired: false,
+        doc: 'Focus node for keyboard activation; null creates one internally.',
+      ),
+      DocsApiParam(
+        name: 'autofocus',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+        doc: 'Whether the surface requests focus when first built.',
+      ),
     ],
     members: <DocsApiMember>[],
   ),
@@ -3490,7 +3112,7 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         type: 'String? Function(String? code)?',
         isRequired: false,
         doc:
-            'Validation of the whole code; a non-null result shows it below the row.\nReceives `null` until every slot is filled.',
+            'Validation of the whole code; the message renders below the row, but only\nonce every slot is filled. The validator itself runs on every change\n(per [autovalidateMode]) and sees partial codes along the way.',
       ),
       DocsApiParam(
         name: 'autovalidateMode',
@@ -3850,10 +3472,10 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     summary: 'A single-select group of radio items.',
     params: <DocsApiParam>[
       DocsApiParam(
-        name: 'child',
-        type: 'Widget',
+        name: 'items',
+        type: 'List<Widget>',
         isRequired: true,
-        doc: 'The items, laid out by the caller.',
+        doc: 'The items, stacked by the group along [direction].',
       ),
       DocsApiParam(
         name: 'value',
@@ -4700,108 +4322,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
-  'outlined_container': DocsApiTable(
-    componentId: 'outlined_container',
-    symbol: 'OutlinedContainer',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'An animated, outlined surface.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'child',
-        type: 'Widget',
-        isRequired: true,
-        doc: 'Content inside the container.',
-      ),
-      DocsApiParam(
-        name: 'backgroundColor',
-        type: 'ThemedColor?',
-        isRequired: false,
-        doc: 'Surface fill override.',
-      ),
-      DocsApiParam(
-        name: 'borderColor',
-        type: 'ThemedColor?',
-        isRequired: false,
-        doc: 'Border colour override.',
-      ),
-      DocsApiParam(
-        name: 'borderRadius',
-        type: 'BorderRadiusGeometry?',
-        isRequired: false,
-        doc: 'Corner radius override.',
-      ),
-      DocsApiParam(
-        name: 'borderWidth',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Border width override.',
-      ),
-      DocsApiParam(
-        name: 'borderStyle',
-        type: 'BorderStyle?',
-        isRequired: false,
-        doc: 'Border style override.',
-      ),
-      DocsApiParam(
-        name: 'boxShadow',
-        type: 'List<BoxShadow>?',
-        isRequired: false,
-        doc: 'Elevation shadows override.',
-      ),
-      DocsApiParam(
-        name: 'padding',
-        type: 'EdgeInsetsGeometry?',
-        isRequired: false,
-        doc: 'Inner padding override.',
-      ),
-      DocsApiParam(
-        name: 'clipBehavior',
-        type: 'Clip',
-        isRequired: false,
-        defaultValue: 'Clip.antiAlias',
-        doc: 'How the child is clipped to the decoration.',
-      ),
-      DocsApiParam(
-        name: 'surfaceOpacity',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Multiplies the fill alpha.',
-      ),
-      DocsApiParam(
-        name: 'surfaceBlur',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Backdrop blur sigma; null or <= 0 draws no blur.',
-      ),
-      DocsApiParam(
-        name: 'width',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Fixed width.',
-      ),
-      DocsApiParam(
-        name: 'height',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Fixed height.',
-      ),
-      DocsApiParam(
-        name: 'duration',
-        type: 'Duration?',
-        isRequired: false,
-        doc: 'Animation duration for decoration changes; null snaps.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'OutlinedContainerTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg style override, merged on top of the other resolver legs.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
   'overflow_marquee': DocsApiTable(
     componentId: 'overflow_marquee',
     symbol: 'OverflowMarquee',
@@ -4962,42 +4482,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
-  'scrollable': DocsApiTable(
-    componentId: 'scrollable',
-    symbol: 'FadedScrollableViewport',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'Fades the leading and trailing edges of [child] while it is scrolled.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'child',
-        type: 'Widget',
-        isRequired: true,
-        doc: 'The scrollable subtree the fade is drawn over.',
-      ),
-      DocsApiParam(
-        name: 'fadeExtent',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Scroll distance over which the fade reaches full strength.',
-      ),
-      DocsApiParam(
-        name: 'fadeSize',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Length of the fade gradient.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'ScrollableTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg style override, merged on top of the other resolver legs.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
   'scrollbar': DocsApiTable(
     componentId: 'scrollbar',
     symbol: 'Scrollbar',
@@ -5084,30 +4568,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc:
             'Widget-leg style override, merged on top of the other resolver legs.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'scrollview': DocsApiTable(
-    componentId: 'scrollview',
-    symbol: 'ScrollViewInterceptor',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'Wraps [child] with middle-button autoscroll.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'child',
-        type: 'Widget',
-        isRequired: true,
-        doc: 'The subtree that receives the synthetic scroll events.',
-      ),
-      DocsApiParam(
-        name: 'enabled',
-        type: 'bool',
-        isRequired: false,
-        defaultValue: 'true',
-        doc:
-            'When false the child renders untouched and no pointer is intercepted.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -5238,42 +4698,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
-  'stage_container': DocsApiTable(
-    componentId: 'stage_container',
-    symbol: 'StageContainer',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A responsive container that constrains content to breakpoint widths.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'builder',
-        type: 'StageContainerBuilder',
-        isRequired: true,
-        doc: 'Builds the content; receives the resolved outer padding.',
-      ),
-      DocsApiParam(
-        name: 'breakpoint',
-        type: 'StageBreakpoint?',
-        isRequired: false,
-        doc:
-            'Width strategy; null resolves the theme, then the default breakpoints.',
-      ),
-      DocsApiParam(
-        name: 'padding',
-        type: 'EdgeInsetsGeometry?',
-        isRequired: false,
-        doc: 'Base padding; null resolves the theme, then the density default.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'StageContainerTheme?',
-        isRequired: false,
-        doc: 'Widget-leg theme override.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
   'steps': DocsApiTable(
     componentId: 'steps',
     symbol: 'Steps',
@@ -5293,38 +4717,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'window': DocsApiTable(
-    componentId: 'window',
-    symbol: 'Window',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A draggable, resizable window frame driven by a [WindowController].',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'controller',
-        type: 'WindowController',
-        isRequired: true,
-        doc: 'The window\'s state controller.',
-      ),
-      DocsApiParam(name: 'title', type: 'Widget?', isRequired: false),
-      DocsApiParam(
-        name: 'actions',
-        type: 'Widget?',
-        isRequired: false,
-        defaultValue: 'const WindowActions()',
-        doc: 'Title bar action area; defaults to [WindowActions].',
-      ),
-      DocsApiParam(
-        name: 'content',
-        type: 'Widget?',
-        isRequired: false,
-        doc: 'Window body.',
-      ),
-      DocsApiParam(name: 'theme', type: 'WindowTheme?', isRequired: false),
     ],
     members: <DocsApiMember>[],
   ),
@@ -5549,60 +4941,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc:
             'Widget-leg theme override, merged over the component/app/defaults legs.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'triple_dots': DocsApiTable(
-    componentId: 'triple_dots',
-    symbol: 'TripleDots',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'A row or column of evenly spaced dots.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'count',
-        type: 'int',
-        isRequired: false,
-        defaultValue: '3',
-        doc: 'Number of dots.',
-      ),
-      DocsApiParam(
-        name: 'direction',
-        type: 'Axis',
-        isRequired: false,
-        defaultValue: 'Axis.horizontal',
-        doc: 'Layout direction of the dots.',
-      ),
-      DocsApiParam(
-        name: 'size',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Dot diameter override.',
-      ),
-      DocsApiParam(
-        name: 'spacing',
-        type: 'double?',
-        isRequired: false,
-        doc: 'Gap between dots override.',
-      ),
-      DocsApiParam(
-        name: 'color',
-        type: 'Color?',
-        isRequired: false,
-        doc: 'Dot colour override.',
-      ),
-      DocsApiParam(
-        name: 'padding',
-        type: 'EdgeInsetsGeometry?',
-        isRequired: false,
-        doc: 'Padding around the whole run.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'TripleDotsTheme?',
-        isRequired: false,
-        doc: 'Widget-leg theme override, merged on top of the other legs.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -5897,62 +5235,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
-  'switcher': DocsApiTable(
-    componentId: 'switcher',
-    symbol: 'Switcher',
-    hasApiTable: true,
-    parseClean: true,
-    summary: 'A swipeable container that transitions between child widgets.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'direction',
-        type: 'AxisDirection',
-        isRequired: true,
-        doc:
-            'Axis the transition runs along; `right` means "the next child enters from\nthe right".',
-      ),
-      DocsApiParam(
-        name: 'children',
-        type: 'List<Widget>',
-        isRequired: true,
-        doc:
-            'The pages to switch between; never empty.\n\nThe **length** must not change after the first build: the position lives\nin an [AnimationController] whose range is fixed when it is created.\nChanging it asserts in debug; build a new [KeyedSubtree] (or give the\n[Switcher] a new `Key`) to swap the page list.',
-      ),
-      DocsApiParam(
-        name: 'index',
-        type: 'int',
-        isRequired: false,
-        defaultValue: '0',
-        doc:
-            'Index of the active child; values outside `0..children.length - 1` are\nclamped.',
-      ),
-      DocsApiParam(
-        name: 'onIndexChanged',
-        type: 'ValueChanged<int>?',
-        isRequired: false,
-        doc: 'Called when a drag snaps to an index other than the current one.',
-      ),
-      DocsApiParam(
-        name: 'duration',
-        type: 'Duration?',
-        isRequired: false,
-        doc: 'Snap-back duration; null uses [SwitcherTheme.duration].',
-      ),
-      DocsApiParam(
-        name: 'curve',
-        type: 'Curve?',
-        isRequired: false,
-        doc: 'Snap-back curve; null uses [SwitcherTheme.curve].',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'SwitcherTheme?',
-        isRequired: false,
-        doc: 'Widget-leg theme override, merged on top of the other legs.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
   'tabs': DocsApiTable(
     componentId: 'tabs',
     symbol: 'Tabs',
@@ -6149,37 +5431,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
       ),
       DocsApiParam(name: 'theme', type: 'DrawerTheme?', isRequired: false),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'drawer_container': DocsApiTable(
-    componentId: 'drawer_container',
-    symbol: 'DrawerContainer',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A container that takes only a [child] and reads the rest of its configuration from an ancestor [DrawerContainerData].',
-    params: <DocsApiParam>[
-      DocsApiParam(name: 'child', type: 'Widget', isRequired: true),
-      DocsApiParam(
-        name: 'startPadding',
-        type: 'double',
-        isRequired: false,
-        defaultValue: '0',
-      ),
-      DocsApiParam(
-        name: 'endPadding',
-        type: 'double',
-        isRequired: false,
-        defaultValue: '0',
-      ),
-      DocsApiParam(name: 'size', type: 'AxisSize?', isRequired: false),
-      DocsApiParam(
-        name: 'alignment',
-        type: 'double',
-        isRequired: false,
-        defaultValue: '0',
-      ),
     ],
     members: <DocsApiMember>[],
   ),
@@ -6385,86 +5636,6 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         name: 'theme',
         type: 'RefreshTriggerTheme?',
         isRequired: false,
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'spell_check_suggestions_toolbar': DocsApiTable(
-    componentId: 'spell_check_suggestions_toolbar',
-    symbol: 'SpellCheckSuggestionsToolbar',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'A shadcn styled toolbar offering replacement suggestions for the misspelled word under the cursor.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'anchors',
-        type: 'TextSelectionToolbarAnchors',
-        isRequired: true,
-        doc: 'Where the toolbar is anchored relative to the text field.',
-      ),
-      DocsApiParam(
-        name: 'buttonItems',
-        type: 'List<ContextMenuButtonItem>',
-        isRequired: true,
-        doc: 'The replacement suggestions to display, at most three.',
-      ),
-    ],
-    members: <DocsApiMember>[],
-  ),
-  'swiper': DocsApiTable(
-    componentId: 'swiper',
-    symbol: 'Swiper',
-    hasApiTable: true,
-    parseClean: true,
-    summary:
-        'Wraps [child] and reveals a [SwiperVariant.drawer] or [SwiperVariant.sheet] panel when the user swipes towards the panel\'s edge. The panel is painted in-tree so the gesture can scrub it. Provide a non-swipe trigger for keyboard and assistive-technology users.',
-    params: <DocsApiParam>[
-      DocsApiParam(
-        name: 'position',
-        type: 'OverlayPosition',
-        isRequired: true,
-        doc:
-            'Edge the panel slides in from; `start`/`end` follow the text direction.',
-      ),
-      DocsApiParam(
-        name: 'builder',
-        type: 'WidgetBuilder',
-        isRequired: true,
-        doc: 'Builds the panel content.',
-      ),
-      DocsApiParam(
-        name: 'child',
-        type: 'Widget',
-        isRequired: true,
-        doc: 'The widget that responds to the swipe gesture.',
-      ),
-      DocsApiParam(
-        name: 'variant',
-        type: 'SwiperVariant',
-        isRequired: false,
-        defaultValue: 'SwiperVariant.drawer',
-        doc: 'Which panel to reveal.',
-      ),
-      DocsApiParam(
-        name: 'enabled',
-        type: 'bool',
-        isRequired: false,
-        defaultValue: 'true',
-        doc: 'Whether the swipe gesture is active.',
-      ),
-      DocsApiParam(
-        name: 'controller',
-        type: 'SwiperController?',
-        isRequired: false,
-        doc: 'Optional programmatic control; the swiper never disposes it.',
-      ),
-      DocsApiParam(
-        name: 'theme',
-        type: 'SwiperTheme?',
-        isRequired: false,
-        doc:
-            'Widget-leg theme override; other legs resolve from the tree and the app.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -7305,6 +6476,203 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
       ),
     ],
   ),
+  'color_field': DocsApiTable(
+    componentId: 'color_field',
+    symbol: 'ColorField',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A gradient area that varies an HSV/HSL colour along configurable axes.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'color',
+        type: 'Color',
+        isRequired: true,
+        doc: 'The colour the field is built from.',
+      ),
+      DocsApiParam(
+        name: 'mode',
+        type: 'ColorFieldMode',
+        isRequired: false,
+        defaultValue: 'ColorFieldMode.hsv',
+        doc: 'Colour space used to paint the field.',
+      ),
+      DocsApiParam(
+        name: 'hueAxis',
+        type: 'ColorFieldAxis',
+        isRequired: false,
+        defaultValue: 'ColorFieldAxis.none',
+        doc: 'Hue ramp axis (both modes).',
+      ),
+      DocsApiParam(
+        name: 'saturationAxis',
+        type: 'ColorFieldAxis',
+        isRequired: false,
+        defaultValue: 'ColorFieldAxis.none',
+        doc: 'Saturation ramp axis (both modes).',
+      ),
+      DocsApiParam(
+        name: 'valueAxis',
+        type: 'ColorFieldAxis',
+        isRequired: false,
+        defaultValue: 'ColorFieldAxis.none',
+        doc: 'Value ramp axis ([ColorFieldMode.hsv] only).',
+      ),
+      DocsApiParam(
+        name: 'lightnessAxis',
+        type: 'ColorFieldAxis',
+        isRequired: false,
+        defaultValue: 'ColorFieldAxis.none',
+        doc: 'Lightness ramp axis ([ColorFieldMode.hsl] only).',
+      ),
+      DocsApiParam(
+        name: 'alphaAxis',
+        type: 'ColorFieldAxis',
+        isRequired: false,
+        defaultValue: 'ColorFieldAxis.none',
+        doc: 'Alpha ramp axis (both modes).',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'ColorFieldTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg style override, merged on top of the component/app/defaults.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'color_input': DocsApiTable(
+    componentId: 'color_input',
+    symbol: 'ColorInput',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A compact colour field: a colour well and an editable hex text field.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'value',
+        type: 'ColorDerivative',
+        isRequired: true,
+        doc: 'The current colour.',
+      ),
+      DocsApiParam(
+        name: 'onChanged',
+        type: 'ValueChanged<ColorDerivative>?',
+        isRequired: false,
+        doc: 'Called with every committed colour.',
+      ),
+      DocsApiParam(
+        name: 'onChanging',
+        type: 'ValueChanged<ColorDerivative>?',
+        isRequired: false,
+        doc: 'Called while a picker drag is in flight (live preview).',
+      ),
+      DocsApiParam(
+        name: 'showAlpha',
+        type: 'bool?',
+        isRequired: false,
+        doc: 'Whether the picker edits alpha; null resolves true.',
+      ),
+      DocsApiParam(
+        name: 'initialMode',
+        type: 'ColorPickerMode?',
+        isRequired: false,
+        doc: 'Channel mode the picker opens in; null resolves `rgb`.',
+      ),
+      DocsApiParam(
+        name: 'enableEyeDropper',
+        type: 'bool?',
+        isRequired: false,
+        doc: 'Whether the picker offers screen sampling; null resolves true.',
+      ),
+      DocsApiParam(
+        name: 'showHistory',
+        type: 'bool?',
+        isRequired: false,
+        doc:
+            'Whether the picker\'s history toggle is shown; null resolves true.',
+      ),
+      DocsApiParam(
+        name: 'mode',
+        type: 'PromptMode?',
+        isRequired: false,
+        doc:
+            'Prompt presentation; null resolves popover at 768 px and wider, dialog\nbelow.',
+      ),
+      DocsApiParam(
+        name: 'popoverAlignment',
+        type: 'AlignmentGeometry?',
+        isRequired: false,
+        doc:
+            'Popover placement relative to the trigger; null resolves top-start.',
+      ),
+      DocsApiParam(
+        name: 'popoverAnchorAlignment',
+        type: 'AlignmentGeometry?',
+        isRequired: false,
+        doc: 'Anchor edge in popover mode; null resolves bottom-start.',
+      ),
+      DocsApiParam(
+        name: 'popoverPadding',
+        type: 'EdgeInsetsGeometry?',
+        isRequired: false,
+        doc:
+            'Padding inside the popover surface; null resolves the primitive\'s 16.',
+      ),
+      DocsApiParam(
+        name: 'dialogTitle',
+        type: 'Widget?',
+        isRequired: false,
+        doc: 'Optional heading above the picker in dialog mode.',
+      ),
+      DocsApiParam(
+        name: 'enabled',
+        type: 'bool?',
+        isRequired: false,
+        doc: 'Overrides the enabled state; null means `onChanged != null`.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'ColorInputTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg style override, merged on top of the component/app/defaults.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'drawer_container': DocsApiTable(
+    componentId: 'drawer_container',
+    symbol: 'DrawerContainer',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A container that takes only a [child] and reads the rest of its configuration from an ancestor [DrawerContainerData].',
+    params: <DocsApiParam>[
+      DocsApiParam(name: 'child', type: 'Widget', isRequired: true),
+      DocsApiParam(
+        name: 'startPadding',
+        type: 'double',
+        isRequired: false,
+        defaultValue: '0',
+      ),
+      DocsApiParam(
+        name: 'endPadding',
+        type: 'double',
+        isRequired: false,
+        defaultValue: '0',
+      ),
+      DocsApiParam(name: 'size', type: 'AxisSize?', isRequired: false),
+      DocsApiParam(
+        name: 'alignment',
+        type: 'double',
+        isRequired: false,
+        defaultValue: '0',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
   'error_system': DocsApiTable(
     componentId: 'error_system',
     symbol: 'ErrorState',
@@ -7337,6 +6705,61 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc:
             'Widget-leg override, merged over the component/app/defaults legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'eye_dropper': DocsApiTable(
+    componentId: 'eye_dropper',
+    symbol: 'EyeDropperLayer',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'Wraps a subtree and enables sampling colours from it.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'child',
+        type: 'Widget',
+        isRequired: true,
+        doc: 'The subtree that can be sampled.',
+      ),
+      DocsApiParam(
+        name: 'previewAlignment',
+        type: 'AlignmentGeometry?',
+        isRequired: false,
+        doc:
+            'Pins the preview to this alignment; null makes it follow the pointer.',
+      ),
+      DocsApiParam(
+        name: 'showPreview',
+        type: 'bool?',
+        isRequired: false,
+        doc:
+            'Whether the magnified preview is shown. Default: theme value (true).',
+      ),
+      DocsApiParam(
+        name: 'previewSize',
+        type: 'Size?',
+        isRequired: false,
+        doc: 'Preview size override. Default: theme value (100x100), scaled.',
+      ),
+      DocsApiParam(
+        name: 'previewScale',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Magnification override. Default: theme value (8).',
+      ),
+      DocsApiParam(
+        name: 'previewLabelBuilder',
+        type: 'PreviewLabelBuilder?',
+        isRequired: false,
+        doc: 'Custom label under the preview; defaults to the hex value.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'EyeDropperTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg style override, merged on top of the component/app/defaults.',
       ),
     ],
     members: <DocsApiMember>[],
@@ -7826,6 +7249,108 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
+  'outlined_container': DocsApiTable(
+    componentId: 'outlined_container',
+    symbol: 'OutlinedContainer',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'An animated, outlined surface.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'child',
+        type: 'Widget',
+        isRequired: true,
+        doc: 'Content inside the container.',
+      ),
+      DocsApiParam(
+        name: 'backgroundColor',
+        type: 'ThemedColor?',
+        isRequired: false,
+        doc: 'Surface fill override.',
+      ),
+      DocsApiParam(
+        name: 'borderColor',
+        type: 'ThemedColor?',
+        isRequired: false,
+        doc: 'Border colour override.',
+      ),
+      DocsApiParam(
+        name: 'borderRadius',
+        type: 'BorderRadiusGeometry?',
+        isRequired: false,
+        doc: 'Corner radius override.',
+      ),
+      DocsApiParam(
+        name: 'borderWidth',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Border width override.',
+      ),
+      DocsApiParam(
+        name: 'borderStyle',
+        type: 'BorderStyle?',
+        isRequired: false,
+        doc: 'Border style override.',
+      ),
+      DocsApiParam(
+        name: 'boxShadow',
+        type: 'List<BoxShadow>?',
+        isRequired: false,
+        doc: 'Elevation shadows override.',
+      ),
+      DocsApiParam(
+        name: 'padding',
+        type: 'EdgeInsetsGeometry?',
+        isRequired: false,
+        doc: 'Inner padding override.',
+      ),
+      DocsApiParam(
+        name: 'clipBehavior',
+        type: 'Clip',
+        isRequired: false,
+        defaultValue: 'Clip.antiAlias',
+        doc: 'How the child is clipped to the decoration.',
+      ),
+      DocsApiParam(
+        name: 'surfaceOpacity',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Multiplies the fill alpha.',
+      ),
+      DocsApiParam(
+        name: 'surfaceBlur',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Backdrop blur sigma; null or <= 0 draws no blur.',
+      ),
+      DocsApiParam(
+        name: 'width',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Fixed width.',
+      ),
+      DocsApiParam(
+        name: 'height',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Fixed height.',
+      ),
+      DocsApiParam(
+        name: 'duration',
+        type: 'Duration?',
+        isRequired: false,
+        doc: 'Animation duration for decoration changes; null snaps.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'OutlinedContainerTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg style override, merged on top of the other resolver legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
   'overlay_configuration': DocsApiTable(
     componentId: 'overlay_configuration',
     symbol: 'OverlayConfiguration',
@@ -7940,6 +7465,42 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
+  'scrollable': DocsApiTable(
+    componentId: 'scrollable',
+    symbol: 'FadedScrollableViewport',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'Fades the leading and trailing edges of [child] while it is scrolled.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'child',
+        type: 'Widget',
+        isRequired: true,
+        doc: 'The scrollable subtree the fade is drawn over.',
+      ),
+      DocsApiParam(
+        name: 'fadeExtent',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Scroll distance over which the fade reaches full strength.',
+      ),
+      DocsApiParam(
+        name: 'fadeSize',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Length of the fade gradient.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'ScrollableTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg style override, merged on top of the other resolver legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
   'scrollable_client': DocsApiTable(
     componentId: 'scrollable_client',
     symbol: 'ScrollableClient',
@@ -8033,6 +7594,372 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
     ],
     members: <DocsApiMember>[],
   ),
+  'scrollview': DocsApiTable(
+    componentId: 'scrollview',
+    symbol: 'ScrollViewInterceptor',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'Wraps [child] with middle-button autoscroll.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'child',
+        type: 'Widget',
+        isRequired: true,
+        doc: 'The subtree that receives the synthetic scroll events.',
+      ),
+      DocsApiParam(
+        name: 'enabled',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+        doc:
+            'When false the child renders untouched and no pointer is intercepted.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'selectable': DocsApiTable(
+    componentId: 'selectable',
+    symbol: 'SelectableText',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'Read-only text that users can select, copy and long-press.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'data',
+        type: 'String?',
+        isRequired: true,
+        doc:
+            'Plain text; null when the [SelectableText.rich] constructor is used.',
+      ),
+      DocsApiParam(
+        name: 'focusNode',
+        type: 'FocusNode?',
+        isRequired: false,
+        doc: 'Focus node; one is created and disposed internally when null.',
+      ),
+      DocsApiParam(
+        name: 'style',
+        type: 'TextStyle?',
+        isRequired: false,
+        doc: 'Style override; merged over the theme and default text style.',
+      ),
+      DocsApiParam(
+        name: 'strutStyle',
+        type: 'StrutStyle?',
+        isRequired: false,
+        doc: 'Strut style override.',
+      ),
+      DocsApiParam(
+        name: 'textAlign',
+        type: 'TextAlign?',
+        isRequired: false,
+        doc: 'Horizontal text alignment.',
+      ),
+      DocsApiParam(
+        name: 'textDirection',
+        type: 'TextDirection?',
+        isRequired: false,
+        doc: 'Text direction override.',
+      ),
+      DocsApiParam(
+        name: 'textScaler',
+        type: 'TextScaler?',
+        isRequired: false,
+        doc: 'Text scaling override.',
+      ),
+      DocsApiParam(
+        name: 'showCursor',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+        doc: 'Whether to paint a blinking caret when focused.',
+      ),
+      DocsApiParam(
+        name: 'autofocus',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'false',
+        doc: 'Whether to focus when first built.',
+      ),
+      DocsApiParam(
+        name: 'minLines',
+        type: 'int?',
+        isRequired: false,
+        doc: 'Minimum number of lines.',
+      ),
+      DocsApiParam(
+        name: 'maxLines',
+        type: 'int?',
+        isRequired: false,
+        doc: 'Maximum number of lines before scrolling.',
+      ),
+      DocsApiParam(
+        name: 'cursorWidth',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Caret width override.',
+      ),
+      DocsApiParam(
+        name: 'cursorHeight',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Caret height override.',
+      ),
+      DocsApiParam(
+        name: 'cursorRadius',
+        type: 'Radius?',
+        isRequired: false,
+        doc: 'Caret corner radius override.',
+      ),
+      DocsApiParam(
+        name: 'cursorColor',
+        type: 'Color?',
+        isRequired: false,
+        doc: 'Caret colour override.',
+      ),
+      DocsApiParam(
+        name: 'selectionHeightStyle',
+        type: 'BoxHeightStyle?',
+        isRequired: false,
+        doc: 'Selection box height style override.',
+      ),
+      DocsApiParam(
+        name: 'selectionWidthStyle',
+        type: 'BoxWidthStyle?',
+        isRequired: false,
+        doc: 'Selection box width style override.',
+      ),
+      DocsApiParam(
+        name: 'enableInteractiveSelection',
+        type: 'bool?',
+        isRequired: false,
+        doc: 'Whether drag/double-tap/long-press selection is enabled.',
+      ),
+      DocsApiParam(
+        name: 'selectionControls',
+        type: 'TextSelectionControls?',
+        isRequired: false,
+        doc:
+            'Selection controls override; defaults to `ShadcnSelectionControls`.',
+      ),
+      DocsApiParam(
+        name: 'contextMenuBuilder',
+        type: 'EditableTextContextMenuBuilder?',
+        isRequired: false,
+        doc: 'Context menu builder override; defaults to the shadcn toolbar.',
+      ),
+      DocsApiParam(
+        name: 'onTap',
+        type: 'VoidCallback?',
+        isRequired: false,
+        doc: 'Called when the text is tapped.',
+      ),
+      DocsApiParam(
+        name: 'onSelectionChanged',
+        type: 'SelectionChangedCallback?',
+        isRequired: false,
+        doc: 'Called when the selection changes.',
+      ),
+      DocsApiParam(
+        name: 'semanticsLabel',
+        type: 'String?',
+        isRequired: false,
+        doc: 'Semantic label; replaces the text semantics when set.',
+      ),
+      DocsApiParam(
+        name: 'textHeightBehavior',
+        type: 'TextHeightBehavior?',
+        isRequired: false,
+        doc: 'Text height behavior override.',
+      ),
+      DocsApiParam(
+        name: 'textWidthBasis',
+        type: 'TextWidthBasis?',
+        isRequired: false,
+        doc: 'Text width basis override.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'SelectableTextTheme?',
+        isRequired: false,
+        doc: 'Widget-leg theme override, merged on top of the other legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'spell_check_suggestions_toolbar': DocsApiTable(
+    componentId: 'spell_check_suggestions_toolbar',
+    symbol: 'SpellCheckSuggestionsToolbar',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A shadcn styled toolbar offering replacement suggestions for the misspelled word under the cursor.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'anchors',
+        type: 'TextSelectionToolbarAnchors',
+        isRequired: true,
+        doc: 'Where the toolbar is anchored relative to the text field.',
+      ),
+      DocsApiParam(
+        name: 'buttonItems',
+        type: 'List<ContextMenuButtonItem>',
+        isRequired: true,
+        doc: 'The replacement suggestions to display, at most three.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'stage_container': DocsApiTable(
+    componentId: 'stage_container',
+    symbol: 'StageContainer',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A responsive container that constrains content to breakpoint widths.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'builder',
+        type: 'StageContainerBuilder',
+        isRequired: true,
+        doc: 'Builds the content; receives the resolved outer padding.',
+      ),
+      DocsApiParam(
+        name: 'breakpoint',
+        type: 'StageBreakpoint?',
+        isRequired: false,
+        doc:
+            'Width strategy; null resolves the theme, then the default breakpoints.',
+      ),
+      DocsApiParam(
+        name: 'padding',
+        type: 'EdgeInsetsGeometry?',
+        isRequired: false,
+        doc: 'Base padding; null resolves the theme, then the density default.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'StageContainerTheme?',
+        isRequired: false,
+        doc: 'Widget-leg theme override.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'swiper': DocsApiTable(
+    componentId: 'swiper',
+    symbol: 'Swiper',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'Wraps [child] and reveals a [SwiperVariant.drawer] or [SwiperVariant.sheet] panel when the user swipes towards the panel\'s edge. The panel is painted in-tree so the gesture can scrub it. Provide a non-swipe trigger for keyboard and assistive-technology users.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'position',
+        type: 'OverlayPosition',
+        isRequired: true,
+        doc:
+            'Edge the panel slides in from; `start`/`end` follow the text direction.',
+      ),
+      DocsApiParam(
+        name: 'builder',
+        type: 'WidgetBuilder',
+        isRequired: true,
+        doc: 'Builds the panel content.',
+      ),
+      DocsApiParam(
+        name: 'child',
+        type: 'Widget',
+        isRequired: true,
+        doc: 'The widget that responds to the swipe gesture.',
+      ),
+      DocsApiParam(
+        name: 'variant',
+        type: 'SwiperVariant',
+        isRequired: false,
+        defaultValue: 'SwiperVariant.drawer',
+        doc: 'Which panel to reveal.',
+      ),
+      DocsApiParam(
+        name: 'enabled',
+        type: 'bool',
+        isRequired: false,
+        defaultValue: 'true',
+        doc: 'Whether the swipe gesture is active.',
+      ),
+      DocsApiParam(
+        name: 'controller',
+        type: 'SwiperController?',
+        isRequired: false,
+        doc: 'Optional programmatic control; the swiper never disposes it.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'SwiperTheme?',
+        isRequired: false,
+        doc:
+            'Widget-leg theme override; other legs resolve from the tree and the app.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'switcher': DocsApiTable(
+    componentId: 'switcher',
+    symbol: 'Switcher',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'A swipeable container that transitions between child widgets.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'direction',
+        type: 'AxisDirection',
+        isRequired: true,
+        doc:
+            'Axis the transition runs along; `right` means "the next child enters from\nthe right".',
+      ),
+      DocsApiParam(
+        name: 'children',
+        type: 'List<Widget>',
+        isRequired: true,
+        doc:
+            'The pages to switch between; never empty.\n\nThe **length** must not change after the first build: the position lives\nin an [AnimationController] whose range is fixed when it is created.\nChanging it asserts in debug; build a new [KeyedSubtree] (or give the\n[Switcher] a new `Key`) to swap the page list.',
+      ),
+      DocsApiParam(
+        name: 'index',
+        type: 'int',
+        isRequired: false,
+        defaultValue: '0',
+        doc:
+            'Index of the active child; values outside `0..children.length - 1` are\nclamped.',
+      ),
+      DocsApiParam(
+        name: 'onIndexChanged',
+        type: 'ValueChanged<int>?',
+        isRequired: false,
+        doc: 'Called when a drag snaps to an index other than the current one.',
+      ),
+      DocsApiParam(
+        name: 'duration',
+        type: 'Duration?',
+        isRequired: false,
+        doc: 'Snap-back duration; null uses [SwitcherTheme.duration].',
+      ),
+      DocsApiParam(
+        name: 'curve',
+        type: 'Curve?',
+        isRequired: false,
+        doc: 'Snap-back curve; null uses [SwitcherTheme.curve].',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'SwitcherTheme?',
+        isRequired: false,
+        doc: 'Widget-leg theme override, merged on top of the other legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
   'timeline_animation': DocsApiTable(
     componentId: 'timeline_animation',
     symbol: 'TimelineAnimation',
@@ -8052,6 +7979,92 @@ const Map<String, DocsApiTable> kApiTables = <String, DocsApiTable>{
         isRequired: false,
         doc: 'Interpolation used by absolute and relative segments.',
       ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'triple_dots': DocsApiTable(
+    componentId: 'triple_dots',
+    symbol: 'TripleDots',
+    hasApiTable: true,
+    parseClean: true,
+    summary: 'A row or column of evenly spaced dots.',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'count',
+        type: 'int',
+        isRequired: false,
+        defaultValue: '3',
+        doc: 'Number of dots.',
+      ),
+      DocsApiParam(
+        name: 'direction',
+        type: 'Axis',
+        isRequired: false,
+        defaultValue: 'Axis.horizontal',
+        doc: 'Layout direction of the dots.',
+      ),
+      DocsApiParam(
+        name: 'size',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Dot diameter override.',
+      ),
+      DocsApiParam(
+        name: 'spacing',
+        type: 'double?',
+        isRequired: false,
+        doc: 'Gap between dots override.',
+      ),
+      DocsApiParam(
+        name: 'color',
+        type: 'Color?',
+        isRequired: false,
+        doc: 'Dot colour override.',
+      ),
+      DocsApiParam(
+        name: 'padding',
+        type: 'EdgeInsetsGeometry?',
+        isRequired: false,
+        doc: 'Padding around the whole run.',
+      ),
+      DocsApiParam(
+        name: 'theme',
+        type: 'TripleDotsTheme?',
+        isRequired: false,
+        doc: 'Widget-leg theme override, merged on top of the other legs.',
+      ),
+    ],
+    members: <DocsApiMember>[],
+  ),
+  'window': DocsApiTable(
+    componentId: 'window',
+    symbol: 'Window',
+    hasApiTable: true,
+    parseClean: true,
+    summary:
+        'A draggable, resizable window frame driven by a [WindowController].',
+    params: <DocsApiParam>[
+      DocsApiParam(
+        name: 'controller',
+        type: 'WindowController',
+        isRequired: true,
+        doc: 'The window\'s state controller.',
+      ),
+      DocsApiParam(name: 'title', type: 'Widget?', isRequired: false),
+      DocsApiParam(
+        name: 'actions',
+        type: 'Widget?',
+        isRequired: false,
+        defaultValue: 'const WindowActions()',
+        doc: 'Title bar action area; defaults to [WindowActions].',
+      ),
+      DocsApiParam(
+        name: 'content',
+        type: 'Widget?',
+        isRequired: false,
+        doc: 'Window body.',
+      ),
+      DocsApiParam(name: 'theme', type: 'WindowTheme?', isRequired: false),
     ],
     members: <DocsApiMember>[],
   ),
@@ -8309,106 +8322,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
-  'color_field': DocsThemeTable(
-    componentId: 'color_field',
-    themeClass: 'ColorFieldTheme',
-    themeDefaults: 'colorFieldDefaults',
-    userFile: 'color_field_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'borderColor',
-        type: 'ThemedColor?',
-        description: 'ring colour, border token by default',
-      ),
-      DocsThemeField(
-        name: 'borderRadius',
-        type: 'BorderRadiusGeometry?',
-        description: 'null = ambient radiusMd',
-      ),
-      DocsThemeField(
-        name: 'borderWidth',
-        type: 'double?',
-        description: '1 by default, 0 hides the ring',
-      ),
-      DocsThemeField(
-        name: 'checkerboard',
-        type: 'bool?',
-        description: 'transparency checkerboard, true by default',
-      ),
-    ],
-  ),
-  'color_input': DocsThemeTable(
-    componentId: 'color_input',
-    themeClass: 'ColorInputTheme',
-    themeDefaults: 'colorInputDefaults',
-    userFile: 'color_input_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'enableEyeDropper',
-        type: 'bool?',
-        description: 'picker screen sampling, true by default',
-      ),
-      DocsThemeField(
-        name: 'gap',
-        type: 'double?',
-        description: 'gap between the well and the hex field, 8 by default',
-      ),
-      DocsThemeField(
-        name: 'mode',
-        type: 'PromptMode?',
-        description: 'popover at 768px+ (desktop), dialog below',
-      ),
-      DocsThemeField(
-        name: 'pickerMode',
-        type: 'ColorPickerMode?',
-        description: 'channel mode the picker opens in, rgb by default',
-      ),
-      DocsThemeField(
-        name: 'popoverAlignment',
-        type: 'AlignmentGeometry?',
-        description: 'popover placement, top-left by default',
-      ),
-      DocsThemeField(
-        name: 'popoverAnchorAlignment',
-        type: 'AlignmentGeometry?',
-        description: 'popover anchor edge, bottom-left by default',
-      ),
-      DocsThemeField(
-        name: 'popoverPadding',
-        type: 'EdgeInsetsGeometry?',
-        description: 'popover inner padding, 16 by default',
-      ),
-      DocsThemeField(
-        name: 'showAlpha',
-        type: 'bool?',
-        description: 'picker alpha editing, true by default',
-      ),
-      DocsThemeField(
-        name: 'showHistory',
-        type: 'bool?',
-        description: 'picker history toggle, true by default',
-      ),
-      DocsThemeField(
-        name: 'swatchBorderColor',
-        type: 'ThemedColor?',
-        description: 'well border, the border token',
-      ),
-      DocsThemeField(
-        name: 'swatchBorderRadius',
-        type: 'BorderRadiusGeometry?',
-        description: 'well corner radius, ambient radiusMd',
-      ),
-      DocsThemeField(
-        name: 'swatchSize',
-        type: 'double?',
-        description: 'colour well edge, 36 by default',
-      ),
-    ],
-  ),
   'color_picker': DocsThemeTable(
     componentId: 'color_picker',
     themeClass: 'ColorPickerTheme',
@@ -8441,56 +8354,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'spacing',
         type: 'double?',
         description: 'gap between major sections, 12 by default',
-      ),
-    ],
-  ),
-  'eye_dropper': DocsThemeTable(
-    componentId: 'eye_dropper',
-    themeClass: 'EyeDropperTheme',
-    themeDefaults: 'eyeDropperDefaults',
-    userFile: 'eye_dropper_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'backgroundColor',
-        type: 'ThemedColor?',
-        description: 'preview backing, background token by default',
-      ),
-      DocsThemeField(
-        name: 'borderColor',
-        type: 'ThemedColor?',
-        description: 'preview ring, border token by default',
-      ),
-      DocsThemeField(
-        name: 'borderWidth',
-        type: 'double?',
-        description: 'ring width, 1 by default',
-      ),
-      DocsThemeField(
-        name: 'previewScale',
-        type: 'double?',
-        description: 'magnification, 8 by default',
-      ),
-      DocsThemeField(
-        name: 'previewSize',
-        type: 'Size?',
-        description: 'magnified preview size, 100x100 by default',
-      ),
-      DocsThemeField(
-        name: 'selectedBorderColor',
-        type: 'ThemedColor?',
-        description: 'centre cell highlight, primary by default',
-      ),
-      DocsThemeField(
-        name: 'selectedBorderWidth',
-        type: 'double?',
-        description: 'centre highlight width, 2 by default',
-      ),
-      DocsThemeField(
-        name: 'showPreview',
-        type: 'bool?',
-        description: 'show the preview at all, true by default',
       ),
     ],
   ),
@@ -9126,52 +8989,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
     userOwned: false,
     hasTheme: false,
     fields: <DocsThemeField>[],
-  ),
-  'selectable': DocsThemeTable(
-    componentId: 'selectable',
-    themeClass: 'SelectableTextTheme',
-    themeDefaults: 'selectableDefaults',
-    userFile: 'selectable_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'cursorColor',
-        type: 'ThemedColor?',
-        description: 'primary token',
-      ),
-      DocsThemeField(
-        name: 'cursorHeight',
-        type: 'double?',
-        description: 'line height',
-      ),
-      DocsThemeField(
-        name: 'cursorRadius',
-        type: 'Radius?',
-        description: 'square',
-      ),
-      DocsThemeField(name: 'cursorWidth', type: 'double?', description: '2'),
-      DocsThemeField(
-        name: 'enableInteractiveSelection',
-        type: 'bool?',
-        description: 'true',
-      ),
-      DocsThemeField(
-        name: 'selectionHeightStyle',
-        type: 'BoxHeightStyle?',
-        description: 'tight',
-      ),
-      DocsThemeField(
-        name: 'selectionWidthStyle',
-        type: 'BoxWidthStyle?',
-        description: 'tight',
-      ),
-      DocsThemeField(
-        name: 'textStyle',
-        type: 'TextStyle?',
-        description: 'merged under widget style',
-      ),
-    ],
   ),
   'table': DocsThemeTable(
     componentId: 'table',
@@ -9853,7 +9670,8 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       DocsThemeField(
         name: 'popoverWidthConstraint',
         type: 'PopoverConstraint?',
-        description: 'null matches the field width',
+        description:
+            'null keeps the field width as a minimum and hugs wider suggestions',
       ),
     ],
   ),
@@ -10467,7 +10285,7 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'constraints',
         type: 'BoxConstraints?',
         description:
-            'popup size; null = 192-320 wide, 240 high (always trigger-wide)',
+            'popup size; null = 128 min wide, 240 high, no max width (hugs the widest option, never narrower than the trigger)',
       ),
       DocsThemeField(
         name: 'itemPadding',
@@ -10902,61 +10720,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
-  'outlined_container': DocsThemeTable(
-    componentId: 'outlined_container',
-    themeClass: 'OutlinedContainerTheme',
-    themeDefaults: 'outlinedContainerDefaults',
-    userFile: 'outlined_container_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'backgroundColor',
-        type: 'ThemedColor?',
-        description: 'background token',
-      ),
-      DocsThemeField(
-        name: 'borderColor',
-        type: 'ThemedColor?',
-        description: 'muted token',
-      ),
-      DocsThemeField(
-        name: 'borderRadius',
-        type: 'BorderRadiusGeometry?',
-        description: 'ambient borderRadiusXl',
-      ),
-      DocsThemeField(
-        name: 'borderStyle',
-        type: 'BorderStyle?',
-        description: 'solid',
-      ),
-      DocsThemeField(
-        name: 'borderWidth',
-        type: 'double?',
-        description: '1 times ambient scaling',
-      ),
-      DocsThemeField(
-        name: 'boxShadow',
-        type: 'List<BoxShadow>?',
-        description: 'none',
-      ),
-      DocsThemeField(
-        name: 'padding',
-        type: 'EdgeInsetsGeometry?',
-        description: 'zero',
-      ),
-      DocsThemeField(
-        name: 'surfaceBlur',
-        type: 'double?',
-        description: 'backdrop blur sigma; null draws none',
-      ),
-      DocsThemeField(
-        name: 'surfaceOpacity',
-        type: 'double?',
-        description: 'multiplies the fill alpha',
-      ),
-    ],
-  ),
   'overflow_marquee': DocsThemeTable(
     componentId: 'overflow_marquee',
     themeClass: 'OverflowMarqueeTheme',
@@ -11102,26 +10865,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
-  'scrollable': DocsThemeTable(
-    componentId: 'scrollable',
-    themeClass: 'ScrollableTheme',
-    themeDefaults: 'scrollableDefaults',
-    userFile: 'scrollable_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'fadeExtent',
-        type: 'double?',
-        description: '20, scroll distance to full fade',
-      ),
-      DocsThemeField(
-        name: 'fadeSize',
-        type: 'double?',
-        description: '50, gradient length',
-      ),
-    ],
-  ),
   'scrollbar': DocsThemeTable(
     componentId: 'scrollbar',
     themeClass: 'ScrollbarTheme',
@@ -11158,15 +10901,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
-  'scrollview': DocsThemeTable(
-    componentId: 'scrollview',
-    themeClass: '',
-    themeDefaults: '',
-    userFile: '',
-    userOwned: false,
-    hasTheme: false,
-    fields: <DocsThemeField>[],
-  ),
   'sortable': DocsThemeTable(
     componentId: 'sortable',
     themeClass: '',
@@ -11175,27 +10909,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
     userOwned: false,
     hasTheme: false,
     fields: <DocsThemeField>[],
-  ),
-  'stage_container': DocsThemeTable(
-    componentId: 'stage_container',
-    themeClass: 'StageContainerTheme',
-    themeDefaults: 'stageContainerDefaults',
-    userFile: 'stage_container_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'breakpoint',
-        type: 'StageBreakpoint?',
-        description: 'width strategy; null = defaultBreakpoints',
-      ),
-      DocsThemeField(
-        name: 'padding',
-        type: 'EdgeInsetsGeometry?',
-        description:
-            'base outer padding; a density-aware value scales with the preset',
-      ),
-    ],
   ),
   'steps': DocsThemeTable(
     componentId: 'steps',
@@ -11234,51 +10947,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'spacing',
         type: 'double?',
         description: 'gap between indicator column and content',
-      ),
-    ],
-  ),
-  'window': DocsThemeTable(
-    componentId: 'window',
-    themeClass: 'WindowTheme',
-    themeDefaults: 'windowDefaults',
-    userFile: 'window_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'resizeThickness',
-        type: 'double?',
-        description: 'edge grab thickness, 8 by default',
-      ),
-      DocsThemeField(
-        name: 'snapOverlayBlur',
-        type: 'double?',
-        description: 'preview backdrop blur, 8 by default',
-      ),
-      DocsThemeField(
-        name: 'snapOverlayColor',
-        type: 'ThemedColor?',
-        description: 'snap preview fill, card by default',
-      ),
-      DocsThemeField(
-        name: 'snapOverlayOpacity',
-        type: 'double?',
-        description: '0.8 by default',
-      ),
-      DocsThemeField(
-        name: 'titleBarHeight',
-        type: 'double?',
-        description: '32 by default (scaled)',
-      ),
-      DocsThemeField(
-        name: 'titleBarPadding',
-        type: 'EdgeInsetsGeometry?',
-        description: '8 horizontal by default',
-      ),
-      DocsThemeField(
-        name: 'titleColor',
-        type: 'ThemedColor?',
-        description: 'title colour, foreground by default',
       ),
     ],
   ),
@@ -11338,7 +11006,7 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       DocsThemeField(
         name: 'maxWidth',
         type: 'double?',
-        description: 'dialog width, default 510',
+        description: 'dialog width, default 512 (max-w-lg)',
       ),
       DocsThemeField(
         name: 'mutedForeground',
@@ -11457,31 +11125,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'subMenuOffset',
         type: 'Offset?',
         description: 'null = Offset(-4, 8)',
-      ),
-    ],
-  ),
-  'triple_dots': DocsThemeTable(
-    componentId: 'triple_dots',
-    themeClass: 'TripleDotsTheme',
-    themeDefaults: 'tripleDotsDefaults',
-    userFile: 'triple_dots_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'color',
-        type: 'ThemedColor?',
-        description: 'mutedForeground token',
-      ),
-      DocsThemeField(
-        name: 'size',
-        type: 'double?',
-        description: 'dot diameter, null = 4 * scaling',
-      ),
-      DocsThemeField(
-        name: 'spacing',
-        type: 'double?',
-        description: 'gap between dots, 2',
       ),
     ],
   ),
@@ -11692,26 +11335,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'titleStyle',
         type: 'TextStyle?',
         description: 'default is the size typography',
-      ),
-    ],
-  ),
-  'switcher': DocsThemeTable(
-    componentId: 'switcher',
-    themeClass: 'SwitcherTheme',
-    themeDefaults: 'switcherDefaults',
-    userFile: 'switcher_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'curve',
-        type: 'Curve?',
-        description: 'snap-back curve; default Curves.easeInOut',
-      ),
-      DocsThemeField(
-        name: 'duration',
-        type: 'Duration?',
-        description: 'snap-back duration; default 150ms',
       ),
     ],
   ),
@@ -11939,15 +11562,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
-  'drawer_container': DocsThemeTable(
-    componentId: 'drawer_container',
-    themeClass: '',
-    themeDefaults: '',
-    userFile: '',
-    userOwned: false,
-    hasTheme: false,
-    fields: <DocsThemeField>[],
-  ),
   'gooey_toast': DocsThemeTable(
     componentId: 'gooey_toast',
     themeClass: 'GooeyToastTheme',
@@ -12119,76 +11733,6 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'minExtent',
         type: 'double?',
         description: 'pull distance arming the refresh, 75',
-      ),
-    ],
-  ),
-  'spell_check_suggestions_toolbar': DocsThemeTable(
-    componentId: 'spell_check_suggestions_toolbar',
-    themeClass: '',
-    themeDefaults: '',
-    userFile: '',
-    userOwned: false,
-    hasTheme: false,
-    fields: <DocsThemeField>[],
-  ),
-  'swiper': DocsThemeTable(
-    componentId: 'swiper',
-    themeClass: 'SwiperTheme',
-    themeDefaults: 'swiperDefaults',
-    userFile: 'swiper_theme.dart',
-    userOwned: true,
-    hasTheme: true,
-    fields: <DocsThemeField>[
-      DocsThemeField(
-        name: 'barrierColor',
-        type: 'ThemedColor?',
-        description: 'barrier colour; null is black at 50%',
-      ),
-      DocsThemeField(
-        name: 'barrierDismissible',
-        type: 'bool?',
-        description: 'barrier tap dismisses the panel',
-      ),
-      DocsThemeField(
-        name: 'behavior',
-        type: 'HitTestBehavior?',
-        description: 'hit test behaviour of the swipe gesture',
-      ),
-      DocsThemeField(
-        name: 'borderRadius',
-        type: 'BorderRadius?',
-        description: 'panel inner-corner radius; null keeps DrawerTheme',
-      ),
-      DocsThemeField(
-        name: 'draggable',
-        type: 'bool?',
-        description: 'the open panel can be dragged away',
-      ),
-      DocsThemeField(
-        name: 'expands',
-        type: 'bool?',
-        description: 'panel fills its slide axis (drawer: false, sheet: true)',
-      ),
-      DocsThemeField(
-        name: 'maxSize',
-        type: 'double?',
-        description:
-            'panel extent along its slide axis; null keeps DrawerTheme',
-      ),
-      DocsThemeField(
-        name: 'showDragHandle',
-        type: 'bool?',
-        description: 'draw the panel drag handle; null keeps DrawerTheme',
-      ),
-      DocsThemeField(
-        name: 'threshold',
-        type: 'double?',
-        description: 'fraction (0..1) of the panel a release must pass to open',
-      ),
-      DocsThemeField(
-        name: 'useSafeArea',
-        type: 'bool?',
-        description: 'panel respects the device safe area',
       ),
     ],
   ),
@@ -12437,6 +11981,115 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
     hasTheme: false,
     fields: <DocsThemeField>[],
   ),
+  'color_field': DocsThemeTable(
+    componentId: 'color_field',
+    themeClass: 'ColorFieldTheme',
+    themeDefaults: 'colorFieldDefaults',
+    userFile: 'color_field_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'borderColor',
+        type: 'ThemedColor?',
+        description: 'ring colour, border token by default',
+      ),
+      DocsThemeField(
+        name: 'borderRadius',
+        type: 'BorderRadiusGeometry?',
+        description: 'null = ambient radiusMd',
+      ),
+      DocsThemeField(
+        name: 'borderWidth',
+        type: 'double?',
+        description: '1 by default, 0 hides the ring',
+      ),
+      DocsThemeField(
+        name: 'checkerboard',
+        type: 'bool?',
+        description: 'transparency checkerboard, true by default',
+      ),
+    ],
+  ),
+  'color_input': DocsThemeTable(
+    componentId: 'color_input',
+    themeClass: 'ColorInputTheme',
+    themeDefaults: 'colorInputDefaults',
+    userFile: 'color_input_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'enableEyeDropper',
+        type: 'bool?',
+        description: 'picker screen sampling, true by default',
+      ),
+      DocsThemeField(
+        name: 'gap',
+        type: 'double?',
+        description: 'gap between the well and the hex field, 8 by default',
+      ),
+      DocsThemeField(
+        name: 'mode',
+        type: 'PromptMode?',
+        description: 'popover at 768px+ (desktop), dialog below',
+      ),
+      DocsThemeField(
+        name: 'pickerMode',
+        type: 'ColorPickerMode?',
+        description: 'channel mode the picker opens in, rgb by default',
+      ),
+      DocsThemeField(
+        name: 'popoverAlignment',
+        type: 'AlignmentGeometry?',
+        description: 'popover placement, top-left by default',
+      ),
+      DocsThemeField(
+        name: 'popoverAnchorAlignment',
+        type: 'AlignmentGeometry?',
+        description: 'popover anchor edge, bottom-left by default',
+      ),
+      DocsThemeField(
+        name: 'popoverPadding',
+        type: 'EdgeInsetsGeometry?',
+        description: 'popover inner padding, 16 by default',
+      ),
+      DocsThemeField(
+        name: 'showAlpha',
+        type: 'bool?',
+        description: 'picker alpha editing, true by default',
+      ),
+      DocsThemeField(
+        name: 'showHistory',
+        type: 'bool?',
+        description: 'picker history toggle, true by default',
+      ),
+      DocsThemeField(
+        name: 'swatchBorderColor',
+        type: 'ThemedColor?',
+        description: 'well border, the border token',
+      ),
+      DocsThemeField(
+        name: 'swatchBorderRadius',
+        type: 'BorderRadiusGeometry?',
+        description: 'well corner radius, ambient radiusMd',
+      ),
+      DocsThemeField(
+        name: 'swatchSize',
+        type: 'double?',
+        description: 'colour well edge, 36 by default',
+      ),
+    ],
+  ),
+  'drawer_container': DocsThemeTable(
+    componentId: 'drawer_container',
+    themeClass: '',
+    themeDefaults: '',
+    userFile: '',
+    userOwned: false,
+    hasTheme: false,
+    fields: <DocsThemeField>[],
+  ),
   'error_system': DocsThemeTable(
     componentId: 'error_system',
     themeClass: 'ErrorSystemTheme',
@@ -12480,6 +12133,56 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
         name: 'titleStyle',
         type: 'TextStyle?',
         description: '16/w600; colour falls back to foreground',
+      ),
+    ],
+  ),
+  'eye_dropper': DocsThemeTable(
+    componentId: 'eye_dropper',
+    themeClass: 'EyeDropperTheme',
+    themeDefaults: 'eyeDropperDefaults',
+    userFile: 'eye_dropper_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'backgroundColor',
+        type: 'ThemedColor?',
+        description: 'preview backing, background token by default',
+      ),
+      DocsThemeField(
+        name: 'borderColor',
+        type: 'ThemedColor?',
+        description: 'preview ring, border token by default',
+      ),
+      DocsThemeField(
+        name: 'borderWidth',
+        type: 'double?',
+        description: 'ring width, 1 by default',
+      ),
+      DocsThemeField(
+        name: 'previewScale',
+        type: 'double?',
+        description: 'magnification, 8 by default',
+      ),
+      DocsThemeField(
+        name: 'previewSize',
+        type: 'Size?',
+        description: 'magnified preview size, 100x100 by default',
+      ),
+      DocsThemeField(
+        name: 'selectedBorderColor',
+        type: 'ThemedColor?',
+        description: 'centre cell highlight, primary by default',
+      ),
+      DocsThemeField(
+        name: 'selectedBorderWidth',
+        type: 'double?',
+        description: 'centre highlight width, 2 by default',
+      ),
+      DocsThemeField(
+        name: 'showPreview',
+        type: 'bool?',
+        description: 'show the preview at all, true by default',
       ),
     ],
   ),
@@ -12670,6 +12373,61 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       ),
     ],
   ),
+  'outlined_container': DocsThemeTable(
+    componentId: 'outlined_container',
+    themeClass: 'OutlinedContainerTheme',
+    themeDefaults: 'outlinedContainerDefaults',
+    userFile: 'outlined_container_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'backgroundColor',
+        type: 'ThemedColor?',
+        description: 'background token',
+      ),
+      DocsThemeField(
+        name: 'borderColor',
+        type: 'ThemedColor?',
+        description: 'muted token',
+      ),
+      DocsThemeField(
+        name: 'borderRadius',
+        type: 'BorderRadiusGeometry?',
+        description: 'ambient borderRadiusXl',
+      ),
+      DocsThemeField(
+        name: 'borderStyle',
+        type: 'BorderStyle?',
+        description: 'solid',
+      ),
+      DocsThemeField(
+        name: 'borderWidth',
+        type: 'double?',
+        description: '1 times ambient scaling',
+      ),
+      DocsThemeField(
+        name: 'boxShadow',
+        type: 'List<BoxShadow>?',
+        description: 'none',
+      ),
+      DocsThemeField(
+        name: 'padding',
+        type: 'EdgeInsetsGeometry?',
+        description: 'zero',
+      ),
+      DocsThemeField(
+        name: 'surfaceBlur',
+        type: 'double?',
+        description: 'backdrop blur sigma; null draws none',
+      ),
+      DocsThemeField(
+        name: 'surfaceOpacity',
+        type: 'double?',
+        description: 'multiplies the fill alpha',
+      ),
+    ],
+  ),
   'overlay_configuration': DocsThemeTable(
     componentId: 'overlay_configuration',
     themeClass: '',
@@ -12696,6 +12454,26 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
     userOwned: false,
     hasTheme: false,
     fields: <DocsThemeField>[],
+  ),
+  'scrollable': DocsThemeTable(
+    componentId: 'scrollable',
+    themeClass: 'ScrollableTheme',
+    themeDefaults: 'scrollableDefaults',
+    userFile: 'scrollable_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'fadeExtent',
+        type: 'double?',
+        description: '20, scroll distance to full fade',
+      ),
+      DocsThemeField(
+        name: 'fadeSize',
+        type: 'double?',
+        description: '50, gradient length',
+      ),
+    ],
   ),
   'scrollable_client': DocsThemeTable(
     componentId: 'scrollable_client',
@@ -12733,6 +12511,172 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
       DocsThemeField(name: 'overscroll', type: 'bool?', description: 'false'),
     ],
   ),
+  'scrollview': DocsThemeTable(
+    componentId: 'scrollview',
+    themeClass: '',
+    themeDefaults: '',
+    userFile: '',
+    userOwned: false,
+    hasTheme: false,
+    fields: <DocsThemeField>[],
+  ),
+  'selectable': DocsThemeTable(
+    componentId: 'selectable',
+    themeClass: 'SelectableTextTheme',
+    themeDefaults: 'selectableDefaults',
+    userFile: 'selectable_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'cursorColor',
+        type: 'ThemedColor?',
+        description: 'primary token',
+      ),
+      DocsThemeField(
+        name: 'cursorHeight',
+        type: 'double?',
+        description: 'line height',
+      ),
+      DocsThemeField(
+        name: 'cursorRadius',
+        type: 'Radius?',
+        description: 'square',
+      ),
+      DocsThemeField(name: 'cursorWidth', type: 'double?', description: '2'),
+      DocsThemeField(
+        name: 'enableInteractiveSelection',
+        type: 'bool?',
+        description: 'true',
+      ),
+      DocsThemeField(
+        name: 'selectionHeightStyle',
+        type: 'BoxHeightStyle?',
+        description: 'tight',
+      ),
+      DocsThemeField(
+        name: 'selectionWidthStyle',
+        type: 'BoxWidthStyle?',
+        description: 'tight',
+      ),
+      DocsThemeField(
+        name: 'textStyle',
+        type: 'TextStyle?',
+        description: 'merged under widget style',
+      ),
+    ],
+  ),
+  'spell_check_suggestions_toolbar': DocsThemeTable(
+    componentId: 'spell_check_suggestions_toolbar',
+    themeClass: '',
+    themeDefaults: '',
+    userFile: '',
+    userOwned: false,
+    hasTheme: false,
+    fields: <DocsThemeField>[],
+  ),
+  'stage_container': DocsThemeTable(
+    componentId: 'stage_container',
+    themeClass: 'StageContainerTheme',
+    themeDefaults: 'stageContainerDefaults',
+    userFile: 'stage_container_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'breakpoint',
+        type: 'StageBreakpoint?',
+        description: 'width strategy; null = defaultBreakpoints',
+      ),
+      DocsThemeField(
+        name: 'padding',
+        type: 'EdgeInsetsGeometry?',
+        description:
+            'base outer padding; a density-aware value scales with the preset',
+      ),
+    ],
+  ),
+  'swiper': DocsThemeTable(
+    componentId: 'swiper',
+    themeClass: 'SwiperTheme',
+    themeDefaults: 'swiperDefaults',
+    userFile: 'swiper_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'barrierColor',
+        type: 'ThemedColor?',
+        description: 'barrier colour; null is black at 50%',
+      ),
+      DocsThemeField(
+        name: 'barrierDismissible',
+        type: 'bool?',
+        description: 'barrier tap dismisses the panel',
+      ),
+      DocsThemeField(
+        name: 'behavior',
+        type: 'HitTestBehavior?',
+        description: 'hit test behaviour of the swipe gesture',
+      ),
+      DocsThemeField(
+        name: 'borderRadius',
+        type: 'BorderRadius?',
+        description: 'panel inner-corner radius; null keeps DrawerTheme',
+      ),
+      DocsThemeField(
+        name: 'draggable',
+        type: 'bool?',
+        description: 'the open panel can be dragged away',
+      ),
+      DocsThemeField(
+        name: 'expands',
+        type: 'bool?',
+        description: 'panel fills its slide axis (drawer: false, sheet: true)',
+      ),
+      DocsThemeField(
+        name: 'maxSize',
+        type: 'double?',
+        description:
+            'panel extent along its slide axis; null keeps DrawerTheme',
+      ),
+      DocsThemeField(
+        name: 'showDragHandle',
+        type: 'bool?',
+        description: 'draw the panel drag handle; null keeps DrawerTheme',
+      ),
+      DocsThemeField(
+        name: 'threshold',
+        type: 'double?',
+        description: 'fraction (0..1) of the panel a release must pass to open',
+      ),
+      DocsThemeField(
+        name: 'useSafeArea',
+        type: 'bool?',
+        description: 'panel respects the device safe area',
+      ),
+    ],
+  ),
+  'switcher': DocsThemeTable(
+    componentId: 'switcher',
+    themeClass: 'SwitcherTheme',
+    themeDefaults: 'switcherDefaults',
+    userFile: 'switcher_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'curve',
+        type: 'Curve?',
+        description: 'snap-back curve; default Curves.easeInOut',
+      ),
+      DocsThemeField(
+        name: 'duration',
+        type: 'Duration?',
+        description: 'snap-back duration; default 150ms',
+      ),
+    ],
+  ),
   'timeline_animation': DocsThemeTable(
     componentId: 'timeline_animation',
     themeClass: '',
@@ -12741,5 +12685,75 @@ const Map<String, DocsThemeTable> kThemeTables = <String, DocsThemeTable>{
     userOwned: false,
     hasTheme: false,
     fields: <DocsThemeField>[],
+  ),
+  'triple_dots': DocsThemeTable(
+    componentId: 'triple_dots',
+    themeClass: 'TripleDotsTheme',
+    themeDefaults: 'tripleDotsDefaults',
+    userFile: 'triple_dots_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'color',
+        type: 'ThemedColor?',
+        description: 'mutedForeground token',
+      ),
+      DocsThemeField(
+        name: 'size',
+        type: 'double?',
+        description: 'dot diameter, null = 4 * scaling',
+      ),
+      DocsThemeField(
+        name: 'spacing',
+        type: 'double?',
+        description: 'gap between dots, 2',
+      ),
+    ],
+  ),
+  'window': DocsThemeTable(
+    componentId: 'window',
+    themeClass: 'WindowTheme',
+    themeDefaults: 'windowDefaults',
+    userFile: 'window_theme.dart',
+    userOwned: true,
+    hasTheme: true,
+    fields: <DocsThemeField>[
+      DocsThemeField(
+        name: 'resizeThickness',
+        type: 'double?',
+        description: 'edge grab thickness, 8 by default',
+      ),
+      DocsThemeField(
+        name: 'snapOverlayBlur',
+        type: 'double?',
+        description: 'preview backdrop blur, 8 by default',
+      ),
+      DocsThemeField(
+        name: 'snapOverlayColor',
+        type: 'ThemedColor?',
+        description: 'snap preview fill, card by default',
+      ),
+      DocsThemeField(
+        name: 'snapOverlayOpacity',
+        type: 'double?',
+        description: '0.8 by default',
+      ),
+      DocsThemeField(
+        name: 'titleBarHeight',
+        type: 'double?',
+        description: '32 by default (scaled)',
+      ),
+      DocsThemeField(
+        name: 'titleBarPadding',
+        type: 'EdgeInsetsGeometry?',
+        description: '8 horizontal by default',
+      ),
+      DocsThemeField(
+        name: 'titleColor',
+        type: 'ThemedColor?',
+        description: 'title colour, foreground by default',
+      ),
+    ],
   ),
 };

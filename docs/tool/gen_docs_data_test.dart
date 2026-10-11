@@ -545,10 +545,13 @@ void main() {
     expect(commands, isNotEmpty);
     for (final DocsComponent component in kComponents) {
       final DocsSearchEntry entry = components.firstWhere(
-        (DocsSearchEntry e) => e.label == component.id,
+        (DocsSearchEntry e) => e.route == '/docs/components/${component.id}',
       );
-      expect(entry.route, '/docs/components/${component.id}');
-      expect(entry.keywords, contains(component.name));
+      // Labels are human titles (`phone_input` -> `Phone Input`); the id stays
+      // searchable as a keyword.
+      expect(entry.label, component.name);
+      expect(entry.label, isNot(contains('_')));
+      expect(entry.keywords, contains(component.id));
     }
   });
 

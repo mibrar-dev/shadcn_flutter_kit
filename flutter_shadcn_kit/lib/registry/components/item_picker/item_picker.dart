@@ -4,6 +4,7 @@
 // Ported from `components/form/item_picker` (no `form` dep, no
 // backdrop/container, `Button` options, no `ItemBuilder`).
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/data.dart';
@@ -77,6 +78,11 @@ class GridItemPickerLayout extends ItemPickerLayout {
     ItemChildDelegate<T> items,
     ItemPickerBuilder<T> builder,
   ) {
+    assert(
+      items.itemCount != null,
+      'ItemChildDelegate with null itemCount (infinite) cannot be used with '
+      'shrink-wrap layouts; pass a bounded count.',
+    );
     final ItemPickerTheme style =
         resolveComponentStyle<ItemPickerTheme, ItemPickerTheme>(
           context,
@@ -115,6 +121,11 @@ class ListItemPickerLayout extends ItemPickerLayout {
     ItemChildDelegate<T> items,
     ItemPickerBuilder<T> builder,
   ) {
+    assert(
+      items.itemCount != null,
+      'ItemChildDelegate with null itemCount (infinite) cannot be used with '
+      'shrink-wrap layouts; pass a bounded count.',
+    );
     return _stripPadding(
       context: context,
       child: ListView.builder(
@@ -197,6 +208,8 @@ class ItemPickerDialog<T> extends StatelessWidget {
           select: (t) => t,
           defaults: itemPickerDefaults,
         );
+    final BoxConstraints outer =
+        constraints ?? style.constraints ?? const BoxConstraints();
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,26 +220,117 @@ class ItemPickerDialog<T> extends StatelessWidget {
             child: title!.large().semiBold(),
           ),
         ConstrainedBox(
-          constraints:
-              constraints ?? style.constraints ?? const BoxConstraints(),
-          child: Padding(
-            padding: resolveEdgeInsets(
-              style.padding ?? EdgeInsets.zero,
-              ambient.density.baseContentPadding * ambient.scaling,
-            ),
-            child: Data<ItemPickerData>.inherit(
-              data: ItemPickerData(
-                value: value,
-                onChanged: onChanged == null
-                    ? null
-                    : (Object? next) => onChanged!(next as T?),
+          constraints: outer,
+          // A shrink-wrapping viewport reports no intrinsic width, and a
+          // LayoutBuilder reports no intrinsics at all, so any shell that
+          // measures its child (popover, dialog) crashes on both. Pin a
+          // deterministic width with a proxy that reports it directly; the
+          // height still shrink-wraps, which viewports do support.
+          child: _MeasuredWidth(
+            width: outer.maxWidth.isFinite ? outer.maxWidth : 320,
+            child: Padding(
+              padding: resolveEdgeInsets(
+                style.padding ?? EdgeInsets.zero,
+                ambient.density.baseContentPadding * ambient.scaling,
               ),
-              child: layout.build(context, items, builder),
+              child: Data<ItemPickerData>.inherit(
+                data: ItemPickerData(
+                  value: value,
+                  onChanged: onChanged == null
+                      ? null
+                      : (Object? next) => onChanged!(next as T?),
+                ),
+                child: layout.build(context, items, builder),
+              ),
             ),
           ),
         ),
       ],
     );
+  }
+}
+
+/// Pins the picker body to a deterministic width while letting the height
+/// shrink-wrap.
+///
+/// A shrink-wrapping viewport (the grid/list bodies) reports no intrinsic
+/// width, and a [LayoutBuilder] reports no intrinsics at all, so any overlay
+/// shell that measures its child before placing it (popover, dialog) throws.
+/// This proxy reports [width] directly and lays the child out tight in width
+/// (clamped to bounded parents) with a loose height.
+class _MeasuredWidth extends SingleChildRenderObjectWidget {
+  /// Creates a measured-width box.
+  const _MeasuredWidth({required this.width, required super.child});
+
+  /// Width reported to intrinsic queries and used for layout.
+  final double width;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderMeasuredWidth(width);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    covariant _RenderMeasuredWidth renderObject,
+  ) {
+    renderObject.width = width;
+  }
+}
+
+/// Render half of [_MeasuredWidth].
+class _RenderMeasuredWidth extends RenderProxyBox {
+  /// Creates a measured-width render box.
+  _RenderMeasuredWidth(double width) : _width = width;
+
+  double _width;
+
+  /// Width reported to intrinsic queries and used for layout.
+  set width(double value) {
+    if (value == _width) {
+      return;
+    }
+    _width = value;
+    markNeedsLayout();
+  }
+
+  @override
+  double computeMaxIntrinsicWidth(double height) => _width;
+
+  @override
+  double computeMinIntrinsicWidth(double height) => _width;
+
+  // A shrink-wrapping viewport also refuses intrinsic *height* queries, which
+  // a flex ancestor issues while computing its own intrinsic width (it lays
+  // children out, then measures them). Report zero: intrinsics only feed
+  // measuring shells — real layout below uses live constraints, where the
+  // viewport sizes itself normally.
+  @override
+  double computeMaxIntrinsicHeight(double width) => 0;
+
+  @override
+  double computeMinIntrinsicHeight(double width) => 0;
+
+  @override
+  void performLayout() {
+    final RenderBox? child = this.child;
+    if (child == null) {
+      size = constraints.smallest;
+      return;
+    }
+    final double width = constraints.hasBoundedWidth
+        ? constraints.maxWidth.clamp(0.0, _width).toDouble()
+        : _width;
+    child.layout(
+      BoxConstraints(
+        minWidth: width,
+        maxWidth: width,
+        minHeight: constraints.minHeight,
+        maxHeight: constraints.maxHeight,
+      ),
+      parentUsesSize: true,
+    );
+    size = Size(width, constraints.constrainHeight(child.size.height));
   }
 }
 
@@ -318,7 +422,14 @@ class ItemPicker<T> extends StatelessWidget {
     return ObjectFormField<T>(
       value: value,
       onChanged: onChanged,
-      placeholder: placeholder ?? const SizedBox.shrink(),
+      // A null placeholder still leaves a tappable trigger: the empty box
+      // keeps a 48x36 minimum size instead of collapsing to zero.
+      placeholder:
+          placeholder ??
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 36),
+            child: const SizedBox(width: 48, height: 36),
+          ),
       builder: builder,
       mode: mode,
       dialogTitle: title,
@@ -355,7 +466,7 @@ Future<T?> showItemPicker<T>(
 }) {
   return showPopover<T>(
     context: context,
-    alignment: alignment ?? Alignment.topCenter,
+    alignment: alignment ?? AlignmentDirectional.topCenter,
     anchorAlignment: anchorAlignment ?? Alignment.bottomCenter,
     offset: offset ?? const Offset(0, 4),
     builder: (context) {

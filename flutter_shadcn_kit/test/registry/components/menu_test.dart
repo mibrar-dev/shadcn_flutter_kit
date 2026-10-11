@@ -179,7 +179,7 @@ void main() {
       );
       await tester.pump();
       final Size size = tester.getSize(find.byType(MenuPopup));
-      expect(size.width, greaterThanOrEqualTo(192));
+      expect(size.width, greaterThanOrEqualTo(128));
       final Container surface = tester.widget<Container>(
         find
             .descendant(

@@ -27,6 +27,9 @@ SizedBox(
 | `alphaAxis` | alpha ramp; a checkerboard shows behind translucent pixels |
 | `theme` | widget-leg `ColorFieldTheme` override |
 
+The surface is display-only and exposes the colour as a semantic value
+(`#AARRGGBB`) so screen readers announce it.
+
 `ColorFieldAxis` is re-exported from `primitives/color_field_paint.dart`, which
 owns the gradient engine (`paintHSVColorField` / `paintHSLColorField`, also
 re-exported). `hsl` and `hsv` import the primitive directly; this component is

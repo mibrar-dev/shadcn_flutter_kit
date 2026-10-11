@@ -95,12 +95,10 @@ class AccordionState extends State<Accordion> {
     }
     return Data<AccordionState>.inherit(
       data: this,
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: children,
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
       ),
     );
   }
@@ -246,7 +244,7 @@ class _AccordionItemState extends State<AccordionItem>
               resolved.curve ?? Curves.easeIn,
               resolved.reverseCurve ?? Curves.easeOut,
             ),
-            alignment: const Alignment(-1.0, -1.0),
+            alignment: AlignmentDirectional.topStart,
             child: Padding(
               padding: EdgeInsets.only(bottom: padding),
               child: widget.content.small.normal,

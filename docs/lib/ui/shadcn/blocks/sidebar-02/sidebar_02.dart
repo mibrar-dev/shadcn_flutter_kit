@@ -1,59 +1,104 @@
 // The `sidebar-02` block: an inset sidebar with grouped navigation.
 //
-// The sidebar is inset (rounded, with a gutter to the page background) and its
-// navigation is grouped by section, the way shadcn's `sidebar-01` is. Below
-// 840px the sidebar moves above the content instead of squeezing it.
+// A block is layer 4 of the registry: it may import foundation, theme,
+// primitives and components, never another block. Its public widget is the
+// preview - the docs page renders it exactly as an app would.
+//
+// The sidebar is inset (rounded, with a gutter to the page background) and
+// its navigation is grouped by section. The search field filters the
+// navigation live. From 840px the sidebar sits beside the content; below
+// that a menu button opens it as a drawer. The content is a sample
+// playground screen with stats, files and activity. The layout shrink-wraps
+// so the docs frame sizes to its intrinsic height, and scrolls internally
+// when the host is bounded.
 
 import 'package:flutter/widgets.dart';
 
-import '../../components/avatar/avatar.dart';
-import '../../components/badge/badge.dart';
 import '../../components/button/button.dart';
-import '../../components/card/card.dart';
-import '../../components/divider/divider.dart';
-import '../../components/input/input.dart';
-import '../../components/progress/progress.dart';
+import '../../components/drawer/drawer.dart';
+import 'sidebar_02_content.dart';
+import 'sidebar_02_panel.dart';
 import '../../foundation/gap.dart';
 import '../../foundation/icons/lucide_icons.dart';
 import '../../theme/theme.dart';
 
 /// A grouped, inset sidebar shell around a sample content area.
-class Sidebar02 extends StatelessWidget {
+class Sidebar02 extends StatefulWidget {
   /// Creates the block.
   const Sidebar02({super.key});
 
   @override
+  State<Sidebar02> createState() => _Sidebar02State();
+}
+
+class _Sidebar02State extends State<Sidebar02> {
+  int _selected = 0;
+
+  void _openNav() {
+    openDrawer(
+      context: context,
+      position: OverlayPosition.start,
+      builder: (BuildContext context) => SingleChildScrollView(
+        child: Sidebar02Panel(
+          selected: _selected,
+          onSelected: (int index) {
+            setState(() => _selected = index);
+            closeDrawer(context);
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return ColoredBox(
       color: theme.colors.background,
       child: SafeArea(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            final bool inset = constraints.maxWidth >= 840;
-            final Widget sidebar = const _Sidebar02Panel();
-            final Widget content = const Sidebar02Content();
-            if (!inset) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.all(spacing.md),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[sidebar, Gap(spacing.lg), content],
+            final Widget content = Sidebar02Content(selected: _selected);
+            final Widget body;
+            if (constraints.maxWidth >= 840) {
+              body = Padding(
+                padding: EdgeInsets.all(theme.spacing.md),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 260,
+                      child: Sidebar02Panel(
+                        selected: _selected,
+                        onSelected: (int index) =>
+                            setState(() => _selected = index),
+                      ),
+                    ),
+                    Gap(theme.spacing.md),
+                    Expanded(child: content),
+                  ],
                 ),
               );
-            }
-            return Padding(
-              padding: EdgeInsets.all(spacing.md),
-              child: Row(
+            } else {
+              body = Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  SizedBox(width: 260, child: sidebar),
-                  Gap(spacing.md),
-                  Expanded(child: SingleChildScrollView(child: content)),
+                  _Sidebar02Bar(onMenu: _openNav),
+                  Gap(theme.spacing.lg),
+                  content,
                 ],
-              ),
+              );
+            }
+            if (!constraints.maxHeight.isFinite) {
+              return Padding(
+                padding: EdgeInsets.all(theme.spacing.md),
+                child: body,
+              );
+            }
+            return SingleChildScrollView(
+              padding: EdgeInsets.all(theme.spacing.md),
+              child: body,
             );
           },
         ),
@@ -62,257 +107,57 @@ class Sidebar02 extends StatelessWidget {
   }
 }
 
-class _Sidebar02Panel extends StatelessWidget {
-  const _Sidebar02Panel();
+/// The mobile bar: a menu trigger plus the product mark.
+class _Sidebar02Bar extends StatelessWidget {
+  const _Sidebar02Bar({required this.onMenu});
+
+  final VoidCallback onMenu;
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
+    final ShadcnThemeData theme = ShadcnTheme.of(context);
     return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.md,
+        vertical: theme.spacing.sm,
+      ),
       decoration: BoxDecoration(
         color: theme.colors.sidebar,
-        borderRadius: theme.borderRadiusXl,
+        borderRadius: theme.borderRadiusLg,
         border: Border.all(color: theme.colors.sidebarBorder),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Row(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(spacing.lg),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 28,
-                  height: 28,
-                  decoration: BoxDecoration(
-                    color: theme.colors.sidebarPrimary,
-                    borderRadius: theme.borderRadiusSm,
-                  ),
-                  child: Icon(
-                    LucideIcons.command,
-                    size: 16,
-                    color: theme.colors.sidebarPrimaryForeground,
-                  ),
-                ),
-                Gap(spacing.sm),
-                Text('Acme Inc', style: theme.typography.textSmall),
-                const Spacer(),
-                Text(
-                  'v1.2',
-                  style: theme.typography.xSmall.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
-                ),
-              ],
+          Button(
+            variant: ButtonVariant.ghost,
+            size: ButtonSize.icon,
+            onPressed: onMenu,
+            child: const Icon(LucideIcons.menu, size: 18),
+          ),
+          Gap(theme.spacing.md),
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              color: theme.colors.sidebarPrimary,
+              borderRadius: theme.borderRadiusSm,
+            ),
+            child: Icon(
+              LucideIcons.command,
+              size: 16,
+              color: theme.colors.sidebarPrimaryForeground,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: spacing.lg),
-            child: const Input(hintText: 'Search'),
-          ),
-          Gap(spacing.lg),
-          const _Sidebar02Group(
-            label: 'Platform',
-            first: true,
-            items: ['Playground', 'Models', 'Documentation'],
-          ),
-          Gap(spacing.md),
-          const _Sidebar02Group(
-            label: 'Projects',
-            first: false,
-            items: ['Design system', 'Marketing site'],
-          ),
-          Gap(spacing.lg),
-          const Divider(),
-          Gap(spacing.lg),
-          const _Sidebar02User(),
-        ],
-      ),
-    );
-  }
-}
-
-class _Sidebar02Group extends StatelessWidget {
-  const _Sidebar02Group({
-    required this.label,
-    required this.first,
-    required this.items,
-  });
-
-  final String label;
-  final bool first;
-  final List<String> items;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: spacing.lg),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
+          Gap(theme.spacing.sm),
           Text(
-            label,
-            style: theme.typography.xSmall.copyWith(
-              color: theme.colors.mutedForeground,
+            'Acme Inc',
+            style: theme.typography.textSmall.copyWith(
+              color: theme.colors.sidebarForeground,
               fontWeight: FontWeight.w600,
             ),
           ),
-          Gap(spacing.sm),
-          for (var i = 0; i < items.length; i++) ...<Widget>[
-            if (first && i == 0)
-              const _Sidebar02ActiveItem(label: 'Playground')
-            else
-              _Sidebar02NavItem(label: items[i]),
-            if (i != items.length - 1) Gap(spacing.xs),
-          ],
         ],
       ),
-    );
-  }
-}
-
-class _Sidebar02NavItem extends StatelessWidget {
-  const _Sidebar02NavItem({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: theme.spacing.sm,
-        vertical: theme.spacing.xs,
-      ),
-      child: Text(label, style: theme.typography.textSmall),
-    );
-  }
-}
-
-class _Sidebar02ActiveItem extends StatelessWidget {
-  const _Sidebar02ActiveItem({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: spacing.sm,
-        vertical: spacing.xs,
-      ),
-      decoration: BoxDecoration(
-        color: theme.colors.sidebarAccent,
-        borderRadius: theme.borderRadiusSm,
-      ),
-      child: Text(
-        label,
-        style: theme.typography.textSmall.copyWith(
-          color: theme.colors.sidebarAccentForeground,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-}
-
-class _Sidebar02User extends StatelessWidget {
-  const _Sidebar02User();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Padding(
-      padding: EdgeInsets.all(spacing.lg),
-      child: Row(
-        children: <Widget>[
-          const Avatar(initials: 'SD'),
-          Gap(spacing.sm),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('shadcn', style: theme.typography.textSmall),
-                Gap(spacing.xs),
-                Text(
-                  'm@example.com',
-                  style: theme.typography.xSmall.copyWith(
-                    color: theme.colors.mutedForeground,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// The sample content area.
-class Sidebar02Content extends StatelessWidget {
-  /// Creates the content area.
-  const Sidebar02Content({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    final spacing = theme.spacing;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text('Playground', style: theme.typography.h2),
-        Gap(spacing.xs),
-        Text(
-          'Experiment with the API before you ship it.',
-          style: theme.typography.textMuted.copyWith(
-            color: theme.colors.mutedForeground,
-          ),
-        ),
-        Gap(spacing.lg),
-        Wrap(
-          spacing: spacing.md,
-          runSpacing: spacing.md,
-          children: const <Widget>[
-            Badge(variant: BadgeVariant.secondary, child: Text('Stable')),
-            Badge(variant: BadgeVariant.outline, child: Text('Beta channel')),
-            Badge(variant: BadgeVariant.primary, child: Text('New: batches')),
-          ],
-        ),
-        Gap(spacing.lg),
-        Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('Usage this month', style: theme.typography.textLarge),
-              Gap(spacing.lg),
-              const Progress(value: 0.68),
-              Gap(spacing.sm),
-              Text(
-                '2,040,000 of 3,000,000 tokens',
-                style: theme.typography.textSmall.copyWith(
-                  color: theme.colors.mutedForeground,
-                ),
-              ),
-              Gap(spacing.lg),
-              const Divider(),
-              Gap(spacing.lg),
-              Button(onPressed: () {}, child: const Text('Upgrade plan')),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

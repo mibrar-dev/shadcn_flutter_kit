@@ -51,7 +51,8 @@ class _InteractiveBarState extends State<_InteractiveBar> {
 }
 
 /// The default bar: only the selected item shows its label.
-Widget _default(BuildContext context) => const _InteractiveBar();
+Widget _default(BuildContext context) =>
+    const _InteractiveBar(labelType: NavigationLabelType.selected);
 
 /// A bar with every label visible.
 Widget _withLabels(BuildContext context) =>

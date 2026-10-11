@@ -6,12 +6,14 @@
 // `_color_value_input.dart` machinery here; `color_picker.dart` owns the pad
 // and bars. User-owned overrides live in `color_picker_theme.dart`.
 
+import 'package:flutter/rendering.dart' show RenderProxyBox;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../primitives/localizations/localizations.dart';
 import '../../theme/color_tokens.dart';
 import '../../theme/color_utils.dart';
+import '../../theme/density.dart';
 import '../../theme/theme.dart';
 import '../color/color.dart';
 import '../formatter/formatter.dart';
@@ -149,6 +151,56 @@ double colorPickerControlsWidth({
       buttons +
       numericFields * (controlSpacing + _numberFieldWidth) +
       hexFields * (controlSpacing + _hexFieldWidth);
+}
+
+/// Caps [child] at [maxWidth] while reporting [maxWidth] as the max
+/// intrinsic width.
+///
+/// `Wrap.computeMaxIntrinsicWidth` sums its children without their `spacing`,
+/// so a plain `ConstrainedBox`-capped `Wrap` would shrink-wrap short of its
+/// one-line width and wrap a run early inside shrink-wrapping parents (the
+/// picker dialogs and popovers size via `IntrinsicWidth`). This proxy gives
+/// the honest answer while layout still passes the real (possibly narrower)
+/// constraints through, so the controls `Wrap` reflows instead of
+/// overflowing on phones. Not normally constructed directly.
+class ColorPickerCappedWidth extends SingleChildRenderObjectWidget {
+  /// Creates a cap of [maxWidth] around [child].
+  const ColorPickerCappedWidth({
+    super.key,
+    required this.maxWidth,
+    required super.child,
+  });
+
+  /// The one-line width; the child never lays out wider than this.
+  final double maxWidth;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderColorPickerCappedWidth(maxWidth);
+
+  @override
+  void updateRenderObject(BuildContext context, RenderObject renderObject) {
+    (renderObject as _RenderColorPickerCappedWidth).maxWidth = maxWidth;
+  }
+}
+
+/// Passes the cap through the max-intrinsic pass and the real constraints
+/// through layout.
+class _RenderColorPickerCappedWidth extends RenderProxyBox {
+  _RenderColorPickerCappedWidth(this._maxWidth);
+
+  double _maxWidth;
+
+  set maxWidth(double value) {
+    if (value == _maxWidth) {
+      return;
+    }
+    _maxWidth = value;
+    markNeedsLayout();
+  }
+
+  @override
+  double computeMaxIntrinsicWidth(double height) => _maxWidth;
 }
 
 /// Builds the live channel fields for [mode]: RGB or HSL/HSV triplets, or a
@@ -327,6 +379,13 @@ class _ColorChannelFieldState extends State<_ColorChannelField> {
   @override
   Widget build(BuildContext context) {
     final bool numeric = widget.min != null;
+    final ShadcnThemeData ambient = ShadcnTheme.of(context);
+    // The `px-3 py-2` field gutter, density-resolved like other paddings
+    // instead of a literal, so density/scaling legs apply.
+    final EdgeInsetsGeometry padding = resolveEdgeInsets(
+      const EdgeInsetsDensity.pxSymmetric(horizontal: 12, vertical: 8),
+      ambient.density.baseContentPadding * ambient.scaling,
+    );
     return SizedBox(
       width: widget.width,
       child: Input(
@@ -340,7 +399,7 @@ class _ColorChannelFieldState extends State<_ColorChannelField> {
           else
             TextInputFormatters.hex(hashPrefix: true),
         ],
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: padding,
         onChanged: widget.onChanged,
       ),
     );

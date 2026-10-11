@@ -45,6 +45,7 @@ Widget _borderLoadingProgress(BuildContext context) {
       context,
       'progress',
       const BorderLoading(
+        mode: BorderLoadingMode.progress,
         progress: 0.6,
         child: SizedBox(width: 120, height: 48),
       ),

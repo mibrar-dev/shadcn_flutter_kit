@@ -212,8 +212,9 @@ String renderDocsData(DocsModel model) {
 
   final List<ComponentFacts> alphabetical = <ComponentFacts>[...scan.components]
     ..sort(
-      (ComponentFacts a, ComponentFacts b) =>
-          a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+      (ComponentFacts a, ComponentFacts b) => displayTitle(
+        a.id,
+      ).toLowerCase().compareTo(displayTitle(b.id).toLowerCase()),
     );
   out
     ..writeln(
@@ -226,7 +227,7 @@ String renderDocsData(DocsModel model) {
   for (final ComponentFacts component in alphabetical) {
     out.writeln(
       '  DocsComponentLink(id: ${dartString(component.id)}, name: '
-      '${dartString(component.name)}),',
+      '${dartString(displayTitle(component.id))}),',
     );
   }
   out
@@ -272,7 +273,7 @@ String renderDocsData(DocsModel model) {
 String _componentLiteral(ComponentFacts component) {
   return callExpr('DocsComponent', <String>[
     'id: ${dartString(component.id)}',
-    'name: ${dartString(component.name)}',
+    'name: ${dartString(displayTitle(component.id))}',
     'category: ${dartString(component.category)}',
     'description: ${dartStringSmart(component.description)}',
     'install: ${dartString(component.install)}',
@@ -317,8 +318,9 @@ List<_CategoryGroup> _componentCategoryGroups(RegistryScan scan) {
       _CategoryGroup(
         category,
         byCategory[category]!..sort(
-          (ComponentFacts a, ComponentFacts b) =>
-              a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+          (ComponentFacts a, ComponentFacts b) => displayTitle(
+            a.id,
+          ).toLowerCase().compareTo(displayTitle(b.id).toLowerCase()),
         ),
       ),
   ];
@@ -372,7 +374,7 @@ void _writeCategoryGroups(StringBuffer out, RegistryScan scan) {
     out.writeln('    components: <DocsComponentLink>[');
     for (final ComponentFacts component in group.links) {
       out.writeln(
-        '      DocsComponentLink(id: ${dartString(component.id)}, name: ${dartString(component.name)}),',
+        '      DocsComponentLink(id: ${dartString(component.id)}, name: ${dartString(displayTitle(component.id))}),',
       );
     }
     out
@@ -478,11 +480,15 @@ String renderDocsSearch(DocsModel model) {
     );
   }
   for (final ComponentFacts component in model.scan.components) {
-    final List<String> keywords = <String>[component.name, ...component.tags];
+    final List<String> keywords = <String>[
+      component.name,
+      component.id,
+      ...component.tags,
+    ];
     out.writeln(
       '  ${callExpr(
         'DocsSearchEntry',
-        <String>['label: ${dartString(component.id)}', 'kind: DocsSearchKind.component', 'route: ${dartString('/docs/components/${component.id}')}', 'tag: ${dartString('${component.fileCount} files')}', if (keywords.isNotEmpty) 'keywords: ${stringList(keywords, indent: '    ', appended: 1)}'],
+        <String>['label: ${dartString(displayTitle(component.id))}', 'kind: DocsSearchKind.component', 'route: ${dartString('/docs/components/${component.id}')}', 'tag: ${dartString('${component.fileCount} files')}', if (keywords.isNotEmpty) 'keywords: ${stringList(keywords, indent: '    ', appended: 1)}'],
         indent: '  ',
         suffix: ',',
       )}',

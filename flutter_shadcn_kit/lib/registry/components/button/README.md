@@ -65,13 +65,17 @@ Rare gestures (`onTapDown`, secondary/tertiary clicks) go through an outer
 
 ## Size table
 
-| Size | Padding (h x v) | Text | Min height |
+| Size | Horizontal padding | Text | Min height |
 |---|---|---|---|
-| `xs` | 8 x 4 | 12 / w500 | 28 |
-| `sm` | 12 x 6 | 13 / w500 | 32 |
-| `md` | 16 x 8 | 14 / w500 | 36 |
-| `lg` | 20 x 10 | 15 / w500 | 44 |
+| `xs` | 8 | 14 / w500 | 28 |
+| `sm` | 12 | 14 / w500 | 32 |
+| `md` | 16 | 14 / w500 | 36 |
+| `lg` | 24 | 14 / w500 | 40 |
 | `icon` | 0 | — | 36 x 36 |
+
+Heights match shadcn `h-7`/`h-8`/`h-9`/`h-10`; the height comes from
+`minHeight` (vertical padding is zero so outline borders do not inflate
+it). All sizes use 14 / w500 text.
 
 Global `Density.baseContentPadding` scales the padding; `ButtonTheme` may
 override `padding` and `textStyle` per variant.

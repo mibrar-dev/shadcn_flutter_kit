@@ -40,7 +40,9 @@ bool singleSelectionPredicate<T>(T? value, Object? test) => value == test;
 /// indicator (shadcn reserves the gutter whenever something is selected).
 ///
 /// Place it inside a `MenuGroup`; the row joins that group's traversal and
-/// paints the shared menu row hover/focus highlight.
+/// paints the shared menu row hover/focus highlight. Plain-text labels stay
+/// on one line (`maxLines: 1`, ellipsis) so the popup grows to the widest
+/// option instead of wrapping per character; the viewport is the only cap.
 class SelectRow extends StatelessWidget {
   /// Creates a select row.
   const SelectRow({
@@ -100,9 +102,37 @@ class SelectRow extends StatelessWidget {
       ),
       minHeight: minHeight,
       trailing: indicator,
-      child: child,
+      child: _singleLine(child),
     );
   }
+}
+
+/// Keeps a plain-text label on one line; rich content passes through (its
+/// own widgets own their wrapping).
+Widget _singleLine(Widget child) {
+  if (child is! Text || child.data == null) return child;
+  final Text text = child;
+  if (text.maxLines == 1 &&
+      text.overflow == TextOverflow.ellipsis &&
+      text.softWrap == false) {
+    return text;
+  }
+  return Text(
+    text.data!,
+    key: text.key,
+    style: text.style,
+    textAlign: text.textAlign,
+    textDirection: text.textDirection,
+    locale: text.locale,
+    strutStyle: text.strutStyle,
+    textWidthBasis: text.textWidthBasis,
+    textHeightBehavior: text.textHeightBehavior,
+    selectionColor: text.selectionColor,
+    semanticsLabel: text.semanticsLabel,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    softWrap: false,
+  );
 }
 
 /// Wraps the popup body (search field + rows) in the caller's surface.
@@ -154,7 +184,10 @@ class SelectPopupBody extends StatefulWidget {
   /// Shown when the resolved row list is empty; defaults to a 48px spacer.
   final WidgetBuilder? emptyBuilder;
 
-  /// Size constraints; defaults to 192-320 wide and 240 high.
+  /// Size constraints; defaults to a 128 minimum width and 240 high. There
+  /// is no maximum width: the popup hugs the widest option (never narrower
+  /// than the trigger through the popover's anchor-minimum sizing) and the
+  /// viewport caps it.
   final BoxConstraints? constraints;
 
   @override
@@ -176,7 +209,7 @@ class _SelectPopupBodyState extends State<SelectPopupBody> {
     return ConstrainedBox(
       constraints:
           widget.constraints ??
-          const BoxConstraints(minWidth: 192, maxWidth: 320, maxHeight: 240),
+          const BoxConstraints(minWidth: 128, maxHeight: 240),
       child: widget.surface(
         context,
         ListenableBuilder(

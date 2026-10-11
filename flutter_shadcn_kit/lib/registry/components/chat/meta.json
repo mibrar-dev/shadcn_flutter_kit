@@ -23,6 +23,7 @@
         "theme"
     ],
     "primitives": [
+      "clickable",
       "fractional_align_box",
       "overlap_layout"
     ],

@@ -78,7 +78,7 @@ Recent colours come from a `RecentColorsScope` (both optional).
 | `showAlpha` | true | picker alpha editing |
 | `enableEyeDropper` | true | picker screen sampling |
 | `showHistory` | true | picker history toggle |
-| `popoverAlignment` / `popoverAnchorAlignment` | top-left / bottom-left | popover placement |
+| `popoverAlignment` / `popoverAnchorAlignment` | top-start / bottom-start | directional popover placement |
 | `popoverPadding` | 16 | popover inner padding |
 | `gap` | 8 | gap between well and hex field |
 | `swatchSize` | 36 | well edge (shadcn h-9) |

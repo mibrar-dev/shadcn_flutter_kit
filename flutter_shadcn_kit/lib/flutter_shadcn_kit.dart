@@ -4,6 +4,7 @@
 export 'registry/theme/color_tokens.dart';
 export 'registry/theme/color_utils.dart';
 export 'registry/theme/density.dart';
+export 'registry/theme/syntax_colors.dart';
 export 'registry/theme/theme.dart';
 export 'registry/theme/tokens.dart';
 export 'registry/theme/typography.dart';

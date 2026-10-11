@@ -109,7 +109,7 @@ class NavigationMenuState extends State<NavigationMenu> {
       modal: false,
       margin: style.margin ?? EdgeInsets.all(ambient.density.baseGap * scale),
       allowInvertHorizontal: false,
-      allowInvertVertical: false,
+      allowInvertVertical: true,
       builder: (context) => _MenuPopover(menu: this, style: style),
     );
   }

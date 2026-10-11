@@ -18,20 +18,19 @@
       "text_input"
     ],
     "theme": [
-        "color_tokens",
-        "density",
-        "theme"
+      "color_tokens",
+      "density",
+      "theme"
     ],
     "primitives": [
       "clickable",
       "input_features",
       "overlay",
       "popover_controller",
-      "popover_overlay_handler"
+      "popover_overlay_handler",
+      "menu_rows"
     ],
-    "components": [
-      "card"
-    ]
+    "components": []
   },
   "files": [
     "autocomplete.dart",
@@ -73,7 +72,7 @@
     "fields": {
       "mode": "AutoCompleteMode? - default replacement strategy, replaceWord",
       "popoverConstraints": "BoxConstraints? - null caps the list at maxHeight",
-      "popoverWidthConstraint": "PopoverConstraint? - null matches the field width",
+      "popoverWidthConstraint": "PopoverConstraint? - null keeps the field width as a minimum and hugs wider suggestions",
       "popoverAlignment": "AlignmentGeometry? - null = topStart",
       "popoverAnchorAlignment": "AlignmentGeometry? - null = bottomStart",
       "containerBackground": "ThemedColor? - popover surface fill",

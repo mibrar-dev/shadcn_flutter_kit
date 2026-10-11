@@ -69,8 +69,8 @@ An empty `data` list renders a zero-size box.
 
 | Field | Default |
 |---|---|
-| `fine` | literal green `#22C55E` (shadcn has no green token) |
-| `warning` | literal amber `#F59E0B` |
+| `fine` | the `chart2` token (shadcn has no green token) |
+| `warning` | the `chart4` token |
 | `critical` | `destructive` token |
 | `unknown` | `mutedForeground` token |
 | `radius` | ambient `radiusMd` |

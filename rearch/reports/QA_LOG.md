@@ -642,3 +642,16 @@
 ## P7-U3 — Theme Studio apply-on-select — ACCEPTED
 - docs analyze 0, full docs 208, rail/themes suites 33 (re-run). Hover/focus/arrow browsing is popup-local; model touched once per select; DraftSlider commits on release; one notification per commit, persistence after. Agent exit=1 after RESULT.
 - Note: releasing a slider outside its strip now waits for Done (auto-commit would need a popup dismissal signal from P7-U1's popup API).
+
+## Orchestrator — readable component titles (user 2026-10-11) — PENDING joint commit with P7-Q0
+- docs codegen: `displayTitle(id)` (`phone_input` → "Phone Input", acronyms OTP/HSL/HSV/RTL/UI) for sidebar, index, component page title, ⌘K label (id + meta name kept as search keywords); meta `name` still used for primary-class lookup. Search test updated. Generated data is regenerated with P7-Q0's listed-flag changes so `--check` stays consistent at each commit.
+
+## P7-U1(+U1b) — overlays/select/command — CODE ACCEPTED, visual QA pending (integrated P7 commit)
+- docs analyze clean, docs 209 tests, release build, generators --check (agent). Root finding: the docs analyzer errors came from P7-U2's radio_group child→items API change, not Select.
+- Captures insufficient: p7u1-palette.png is ui.shadcn.com (reference), and no capture shows an open menu/select/command popup → orchestrator verifies anchoring/width/highlight visually before the integrated commit.
+
+## P7 integrated batch (U1/U2/U3/B1/Q0/Q1/Q2/D1/D1b + orchestrator titles/CI fixes) — ACCEPTED
+- Re-run on the combined tree: kit format 0 / analyze 0 / registry 4383 / rearch 42; check_layers + single_owner exit 0 (warnings: 39 file-too-long, preview-private name duplicates); user-theme 0; manifest/previews/blocks generators --check; docs format 0 / analyze 0 / 216 tests / codegen (13 files) + mirror --check / release build.
+- Orchestrator visual QA (release build): select popup anchored + trigger-width + single-line options (flips when needed); dropdown highlight = soft accent bg (no white border); command input row compact (remaining: focus ring around the input → final polish); account-02 / sidebar-02 / sidebar-03 verified (agent captured wrong pages); date/time picker dialogs compact (calendar|time + Cancel/Save); radio gaps correct; component pages = main demo + Examples with per-example Preview|Code cards, demos centred.
+- Sidebar: 35 building blocks hidden (listed:false); readable titles from ids; parity vs main: nothing app-usable missing.
+- Follow-ups → P7-Z: command input focus ring; preview toolbar toggle/copy right-aligned on desktop; basic_layout RTL alignment; Clickable autofocus param; object_form_prompt crash with unbounded editors; 39 over-length files.

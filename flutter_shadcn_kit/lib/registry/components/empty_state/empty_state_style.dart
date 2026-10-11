@@ -151,12 +151,32 @@ class EmptyStateTheme extends ComponentThemeData
 
   /// The metrics for [size]: this leg's slice for that size when it lists one,
   /// otherwise the token-derived table entry. A listed slice wins as a whole,
-  /// so a restyled size is never half-default.
+  /// so a restyled size is never half-default. The top-level
+  /// [iconContainerPadding]/[iconContainerBorderRadius] legs win over the size
+  /// table, so an explicit widget/container leg is never shadowed by it.
   EmptyStateMetrics metricsFor(EmptyStateSize size, ShadcnThemeData theme) {
     final EmptyStateMetrics fallback = emptyStateMetrics(size, theme);
     final EmptyStateMetrics? override = metrics?[size];
     if (override == null) {
-      return fallback;
+      if (iconContainerPadding == null && iconContainerBorderRadius == null) {
+        return fallback;
+      }
+      return EmptyStateMetrics(
+        iconSize: fallback.iconSize,
+        titleStyle: fallback.titleStyle,
+        descriptionStyle: fallback.descriptionStyle,
+        padding: fallback.padding,
+        contentGap: fallback.contentGap,
+        titleGap: fallback.titleGap,
+        actionGap: fallback.actionGap,
+        actionSpacing: fallback.actionSpacing,
+        maxWidth: fallback.maxWidth,
+        descriptionMaxWidth: fallback.descriptionMaxWidth,
+        iconContainerPadding:
+            iconContainerPadding ?? fallback.iconContainerPadding,
+        iconContainerBorderRadius:
+            iconContainerBorderRadius ?? fallback.iconContainerBorderRadius,
+      );
     }
     return EmptyStateMetrics(
       iconSize: override.iconSize,
@@ -288,7 +308,7 @@ const EmptyStateMetrics _fullPageMetrics = EmptyStateMetrics(
   actionGap: 24,
   actionSpacing: 12,
   maxWidth: 520,
-  descriptionMaxWidth: 560,
+  descriptionMaxWidth: 520,
   // shadcn `p-3`, density-scaled.
   iconContainerPadding: EdgeInsetsDensity.pxAll(12),
   iconContainerBorderRadius: BorderRadius.all(Radius.circular(14)),

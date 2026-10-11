@@ -1,14 +1,18 @@
-// D4 component page tests: the template renders for button/dialog/command,
-// the deferred preview loads one named example at a time (P6-F4), the install
-// block shows the generated file lists, and the API/theme/keyboard tables
-// render from generated data. Golden tests cover light + dark.
+// Component page tests (P7-D1): the template renders for
+// button/dialog/command, every named example has its own Preview | Code
+// card (the main demo on top, the rest under an Examples section), the
+// install block shows the generated file lists, and the API/theme/keyboard
+// tables render from generated data. Golden tests cover light + dark.
 
 import 'package:docs/generated/docs_data.dart';
+import 'package:docs/generated/docs_example_sources.dart';
 import 'package:docs/generated/docs_previews.dart';
 import 'package:docs/routing/docs_nav.dart';
 import 'package:docs/routing/docs_router.dart';
 import 'package:docs/ui/shadcn/components/badge/badge.dart';
 import 'package:docs/ui/shadcn/components/button/button.dart';
+import 'package:docs/widgets/docs_toc.dart';
+import 'package:docs/widgets/example_preview_card.dart';
 import 'package:docs/widgets/preview_stage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,23 +21,29 @@ import 'support/app_harness.dart';
 
 void main() {
   group('component page', () {
-    testWidgets('button renders title, badges, preview and tables', (
+    testWidgets('button renders title, badges, previews and tables', (
       WidgetTester tester,
     ) async {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
       await goTo(tester, delegate, '/docs/components/button');
       expect(find.text('Button'), findsWidgets);
       expect(find.byType(Badge), findsWidgets);
-      expect(find.byType(PreviewStage), findsOneWidget);
-      // P6-F4: one named example at a time behind a Select, plus the
-      // per-preview light/dark toggle. The deferred chunk loads async.
+      // P7-D1: one card per named example (11 for button), each with its
+      // own stage. The deferred chunks load async.
+      await tester.pumpAndSettle();
       await tester.pumpAndSettle();
       expect(
-        find.byKey(const ValueKey<String>('preview-example-select')),
+        find.byType(ExamplePreviewCard),
+        findsNWidgets(kComponentPreviews['button']!.length),
+      );
+      expect(find.byType(PreviewStage), findsWidgets);
+      // Every card has Preview/Code tabs plus the per-card toggle.
+      expect(
+        find.byKey(const ValueKey<String>('example-tabs-0')),
         findsOneWidget,
       );
       expect(
-        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+        find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
         findsOneWidget,
       );
       // The default example (button "Default") paints a Button.
@@ -43,6 +53,9 @@ void main() {
       expect(find.text('Installation'), findsWidgets);
       expect(find.text('Command'), findsWidgets);
       expect(find.text('Manual'), findsWidgets);
+      // Examples section lists the remaining examples as h3 headings.
+      expect(find.text('Examples'), findsWidgets);
+      expect(find.text('Destructive'), findsWidgets);
       // API Reference table.
       expect(find.text('API Reference'), findsWidgets);
       expect(find.text('Parameter'), findsOneWidget);
@@ -59,6 +72,11 @@ void main() {
       await goTo(tester, delegate, '/docs/components/dialog');
       expect(find.text('Dialog'), findsWidgets);
       await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ExamplePreviewCard),
+        findsNWidgets(kComponentPreviews['dialog']!.length),
+      );
       // Function-first API: showShadcnDialog params.
       expect(find.text('API Reference'), findsWidgets);
       expect(find.textContaining('showShadcnDialog'), findsWidgets);
@@ -73,7 +91,12 @@ void main() {
       await goTo(tester, delegate, '/docs/components/command');
       expect(find.text('Command'), findsWidgets);
       await tester.pumpAndSettle();
-      expect(find.byType(PreviewStage), findsOneWidget);
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(ExamplePreviewCard),
+        findsNWidgets(kComponentPreviews['command']!.length),
+      );
+      expect(find.byType(PreviewStage), findsWidgets);
       expect(find.text('Installation'), findsWidgets);
       expect(find.textContaining('flutter_shadcn add command'), findsWidgets);
     });
@@ -141,54 +164,110 @@ void main() {
       expect(find.textContaining('ArrowLeft / ArrowRight'), findsWidgets);
     });
 
-    testWidgets('example Select lists every named example', (
+    testWidgets('every example renders its own card with Preview/Code', (
       WidgetTester tester,
     ) async {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
       await goTo(tester, delegate, '/docs/components/button');
+      await tester.pumpAndSettle();
       await tester.pumpAndSettle();
       final List<String> names = kComponentPreviews['button']!;
       expect(names.length, 11);
-      // The trigger shows the default example.
-      expect(find.text(names.first), findsWidgets);
-      // Opening the Select reveals every example name.
-      await tester.tap(
-        find.byKey(const ValueKey<String>('preview-example-select')),
+      final List<DocsExampleSource> sources = kExampleSources['button']!;
+      expect(sources.length, names.length);
+      // The main demo card shows the first example.
+      final ExamplePreviewCard first = tester.widget<ExamplePreviewCard>(
+        find.byType(ExamplePreviewCard).first,
       );
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 100));
-      for (final String name in names) {
-        expect(find.text(name), findsWidgets);
+      expect(first.exampleIndex, 0);
+      expect(first.source.name, names.first);
+      // Every card carries Preview/Code tabs and a theme toggle.
+      expect(
+        find.descendant(
+          of: find.byType(ExamplePreviewCard),
+          matching: find.text('Preview'),
+        ),
+        findsNWidgets(names.length),
+      );
+      expect(
+        find.descendant(
+          of: find.byType(ExamplePreviewCard),
+          matching: find.text('Code'),
+        ),
+        findsNWidgets(names.length),
+      );
+      for (int i = 0; i < names.length; i++) {
+        expect(
+          find.byKey(ValueKey<String>('preview-theme-toggle-$i')),
+          findsOneWidget,
+        );
       }
     });
 
-    testWidgets('switching examples re-renders the stage', (
+    testWidgets('code tab text contains the example builder body', (
       WidgetTester tester,
     ) async {
       final DocsRouterDelegate delegate = await pumpDocsApp(tester);
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
-      // Default example shows the primary button label.
-      expect(find.text('Button'), findsWidgets);
-      // Switch to the Destructive example through DocsState (the Select
-      // writes here too; the state path is what the stage reads). The
-      // deferred chunk reload needs a second settle: the first completes
-      // the `loadLibrary` future, the second builds the new example.
-      docsState.setPreviewExample('button', 'Destructive');
       await tester.pumpAndSettle();
-      await tester.pumpAndSettle();
-      expect(find.text('Delete'), findsOneWidget);
-      // The selection survives navigation away and back.
-      await goTo(tester, delegate, '/docs/components/badge');
-      await tester.pumpAndSettle();
-      await tester.pumpAndSettle();
+      // Each card's Code tab reveals exactly that example's source.
+      for (final MapEntry<int, String> entry in <int, String>{
+        0: '_buttonDefault',
+        5: '_buttonDestructive',
+        7: '_buttonWithIcon',
+      }.entries) {
+        final Finder tabs = find.byKey(
+          ValueKey<String>('example-tabs-${entry.key}'),
+        );
+        await tester.ensureVisible(tabs);
+        await tester.pumpAndSettle();
+        final Finder codeTab = find.descendant(
+          of: find.byType(ExamplePreviewCard).at(entry.key),
+          matching: find.text('Code'),
+        );
+        await tester.tap(codeTab);
+        await tester.pumpAndSettle();
+        expect(find.textContaining(entry.value), findsWidgets);
+      }
+    });
+
+    testWidgets('examples are listed in the On This Page TOC', (
+      WidgetTester tester,
+    ) async {
+      final DocsRouterDelegate delegate = await pumpDocsApp(
+        tester,
+        width: 1400,
+      );
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
       await tester.pumpAndSettle();
-      expect(find.text('Delete'), findsOneWidget);
+      expect(find.text('On This Page'), findsOneWidget);
+      final Finder toc = find.byType(DocsToc);
+      expect(toc, findsOneWidget);
+      // Section headings plus every example name register as TOC links.
+      for (final String heading in <String>[
+        'Installation',
+        'Usage',
+        'Examples',
+        'API Reference',
+      ]) {
+        expect(
+          find.descendant(of: toc, matching: find.text(heading)),
+          findsWidgets,
+          reason: heading,
+        );
+      }
+      for (final String name in <String>['Secondary', 'With icon', 'Loading']) {
+        expect(
+          find.descendant(of: toc, matching: find.text(name)),
+          findsWidgets,
+          reason: name,
+        );
+      }
     });
 
-    testWidgets('per-preview toggle inverts only the stage', (
+    testWidgets('per-card toggle inverts only its own stage', (
       WidgetTester tester,
     ) async {
       final DocsRouterDelegate delegate = await pumpDocsApp(
@@ -197,24 +276,48 @@ void main() {
       );
       await goTo(tester, delegate, '/docs/components/button');
       await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
       expect(docsState.brightness, Brightness.light);
-      // Site is light; the stage toggle starts following the site.
-      expect(find.text('Light'), findsWidgets);
+      // P7-D1b: the toggle is icon-only (tooltip, no Light/Dark label), so
+      // the first card carries an icon toggle and no brightness text.
+      final Finder firstCard = find.byType(ExamplePreviewCard).first;
+      expect(
+        find.descendant(of: firstCard, matching: find.text('Light')),
+        findsNothing,
+      );
+      expect(
+        find.descendant(of: firstCard, matching: find.text('Dark')),
+        findsNothing,
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
+          matching: find.byType(Icon),
+        ),
+        findsOneWidget,
+      );
+      await tester.ensureVisible(
+        find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
+      );
+      await tester.pumpAndSettle();
       await tester.tap(
-        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+        find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
       );
       await tester.pumpAndSettle();
       await tester.pump(const Duration(milliseconds: 500));
-      expect(docsState.isPreviewInverted('button'), isTrue);
-      expect(find.text('Dark'), findsWidgets);
-      // The site itself stays light: only the stage flipped.
+      // The site itself stays light: only the card flipped (the flip itself
+      // is proved by the calendar paint test in component_preview_f4_test).
       expect(docsState.brightness, Brightness.light);
+      expect(
+        find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
+        findsOneWidget,
+      );
       await tester.tap(
-        find.byKey(const ValueKey<String>('preview-theme-toggle')),
+        find.byKey(const ValueKey<String>('preview-theme-toggle-0')),
       );
       await tester.pumpAndSettle();
       await tester.pump(const Duration(milliseconds: 500));
-      expect(docsState.isPreviewInverted('button'), isFalse);
+      expect(docsState.brightness, Brightness.light);
     });
   });
 
@@ -232,7 +335,12 @@ void main() {
             .delegate;
         await goTo(tester, delegate, '/docs/components/button');
         await tester.pumpAndSettle();
-        expect(find.byType(PreviewStage), findsOneWidget);
+        await tester.pumpAndSettle();
+        expect(find.byType(PreviewStage), findsWidgets);
+        expect(
+          find.byType(ExamplePreviewCard),
+          findsNWidgets(kComponentPreviews['button']!.length),
+        );
         expect(find.text('API Reference'), findsWidgets);
       });
     }

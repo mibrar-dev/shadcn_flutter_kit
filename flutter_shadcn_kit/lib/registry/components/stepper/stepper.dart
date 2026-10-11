@@ -250,17 +250,20 @@ class _StepperRender extends StatelessWidget {
     final TextStyle title = (style.titleStyle ?? size.titleStyleFor(theme))
         .copyWith(color: colors.foreground);
     final EdgeInsetsGeometry padding = resolveEdgeInsets(
-      const EdgeInsets.symmetric(vertical: 8),
+      // Density multipliers (P7-Q2): a plain `EdgeInsets` would pass the
+      // resolver through unchanged and pin 8px at every density.
+      const EdgeInsetsDensity.pxSymmetric(vertical: 8),
       theme.density.baseContentPadding * scaling,
     );
 
     // Only the active step stays mounted, so the row collapses to its content
     // instead of reserving room for every step (the old IndexedStack did).
+    // Directional indent (P7-Q2): mirrors with the indicator in RTL.
     Widget content(int index, double indent) => AnimatedSwitcher(
       duration: kDefaultDuration,
       child: Padding(
         key: ValueKey<int>(index),
-        padding: padding.add(EdgeInsets.only(left: indent)),
+        padding: padding.add(EdgeInsetsDirectional.only(start: indent)),
         child: steps[index].content ?? const SizedBox.shrink(),
       ),
     );

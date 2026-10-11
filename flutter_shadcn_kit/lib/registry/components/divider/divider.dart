@@ -93,34 +93,45 @@ class Divider extends StatelessWidget {
     final double leading = indent ?? style.indent ?? 0;
     final double trailing = endIndent ?? style.endIndent ?? 0;
 
+    // `indent`/`endIndent` are logical (before/after the rule). A horizontal
+    // rule mirrors in RTL: the `Row` child order mirrors by itself, but the
+    // painter's physical insets need the swap done here. (Vertical rules are
+    // unaffected by text direction.)
+    final bool rtl =
+        axis == Axis.horizontal &&
+        Directionality.of(context) == TextDirection.rtl;
+
     if (label == null) {
-      return axis == Axis.horizontal
-          ? SizedBox(
-              width: double.infinity,
-              height: cross,
-              child: CustomPaint(
-                painter: _RulePainter(
-                  color: resolved,
-                  thickness: stroke,
-                  insetStart: leading,
-                  insetEnd: trailing,
-                  vertical: false,
+      // A bare rule is decorative: keep it out of the semantics tree.
+      return ExcludeSemantics(
+        child: axis == Axis.horizontal
+            ? SizedBox(
+                width: double.infinity,
+                height: cross,
+                child: CustomPaint(
+                  painter: _RulePainter(
+                    color: resolved,
+                    thickness: stroke,
+                    insetStart: rtl ? trailing : leading,
+                    insetEnd: rtl ? leading : trailing,
+                    vertical: false,
+                  ),
+                ),
+              )
+            : SizedBox(
+                width: cross,
+                height: double.infinity,
+                child: CustomPaint(
+                  painter: _RulePainter(
+                    color: resolved,
+                    thickness: stroke,
+                    insetStart: leading,
+                    insetEnd: trailing,
+                    vertical: true,
+                  ),
                 ),
               ),
-            )
-          : SizedBox(
-              width: cross,
-              height: double.infinity,
-              child: CustomPaint(
-                painter: _RulePainter(
-                  color: resolved,
-                  thickness: stroke,
-                  insetStart: leading,
-                  insetEnd: trailing,
-                  vertical: true,
-                ),
-              ),
-            );
+      );
     }
 
     final TextStyle labelStyle = (style.labelStyle ?? dividerDefaultLabelStyle)
@@ -138,6 +149,8 @@ class Divider extends StatelessWidget {
 
     if (axis == Axis.horizontal) {
       final List<Widget> row = <Widget>[];
+      // Positioned first, so the `Row` mirrors it to the leading side in
+      // RTL by itself.
       if (leading > 0) row.add(SizedBox(width: leading));
       row.add(
         Expanded(
@@ -166,8 +179,9 @@ class Divider extends StatelessWidget {
               painter: _RulePainter(
                 color: resolved,
                 thickness: stroke,
-                insetStart: 0,
-                insetEnd: trailing,
+                // Logical trailing gap: the physical side mirrors in RTL.
+                insetStart: rtl ? trailing : 0,
+                insetEnd: rtl ? 0 : trailing,
                 vertical: false,
               ),
             ),
@@ -223,17 +237,18 @@ class Divider extends StatelessWidget {
 
   /// Share of the split rule before (or after) the label.
   ///
-  /// `start` gives the leading half all the flex and drops the trailing half,
-  /// `center` splits evenly and `end` does the opposite. Flex is an int, so a
-  /// zero share is expressed as a collapsed box rather than `flex: 0`.
+  /// `start` collapses the leading half and gives the trailing half all the
+  /// flex, so the label sits at the start; `center` splits evenly and `end`
+  /// does the opposite. Flex is an int, so a zero share is expressed as a
+  /// collapsed box rather than `flex: 0`.
   static int _flexFor(
     DividerLabelAlignment alignment, {
     required bool leadingSide,
   }) {
     return switch (alignment) {
       DividerLabelAlignment.center => 1,
-      DividerLabelAlignment.start => leadingSide ? 1 : 0,
-      DividerLabelAlignment.end => leadingSide ? 0 : 1,
+      DividerLabelAlignment.start => leadingSide ? 0 : 1,
+      DividerLabelAlignment.end => leadingSide ? 1 : 0,
     };
   }
 }

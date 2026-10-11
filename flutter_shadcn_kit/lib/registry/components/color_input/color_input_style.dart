@@ -62,10 +62,10 @@ class ColorInputTheme extends ComponentThemeData
   /// Whether the picker's history toggle is shown; null resolves true.
   final bool? showHistory;
 
-  /// Popover placement relative to the trigger; null resolves top-left.
+  /// Popover placement relative to the trigger; null resolves top-start.
   final AlignmentGeometry? popoverAlignment;
 
-  /// Anchor edge in popover mode; null resolves bottom-left.
+  /// Anchor edge in popover mode; null resolves bottom-start.
   final AlignmentGeometry? popoverAnchorAlignment;
 
   /// Padding inside the popover surface; null resolves the primitive's 16.
@@ -207,8 +207,8 @@ const ColorInputTheme colorInputDefaults = ColorInputTheme(
   showAlpha: true,
   enableEyeDropper: true,
   showHistory: true,
-  popoverAlignment: Alignment.topLeft,
-  popoverAnchorAlignment: Alignment.bottomLeft,
+  popoverAlignment: AlignmentDirectional.topStart,
+  popoverAnchorAlignment: AlignmentDirectional.bottomStart,
   gap: 8,
   swatchSize: 36,
   swatchBorderColor: ThemedColor.ref(ColorRef.border),

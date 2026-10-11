@@ -107,8 +107,9 @@ class CodeSnippet extends StatelessWidget {
             ),
           ),
           if (actions.isNotEmpty)
-            Positioned(
-              right: ambient.density.baseGap * scale,
+            Positioned.directional(
+              textDirection: Directionality.of(context),
+              end: ambient.density.baseGap * scale,
               top: ambient.density.baseGap * scale,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -132,12 +133,14 @@ class CodeSnippet extends StatelessWidget {
 
   /// The code child, highlighted when a language is known or detected.
   ///
-  /// Only a plain [Text] can be re-colored (its string is the source); any
-  /// other widget renders untouched.
+  /// The source string comes from a plain [Text] or from a [Text.rich]
+  /// span (`toPlainText`); it is re-colored with the theme syntax group.
+  /// Any other widget renders untouched.
   Widget _codeChild(ShadcnThemeData ambient) {
     final Widget raw = code;
-    if (raw is! Text || raw.data == null) return raw.mono.small;
-    final String text = raw.data!;
+    if (raw is! Text) return raw.mono.small;
+    final String? text = raw.data ?? raw.textSpan?.toPlainText();
+    if (text == null) return raw.mono.small;
     final SyntaxLanguage? detected =
         syntaxLanguageFromId(language) ?? syntaxLanguageGuess(text);
     if (detected == null) return raw.mono.small;

@@ -58,6 +58,8 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
   double _direction = 1;
   double _drag = 0;
   Timer? _timer;
+  bool _lastAutoPlay = false;
+  Duration _lastInterval = Duration.zero;
 
   int get _max => widget.items.isEmpty ? 0 : widget.items.length - 1;
 
@@ -66,6 +68,8 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     super.initState();
     _attach();
     _index = _config.index.clamp(0, _max);
+    _lastAutoPlay = _config.autoPlay;
+    _lastInterval = _config.autoPlayInterval;
     _autoplay();
   }
 
@@ -78,7 +82,8 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
   @override
   void didUpdateWidget(covariant FeatureCarousel old) {
     super.didUpdateWidget(old);
-    if (old.controller != widget.controller) {
+    final bool controllerChanged = old.controller != widget.controller;
+    if (controllerChanged) {
       _config.removeListener(_onConfig);
       _owned?.dispose();
       _attach();
@@ -86,7 +91,16 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     if (widget.items.isNotEmpty) {
       _index = _index.clamp(0, _max);
     }
-    _autoplay();
+    // A parent rebuild must not restart the autoplay timer: only restart when
+    // the controller instance, the item count, or an autoplay field changed.
+    final bool autoplayChanged =
+        controllerChanged ||
+        old.items.length != widget.items.length ||
+        _config.autoPlay != _lastAutoPlay ||
+        _config.autoPlayInterval != _lastInterval;
+    if (autoplayChanged) {
+      _autoplay();
+    }
   }
 
   @override
@@ -107,6 +121,8 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
 
   void _autoplay() {
     _timer?.cancel();
+    _lastAutoPlay = _config.autoPlay;
+    _lastInterval = _config.autoPlayInterval;
     if (!_config.autoPlay || widget.items.length <= 1) {
       return;
     }
@@ -121,11 +137,11 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     if (widget.items.isEmpty) {
       return;
     }
-    setState(() {
-      _direction = delta >= 0 ? 1 : -1;
-      _index = (_index + delta) % widget.items.length;
-      _config.index = _index;
-    });
+    // The controller setter notifies, which drives `_onConfig` → `setState`,
+    // so no explicit `setState` here (it double-rebuilt before).
+    _direction = delta >= 0 ? 1 : -1;
+    _index = (_index + delta) % widget.items.length;
+    _config.index = _index;
     if (!auto) {
       _autoplay();
     }
@@ -167,16 +183,25 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     final ShadcnColors colors = ambient.colors;
     final FeatureCarouselItem item = widget.items[_index];
     final double gap = ambient.spacing.sm;
+    final double scaling = ambient.scaling;
     final Color textColor = theme.controlForeground!.resolve(colors);
     final Widget body = Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _text(item.title, textColor, FontWeight.w500, null),
+        _text(item.title, colors.foreground, FontWeight.w500, null, scaling),
         Gap(gap * 2.25),
-        SizedBox(
-          width: widget.width ?? featureCarouselDefaultWidth,
-          height: widget.height ?? featureCarouselDefaultHeight,
-          child: _viewport(theme, colors, item),
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double want = widget.width ?? featureCarouselDefaultWidth;
+            final double viewportWidth = constraints.maxWidth.isFinite
+                ? (want > constraints.maxWidth ? constraints.maxWidth : want)
+                : want;
+            return SizedBox(
+              width: viewportWidth,
+              height: widget.height ?? featureCarouselDefaultHeight,
+              child: _viewport(theme, colors, item),
+            );
+          },
         ),
         Gap(gap * 2.75),
         Padding(
@@ -184,9 +209,18 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
             horizontal:
                 ambient.density.baseContentPadding * ambient.scaling * 1.25,
           ),
-          child: _text(item.description, textColor, FontWeight.w400, 1.35),
+          child: _text(
+            item.description,
+            textColor,
+            FontWeight.w400,
+            1.35,
+            scaling,
+          ),
         ),
-        if (_config.showCta) ...<Widget>[Gap(gap * 2.25), _cta(theme, colors)],
+        if (_config.showCta) ...<Widget>[
+          Gap(gap * 2.25),
+          _cta(theme, colors, scaling),
+        ],
       ],
     );
     final Widget stack = Stack(
@@ -264,7 +298,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
       foreground: theme.controlForeground!.resolve(colors),
       width: featureCarouselDefaultArrowSize,
       height: featureCarouselDefaultArrowSize,
-      radius: BorderRadius.circular(12),
+      radius: BorderRadius.circular(theme.radius ?? 12),
       child: Icon(
         next ? LucideIcons.chevronRight : LucideIcons.chevronLeft,
         size: 24,
@@ -272,7 +306,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     );
   }
 
-  Widget _cta(FeatureCarouselTheme theme, ShadcnColors colors) {
+  Widget _cta(FeatureCarouselTheme theme, ShadcnColors colors, double scaling) {
     return _control(
       onPressed: () {
         if (widget.items.isNotEmpty) {
@@ -286,7 +320,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
       radius: BorderRadius.circular(featureCarouselDefaultCtaHeight / 2),
       child: Text(
         _config.primaryActionLabel,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        style: TextStyle(fontSize: 16 * scaling, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -339,7 +373,13 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
     );
   }
 
-  Widget _text(String? value, Color color, FontWeight weight, double? height) {
+  Widget _text(
+    String? value,
+    Color color,
+    FontWeight weight,
+    double? height,
+    double scaling,
+  ) {
     if (value == null) {
       return const SizedBox.shrink();
     }
@@ -347,7 +387,7 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
       value,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: featureCarouselDefaultFontSize,
+        fontSize: featureCarouselDefaultFontSize * scaling,
         fontWeight: weight,
         height: height,
         color: color,

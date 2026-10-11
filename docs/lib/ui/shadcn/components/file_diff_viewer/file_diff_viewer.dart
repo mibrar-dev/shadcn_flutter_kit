@@ -13,6 +13,7 @@ import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:flutter/widgets.dart';
 
 import '../../foundation/icons/radix_icons.dart';
+import '../../primitives/clickable.dart';
 import '../../primitives/localizations/localizations.dart';
 import '../../primitives/text_editing/text_editing.dart';
 import '../../theme/theme.dart';
@@ -60,6 +61,7 @@ class FileDiffViewer extends StatefulWidget {
 class _FileDiffViewerState extends State<FileDiffViewer> {
   final Set<String> _expandedHunks = <String>{};
   final Set<String> _copiedFiles = <String>{};
+  int _copyGeneration = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -167,28 +169,34 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
               ],
             ),
           ),
-          _buildStat(surface, '+${file.additions}', surface.addition),
-          // Spacers between the inline header items, not fixed content boxes:
-          // they follow the spacing scale like every other gap in the registry.
-          SizedBox(width: theme.spacing.sm),
-          _buildStat(surface, '-${file.deletions}', surface.deletion),
-          Text(
-            file.status,
-            style: surface.codeStyle.copyWith(
-              color: theme.colors.mutedForeground,
+          Flexible(
+            child: Wrap(
+              alignment: WrapAlignment.end,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: theme.spacing.sm,
+              runSpacing: 4,
+              children: <Widget>[
+                _buildStat(surface, '+${file.additions}', surface.addition),
+                _buildStat(surface, '-${file.deletions}', surface.deletion),
+                Text(
+                  file.status,
+                  overflow: TextOverflow.ellipsis,
+                  style: surface.codeStyle.copyWith(
+                    color: theme.colors.mutedForeground,
+                  ),
+                ),
+                if (widget.showCopyAction)
+                  Button(
+                    variant: ButtonVariant.ghost,
+                    size: ButtonSize.sm,
+                    onPressed: () => _copyPatch(key, file),
+                    child: _copiedFiles.contains(key)
+                        ? Icon(RadixIcons.check, size: 14 * theme.scaling)
+                        : Text(ShadcnLocalizations.of(context).menuCopy),
+                  ),
+              ],
             ),
           ),
-          if (widget.showCopyAction) ...<Widget>[
-            SizedBox(width: theme.spacing.md),
-            Button(
-              variant: ButtonVariant.ghost,
-              size: ButtonSize.sm,
-              onPressed: () => _copyPatch(key, file),
-              child: _copiedFiles.contains(key)
-                  ? Icon(RadixIcons.check, size: 14)
-                  : Text(ShadcnLocalizations.of(context).menuCopy),
-            ),
-          ],
         ],
       ),
     );
@@ -203,9 +211,11 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
   Future<void> _copyPatch(String key, FileDiff file) async {
     await Clipboard.setData(ClipboardData(text: file.toPatch()));
     if (!mounted) return;
+    final int generation = ++_copyGeneration;
     setState(() => _copiedFiles.add(key));
     await Future<void>.delayed(_copyFeedback);
     if (!mounted) return;
+    if (generation != _copyGeneration) return;
     setState(() => _copiedFiles.remove(key));
   }
 
@@ -244,8 +254,9 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        GestureDetector(
-          onTap: hunk.collapsed ? () => _toggleHunk(key) : null,
+        Clickable(
+          enabled: hunk.collapsed,
+          onPressed: hunk.collapsed ? () => _toggleHunk(key) : null,
           child: Container(
             color: surface.hunkBackground,
             padding: surface.linePadding,
@@ -256,7 +267,7 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
                     collapsed
                         ? RadixIcons.chevronRight
                         : RadixIcons.chevronDown,
-                    size: 14,
+                    size: 14 * theme.scaling,
                     color: theme.colors.accentForeground,
                   ),
                 Expanded(
@@ -285,21 +296,26 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
   Widget _buildSplitLine(FileDiffSurface surface, FileDiffLine line) {
     final bool left = line.type != FileDiffLineType.addition;
     final bool right = line.type != FileDiffLineType.deletion;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(
-          child: _buildRow(surface, left ? line : null, <int?>[
-            left ? line.oldLineNumber : null,
-          ]),
-        ),
-        Container(width: 1, color: surface.border),
-        Expanded(
-          child: _buildRow(surface, right ? line : null, <int?>[
-            right ? line.newLineNumber : null,
-          ]),
-        ),
-      ],
+    // Code column order is LTR even in RTL locales: the gutter/marker/content
+    // sequence is positional, not directional.
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(
+            child: _buildRow(surface, left ? line : null, <int?>[
+              left ? line.oldLineNumber : null,
+            ]),
+          ),
+          Container(width: 1, color: surface.border),
+          Expanded(
+            child: _buildRow(surface, right ? line : null, <int?>[
+              right ? line.newLineNumber : null,
+            ]),
+          ),
+        ],
+      ),
     );
   }
 
@@ -313,18 +329,22 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
     return _lineBox(
       surface,
       type,
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          if (widget.showLineNumbers)
-            for (final int? number in numbers) _buildGutter(surface, number),
-          _buildMarker(surface, line?.marker ?? '', type),
-          Expanded(
-            child: line == null
-                ? Padding(padding: surface.linePadding, child: const Text(''))
-                : _buildContent(surface, line),
-          ),
-        ],
+      // Code row order is LTR even in RTL locales.
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (widget.showLineNumbers)
+              for (final int? number in numbers) _buildGutter(surface, number),
+            _buildMarker(surface, line?.marker ?? '', type),
+            Expanded(
+              child: line == null
+                  ? Padding(padding: surface.linePadding, child: const Text(''))
+                  : _buildContent(surface, line),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -355,7 +375,7 @@ class _FileDiffViewerState extends State<FileDiffViewer> {
       width: surface.gutterWidth,
       decoration: BoxDecoration(
         color: surface.gutterFill,
-        border: Border(right: BorderSide(color: surface.border)),
+        border: BorderDirectional(end: BorderSide(color: surface.border)),
       ),
       padding: surface.linePadding,
       child: Text(

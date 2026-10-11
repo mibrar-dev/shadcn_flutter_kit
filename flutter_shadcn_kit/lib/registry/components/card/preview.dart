@@ -15,10 +15,13 @@ import '../button/button.dart';
 import 'card.dart';
 
 /// The full shadcn slot composition.
+//
+// P7-D1b: capped at 320 px (not fixed) so narrow phones shrink it instead of
+// overflowing; the stage centres it.
 Widget _cardDefault(BuildContext context) {
   final spacing = ShadcnTheme.of(context).spacing;
-  return SizedBox(
-    width: 320,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 320),
     child: Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,8 +72,8 @@ Widget _cardDefault(BuildContext context) {
 /// A card whose header carries a clipped media band.
 Widget _cardWithMedia(BuildContext context) {
   final theme = ShadcnTheme.of(context);
-  return SizedBox(
-    width: 320,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 320),
     child: Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -111,8 +114,8 @@ Widget _cardWithMedia(BuildContext context) {
 /// A bare surface with only the footer slot filled.
 Widget _cardWithFooter(BuildContext context) {
   final theme = ShadcnTheme.of(context);
-  return SizedBox(
-    width: 320,
+  return ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 320),
     child: Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

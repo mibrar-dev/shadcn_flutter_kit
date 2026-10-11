@@ -54,13 +54,9 @@ class CommandTheme extends ComponentThemeData
   /// Surface corner radius; null falls back to `theme.borderRadiusLg`.
   final BorderRadiusGeometry? borderRadius;
 
-  /// Padding around the search field and result list: the cmdk command
-  /// surface's `p-1` (4) as density multipliers.
-  ///
-  /// `Command` paints no such box itself — the search field carries its own
-  /// padding and a row carries [itemPadding] — so an app that composes its own
-  /// group surface applies this value and resolves it
-  /// (`resolveEdgeInsets(p, density.baseContentPadding * scaling)`).
+  /// Padding around the result list: the cmdk command surface's `p-1` (4)
+  /// as density multipliers, resolved by `Command` against
+  /// `density.baseContentPadding * scaling`.
   final EdgeInsetsGeometry? padding;
 
   /// Background of the item under SubFocus.
@@ -264,7 +260,7 @@ const CommandTheme commandDefaults = CommandTheme(
   itemHighlight: ThemedColor.ref(ColorRef.accent),
   itemHighlightForeground: ThemedColor.ref(ColorRef.accentForeground),
   itemPadding: commandDefaultItemPadding,
-  maxWidth: 510,
+  maxWidth: 512,
   maxHeight: 349,
 );
 

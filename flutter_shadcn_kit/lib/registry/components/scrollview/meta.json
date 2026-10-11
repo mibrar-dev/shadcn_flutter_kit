@@ -1,7 +1,8 @@
 {
   "id": "scrollview",
   "name": "Scroll View Interceptor",
-  "category": "Layout",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Middle-button drag-to-scroll interceptor for desktop and web pointer devices.",
   "tier": "component",
   "install": "flutter_shadcn add scrollview",

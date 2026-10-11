@@ -1,7 +1,8 @@
 {
   "id": "eye_dropper",
   "name": "Eye Dropper",
-  "category": "Color",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Samples any pixel of the wrapped subtree with a magnified preview and reports the picked colour (optionally into a colour history).",
   "tier": "component",
   "install": "flutter_shadcn add eye_dropper",

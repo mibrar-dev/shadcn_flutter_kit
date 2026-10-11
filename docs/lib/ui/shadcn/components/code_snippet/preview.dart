@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import '../../foundation/component_preview.dart';
 import '../../foundation/gap.dart';
 import '../../theme/theme.dart';
+import '../button/button.dart';
 import 'code_snippet.dart';
 
 /// A small pill button for the snippet actions row.
@@ -20,23 +21,13 @@ class _CodeSnippetAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ShadcnTheme.of(context);
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: theme.colors.secondary,
-          borderRadius: theme.borderRadiusMd,
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: theme.colors.secondaryForeground,
-          ),
-        ),
-      ),
+    // A real Button (keyboard, hover, focus ring, semantics) instead of a
+    // hand-rolled GestureDetector pill, matching the README snippet.
+    return Button(
+      size: ButtonSize.sm,
+      variant: ButtonVariant.ghost,
+      onPressed: onPressed,
+      child: Text(label),
     );
   }
 }

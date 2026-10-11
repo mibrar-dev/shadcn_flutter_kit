@@ -19,8 +19,18 @@ import '../overlay.dart';
 import 'object_form_field.dart';
 
 /// The dialog presentation of an object editor.
+///
+/// The card shrink-wraps its content: a caller that hands it an editor which
+/// hugs its own width (the picker dialogs do) gets a dialog exactly as wide
+/// as that editor plus its padding — never the 480px frame the old fixed
+/// `Column(stretch)` produced. [objectFormDialogMinWidth] is the floor for
+/// wide editors, [objectFormDialogMaxWidth] the ceiling.
+///
+///
 /// Object-form dialog card padding: shadcn `p-6` (24) as density
-/// multipliers, resolved at build.
+/// multipliers, resolved at build. A compact editor (a calendar, a time
+/// wheel) passes a smaller value; `p-0` is what shadcn uses on its picker
+/// dialogs, where the editor paints its own shell.
 const EdgeInsetsGeometry objectFormDialogPadding = EdgeInsetsDensity.pxAll(24);
 
 /// Object-form popover card padding: shadcn `p-4` (16) as density
@@ -32,6 +42,27 @@ const EdgeInsetsGeometry objectFormPopupPadding = EdgeInsetsDensity.pxAll(16);
 const EdgeInsetsGeometry objectFormButtonPadding =
     EdgeInsetsDensity.pxSymmetric(horizontal: 16, vertical: 8);
 
+/// Object-form footer row padding when the footer paints its own top border:
+/// shadcn `p-3` (12).
+const EdgeInsetsGeometry objectFormFooterPadding = EdgeInsetsDensity.pxAll(12);
+
+/// Object-form dialog inset from the screen edge: shadcn `p-4` (16).
+const EdgeInsetsGeometry objectFormScreenPadding = EdgeInsetsDensity.pxAll(16);
+
+/// Narrowest a shrink-wrapping object-form dialog card gets. An editor whose
+/// intrinsic width is small (a text field measures its placeholder) would
+/// otherwise collapse the card around it. It stays below the calendar's natural
+/// width, so a picker still hugs its grid exactly.
+const double objectFormDialogMinWidth = 240;
+
+/// Widest an object-form dialog card gets: shadcn `sm:max-w-lg`.
+const double objectFormDialogMaxWidth = 480;
+
+/// Lookup key of the object-form dialog card surface.
+const ValueKey<String> kObjectFormDialogSurfaceKey = ValueKey<String>(
+  'shadcn.object_form.dialog.surface',
+);
+
 class ObjectFormPromptDialog<T> extends StatefulWidget {
   /// Creates the dialog page.
   const ObjectFormPromptDialog({
@@ -40,6 +71,8 @@ class ObjectFormPromptDialog<T> extends StatefulWidget {
     required this.editorBuilder,
     this.dialogTitle,
     this.dialogActions,
+    this.padding = objectFormDialogPadding,
+    this.footerPadding,
     this.decorate = true,
     required this.onPrompt,
     required this.onChanged,
@@ -54,6 +87,15 @@ class ObjectFormPromptDialog<T> extends StatefulWidget {
 
   /// Optional heading above the editor.
   final Widget? dialogTitle;
+
+  /// Padding between the card border and the editor; null means the caller
+  /// paints the shell (a `p-0` dialog around a `p-3` calendar, as shadcn
+  /// does).
+  final EdgeInsetsGeometry? padding;
+
+  /// Padding of the footer row when it paints a top border; null means the
+  /// footer sits in the card padding with no separator.
+  final EdgeInsetsGeometry? footerPadding;
 
   /// Extra actions before Cancel/Save.
   final List<Widget> Function(
@@ -109,63 +151,85 @@ class _ObjectFormPromptDialogState<T> extends State<ObjectFormPromptDialog<T>>
     }
     final ShadcnThemeData theme = ShadcnTheme.of(context);
     final ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
+    final double density = theme.density.baseContentPadding * theme.scaling;
+    final EdgeInsetsGeometry? cardPadding = widget.padding;
+    final EdgeInsetsGeometry? footerPadding = widget.footerPadding;
+    Widget footer = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        if (widget.dialogActions != null)
+          ...widget.dialogActions!(context, this),
+        _PromptButton(
+          label: localizations.buttonCancel,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        Gap(theme.spacing.sm),
+        _PromptButton(
+          label: localizations.buttonSave,
+          primary: true,
+          onPressed: () =>
+              Navigator.of(context).pop(ObjectFormFieldDialogResult<T>(_value)),
+        ),
+      ],
+    );
+    if (footerPadding != null) {
+      // shadcn's picker dialogs: the action row keeps its own `p-3` and a
+      // hairline top border, so the card itself can be `p-0`.
+      footer = DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: theme.colors.border)),
+        ),
+        child: Padding(
+          padding: resolveEdgeInsets(footerPadding, density),
+          child: footer,
+        ),
+      );
+    }
     return Center(
       child: Padding(
-        padding: resolveEdgeInsets(
-          objectFormDialogPadding,
-          theme.density.baseContentPadding * theme.scaling,
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 480),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: theme.colors.card,
-              border: Border.all(color: theme.colors.border),
-              borderRadius: theme.borderRadiusLg,
-              boxShadow: theme.tokens.shadows.shadowLg,
+        padding: resolveEdgeInsets(objectFormScreenPadding, density),
+        // `IntrinsicWidth` is what makes the card shrink-wrap: the column
+        // inside is stretch-aligned (so the footer still ends at the card's
+        // right edge) but the card is only as wide as the widest of title,
+        // editor and footer.
+        child: IntrinsicWidth(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: objectFormDialogMinWidth * theme.density.scale,
+              maxWidth: objectFormDialogMaxWidth,
             ),
-            child: Data<ObjectFormHandler<T>>.inherit(
-              data: this,
-              child: Padding(
-                padding: resolveEdgeInsets(
-                  objectFormDialogPadding,
-                  theme.density.baseContentPadding * theme.scaling,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    if (widget.dialogTitle != null) ...<Widget>[
-                      DefaultTextStyle.merge(
-                        style: theme.typography.large.copyWith(
-                          fontWeight: FontWeight.w600,
+            child: DecoratedBox(
+              key: kObjectFormDialogSurfaceKey,
+              decoration: BoxDecoration(
+                color: theme.colors.card,
+                border: Border.all(color: theme.colors.border),
+                borderRadius: theme.borderRadiusLg,
+                boxShadow: theme.tokens.shadows.shadowLg,
+              ),
+              child: Data<ObjectFormHandler<T>>.inherit(
+                data: this,
+                child: Padding(
+                  padding: cardPadding == null
+                      ? EdgeInsets.zero
+                      : resolveEdgeInsets(cardPadding, density),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      if (widget.dialogTitle != null) ...<Widget>[
+                        DefaultTextStyle.merge(
+                          style: theme.typography.large.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                          child: widget.dialogTitle!,
                         ),
-                        child: widget.dialogTitle!,
-                      ),
-                      Gap(theme.spacing.md),
-                    ],
-                    widget.editorBuilder(context, this),
-                    Gap(theme.spacing.md),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        if (widget.dialogActions != null)
-                          ...widget.dialogActions!(context, this),
-                        _PromptButton(
-                          label: localizations.buttonCancel,
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
-                        Gap(theme.spacing.sm),
-                        _PromptButton(
-                          label: localizations.buttonSave,
-                          primary: true,
-                          onPressed: () => Navigator.of(
-                            context,
-                          ).pop(ObjectFormFieldDialogResult<T>(_value)),
-                        ),
+                        Gap(theme.spacing.md),
                       ],
-                    ),
-                  ],
+                      widget.editorBuilder(context, this),
+                      Gap(theme.spacing.md),
+                      footer,
+                    ],
+                  ),
                 ),
               ),
             ),

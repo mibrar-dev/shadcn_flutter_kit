@@ -3,6 +3,7 @@
 // math. The old bugs this port fixed are listed in README.md.
 
 import 'package:flutter/scheduler.dart' show Ticker;
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../theme/theme.dart';
@@ -12,6 +13,16 @@ export 'carousel_style.dart';
 
 /// Builds one page of the carousel.
 typedef CarouselItemBuilder = Widget Function(BuildContext context, int index);
+
+/// Keyboard step for [Carousel]: `delta` is +1 (forward) or -1 (back); the
+/// widget mirrors the direction in RTL.
+class _CarouselStepIntent extends Intent {
+  /// Creates a step intent.
+  const _CarouselStepIntent(this.delta);
+
+  /// Signed step.
+  final int delta;
+}
 
 /// A paged carousel; a [CarouselController] drives the fractional page position.
 class Carousel extends StatefulWidget {
@@ -283,23 +294,58 @@ class _CarouselState extends State<Carousel>
     final CarouselTheme theme = _resolve();
     _resolved = theme;
     _syncTicker();
+    final bool horizontal = theme.direction == Axis.horizontal;
+    final bool rtl =
+        horizontal && Directionality.of(context) == TextDirection.rtl;
     return MouseRegion(
       onEnter: (_) => _handleHover(true),
       onExit: (_) => _handleHover(false),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final bool horizontal = theme.direction == Axis.horizontal;
           final double viewport = horizontal
               ? constraints.maxWidth
               : constraints.maxHeight;
+          // The cross axis needs its own finite bound: reusing the along-axis
+          // `viewport` here stretched horizontal pages to `maxWidth` tall.
+          final double cross = horizontal
+              ? constraints.maxHeight
+              : constraints.maxWidth;
+          if (!viewport.isFinite || !cross.isFinite) {
+            // A carousel pages a bounded stage; without one there is
+            // nothing to lay out instead of a NaN crash downstream.
+            return const SizedBox.shrink();
+          }
           final double extent =
               theme.itemExtent ?? viewport * (theme.viewportFraction ?? 1);
           final Widget stack = Stack(
             clipBehavior: Clip.none,
-            children: _pages(theme, extent, viewport),
+            children: _pages(theme, extent, viewport, cross, rtl),
+          );
+          final Widget keyed = FocusableActionDetector(
+            shortcuts: <ShortcutActivator, Intent>{
+              const SingleActivator(LogicalKeyboardKey.arrowLeft):
+                  const _CarouselStepIntent(-1),
+              const SingleActivator(LogicalKeyboardKey.arrowRight):
+                  const _CarouselStepIntent(1),
+              const SingleActivator(LogicalKeyboardKey.arrowUp):
+                  const _CarouselStepIntent(-1),
+              const SingleActivator(LogicalKeyboardKey.arrowDown):
+                  const _CarouselStepIntent(1),
+            },
+            actions: <Type, Action<Intent>>{
+              _CarouselStepIntent: CallbackAction<_CarouselStepIntent>(
+                onInvoke: (intent) => _stepBy(intent.delta, rtl: rtl),
+              ),
+            },
+            child: Semantics(
+              container: true,
+              explicitChildNodes: true,
+              value: _semanticsValue(),
+              child: stack,
+            ),
           );
           if (!theme.draggable!) {
-            return stack;
+            return keyed;
           }
           void start(DragStartDetails details) => _handleDragStart();
           void update(DragUpdateDetails details) =>
@@ -313,40 +359,80 @@ class _CarouselState extends State<Carousel>
             onVerticalDragStart: horizontal ? null : start,
             onVerticalDragUpdate: horizontal ? null : update,
             onVerticalDragEnd: horizontal ? null : end,
-            child: stack,
+            child: keyed,
           );
         },
       ),
     );
   }
 
+  /// Screen-reader position, e.g. `Page 2 of 5`; null when unbounded.
+  String? _semanticsValue() {
+    final int? count = widget.itemCount;
+    if (count == null) {
+      return null;
+    }
+    final int index = _controller
+        .resolvedIndex(itemCount: count, wrap: _resolved.wrap!)
+        .round()
+        .clamp(0, count - 1);
+    return 'Page ${index + 1} of $count';
+  }
+
+  /// Steps one page for keyboard input; left/up go back in LTR and forward
+  /// in RTL, mirroring the mirrored layout.
+  void _stepBy(int delta, {required bool rtl}) {
+    final CarouselTheme theme = _resolved;
+    final double target = carouselStepTarget(
+      value: _controller.value,
+      itemCount: widget.itemCount,
+      wrap: theme.wrap!,
+      reverse: rtl ? delta > 0 : delta < 0,
+    );
+    _controller.animateTo(target, theme.speed!, theme.curve!);
+  }
+
   /// One positioned child per visible page, dispatched on the transition.
-  List<Widget> _pages(CarouselTheme theme, double extent, double viewport) =>
-      switch (theme.transition!) {
-        CarouselTransition.sliding => _sliding(theme, extent, viewport),
-        CarouselTransition.fading => _fading(theme, extent, viewport),
-      };
+  List<Widget> _pages(
+    CarouselTheme theme,
+    double extent,
+    double viewport,
+    double cross,
+    bool rtl,
+  ) => switch (theme.transition!) {
+    CarouselTransition.sliding => _sliding(theme, extent, viewport, cross, rtl),
+    CarouselTransition.fading => _fading(theme, extent, viewport, cross, rtl),
+  };
 
   Widget _place(
     CarouselTheme theme,
     double along,
     double extent,
-    double viewport,
+    double cross,
+    bool rtl,
     Widget child,
   ) {
     final double? page = extent > 0 ? extent : null;
     if (theme.direction == Axis.horizontal) {
+      // In RTL the leading edge is the right one, so the offset pins `right`.
       return Positioned(
-        left: along,
+        left: rtl ? null : along,
+        right: rtl ? along : null,
         width: page,
-        height: viewport,
+        height: cross,
         child: child,
       );
     }
-    return Positioned(top: along, width: viewport, height: page, child: child);
+    return Positioned(top: along, width: cross, height: page, child: child);
   }
 
-  List<Widget> _sliding(CarouselTheme theme, double extent, double viewport) {
+  List<Widget> _sliding(
+    CarouselTheme theme,
+    double extent,
+    double viewport,
+    double cross,
+    bool rtl,
+  ) {
     final (int before, int after) = carouselVisibleRange(
       theme,
       extent,
@@ -367,13 +453,20 @@ class _CarouselState extends State<Carousel>
           theme,
           free + (i - current) * (extent + theme.gap!),
           extent,
-          viewport,
+          cross,
+          rtl,
           widget.itemBuilder(context, carouselPageAt(i, widget.itemCount)),
         ),
     ];
   }
 
-  List<Widget> _fading(CarouselTheme theme, double extent, double viewport) {
+  List<Widget> _fading(
+    CarouselTheme theme,
+    double extent,
+    double viewport,
+    double cross,
+    bool rtl,
+  ) {
     final int current = _controller.value.round();
     final double free = (viewport - extent) * theme.alignment!.alignment;
     final double value = _controller.value;
@@ -384,7 +477,8 @@ class _CarouselState extends State<Carousel>
             theme,
             free,
             extent,
-            viewport,
+            cross,
+            rtl,
             Opacity(
               opacity: (1 - (value - i).abs()).clamp(0.0, 1.0),
               child: widget.itemBuilder(

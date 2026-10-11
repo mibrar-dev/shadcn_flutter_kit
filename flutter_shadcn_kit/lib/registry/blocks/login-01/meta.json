@@ -19,11 +19,14 @@
     ],
     "primitives": [],
     "components": [
+      "alert",
       "button",
       "card",
       "checkbox",
       "divider",
-      "input"
+      "form",
+      "input",
+      "spinner"
     ]
   },
   "files": [

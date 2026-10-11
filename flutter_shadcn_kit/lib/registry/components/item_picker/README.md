@@ -65,7 +65,7 @@ final icon = await showItemPickerDialog<IconData>(
 | `value` | `T?` | null | current pick |
 | `onChanged` | `ValueChanged<T?>?` | null | null disables the field |
 | `layout` | `ItemPickerLayout` | grid | `ItemPickerLayout.grid` (4 cols) or `.list` |
-| `placeholder` | `Widget?` | null | trigger content while unpicked |
+| `placeholder` | `Widget?` | null | trigger content while unpicked; null falls back to an empty 48x36 box so the trigger keeps a tappable size |
 | `title` | `Widget?` | null | dialog prompt heading |
 | `mode` | `PromptMode` | dialog | dialog or popover presentation |
 | `constraints` | `BoxConstraints?` | theme | items-box bounds |

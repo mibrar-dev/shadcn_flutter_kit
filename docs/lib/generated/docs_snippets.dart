@@ -309,69 +309,6 @@ Toggle(controller: controller, child: const Text('Show sidebar'));
           'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppssssssssppppp',
     ),
   ],
-  'color_field': <DocsSnippet>[
-    DocsSnippet(
-      id: 'color_field.0',
-      componentId: 'color_field',
-      language: 'dart',
-      code: r'''SizedBox(
-  width: 240,
-  height: 160,
-  child: ColorField(
-    color: const Color(0xFF2563EB),
-    saturationAxis: ColorFieldAxis.horizontal,
-    valueAxis: ColorFieldAxis.vertical,
-  ),
-);''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'color_input': <DocsSnippet>[
-    DocsSnippet(
-      id: 'color_input.0',
-      componentId: 'color_input',
-      language: 'bash',
-      code: r'''flutter_shadcn add color_input''',
-      tokenClasses: 'kkkkkkkkkkkkkkpkkkpppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'color_input.1',
-      componentId: 'color_input',
-      language: 'dart',
-      code:
-          r'''import 'package:<your_app>/ui/shadcn/color_input/color_input.dart';''',
-      tokenClasses:
-          'kkkkkkpsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssp',
-    ),
-    DocsSnippet(
-      id: 'color_input.2',
-      componentId: 'color_input',
-      language: 'dart',
-      code: r'''ColorInput(
-  value: ColorDerivative.fromColor(const Color(0xFF2563EB)),
-  onChanged: (value) => setState(() => _color = value),
-)''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'color_input.3',
-      componentId: 'color_input',
-      language: 'dart',
-      code: r'''ColorInput(
-  value: _color,
-  showAlpha: true,
-  showHistory: true,
-  mode: PromptMode.dialog,
-  dialogTitle: const Text('Select a colour'),
-  onChanging: (value) => setState(() => _color = value),
-  onChanged: (value) => setState(() => _color = value),
-)''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppkkkkpppppppppppppppppkkkkppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssssssssssssppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
   'color_picker': <DocsSnippet>[
     DocsSnippet(
       id: 'color_picker.0',
@@ -428,27 +365,6 @@ Toggle(controller: controller, child: const Text('Show sidebar'));
 )''',
       tokenClasses:
           'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'eye_dropper': <DocsSnippet>[
-    DocsSnippet(
-      id: 'eye_dropper.0',
-      componentId: 'eye_dropper',
-      language: 'dart',
-      code: r'''EyeDropperLayer(child: MyApp());
-
-final Color? color = await pickColorFromScreen(context);''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'eye_dropper.1',
-      componentId: 'eye_dropper',
-      language: 'dart',
-      code:
-          r'''final color = await pickColorFromScreen(context, ColorHistoryStorage.of(context));''',
-      tokenClasses:
-          'kkkkkpppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppkkppppppppppp',
     ),
   ],
   'avatar': <DocsSnippet>[
@@ -651,17 +567,17 @@ ChatGroup(
       id: 'country_flag.0',
       componentId: 'country_flag',
       language: 'dart',
-      code: r'''const CountryFlag.fromCountryCode('US');''',
-      tokenClasses: 'kkkkkpppppppppppppppppppppppppppppsssspp',
+      code: r'''CountryFlag.fromCountryCode('US');''',
+      tokenClasses: 'ppppppppppppppppppppppppppppsssspp',
     ),
     DocsSnippet(
       id: 'country_flag.1',
       componentId: 'country_flag',
       language: 'dart',
-      code: r'''const CountryFlag.fromCurrencyCode('JPY');
-const CountryFlag.fromPhonePrefix('+49');''',
+      code: r'''CountryFlag.fromCurrencyCode('JPY');
+CountryFlag.fromPhonePrefix('+49');''',
       tokenClasses:
-          'kkkkkppppppppppppppppppppppppppppppssssspppkkkkkpppppppppppppppppppppppppppppssssspp',
+          'pppppppppppppppppppppppppppppssssspppppppppppppppppppppppppppppppssssspp',
     ),
     DocsSnippet(
       id: 'country_flag.2',
@@ -684,10 +600,10 @@ const CountryFlag.fromPhonePrefix('+49');''',
   data: CountryFlagTheme(
     builder: (context, details) => MyFlagImage(code: details.countryCode),
   ),
-  child: const CountryFlag.fromCountryCode('US'),
+  child: CountryFlag.fromCountryCode('US'),
 );''',
       tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppssssppppp',
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppssssppppp',
     ),
   ],
   'divider': <DocsSnippet>[
@@ -944,25 +860,6 @@ controller.animateTo(const SheetStage.fraction(0.4));
 if (controller.stage == SheetStage.expanded() - SheetStage.fixed(100)) { ... }''',
       tokenClasses:
           'kkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppsssssssssssssssppppppppcccccccccppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'selectable': <DocsSnippet>[
-    DocsSnippet(
-      id: 'selectable.0',
-      componentId: 'selectable',
-      language: 'dart',
-      code: r'''const SelectableText('Select this text');
-
-SelectableText.rich(
-  TextSpan(
-    children: <TextSpan>[
-      TextSpan(text: 'Bold', style: TextStyle(fontWeight: FontWeight.bold)),
-      TextSpan(text: ' and normal text.'),
-    ],
-  ),
-);''',
-      tokenClasses:
-          'kkkkkppppppppppppppppssssssssssssssssssppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppsssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppsssssssssssssssssssppppppppppppppppp',
     ),
   ],
   'table': <DocsSnippet>[
@@ -2429,42 +2326,6 @@ final filtered = _state.whereMatches(orders, bindings);''',
           'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
-  'outlined_container': <DocsSnippet>[
-    DocsSnippet(
-      id: 'outlined_container.0',
-      componentId: 'outlined_container',
-      language: 'dart',
-      code: r'''OutlinedContainer(
-  padding: const EdgeInsets.all(16),
-  child: const Text('Card body'),
-);''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppkkkkkppppppsssssssssssppppp',
-    ),
-    DocsSnippet(
-      id: 'outlined_container.1',
-      componentId: 'outlined_container',
-      language: 'dart',
-      code: r'''OutlinedContainer(
-  surfaceOpacity: 0.6,
-  surfaceBlur: 12,
-  child: const Text('Frosted'),
-);''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssssppppp',
-    ),
-    DocsSnippet(
-      id: 'outlined_container.2',
-      componentId: 'outlined_container',
-      language: 'dart',
-      code: r'''DashedContainer(
-  child: Padding(padding: const EdgeInsets.all(16), child: content),
-);
-DashedLine();''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
   'overflow_marquee': <DocsSnippet>[
     DocsSnippet(
       id: 'overflow_marquee.0',
@@ -2561,18 +2422,6 @@ OverflowMarquee(
           'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppssssssppppppppppppppkkkkkppppppsssssssssspppppppppppppppkkkkkppppppssssssssssspppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppssssssppppppp',
     ),
   ],
-  'scrollable': <DocsSnippet>[
-    DocsSnippet(
-      id: 'scrollable.0',
-      componentId: 'scrollable',
-      language: 'dart',
-      code: r'''FadedScrollableViewport(
-  child: SingleChildScrollView(child: content),
-);''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
   'scrollbar': <DocsSnippet>[
     DocsSnippet(
       id: 'scrollbar.0',
@@ -2597,18 +2446,6 @@ OverflowMarquee(
 );''',
       tokenClasses:
           'ppppppppppppppppppppppppppppppkkkkpppppppppppppppppppppkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'scrollview': <DocsSnippet>[
-    DocsSnippet(
-      id: 'scrollview.0',
-      componentId: 'scrollview',
-      language: 'dart',
-      code: r'''ScrollViewInterceptor(
-  child: SingleChildScrollView(child: content),
-);''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
   'sortable': <DocsSnippet>[
@@ -2650,43 +2487,6 @@ OverflowMarquee(
           'ppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkppkkkkkppppppkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
-  'stage_container': <DocsSnippet>[
-    DocsSnippet(
-      id: 'stage_container.0',
-      componentId: 'stage_container',
-      language: 'dart',
-      code: r'''StageContainer(
-  builder: (context, padding) => Padding(
-    padding: padding,
-    child: const PageContent(),
-  ),
-)''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'stage_container.1',
-      componentId: 'stage_container',
-      language: 'dart',
-      code: r'''StageContainer(
-  breakpoint: const ConstantBreakpoint(120),
-  builder: (context, padding) => Padding(padding: padding, child: body),
-)''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'stage_container.2',
-      componentId: 'stage_container',
-      language: 'dart',
-      code: r'''StageContainer(
-  breakpoint: const StagedBreakpoint([640, 1024, 1280]),
-  builder: (context, padding) => Padding(padding: padding, child: body),
-)''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
   'steps': <DocsSnippet>[
     DocsSnippet(
       id: 'steps.0',
@@ -2714,27 +2514,6 @@ OverflowMarquee(
 );''',
       tokenClasses:
           'kkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppsssssspppppppppppppppppppp',
-    ),
-  ],
-  'window': <DocsSnippet>[
-    DocsSnippet(
-      id: 'window.0',
-      componentId: 'window',
-      language: 'dart',
-      code:
-          r'''final controller = WindowController(bounds: const Rect.fromLTWH(40, 40, 320, 220));
-
-WindowNavigator(
-  initialWindows: <Window>[
-    Window(
-      controller: controller,
-      title: const Text('Notes'),
-      content: const Text('Drag the title bar; resize from any edge.'),
-    ),
-  ],
-);''',
-      tokenClasses:
-          'kkkkkpppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssppppppppppppppppppkkkkkppppppsssssssssssssssssssssssssssssssssssssssssssppppppppppppppppp',
     ),
   ],
   'command': <DocsSnippet>[
@@ -2926,18 +2705,6 @@ Menubar(
           'cccccccccccccccccccccccccccccccccccccccccccccccppppppppppppppppppppkkkkkpppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppp',
     ),
   ],
-  'triple_dots': <DocsSnippet>[
-    DocsSnippet(
-      id: 'triple_dots.0',
-      componentId: 'triple_dots',
-      language: 'dart',
-      code: r'''const TripleDots();
-
-const TripleDots(count: 4, direction: Axis.vertical);''',
-      tokenClasses:
-          'kkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
   'breadcrumb': <DocsSnippet>[
     DocsSnippet(
       id: 'breadcrumb.0',
@@ -3084,30 +2851,6 @@ Button(onPressed: controller.next, child: Text('Next'));''',
 controller.setStepState(1, null); // cleared''',
       tokenClasses:
           'pppppppppppppppppppppppppppppppppppppppppppppppppppppccccccccccccccccccccccccccccccccppppppppppppppppppppppppppppkkkkpppcccccccccc',
-    ),
-  ],
-  'switcher': <DocsSnippet>[
-    DocsSnippet(
-      id: 'switcher.0',
-      componentId: 'switcher',
-      language: 'dart',
-      code: r'''Switcher(
-  index: currentIndex,
-  direction: AxisDirection.right,
-  onIndexChanged: (int index) => setState(() => currentIndex = index),
-  children: pages,
-)''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'switcher.1',
-      componentId: 'switcher',
-      language: 'dart',
-      code:
-          r'''KeyedSubtree(key: ValueKey(pages.length), child: Switcher(...))''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
   'tabs': <DocsSnippet>[
@@ -3258,38 +3001,6 @@ controller.setStepState(1, null); // cleared''',
       tokenClasses: 'pppppppppppppppppppppsssssssspp',
     ),
   ],
-  'drawer_container': <DocsSnippet>[
-    DocsSnippet(
-      id: 'drawer_container.0',
-      componentId: 'drawer_container',
-      language: 'bash',
-      code: r'''flutter_shadcn add drawer_container''',
-      tokenClasses: 'kkkkkkkkkkkkkkpkkkppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'drawer_container.1',
-      componentId: 'drawer_container',
-      language: 'dart',
-      code:
-          r'''import 'package:<your_app>/ui/shadcn/drawer_container/drawer_container.dart';''',
-      tokenClasses:
-          'kkkkkkpsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssp',
-    ),
-    DocsSnippet(
-      id: 'drawer_container.2',
-      componentId: 'drawer_container',
-      language: 'dart',
-      code: r'''Data<DrawerContainerData>.inherit(
-  data: const DrawerContainerData(
-    position: OverlayPosition.bottom,
-    isSheet: true,
-  ),
-  child: const DrawerContainer(child: Text('Sheet content')),
-);''',
-      tokenClasses:
-          'pppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppssssssssssssssspppppp',
-    ),
-  ],
   'gooey_toast': <DocsSnippet>[
     DocsSnippet(
       id: 'gooey_toast.0',
@@ -3427,71 +3138,6 @@ RefreshTrigger(key: key, onRefresh: reload, child: list);
 await key.currentState!.refresh();''',
       tokenClasses:
           'kkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppcccccccccpkkkkkppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'spell_check_suggestions_toolbar': <DocsSnippet>[
-    DocsSnippet(
-      id: 'spell_check_suggestions_toolbar.0',
-      componentId: 'spell_check_suggestions_toolbar',
-      language: 'dart',
-      code: r'''// Inside an editable text toolbar builder:
-SpellCheckSuggestionsToolbar.editableText(editableTextState: state);''',
-      tokenClasses:
-          'cccccccccccccccccccccccccccccccccccccccccccppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'spell_check_suggestions_toolbar.1',
-      componentId: 'spell_check_suggestions_toolbar',
-      language: 'dart',
-      code: r'''// Explicit items (the same shape EditableText hands over):
-SpellCheckSuggestionsToolbar(
-  anchors: state.contextMenuAnchors,
-  buttonItems: SpellCheckSuggestionsToolbar.buildButtonItems(state),
-);''',
-      tokenClasses:
-          'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
-    ),
-  ],
-  'swiper': <DocsSnippet>[
-    DocsSnippet(
-      id: 'swiper.0',
-      componentId: 'swiper',
-      language: 'dart',
-      code: r'''Swiper(
-  position: OverlayPosition.left,
-  builder: (context) => const DrawerContent(),
-  child: const PageBody(),
-)''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppkkkkkpppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'swiper.1',
-      componentId: 'swiper',
-      language: 'dart',
-      code: r'''Swiper(
-  position: OverlayPosition.bottom,
-  variant: SwiperVariant.sheet,
-  builder: (context) => const SheetContent(),
-  child: const PageBody(),
-)''',
-      tokenClasses:
-          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppkkkkkpppppppppppppp',
-    ),
-    DocsSnippet(
-      id: 'swiper.2',
-      componentId: 'swiper',
-      language: 'dart',
-      code: r'''final controller = SwiperController();
-
-Swiper(
-  controller: controller,
-  position: OverlayPosition.end,
-  builder: (context) => const DrawerContent(),
-  child: PageBody(onMenu: controller.open),
-)''',
-      tokenClasses:
-          'kkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
   'tooltip': <DocsSnippet>[
@@ -3781,6 +3427,101 @@ final hex = colorToHex(shifted.toColor()); // theme/color_utils.dart''',
           'kkkkkppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppccccccccccccccccccccccccc',
     ),
   ],
+  'color_field': <DocsSnippet>[
+    DocsSnippet(
+      id: 'color_field.0',
+      componentId: 'color_field',
+      language: 'dart',
+      code: r'''SizedBox(
+  width: 240,
+  height: 160,
+  child: ColorField(
+    color: const Color(0xFF2563EB),
+    saturationAxis: ColorFieldAxis.horizontal,
+    valueAxis: ColorFieldAxis.vertical,
+  ),
+);''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'color_input': <DocsSnippet>[
+    DocsSnippet(
+      id: 'color_input.0',
+      componentId: 'color_input',
+      language: 'bash',
+      code: r'''flutter_shadcn add color_input''',
+      tokenClasses: 'kkkkkkkkkkkkkkpkkkpppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'color_input.1',
+      componentId: 'color_input',
+      language: 'dart',
+      code:
+          r'''import 'package:<your_app>/ui/shadcn/color_input/color_input.dart';''',
+      tokenClasses:
+          'kkkkkkpsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssp',
+    ),
+    DocsSnippet(
+      id: 'color_input.2',
+      componentId: 'color_input',
+      language: 'dart',
+      code: r'''ColorInput(
+  value: ColorDerivative.fromColor(const Color(0xFF2563EB)),
+  onChanged: (value) => setState(() => _color = value),
+)''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'color_input.3',
+      componentId: 'color_input',
+      language: 'dart',
+      code: r'''ColorInput(
+  value: _color,
+  showAlpha: true,
+  showHistory: true,
+  mode: PromptMode.dialog,
+  dialogTitle: const Text('Select a colour'),
+  onChanging: (value) => setState(() => _color = value),
+  onChanged: (value) => setState(() => _color = value),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppkkkkpppppppppppppppppkkkkppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssssssssssssppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'drawer_container': <DocsSnippet>[
+    DocsSnippet(
+      id: 'drawer_container.0',
+      componentId: 'drawer_container',
+      language: 'bash',
+      code: r'''flutter_shadcn add drawer_container''',
+      tokenClasses: 'kkkkkkkkkkkkkkpkkkppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'drawer_container.1',
+      componentId: 'drawer_container',
+      language: 'dart',
+      code:
+          r'''import 'package:<your_app>/ui/shadcn/drawer_container/drawer_container.dart';''',
+      tokenClasses:
+          'kkkkkkpsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssp',
+    ),
+    DocsSnippet(
+      id: 'drawer_container.2',
+      componentId: 'drawer_container',
+      language: 'dart',
+      code: r'''Data<DrawerContainerData>.inherit(
+  data: const DrawerContainerData(
+    position: OverlayPosition.bottom,
+    isSheet: true,
+  ),
+  child: const DrawerContainer(child: Text('Sheet content')),
+);''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppssssssssssssssspppppp',
+    ),
+  ],
   'error_system': <DocsSnippet>[
     DocsSnippet(
       id: 'error_system.0',
@@ -3829,6 +3570,27 @@ scope.notifier.value = error;''',
           r'''await guard(() => repository.load(), scope: scope, mapper: mapper);''',
       tokenClasses:
           'kkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'eye_dropper': <DocsSnippet>[
+    DocsSnippet(
+      id: 'eye_dropper.0',
+      componentId: 'eye_dropper',
+      language: 'dart',
+      code: r'''EyeDropperLayer(child: MyApp());
+
+final Color? color = await pickColorFromScreen(context);''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'eye_dropper.1',
+      componentId: 'eye_dropper',
+      language: 'dart',
+      code:
+          r'''final color = await pickColorFromScreen(context, ColorHistoryStorage.of(context));''',
+      tokenClasses:
+          'kkkkkpppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppkkppppppppppp',
     ),
   ],
   'formatter': <DocsSnippet>[
@@ -4044,6 +3806,42 @@ MultipleAnswer<String>(
           'kkkkkppppppppppppppkkkkkkkpppppppppppppppppppppkkkkkpppppppppppppppkkkkkppppppkkkkkkkkpkkkkpppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppkkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppspppppppppppppppppppsssspppsspsppppppppppppppp',
     ),
   ],
+  'outlined_container': <DocsSnippet>[
+    DocsSnippet(
+      id: 'outlined_container.0',
+      componentId: 'outlined_container',
+      language: 'dart',
+      code: r'''OutlinedContainer(
+  padding: const EdgeInsets.all(16),
+  child: const Text('Card body'),
+);''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppkkkkkppppppsssssssssssppppp',
+    ),
+    DocsSnippet(
+      id: 'outlined_container.1',
+      componentId: 'outlined_container',
+      language: 'dart',
+      code: r'''OutlinedContainer(
+  surfaceOpacity: 0.6,
+  surfaceBlur: 12,
+  child: const Text('Frosted'),
+);''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssssppppp',
+    ),
+    DocsSnippet(
+      id: 'outlined_container.2',
+      componentId: 'outlined_container',
+      language: 'dart',
+      code: r'''DashedContainer(
+  child: Padding(padding: const EdgeInsets.all(16), child: content),
+);
+DashedLine();''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
   'overlay_configuration': <DocsSnippet>[
     DocsSnippet(
       id: 'overlay_configuration.0',
@@ -4113,6 +3911,18 @@ MultipleAnswer<String>(
           'ppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkpppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppp',
     ),
   ],
+  'scrollable': <DocsSnippet>[
+    DocsSnippet(
+      id: 'scrollable.0',
+      componentId: 'scrollable',
+      language: 'dart',
+      code: r'''FadedScrollableViewport(
+  child: SingleChildScrollView(child: content),
+);''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
   'scrollable_client': <DocsSnippet>[
     DocsSnippet(
       id: 'scrollable_client.0',
@@ -4129,6 +3939,163 @@ MultipleAnswer<String>(
 );''',
       tokenClasses:
           'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'scrollview': <DocsSnippet>[
+    DocsSnippet(
+      id: 'scrollview.0',
+      componentId: 'scrollview',
+      language: 'dart',
+      code: r'''ScrollViewInterceptor(
+  child: SingleChildScrollView(child: content),
+);''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'selectable': <DocsSnippet>[
+    DocsSnippet(
+      id: 'selectable.0',
+      componentId: 'selectable',
+      language: 'dart',
+      code: r'''const SelectableText('Select this text');
+
+SelectableText.rich(
+  TextSpan(
+    children: <TextSpan>[
+      TextSpan(text: 'Bold', style: TextStyle(fontWeight: FontWeight.bold)),
+      TextSpan(text: ' and normal text.'),
+    ],
+  ),
+);''',
+      tokenClasses:
+          'kkkkkppppppppppppppppssssssssssssssssssppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppsssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppsssssssssssssssssssppppppppppppppppp',
+    ),
+  ],
+  'spell_check_suggestions_toolbar': <DocsSnippet>[
+    DocsSnippet(
+      id: 'spell_check_suggestions_toolbar.0',
+      componentId: 'spell_check_suggestions_toolbar',
+      language: 'dart',
+      code: r'''// Inside an editable text toolbar builder:
+SpellCheckSuggestionsToolbar.editableText(editableTextState: state);''',
+      tokenClasses:
+          'cccccccccccccccccccccccccccccccccccccccccccppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'spell_check_suggestions_toolbar.1',
+      componentId: 'spell_check_suggestions_toolbar',
+      language: 'dart',
+      code: r'''// Explicit items (the same shape EditableText hands over):
+SpellCheckSuggestionsToolbar(
+  anchors: state.contextMenuAnchors,
+  buttonItems: SpellCheckSuggestionsToolbar.buildButtonItems(state),
+);''',
+      tokenClasses:
+          'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'stage_container': <DocsSnippet>[
+    DocsSnippet(
+      id: 'stage_container.0',
+      componentId: 'stage_container',
+      language: 'dart',
+      code: r'''StageContainer(
+  builder: (context, padding) => Padding(
+    padding: padding,
+    child: const PageContent(),
+  ),
+)''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'stage_container.1',
+      componentId: 'stage_container',
+      language: 'dart',
+      code: r'''StageContainer(
+  breakpoint: const ConstantBreakpoint(120),
+  builder: (context, padding) => Padding(padding: padding, child: body),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'stage_container.2',
+      componentId: 'stage_container',
+      language: 'dart',
+      code: r'''StageContainer(
+  breakpoint: const StagedBreakpoint([640, 1024, 1280]),
+  builder: (context, padding) => Padding(padding: padding, child: body),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'swiper': <DocsSnippet>[
+    DocsSnippet(
+      id: 'swiper.0',
+      componentId: 'swiper',
+      language: 'dart',
+      code: r'''Swiper(
+  position: OverlayPosition.left,
+  builder: (context) => const DrawerContent(),
+  child: const PageBody(),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkpppppppppppppppppppppppppppkkkkkpppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'swiper.1',
+      componentId: 'swiper',
+      language: 'dart',
+      code: r'''Swiper(
+  position: OverlayPosition.bottom,
+  variant: SwiperVariant.sheet,
+  builder: (context) => const SheetContent(),
+  child: const PageBody(),
+)''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppkkkkkpppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'swiper.2',
+      componentId: 'swiper',
+      language: 'dart',
+      code: r'''final controller = SwiperController();
+
+Swiper(
+  controller: controller,
+  position: OverlayPosition.end,
+  builder: (context) => const DrawerContent(),
+  child: PageBody(onMenu: controller.open),
+)''',
+      tokenClasses:
+          'kkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'switcher': <DocsSnippet>[
+    DocsSnippet(
+      id: 'switcher.0',
+      componentId: 'switcher',
+      language: 'dart',
+      code: r'''Switcher(
+  index: currentIndex,
+  direction: AxisDirection.right,
+  onIndexChanged: (int index) => setState(() => currentIndex = index),
+  children: pages,
+)''',
+      tokenClasses:
+          'pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+    DocsSnippet(
+      id: 'switcher.1',
+      componentId: 'switcher',
+      language: 'dart',
+      code:
+          r'''KeyedSubtree(key: ValueKey(pages.length), child: Switcher(...))''',
+      tokenClasses:
+          'ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp',
     ),
   ],
   'timeline_animation': <DocsSnippet>[
@@ -4160,6 +4127,39 @@ final view = timeline.drive(controller); // Animatable<double>''',
 );''',
       tokenClasses:
           'kkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppkkkkkpppppppppppppppppppppppppppp',
+    ),
+  ],
+  'triple_dots': <DocsSnippet>[
+    DocsSnippet(
+      id: 'triple_dots.0',
+      componentId: 'triple_dots',
+      language: 'dart',
+      code: r'''const TripleDots();
+
+const TripleDots(count: 4, direction: Axis.vertical);''',
+      tokenClasses:
+          'kkkkkppppppppppppppppkkkkkpppppppppppppppppppppppppppppppppppppppppppppppp',
+    ),
+  ],
+  'window': <DocsSnippet>[
+    DocsSnippet(
+      id: 'window.0',
+      componentId: 'window',
+      language: 'dart',
+      code:
+          r'''final controller = WindowController(bounds: const Rect.fromLTWH(40, 40, 320, 220));
+
+WindowNavigator(
+  initialWindows: <Window>[
+    Window(
+      controller: controller,
+      title: const Text('Notes'),
+      content: const Text('Drag the title bar; resize from any edge.'),
+    ),
+  ],
+);''',
+      tokenClasses:
+          'kkkkkpppppppppppppppppppppppppppppppppppppppkkkkkppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppkkkkkppppppsssssssppppppppppppppppppkkkkkppppppsssssssssssssssssssssssssssssssssssssssssssppppppppppppppppp',
     ),
   ],
 };
@@ -4237,26 +4237,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     ],
     userOwned: <String>['lib/ui/shadcn/components/toggle/toggle_theme.dart'],
   ),
-  'color_field': DocsFileList(
-    componentId: 'color_field',
-    files: <String>[
-      'lib/ui/shadcn/components/color_field/color_field.dart',
-      'lib/ui/shadcn/components/color_field/color_field_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/color_field/color_field_theme.dart',
-    ],
-  ),
-  'color_input': DocsFileList(
-    componentId: 'color_input',
-    files: <String>[
-      'lib/ui/shadcn/components/color_input/color_input.dart',
-      'lib/ui/shadcn/components/color_input/color_input_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/color_input/color_input_theme.dart',
-    ],
-  ),
   'color_picker': DocsFileList(
     componentId: 'color_picker',
     files: <String>[
@@ -4265,16 +4245,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     ],
     userOwned: <String>[
       'lib/ui/shadcn/components/color_picker/color_picker_theme.dart',
-    ],
-  ),
-  'eye_dropper': DocsFileList(
-    componentId: 'eye_dropper',
-    files: <String>[
-      'lib/ui/shadcn/components/eye_dropper/eye_dropper.dart',
-      'lib/ui/shadcn/components/eye_dropper/eye_dropper_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/eye_dropper/eye_dropper_theme.dart',
     ],
   ),
   'avatar': DocsFileList(
@@ -4391,16 +4361,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     componentId: 'pinned_sheet',
     files: <String>['lib/ui/shadcn/components/pinned_sheet/pinned_sheet.dart'],
     userOwned: <String>[],
-  ),
-  'selectable': DocsFileList(
-    componentId: 'selectable',
-    files: <String>[
-      'lib/ui/shadcn/components/selectable/selectable.dart',
-      'lib/ui/shadcn/components/selectable/selectable_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/selectable/selectable_theme.dart',
-    ],
   ),
   'table': DocsFileList(
     componentId: 'table',
@@ -4723,16 +4683,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/filter_bar/filter_bar_theme.dart',
     ],
   ),
-  'outlined_container': DocsFileList(
-    componentId: 'outlined_container',
-    files: <String>[
-      'lib/ui/shadcn/components/outlined_container/outlined_container.dart',
-      'lib/ui/shadcn/components/outlined_container/outlined_container_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/outlined_container/outlined_container_theme.dart',
-    ],
-  ),
   'overflow_marquee': DocsFileList(
     componentId: 'overflow_marquee',
     files: <String>[
@@ -4763,16 +4713,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/scaffold/scaffold_theme.dart',
     ],
   ),
-  'scrollable': DocsFileList(
-    componentId: 'scrollable',
-    files: <String>[
-      'lib/ui/shadcn/components/scrollable/scrollable.dart',
-      'lib/ui/shadcn/components/scrollable/scrollable_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/scrollable/scrollable_theme.dart',
-    ],
-  ),
   'scrollbar': DocsFileList(
     componentId: 'scrollbar',
     files: <String>[
@@ -4783,25 +4723,10 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/scrollbar/scrollbar_theme.dart',
     ],
   ),
-  'scrollview': DocsFileList(
-    componentId: 'scrollview',
-    files: <String>['lib/ui/shadcn/components/scrollview/scrollview.dart'],
-    userOwned: <String>[],
-  ),
   'sortable': DocsFileList(
     componentId: 'sortable',
     files: <String>['lib/ui/shadcn/components/sortable/sortable.dart'],
     userOwned: <String>[],
-  ),
-  'stage_container': DocsFileList(
-    componentId: 'stage_container',
-    files: <String>[
-      'lib/ui/shadcn/components/stage_container/stage_container.dart',
-      'lib/ui/shadcn/components/stage_container/stage_container_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/stage_container/stage_container_theme.dart',
-    ],
   ),
   'steps': DocsFileList(
     componentId: 'steps',
@@ -4810,14 +4735,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/steps/steps_style.dart',
     ],
     userOwned: <String>['lib/ui/shadcn/components/steps/steps_theme.dart'],
-  ),
-  'window': DocsFileList(
-    componentId: 'window',
-    files: <String>[
-      'lib/ui/shadcn/components/window/window.dart',
-      'lib/ui/shadcn/components/window/window_style.dart',
-    ],
-    userOwned: <String>['lib/ui/shadcn/components/window/window_theme.dart'],
   ),
   'command': DocsFileList(
     componentId: 'command',
@@ -4851,16 +4768,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     componentId: 'menubar',
     files: <String>['lib/ui/shadcn/components/menubar/menubar.dart'],
     userOwned: <String>[],
-  ),
-  'triple_dots': DocsFileList(
-    componentId: 'triple_dots',
-    files: <String>[
-      'lib/ui/shadcn/components/triple_dots/triple_dots.dart',
-      'lib/ui/shadcn/components/triple_dots/triple_dots_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/triple_dots/triple_dots_theme.dart',
-    ],
   ),
   'breadcrumb': DocsFileList(
     componentId: 'breadcrumb',
@@ -4910,16 +4817,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     ],
     userOwned: <String>['lib/ui/shadcn/components/stepper/stepper_theme.dart'],
   ),
-  'switcher': DocsFileList(
-    componentId: 'switcher',
-    files: <String>[
-      'lib/ui/shadcn/components/switcher/switcher.dart',
-      'lib/ui/shadcn/components/switcher/switcher_style.dart',
-    ],
-    userOwned: <String>[
-      'lib/ui/shadcn/components/switcher/switcher_theme.dart',
-    ],
-  ),
   'tabs': DocsFileList(
     componentId: 'tabs',
     files: <String>[
@@ -4953,13 +4850,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/drawer/drawer_style.dart',
     ],
     userOwned: <String>['lib/ui/shadcn/components/drawer/drawer_theme.dart'],
-  ),
-  'drawer_container': DocsFileList(
-    componentId: 'drawer_container',
-    files: <String>[
-      'lib/ui/shadcn/components/drawer_container/drawer_container.dart',
-    ],
-    userOwned: <String>[],
   ),
   'gooey_toast': DocsFileList(
     componentId: 'gooey_toast',
@@ -4995,21 +4885,6 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     userOwned: <String>[
       'lib/ui/shadcn/components/refresh_trigger/refresh_trigger_theme.dart',
     ],
-  ),
-  'spell_check_suggestions_toolbar': DocsFileList(
-    componentId: 'spell_check_suggestions_toolbar',
-    files: <String>[
-      'lib/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart',
-    ],
-    userOwned: <String>[],
-  ),
-  'swiper': DocsFileList(
-    componentId: 'swiper',
-    files: <String>[
-      'lib/ui/shadcn/components/swiper/swiper.dart',
-      'lib/ui/shadcn/components/swiper/swiper_style.dart',
-    ],
-    userOwned: <String>['lib/ui/shadcn/components/swiper/swiper_theme.dart'],
   ),
   'tooltip': DocsFileList(
     componentId: 'tooltip',
@@ -5079,6 +4954,33 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     files: <String>['lib/ui/shadcn/components/color/color.dart'],
     userOwned: <String>[],
   ),
+  'color_field': DocsFileList(
+    componentId: 'color_field',
+    files: <String>[
+      'lib/ui/shadcn/components/color_field/color_field.dart',
+      'lib/ui/shadcn/components/color_field/color_field_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/color_field/color_field_theme.dart',
+    ],
+  ),
+  'color_input': DocsFileList(
+    componentId: 'color_input',
+    files: <String>[
+      'lib/ui/shadcn/components/color_input/color_input.dart',
+      'lib/ui/shadcn/components/color_input/color_input_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/color_input/color_input_theme.dart',
+    ],
+  ),
+  'drawer_container': DocsFileList(
+    componentId: 'drawer_container',
+    files: <String>[
+      'lib/ui/shadcn/components/drawer_container/drawer_container.dart',
+    ],
+    userOwned: <String>[],
+  ),
   'error_system': DocsFileList(
     componentId: 'error_system',
     files: <String>[
@@ -5087,6 +4989,16 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     ],
     userOwned: <String>[
       'lib/ui/shadcn/components/error_system/error_system_theme.dart',
+    ],
+  ),
+  'eye_dropper': DocsFileList(
+    componentId: 'eye_dropper',
+    files: <String>[
+      'lib/ui/shadcn/components/eye_dropper/eye_dropper.dart',
+      'lib/ui/shadcn/components/eye_dropper/eye_dropper_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/eye_dropper/eye_dropper_theme.dart',
     ],
   ),
   'formatter': DocsFileList(
@@ -5156,6 +5068,16 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/multiple_choice/multiple_choice_theme.dart',
     ],
   ),
+  'outlined_container': DocsFileList(
+    componentId: 'outlined_container',
+    files: <String>[
+      'lib/ui/shadcn/components/outlined_container/outlined_container.dart',
+      'lib/ui/shadcn/components/outlined_container/outlined_container_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/outlined_container/outlined_container_theme.dart',
+    ],
+  ),
   'overlay_configuration': DocsFileList(
     componentId: 'overlay_configuration',
     files: <String>[
@@ -5173,6 +5095,16 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
     files: <String>['lib/ui/shadcn/components/patch/patch.dart'],
     userOwned: <String>[],
   ),
+  'scrollable': DocsFileList(
+    componentId: 'scrollable',
+    files: <String>[
+      'lib/ui/shadcn/components/scrollable/scrollable.dart',
+      'lib/ui/shadcn/components/scrollable/scrollable_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/scrollable/scrollable_theme.dart',
+    ],
+  ),
   'scrollable_client': DocsFileList(
     componentId: 'scrollable_client',
     files: <String>[
@@ -5183,11 +5115,79 @@ const Map<String, DocsFileList> kComponentFileLists = <String, DocsFileList>{
       'lib/ui/shadcn/components/scrollable_client/scrollable_client_theme.dart',
     ],
   ),
+  'scrollview': DocsFileList(
+    componentId: 'scrollview',
+    files: <String>['lib/ui/shadcn/components/scrollview/scrollview.dart'],
+    userOwned: <String>[],
+  ),
+  'selectable': DocsFileList(
+    componentId: 'selectable',
+    files: <String>[
+      'lib/ui/shadcn/components/selectable/selectable.dart',
+      'lib/ui/shadcn/components/selectable/selectable_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/selectable/selectable_theme.dart',
+    ],
+  ),
+  'spell_check_suggestions_toolbar': DocsFileList(
+    componentId: 'spell_check_suggestions_toolbar',
+    files: <String>[
+      'lib/ui/shadcn/components/spell_check_suggestions_toolbar/spell_check_suggestions_toolbar.dart',
+    ],
+    userOwned: <String>[],
+  ),
+  'stage_container': DocsFileList(
+    componentId: 'stage_container',
+    files: <String>[
+      'lib/ui/shadcn/components/stage_container/stage_container.dart',
+      'lib/ui/shadcn/components/stage_container/stage_container_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/stage_container/stage_container_theme.dart',
+    ],
+  ),
+  'swiper': DocsFileList(
+    componentId: 'swiper',
+    files: <String>[
+      'lib/ui/shadcn/components/swiper/swiper.dart',
+      'lib/ui/shadcn/components/swiper/swiper_style.dart',
+    ],
+    userOwned: <String>['lib/ui/shadcn/components/swiper/swiper_theme.dart'],
+  ),
+  'switcher': DocsFileList(
+    componentId: 'switcher',
+    files: <String>[
+      'lib/ui/shadcn/components/switcher/switcher.dart',
+      'lib/ui/shadcn/components/switcher/switcher_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/switcher/switcher_theme.dart',
+    ],
+  ),
   'timeline_animation': DocsFileList(
     componentId: 'timeline_animation',
     files: <String>[
       'lib/ui/shadcn/components/timeline_animation/timeline_animation.dart',
     ],
     userOwned: <String>[],
+  ),
+  'triple_dots': DocsFileList(
+    componentId: 'triple_dots',
+    files: <String>[
+      'lib/ui/shadcn/components/triple_dots/triple_dots.dart',
+      'lib/ui/shadcn/components/triple_dots/triple_dots_style.dart',
+    ],
+    userOwned: <String>[
+      'lib/ui/shadcn/components/triple_dots/triple_dots_theme.dart',
+    ],
+  ),
+  'window': DocsFileList(
+    componentId: 'window',
+    files: <String>[
+      'lib/ui/shadcn/components/window/window.dart',
+      'lib/ui/shadcn/components/window/window_style.dart',
+    ],
+    userOwned: <String>['lib/ui/shadcn/components/window/window_theme.dart'],
   ),
 };

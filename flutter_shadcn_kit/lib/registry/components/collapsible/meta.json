@@ -10,7 +10,7 @@
   "deps": {
     "foundation": ["data", "gap", "icons/lucide_icons"],
     "theme": ["color_tokens", "theme"],
-    "primitives": ["text"],
+    "primitives": ["clickable", "text"],
     "components": ["button"]
   },
   "files": [

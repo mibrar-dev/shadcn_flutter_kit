@@ -60,7 +60,7 @@ Widget _inputOtpDefault(BuildContext context) => const _InputOtpOtp();
 Widget _inputOtpSeparated(BuildContext context) =>
     const _InputOtpOtp(separatorEvery: 3);
 
-/// An obscured field pre-filled with a sample code.
+/// An obscured field (each character paints as a dot).
 Widget _inputOtpObscured(BuildContext context) =>
     const _InputOtpOtp(obscureText: true);
 

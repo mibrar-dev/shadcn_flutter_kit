@@ -51,7 +51,7 @@
     "semantics": "rows are menu buttons; disabled rows dim to 50% opacity"
   },
   "sizes": {
-    "surface": "MenuPopup defaults: min-width 192 (12rem), padding 4, 1px border, radius md",
+    "surface": "MenuPopup defaults: min-width 128 (8rem), hugs content, padding 4, 1px border, radius md, shadow-md; opens below the trigger start edge",
     "row": "menu row metrics (min-height 32)"
   },
   "notes": [

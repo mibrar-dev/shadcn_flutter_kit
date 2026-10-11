@@ -96,17 +96,31 @@ class _MenuButtonState extends State<MenuButton> {
     assert(group != null, 'MenuButton must be a child of MenuGroup');
     if (group == null) return;
     group.closeOthers();
+    // Bar roots open below the trigger's start edge; nested levels open to
+    // the side. Edges are directional (RTL mirrors them) and the physical
+    // offset mirrors too.
+    final bool below =
+        group.parent == null && group.direction == Axis.horizontal;
+    final bool rtl = Directionality.of(context) == TextDirection.rtl;
+    final Offset fallback = below ? const Offset(-4, 8) : const Offset(8, -4);
+    final Offset raw =
+        group.subMenuOffset ??
+        _menuThemeOf(context, widget.theme).subMenuOffset ??
+        fallback;
+    final Offset offset = rtl ? Offset(-raw.dx, raw.dy) : raw;
     showMenuPopover<void>(
       context: context,
       controller: _controller,
-      offset:
-          group.subMenuOffset ??
-          _menuThemeOf(context, widget.theme).subMenuOffset,
+      alignment: AlignmentDirectional.topStart,
+      anchorAlignment: below
+          ? AlignmentDirectional.bottomStart
+          : AlignmentDirectional.topEnd,
+      offset: offset,
       popupBuilder: (context) => MenuPopup(
         children: <Widget>[
           MenuGroup(
             parent: group,
-            direction: group.direction,
+            direction: Axis.vertical,
             autofocus: autofocus,
             children: widget.subMenu!,
           ),
@@ -365,10 +379,12 @@ class MenuPopup extends StatelessWidget {
   /// Widget-leg popup theme override.
   final MenuPopupTheme? theme;
 
-  /// Exact popup width; null sizes up to [maxWidth].
+  /// Exact popup width; null hugs the content between the minimum and
+  /// [maxWidth].
   final double? width;
 
-  /// Maximum popup width (default 288); null keeps the default.
+  /// Maximum popup width; null leaves it unbounded so the viewport (through
+  /// the popover margin) is the only cap.
   final double? maxWidth;
 
   /// Maximum popup height (default 360); null keeps the default.
@@ -395,10 +411,11 @@ class MenuPopup extends StatelessWidget {
         style.padding ?? EdgeInsets.zero,
         app.density.baseContentPadding * app.scaling,
       ),
-      minWidth: style.minWidth ?? 192,
+      minWidth: style.minWidth ?? 128,
       width: width,
-      maxWidth: maxWidth ?? 288,
+      maxWidth: maxWidth ?? double.infinity,
       maxHeight: maxHeight ?? 360,
+      shadows: style.themeShadows?.shadowMd ?? app.tokens.shadows.shadowMd,
       children: children,
     );
   }
@@ -411,8 +428,8 @@ class MenuPopup extends StatelessWidget {
 Future<T?> showShadcnMenu<T>({
   required BuildContext context,
   required List<Widget> children,
-  AlignmentGeometry alignment = Alignment.topLeft,
-  AlignmentGeometry anchorAlignment = Alignment.bottomLeft,
+  AlignmentGeometry alignment = AlignmentDirectional.topStart,
+  AlignmentGeometry anchorAlignment = AlignmentDirectional.bottomStart,
   Offset offset = const Offset(0, 4),
   MenuTheme theme = const MenuTheme(),
   MenuPopupTheme? popupTheme,

@@ -43,8 +43,11 @@ DotIndicator(
 | `spacing` | `double?` | null = `DotIndicatorTheme.spacing` then `8 * scaling`. |
 | `direction` | `Axis` | `horizontal` (default) or `vertical`. |
 | `padding` | `EdgeInsetsGeometry?` | Applied once around the run; null = the density base gap. |
-| `dotBuilder` | `DotBuilder?` | null paints the theme rows. |
+| `dotBuilder` | `DotBuilder?` | null paints the theme rows; non-null replaces the dot (tap still works when `onChanged` is set). |
 | `theme` | `DotIndicatorTheme?` | Widget-leg override. |
+
+Each dot exposes `selected` with a `Page i of n` label to assistive
+technology.
 
 ## Theme
 

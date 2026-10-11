@@ -29,10 +29,10 @@ enum GooeyToastPosition {
   right;
 
   /// Horizontal alignment of the compact pill inside the surface.
-  Alignment get alignment => switch (this) {
-    GooeyToastPosition.left => Alignment.centerLeft,
+  AlignmentGeometry get alignment => switch (this) {
+    GooeyToastPosition.left => AlignmentDirectional.centerStart,
     GooeyToastPosition.center => Alignment.center,
-    GooeyToastPosition.right => Alignment.centerRight,
+    GooeyToastPosition.right => AlignmentDirectional.centerEnd,
   };
 }
 
@@ -205,6 +205,7 @@ String showGooeyToast(
   String? id,
   GooeyToastNewToastBehavior behavior = GooeyToastNewToastBehavior.stack,
   Duration? duration,
+  bool autoDismiss = true,
   VoidCallback? onDismissed,
 }) {
   final _GooeyToastScope? scope = context
@@ -214,9 +215,28 @@ String showGooeyToast(
     options,
     id: id,
     behavior: behavior,
-    duration: duration ?? scope.theme.duration,
+    duration: duration ?? options.duration ?? scope.theme.duration,
+    autoDismiss: autoDismiss,
     onDismissed: onDismissed,
   );
+}
+
+/// Resolves the compact-pill anchor for the ambient direction: the shared
+/// `GooeySurface` primitive takes a physical [Alignment], so the directional
+/// [GooeyToastPosition.alignment] is resolved here against the current
+/// `Directionality`.
+Alignment _compactAlignmentOf(
+  BuildContext context,
+  GooeyToastPosition position,
+) {
+  final bool rtl = Directionality.of(context) == TextDirection.rtl;
+  return switch (position) {
+    GooeyToastPosition.left =>
+      rtl ? Alignment.centerRight : Alignment.centerLeft,
+    GooeyToastPosition.center => Alignment.center,
+    GooeyToastPosition.right =>
+      rtl ? Alignment.centerLeft : Alignment.centerRight,
+  };
 }
 
 /// Hosts a [GooeyToastController] and renders its stack above [child].
@@ -372,7 +392,7 @@ class _GooeyToastCard extends StatelessWidget {
         theme.roundness!,
         kGooeySurfacePillHeight,
       ),
-      compactAlignment: options.position.alignment,
+      compactAlignment: _compactAlignmentOf(context, options.position),
       expandUp: options.expandDirection == GooeyToastExpandDirection.top,
       enableGooeyBlur: theme.enableGooeyBlur!,
       surfaceBlur: surfaceBlur,

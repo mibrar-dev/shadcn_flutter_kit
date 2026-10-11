@@ -48,7 +48,7 @@ class AccordionTheme extends ComponentThemeData
   /// Vertical padding around triggers and content. Default: content density.
   final double? padding;
 
-  /// Space between the trigger label and the arrow. Default: 18 × scaling.
+  /// Space between the trigger label and the arrow. Default: 16 × scaling.
   final double? iconGap;
 
   /// Height of the divider between items. Default: 1 × scaling.

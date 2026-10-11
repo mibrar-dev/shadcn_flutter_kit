@@ -331,8 +331,11 @@ class ColorPickerControls extends StatelessWidget {
     );
     final int leadingButtons =
         (enableEyeDropper ? 1 : 0) + (historyToggle ? 1 : 0);
-    return SizedBox(
-      width: colorPickerControlsWidth(
+    // Capped, not fixed: the one-line width keeps the popover look, while
+    // narrower stages (a 375px phone, a dialog) let the Wrap reflow instead
+    // of overflowing.
+    return ColorPickerCappedWidth(
+      maxWidth: colorPickerControlsWidth(
         mode: mode,
         showAlpha: showAlpha,
         leadingButtons: leadingButtons,

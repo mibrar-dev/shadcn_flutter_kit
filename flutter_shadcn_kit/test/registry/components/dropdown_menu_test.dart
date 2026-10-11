@@ -1,6 +1,6 @@
 // Widget tests for the `dropdown_menu` component: the standalone surface,
 // the showShadcnDropdown helper, dismissal, theme legs, sheet padding and
-// real sizes (row 32, surface min width 192).
+// real sizes (row 32, surface min width 128).
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -60,7 +60,7 @@ void main() {
     expect(find.text('Sign out'), findsOneWidget);
     expect(find.byType(MenuSeparator), findsOneWidget);
     final Size size = tester.getSize(find.byType(MenuPopup));
-    expect(size.width, greaterThanOrEqualTo(192));
+    expect(size.width, greaterThanOrEqualTo(128));
     final Container surface = tester.widget<Container>(
       find
           .descendant(

@@ -72,9 +72,10 @@ Card(
 ## Theme resolution
 
 `widget theme > ComponentTheme<CardTheme> in tree > app overrides
-(card_theme.dart) > cardDefaults`, merged per field. The card content inherits
-the `cardForeground` colour through `DefaultTextStyle.merge` on the title and
-description slots.
+(card_theme.dart) > cardDefaults`, merged per field. `CardTitle` inherits the
+`foreground` leg (`cardForeground` by default) through `DefaultTextStyle.merge`;
+`CardDescription` always uses `mutedForeground`. Bare `Text` in
+`CardContent` inherits the ambient style, not `cardForeground`.
 
 ## Sheet overlays
 

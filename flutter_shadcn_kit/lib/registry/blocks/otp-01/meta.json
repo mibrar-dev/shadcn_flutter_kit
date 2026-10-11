@@ -19,10 +19,13 @@
     ],
     "primitives": [],
     "components": [
+      "alert",
       "button",
       "card",
       "divider",
-      "input_otp"
+      "form",
+      "input_otp",
+      "spinner"
     ]
   },
   "files": [

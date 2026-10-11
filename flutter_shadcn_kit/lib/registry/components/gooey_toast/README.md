@@ -64,7 +64,9 @@ controller.showGooeyToast(
 | `GooeyToastBodyAnimationStyle` | `fade/fadeSlide/fadeScale/none` |
 | `GooeyToastNewToastBehavior` | `stack/dismissPrevious/transition` |
 
-`showGooeyToast(context, options, {id, behavior, duration, onDismissed})`.
+`showGooeyToast(context, options, {id, behavior, duration, autoDismiss, onDismissed})`.
+An explicit `duration` wins over `options.duration`, which wins over the theme
+default; `autoDismiss: false` (or `persistUntilDismissed`) keeps the toast up.
 
 ## Auto-dismiss policy
 
@@ -108,7 +110,9 @@ gooeyToastDefaults`, merged per field with receiver-wins `Mergeable.merge`.
   `gooey_stack`); the Material imports, `Icons`, `CircularProgressIndicator`
   and `TextButton` are gone.
 - `centerLeft` / `centerRight` positions are dropped: the shared queue slot
-  model has no centre-band anchor.
+  model has no centre-band anchor. `GooeyToastPosition.alignment` is
+  directional (`centerStart` / `centerEnd`), resolved against the ambient
+  `Directionality` where the toast renders.
 - The staged `transitionAfterClosed` timer choreography is gone; `transition`
   updates the live toast in place and the pill morphs.
 - Stack control chips (`Collapse` / `Clear all`) and the

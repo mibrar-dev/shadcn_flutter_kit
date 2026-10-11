@@ -202,7 +202,8 @@ void main() {
       await pumpBlock(tester, const Otp01(), theme, 375);
       // The countdown (or the Resend link once it appears) rides at the end
       // of its row: its right edge meets the full-width Verify action.
-      final Rect trailing = tester.getRect(find.text('Resend in 47s'));
+      // (P7-B1: the block runs a real 30s countdown, not the old static 47.)
+      final Rect trailing = tester.getRect(find.text('Resend in 30s'));
       final Rect action = tester.getRect(find.widgetWithText(Button, 'Verify'));
       expect(
         (trailing.right - action.right).abs(),

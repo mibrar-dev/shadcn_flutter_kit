@@ -575,3 +575,19 @@ class _ImportScan {
 
   final int materialImports;
 }
+
+/// Acronyms kept upper-case in display titles.
+const Set<String> _kTitleAcronyms = <String>{'otp', 'hsl', 'hsv', 'rtl', 'ui'};
+
+/// Human title for a component id: `phone_input` -> `Phone Input`,
+/// `input_otp` -> `Input OTP`. Meta `name` fields are inconsistent (class
+/// names, run-together words), so the docs always derive titles from the id.
+String displayTitle(String id) => id
+    .split('_')
+    .where((String part) => part.isNotEmpty)
+    .map(
+      (String part) => _kTitleAcronyms.contains(part)
+          ? part.toUpperCase()
+          : '${part[0].toUpperCase()}${part.substring(1)}',
+    )
+    .join(' ');

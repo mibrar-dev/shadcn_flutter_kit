@@ -1,7 +1,8 @@
 {
   "id": "triple_dots",
   "name": "TripleDots",
-  "category": "Menus",
+  "category": "Utilities (building blocks)",
+  "listed": false,
   "description": "Row or column of small round dots, used as an ellipsis.",
   "tier": "component",
   "install": "flutter_shadcn add triple_dots",

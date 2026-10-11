@@ -29,8 +29,8 @@ Widget _alertDialogDialog(
         border: Border.all(color: theme.colors.border),
         boxShadow: theme.tokens.shadows.shadowLg,
       ),
-      child: SizedBox(
-        width: 420,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 420),
         child: Padding(
           padding: EdgeInsetsDensity.pxAll(24),
           child: AlertDialog(
@@ -44,7 +44,6 @@ Widget _alertDialogDialog(
                 onPressed: () {},
                 child: const Text('Cancel'),
               ),
-              SizedBox(width: theme.spacing.sm),
               Button(
                 size: ButtonSize.sm,
                 variant: ButtonVariant.destructive,

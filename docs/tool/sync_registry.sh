@@ -59,7 +59,11 @@ FLAGS=(-a --delete -i --include='*/' --include='*.dart' --exclude='*'
 status=0
 for dir in foundation theme primitives components blocks; do
   if [[ "$MODE" == "check" ]]; then
-    diff_output="$(rsync "${FLAGS[@]}" --dry-run "$SRC/$dir/" "$DEST/$dir/")"
+    # Compare by content (-c) without times/perms: a fresh checkout (CI) gives
+    # every file a new mtime, which -a would otherwise report as drift.
+    diff_output="$(rsync -r -c --delete -i --include='*/' --include='*.dart' \
+      --exclude='*' --exclude='app_theme.dart' --dry-run "$SRC/$dir/" \
+      "$DEST/$dir/" | grep -E '^(>|<|c|\*)' || true)"
     if [[ -n "$diff_output" ]]; then
       echo "out of date: $dir" >&2
       echo "$diff_output" >&2

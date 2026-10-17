@@ -1,3 +1,0 @@
-class Tokens {
-  const Tokens();
-}

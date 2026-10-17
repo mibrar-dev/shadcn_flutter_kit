@@ -1,8 +1,0 @@
-{
-  "id": "alpha",
-  "name": "Alpha",
-  "dependencies": {
-    "shared": [],
-    "components": []
-  }
-}

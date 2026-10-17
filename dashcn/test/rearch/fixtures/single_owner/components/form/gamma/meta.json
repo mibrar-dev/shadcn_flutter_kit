@@ -1,8 +1,0 @@
-{
-  "id": "gamma",
-  "name": "Gamma",
-  "dependencies": {
-    "shared": [],
-    "components": []
-  }
-}

@@ -1,3 +1,0 @@
-class ButtonTheme {
-  const ButtonTheme();
-}

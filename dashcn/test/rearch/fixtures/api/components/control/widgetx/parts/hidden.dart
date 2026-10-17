@@ -1,3 +1,0 @@
-class HiddenThing {}
-
-class ShownThing {}

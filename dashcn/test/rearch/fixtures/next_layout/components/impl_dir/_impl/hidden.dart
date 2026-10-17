@@ -1,3 +1,0 @@
-class Hidden {
-  const Hidden();
-}

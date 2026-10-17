@@ -1,4 +1,0 @@
-{
-  "id": "dashcn-ui",
-  "prompt": "Use the Flutter dashcn UI skill. Prefer dashcn CLI commands, explicit @namespace/component IDs, dry-run planning, registry components over Material/Cupertino replacements, and diagnostics after changes."
-}
